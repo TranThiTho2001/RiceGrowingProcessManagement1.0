@@ -5,6 +5,10 @@ const config = {
                "http://localhost:8081"
           ]
      },
+    jwt: {
+     secret: "web-secret-key"
+ }
+
 };
 
 module.exports = config;
