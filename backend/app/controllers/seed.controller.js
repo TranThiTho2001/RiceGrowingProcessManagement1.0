@@ -4,7 +4,6 @@ const config = require("../config");
 // Create and Save 
 exports.store = async (req, res) => {
     // Create 
-    console.log(req.body.characteristic,req.body.supplier )
     const seed = new Seed({
         id: req.body.id,
         name: req.body.name,

@@ -1,39 +1,38 @@
-const Soil = require("../models/soil.model");
+const Fertilizer = require("../models/fertilizer.model");
 const config = require("../config");
 
 // Create and Save 
 exports.store = async (req, res) => {
     // Create 
-    const soil = new Soil({
+    const fertilizer = new Fertilizer({
         id: req.body.id,
         name: req.body.name,
-        characteristic: req.body.characteristic,
         supplier: req.body.supplier,
-    });
-    // Save Soil in the database
-    Soil.create(soil, (err, data) => {
+     });
+    // Save Fertilizer in the database
+    Fertilizer.create(fertilizer, (err, data) => {
         if (err)
-            res.send("Không thể tạo một loại đất mới")
+            res.send("Không thể tạo một loại phân bón mới")
         else res.send(data);
     });
 };
 
-// Retrieve all Soil from the database (with condition).
+// Retrieve all Fertilizer from the database (with condition).
 exports.findAll = async (req, res) => {
     const name = req.query.name;
-    Soil.getAll(name, (err, data) => {
+    Fertilizer.getAll(name, (err, data) => {
         if (err)
-            res.send("Lỗi trong quá trình tìm kiếm")
+            res.send("Lỗi trong quá trình tìm kiếm.")
         else res.send(data);
     });
 };
 
 exports.find = async (req, res) => {
     const id = req.params.id;
-    Soil.findById(id, (err, data) => {
+    Fertilizer.findById(id, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
-                res.send("Không tìm thấy loại đất")
+                res.send("Không tìm thấy loại phân bón.")
             } else {
                 res.send("Lỗi trong quá trình tìm kiếm. Vui lòng thử lại sau!!!!")
             }
@@ -41,15 +40,15 @@ exports.find = async (req, res) => {
     })
 };
 
-// Update a Soil identified by the id in the request
+// Update a Fertilizer identified by the id in the request
 exports.update = async (req, res) => {
-     Soil.updateById(
+     Fertilizer.updateById(
         req.params.id,
         req.body,
         (err, data) => {
             if (err) {
                 if (err.kind === "not_found") {
-                    res.send("Không tìm thấy loại đất")
+                    res.send("Không tìm thấy loại phân bón.")
                 } else {
                     res.send("Đã xảy ra lỗi trong quá trình cập nhật thông tin!")
                 }
@@ -58,14 +57,14 @@ exports.update = async (req, res) => {
     );
 };
 
-// Delete a Soil with the specified id in the request
+// Delete a Fertilizer with the specified id in the request
 exports.delete = async (req, res) => {
-     Soil.remove(req.params.id, (err, data) => {
+     Fertilizer.remove(req.params.id, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
-                res.send(`Không tìm thấy loại đất có mã ${req.params.id}`)
+                res.send(`Không tìm thấy loại phân bón có mã ${req.params.id}.`)
             } else {
-                res.redirect("Lỗi trong quá trình xóa loại đất!!");
+                res.redirect("Lỗi trong quá trình xóa loại phân bón!!");
             }
         } else res.send(data);
     });

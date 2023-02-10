@@ -4,7 +4,6 @@ const config = require("../config");
 // Create and Save 
 exports.store = async (req, res) => {
     // Create 
-    console.log(req.body.characteristic,req.body.supplier )
     const arableLand = new ArableLand({
         id: req.body.id,
         location: req.body.location,

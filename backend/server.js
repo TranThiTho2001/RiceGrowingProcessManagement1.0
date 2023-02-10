@@ -10,7 +10,11 @@ const setupSeedRoutes = require("./app/routes/seed.routes");
 const setupSoilRoutes = require("./app/routes/soil.routes");
 const setupEpidemicRoutes = require("./app/routes/epidemic.routes");
 const setupEmployeeRoutes = require("./app/routes/employee.routes");
+const setupPesticideRoutes = require("./app/routes/pesticide.routes");
+const setupFertilizerRoutes = require("./app/routes/fertilizer.routes");
 const setupArableLandRoutes = require("./app/routes/arableLand.routes");
+const setupOtherActivitiesRoutes = require("./app/routes/otherActivities.routes");
+const setupRiceCropInformationRoutes = require("./app/routes/riceCropInformation.routes");
 const setupEpidemicsClassificationRoutes = require("./app/routes/epidemicsClassification.routes");
 
 const app = express();
@@ -28,7 +32,11 @@ setupSeedRoutes(app);
 setupSoilRoutes(app);
 setupEpidemicRoutes(app);
 setupEmployeeRoutes(app);
+setupPesticideRoutes(app);
+setupFertilizerRoutes(app);
 setupArableLandRoutes(app);
+setupOtherActivitiesRoutes(app);
+setupRiceCropInformationRoutes(app);
 setupEpidemicsClassificationRoutes(app);
 
 // define error-handling middleware last, after other app.use() and routes calls

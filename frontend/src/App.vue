@@ -14,9 +14,13 @@ import RoleService from './services/role.service';
 import CropService from './services/crop.service';
 import SeedService from './services/seed.service';
 import SoilService from './services/soil.service';
-import EmployeeService from './services/employee.service';
-import ArableLandService from './services/arableLand.service';
 import EpidemicService from './services/epidemic.service';
+import EmployeeService from './services/employee.service';
+import PesticideService from './services/pesticide.service';
+import FertilizerService from './services/fertilizer.service';
+import ArableLandService from './services/arableLand.service';
+import OtherActivitiesService from './services/otherActivities.service';
+import RiceCropInformationService from './services/riceCropInformation.service';
 import EpidemicsClassificationService from './services/epidemicsClassification.service';
 
 import { mapGetters, mapMutations } from "vuex";
@@ -31,6 +35,7 @@ export default {
       newemployee: {},
       employeeid: {},
       role: [],
+      employee: {}
     }
   },
   computed: {
@@ -281,7 +286,7 @@ export default {
       epidemic.Harm = "Tác hại trực tiếp của rầy nâu là chích hút nhựa, làm cho cây lúa suy yếu, phát triển kém, lá vàng úa, rụi dần và khô héo đi gọi là “cháy rầy”. Tác hại gián tiếp của rầy nâu là truyền các bệnh siêu vi khuẩn cho lúa như bệnh lúa cỏ, lùn xoắn lá, vàng lùn. Rầy nâu nhỏ truyền bệnh lùn sọc đen";
       epidemic.classificationId = "EC000001";
       const [err, respone] = await this.handle(
-        EpidemicService.create(epidemic)
+        EpidemicService.creat(epidemic)
       );
       if (err) {
         console.log(err)
@@ -289,6 +294,85 @@ export default {
       else {
         //this.employee = respone.data;
         console.log("Epidemic: ")
+        console.log(respone.data);
+      }
+    },
+
+    // ----------------------------------------------------------------------Pesticide---------------------------------
+    async retrievePesticide() {
+      const pesticide = {};
+      pesticide.id = "PE00000002";
+      pesticide.name = "Butyl 10wp";
+      pesticide.supplier = "Công ty cổ phần bảo vệ thực vật Sài Gòn";
+      const [err, respone] = await this.handle(
+        PesticideService.create(pesticide)
+      );
+      if (err) {
+        console.log(err)
+      }
+      else {
+        //this.employee = respone.data;
+        console.log("Pesticide: ")
+        console.log(respone.data);
+      }
+    },
+
+    // ----------------------------------------------------------------------Fertilizer---------------------------------
+    async retrieveFertilizer() {
+      const fertilizer = {};
+      fertilizer.id = "FR00000002";
+      fertilizer.name = "NPK Hà Lan 20-0-10+TE";
+      fertilizer.supplier = "Công ty cổ phần phân bón Hà Lan";
+      const [err, respone] = await this.handle(
+        FertilizerService.update(fertilizer.id, fertilizer)
+      );
+      if (err) {
+        console.log(err)
+      }
+      else {
+        //this.employee = respone.data;
+        console.log("Fertilizer: ")
+        console.log(respone.data);
+      }
+    },
+
+
+    // ----------------------------------------------------------------------OtherActivities---------------------------------
+    async retrieveOtherActivities() {
+      // const otheractivities = {};
+      // otheractivities.id = "OA03";
+      // otheractivities.name = "Bơm nước ra ngoài ruộng";
+      const [err, respone] = await this.handle(
+        OtherActivitiesService.delete("OA03")
+      );
+      if (err) {
+        console.log(err)
+      }
+      else {
+        //this.employee = respone.data;
+        console.log("Other Activities: ")
+        console.log(respone.data);
+      }
+    },
+
+    // ----------------------------------------------------------------------RiceCropInformation---------------------------------
+    async retrieveRiceCropInformation() {
+      const riceCropInformation = {};
+      riceCropInformation.id = "RCI0000001";
+      riceCropInformation.name = "Vụ hè thu năm 2023";
+      riceCropInformation.Seed_id = "SD00000001";
+      riceCropInformation.sowingDate = "2023-05-2";
+      riceCropInformation.ArableLand_id = "AL00000001";
+      riceCropInformation.Crop_id = "C00002";
+      const [err, respone] = await this.handle(
+        RiceCropInformationService.update(riceCropInformation.id, riceCropInformation)
+      );
+      if (err) {
+        console.log(err)
+      }
+      else {
+        //this.employee = respone.data;
+        console.log("Rice Crop Information: ")
         console.log(respone.data);
       }
     },
@@ -302,7 +386,11 @@ export default {
     // this.retrieveSoil();
     //  this.retrieveArableLand();
     // this.retrieveEpidemicsClassificationd()
-    this.retrieveEpidemic();
+    // this.retrieveEpidemic();
+    // this.retrievePesticide();
+    // this.retrieveFertilizer();
+    // this.retrieveOtherActivities();
+    this.retrieveRiceCropInformation();
   },
 }
 </script>

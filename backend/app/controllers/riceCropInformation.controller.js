@@ -1,30 +1,31 @@
-const Epidemic = require("../models/epidemic.model");
+const RiceCropInformation = require("../models/riceCropInformation.model");
 const config = require("../config");
 
 // Create and Save 
 exports.store = async (req, res) => {
     // Create 
-    const epidemic = new Epidemic({
+    const riceCropInformation = new RiceCropInformation({
         id: req.body.id,
         name: req.body.name,
-        indication: req.body.indication,
-        timeOfDevelopment: req.body.timeOfDevelopment,
-        developmentEnvironment: req.body.developmentEnvironment,
-        Harm: req.body.Harm,
-        classificationId: req.body.classificationId
+        yield: req.body.yield,
+        Seed_id: req.body.Seed_id,
+        Crop_id: req.body.Crop_id,
+        sowingDate: req.body.sowingDate,
+        harvestDate: req.body.harvestDate,
+        ArableLand_id: req.body.ArableLand_id
      });
-    // Save Epidemic in the database
-    Epidemic.create(epidemic, (err, data) => {
+    // Save RiceCropInformation in the database
+    RiceCropInformation.create(riceCropInformation, (err, data) => {
         if (err)
-            res.send("Không thể tạo một dịch bệnh mới")
+            res.send("Không thể tạo vụ mùa lúa mới.")
         else res.send(data);
     });
 };
 
-// Retrieve all Epidemic from the database (with condition).
+// Retrieve all RiceCropInformation from the database (with condition).
 exports.findAll = async (req, res) => {
     const name = req.query.name;
-    Epidemic.getAll(name, (err, data) => {
+    RiceCropInformation.getAll(name, (err, data) => {
         if (err)
             res.send("Lỗi trong quá trình tìm kiếm.")
         else res.send(data);
@@ -33,10 +34,10 @@ exports.findAll = async (req, res) => {
 
 exports.find = async (req, res) => {
     const id = req.params.id;
-    Epidemic.findById(id, (err, data) => {
+    RiceCropInformation.findById(id, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
-                res.send("Không tìm thấy dịch bệnh.")
+                res.send("Không tìm thấy vụ mùa lúa.")
             } else {
                 res.send("Lỗi trong quá trình tìm kiếm. Vui lòng thử lại sau!!!!")
             }
@@ -44,15 +45,15 @@ exports.find = async (req, res) => {
     })
 };
 
-// Update a Epidemic identified by the id in the request
+// Update a RiceCropInformation identified by the id in the request
 exports.update = async (req, res) => {
-     Epidemic.updateById(
+     RiceCropInformation.updateById(
         req.params.id,
         req.body,
         (err, data) => {
             if (err) {
                 if (err.kind === "not_found") {
-                    res.send("Không tìm thấy dịch bệnh.")
+                    res.send("Không tìm thấy vụ mùa lúa.")
                 } else {
                     res.send("Đã xảy ra lỗi trong quá trình cập nhật thông tin!")
                 }
@@ -61,14 +62,14 @@ exports.update = async (req, res) => {
     );
 };
 
-// Delete a Epidemic with the specified id in the request
+// Delete a RiceCropInformation with the specified id in the request
 exports.delete = async (req, res) => {
-     Epidemic.remove(req.params.id, (err, data) => {
+     RiceCropInformation.remove(req.params.id, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
-                res.send(`Không tìm thấy dịch bệnh có mã ${req.params.id}.`)
+                res.send(`Không tìm thấy vụ mùa lúa có mã ${req.params.id}.`)
             } else {
-                res.redirect("Lỗi trong quá trình xóa dịch bệnh!!");
+                res.redirect("Lỗi trong quá trình xóa vụ mùa lúa!!");
             }
         } else res.send(data);
     });
