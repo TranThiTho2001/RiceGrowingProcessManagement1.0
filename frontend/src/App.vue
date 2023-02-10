@@ -21,6 +21,8 @@ import PesticideService from './services/pesticide.service';
 import FertilizerService from './services/fertilizer.service';
 import ArableLandService from './services/arableLand.service';
 import EpidemicTimesService from './services/epidemicTimes.service';
+import SprayingTimesService from './services/sprayingTimes.service';
+import FertilizerTimesService from './services/fertilizerTimes.service';
 import OtherActivitiesService from './services/otherActivities.service';
 import ActivityDetailsService from './services/activityDetails.service';
 import DevelopmentStageService from './services/developmentStage.service';
@@ -455,13 +457,70 @@ export default {
         // EpidemicTimesService.update(epidemicTimes.RiceCropInformation_id, epidemicTimes.Epidemics_id, epidemicTimes.times, epidemicTimes)
         // EpidemicTimesService.delete(epidemicTimes.RiceCropInformation_id, epidemicTimes.Epidemics_id, epidemicTimes.times)
         EpidemicTimesService.create(epidemicTimes)
-        );
+      );
       if (err) {
         console.log(err)
       }
       else {
         //this.employee = respone.data;
         console.log("Epidemic Times: ")
+        console.log(respone.data);
+      }
+    },
+
+    // ----------------------------------------------------------------------FertilizerTimes---------------------------------
+    async retrieveFertilizerTimes() {
+      const fertilizerTimes = {};
+      fertilizerTimes.RiceCropInformation_id = "RCI0000001";
+      fertilizerTimes.Fertilizer_id = "FR00000001";
+      fertilizerTimes.startDate = "2023-05-03";
+      fertilizerTimes.endDate = "2023-05-01";
+      fertilizerTimes.Employee_id = "EE000002";
+      fertilizerTimes.times = "1";
+      fertilizerTimes.amount = "40"
+      fertilizerTimes.DevelopmentStage_id = "DS000001";
+      console.log(fertilizerTimes)
+      const [err, respone] = await this.handle(
+        FertilizerTimesService.create(fertilizerTimes)
+        // FertilizerTimesService.update(fertilizerTimes.RiceCropInformation_id, fertilizerTimes.Fertilizer_id, fertilizerTimes.times, fertilizerTimes)
+        // FertilizerTimesService.get("RCI0000001")
+        // FertilizerTimesService.delete(fertilizerTimes.RiceCropInformation_id, fertilizerTimes.Fertilizer_id, fertilizerTimes.times)
+
+      );
+      if (err) {
+        console.log(err)
+      }
+      else {
+        //this.employee = respone.data;
+        console.log("Fertilizer Times: ")
+        console.log(respone.data);
+      }
+    },
+
+    // ----------------------------------------------------------------------SprayingTimes---------------------------------
+    async retrieveSprayingTimes() {
+      const sprayingTimes = {};
+      sprayingTimes.RiceCropInformation_id = "RCI0000001";
+      sprayingTimes.Pesticide_id = "PE00000001";
+      sprayingTimes.startDate = "2023-05-03";
+      sprayingTimes.endDate = "2023-05-05";
+      sprayingTimes.Employee_id = "EE000002";
+      sprayingTimes.times = "1";
+      sprayingTimes.amount = "20"
+      sprayingTimes.DevelopmentStage_id = "DS000001";
+      const [err, respone] = await this.handle(
+        SprayingTimesService.create(sprayingTimes)
+        // SprayingTimesService.update(sprayingTimes.RiceCropInformation_id, sprayingTimes.Pesticide_id, sprayingTimes.times, sprayingTimes)
+        // SprayingTimesService.findByName("PE00000001")
+        //  SprayingTimesService.delete(sprayingTimes.RiceCropInformation_id, sprayingTimes.Pesticide_id, sprayingTimes.times)
+
+      );
+      if (err) {
+        console.log(err)
+      }
+      else {
+        //this.employee = respone.data;
+        console.log("Fertilizer Times: ")
         console.log(respone.data);
       }
     },
@@ -484,6 +543,8 @@ export default {
     // this.retrieveDevelopmentStage();
     // this.retrieveActivityDetails();
     // this.retrieveEpidemicTimes();
+    // this.retrieveFertilizerTimes();
+    this.retrieveSprayingTimes();
   },
 }
 </script>
