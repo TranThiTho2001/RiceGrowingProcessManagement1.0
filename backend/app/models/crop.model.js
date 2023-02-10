@@ -49,10 +49,10 @@ Crop.getAll = (name, result) => {
     });
 };
 
-Crop.updateById = (id, Crop, result) => {
+Crop.updateById = (id, crop, result) => {
     sql.query(
         "UPDATE Crop SET Crop_name = ? WHERE Crop_id = ?",
-        [Crop.name, id],
+        [crop.name, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
@@ -64,8 +64,8 @@ Crop.updateById = (id, Crop, result) => {
                 result({ kind: "not_found" }, null);
                 return;
             }
-            console.log("updated Crop: ", { id: id, ...Crop });
-            result(null, { id: id, ...Crop });
+            console.log("updated Crop: ", { id: id, ...crop });
+            result(null, { id: id, ...crop });
             
         }
     );

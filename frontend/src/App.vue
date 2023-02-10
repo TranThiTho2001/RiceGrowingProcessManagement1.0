@@ -14,12 +14,16 @@ import RoleService from './services/role.service';
 import CropService from './services/crop.service';
 import SeedService from './services/seed.service';
 import SoilService from './services/soil.service';
+import MonitorService from './services/monitor.service';
 import EpidemicService from './services/epidemic.service';
 import EmployeeService from './services/employee.service';
 import PesticideService from './services/pesticide.service';
 import FertilizerService from './services/fertilizer.service';
 import ArableLandService from './services/arableLand.service';
+import EpidemicTimesService from './services/epidemicTimes.service';
 import OtherActivitiesService from './services/otherActivities.service';
+import ActivityDetailsService from './services/activityDetails.service';
+import DevelopmentStageService from './services/developmentStage.service';
 import RiceCropInformationService from './services/riceCropInformation.service';
 import EpidemicsClassificationService from './services/epidemicsClassification.service';
 
@@ -376,6 +380,91 @@ export default {
         console.log(respone.data);
       }
     },
+
+    // ----------------------------------------------------------------------Monitor---------------------------------
+    async retrieveMonitor() {
+      const monitor = {};
+      monitor.Employee_id = "EE000003";
+      monitor.RiceCropInformation_id = "RCI0000001";
+      const [err, respone] = await this.handle(
+        MonitorService.findByName(monitor.Employee_id)
+      );
+      if (err) {
+        console.log(err)
+      }
+      else {
+        //this.employee = respone.data;
+        console.log("Monitor: ")
+        console.log(respone.data);
+      }
+    },
+
+    // ----------------------------------------------------------------------developmentStage---------------------------------
+    async retrieveDevelopmentStage() {
+      const developmentStage = {};
+      developmentStage.id = "EE000003";
+      developmentStage.name = "RCI0000001";
+      const [err, respone] = await this.handle(
+        DevelopmentStageService.get("DS000001")
+      );
+      if (err) {
+        console.log(err)
+      }
+      else {
+        //this.employee = respone.data;
+        console.log("development stage: ")
+        console.log(respone.data);
+      }
+    },
+
+    // ----------------------------------------------------------------------ActivityDetails---------------------------------
+    async retrieveActivityDetails() {
+      const activityDetails = {};
+      activityDetails.RiceCropInformation_id = "RCI0000001";
+      activityDetails.OtherActivities_id = "OA01";
+      activityDetails.startDate = "2023-05-03";
+      activityDetails.endDate = "2023-05-03";
+      activityDetails.Employee_id = "EE000002";
+      activityDetails.times = "1";
+      console.log(activityDetails)
+      const [err, respone] = await this.handle(
+        ActivityDetailsService.get(activityDetails.RiceCropInformation_id)
+      );
+      if (err) {
+        console.log(err)
+      }
+      else {
+        //this.employee = respone.data;
+        console.log("Activity Detail: ")
+        console.log(respone.data);
+      }
+    },
+
+    // ----------------------------------------------------------------------EpidemicTimes---------------------------------
+    async retrieveEpidemicTimes() {
+      const epidemicTimes = {};
+      epidemicTimes.RiceCropInformation_id = "RCI0000001";
+      epidemicTimes.Epidemics_id = "EC00000001";
+      epidemicTimes.startDate = "2023-05-03";
+      epidemicTimes.endDate = "2023-05-04";
+      epidemicTimes.Employee_id = "EE000002";
+      epidemicTimes.times = "1";
+      epidemicTimes.DevelopmentStage_id = "DS000001";
+      console.log(epidemicTimes)
+      const [err, respone] = await this.handle(
+        // EpidemicTimesService.update(epidemicTimes.RiceCropInformation_id, epidemicTimes.Epidemics_id, epidemicTimes.times, epidemicTimes)
+        // EpidemicTimesService.delete(epidemicTimes.RiceCropInformation_id, epidemicTimes.Epidemics_id, epidemicTimes.times)
+        EpidemicTimesService.create(epidemicTimes)
+        );
+      if (err) {
+        console.log(err)
+      }
+      else {
+        //this.employee = respone.data;
+        console.log("Epidemic Times: ")
+        console.log(respone.data);
+      }
+    },
   },
   mounted() {
     this.initEmployeeState();
@@ -390,7 +479,11 @@ export default {
     // this.retrievePesticide();
     // this.retrieveFertilizer();
     // this.retrieveOtherActivities();
-    this.retrieveRiceCropInformation();
+    // this.retrieveRiceCropInformation();
+    // this.retrieveMonitor();
+    // this.retrieveDevelopmentStage();
+    // this.retrieveActivityDetails();
+    // this.retrieveEpidemicTimes();
   },
 }
 </script>
