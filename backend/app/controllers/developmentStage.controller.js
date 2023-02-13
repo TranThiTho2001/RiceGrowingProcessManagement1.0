@@ -5,8 +5,8 @@ const config = require("../config");
 exports.store = async (req, res) => {
     // Create 
     const developmentStage = new DevelopmentStage({
-        id: req.body.id,
-        name: req.body.name,
+        DevelopmentStage_id: req.body.DevelopmentStage_id,
+        DevelopmentStage_name: req.body.DevelopmentStage_name,
     });
     // Save DevelopmentStage in the database
     DevelopmentStage.create(developmentStage, (err, data) => {

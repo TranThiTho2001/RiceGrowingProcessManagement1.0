@@ -1,9 +1,9 @@
 const sql = require("./db");
 
 const Fertilizer = function(fertilizer){
-    this.Fertilizer_id = fertilizer.id;
-    this.Fertilizer_name = fertilizer.name;
-    this.Fertilizer_supplier = fertilizer.supplier;
+    this.Fertilizer_id = fertilizer.Fertilizer_id;
+    this.Fertilizer_name = fertilizer.Fertilizer_name;
+    this.Fertilizer_supplier = fertilizer.Fertilizer_supplier;
 };
 
 Fertilizer.create = (newFertilizer, result) => {
@@ -52,7 +52,7 @@ Fertilizer.getAll = (name, result) => {
 Fertilizer.updateById = (id, fertilizer, result) => {
     sql.query(
         "UPDATE Fertilizer SET Fertilizer_name = ?, Fertilizer_supplier = ? WHERE Fertilizer_id = ?",
-        [fertilizer.name, fertilizer.supplier, id],
+        [fertilizer.Fertilizer_name, fertilizer.Fertilizer_supplier, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);

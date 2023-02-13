@@ -1,9 +1,9 @@
 const sql = require("./db");
 
 const Pesticide = function(pesticide){
-    this.Pesticide_id = pesticide.id;
-    this.Pesticide_name = pesticide.name;
-    this.Pesticide_supplier = pesticide.supplier;
+    this.Pesticide_id = pesticide.Pesticide_id;
+    this.Pesticide_name = pesticide.Pesticide_name;
+    this.Pesticide_supplier = pesticide.Pesticide_supplier;
 };
 
 Pesticide.create = (newPesticide, result) => {
@@ -52,7 +52,7 @@ Pesticide.getAll = (name, result) => {
 Pesticide.updateById = (id, pesticide, result) => {
     sql.query(
         "UPDATE Pesticide SET Pesticide_name = ?, Pesticide_supplier = ? WHERE Pesticide_id = ?",
-        [pesticide.name, pesticide.supplier, id],
+        [pesticide.Pesticide_name, pesticide.Pesticide_supplier, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);

@@ -3,13 +3,13 @@ const sql = require("./db");
 const ActivityDetails = function (activityDetails) {
      this.RiceCropInformation_id = activityDetails.RiceCropInformation_id;
      this.OtherActivities_id = activityDetails.OtherActivities_id;
-     this.ActivityDetails_startDate = activityDetails.startDate;
-     this.ActivityDetails_endDate = activityDetails.endDate;
-     this.ActivityDetails_temperature = activityDetails.temperature;
-     this.ActivityDetails_radiation = activityDetails.radiation;
-     this.ActivityDetails_precipitation = activityDetails.precipitation;
+     this.ActivityDetails_startDate = activityDetails.ActivityDetails_startDate;
+     this.ActivityDetails_endDate = activityDetails.ActivityDetails_endDate;
+     this.ActivityDetails_temperature = activityDetails.ActivityDetails_temperature;
+     this.ActivityDetails_radiation = activityDetails.ActivityDetails_radiation;
+     this.ActivityDetails_precipitation = activityDetails.ActivityDetails_precipitation;
      this.Employee_id = activityDetails.Employee_id;
-     this.ActivityDetails_times = activityDetails.times;
+     this.ActivityDetails_times = activityDetails.ActivityDetails_times;
      this.DevelopmentStage_id = activityDetails.DevelopmentStage_id;
 }
 
@@ -60,7 +60,7 @@ ActivityDetails.getAll = (otherActivities_id, result) => {
 ActivityDetails.updateById = (riceCropInformation_id, otherActivities_id, times, activityDetails, result) => {
      sql.query(
           "UPDATE ActivityDetails SET Employee_id = ?, ActivityDetails_startDate = ?, ActivityDetails_endDate = ?, ActivityDetails_temperature = ?, ActivityDetails_radiation = ?, ActivityDetails_precipitation = ?, DevelopmentStage_id = ? WHERE (RiceCropInformation_id = ? And OtherActivities_id= ? and ActivityDetails_times = ?)",
-          [activityDetails.Employee_id, activityDetails.startDate, activityDetails.endDate, activityDetails.temperature, activityDetails.radiation, activityDetails.precipitation, activityDetails.DevelopmentStage_id, riceCropInformation_id, otherActivities_id, times],
+          [activityDetails.Employee_id, activityDetails.ActivityDetails_startDate, activityDetails.ActivityDetails_endDate, activityDetails.ActivityDetails_temperature, activityDetails.ActivityDetails_radiation, activityDetails.ActivityDetails_precipitation, activityDetails.DevelopmentStage_id, riceCropInformation_id, otherActivities_id, times],
           (err, res) => {
                if (err) {
                     console.log("error: ", err);

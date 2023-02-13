@@ -1,8 +1,8 @@
 const sql = require("./db");
 
 const DevelopmentStage = function(developmentStage){
-    this.DevelopmentStage_id = developmentStage.id;
-    this.DevelopmentStage_name = developmentStage.name;
+    this.DevelopmentStage_id = developmentStage.DevelopmentStage_id;
+    this.DevelopmentStage_name = developmentStage.DevelopmentStage_name;
 
 };
 
@@ -52,7 +52,7 @@ DevelopmentStage.getAll = (name, result) => {
 DevelopmentStage.updateById = (id, developmentStage, result) => {
     sql.query(
         "UPDATE DevelopmentStage SET DevelopmentStage_name = ? WHERE DevelopmentStage_id = ?",
-        [developmentStage.name, id],
+        [developmentStage.DevelopmentStage_name, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);

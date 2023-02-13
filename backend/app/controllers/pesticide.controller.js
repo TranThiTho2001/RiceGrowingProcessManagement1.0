@@ -5,9 +5,9 @@ const config = require("../config");
 exports.store = async (req, res) => {
     // Create 
     const pesticide = new Pesticide({
-        id: req.body.id,
-        name: req.body.name,
-        supplier: req.body.supplier,
+        Pesticide_id: req.body.Pesticide_id,
+        Pesticide_name: req.body.Pesticide_name,
+        Pesticide_supplier: req.body.Pesticide_supplier,
      });
     // Save Pesticide in the database
     Pesticide.create(pesticide, (err, data) => {

@@ -1,10 +1,10 @@
 const sql = require("./db");
 
 const Seed = function(seed){
-    this.Seed_id = seed.id;
-    this.Seed_name = seed.name;
-    this.Seed_characteristic = seed.characteristic;
-    this.Seed_supplier = seed.supplier;
+    this.Seed_id = seed.Seed_id;
+    this.Seed_name = seed.Seed_name;
+    this.Seed_characteristic = seed.Seed_characteristic;
+    this.Seed_supplier = seed.Seed_supplier;
 };
 
 Seed.create = (newSeed, result) => {
@@ -53,7 +53,7 @@ Seed.getAll = (name, result) => {
 Seed.updateById = (id, seed, result) => {
     sql.query(
         "UPDATE Seed SET Seed_name = ?, Seed_characteristic = ?, Seed_supplier = ? WHERE Seed_id = ?",
-        [seed.name, seed.characteristic, seed.supplier, id],
+        [seed.Seed_name, seed.Seed_characteristic, seed.Seed_supplier, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);

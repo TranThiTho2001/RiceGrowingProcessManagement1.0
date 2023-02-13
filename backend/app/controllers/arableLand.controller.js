@@ -5,11 +5,11 @@ const config = require("../config");
 exports.store = async (req, res) => {
     // Create 
     const arableLand = new ArableLand({
-        id: req.body.id,
-        location: req.body.location,
-        soilId: req.body.soilId,
-        area: req.body.area,
-        owner: req.body.owner,
+        ArableLand_id: req.body.ArableLand_id,
+        ArableLand_location: req.body.ArableLand_location,
+        Soil_id: req.body.Soil_id,
+        areArableLand_area: req.body.ArableLand_area,
+        ArableLand_owner: req.body.ArableLand_owner,
     });
     // Save ArableLand in the database
     ArableLand.create(arableLand, (err, data) => {

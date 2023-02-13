@@ -5,8 +5,8 @@ const config = require("../config");
 exports.store = async (req, res) => {
     // Create 
     const otherActivities = new OtherActivities({
-        id: req.body.id,
-        name: req.body.name,
+        OtherActivities_id: req.body.OtherActivities_id,
+        OtherActivities_name: req.body.OtherActivities_name,
     });
     // Save OtherActivities in the database
     OtherActivities.create(otherActivities, (err, data) => {

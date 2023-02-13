@@ -1,14 +1,14 @@
 const sql = require("./db");
 
 const RiceCropInformation = function (riceCropInformation) {
-     this.RiceCropInformation_id = riceCropInformation.id;
+     this.RiceCropInformation_id = riceCropInformation.RiceCropInformation_id;
      this.Crop_id = riceCropInformation.Crop_id;
      this.Seed_id = riceCropInformation.Seed_id;
      this.ArableLand_id = riceCropInformation.ArableLand_id;
-     this.RiceCropInformation_name = riceCropInformation.name;
-     this.RiceCropInformation_yield = riceCropInformation.yield;
-     this.RiceCropInformation_sowingDate = riceCropInformation.sowingDate;
-     this.RiceCropInformation_harvestDate = riceCropInformation.harvestDate;
+     this.RiceCropInformation_name = riceCropInformation.RiceCropInformation_name;
+     this.RiceCropInformation_yield = riceCropInformation.RiceCropInformation_yield;
+     this.RiceCropInformation_sowingDate = riceCropInformation.RiceCropInformation_sowingDate;
+     this.RiceCropInformation_harvestDate = riceCropInformation.RiceCropInformation_harvestDate;
 }
 
 RiceCropInformation.create = (newRiceCropInformation, result) => {
@@ -57,7 +57,7 @@ RiceCropInformation.getAll = (name, result) => {
 RiceCropInformation.updateById = (id, riceCropInformation, result) => {
      sql.query(
           "UPDATE RiceCropInformation SET Seed_id = ?, RiceCropInformation_name = ?, RiceCropInformation_sowingDate = ?, RiceCropInformation_harvestDate = ?, RiceCropInformation_yield = ?, ArableLand_id = ? WHERE RiceCropInformation_id = ?",
-          [riceCropInformation.Seed_id, riceCropInformation.name, riceCropInformation.sowingDate, riceCropInformation.harvestDate, riceCropInformation.yield, riceCropInformation.ArableLand_id, id],
+          [riceCropInformation.Seed_id, riceCropInformation.RiceCropInformation_name, riceCropInformation.RiceCropInformation_sowingDate, riceCropInformation.RiceCropInformation_harvestDate, riceCropInformation.RiceCropInformation_yield, riceCropInformation.ArableLand_id, id],
           (err, res) => {
                if (err) {
                     console.log("error: ", err);

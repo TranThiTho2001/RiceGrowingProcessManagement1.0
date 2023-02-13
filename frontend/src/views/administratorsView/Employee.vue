@@ -4,8 +4,8 @@
    </template>
    
    <script>
-   import HelloWorld from '../components/HelloWorld.vue'
-   import employeeService from '../services/employee.service';
+   import HelloWorld from '../../components/HelloWorld.vue'
+   import employeeService from '../../services/employee.service';
    export default {
      name: 'App',
      components: {

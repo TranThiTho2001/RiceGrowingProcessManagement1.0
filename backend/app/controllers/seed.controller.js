@@ -5,10 +5,10 @@ const config = require("../config");
 exports.store = async (req, res) => {
     // Create 
     const seed = new Seed({
-        id: req.body.id,
-        name: req.body.name,
-        characteristic: req.body.characteristic,
-        supplier: req.body.supplier,
+        Seed_id: req.body.Seed_id,
+        Seed_name: req.body.Seed_name,
+        Seed_characteristic: req.body.Seed_characteristic,
+        Seed_supplier: req.body.Seed_supplier,
     });
     // Save Seed in the database
     Seed.create(seed, (err, data) => {

@@ -1,8 +1,8 @@
 const sql = require("./db");
 
 const OtherActivities = function(otherActivities){
-    this.OtherActivities_id = otherActivities.id;
-    this.OtherActivities_name = otherActivities.name;
+    this.OtherActivities_id = otherActivities.OtherActivities_id;
+    this.OtherActivities_name = otherActivities.OtherActivities_name;
 };
 
 OtherActivities.create = (newOtherActivities, result) => {
@@ -51,7 +51,7 @@ OtherActivities.getAll = (name, result) => {
 OtherActivities.updateById = (id, otherActivities, result) => {
     sql.query(
         "UPDATE OtherActivities SET OtherActivities_name = ? WHERE OtherActivities_id = ?",
-        [otherActivities.name, id],
+        [otherActivities.OtherActivities_name, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);

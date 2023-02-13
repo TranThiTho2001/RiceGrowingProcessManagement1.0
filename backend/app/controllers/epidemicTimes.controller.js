@@ -9,12 +9,12 @@ exports.store = async (req, res) => {
           Epidemics_id: req.body.Epidemics_id,
           DevelopmentStage_id: req.body.DevelopmentStage_id,
           Employee_id: req.body.Employee_id,
-          times: req.body.times,
-          startDate: req.body.startDate,
-          endDate: req.body.endDate,
-          temperature: req.body.temperature,
-          radiation: req.body.radiation,
-          precipitation: req.body.precipitation
+          EpidemicTimes_times: req.body.EpidemicTimes_times,
+          EpidemicTimes_startDate: req.body.EpidemicTimes_startDate,
+          EpidemicTimes_endDate: req.body.EpidemicTimes_endDate,
+          EpidemicTimes_temperature: req.body.EpidemicTimes_temperature,
+          EpidemicTimes_radiation: req.body.EpidemicTimes_radiation,
+          EpidemicTimes_precipitation: req.body.EpidemicTimes_precipitation
      });
      // Save EpidemicTimes in the database
      EpidemicTimes .create(epidemicTimes, (err, data) => {
@@ -52,7 +52,7 @@ exports.update = async (req, res) => {
      EpidemicTimes.updateById(
           req.params.RiceCropInformation_id,
           req.params.Epidemics_id,
-          req.params.times,
+          req.params.EpidemicTimes_times,
           req.body,
           (err, data) => {
                if (err) {
@@ -68,7 +68,7 @@ exports.update = async (req, res) => {
 
 // Delete a EpidemicTimes with the specified id in the request
 exports.delete = async (req, res) => {
-     EpidemicTimes.remove(req.params.RiceCropInformation_id, req.params.Epidemics_id, req.params.times, (err, data) => {
+     EpidemicTimes.remove(req.params.RiceCropInformation_id, req.params.Epidemics_id, req.params.EpidemicTimes_times, (err, data) => {
           if (err) {
                if (err.kind === "not_found") {
                     res.send(`Không tìm thấy lần bị dịch bệnh có mã vụ mùa ${req.params.RiceCropInformation_id} và mã dịch bệnh ${req.params.Epidemics_id}`)

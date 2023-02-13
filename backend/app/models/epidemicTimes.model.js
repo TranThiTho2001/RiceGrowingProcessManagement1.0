@@ -5,12 +5,12 @@ const EpidemicTimes = function (epidemicTimes) {
      this.Epidemics_id = epidemicTimes.Epidemics_id;
      this.DevelopmentStage_id = epidemicTimes.DevelopmentStage_id;
      this.Employee_id = epidemicTimes.Employee_id;
-     this.EpidemicTimes_times = epidemicTimes.times;
-     this.EpidemicTimes_startDate = epidemicTimes.startDate;
-     this.EpidemicTimes_endDate = epidemicTimes.endDate;
-     this.EpidemicTimes_temperature = epidemicTimes.temperature;
-     this.EpidemicTimes_radiation = epidemicTimes.radiation;
-     this.EpidemicTimes_precipitation = epidemicTimes.precipitation
+     this.EpidemicTimes_times = epidemicTimes.EpidemicTimes_times;
+     this.EpidemicTimes_startDate = epidemicTimes.EpidemicTimes_startDate;
+     this.EpidemicTimes_endDate = epidemicTimes.EpidemicTimes_endDate;
+     this.EpidemicTimes_temperature = epidemicTimes.EpidemicTimes_temperature;
+     this.EpidemicTimes_radiation = epidemicTimes.EpidemicTimes_radiation;
+     this.EpidemicTimes_precipitation = epidemicTimes.EpidemicTimes_precipitation
 }
 
 EpidemicTimes.create = (newEpidemicTimes, result) => {
@@ -60,7 +60,7 @@ EpidemicTimes.getAll = (Epidemics_id, result) => {
 EpidemicTimes.updateById = (riceCropInformation_id, Epidemics_id, times, epidemicTimes, result) => {
      sql.query(
           "UPDATE EpidemicTimes SET Employee_id = ?, DevelopmentStage_id = ?, EpidemicTimes_startDate = ?, EpidemicTimes_endDate = ?, EpidemicTimes_temperature = ?, EpidemicTimes_radiation = ?, EpidemicTimes_precipitation = ? WHERE (RiceCropInformation_id = ? And Epidemics_id = ? and EpidemicTimes_times = ?)",
-          [epidemicTimes.Employee_id, epidemicTimes.DevelopmentStage_id, epidemicTimes.startDate, epidemicTimes.endDate, epidemicTimes.temperature, epidemicTimes.radiation, epidemicTimes.precipitation, riceCropInformation_id, Epidemics_id, times],
+          [epidemicTimes.Employee_id, epidemicTimes.DevelopmentStage_id, epidemicTimes.EpidemicTimes_startDate, epidemicTimes.EpidemicTimes_endDate, epidemicTimes.EpidemicTimes_temperature, epidemicTimes.EpidemicTimes_radiation, epidemicTimes.EpidemicTimes_precipitation, riceCropInformation_id, Epidemics_id, times],
           (err, res) => {
                if (err) {
                     console.log("error: ", err);

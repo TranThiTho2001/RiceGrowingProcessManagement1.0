@@ -5,8 +5,8 @@ const config = require("../config");
 exports.store = async (req, res) => {
     // Create 
     const epidemicsClassification = new EpidemicsClassification({
-        id: req.body.id,
-        name: req.body.name,
+        EpidemicsClassification_id: req.body.EpidemicsClassification_id,
+        EpidemicsClassification_name: req.body.EpidemicsClassification_name,
     });
     // Save EpidemicsClassification in the database
     EpidemicsClassification.create(epidemicsClassification, (err, data) => {

@@ -9,13 +9,13 @@ exports.store = async (req, res) => {
           Pesticide_id: req.body.Pesticide_id,
           DevelopmentStage_id: req.body.DevelopmentStage_id,
           Employee_id: req.body.Employee_id,
-          times: req.body.times,
-          amount: req.body.amount,
-          startDate: req.body.startDate,
-          endDate: req.body.endDate,
-          temperature: req.body.temperature,
-          radiation: req.body.radiation,
-          precipitation: req.body.precipitation
+          SprayingTimes_times: req.body.SprayingTimes_times,
+          SprayingTimes_amount: req.body.SprayingTimes_amount,
+          SprayingTimes_startDate: req.body.SprayingTimes_startDate,
+          SprayingTimes_endDate: req.body.SprayingTimes_endDate,
+          SprayingTimes_temperature: req.body.SprayingTimes_temperature,
+          SprayingTimes_radiation: req.body.SprayingTimes_radiation,
+          SprayingTimes_precipitation: req.body.SprayingTimes_precipitation
      });
      // Save sprayingTimes in the database
      SprayingTimes.create(sprayingTimes, (err, data) => {
@@ -53,7 +53,7 @@ exports.update = async (req, res) => {
      SprayingTimes.updateById(
           req.params.RiceCropInformation_id,
           req.params.Pesticide_id,
-          req.params.times,
+          req.params.SprayingTimes_times,
           req.body,
           (err, data) => {
                if (err) {
@@ -69,7 +69,7 @@ exports.update = async (req, res) => {
 
 // Delete a SprayingTimes with the specified id in the request
 exports.delete = async (req, res) => {
-     SprayingTimes.remove(req.params.RiceCropInformation_id, req.params.Pesticide_id, req.params.times, (err, data) => {
+     SprayingTimes.remove(req.params.RiceCropInformation_id, req.params.Pesticide_id, req.params.SprayingTimes_times, (err, data) => {
           if (err) {
                if (err.kind === "not_found") {
                     res.send(`Không tìm thấy lần phun thuốc có mã vụ mùa ${req.params.RiceCropInformation_id} và mã thuốc ${req.params.Pesticide_id}`)

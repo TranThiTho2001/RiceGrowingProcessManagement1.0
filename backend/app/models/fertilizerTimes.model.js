@@ -5,13 +5,13 @@ const FertilizerTimes = function (fertilizerTimes) {
      this.Fertilizer_id = fertilizerTimes.Fertilizer_id;
      this.DevelopmentStage_id = fertilizerTimes.DevelopmentStage_id;
      this.Employee_id = fertilizerTimes.Employee_id;
-     this.FertilizerTimes_times = fertilizerTimes.times;
-     this.FertilizerTimes_amount = fertilizerTimes.amount;
-     this.FertilizerTimes_startDate = fertilizerTimes.startDate;
-     this.FertilizerTimes_endDate = fertilizerTimes.endDate;
-     this.FertilizerTimes_temperature = fertilizerTimes.temperature;
-     this.FertilizerTimes_radiation = fertilizerTimes.radiation;
-     this.FertilizerTimes_precipitation = fertilizerTimes.precipitation
+     this.FertilizerTimes_times = fertilizerTimes.FertilizerTimes_times;
+     this.FertilizerTimes_amount = fertilizerTimes.FertilizerTimes_amount;
+     this.FertilizerTimes_startDate = fertilizerTimes.FertilizerTimes_startDate;
+     this.FertilizerTimes_endDate = fertilizerTimes.FertilizerTimes_endDate;
+     this.FertilizerTimes_temperature = fertilizerTimes.FertilizerTimes_temperature;
+     this.FertilizerTimes_radiation = fertilizerTimes.FertilizerTimes_radiation;
+     this.FertilizerTimes_precipitation = fertilizerTimes.FertilizerTimes_precipitation
 }
 
 FertilizerTimes.create = (newFertilizerTimes, result) => {
@@ -59,10 +59,9 @@ FertilizerTimes.getAll = (Fertilizer_id, result) => {
 };
 
 FertilizerTimes.updateById = (riceCropInformation_id, Fertilizer_id, times, fertilizerTimes, result) => {
-     console.log(fertilizerTimes.amount, fertilizerTimes.startDate);
      sql.query(
           "UPDATE FertilizerTimes SET Employee_id = ?, DevelopmentStage_id = ?, FertilizerTimes_amount = ?, FertilizerTimes_startDate = ?, FertilizerTimes_endDate = ?, FertilizerTimes_temperature = ?, FertilizerTimes_radiation = ?, FertilizerTimes_precipitation = ? WHERE (RiceCropInformation_id = ? And Fertilizer_id = ? and FertilizerTimes_times = ?)",
-          [fertilizerTimes.Employee_id, fertilizerTimes.DevelopmentStage_id, fertilizerTimes.amount, fertilizerTimes.startDate, fertilizerTimes.endDate, fertilizerTimes.temperature, fertilizerTimes.radiation, fertilizerTimes.precipitation, riceCropInformation_id, Fertilizer_id, times],
+          [fertilizerTimes.Employee_id, fertilizerTimes.DevelopmentStage_id, fertilizerTimes.FertilizerTimes_amount, fertilizerTimes.FertilizerTimes_startDate, fertilizerTimes.FertilizerTimes_endDate, fertilizerTimes.FertilizerTimes_temperature, fertilizerTimes.FertilizerTimes_radiation, fertilizerTimes.FertilizerTimes_precipitation, riceCropInformation_id, Fertilizer_id, times],
           (err, res) => {
                if (err) {
                     console.log("error: ", err);

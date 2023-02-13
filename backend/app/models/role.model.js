@@ -1,8 +1,8 @@
 const sql = require("./db");
 
 const Role = function(role){
-    this.Role_id = role.id;
-    this.Role_name = role.name;
+    this.Role_id = role.Role_id;
+    this.Role_name = role.Role_name;
 };
 
 Role.create = (newRole, result) => {
@@ -50,7 +50,7 @@ Role.getAll = (name, result) => {
 Role.updateById = (id, role, result) => {
     sql.query(
         "UPDATE role SET Role_name = ? WHERE Role_id = ?",
-        [role.name, id],
+        [role.Role_name, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);

@@ -9,7 +9,10 @@ const Employee = function(employee){
     this.Employee_password = employee.password;
     this.Employee_phoneNumber = employee.phoneNumber;
     this.Employee_address = employee.address;
+    this.Employee_email = employee.email;
+    this.Employee_birthDate = employee.birthDate;
     this.Employee_identityCardNumber = employee.identityCardNumber
+
 };
 
 Employee.create = (newEmployee, result) => {
@@ -43,6 +46,7 @@ Employee.getAll = (name, result) => {
     if (name) {
         query += ` WHERE Employee_name LIKE '%${name}%'`;
     }
+    query += " JOIN Role where Role.Role_id = Employee.Role_id";
     sql.query(query, (err, res) => {
         if (err) {
             console.log("error: ", err);
@@ -55,8 +59,8 @@ Employee.getAll = (name, result) => {
 
 Employee.updateById = (id, employee, result) => {
     sql.query(
-        "UPDATE Employee SET Employee_name = ?, Employee_sex = ?, Employee_major = ?, Role_id =?, Employee_identityCardNumber = ?,  Employee_phoneNumber = ?,  Employee_address = ?  WHERE Employee_id = ?",
-        [employee.name, employee.sex, employee.major,employee.roleId, employee.identityCardNumber, employee.phoneNumber, employee.address, id],
+        "UPDATE Employee SET Employee_name = ?, Employee_sex = ?, Employee_major = ?, Role_id =?, Employee_identityCardNumber = ?,  Employee_phoneNumber = ?,  Employee_address = ? Employee_email = ?, Employee_birthDate = ?  WHERE Employee_id = ?",
+        [employee.name, employee.sex, employee.major,employee.roleId, employee.identityCardNumber, employee.phoneNumber, employee.address, employee.email, employee.birthDate, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);

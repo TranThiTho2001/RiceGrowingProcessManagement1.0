@@ -1,8 +1,8 @@
 const sql = require("./db");
 
 const Crop = function(crop){
-    this.Crop_id = crop.id;
-    this.Crop_name = crop.name;
+    this.Crop_id = crop.Crop_id;
+    this.Crop_name = crop.Crop_name;
 };
 
 Crop.create = (newCrop, result) => {
@@ -52,7 +52,7 @@ Crop.getAll = (name, result) => {
 Crop.updateById = (id, crop, result) => {
     sql.query(
         "UPDATE Crop SET Crop_name = ? WHERE Crop_id = ?",
-        [crop.name, id],
+        [crop.Crop_name, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);

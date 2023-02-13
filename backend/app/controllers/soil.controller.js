@@ -5,10 +5,8 @@ const config = require("../config");
 exports.store = async (req, res) => {
     // Create 
     const soil = new Soil({
-        id: req.body.id,
-        name: req.body.name,
-        characteristic: req.body.characteristic,
-        supplier: req.body.supplier,
+        Soil_id: req.body.Soil_id,
+        Soil_name: req.body.Soil_name,
     });
     // Save Soil in the database
     Soil.create(soil, (err, data) => {

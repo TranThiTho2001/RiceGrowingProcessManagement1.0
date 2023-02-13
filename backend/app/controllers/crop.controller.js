@@ -5,8 +5,8 @@ const config = require("../config");
 exports.store = async (req, res) => {
     // Create 
     const crop = new Crop({
-        id: req.body.id,
-        name: req.body.name,
+        Crop_id: req.body.Crop_id,
+        Crop_name: req.body.Crop_name,
     });
     // Save Crop in the database
     Crop.create(crop, (err, data) => {

@@ -61,7 +61,7 @@ SprayingTimes.getAll = (Pesticide_id, result) => {
 SprayingTimes.updateById = (riceCropInformation_id, Pesticide_id, times, sprayingTimes, result) => {
      sql.query(
           "UPDATE SprayingTimes SET Employee_id = ?, DevelopmentStage_id = ?, SprayingTimes_amount = ?, SprayingTimes_startDate = ?, SprayingTimes_endDate = ?, SprayingTimes_temperature = ?, SprayingTimes_radiation = ?, SprayingTimes_precipitation = ? WHERE (RiceCropInformation_id = ? And Pesticide_id = ? and SprayingTimes_times = ?)",
-          [sprayingTimes.Employee_id, sprayingTimes.DevelopmentStage_id, sprayingTimes.amount, sprayingTimes.startDate, sprayingTimes.endDate, sprayingTimes.temperature, sprayingTimes.radiation, sprayingTimes.precipitation, riceCropInformation_id, Pesticide_id, times],
+          [sprayingTimes.Employee_id, sprayingTimes.DevelopmentStage_id, sprayingTimes.SprayingTimes_amount, sprayingTimes.SprayingTimes_startDate, sprayingTimes.SprayingTimes_endDate, sprayingTimes.SprayingTimes_temperature, sprayingTimes.SprayingTimes_radiation, sprayingTimes.SprayingTimes_precipitation, riceCropInformation_id, Pesticide_id, times],
           (err, res) => {
                if (err) {
                     console.log("error: ", err);

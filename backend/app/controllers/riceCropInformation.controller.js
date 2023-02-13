@@ -5,13 +5,13 @@ const config = require("../config");
 exports.store = async (req, res) => {
     // Create 
     const riceCropInformation = new RiceCropInformation({
-        id: req.body.id,
-        name: req.body.name,
-        yield: req.body.yield,
+        RiceCropInformation_id: req.body.RiceCropInformation_id,
+        RiceCropInformation_name: req.body.RiceCropInformation_name,
+        RiceCropInformation_yield: req.body.RiceCropInformation_yield,
         Seed_id: req.body.Seed_id,
         Crop_id: req.body.Crop_id,
-        sowingDate: req.body.sowingDate,
-        harvestDate: req.body.harvestDate,
+        RiceCropInformation_sowingDate: req.body.RiceCropInformation_sowingDate,
+        RiceCropInformation_harvestDate: req.body.RiceCropInformation_harvestDate,
         ArableLand_id: req.body.ArableLand_id
      });
     // Save RiceCropInformation in the database

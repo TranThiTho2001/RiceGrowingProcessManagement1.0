@@ -14,10 +14,10 @@ module.exports = (app) => {
      router.post("/", activityDetails.store);
 
      // Update  with id
-     router.put("/:RiceCropInformation_id/:OtherActivities_id/:times", activityDetails.update);
+     router.put("/:RiceCropInformation_id/:OtherActivities_id/:ActivityDetails_times", activityDetails.update);
 
      // Delete  with id
-     router.delete("/:RiceCropInformation_id/:OtherActivities_id/:times", activityDetails.delete);
+     router.delete("/:RiceCropInformation_id/:OtherActivities_id/:ActivityDetails_times", activityDetails.delete);
 
      app.use("/api/activityDetails", router);
 };

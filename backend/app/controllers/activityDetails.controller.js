@@ -7,13 +7,13 @@ exports.store = async (req, res) => {
      const activityDetails = new ActivityDetails({
           RiceCropInformation_id: req.body.RiceCropInformation_id,
           OtherActivities_id: req.body.OtherActivities_id,
-          startDate: req.body.startDate,
-          endDate: req.body.endDate,
-          temperature: req.body.temperature,
-          radiation: req.body.radiation,
-          precipitation: req.body.precipitation,
+          ActivityDetails_startDate: req.body.ActivityDetails_startDate,
+          ActivityDetails_endDate: req.body.ActivityDetails_endDate,
+          ActivityDetails_temperature: req.body.ActivityDetails_temperature,
+          ActivityDetails_radiation: req.body.ActivityDetails_radiation,
+          ActivityDetails_precipitation: req.body.ActivityDetails_precipitation,
           Employee_id: req.body.Employee_id,
-          times: req.body.times,
+          ActivityDetails_times: req.body.ActivityDetails_times,
           DevelopmentStage_id: req.body.DevelopmentStage_id
      });
      // Save ActivityDetails in the database
@@ -52,7 +52,7 @@ exports.update = async (req, res) => {
      ActivityDetails.updateById(
           req.params.RiceCropInformation_id,
           req.params.OtherActivities_id,
-          req.params.times,
+          req.params.ActivityDetails_times,
           req.body,
           (err, data) => {
                if (err) {
@@ -68,10 +68,10 @@ exports.update = async (req, res) => {
 
 // Delete a ActivityDetails with the specified id in the request
 exports.delete = async (req, res) => {
-     ActivityDetails.remove(req.params.RiceCropInformation_id, req.params.OtherActivities_id, req.params.times, (err, data) => {
+     ActivityDetails.remove(req.params.RiceCropInformation_id, req.params.OtherActivities_id, req.params.ActivityDetails_times, (err, data) => {
           if (err) {
                if (err.kind === "not_found") {
-                    res.send(`Không tìm thấy chi tiết hoạt động có mã vụ mùa ${req.params.RiceCropInformation_id} và mã hoạt động ${req.params.Employee_id}`)
+                    res.send(`Không tìm thấy chi tiết hoạt động có mã vụ mùa ${req.params.RiceCropInformation_id} và mã hoạt động ${req.params.OtherActivities_id}`)
                } else {
                     res.redirect("Lỗi trong quá trình xóa chi tiết hoạt động!!");
                }

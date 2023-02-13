@@ -5,8 +5,8 @@ const config = require("../config");
 exports.store = async (req, res) => {
     // Create a 
     const role = new Role({
-        id: req.body.id,
-        name: req.body.name,
+        Role_id: req.body.Role_id,
+        Role_name: req.body.Role_name,
     });
     // Save Role in the database
     Role.create(role, (err, data) => {

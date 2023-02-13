@@ -1,13 +1,13 @@
 const sql = require("./db");
 
 const Epidemic = function(epidemic){
-    this.Epidemic_id = epidemic.id;
-    this.Epidemic_name = epidemic.name;
-    this.Epidemic_indication = epidemic.indication;
-    this.Epidemic_timeOfDevelopment = epidemic.timeOfDevelopment;
-    this.Epidemic_developmentEnvironment = epidemic.developmentEnvironment;
-    this.Epidemic_Harm = epidemic.Harm;
-    this.EpidemicsClassification_id = epidemic.classificationId;
+    this.Epidemic_id = epidemic.Epidemic_id;
+    this.Epidemic_name = epidemic.Epidemic_name;
+    this.Epidemic_indication = epidemic.Epidemic_indication;
+    this.Epidemic_timeOfDevelopment = epidemic.Epidemic_timeOfDevelopment;
+    this.Epidemic_developmentEnvironment = epidemic.Epidemic_developmentEnvironment;
+    this.Epidemic_Harm = epidemic.Epidemic_Harm;
+    this.EpidemicsClassification_id = epidemic.EpidemicsClassification_id;
 };
 
 Epidemic.create = (newEpidemic, result) => {
@@ -56,7 +56,7 @@ Epidemic.getAll = (name, result) => {
 Epidemic.updateById = (id, epidemic, result) => {
     sql.query(
         "UPDATE Epidemic SET Epidemic_name = ?, Epidemic_indication = ?, Epidemic_timeOfDevelopment = ?, Epidemic_developmentEnvironment = ?, Epidemic_Harm = ?, EpidemicsClassification_id = ?  WHERE Epidemic_id = ?",
-        [epidemic.name, epidemic.indication, epidemic.timeOfDevelopment, epidemic.developmentEnvironment,epidemic.Harm, epidemic.classificationId, id],
+        [epidemic.Epidemic_name, epidemic.Epidemic_indication, epidemic.Epidemic_timeOfDevelopment, epidemic.Epidemic_developmentEnvironment,epidemic.Epidemic_Harm, epidemic.EpidemicsClassification_id, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);

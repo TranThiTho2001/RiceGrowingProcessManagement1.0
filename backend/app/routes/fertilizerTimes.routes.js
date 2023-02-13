@@ -14,10 +14,10 @@ module.exports = (app) => {
      router.post("/", fertilizerTimes.store);
 
      // Update  with id
-     router.put("/:RiceCropInformation_id/:Fertilizer_id/:times", fertilizerTimes.update);
+     router.put("/:RiceCropInformation_id/:Fertilizer_id/:FertilizerTimes_times", fertilizerTimes.update);
 
      // Delete  with id
-     router.delete("/:RiceCropInformation_id/:Fertilizer_id/:times", fertilizerTimes.delete);
+     router.delete("/:RiceCropInformation_id/:Fertilizer_id/:FertilizerTimes_times", fertilizerTimes.delete);
 
      app.use("/api/fertilizerTimes", router);
 };

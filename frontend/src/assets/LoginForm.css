@@ -1,0 +1,28 @@
+.loginForm{
+     background-color: aquamarine;
+}
+
+.loginForm .content{
+     /* background-color: rgb(245, 173, 173); */
+}
+
+.loginForm .content .row{
+     /* background-color: rgb(207, 223, 218); */
+}
+
+.loginForm .content .form-control{
+     /* background-color: blueviolet; */
+}
+
+.form-group{
+     /* background-color: cadetblue; */
+}
+
+.loginForm .content .form{
+     /* background-color: darkolivegreen; */
+}
+
+.loginForm .content .labelTitle{
+     font-family: Inter;
+     font-size: 18px;
+}

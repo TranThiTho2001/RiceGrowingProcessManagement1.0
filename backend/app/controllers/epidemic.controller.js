@@ -5,13 +5,13 @@ const config = require("../config");
 exports.store = async (req, res) => {
     // Create 
     const epidemic = new Epidemic({
-        id: req.body.id,
-        name: req.body.name,
-        indication: req.body.indication,
-        timeOfDevelopment: req.body.timeOfDevelopment,
-        developmentEnvironment: req.body.developmentEnvironment,
-        Harm: req.body.Harm,
-        classificationId: req.body.classificationId
+        Epidemic_id: req.body.Epidemic_id,
+        Epidemic_name: req.body.Epidemic_name,
+        Epidemic_indication: req.body.Epidemic_indication,
+        Epidemic_timeOfDevelopment: req.body.Epidemic_timeOfDevelopment,
+        Epidemic_developmentEnvironment: req.body.Epidemic_developmentEnvironment,
+        Epidemic_Harm: req.body.Epidemic_Harm,
+        EpidemicsClassification_id: req.body.EpidemicsClassification_id
      });
     // Save Epidemic in the database
     Epidemic.create(epidemic, (err, data) => {

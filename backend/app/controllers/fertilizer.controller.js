@@ -5,9 +5,9 @@ const config = require("../config");
 exports.store = async (req, res) => {
     // Create 
     const fertilizer = new Fertilizer({
-        id: req.body.id,
-        name: req.body.name,
-        supplier: req.body.supplier,
+        Fertilizer_id: req.body.Fertilizer_id,
+        Fertilizer_name: req.body.Fertilizer_name,
+        Fertilizer_supplier: req.body.Fertilizer_supplier,
      });
     // Save Fertilizer in the database
     Fertilizer.create(fertilizer, (err, data) => {

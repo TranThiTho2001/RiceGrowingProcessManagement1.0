@@ -1,8 +1,8 @@
 const sql = require("./db");
 
 const EpidemicsClassification = function(epidemicsClassification){
-    this.EpidemicsClassification_id = epidemicsClassification.id;
-    this.EpidemicsClassification_name = epidemicsClassification.name;
+    this.EpidemicsClassification_id = epidemicsClassification.EpidemicsClassification_id;
+    this.EpidemicsClassification_name = epidemicsClassification.EpidemicsClassification_name;
 };
 
 EpidemicsClassification.create = (newEpidemicsClassification, result) => {

@@ -1,8 +1,8 @@
 const sql = require("./db");
 
 const Soil = function(soil){
-    this.Soil_id = soil.id;
-    this.Soil_name = soil.name;
+    this.Soil_id = soil.Soil_id;
+    this.Soil_name = soil.Soil_name;
 };
 
 Soil.create = (newSoil, result) => {
@@ -51,7 +51,7 @@ Soil.getAll = (name, result) => {
 Soil.updateById = (id, soil, result) => {
     sql.query(
         "UPDATE Soil SET Soil_name = ? WHERE Soil_id = ?",
-        [soil.name, soil.characteristic, soil.supplier, id],
+        [soil.Soil_name, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);

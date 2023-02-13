@@ -1,11 +1,11 @@
 const sql = require("./db");
 
 const ArableLand = function(arableLand){
-    this.ArableLand_id = arableLand.id;
-    this.ArableLand_location = arableLand.location;
-    this.Soil_id = arableLand.soilId;
-    this.ArableLand_area = arableLand.area;
-    this.ArableLand_owner = arableLand.owner;
+    this.ArableLand_id = arableLand.ArableLand_id;
+    this.ArableLand_location = arableLand.ArableLand_location;
+    this.Soil_id = arableLand.Soil_id;
+    this.ArableLand_area = arableLand.ArableLand_area;
+    this.ArableLand_owner = arableLand.ArableLand_owner;
 };
 
 ArableLand.create = (newArableLand, result) => {
@@ -54,7 +54,7 @@ ArableLand.getAll = (name, result) => {
 ArableLand.updateById = (id, arableLand, result) => {
     sql.query(
         "UPDATE ArableLand SET ArableLand_location = ?, Soil_id = ?, ArableLand_area = ?, ArableLand_owner = ? WHERE ArableLand_id = ?",
-        [arableLand.location, arableLand.soilId, arableLand.area, arableLand.owner, id],
+        [arableLand.ArableLand_location, arableLand.Soil_id, arableLand.areArableLand_area, arableLand.ArableLand_owner, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);

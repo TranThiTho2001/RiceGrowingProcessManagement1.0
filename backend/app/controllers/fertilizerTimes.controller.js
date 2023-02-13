@@ -9,13 +9,13 @@ exports.store = async (req, res) => {
           Fertilizer_id: req.body.Fertilizer_id,
           DevelopmentStage_id: req.body.DevelopmentStage_id,
           Employee_id: req.body.Employee_id,
-          times: req.body.times,
-          amount: req.body.amount,
-          startDate: req.body.startDate,
-          endDate: req.body.endDate,
-          temperature: req.body.temperature,
-          radiation: req.body.radiation,
-          precipitation: req.body.precipitation
+          times: req.body.FertilizerTimes_times,
+          amount: req.body.FertilizerTimes_amount,
+          startDate: req.body.FertilizerTimes_startDate,
+          endDate: req.body.FertilizerTimes_endDate,
+          temperature: req.body.FertilizerTimes_temperature,
+          radiation: req.body.FertilizerTimes_radiation,
+          precipitation: req.body.FertilizerTimes_precipitation
      });
      // Save FertilizerTimes in the database
      FertilizerTimes.create(fertilizerTimes, (err, data) => {
@@ -53,7 +53,7 @@ exports.update = async (req, res) => {
      FertilizerTimes.updateById(
           req.params.RiceCropInformation_id,
           req.params.Fertilizer_id,
-          req.params.times,
+          req.params.FertilizerTimes_times,
           req.body,
           (err, data) => {
                if (err) {
@@ -69,7 +69,7 @@ exports.update = async (req, res) => {
 
 // Delete a FertilizerTimes with the specified id in the request
 exports.delete = async (req, res) => {
-     FertilizerTimes.remove(req.params.RiceCropInformation_id, req.params.Fertilizer_id, req.params.times, (err, data) => {
+     FertilizerTimes.remove(req.params.RiceCropInformation_id, req.params.Fertilizer_id, req.params.FertilizerTimes_times, (err, data) => {
           if (err) {
                if (err.kind === "not_found") {
                     res.send(`Không tìm thấy lần bón phân có mã vụ mùa ${req.params.RiceCropInformation_id} và mã dịch bệnh ${req.params.Fertilizer_id}`)
