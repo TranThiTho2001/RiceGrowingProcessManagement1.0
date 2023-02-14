@@ -27,10 +27,19 @@ const routes = [
     {
         path: "/CreateNewEmployee",
         alias: "/createNewEmployee",
-        name: "EmploycreateNew",
+        name: "createNewEmployee",
         component: () => import("../views/administratorsView/createNewEmployee.vue"),
         
     },
+
+    {
+        path: "/UpdateEmployee",
+        alias: "/UpdateEmployee",
+        name: "UpdateEmployee",
+        component: () => import("../views/administratorsView/updateEmployee.vue"),
+        
+    },
+
 ];
 
 const router = createRouter({

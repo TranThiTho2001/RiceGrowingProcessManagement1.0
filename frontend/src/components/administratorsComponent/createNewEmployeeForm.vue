@@ -1,89 +1,93 @@
 <template>
-     <Form @submit="$emit('addEmployee-submit', newemployee)" :validation-schema="schema" class="container-fluid createEmployeeeForm">
-          <div class="functionName">
-               <span class="fa fa-plus-circle"> </span>
-               <p style="display:inline"> Thêm nhân viên mới </p>
+     <Form @submit="$emit('addEmployee-submit', newemployee)" :validation-schema="schema"
+          class="container-fluid createEmployeeForm">
+          <div class="row">
+               <p class="col-sm-12 text-center functionName"><span class="fa fa-plus-circle"> </span> Thêm nhân viên mới
+               </p>
           </div>
           <div class="row  content">
                <div class="col-md-6">
                     <div class="form-group">
-                         <label for="id">Mã</label>
+                         <label for="id" class="mt-2">Mã</label>
                          <Field name="id" type="name" class="form-control" v-model="newemployee.Employee_id"
                               placeholder="Nhập mã nhân viên" />
                          <ErrorMessage name="id" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
-                         <label for="name">Họ và tên nhân viên</label>
+                         <label for="name" class="mt-3">Họ và tên nhân viên</label>
                          <Field name="name" class="form-control" v-model="newemployee.Employee_name"
                               placeholder="Nhập họ nhân viên" />
                          <ErrorMessage name="name" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
-                         <label for="idCardNumber">Số CMND/CCCD</label>
-                         <Field name="idCardNumber" class="form-control" v-model="newemployee.Employee_identityCardNumber"
-                              placeholder="Nhập số CMND/CCCD" />
+                         <label for="idCardNumber" class="mt-3">Số CMND/CCCD</label>
+                         <Field name="idCardNumber" class="form-control"
+                              v-model="newemployee.Employee_identityCardNumber" placeholder="Nhập số CMND/CCCD" />
                          <ErrorMessage name="idCardNumber" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
-                         <label for="birthDate">Ngày sinh</label>
+                         <label for="birthDate" class="mt-3">Ngày sinh</label>
                          <Field name="birthDate" class="form-control" v-model="newemployee.Employee_birthDate"
                               placeholder="Ngày sinh">
-                              <datepicker :value="newemployee.Employee_birthDate" v-model="newemployee.Employee_birthDate" placeholder="YYYY-MM-DD">
+                              <datepicker  :enable-time-picker="false" :value="newemployee.Employee_birthDate" :hide-input-icon="true"
+                                   v-model="newemployee.Employee_birthDate" placeholder="YYYY-MM-DD">
                               </datepicker>
                          </Field>
                          <ErrorMessage name="birthDate" class="error-feedback" />
                     </div>
+
                     <div class="form-group">
-                         <label for="sex">Giới tính: &nbsp;</label><br>
-                         <Field name="sex" class="form-control" placeholder="" v-model="newemployee.Employee_sex">
-                              <input type="radio" id="nam" value="true" v-model="newemployee.Employee_sex"/>
-                              <label for="one">Nam &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                              <input type="radio" id="nu" value="false" v-model="newemployee.Employee_sex" />
-                              <label for="two">Nữ</label>
-                         </Field>
-                         <ErrorMessage name="gioitinhNV" class="error-feedback" />
+                         <label for="major" class="mt-3">Chuyên môn</label>
+                         <Field name="major" class="form-control" v-model="newemployee.Employee_major"
+                              placeholder="Nhập chuyên môn" />
+                         <ErrorMessage name="major" class="error-feedback" />
                     </div>
                     <div class="form-group">
-                         <label for="major">Mật khẩu</label>
-                         <Field name="major" class="form-control" v-model="newemployee.Employee_major"
-                              placeholder="Nhập mật khẩu tài khoản" />
-                         <ErrorMessage name="major" class="error-feedback" />
+                         <label for="sex" class="mt-3">Giới tính: &nbsp;</label><br>
+                         <Field name="sex" class="form-control" placeholder="" v-model="newemployee.Employee_sex">
+                              <input type="radio" id="nam" value="true" class="mt-4"
+                                   v-model="newemployee.Employee_sex" />
+                              <label for="one" class="mt-3"> &nbsp;Nam &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                              <input type="radio" id="nu" value="false" class="mt-4"
+                                   v-model="newemployee.Employee_sex" />
+                              <label for="two" class="mt-3"> &nbsp;Nữ</label>
+                         </Field>
+                         <ErrorMessage name="gioitinhNV" class="error-feedback" />
                     </div>
                </div>
                <div class="col-md-6">
                     <div class="form-group">
-                         <label for="phoneNumber">Số điện thoại</label>
+                         <label for="phoneNumber" class="mt-2">Số điện thoại</label>
                          <Field name="phoneNumber" class="form-control" v-model="newemployee.Employee_phoneNumber"
                               placeholder="Nhập số điện thoại" />
                          <ErrorMessage name="phoneNumber" class="error-feedback" />
                     </div>
                     <div class="form-group">
-                         <label for="email">Email</label>
+                         <label for="email" class="mt-3">Email</label>
                          <Field name="email" class="form-control" v-model="newemployee.Employee_email"
                               placeholder="Nhập địa chỉ Email" />
                          <ErrorMessage name="email" class="error-feedback" />
                     </div>
                     <div class="form-group">
-                         <label for="address">Địa chỉ</label>
+                         <label for="address" class="mt-3">Địa chỉ</label>
                          <Field name="address" class="form-control" v-model="newemployee.Employee_address"
                               placeholder="Nhập địa chỉ" />
                          <ErrorMessage name="address" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
-                         <label for="password">Mật khẩu</label>
+                         <label for="password" class="mt-3">Mật khẩu</label>
                          <Field name="password" class="form-control" v-model="newemployee.Employee_password"
                               placeholder="Nhập mật khẩu tài khoản" />
                          <ErrorMessage name="password" class="error-feedback" />
                     </div>
                     <div class="form-group">
-                         <label for="role">Chức vụ &nbsp; </label><br>
-                         <Field name="role" class="form-control" v-model="newemployee.Role_id"
-                              placeholder="Chức vụ: ">
-                              <select v-model="newemployee.Role_id" class="selectBox">
+                         <label for="role" class="mt-3">Chức vụ &nbsp; </label><br>
+                         <Field name="role" class="form-control" v-model="newemployee.Role_id" placeholder="Chức vụ: ">
+                              <select v-model="newemployee.Role_id" class="selectBox ">
                                    <option selected style="font-size:17px">Quản lý</option>
                                    <option>Chuyên gia</option>
                                    <option>Nhân viên</option>
@@ -107,18 +111,24 @@
                </div>
           </div>
           <div class="form-group">
-               <span v-if="message2 == 'Thêm thành công'" class="fas fa-check-circle"
-                    style="color:#00BA13; text-align: center; margin-left: 44%;"></span>
-               <span v-if="message2 == 'Thêm không thành công'" class="fas fa-times-circle"
-                    style="color:red; text-align: center;  margin-left:42%;"></span>
-               <p v-if="message2 == 'Thêm thành công'" class="textMessage2" style="color:#00BA13">{{ message2 }}
-               </p>
-               <p v-else class="textMessage2">{{ message2 }}</p><br>
-               <p v-if="message2 == 'Thêm không thành công'" class="textMessage1" style="margin-left:4%">{{ message1 }}
-               </p>
-               <button class="btn btn-outline-secondary btnLuu">Lưu</button>
+               <div class="row">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                         <span v-if="message2 == 'Thêm thành công'" class="fas fa-check-circle"
+                              style="color:#00BA13; text-align: center;"></span>
+                         <span v-if="message1 == 'Thêm không thành công'" class="fas fa-times-circle"
+                              style="color:red; text-align: center;"></span>
+                         <p v-if="message2 == 'Thêm thành công'" class="textMessage2" style="color:#00BA13; text-align: center;">{{message2}}</p>
+                         <p v-if="message2 == 'Thêm không thành công.'" class="textMessage1" style="text-align: center;">{{ message1 }}</p>
+                    </div>
+                    <div class="col-sm-4"></div>
+               </div>
+               <div class="row">
+                    <div class="col-sm-5"></div>
+                    <button class="btn btn-outline-secondary btnLuu col-sm-2">Lưu</button>
+                    <div class="col-sm-5"></div>
+               </div>
           </div>
-
      </form>
 
 </template>
@@ -177,17 +187,16 @@ export default {
                sex: yup
                     .boolean()
                     .required("Giới tính nhân viên được yêu cầu"),
-               major: yup     
+               major: yup
                     .string()
                     .required("Chuyên môn phải có giá trị"),
-                    // lock: yup
-                    // .boolean()
-                    // .required("Trạng thái tài khoản nhân viên được yêu cầu"),
+               // lock: yup
+               // .boolean()
+               // .required("Trạng thái tài khoản nhân viên được yêu cầu"),
           });
           return {
                newemployee: this.newEmployee,
                schema,
-
           };
      },
 
@@ -203,21 +212,5 @@ export default {
 </script>
  
 <style>
-.content {
-     margin-top: 2%;
-}
-
-select {
-     width: 200px;
-     height: 35px;
-     border-color: #c9c6c6;
-}
-
-.createEmployeeeForm{
-     background-color: cadetblue;
-}
-.createEmployeeeForm .error-feedback{
-     color: red;
-     float: right;
-}
+@import url(../../assets/employeeStyle.css);
 </style>

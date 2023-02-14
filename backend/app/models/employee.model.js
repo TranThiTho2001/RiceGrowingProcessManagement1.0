@@ -1,16 +1,16 @@
 const sql = require("./db");
 
 const Employee = function(employee){
-    this.Employee_name = employee.name;
-    this.Employee_major = employee.major;
-    this.Employee_sex = employee.sex;
-    this.Employee_id = employee.id;
-    this.Role_id = employee.roleId;
-    this.Employee_password = employee.password;
-    this.Employee_phoneNumber = employee.phoneNumber;
-    this.Employee_address = employee.address;
-    this.Employee_email = employee.email;
-    this.Employee_birthDate = employee.birthDate;
+    this.Employee_name = employee.Employee_name;
+    this.Employee_major = employee.Employee_major;
+    this.Employee_sex = employee.Employee_sex;
+    this.Employee_id = employee.Employee_id;
+    this.Role_id = employee.Role_id;
+    this.Employee_password = employee.Employee_password;
+    this.Employee_phoneNumber = employee.Employee_phoneNumber;
+    this.Employee_address = employee.Employee_address;
+    this.Employee_email = employee.Employee_email;
+    this.Employee_birthDate = employee.Employee_birthDate;
     this.Employee_identityCardNumber = employee.identityCardNumber
 
 };
@@ -59,8 +59,8 @@ Employee.getAll = (name, result) => {
 
 Employee.updateById = (id, employee, result) => {
     sql.query(
-        "UPDATE Employee SET Employee_name = ?, Employee_sex = ?, Employee_major = ?, Role_id =?, Employee_identityCardNumber = ?,  Employee_phoneNumber = ?,  Employee_address = ? Employee_email = ?, Employee_birthDate = ?  WHERE Employee_id = ?",
-        [employee.name, employee.sex, employee.major,employee.roleId, employee.identityCardNumber, employee.phoneNumber, employee.address, employee.email, employee.birthDate, id],
+        "UPDATE Employee SET Employee_name = ?, Employee_sex = ?, Employee_major = ?, Role_id =?, Employee_identityCardNumber = ?,  Employee_phoneNumber = ?,  Employee_address = ?, Employee_email = ?, Employee_birthDate = ?  WHERE Employee_id = ?",
+        [employee.Employee_name, employee.Employee_sex, employee.Employee_major,employee.Role_id, employee.Employee_identityCardNumber, employee.Employee_phoneNumber, employee.Employee_address, employee.Employee_email, employee.Employee_birthDate, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);

@@ -1,0 +1,57 @@
+.createEmployeeForm, .updateEmployeeForm{
+     background-color: bisque;
+     font-family: Inter;
+}
+
+.createEmployeeForm  .content, 
+.updateEmployeeForm .content{
+     background-color: cornsilk;
+
+}
+
+
+.createEmployeeForm .content .error-feedback,
+.updateEmployeeForm .content .error-feedback{
+     color: red;
+     float: right;
+}
+
+
+.createEmployeeForm .content .form-group label,
+.updateEmployeeForm .content .form-group label{
+     float: left;
+     font-family: Inter;
+     font-size: 18px;
+}
+
+.createEmployeeForm .content .form-group .selectBox,
+.updateEmployeeForm .content .form-group .selectBox{
+     width: 100%;
+     height: 38px;
+     border: 1px solid #ced4da;
+     border-radius: 4px;
+}
+
+.createEmployeeForm .content .form-group input,
+.updateEmployeeForm .content .form-group input{
+     float: left;
+}
+
+.createEmployeeForm .content .form-group .form-control,
+.updateEmployeeForm .content .form-group .form-control{
+     background-color: #f0f0f0;
+}
+
+.createEmployeeForm .functionName,
+.updateEmployeeForm .functionName{
+     font-family: Inter;
+     font-size: 22px;
+}
+
+.createEmployeeForm .btnLuu, 
+.updateEmployeeForm .btnLuu{
+     background-color: rgb(4, 105, 4);
+     color: #f0f0f0;
+     font-size: 20px;
+     text-align: center;
+}

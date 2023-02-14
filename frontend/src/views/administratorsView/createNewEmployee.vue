@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8 col-sm-10">
-                <CreateNewEmployeeForm :newEmployee="newEmployee" @addEmployee-submit="craeteEmployee"
+                <CreateNewEmployeeForm :newEmployee="newEmployee" @addEmployee-submit="createEmployee"
                     :message1="message1" :message2="message1" />
             </div>
             <div class="col-md-2"></div>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import CreateNewEmployeeForm from '../../components/createNewEmployeeForm.vue';
+import CreateNewEmployeeForm from '../../components/administratorsComponent/createNewEmployeeForm.vue';
 import EmployeeService from '../../services/employee.service';
 import moment from 'moment';
 
@@ -29,7 +29,7 @@ export default {
         };
     },
     methods: {
-        async craeteEmployee(data) {
+        async createEmployee(data) {
             console.log("lahsjba")
             if (data.Role_id == "Quản lý") {
                 data.Role_id = "01";
@@ -53,9 +53,11 @@ export default {
             );
             if (error) {
                 console.log(error);
+            } else if (response.data == "Đã xảy ra lỗi!!!") {
+                this.message1 = " Thêm không thành công."
             } else {
-                console.log(response.data);
                 this.message2 = "Thêm thành công";
+                this.newEmployee = response.data;
             }
         },
 

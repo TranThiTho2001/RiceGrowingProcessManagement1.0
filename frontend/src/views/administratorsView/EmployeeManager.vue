@@ -14,6 +14,7 @@
                               <th>Số điện thoại</th>
                               <th>Chuyên môn</th>
                               <th>Vai trò</th>
+                              <th>Tùy chọn</th>
                          </tr>
                     </thead>
                     <tbody>
@@ -23,6 +24,12 @@
                               <td>{{ employee.Employee_phoneNumber }}</td>
                               <td>{{ employee.Employee_major }}</td>
                               <td>{{ employee.Role_name }}</td>
+                              <td>
+                                   <tr class="actions">
+                                        <td @click="goToUpdateEmployee(employee.Employee_id)"><span class="fas fa-edit"></span></td>
+                                        <td><span class="fas fa-trash-alt"></span></td>
+                                   </tr>
+                              </td>
                          </tr>
                     </tbody>
                </table>
@@ -61,6 +68,10 @@ export default {
           async goToCreateNewEmployee(){
                this.$router.push("/CreateNewEmployee");
           },
+
+          async goToUpdateEmployee(employeeId){
+               this.$router.push({ name: 'UpdateEmployee', params: { id: employeeId }} )
+          }
 
           
      },

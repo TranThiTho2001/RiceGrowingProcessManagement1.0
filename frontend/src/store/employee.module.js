@@ -44,8 +44,8 @@ const actions = {
     async login({ commit }, employee) {
         let [error, response] = await handle(
             http.post("/employee/signin", {
-                id: employee.Employee_id,
-                password: employee.Employee_password,
+                Employee_id: employee.Employee_id,
+                Employee_password: employee.Employee_password,
             })
         );
         if (error || !response.data.accessToken) {

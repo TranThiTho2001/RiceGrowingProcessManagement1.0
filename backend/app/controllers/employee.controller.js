@@ -4,20 +4,19 @@ const jwt = require("jsonwebtoken");
 const config = require("../config");
 exports.store = async (req, res) => {
 
-
     // Create a Employee
     const employee = new Employee({
-        name: req.body.Employee_name,
-        sex: req.body.Employee_sex,
-        major: req.body.Employee_major,
-        roleId: req.body.Role_id,
-        id: req.body.Employee_id,
-        identityCardNumber: req.body.Employee_identityCardNumber,
-        phoneNumber: req.body.Employee_phoneNumber,
-        address: req.body.Employee_address,
-        email: req.body.Employee_email,
-        birthDate: req.body.Employee_birthDate,
-        password: bcrypt.hashSync(req.body.Employee_password, 8),
+        Employee_name: req.body.Employee_name,
+        Employee_sex: req.body.Employee_sex,
+        Employee_major: req.body.Employee_major,
+        Role_id: req.body.Role_id,
+        Employee_id: req.body.Employee_id,
+        Employee_identityCardNumber: req.body.Employee_identityCardNumber,
+        Employee_phoneNumber: req.body.Employee_phoneNumber,
+        Employee_address: req.body.Employee_address,
+        Employee_email: req.body.Employee_email,
+        Employee_birthDate: req.body.Employee_birthDate,
+        Employee_password: bcrypt.hashSync(req.body.Employee_password, 8),
     });
     // Save Employeein the database
     Employee.create(employee, (err, data) => {
@@ -61,9 +60,25 @@ exports.update = async (req, res) => {
                 if (err.kind === "not_found") {
                     res.send("Không tìm thấy nhân viên")
                 } else {
-                    res.send("Khong the cap nhat thong tin nhan vien")
+                    res.send("Không thể cập nhật thông tin nhân viên.")
                 }
-            } else res.send(data)
+            } else {
+
+                if (req.body.Employee_password != "") {
+                    Employee.changePassword(req.params.id, bcrypt.hashSync(req.body.Employee_password, 8), (err, data) => {
+                        if (err) {
+                            if (err.kind === "not_found") {
+                                res.send(`Không tìm thấy nhân viên có mã ${req.body.Employee_password}`)
+                            } else {
+                                res.send("Đã xảy ra lỗi!!!")
+                            }
+                        } else res.send(data);
+                    });
+                }
+                else{
+                    res.send(data)
+                }
+            }
         }
     );
 };
@@ -122,6 +137,7 @@ exports.signin = async (req, res, next) => {
                     Employee_address: data.Employee_address,
                     Employee_identityCardNumber: data.Employee_identityCardNumber,
                     Role_id: data.Role_id,
+                    Employee_email : data.Employee_email,
                     accessToken: token,
                 });
             }
