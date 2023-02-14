@@ -11,7 +11,7 @@ const Employee = function(employee){
     this.Employee_address = employee.Employee_address;
     this.Employee_email = employee.Employee_email;
     this.Employee_birthDate = employee.Employee_birthDate;
-    this.Employee_identityCardNumber = employee.identityCardNumber
+    this.Employee_identityCardNumber = employee.Employee_identityCardNumber
 
 };
 
@@ -50,7 +50,7 @@ Employee.getAll = (name, result) => {
     sql.query(query, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         result(null, res);
@@ -64,7 +64,7 @@ Employee.updateById = (id, employee, result) => {
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
-                result(null, err);
+                result(err,null );
                 return;
             }
             if (res.affectedRows == 0) {
@@ -82,7 +82,7 @@ Employee.remove = (id, result) => {
     sql.query("DELETE FROM Employee WHERE Employee_id = ?", id, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err,null);
             return;
         }
         if (res.affectedRows == 0) {
@@ -98,7 +98,7 @@ Employee.removeAll = result => {
     sql.query("DELETE FROM Employee", (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err,null );
             return;
         }
         console.log(`deleted ${res.affectedRows} Employee`);

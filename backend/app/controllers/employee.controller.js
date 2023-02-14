@@ -60,7 +60,7 @@ exports.update = async (req, res) => {
                 if (err.kind === "not_found") {
                     res.send("Không tìm thấy nhân viên")
                 } else {
-                    res.send("Không thể cập nhật thông tin nhân viên.")
+                    res.send("Đã xảy ra lỗi!!!")
                 }
             } else {
 
@@ -90,9 +90,9 @@ exports.delete = async (req, res) => {
             if (err.kind === "not_found") {
                 res.send(`Không tìm thấy nhân viên có mã ${req.params.id}`)
             } else {
-                res.redirect("Lỗi trong quá trình xóa nhân viên!!");
+                res.send("Lỗi trong quá trình xóa nhân viên!!");
             }
-        } else res.send(data);
+        } else res.send("Xóa nhân viên thành công.");
     });
 };
 

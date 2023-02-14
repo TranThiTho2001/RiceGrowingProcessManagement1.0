@@ -5,7 +5,7 @@
             <div class="col-md-2"></div>
             <div class="col-md-8 col-sm-10">
                 <CreateNewEmployeeForm :newEmployee="newEmployee" @addEmployee-submit="createEmployee"
-                    :message1="message1" :message2="message1" />
+                    :message1="message1" :message2="message2" />
             </div>
             <div class="col-md-2"></div>
         </div>
@@ -30,7 +30,8 @@ export default {
     },
     methods: {
         async createEmployee(data) {
-            console.log("lahsjba")
+            this.message1 = "";
+            this.message2 = "";
             if (data.Role_id == "Quản lý") {
                 data.Role_id = "01";
             }
@@ -48,16 +49,31 @@ export default {
                 data.Employee_sex = "Nữ";
             }
             data.Employee_birthDate = (moment(String(data.Employee_birthDate)).format("YYYY-MM-DD")).slice(0, 10);
-            const [error, response] = await this.handle(
+            const [error, respone] = await this.handle(
                 EmployeeService.create(data)
             );
             if (error) {
                 console.log(error);
-            } else if (response.data == "Đã xảy ra lỗi!!!") {
-                this.message1 = " Thêm không thành công."
+                this.message1 = "Thêm không thành công."
+            } else if (respone.data == "Đã xảy ra lỗi!!!") {
+                this.message1 = "Thêm không thành công."
             } else {
-                this.message2 = "Thêm thành công";
-                this.newEmployee = response.data;
+                this.message2 = "Thêm thành công.";
+                console.log(this.message2);
+                console.log(respone.data)
+                this.newEmployee = respone.data;
+                this.newEmployee.Employee_id = respone.data.Employee_id;
+                    this.newEmployee.Employee_name = respone.data.Employee_name;
+                    this.newEmployee.Employee_major = respone.data.Employee_major;
+                    this.newEmployee.Employee_password = "";
+                    this.newEmployee.Employee_sex = respone.data.Employee_sex;
+                    this.newEmployee.Employee_birthDate = respone.data.Employee_birthDate;
+                    this.newEmployee.Employee_address = respone.data.Employee_address;
+                    this.newEmployee.Role_id = respone.data.Role_id;
+                    this.newEmployee.Employee_email = respone.data.Employee_email;
+                    this.newEmployee.Employee_phoneNumber = respone.data.Employee_phoneNumber;
+                    this.newEmployee.Employee_identityCardNumber = respone.data.Employee_identityCardNumber;
+                    this.newEmployee.Employee_birthdate = respone.data.Employee_birthDate;
             }
         },
 

@@ -32,7 +32,7 @@
                          <label for="birthDate" class="mt-3">Ngày sinh</label>
                          <Field name="birthDate" class="form-control" v-model="newemployee.Employee_birthDate"
                               placeholder="Ngày sinh">
-                              <datepicker  :enable-time-picker="false" :value="newemployee.Employee_birthDate" :hide-input-icon="true"
+                              <datepicker  :enable-time-picker="false" :value="newemployee.Employee_birthDate" :hide-input-icon="true" 
                                    v-model="newemployee.Employee_birthDate" placeholder="YYYY-MM-DD">
                               </datepicker>
                          </Field>
@@ -112,16 +112,16 @@
           </div>
           <div class="form-group">
                <div class="row">
-                    <div class="col-sm-4"></div>
-                    <div class="col-sm-4">
-                         <span v-if="message2 == 'Thêm thành công'" class="fas fa-check-circle"
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6 mt-2 mb-3">
+                         <span v-if="message2 == 'Thêm thành công.'" class="fas fa-check-circle"
                               style="color:#00BA13; text-align: center;"></span>
-                         <span v-if="message1 == 'Thêm không thành công'" class="fas fa-times-circle"
+                         <span v-if="message1 == 'Thêm không thành công.'" class="fas fa-times-circle"
                               style="color:red; text-align: center;"></span>
-                         <p v-if="message2 == 'Thêm thành công'" class="textMessage2" style="color:#00BA13; text-align: center;">{{message2}}</p>
-                         <p v-if="message2 == 'Thêm không thành công.'" class="textMessage1" style="text-align: center;">{{ message1 }}</p>
+                         <p v-if="message2 == 'Thêm thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;">{{message2}}</p>
+                         <p v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2">{{ message1 }} Mã nhân viên đã tồn tại</p>
                     </div>
-                    <div class="col-sm-4"></div>
+                    <div class="col-sm-3"></div>
                </div>
                <div class="row">
                     <div class="col-sm-5"></div>
@@ -164,7 +164,7 @@ export default {
                     .required("Số CMND/CCCD phải có giá trị")
                     .max(12, "Số CMND/CCCD có nhiều nhất 12 ký tự"),
                birthDate: yup
-                    .date()
+                    .string()
                     .required("Ngày sinh phải có giá trị"),
                phoneNumber: yup
                     .string()

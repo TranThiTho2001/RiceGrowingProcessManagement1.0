@@ -2,7 +2,7 @@
      <Form @submit="$emit('updateEmployee-submit', newemployee)" :validation-schema="schema"
           class="container-fluid updateEmployeeForm">
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fa fa-plus-circle"> </span> Caapj nhatj nhân viên mới
+               <p class="col-sm-12 text-center functionName"><span class="fa fa-plus-circle"> </span> Cập nhật thông tin nhân viên
                </p>
           </div>
           <div class="row  content">
@@ -30,7 +30,7 @@
                          <label for="birthDate" class="mt-3">Ngày sinh</label>
                          <Field name="birthDate" class="form-control" v-model="newemployee.Employee_birthdate"
                               placeholder="Ngày sinh">
-                              <datepicker  :value="newemployee.Employee_birthdate"
+                              <datepicker  :value="newemployee.Employee_birthdate" :enable-time-picker="false" :hide-input-icon="true" 
                                     v-model="newemployee.Employee_birthdate" >
                               </datepicker>
                          </Field>
@@ -113,15 +113,14 @@
           <div class="form-group">
                <div class="row">
                     <div class="col-sm-4"></div>
-                    <div class="col-sm-4">
-                         <span v-if="message2 == 'Thêm thành công'" class="fas fa-check-circle"
-                              style="color:#00BA13; text-align: center;"></span>
-                         <span v-if="message1 == 'Thêm không thành công'" class="fas fa-times-circle"
+                    <div class="col-sm-4 mt-2 mb-3">
+                         <span v-if="message2 == 'Cập nhật thành công.'" class="fas fa-check-circle"
+                              style="color:#00BA13; text-align: center;margin-left: 15%;"></span>
+                         <span v-if="message1 == 'Cập nhật không thành công.'" class="fas fa-times-circle "
                               style="color:red; text-align: center;"></span>
-                         <p v-if="message2 == 'Thêm thành công'" class="textMessage2"
-                              style="color:#00BA13; text-align: center;">{{ message2 }}</p>
-                         <p v-if="message2 == 'Thêm không thành công.'" class="textMessage1"
-                              style="text-align: center;">{{ message1 }}</p>
+                         <p v-if="message2 == 'Cập nhật thành công.'" class="textMessage2"
+                              style="color:#00BA13;">{{ message2 }}</p>
+                         <p v-if="message2 == 'Cập nhật không thành công.'" class="textMessage1">{{ message1 }}</p>
                     </div>
                     <div class="col-sm-4"></div>
                </div>

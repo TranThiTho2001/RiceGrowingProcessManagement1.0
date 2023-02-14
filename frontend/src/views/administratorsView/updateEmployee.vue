@@ -5,7 +5,7 @@
                <div class="col-md-2"></div>
                <div class="col-md-8 col-sm-10">
                     <UpdateEmployeeForm :newEmployee="newEmployee" @updateEmployee-submit="updateEmployee"
-                         :message1="message1" :message2="message1" />
+                         :message1="message1" :message2="message2" />
                </div>
                <div class="col-md-2"></div>
           </div>
@@ -100,9 +100,9 @@ export default {
                if (error) {
                     console.log(error);
                } else if (response.data == "Đã xảy ra lỗi!!!") {
-                    this.message1 = "Thêm không thành công."
+                    this.message1 = "Cập nhật không thành công."
                } else {
-                    this.message2 = "Thêm thành công";
+                    this.message2 = "Cập nhật thành công.";
                     // this.newEmployee = response.data;
                     this.newEmployee = response.data;
                }
