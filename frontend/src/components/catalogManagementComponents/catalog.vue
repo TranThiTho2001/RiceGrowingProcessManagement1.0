@@ -2,15 +2,6 @@
      <!-- Cot ben trai -->
      <div class="navigationBar container-fluid ">
           <div class="row topRow mb-4 mt-3 ">
-               <div class="col-sm-3">
-                    <span class="fas fa-user-circle iconUser mt-1"></span>
-               </div>
-               <div class="col-sm-8" style="padding-bottom: 10px;">
-                    <div class="row ml-2">
-                         <span style="font-family: Inter; font-size: 22px; ">{{ currentuser.Employee_name }}</span>
-                         <span class="mt-0" style="font-family: Inter; font-size: 18px;">{{ currentuser.Role_name}}</span>
-                    </div>
-               </div>
           </div>
           <div class="row bottomRow">
                <div class="categoryList col-sm-12">
@@ -122,7 +113,7 @@ export default {
 
 <style>
 .navigationBar {
-     background-color: #b7f8d0;
+     background-color: #6cc38c;
      font-family: Inter;
      height: 100vmin;
      font-size: 18px;
@@ -146,7 +137,7 @@ export default {
      text-align: left;
      min-width: 100%;
      display: block;
-     background-color: #b7f8d0;
+     background-color: #6cc38c;
      color: #101010;
      border: none;
      border-radius: 0;
@@ -157,8 +148,8 @@ export default {
      display: block;
      width: 120%;
      font-size: 19px;
-     background-color: #6cc38c;
-     color: #ffffff;
+     background-color: #ebfff3;;
+     color: black;
      border: none;
      font-family: Inter;
      border-radius: 0;

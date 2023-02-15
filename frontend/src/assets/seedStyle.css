@@ -1,15 +1,22 @@
 .createSeedForm, .updateSeedForm{
-     background-color: bisque;
+     background-color: #b7f8d0;
      font-family: Inter;
+     border-radius: 10px;
+     position: absolute;
+     top: calc(10%);
+     left: 30%;
+     width: 40%;
 }
 
-.createSeedForm  .content, 
-.updateSeedForm .content{
-     background-color: cornsilk;
 
+
+.createSeedForm .content .form-group{
+    background-color: #515151;
 }
 
-
+.createSeedForm .messege{
+    background-color: #6cc38c;
+}
 .createSeedForm .content .error-feedback,
 .updateSeedForm .content .error-feedback{
      color: red;
@@ -218,6 +225,10 @@
      margin-top: 2px;
      border-radius: 5px;
      border: 1px solid #00BA13;
+ }
+
+ .seedManagement{
+    position: relative;
  }
 .seedManagement .seedManagementFrame .rightSeedManagement{
      border-left: #00BA13 3px solid;

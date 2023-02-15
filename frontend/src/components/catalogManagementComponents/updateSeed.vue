@@ -1,10 +1,9 @@
 <template>
-
-     <Form @submit="newseed.close = true, $emit('addSeed-submit', newseed)" :validation-schema="schema"
-          class="container createSeedForm">
+     <Form @submit="newseed.close = true, $emit('updateSeed-submit', newseed)" :validation-schema="schema"
+          class="container updateSeedForm">
           <div class="row">
                <div class="col-sm-12 text-right">
-                    <i class="fas fa-times" @click="newseed.close = false, $emit('addSeed-submit', newseed)"
+                    <i class="fas fa-times" @click="newseed.close = false, $emit('updateSeed-submit', newseed)"
                          style="font-size: 25px; "></i>
                </div>
           </div>
@@ -73,14 +72,14 @@ import * as yup from "yup";
 import { Form, Field, ErrorMessage } from "vee-validate";
 
 export default {
-     name: "NhanVienFormThem",
+     name: "updateSeedForm",
      components: {
           Form,
           Field,
           ErrorMessage,
      },
-     emits: ["addSeed-submit"],
-     props: ["newSeed", "message1", "message2", "open"],
+     emits: ["updateSeed-submit"],
+     props: ["newSeed", "message1", "message2"],
      data() {
 
           const schema = yup.object().shape({

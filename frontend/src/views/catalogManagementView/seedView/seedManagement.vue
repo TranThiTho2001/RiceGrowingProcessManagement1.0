@@ -7,14 +7,20 @@
                     </div>
                </div>
                <div class="col-md-10 rightSeedManagement">
-                    <div class="row mt-3 mb-4" >
+                    <div class="row">
+                         <div class="col-md-9"></div>
+                         <div class="col-md-3">
+                              <TopHeader :currentUserid="currentUser.Employee_id" />
+                         </div>
+                    </div>
+                    <div class="row mt-1 mb-2">
                          <div class="col-sm-12">
-                         <h2 class="text-center">GIỐNG LÚA</h2>
+                              <h2 class="text-center">GIỐNG LÚA</h2>
+                         </div>
                     </div>
-                    </div>
-                    <div class="row" >
+                    <div class="row ml-2">
                          <div class="btnChoosePage col-sm-10">
-                              <p style="display: inline-block; padding-top: 4px;text-align: right;" class="soTrang">
+                              <p style="display: inline-block; padding-top: 1px;text-align: right;" class="soTrang">
                                    Trang &nbsp;</p>
                               <div class="numberPage">
                                    <div class="dropdown">
@@ -29,11 +35,12 @@
                               </div>
                          </div>
                          <div class="col-sm-2">
-                              <button class="btn btnCreate"><i class="fas fa-plus-circle"></i>Thêm giống lúa</button>
+                              <button class="btn btnCreate" @click="openCreate = !openCreate"><i
+                                        class="fas fa-plus-circle"></i>Thêm giống lúa</button>
                          </div>
                     </div>
-                    <div class=" row seedList mt-3 ml-2 mr-2">
-                         <table class="table mt-3 ml-2 mr-2">
+                    <div class=" row seedList mt-1 ml-2 mr-2">
+                         <table class="table mt-1 ml-2 mr-2">
                               <thead>
                                    <tr>
                                         <th>Mã</th>
@@ -49,34 +56,35 @@
                                         <td>{{ seed.Seed_name }}</td>
                                         <td>{{ seed.Seed_supplier }}</td>
                                         <td>{{ seed.Seed_characteristic }}</td>
-                                        <td >
-                                             <tr class="actions row  mr-4 ml-1" style="border-top: 1px solid #ebfff3;">
-                                                  <a class="col-md-6 action mt-2" @click="goToUpdateEmployee(seed.Seed_id)">
-                                                       <span class="fas fa-edit actionIcon"></span>
-                                                  </a>
-                                                  <a class="col-md-6 action mt-2" @click="setEmployeeChoosen(seed), isOpenXacNhan = !isOpenXacNhan">
-                                                       <span class="fas fa-trash-alt actionIcon"></span>
-                                                  </a>
-                                             </tr>
-                                        </td>
+                                        <td>
+                                   <tr class="actions row  mr-1 ml-1" style="border-top: 1px solid #ebfff3; ">
+                                        <a class="col-md-6 action mt-2" @click="setSeedChoosen(seed), isOpenUpdateSeed = !isOpenUpdateSeed">
+                                             <span class="fas fa-edit actionIcon"></span>
+                                        </a>
+                                        <a class="col-md-6 action mt-2"
+                                             @click="setSeedChoosen(seed), isOpenConfirm = !isOpenConfirm">
+                                             <span class="fas fa-trash-alt actionIcon"></span>
+                                        </a>
+                                   </tr>
+                                   </td>
                                    </tr>
                               </tbody>
                          </table>
                     </div>
                     <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
 
-                    <div class="confirmationDialog" v-if="isOpenXacNhan">
+                    <div class="confirmationDialog" v-if="isOpenConfirm">
                          <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelXacNhan">
+                              class="labelConfirm">
                               <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
                          </p>
                          <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenXacNhan = !isOpenXacNhan, isOpenThongBao = !isOpenThongBao, deleteEmployee(employeeChoosen.Employee_id)">Xóa</button>
+                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteEmployee(employeeChoosen.Employee_id)">Xóa</button>
                          <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenXacNhan = !isOpenXacNhan">Hủy</button>
+                              @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
                     </div>
 
-                    <div class="messageDialog" v-if="isOpenThongBao">
+                    <div class="messageDialog" v-if="isOpenMessage">
                          <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
                               class="labelThongBao">
                               <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
@@ -84,8 +92,14 @@
                               }}
                          </p>
                          <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenThongBao = !isOpenThongBao">OK</button>
+                              @click="isOpenMessage = !isOpenMessage">OK</button>
                     </div>
+
+                    <createSeedForm v-if="openCreate" :newSeed="newSeed" @addSeed-submit="createSeed"
+                         :message1="message1" :message2="message2" />
+
+                    <updateSeedForm v-if="isOpenUpdateSeed" :newSeed="seedChoosen" @updateSeed-submit="updateSeed"
+                         :message1="message1" :message2="message2" />
                </div>
           </div>
      </div>
@@ -96,10 +110,16 @@
 import Catalog from '../../../components/catalogManagementComponents/catalog.vue';
 import { mapGetters, mapMutations } from "vuex";
 import SeedService from '../../../services/seed.service';
+import TopHeader from '../../../components/catalogManagementComponents/topHeader.vue'
+import createSeedForm from '@/components/catalogManagementComponents/createNewSeedForm.vue';
+import updateSeedForm from '@/components/catalogManagementComponents/updateSeed.vue';
 export default {
      name: "SeedManagement",
      components: {
           Catalog,
+          createSeedForm,
+          TopHeader,
+          updateSeedForm,
      },
 
      data() {
@@ -108,11 +128,18 @@ export default {
                elementsPerPage: 3,
                ascending: false,
                seedList: [],
+               openCreate: false,
+               newSeed: {},
+               message1: " ",
+               message2: " ",
+               isOpenMessage: false,
+               isOpenConfirm: false,
+               seedChoosen: {},
+               isOpenUpdateSeed: false,
           }
      },
 
      computed: {
-
           ...mapGetters({
                currentUser: "loggedInEmployee",
           }),
@@ -135,6 +162,59 @@ export default {
                     console.log(respone.data);
                }
           },
+
+          async createSeed(data) {
+               if (data.close == false) {
+                    this.openCreate = false;
+               }
+               else {
+                    this.message1 = "";
+                    this.message2 = "";
+                    const [error, respone] = await this.handle(
+                         SeedService.create(data)
+                    );
+                    if (error) {
+                         console.log(error);
+                         this.message1 = "Thêm không thành công."
+                    } else if (respone.data == "Đã xảy ra lỗi!!!") {
+                         this.message1 = "Thêm không thành công."
+                    } else {
+                         this.message2 = "Thêm thành công.";
+                         this.retrieveSeedList();
+                    }
+               }
+          },
+
+          async updateSeed(data) {
+               if (data.close == false) {
+                    this.isOpenUpdateSeed = false;
+               }
+               else {
+                    this.message1 = "";
+                    this.message2 = "";
+                    const [error, respone] = await this.handle(
+                         SeedService.update(data.Seed_id, data)
+                    );
+                    if (error) {
+                         console.log(error);
+                         this.message1 = "Thêm không thành công."
+                    } else if (respone.data == "Đã xảy ra lỗi!!!") {
+                         this.message1 = "Thêm không thành công."
+                    } else {
+                         this.message2 = "Thêm thành công.";
+                         this.retrieveSeedList();
+                    }
+               }
+          },
+
+          async setSeedChoosen(seed) {
+               this.seedChoosen = seed;
+          },
+
+          async gotoCreateNewSeed() {
+               this.$router.push("/CreateNewSeed");
+          },
+
           //  so hang của danh sach danh muc
           get_rows() {
                var start = (this.currentPage - 1) * this.elementsPerPage;
@@ -157,7 +237,7 @@ export default {
           this.initEmployeeState();
      },
 
-     mounted(){
+     mounted() {
           this.retrieveSeedList();
      }
 }

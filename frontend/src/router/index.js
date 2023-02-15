@@ -70,6 +70,7 @@ const routes = [
         component: () => import("../views/catalogManagementView/seedView/seedManagement.vue"),
     },
 
+
     // {
     //     path: "/Fertilizer",
     //     alias: "/Fertilizer",
