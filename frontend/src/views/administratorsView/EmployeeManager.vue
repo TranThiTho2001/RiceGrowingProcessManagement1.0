@@ -5,22 +5,23 @@
                     <button @click="goToCreateNewEmployee()">Tạo mới</button>
                </div>
           </div>
-          <div class="row" style="width: 100%;" v-if="!isOpenChoosePage && employeeList.length>3">
-                    <div class="btnChoosePage">
-                        <p style="display: inline-block; padding-top: 4px;text-align: right;" class="soTrang">Trang &nbsp;</p>
-                        <div class="numberPage">
-                            <div class="dropdown">
-                                <button class="dropbtn">{{ currentPage }}
-                                <span class="fas fa-chevron-down"></span></button>
-                                <div class="dropdown-content">
-                                    <a class="dropdown-item" v-for="(i, j) in num_pages() " :key="j"
+          <div class="row" style="width: 100%;" v-if="!isOpenChoosePage && employeeList.length > 3">
+               <div class="btnChoosePage">
+                    <p style="display: inline-block; padding-top: 4px;text-align: right;" class="soTrang">Trang &nbsp;
+                    </p>
+                    <div class="numberPage">
+                         <div class="dropdown">
+                              <button class="dropbtn">{{ currentPage }}
+                                   <span class="fas fa-chevron-down"></span></button>
+                              <div class="dropdown-content">
+                                   <a class="dropdown-item" v-for="(i, j) in num_pages() " :key="j"
                                         v-bind:class="[i == currentPage ? 'active' : '']" v-on:click="change_page(i)"
                                         aria-controls="my-table"> {{ i }}</a>
-                                </div>
-                            </div>
-                        </div>
+                              </div>
+                         </div>
                     </div>
-                </div>
+               </div>
+          </div>
           <div class=" row employeeList">
                <table class="table">
                     <thead>
@@ -34,20 +35,20 @@
                          </tr>
                     </thead>
                     <tbody>
-                         <tr v-for="(employee, i ) in get_rows()" :key="i" >
+                         <tr v-for="(employee, i ) in get_rows()" :key="i">
                               <td>{{ employee.Employee_id }}</td>
                               <td>{{ employee.Employee_name }}</td>
                               <td>{{ employee.Employee_phoneNumber }}</td>
                               <td>{{ employee.Employee_major }}</td>
                               <td>{{ employee.Role_name }}</td>
                               <td>
-                         <tr class="actions">
-                              <td @click="goToUpdateEmployee(employee.Employee_id)"><span class="fas fa-edit"></span>
+                                   <tr class="actions" style="border: none;">
+                                        <td @click="goToUpdateEmployee(employee.Employee_id)"><span class="fas fa-edit"></span>
+                                        </td>
+                                        <td @click="setEmployeeChoosen(employee), isOpenXacNhan = !isOpenXacNhan"><span
+                                             class="fas fa-trash-alt"></span></td>
+                                   </tr>
                               </td>
-                              <td @click="setEmployeeChoosen(employee), isOpenXacNhan = !isOpenXacNhan"><span
-                                        class="fas fa-trash-alt"></span></td>
-                         </tr>
-                         </td>
                          </tr>
                     </tbody>
                </table>

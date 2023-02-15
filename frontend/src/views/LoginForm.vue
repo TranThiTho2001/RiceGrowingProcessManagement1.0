@@ -133,7 +133,14 @@ export default {
       } else {
         console.log("login thanh coong!!!")
         console.log(data);
-        this.$router.push("/SystemManagement");
+        if(data.Role_id == "01"){
+          this.$router.push("/SystemManagement");
+        }
+          
+        else if(data.Role_id == "02"){
+          this.$router.push("/HomePage");
+        }
+          
       }
     },
 

@@ -40,6 +40,65 @@ const routes = [
         
     },
 
+    {
+        path: "/HomePage",
+        alias: "/HomePage",
+        name: "HomePage",
+        component: () => import("../views/catalogManagementView/HomePage.vue"),
+        
+    },
+
+    // {
+    //     path: "/Monitor",
+    //     alias: "/Monitor",
+    //     name: "Monitor",
+    //     component: () => import("../views/catalogManagementView/MonitorManagementvue"),
+        
+    // },
+
+    // {
+    //     path: "/OtherActivities",
+    //     alias: "/OtherActivities",
+    //     name: "OtherActivities",
+    //     component: () => import("../views/catalogManagementView/OtherActivitiesManagement.vue"),
+    // },
+    
+    {
+        path: "/Seed",
+        alias: "/Seed",
+        name: "SeedManagement",
+        component: () => import("../views/catalogManagementView/seedView/seedManagement.vue"),
+    },
+
+    // {
+    //     path: "/Fertilizer",
+    //     alias: "/Fertilizer",
+    //     name: "Fertilizer",
+    //     component: () => import("../views/catalogManagementView/FertilizerManagement.vue"),        
+    // },
+
+    // {
+    //     path: "/Epidemic",
+    //     alias: "/Epidemic",
+    //     name: "Epidemic",
+    //     component: () => import("../views/catalogManagementView/EpidemicManagement.vue"),       
+    // },
+
+    // {
+    //     path: "/ArableLand",
+    //     alias: "/ArableLand",
+    //     name: "ArableLand",
+    //     component: () => import("../views/catalogManagementView/ArableLandManagement.vue"),       
+    // }, 
+      
+    // {
+    //     path: "/Pesticide",
+    //     alias: "/Pesticide",
+    //     name: "Pesticide",
+    //     component: () => import("../views/catalogManagementView/PesticideManagement.vue"),  
+    // }, 
+
+
 ];
 
 const router = createRouter({
