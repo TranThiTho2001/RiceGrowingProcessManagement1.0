@@ -8,13 +8,13 @@ exports.store = async (req, res) => {
         ArableLand_id: req.body.ArableLand_id,
         ArableLand_location: req.body.ArableLand_location,
         Soil_id: req.body.Soil_id,
-        areArableLand_area: req.body.ArableLand_area,
+        ArableLand_area: req.body.ArableLand_area,
         ArableLand_owner: req.body.ArableLand_owner,
     });
     // Save ArableLand in the database
     ArableLand.create(arableLand, (err, data) => {
         if (err)
-            res.send("Không thể tạo một đất canh tác mới")
+            res.send("Không thể tạo một mẫu ruộng mới")
         else res.send(data);
     });
 };

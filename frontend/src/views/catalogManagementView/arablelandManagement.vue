@@ -47,7 +47,7 @@
                          </div>
                          <div class="col-sm-2">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i
-                                        class="fas fa-plus-circle" style="font-size: 15px;"></i>Thêm phân bón</button>
+                                        class="fas fa-plus-circle" style="font-size: 15px;"></i>Thêm mẫu ruộng</button>
                          </div>
                     </div>
                     <div class=" row arablelandList mt-1 ml-2 mr-2 justify-content-center">
@@ -56,8 +56,10 @@
                                    <tr>
                                         <th>STT</th>
                                         <th>Mã</th>
-                                        <th>Tên</th>
-                                        <th>Nhà cung cấp</th>
+                                        <th>Diện tích</th>
+                                        <th>Chủ sỡ hưu</th>
+                                        <th>Loại đất</th>
+                                        <th>Vị trí</th>
                                         <th>Tùy chọn</th>
                                    </tr>
                               </thead>
@@ -66,8 +68,10 @@
                                         <td v-if="currentPage > 1">{{ i+ ((currentPage - 1) * 6)}}</td>
                                         <td v-else>{{ i }}</td>
                                         <td>{{ arableland.ArableLand_id }}</td>
-                                        <td>{{ arableland.ArableLand_name }}</td>
-                                        <td>{{ arableland.ArableLand_supplier }}</td>
+                                        <td>{{ arableland.ArableLand_area }}</td>
+                                        <td>{{ arableland.ArableLand_owner }}</td>
+                                        <td>{{ arableland.Soil_name }}</td>
+                                        <td>{{ arableland.ArableLand_location }}</td>
                                         <td>
                                              <span class="action ml-2 ml-2"
                                                   @click="setArableLandChoosen(arableland), isOpenUpdateArableLand = !isOpenUpdateArableLand">
@@ -120,7 +124,7 @@
 
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import { mapGetters, mapMutations } from "vuex";
-import ArableLandService from '../../services/arableland.service';
+import ArableLandService from '../../services/arableLand.service';
 import TopHeader from '../../components/catalogManagementComponents/topHeader.vue'
 import CreateArableLandForm from '@/components/catalogManagementComponents/createNewArableLandForm.vue';
 import UpdateArableLandForm from '@/components/catalogManagementComponents/updateArableLandForm.vue';
@@ -185,13 +189,28 @@ export default {
                else {
                     this.message1 = "";
                     this.message2 = "";
+                    if(data.Soil_id == "Đất phù sa ven sông"){
+                         data.Soil_id = "AL00000001";
+                    }
+                    else if(data.Soil_id == "Đất phù sa xa xông"){
+                         data.Soil_id = "SL00000002";
+                    }
+                    else if(data.Soil_id == "Đất nhiễm phèn"){
+                         data.Soil_id = "SL00000003";
+                    }
+                    else if(data.Soil_id == "Đất nhiễm mặn"){
+                         data.Soil_id = "SL00000004";
+                    }
+                    else{
+                         data.Soil_id = "SL00000005";
+                    }
                     const [error, respone] = await this.handle(
                          ArableLandService.create(data)
                     );
                     if (error) {
                          console.log(error);
                          this.message1 = "Thêm không thành công."
-                    } else if (respone.data == "Không thể tạo một thuốc trừ sâu bệnh hại mới") {
+                    } else if (respone.data == "Không thể tạo một mẫu ruộng mới") {
                          this.message1 = "Thêm không thành công."
                     } else {
                          this.message2 = "Thêm thành công.";
@@ -209,6 +228,21 @@ export default {
                else {
                     this.message1 = "";
                     this.message2 = "";
+                    if(data.Soil_id == "Đất phù sa ven sông" || data.Soil_id == "AL00000001"){
+                         data.Soil_id = "SL00000001";
+                    }
+                    else if(data.Soil_id == "Đất phù sa xa xông" || data.Soil_id == "AL00000002"){
+                         data.Soil_id = "SL00000002";
+                    }
+                    else if(data.Soil_id == "Đất nhiễm phèn" || data.Soil_id == "AL00000003"){
+                         data.Soil_id = "SL00000003";
+                    }
+                    else if(data.Soil_id == "Đất nhiễm mặn"  || data.Soil_id == "AL00000004"){
+                         data.Soil_id = "SL00000004";
+                    }
+                    else{
+                         data.Soil_id = "SL00000005";
+                    }
                     const [error, respone] = await this.handle(
                          ArableLandService.update(data.ArableLand_id, data)
                     );

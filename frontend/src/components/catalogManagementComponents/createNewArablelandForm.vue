@@ -1,6 +1,6 @@
 <template>
-     <Form @submit="newarableLand.close = true, $emit('addArableLand-submit', newarableLand)"
-          :validation-schema="schema" class="container createArableLandForm">
+     <Form @submit="newarableLand.close = true, $emit('addArableLand-submit', newarableLand)" :validation-schema="schema"
+          class="container createArableLandForm">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times"
@@ -14,19 +14,12 @@
                </p>
           </div>
           <div class="row content">
-               <div class="col-sm-12">
+               <div class="col-sm-6 mt-2">
                     <div class="form-group">
                          <label for="id" class="mt-2">Mã mẫu ruộng</label>
                          <Field name="id" type="name" class="form-control" v-model="newarableLand.ArableLand_id"
                               placeholder="Nhập mã mẫu ruộng..." />
                          <ErrorMessage name="id" class="error-feedback" />
-                    </div>
-
-                    <div class="form-group">
-                         <label for="location" class="mt-3">Vị trí mẫu ruộng</label>
-                         <Field name="location" class="form-control" v-model="newarableLand.ArableLand_location"
-                              placeholder="Nhập vị trí mẫu ruộng..." />
-                         <ErrorMessage name="location" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
@@ -37,17 +30,9 @@
                     </div>
 
                     <div class="form-group">
-                         <label for="owner" class="mt-3">Chủ sở hữu</label>
-                         <Field name="owner" class="form-control" v-model="newarableLand.ArableLand_owner"
-                              placeholder="Chủ sở hữu..." />
-                         <ErrorMessage name="owner" class="error-feedback" />
-                    </div>
-
-                    <div class="form-group">
                          <label for="soil" class="mt-3">Phân loại</label>
-                         <Field name="soil" v-model="newepidemic.EpidemicsClassification_id">
-                              <select class="form-control" v-model="newepidemic.EpidemicsClassification_id" name="soil"
-                                   for="soil">
+                         <Field name="soil" v-model="newarableLand.Soil_id">
+                              <select class="form-control" v-model="newarableLand.Soil_id" name="soil" for="soil">
                                    <option>Đất phù sa ven sông</option>
                                    <option>Đất phù sa xa xông</option>
                                    <option>Đất nhiễm phèn</option>
@@ -55,7 +40,23 @@
                                    <option>Đất nhiễm mặn + phèn</option>
                               </select>
                          </Field>
-                         <ErrorMessage name="classtify" class="error-feedback" />
+                         <ErrorMessage name="soil" class="error-feedback" />
+                    </div>
+               </div>
+               <div class="col-sm-6">
+
+                    <div class="form-group">
+                         <label for="owner" class="mt-3">Chủ sở hữu</label>
+                         <Field name="owner" class="form-control" v-model="newarableLand.ArableLand_owner"
+                              placeholder="Chủ sở hữu..." />
+                         <ErrorMessage name="owner" class="error-feedback" />
+                    </div>
+
+                    <div class="form-group">
+                         <label for="location" class="mt-3">Vị trí mẫu ruộng</label>
+                         <Field name="location"  class="form-control" v-model="newarableLand.ArableLand_location"
+                              placeholder="Nhập vị trí mẫu ruộng..." as="textarea" style="height: 126px;"/>
+                         <ErrorMessage name="location" class="error-feedback" />
                     </div>
                </div>
           </div>
@@ -80,11 +81,12 @@
                <div class="col-sm-5"></div>
           </div>
 
-     </form>
-
+</form>
 </template>
  
 <script>
+
+
 import * as yup from "yup";
 import { Form, Field, ErrorMessage } from "vee-validate";
 
@@ -102,18 +104,18 @@ export default {
           const schema = yup.object().shape({
                id: yup
                     .string()
-                    .required("Mã thuốc trị bệnh dịch phải có giá trị")
-                    .min(10, "Mã thuốc trị bệnh dịch phải gồm 10 ký tự")
-                    .max(10, "Mã thuốc trị bệnh dịch phải gồm 10 ký tự"),
+                    .required("Mã mẫu ruộng phải có giá trị")
+                    .min(10, "Mã phải gồm 10 ký tự")
+                    .max(10, "Mã mẫu ruộng phải gồm 10 ký tự"),
                location: yup
                     .string()
-                    .required("Tên thuốc trị bệnh dịch phải có giá trị"),
+                    .required("Vị trí mẫu ruộng phải có giá trị"),
                area: yup
-                    .string()
-                    .required("Nhà cung cấp thuốc trị bệnh dịch phải có giá trị"),
+                    .number()
+                    .required("Diện tích mẫu ruộng phải có giá trị"),
                owner: yup
                     .string()
-                    .required("Chủ sở hữu mảnh ruộng phải có giá trị"),
+                    .required("Chủ sở hữu mẫu ruộng phải có giá trị"),
                soil: yup
                     .string()
                     .required("Loại đát phải có giá trị")
@@ -130,6 +132,4 @@ export default {
 };
 </script>
  
-<style>
-@import url(../../assets/arablelandStyle.css);
-</style>
+<style>@import url(../../assets/arablelandStyle.css);</style>

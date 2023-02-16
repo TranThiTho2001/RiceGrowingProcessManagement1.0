@@ -85,12 +85,12 @@ const routes = [
         component: () => import("../views/catalogManagementView/epidemicManagement.vue"),       
     },
 
-    // {
-    //     path: "/ArableLand",
-    //     alias: "/ArableLand",
-    //     name: "ArableLand",
-    //     component: () => import("../views/catalogManagementView/ArableLandManagement.vue"),       
-    // }, 
+    {
+        path: "/ArableLand",
+        alias: "/ArableLand",
+        name: "ArableLand",
+        component: () => import("../views/catalogManagementView/arablelandManagement.vue"),       
+    }, 
       
     {
         path: "/Pesticide",

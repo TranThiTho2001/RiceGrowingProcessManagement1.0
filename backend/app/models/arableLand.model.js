@@ -21,7 +21,7 @@ ArableLand.create = (newArableLand, result) => {
 };
 
 ArableLand.findById = (id, result) => {
-    sql.query(`SELECT * FROM ArableLand WHERE ArableLand_id like '${id}'`, (err, res) => {
+    sql.query(`(SELECT * FROM ArableLand WHERE ArableLand_id like '${id}') JOIN Soil where Soil.Soil_id = ArableLand.Soil_id`, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -37,10 +37,11 @@ ArableLand.findById = (id, result) => {
 };
 
 ArableLand.getAll = (name, result) => {
-    let query = "SELECT * FROM ArableLand";
+    let query = "SELECT * FROM ArableLand JOIN Soil on Soil.Soil_id = ArableLand.Soil_id";
     if (name) {
-        query += ` WHERE ArableLand_name LIKE '%${name}%'`;
+        query += ` WHERE ArableLand_location LIKE '%${name}%'`;
     }
+    // query += " (JOIN Soil one Soil.Soil_id = ArableLand.Soil_id)"
     sql.query(query, (err, res) => {
         if (err) {
             console.log("error: ", err);
@@ -54,7 +55,7 @@ ArableLand.getAll = (name, result) => {
 ArableLand.updateById = (id, arableLand, result) => {
     sql.query(
         "UPDATE ArableLand SET ArableLand_location = ?, Soil_id = ?, ArableLand_area = ?, ArableLand_owner = ? WHERE ArableLand_id = ?",
-        [arableLand.ArableLand_location, arableLand.Soil_id, arableLand.areArableLand_area, arableLand.ArableLand_owner, id],
+        [arableLand.ArableLand_location, arableLand.Soil_id, arableLand.ArableLand_area, arableLand.ArableLand_owner, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
