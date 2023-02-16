@@ -17,7 +17,7 @@ exports.store = async (req, res) => {
     Epidemic.create(epidemic, (err, data) => {
         if (err)
             res.send("Không thể tạo một dịch bệnh mới")
-        else res.send(data);
+        else res.send("Thêm thành công");
     });
 };
 

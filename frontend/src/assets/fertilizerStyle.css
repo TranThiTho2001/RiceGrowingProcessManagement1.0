@@ -1,67 +1,67 @@
-.createSeedForm, .updateSeedForm{
+.createFertilizerForm, .updateFertilizerForm{
      background-color: #b7f8d0;
      font-family: Inter;
      border-radius: 10px;
      position: absolute;
-     top: calc(10%);
+     top: calc(24%);
      left: 25%;
      width: 50%;
 }
 
 
 
-.createSeedForm .messege{
+.createFertilizerForm .messege{
     background-color: #6cc38c;
 }
-.createSeedForm .content .error-feedback,
-.updateSeedForm .content .error-feedback{
+.createFertilizerForm .content .error-feedback,
+.updateFertilizerForm .content .error-feedback{
      color: red;
      float: right;
 }
 
 
-.createSeedForm .content .form-group label,
-.updateSeedForm .content .form-group label{
+.createFertilizerForm .content .form-group label,
+.updateFertilizerForm .content .form-group label{
      float: left;
      font-family: Inter;
      font-size: 18px;
 }
 
-.createSeedForm .content .form-group .selectBox,
-.updateSeedForm .content .form-group .selectBox{
+.createFertilizerForm .content .form-group .selectBox,
+.updateFertilizerForm .content .form-group .selectBox{
      width: 100%;
      height: 38px;
      border: 1px solid #ced4da;
      border-radius: 4px;
 }
 
-.createSeedForm .content .form-group input,
-.updateSeedForm .content .form-group input{
+.createFertilizerForm .content .form-group input,
+.updateFertilizerForm .content .form-group input{
      float: left;
 }
 
-.createSeedForm .content .form-group .form-control,
-.updateSeedForm .content .form-group .form-control{
+.createFertilizerForm .content .form-group .form-control,
+.updateFertilizerForm .content .form-group .form-control{
      background-color: #f0f0f0;
 }
 
-.createSeedForm .functionName,
-.updateSeedForm .functionName{
+.createFertilizerForm .functionName,
+.updateFertilizerForm .functionName{
      font-family: Inter;
      font-size: 24px;
 }
-.createSeedForm .form-group .textMessage2,
-.createSeedForm .form-group .textMessage1,
-.updateSeedForm .form-group .textMessage1,
-.updateSeedForm .form-group .textMessage2{
+.createFertilizerForm .form-group .textMessage2,
+.createFertilizerForm .form-group .textMessage1,
+.updateFertilizerForm .form-group .textMessage1,
+.updateFertilizerForm .form-group .textMessage2{
      text-align: center; 
      display: inline;
      font-size: 18px;
      font-family: Inter;
 }
 
-.createSeedForm .btnLuu, 
-.updateSeedForm .btnLuu{
+.createFertilizerForm .btnLuu, 
+.updateFertilizerForm .btnLuu{
      background-color: rgb(4, 105, 4);
      color: #f0f0f0;
      font-size: 20px;
@@ -69,7 +69,7 @@
 }
 
 
-.seedManagement .seedManagementFrame .rightSeedManagement   .confirmationDialog{
+.fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement   .confirmationDialog{
      background-color: rgb(5, 207, 137);
      border: 1px solid rgb(62, 77, 77);
      border-radius: 10px;
@@ -84,27 +84,27 @@
      text-align: center;
 }
 
-.seedManagement .seedManagementFrame .rightSeedManagement .confirmationDialog .btnYes{
+.fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .confirmationDialog .btnYes{
      background-color: rgb(244, 61, 61);
      color: white;
      font-family: Inter;
      font-size: 16px;
 }
 
-.seedManagement .seedManagementFrame .rightSeedManagement .confirmationDialog .btnNo{
+.fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .confirmationDialog .btnNo{
      background-color: rgb(196, 191, 191);
      color: rgb(33, 33, 33);
      font-family: Inter;
      font-size: 16px;
 }
 
-.seedManagement .seedManagementFrame .rightSeedManagement .messageDialog .btnOK{
+.fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .messageDialog .btnOK{
      background-color: rgb(196, 191, 191);
      color: rgb(33, 33, 33);
      font-family: Inter;
      font-size: 16px;
 }
-.seedManagement .seedManagementFrame .rightSeedManagement .messageDialog{
+.fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .messageDialog{
      background-color: rgb(5, 207, 137);
      border: 1px solid rgb(62, 77, 77);
      border-radius: 10px;
@@ -223,39 +223,39 @@
      border: 1px solid #00BA13;
  }
 
- .seedManagement{
+ .fertilizerManagement{
     position: relative;
  }
-.seedManagement .seedManagementFrame .rightSeedManagement{
+.fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement{
      border-left: #00BA13 3px solid;
 }
- .seedManagement .seedManagementFrame .rightSeedManagement table tr{
+ .fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement table tr{
      /* background-color: #ced4da; */
      border-top: 1px solid #515151;
  }
 
- .seedManagement .seedManagementFrame .rightSeedManagement .actions{
+ .fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .actions{
      border: none;
      color: black;
  }
- .seedManagement .seedManagementFrame .rightSeedManagement tr{
+ .fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement tr{
     width: max-content; 
  }
- .seedManagement .seedManagementFrame .rightSeedManagement .actions .action{
+ .fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .actions .action{
      text-align: center;
      display: inline;
  }
- .seedManagement .seedManagementFrame .rightSeedManagement .actions .action .actionIcon{
+ .fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .actions .action .actionIcon{
      border: none;
      color: black;
  }
 
- .seedManagement .seedManagementFrame .rightSeedManagement .seedList .table td{
-    font-size: 15px;
-    text-align: justify;
-    vertical-align:top;
+ .fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .fertilizerList{
+     /* border: 3px solid rgb(68, 169, 68);
+     height: 88vmin;
+     border-radius: 10px; */
  }
- .seedManagement .seedManagementFrame .rightSeedManagement .seedList .table{
+ .fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .fertilizerList .table{
      height: max-content;
  }
 

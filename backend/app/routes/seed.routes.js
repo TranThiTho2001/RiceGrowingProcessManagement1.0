@@ -17,7 +17,7 @@ module.exports = (app) => {
      router.put("/:id", seed.update);
 
      // Delete  with id
-     router.delete("/delete/:id", seed.delete);
+     router.delete("/:id", seed.delete);
 
      app.use("/api/seed", router);
 };

@@ -18,7 +18,7 @@
                               @click="goToSeed"><i class="fas fa-seedling">&nbsp; &nbsp;</i> Giống lúa</button>
                     </div>
                     <div class="row mt-3">
-                         <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnFertilizer" @click="goToQLThongKe">
+                         <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnFertilizer" @click="goToFertilizer">
                               <i class="fas fa-fill-drip">&nbsp; &nbsp;</i>Phân bón </button>
                     </div>
                     <div class="row mt-3">

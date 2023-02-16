@@ -1,67 +1,67 @@
-.createSeedForm, .updateSeedForm{
+.createEpidemicForm, .updateEpidemicForm{
      background-color: #b7f8d0;
      font-family: Inter;
      border-radius: 10px;
      position: absolute;
-     top: calc(10%);
-     left: 25%;
-     width: 50%;
+     top: calc(18%);
+     left: 8%;
+     width: 85%;
 }
 
 
 
-.createSeedForm .messege{
+.createEpidemicForm .messege{
     background-color: #6cc38c;
 }
-.createSeedForm .content .error-feedback,
-.updateSeedForm .content .error-feedback{
+.createEpidemicForm .content .error-feedback,
+.updateEpidemicForm .content .error-feedback{
      color: red;
      float: right;
 }
 
 
-.createSeedForm .content .form-group label,
-.updateSeedForm .content .form-group label{
+.createEpidemicForm .content .form-group label,
+.updateEpidemicForm .content .form-group label{
      float: left;
      font-family: Inter;
      font-size: 18px;
 }
 
-.createSeedForm .content .form-group .selectBox,
-.updateSeedForm .content .form-group .selectBox{
+.createEpidemicForm .content .form-group .selectBox,
+.updateEpidemicForm .content .form-group .selectBox{
      width: 100%;
      height: 38px;
      border: 1px solid #ced4da;
      border-radius: 4px;
 }
 
-.createSeedForm .content .form-group input,
-.updateSeedForm .content .form-group input{
+.createEpidemicForm .content .form-group input,
+.updateEpidemicForm .content .form-group input{
      float: left;
 }
 
-.createSeedForm .content .form-group .form-control,
-.updateSeedForm .content .form-group .form-control{
+.createEpidemicForm .content .form-group .form-control,
+.updateEpidemicForm .content .form-group .form-control{
      background-color: #f0f0f0;
 }
 
-.createSeedForm .functionName,
-.updateSeedForm .functionName{
+.createEpidemicForm .functionName,
+.updateEpidemicForm .functionName{
      font-family: Inter;
      font-size: 24px;
 }
-.createSeedForm .form-group .textMessage2,
-.createSeedForm .form-group .textMessage1,
-.updateSeedForm .form-group .textMessage1,
-.updateSeedForm .form-group .textMessage2{
+.createEpidemicForm .form-group .textMessage2,
+.createEpidemicForm .form-group .textMessage1,
+.updateEpidemicForm .form-group .textMessage1,
+.updateEpidemicForm .form-group .textMessage2{
      text-align: center; 
      display: inline;
      font-size: 18px;
      font-family: Inter;
 }
 
-.createSeedForm .btnLuu, 
-.updateSeedForm .btnLuu{
+.createEpidemicForm .btnLuu, 
+.updateEpidemicForm .btnLuu{
      background-color: rgb(4, 105, 4);
      color: #f0f0f0;
      font-size: 20px;
@@ -69,7 +69,7 @@
 }
 
 
-.seedManagement .seedManagementFrame .rightSeedManagement   .confirmationDialog{
+.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement   .confirmationDialog{
      background-color: rgb(5, 207, 137);
      border: 1px solid rgb(62, 77, 77);
      border-radius: 10px;
@@ -84,27 +84,27 @@
      text-align: center;
 }
 
-.seedManagement .seedManagementFrame .rightSeedManagement .confirmationDialog .btnYes{
+.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .confirmationDialog .btnYes{
      background-color: rgb(244, 61, 61);
      color: white;
      font-family: Inter;
      font-size: 16px;
 }
 
-.seedManagement .seedManagementFrame .rightSeedManagement .confirmationDialog .btnNo{
+.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .confirmationDialog .btnNo{
      background-color: rgb(196, 191, 191);
      color: rgb(33, 33, 33);
      font-family: Inter;
      font-size: 16px;
 }
 
-.seedManagement .seedManagementFrame .rightSeedManagement .messageDialog .btnOK{
+.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .messageDialog .btnOK{
      background-color: rgb(196, 191, 191);
      color: rgb(33, 33, 33);
      font-family: Inter;
      font-size: 16px;
 }
-.seedManagement .seedManagementFrame .rightSeedManagement .messageDialog{
+.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .messageDialog{
      background-color: rgb(5, 207, 137);
      border: 1px solid rgb(62, 77, 77);
      border-radius: 10px;
@@ -201,6 +201,7 @@
      border-radius: 5px;
      font-size: 18px;
      font-family: Inter;
+     width: max-content;
  }
  .btnCreate:hover{
      border: #00BA13 1px solid;
@@ -223,39 +224,44 @@
      border: 1px solid #00BA13;
  }
 
- .seedManagement{
+ .epidemicManagement{
     position: relative;
  }
-.seedManagement .seedManagementFrame .rightSeedManagement{
+.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement{
      border-left: #00BA13 3px solid;
 }
- .seedManagement .seedManagementFrame .rightSeedManagement table tr{
+ .epidemicManagement .epidemicManagementFrame .rightEpidemicManagement table tr{
      /* background-color: #ced4da; */
      border-top: 1px solid #515151;
  }
 
- .seedManagement .seedManagementFrame .rightSeedManagement .actions{
+ .epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .actions{
      border: none;
      color: black;
  }
- .seedManagement .seedManagementFrame .rightSeedManagement tr{
+ .epidemicManagement .epidemicManagementFrame .rightEpidemicManagement tr{
     width: max-content; 
  }
- .seedManagement .seedManagementFrame .rightSeedManagement .actions .action{
-     text-align: center;
+ .epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .actions .action{
+     /* text-align: center; */
      display: inline;
  }
- .seedManagement .seedManagementFrame .rightSeedManagement .actions .action .actionIcon{
+ .epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .actions .action .actionIcon{
      border: none;
      color: black;
  }
 
- .seedManagement .seedManagementFrame .rightSeedManagement .seedList .table td{
-    font-size: 15px;
-    text-align: justify;
-    vertical-align:top;
- }
- .seedManagement .seedManagementFrame .rightSeedManagement .seedList .table{
+ .epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .epidemicList .table{
      height: max-content;
  }
 
+ .epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .epidemicList .table td{
+     font-size: 14px;
+     text-align: justify;
+     vertical-align:top;
+ }
+
+ 
+ .epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .epidemicList .table th{
+     width: max-content;
+ }

@@ -19,7 +19,19 @@
                          </div>
                     </div>
                     <div class="row ml-2">
-                         <div class="btnChoosePage col-sm-10">
+
+                         <div class="col-sm-8 input-group">
+                              <div class="row">
+                                   <input type="text" class="form-control col-md-10 inputSearch"
+                                        placeholder="Tìm theo tên" style="border-radius:10px" v-model="nameToSearch"
+                                        @keyup.enter="searchName" />
+                                   <button class="btn btn-sm btn-outline-secondary btnTimKiem" type="button"
+                                        style="border:none; width: 10%" @click="searchName">
+                                        <span class="fa fa-search" style="font-size:18px"></span>
+                                   </button>
+                              </div>
+                         </div>
+                         <div class="btnChoosePage col-sm-2">
                               <p style="display: inline-block; padding-top: 1px;text-align: right;" class="soTrang">
                                    Trang &nbsp;</p>
                               <div class="numberPage">
@@ -39,7 +51,7 @@
                                         class="fas fa-plus-circle"></i>Thêm giống lúa</button>
                          </div>
                     </div>
-                    <div class=" row seedList mt-1 ml-2 mr-2">
+                    <div class=" row seedList mt-1 ml-2 mr-2 justify-content-center">
                          <table class="table mt-1 ml-2 mr-2">
                               <thead>
                                    <tr>
@@ -47,7 +59,7 @@
                                         <th>Tên</th>
                                         <th>Nhà cung cấp</th>
                                         <th>Đặc tính</th>
-                                        <th>Tùy chọn</th>
+                                        <th style="width: 8%;">Tùy chọn</th>
                                    </tr>
                               </thead>
                               <tbody>
@@ -56,17 +68,16 @@
                                         <td>{{ seed.Seed_name }}</td>
                                         <td>{{ seed.Seed_supplier }}</td>
                                         <td>{{ seed.Seed_characteristic }}</td>
-                                        <td>
-                                   <tr class="actions row  mr-1 ml-1" style="border-top: 1px solid #ebfff3; ">
-                                        <a class="col-md-6 action mt-2" @click="setSeedChoosen(seed), isOpenUpdateSeed = !isOpenUpdateSeed">
-                                             <span class="fas fa-edit actionIcon"></span>
-                                        </a>
-                                        <a class="col-md-6 action mt-2"
-                                             @click="setSeedChoosen(seed), isOpenConfirm = !isOpenConfirm">
-                                             <span class="fas fa-trash-alt actionIcon"></span>
-                                        </a>
-                                   </tr>
-                                   </td>
+                                        <td >
+                                             <span class=" action mt-1 ml-2"
+                                                  @click="setSeedChoosen(seed), isOpenUpdateSeed = !isOpenUpdateSeed">
+                                                  <span class="fas fa-edit actionIcon"></span>
+                                             </span>
+                                             <span class=" action mt-1 ml-4"
+                                                  @click="setSeedChoosen(seed), isOpenConfirm = !isOpenConfirm">
+                                                  <span class="fas fa-trash-alt actionIcon"></span>
+                                             </span>
+                                        </td>
                                    </tr>
                               </tbody>
                          </table>
@@ -79,7 +90,7 @@
                               <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
                          </p>
                          <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteEmployee(employeeChoosen.Employee_id)">Xóa</button>
+                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteSeed(seedChoosen.Seed_id)">Xóa</button>
                          <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
                               @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
                     </div>
@@ -107,12 +118,12 @@
 
 <script>
 
-import Catalog from '../../../components/catalogManagementComponents/catalog.vue';
+import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import { mapGetters, mapMutations } from "vuex";
-import SeedService from '../../../services/seed.service';
-import TopHeader from '../../../components/catalogManagementComponents/topHeader.vue'
+import SeedService from '../../services/seed.service';
+import TopHeader from '../../components/catalogManagementComponents/topHeader.vue'
 import createSeedForm from '@/components/catalogManagementComponents/createNewSeedForm.vue';
-import updateSeedForm from '@/components/catalogManagementComponents/updateSeed.vue';
+import updateSeedForm from '@/components/catalogManagementComponents/updateSeedForm.vue';
 export default {
      name: "SeedManagement",
      components: {
@@ -125,7 +136,7 @@ export default {
      data() {
           return {
                currentPage: 1,
-               elementsPerPage: 3,
+               elementsPerPage: 6,
                ascending: false,
                seedList: [],
                openCreate: false,
@@ -136,6 +147,8 @@ export default {
                isOpenConfirm: false,
                seedChoosen: {},
                isOpenUpdateSeed: false,
+               nameToSearch: "",
+               message: "",
           }
      },
 
@@ -166,6 +179,8 @@ export default {
           async createSeed(data) {
                if (data.close == false) {
                     this.openCreate = false;
+                    this.message1 = " ";
+                    this.message2 = " ";
                }
                else {
                     this.message1 = "";
@@ -176,7 +191,7 @@ export default {
                     if (error) {
                          console.log(error);
                          this.message1 = "Thêm không thành công."
-                    } else if (respone.data == "Đã xảy ra lỗi!!!") {
+                    } else if (respone.data == "Không thể tạo một giống lúa mới") {
                          this.message1 = "Thêm không thành công."
                     } else {
                          this.message2 = "Thêm thành công.";
@@ -188,6 +203,8 @@ export default {
           async updateSeed(data) {
                if (data.close == false) {
                     this.isOpenUpdateSeed = false;
+                    this.message1 = " ";
+                    this.message2 = " ";
                }
                else {
                     this.message1 = "";
@@ -197,18 +214,50 @@ export default {
                     );
                     if (error) {
                          console.log(error);
-                         this.message1 = "Thêm không thành công."
-                    } else if (respone.data == "Đã xảy ra lỗi!!!") {
-                         this.message1 = "Thêm không thành công."
+                         this.message1 = "Cập nhật không thành công."
+                    } else if (respone.data == "Đã xảy ra lỗi trong quá trình cập nhật thông tin!") {
+                         this.message1 = "Cập nhật không thành công."
                     } else {
-                         this.message2 = "Thêm thành công.";
+                         this.message2 = "Cập nhật thành công.";
                          this.retrieveSeedList();
                     }
                }
           },
 
+          async deleteSeed(seedid) {
+               const [error, response] = await this.handle(
+                    SeedService.delete(seedid)
+               );
+               if (error) {
+                    console.log(error);
+               } else {
+                    this.retrieveSeedList()
+                    console.log(response.data);
+                    this.message = "Xóa giống lúa thành công"
+               }
+          },
+
+
+          async searchName() {
+               const [error, response] = await this.handle(SeedService.findByName(this.nameToSearch));
+               if (error) {
+                    console.log(error);
+               } else {
+                    if (response.data != null) {
+                         this.seedList = response.data;
+                         console.log(response.data)
+                    }
+                    else {
+                         this.message = "Không tìm thấy giống lúa!";
+                         this.isOpenMessage = !this.isOpenMessage;
+                    }
+
+               }
+          },
+
           async setSeedChoosen(seed) {
                this.seedChoosen = seed;
+               console.log(this.seedChoosen)
           },
 
           async gotoCreateNewSeed() {
@@ -244,5 +293,5 @@ export default {
 </script>
 
 <style>
-@import url(../../../assets/seedStyle.css);
+@import url(../../assets/seedStyle.css);
 </style>

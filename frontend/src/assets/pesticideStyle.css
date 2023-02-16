@@ -1,67 +1,67 @@
-.createSeedForm, .updateSeedForm{
+.createPesticideForm, .updatePesticideForm{
      background-color: #b7f8d0;
      font-family: Inter;
      border-radius: 10px;
      position: absolute;
-     top: calc(10%);
+     top: calc(24%);
      left: 25%;
      width: 50%;
 }
 
 
 
-.createSeedForm .messege{
+.createPesticideForm .messege{
     background-color: #6cc38c;
 }
-.createSeedForm .content .error-feedback,
-.updateSeedForm .content .error-feedback{
+.createPesticideForm .content .error-feedback,
+.updatePesticideForm .content .error-feedback{
      color: red;
      float: right;
 }
 
 
-.createSeedForm .content .form-group label,
-.updateSeedForm .content .form-group label{
+.createPesticideForm .content .form-group label,
+.updatePesticideForm .content .form-group label{
      float: left;
      font-family: Inter;
      font-size: 18px;
 }
 
-.createSeedForm .content .form-group .selectBox,
-.updateSeedForm .content .form-group .selectBox{
+.createPesticideForm .content .form-group .selectBox,
+.updatePesticideForm .content .form-group .selectBox{
      width: 100%;
      height: 38px;
      border: 1px solid #ced4da;
      border-radius: 4px;
 }
 
-.createSeedForm .content .form-group input,
-.updateSeedForm .content .form-group input{
+.createPesticideForm .content .form-group input,
+.updatePesticideForm .content .form-group input{
      float: left;
 }
 
-.createSeedForm .content .form-group .form-control,
-.updateSeedForm .content .form-group .form-control{
+.createPesticideForm .content .form-group .form-control,
+.updatePesticideForm .content .form-group .form-control{
      background-color: #f0f0f0;
 }
 
-.createSeedForm .functionName,
-.updateSeedForm .functionName{
+.createPesticideForm .functionName,
+.updatePesticideForm .functionName{
      font-family: Inter;
      font-size: 24px;
 }
-.createSeedForm .form-group .textMessage2,
-.createSeedForm .form-group .textMessage1,
-.updateSeedForm .form-group .textMessage1,
-.updateSeedForm .form-group .textMessage2{
+.createPesticideForm .form-group .textMessage2,
+.createPesticideForm .form-group .textMessage1,
+.updatePesticideForm .form-group .textMessage1,
+.updatePesticideForm .form-group .textMessage2{
      text-align: center; 
      display: inline;
      font-size: 18px;
      font-family: Inter;
 }
 
-.createSeedForm .btnLuu, 
-.updateSeedForm .btnLuu{
+.createPesticideForm .btnLuu, 
+.updatePesticideForm .btnLuu{
      background-color: rgb(4, 105, 4);
      color: #f0f0f0;
      font-size: 20px;
@@ -69,7 +69,7 @@
 }
 
 
-.seedManagement .seedManagementFrame .rightSeedManagement   .confirmationDialog{
+.pesticideManagement .pesticideManagementFrame .rightPesticideManagement   .confirmationDialog{
      background-color: rgb(5, 207, 137);
      border: 1px solid rgb(62, 77, 77);
      border-radius: 10px;
@@ -84,27 +84,27 @@
      text-align: center;
 }
 
-.seedManagement .seedManagementFrame .rightSeedManagement .confirmationDialog .btnYes{
+.pesticideManagement .pesticideManagementFrame .rightPesticideManagement .confirmationDialog .btnYes{
      background-color: rgb(244, 61, 61);
      color: white;
      font-family: Inter;
      font-size: 16px;
 }
 
-.seedManagement .seedManagementFrame .rightSeedManagement .confirmationDialog .btnNo{
+.pesticideManagement .pesticideManagementFrame .rightPesticideManagement .confirmationDialog .btnNo{
      background-color: rgb(196, 191, 191);
      color: rgb(33, 33, 33);
      font-family: Inter;
      font-size: 16px;
 }
 
-.seedManagement .seedManagementFrame .rightSeedManagement .messageDialog .btnOK{
+.pesticideManagement .pesticideManagementFrame .rightPesticideManagement .messageDialog .btnOK{
      background-color: rgb(196, 191, 191);
      color: rgb(33, 33, 33);
      font-family: Inter;
      font-size: 16px;
 }
-.seedManagement .seedManagementFrame .rightSeedManagement .messageDialog{
+.pesticideManagement .pesticideManagementFrame .rightPesticideManagement .messageDialog{
      background-color: rgb(5, 207, 137);
      border: 1px solid rgb(62, 77, 77);
      border-radius: 10px;
@@ -201,6 +201,7 @@
      border-radius: 5px;
      font-size: 18px;
      font-family: Inter;
+     width: max-content;
  }
  .btnCreate:hover{
      border: #00BA13 1px solid;
@@ -223,39 +224,39 @@
      border: 1px solid #00BA13;
  }
 
- .seedManagement{
+ .fertilizerManagement{
     position: relative;
  }
-.seedManagement .seedManagementFrame .rightSeedManagement{
+.pesticideManagement .pesticideManagementFrame .rightPesticideManagement{
      border-left: #00BA13 3px solid;
 }
- .seedManagement .seedManagementFrame .rightSeedManagement table tr{
+ .pesticideManagement .pesticideManagementFrame .rightPesticideManagement table tr{
      /* background-color: #ced4da; */
      border-top: 1px solid #515151;
  }
 
- .seedManagement .seedManagementFrame .rightSeedManagement .actions{
+ .pesticideManagement .pesticideManagementFrame .rightPesticideManagement .actions{
      border: none;
      color: black;
  }
- .seedManagement .seedManagementFrame .rightSeedManagement tr{
+ .pesticideManagement .pesticideManagementFrame .rightPesticideManagement tr{
     width: max-content; 
  }
- .seedManagement .seedManagementFrame .rightSeedManagement .actions .action{
+ .pesticideManagement .pesticideManagementFrame .rightPesticideManagement .actions .action{
      text-align: center;
      display: inline;
  }
- .seedManagement .seedManagementFrame .rightSeedManagement .actions .action .actionIcon{
+ .pesticideManagement .pesticideManagementFrame .rightPesticideManagement .actions .action .actionIcon{
      border: none;
      color: black;
  }
 
- .seedManagement .seedManagementFrame .rightSeedManagement .seedList .table td{
-    font-size: 15px;
-    text-align: justify;
-    vertical-align:top;
+ .pesticideManagement .pesticideManagementFrame .rightPesticideManagement .fertilizerList .table .td{
+     font-size: 14px;
+     text-align: justify;
+     vertical-align:top;
  }
- .seedManagement .seedManagementFrame .rightSeedManagement .seedList .table{
+ .pesticideManagement .pesticideManagementFrame .rightPesticideManagement .fertilizerList .table{
      height: max-content;
  }
 

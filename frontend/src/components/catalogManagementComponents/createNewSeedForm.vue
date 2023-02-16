@@ -29,32 +29,32 @@
                     </div>
 
                     <div class="form-group">
-                         <label for="characteristic" class="mt-3">Đặc tính</label>
-                         <Field name="characteristic" class="form-control" v-model="newseed.Seed_characteristic"
-                              placeholder="Đặc tính giống lúa" />
-                         <ErrorMessage name="characteristic" class="error-feedback" />
-                    </div>
-
-                    <div class="form-group">
-                         <label for="supplier" class="mt-3">Đặc tính</label>
+                         <label for="supplier" class="mt-3">Nhà cung cấp</label>
                          <Field name="supplier" class="form-control" v-model="newseed.Seed_supplier"
                               placeholder="Nhà cung cấp giống lúa" />
                          <ErrorMessage name="supplier" class="error-feedback" />
+                    </div>
+
+                    <div class="form-group">
+                         <label for="characteristic" class="mt-3">Đặc tính</label>
+                         <Field name="characteristic" class="form-control" v-model="newseed.Seed_characteristic"
+                              placeholder="Đặc tính giống lúa" as="textarea" style="height: 120px;" />
+                         <ErrorMessage name="characteristic" class="error-feedback" />
                     </div>
                </div>
           </div>
 
           <div class="row ">
                <div class="col-sm-3"></div>
-               <div class="col-sm-6 mt-2 mb-3">
+               <div class="col-sm-6 mt-2 mb-3 text-center">
                     <span v-if="message2 == 'Thêm thành công.'" class="fas fa-check-circle"
-                         style="color:#00BA13; text-align: center;"></span>
+                         style="color:#00BA13; text-align: center; display: inline;"></span>
                     <span v-if="message1 == 'Thêm không thành công.'" class="fas fa-times-circle"
-                         style="color:red; text-align: center;"></span>
-                    <p v-if="message2 == 'Thêm thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;">
-                         {{ message2 }}</p>
-                    <p v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2">{{ message1 }} Mã
-                         giống đã tồn tại</p>
+                         style="color:red; text-align: center; display: inline;"></span>
+                    <span v-if="message2 == 'Thêm thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;">
+                         {{ message2 }}</span>
+                    <span v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2">{{ message1 }} Mã
+                         giống đã tồn tại</span>
                </div>
                <div class="col-sm-3"></div>
           </div>
@@ -87,8 +87,8 @@ export default {
                id: yup
                     .string()
                     .required("Mã giống lúa phải có giá trị")
-                    .min(8, "Mã giống lúa phải gồm 10 ký tự")
-                    .max(8, "Mã giống lúa phải gồm 10 ký tự"),
+                    .min(10, "Mã giống lúa phải gồm 10 ký tự")
+                    .max(10, "Mã giống lúa phải gồm 10 ký tự"),
                name: yup
                     .string()
                     .required("Tên giống lúa phải có giá trị"),
