@@ -7,7 +7,7 @@
                <div class="categoryList col-sm-12">
                     <div class="row mt-1 pt-2">
                          <button class="btn  pl-3 pr-5 btn-sm btn-outline-secondary btnMonitor"
-                              @click="goToQLMonitor"> <i class="fas fa-chart-line">&nbsp; &nbsp;</i>Theo dõi </button>
+                              @click="goToQLMonitor"> <i class="fas fa-chart-line">&nbsp; &nbsp;</i>Theo dõi vụ mùa</button>
                     </div>
                     <div class="row mt-1 pt-2">
                          <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnOtherActivities"
@@ -27,7 +27,7 @@
                     </div>
                     <div class="row mt-3">
                          <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnArableland"
-                              @click="goToArableLand"><i class="fas fa-square">&nbsp; &nbsp;</i>Khu đất canh tác </button>
+                              @click="goToArableLand"><i class="fas fa-square">&nbsp; &nbsp;</i>Mẫu ruộng</button>
                     </div>
                     <div class="row mt-3">
                          <button class="btn pl-3 pr-2 btn-sm btn-outline-secondary btnPesticide"

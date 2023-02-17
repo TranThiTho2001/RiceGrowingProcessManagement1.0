@@ -15,16 +15,16 @@
                     </div>
                     <div class="row mt-1 mb-2">
                          <div class="col-sm-12">
-                              <h2 class="text-center">BỆNH DỊCHQ</h2>
+                              <h2 class="text-center">BỆNH DỊCH</h2>
                          </div>
                     </div>
-                    <div class="row ml-2 mr-2">
+                    <div class="row ml-3 mr-2">
                          <div class="col-sm-8 input-group">
                               <div class="row">
                                    <input type="text" class="form-control col-md-10 inputSearch"
                                         placeholder="Tìm theo tên" style="border-radius:10px" v-model="nameToSearch"
                                         @keyup.enter="searchName" />
-                                   <button class="btn btn-sm btn-outline-secondary btnTimKiem" type="button"
+                                   <button class="btn  btnTimKiem mb-2" type="button"
                                         style="border:none; width: 10%" @click="searchName">
                                         <span class="fa fa-search" style="font-size:18px"></span>
                                    </button>

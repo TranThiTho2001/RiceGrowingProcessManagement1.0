@@ -260,3 +260,12 @@
      height: max-content;
  }
 
+ .pesticideManagement .pesticideManagementFrame .rightPesticideManagement .btnTimKiem:hover{
+    background-color: none;
+    color:#515151;
+}
+
+.pesticideManagement .pesticideManagementFrame .rightPesticideManagement .btnTimKiem{
+    background-color: none;
+    color:darkgray
+}

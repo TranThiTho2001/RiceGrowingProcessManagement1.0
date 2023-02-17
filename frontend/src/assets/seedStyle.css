@@ -259,3 +259,12 @@
      height: max-content;
  }
 
+ .seedManagement .seedManagementFrame .rightSeedManagement .btnTimKiem:hover{
+    background-color: none;
+    color:#515151;
+}
+
+.seedManagement .seedManagementFrame .rightSeedManagement .btnTimKiem{
+    background-color: none;
+    color:darkgray
+}

@@ -15,7 +15,7 @@
                     </div>
                     <div class="row mt-1 mb-2">
                          <div class="col-sm-12">
-                              <h2 class="text-center">PHÂN BÓN</h2>
+                              <h2 class="text-center">THUỐC TRỊ BỆNH DỊCH</h2>
                          </div>
                     </div>
                     <div class="row ml-3 mr-2">
@@ -24,7 +24,7 @@
                                    <input type="text" class="form-control col-md-10 inputSearch"
                                         placeholder="Tìm theo tên" style="border-radius:10px" v-model="nameToSearch"
                                         @keyup.enter="searchName" />
-                                   <button class="btn btn-sm btn-outline-secondary btnTimKiem mb-4" type="button"
+                                   <button class="btn btnTimKiem mb-2" type="button"
                                         style="border:none; width: 10%" @click="searchName">
                                         <span class="fa fa-search" style="font-size:18px"></span>
                                    </button>

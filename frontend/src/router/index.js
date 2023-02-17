@@ -48,13 +48,13 @@ const routes = [
         
     },
 
-    // {
-    //     path: "/Monitor",
-    //     alias: "/Monitor",
-    //     name: "Monitor",
-    //     component: () => import("../views/catalogManagementView/MonitorManagementvue"),
+    {
+        path: "/Monitor",
+        alias: "/Monitor",
+        name: "Monitor",
+        component: () => import("../views/catalogManagementView/riceCropManagement.vue"),
         
-    // },
+    },
 
     // {
     //     path: "/OtherActivities",

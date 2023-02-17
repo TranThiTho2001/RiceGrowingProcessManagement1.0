@@ -250,12 +250,16 @@
      color: black;
  }
 
- .fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .fertilizerList{
-     /* border: 3px solid rgb(68, 169, 68);
-     height: 88vmin;
-     border-radius: 10px; */
- }
  .fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .fertilizerList .table{
      height: max-content;
  }
 
+.fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .btnTimKiem:hover{
+    background-color: none;
+    color:#515151;
+}
+
+.fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .btnTimKiem{
+    background-color: none;
+    color:darkgray
+}

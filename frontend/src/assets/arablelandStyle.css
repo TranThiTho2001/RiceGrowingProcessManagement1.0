@@ -203,6 +203,7 @@
      font-family: Inter;
      width: max-content;
  }
+
  .btnCreate:hover{
      border: #00BA13 1px solid;
      background-color: #6cc38c;
@@ -210,6 +211,7 @@
      font-size: 18px;
      font-family: Inter;
  }
+
  .numberPage {
      display: inline-block;
      margin-top: 2px;
@@ -256,7 +258,27 @@
      text-align: justify;
      vertical-align:top;
  }
+
  .arablelandManagement .arablelandManagementFrame .rightArableLandManagement .arablelandList .table{
      height: max-content;
  }
 
+ .arablelandManagement .arablelandManagementFrame .rightArableLandManagement .arablelandList .table a{
+    text-decoration: none;
+    color: black;
+ }
+
+ .arablelandManagement .arablelandManagementFrame .rightArableLandManagement .arablelandList .table a:hover{
+    text-decoration:underline;
+    color: black;
+ }
+
+.arablelandManagement .arablelandManagementFrame .rightArableLandManagement .btnTimKiem:hover{
+    background-color: none;
+    color:#515151;
+}
+
+.arablelandManagement .arablelandManagementFrame .rightArableLandManagement .btnTimKiem{
+    background-color: none;
+    color:darkgray
+}
