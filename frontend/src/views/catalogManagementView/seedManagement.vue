@@ -1,5 +1,5 @@
 <template>
-     <div class="container-fluid seedManagement pr-4 pl-4" style="background-color: #ebfff3;">
+     <div class="container-fluid seedManagement pr-4 pl-4" style="background-color: #EAEAEA;">
           <div class="row seedManagementFrame">
                <div class="col-md-2 col-sm-12 leftSeedManagement">
                     <div class="row">
@@ -7,12 +7,6 @@
                     </div>
                </div>
                <div class="col-md-10 rightSeedManagement">
-                    <div class="row">
-                         <div class="col-md-9"></div>
-                         <div class="col-md-3">
-                              <TopHeader :currentUserid="currentUser.Employee_id" />
-                         </div>
-                    </div>
                     <div class="row mt-1 mb-2">
                          <div class="col-sm-12">
                               <h2 class="text-center">GIỐNG LÚA</h2>
@@ -65,8 +59,8 @@
                                    <tr v-for="(seed, i ) in get_rows()" :key="i">
                                         <td>{{ seed.Seed_id }}</td>
                                         <td>{{ seed.Seed_name }}</td>
-                                        <td>{{ seed.Seed_supplier }}</td>
-                                        <td>{{ seed.Seed_characteristic }}</td>
+                                        <td style="width: max-content;">{{ seed.Seed_supplier }}</td>
+                                        <td class="text-truncate" style="max-width: 520px;">{{ seed.Seed_characteristic }}</td>
                                         <td >
                                              <span class=" action mt-1 ml-2"
                                                   @click="setSeedChoosen(seed), isOpenUpdateSeed = !isOpenUpdateSeed">
@@ -120,7 +114,6 @@
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import { mapGetters, mapMutations } from "vuex";
 import SeedService from '../../services/seed.service';
-import TopHeader from '../../components/catalogManagementComponents/topHeader.vue'
 import createSeedForm from '@/components/catalogManagementComponents/createNewSeedForm.vue';
 import updateSeedForm from '@/components/catalogManagementComponents/updateSeedForm.vue';
 export default {
@@ -128,7 +121,6 @@ export default {
      components: {
           Catalog,
           createSeedForm,
-          TopHeader,
           updateSeedForm,
      },
 
@@ -172,6 +164,26 @@ export default {
                else {
                     this.seedList = respone.data;
                     console.log(respone.data);
+                    var temp = (String(this.seedList[this.seedList.length - 1].Seed_id)).split("");
+                    var id = "";
+                    temp.forEach(element => {
+                         if (element != "S" && element != "D" & element != "0") {
+                              id += element;
+                         }
+                    });
+
+                    if (id < 10) {
+                         this.newSeed.Seed_id = "SD0000000" + String(Number(id) + 1);
+                    }
+                    else if (id > 9 && id < 100) {
+                         this.newSeed.Seed_id = "SD000000" + String(Number(id) + 1);
+                    }
+                    else if (id > 99 && id < 1000) {
+                         this.newSeed.Seed_id = "SD00000" + String(Number(id) + 1);
+                    }
+                    else {
+                         this.newSeed.Seed_id = "SD00" + String(Number(id) + 1);
+                    }
                }
           },
 

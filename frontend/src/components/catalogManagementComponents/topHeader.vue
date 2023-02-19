@@ -1,18 +1,16 @@
-<template>
-     <!-- Cot ben trai -->
-     <div class="container-fluid topHeader">
-          <div class="row topRow mt-1 text-right">
-               <div class="col-sm-2">
-                    <span class="fas fa-user-circle iconUser mt-2"></span>
-               </div>
-               <div class="col-sm-10" style="padding-bottom: 10px;">
-                    <div class="row ml-2">
-                         <span style="font-family: Inter; font-size: 22px; display: block;">{{ currentuser.Employee_name }}</span><br>
-                         <span class="mt-0" style="font-family: Inter; font-size: 18px;">{{ currentuser.Role_name}}</span>
+<template><!-- Cot ben trai -->
+     <div class="container topHeader">
+          <button class="btnUser">
+               <div class="row topRow text-center">
+                    <div class="col-sm-3">
+                         <span class="fas fa-user-circle iconUser mt-2"></span>
                     </div>
+                    <div class="col-sm-9 text-left">
+                         <h6 class="username pt-2">{{ formatName(currentuser.Employee_name) }} <i class="fas fa-caret-down" style="color: #919302"></i></h6>
+                    </div>
+
                </div>
-          </div>
-          
+          </button>
      </div>
 </template>
 <script>
@@ -41,21 +39,28 @@ export default {
                else {
                     // this.employee = respone.data;
                     this.currentuser = respone.data;
-                    if(this.currentuser.Role_id == "01"){
+                    if (this.currentuser.Role_id == "01") {
                          this.currentuser.Role_name = "Quản trị viên";
                     }
-                    else if(this.currentuser.Role_id == "02"){
+                    else if (this.currentuser.Role_id == "02") {
                          this.currentuser.Role_name = "Chuyên gia";
                     }
-                    else{
+                    else {
                          this.currentuser.Role_name = "Nhân viên";
                     }
                }
-          }
+          },
+
+          formatName(data) {
+               var temp = String(data).split(" ");
+               console.log(temp[temp.length])
+               return temp[temp.length - 1];
+
+          },
      },
 
      mounted() {
-              this.PhanQuyenNhanVien();
+          this.PhanQuyenNhanVien();
      },
 
 };
@@ -63,7 +68,7 @@ export default {
 
 <style>
 .topHeader {
-     background-color: #b7f8d0;
+     /* background-color: #b7f8d0; */
      font-family: Inter;
      font-size: 18px;
      display: inline-block;
@@ -71,7 +76,22 @@ export default {
      border-radius: 10px;
 }
 
-.topHeader .iconUser{
-     font-size: 45px;
+.topHeader .iconUser {
+     font-size: 26px;
+     color: #5C5D22;
+}
+
+.topHeader .username {
+     font-family: Inter;
+     font-size: 18px;
+     display: block;
+     color: #5C5D22; 
+}
+
+.topHeader .btnUser{
+     border: none;
+     border-radius: 15px;
+     background-color: #EEEA41;
+     width: max-content;
 }
 </style>

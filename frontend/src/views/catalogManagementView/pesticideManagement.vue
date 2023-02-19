@@ -1,5 +1,5 @@
 <template>
-     <div class="container-fluid pesticideManagement pr-4 pl-4" style="background-color: #ebfff3;">
+     <div class="container-fluid pesticideManagement pr-4 pl-4" style="background-color: #EAEAEA;">
           <div class="row pesticideManagementFrame">
                <div class="col-md-2 col-sm-12 leftPesticideManagement">
                     <div class="row">
@@ -7,12 +7,7 @@
                     </div>
                </div>
                <div class="col-md-10 rightPesticideManagement">
-                    <div class="row">
-                         <div class="col-md-9"></div>
-                         <div class="col-md-3">
-                              <TopHeader :currentUserid="currentUser.Employee_id" />
-                         </div>
-                    </div>
+
                     <div class="row mt-1 mb-2">
                          <div class="col-sm-12">
                               <h2 class="text-center">THUỐC TRỊ BỆNH DỊCH</h2>
@@ -121,7 +116,6 @@
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import { mapGetters, mapMutations } from "vuex";
 import PesticideService from '../../services/pesticide.service';
-import TopHeader from '../../components/catalogManagementComponents/topHeader.vue'
 import CreatePesticideForm from '@/components/catalogManagementComponents/createNewPesticideForm.vue';
 import UpdatePesticideForm from '@/components/catalogManagementComponents/updatePesticideForm.vue';
 export default {
@@ -129,7 +123,6 @@ export default {
      components: {
           Catalog,
           CreatePesticideForm,
-          TopHeader,
           UpdatePesticideForm,
      },
 
@@ -173,6 +166,26 @@ export default {
                else {
                     this.pesticideList = respone.data;
                     console.log(respone.data);
+                    var temp = (String(this.pesticideList[this.pesticideList.length - 1].Pesticide_id)).split("");
+                    var id = "";
+                    temp.forEach(element => {
+                         if (element != "P" && element != "E" & element != "0") {
+                              id += element;
+                         }
+                    });
+
+                    if (id < 10) {
+                         this.newPesticide.Pesticide_id = "PE0000000" + String(Number(id) + 1);
+                    }
+                    else if (id > 9 && id < 100) {
+                         this.newPesticide.Pesticide_id = "PE000000" + String(Number(id) + 1);
+                    }
+                    else if (id > 99 && id < 1000) {
+                         this.newPesticide.Pesticide_id = "PE00000" + String(Number(id) + 1);
+                    }
+                    else {
+                         this.newPesticide.Pesticide_id = "PE00" + String(Number(id) + 1);
+                    }
                }
           },
 

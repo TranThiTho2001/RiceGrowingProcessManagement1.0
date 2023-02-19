@@ -1,5 +1,5 @@
 <template>
-     <div class="container-fluid epidemicManagement pr-4 pl-4" style="background-color: #ebfff3;">
+     <div class="container-fluid epidemicManagement pr-4 pl-4" style="background-color: #EAEAEA;">
           <div class="row epidemicManagementFrame">
                <div class="col-md-2 col-sm-12 leftEpidemicManagement">
                     <div class="row">
@@ -7,12 +7,6 @@
                     </div>
                </div>
                <div class="col-md-10 rightEpidemicManagement">
-                    <div class="row">
-                         <div class="col-md-9"></div>
-                         <div class="col-md-3">
-                              <TopHeader :currentUserid="currentUser.Employee_id" />
-                         </div>
-                    </div>
                     <div class="row mt-1 mb-2">
                          <div class="col-sm-12">
                               <h2 class="text-center">BỆNH DỊCH</h2>
@@ -21,11 +15,10 @@
                     <div class="row ml-3 mr-2">
                          <div class="col-sm-8 input-group">
                               <div class="row">
-                                   <input type="text" class="form-control col-md-10 inputSearch"
-                                        placeholder="Tìm theo tên" style="border-radius:10px" v-model="nameToSearch"
-                                        @keyup.enter="searchName" />
-                                   <button class="btn  btnTimKiem mb-2" type="button"
-                                        style="border:none; width: 10%" @click="searchName">
+                                   <input type="text" class="form-control col-md-10 inputSearch" placeholder="Tìm theo tên"
+                                        style="border-radius:10px" v-model="nameToSearch" @keyup.enter="searchName" />
+                                   <button class="btn  btnTimKiem mb-2" type="button" style="border:none; width: 10%"
+                                        @click="searchName">
                                         <span class="fa fa-search" style="font-size:18px"></span>
                                    </button>
                               </div>
@@ -45,12 +38,12 @@
                                    </div>
                               </div>
                          </div>
-                         <div class="col-sm-2"> 
+                         <div class="col-sm-2">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i
                                         class="fas fa-plus-circle pt-1" style="font-size: 20px;"></i>Thêm bệnh dịch</button>
                          </div>
                     </div>
-                    <div class=" row epidemicList mt-1 ml-2 mr-2 justify-content-center">
+                    <div class=" row epidemicList mt-1 ml-2 mr-2 justify-content-center" style="width:100%">
                          <table class="table mt-1 ml-2 mr-2">
                               <thead>
                                    <tr>
@@ -66,12 +59,13 @@
                               <tbody>
                                    <tr v-for="(epidemic, i ) in get_rows()" :key="i">
                                         <td>{{ epidemic.Epidemic_id }}</td>
-                                        <td style="width: 10%;">{{ epidemic.Epidemic_name }}</td>
+                                        <td style="width: 15%;">{{ epidemic.Epidemic_name }}</td>
                                         <td style="width: 10%;">{{ epidemic.Epidemic_timeOfDevelopment }}</td>
-                                        <td>{{ epidemic.Epidemic_developmentEnvironment }}</td>
-                                        <td>{{ epidemic.Epidemic_Harm }}</td>
+                                        <td class="text-truncate" style="max-width: 250px;">{{
+                                             epidemic.Epidemic_developmentEnvironment }}</td>
+                                        <td class="text-truncate" style="max-width: 250px;">{{ epidemic.Epidemic_Harm }}</td>
                                         <td style="width: 10%;">{{ epidemic.EpidemicsClassification_name }}</td>
-                                        <td  style="border-top: none;">
+                                        <td style="border-top: none;">
                                              <span class="action ml-2" style="display:inline ;border-top: none;"
                                                   @click="setEpidemicChoosen(epidemic), isOpenUpdateEpidemic = !isOpenUpdateEpidemic">
                                                   <span class="fas fa-edit actionIcon"></span>
@@ -109,8 +103,8 @@
                               @click="isOpenMessage = !isOpenMessage">OK</button>
                     </div>
 
-                    <CreateEpidemicForm v-if="openCreate" :newEpidemic="newEpidemic"
-                         @addEpidemic-submit="createEpidemic" :message1="message1" :message2="message2" />
+                    <CreateEpidemicForm v-if="openCreate" :newEpidemic="newEpidemic" @addEpidemic-submit="createEpidemic"
+                         :message1="message1" :message2="message2" />
 
                     <UpdateEpidemicForm v-if="isOpenUpdateEpidemic" :newEpidemic="epidemicChoosen"
                          @updateEpidemic-submit="updateEpidemic" :message1="message1" :message2="message2" />
@@ -124,7 +118,6 @@
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import { mapGetters, mapMutations } from "vuex";
 import EpidemicService from '../../services/epidemic.service';
-import TopHeader from '../../components/catalogManagementComponents/topHeader.vue'
 import CreateEpidemicForm from '@/components/catalogManagementComponents/createNewEpidemicForm.vue';
 import UpdateEpidemicForm from '@/components/catalogManagementComponents/updateEpidemicForm.vue';
 export default {
@@ -132,7 +125,6 @@ export default {
      components: {
           Catalog,
           CreateEpidemicForm,
-          TopHeader,
           UpdateEpidemicForm,
      },
 
@@ -176,24 +168,44 @@ export default {
                else {
                     this.epidemicList = respone.data;
                     console.log(respone.data);
+                    var temp = (String(this.epidemicList[this.epidemicList.length - 1].Epidemic_id)).split("");
+                    var id = "";
+                    temp.forEach(element => {
+                         if (element != "E" && element != "C" & element != "0") {
+                              id += element;
+                         }
+                    });
+
+                    if (id < 10) {
+                         this.newEpidemic.Epidemic_id = "EC0000000" + String(Number(id) + 1);
+                    }
+                    else if (id > 9 && id < 100) {
+                         this.newEpidemic.Epidemic_id = "EC000000" + String(Number(id) + 1);
+                    }
+                    else if (id > 99 && id < 1000) {
+                         this.newEpidemic.Epidemic_id = "EC00000" + String(Number(id) + 1);
+                    }
+                    else {
+                         this.newEpidemic.Epidemic_id = "EC00" + String(Number(id) + 1);
+                    }
                }
           },
 
           async createEpidemic(data) {
                if (data.EpidemicsClassification_id == "Côn trùng") {
-                    data.EpidemicsClassification_id = "EC000001";
+                    data.EpidemicsClassification_id = "ECC00001";
                     console.log(data.EpidemicsClassification_id);
                }
                else if (data.EpidemicsClassification_id == "Dịch bệnh") {
-                    data.EpidemicsClassification_id = "EC000002";
+                    data.EpidemicsClassification_id = "ECC00002";
                     console.log(data.EpidemicsClassification_id);
                }
                else if (data.EpidemicsClassification_id == "Nấm hại") {
-                    data.EpidemicsClassification_id = "EC000003";
+                    data.EpidemicsClassification_id = "ECC00003";
                     console.log(data.EpidemicsClassification_id);
                }
                else {
-                    data.EpidemicsClassification_id = "EC000004";
+                    data.EpidemicsClassification_id = "ECC00004";
                     console.log(data.EpidemicsClassification_id);
                }
                if (data.close == false) {
@@ -214,6 +226,7 @@ export default {
                          this.message1 = "Thêm không thành công."
                     } else {
                          this.message2 = "Thêm thành công.";
+                         this.newEpidemic = {};
                          this.retrieveEpidemicList();
                     }
                }

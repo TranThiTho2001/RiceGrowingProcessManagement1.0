@@ -16,21 +16,21 @@
           <div class="row content">
                <div class="col-sm-6 mt-2">
                     <div class="form-group">
-                         <label for="id" class="mt-2">Mã mẫu ruộng</label>
+                         <label for="id" class="mt-2">Mã mẫu ruộng <span style="color: red">*</span></label>
                          <Field name="id" type="name" class="form-control" v-model="newarableLand.ArableLand_id"
                               placeholder="Nhập mã mẫu ruộng..." />
                          <ErrorMessage name="id" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
-                         <label for="area" class="mt-3">Diện tích (đơn vị ha)</label>
+                         <label for="area" class="mt-3">Diện tích (đơn vị ha) <span style="color: red">*</span></label>
                          <Field name="area" class="form-control" v-model="newarableLand.ArableLand_area"
                               placeholder="Diện tích..." />
                          <ErrorMessage name="area" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
-                         <label for="soil" class="mt-3">Phân loại</label>
+                         <label for="soil" class="mt-3">Phân loại <span style="color: red">*</span></label>
                          <Field name="soil" v-model="newarableLand.Soil_id">
                               <select class="form-control" v-model="newarableLand.Soil_id" name="soil" for="soil">
                                    <option>Đất phù sa ven sông</option>
@@ -46,14 +46,14 @@
                <div class="col-sm-6">
 
                     <div class="form-group">
-                         <label for="owner" class="mt-3">Chủ sở hữu</label>
+                         <label for="owner" class="mt-3">Chủ sở hữu <span style="color: red">*</span></label>
                          <Field name="owner" class="form-control" v-model="newarableLand.ArableLand_owner"
                               placeholder="Chủ sở hữu..." />
                          <ErrorMessage name="owner" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
-                         <label for="location" class="mt-3">Vị trí mẫu ruộng</label>
+                         <label for="location" class="mt-3">Vị trí mẫu ruộng <span style="color: red">*</span></label>
                          <Field name="location"  class="form-control" v-model="newarableLand.ArableLand_location"
                               placeholder="Nhập vị trí mẫu ruộng..." as="textarea" style="height: 126px;"/>
                          <ErrorMessage name="location" class="error-feedback" />

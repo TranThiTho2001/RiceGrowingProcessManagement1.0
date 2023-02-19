@@ -14,21 +14,21 @@
           <div class="row content">
                <div class="col-sm-12">
                     <div class="form-group">
-                         <label for="id" class="mt-2">Mã phân bón</label>
+                         <label for="id" class="mt-2">Mã phân bón <span style="color: red">*</span></label>
                          <Field name="id" type="name" class="form-control" v-model="newfertilixer.Fertilizer_id"
                               placeholder="Nhập mã phân bón..." />
                          <ErrorMessage name="id" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
-                         <label for="name" class="mt-3">Tên phân bón</label>
+                         <label for="name" class="mt-3">Tên phân bón <span style="color: red">*</span></label>
                          <Field name="name" class="form-control" v-model="newfertilixer.Fertilizer_name"
                               placeholder="Nhập tên phân bón..." />
                          <ErrorMessage name="name" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
-                         <label for="supplier" class="mt-3">Nhà cung cấp</label>
+                         <label for="supplier" class="mt-3">Nhà cung cấp <span style="color: red">*</span></label>
                          <Field name="supplier" class="form-control" v-model="newfertilixer.Fertilizer_supplier"
                               placeholder="Nhà cung cấp phân bón..." />
                          <ErrorMessage name="supplier" class="error-feedback" />

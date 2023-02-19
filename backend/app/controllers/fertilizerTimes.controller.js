@@ -9,13 +9,13 @@ exports.store = async (req, res) => {
           Fertilizer_id: req.body.Fertilizer_id,
           DevelopmentStage_id: req.body.DevelopmentStage_id,
           Employee_id: req.body.Employee_id,
-          times: req.body.FertilizerTimes_times,
-          amount: req.body.FertilizerTimes_amount,
-          startDate: req.body.FertilizerTimes_startDate,
-          endDate: req.body.FertilizerTimes_endDate,
-          temperature: req.body.FertilizerTimes_temperature,
-          radiation: req.body.FertilizerTimes_radiation,
-          precipitation: req.body.FertilizerTimes_precipitation
+          FertilizerTimes_times: req.body.FertilizerTimes_times,
+          FertilizerTimes_amount: req.body.FertilizerTimes_amount,
+          FertilizerTimes_startDate: req.body.FertilizerTimes_startDate,
+          FertilizerTimes_endDate: req.body.FertilizerTimes_endDate,
+          temperatFertilizerTimes_temperatureure: req.body.FertilizerTimes_temperature,
+          FertilizerTimes_radiation: req.body.FertilizerTimes_radiation,
+          FertilizerTimes_precipitation: req.body.FertilizerTimes_precipitation
      });
      // Save FertilizerTimes in the database
      FertilizerTimes.create(fertilizerTimes, (err, data) => {

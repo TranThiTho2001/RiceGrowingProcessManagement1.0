@@ -1,5 +1,5 @@
 <template>
-     <div class="container-fluid arablelandManagement pr-4 pl-4" style="background-color: #ebfff3;">
+     <div class="container-fluid arablelandManagement pr-4 pl-4" style="background-color: #EAEAEA;">
           <div class="row arablelandManagementFrame">
                <div class="col-md-2 col-sm-12 leftArableLandManagement">
                     <div class="row">
@@ -7,12 +7,6 @@
                     </div>
                </div>
                <div class="col-md-10 rightArableLandManagement">
-                    <div class="row">
-                         <div class="col-md-9"></div>
-                         <div class="col-md-3">
-                              <TopHeader :currentUserid="currentUser.Employee_id" />
-                         </div>
-                    </div>
                     <div class="row mt-1 mb-2">
                          <div class="col-sm-12">
                               <h2 class="text-center">MẪU RUỘNG</h2>
@@ -128,7 +122,6 @@
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import { mapGetters, mapMutations } from "vuex";
 import ArableLandService from '../../services/arableLand.service';
-import TopHeader from '../../components/catalogManagementComponents/topHeader.vue'
 import CreateArableLandForm from '@/components/catalogManagementComponents/createNewArableLandForm.vue';
 import UpdateArableLandForm from '@/components/catalogManagementComponents/updateArableLandForm.vue';
 export default {
@@ -136,7 +129,6 @@ export default {
      components: {
           Catalog,
           CreateArableLandForm,
-          TopHeader,
           UpdateArableLandForm,
      },
 
@@ -180,6 +172,26 @@ export default {
                else {
                     this.arablelandList = respone.data;
                     console.log(respone.data);
+                   var temp = (String(this.arablelandList[this.arablelandList.length-1].ArableLand_id)).split("");
+                   var id = "";
+                   temp.forEach(element => {
+                         if(element != "A" && element != "L"  & element != "0"){
+                              id += element;
+                         }
+                   });
+                   
+                   if(id <10){
+                    this.newArableLand.ArableLand_id = "AL0000000" + String(Number(id)+1);
+                   }
+                   else if(id > 9 && id < 100){
+                    this.newArableLand.ArableLand_id = "AL000000" + String(Number(id)+1);
+                   }
+                   else if(id>99 && id<1000){
+                    this.newArableLand.ArableLand_id = "AL00000" + String(Number(id)+1);
+                   }
+                   else {
+                    this.newArableLand.ArableLand_id = "AL00" + String(Number(id)+1);
+                   }
                }
           },
 
@@ -328,4 +340,5 @@ export default {
 
 <style>
 @import url(../../assets/arablelandStyle.css);
+
 </style>

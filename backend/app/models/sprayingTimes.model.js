@@ -5,13 +5,13 @@ const SprayingTimes = function (sprayingTimes) {
      this.Pesticide_id = sprayingTimes.Pesticide_id;
      this.DevelopmentStage_id = sprayingTimes.DevelopmentStage_id;
      this.Employee_id = sprayingTimes.Employee_id;
-     this.SprayingTimes_times = sprayingTimes.times;
-     this.SprayingTimes_amount = sprayingTimes.amount;
-     this.SprayingTimes_startDate = sprayingTimes.startDate;
-     this.SprayingTimes_endDate = sprayingTimes.endDate;
-     this.SprayingTimes_temperature = sprayingTimes.temperature;
-     this.SprayingTimes_radiation = sprayingTimes.radiation;
-     this.SprayingTimes_precipitation = sprayingTimes.precipitation
+     this.SprayingTimes_times = sprayingTimes.SprayingTimes_times;
+     this.SprayingTimes_amount = sprayingTimes.SprayingTimes_amount;
+     this.SprayingTimes_startDate = sprayingTimes.SprayingTimes_startDate;
+     this.SprayingTimes_endDate = sprayingTimes.SprayingTimes_endDate;
+     this.SprayingTimes_temperature = sprayingTimes.SprayingTimes_temperature;
+     this.SprayingTimes_radiation = sprayingTimes.SprayingTimes_radiation;
+     this.SprayingTimes_precipitation = sprayingTimes.SprayingTimes_precipitation
 }
 
 SprayingTimes.create = (newSprayingTimes, result) => {

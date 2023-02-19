@@ -1,5 +1,5 @@
 <template>
-     <div class="container-fluid riceCropManagement " style="background-color: #ebfff3;">
+     <div class="container-fluid riceCropManagement " style="background-color: #EAEAEA;">
           <div class="row riceCropManagemenFrame">
                <div class="col-md-2 col-sm-12 leftRiceCropManagement">
                     <div class="row">
@@ -7,90 +7,106 @@
                     </div>
                </div>
                <div class="col-md-10 rightRiceCropManagement">
-                    <div class="row">
-                         <div class="col-md-9"></div>
-                         <div class="col-md-3">
-                              <TopHeader :currentUserid="currentUser.Employee_id" />
+                    <div class="row mr-2 mt-3 mb-5">
+                         <div class="col-md-10 pr-5">
+                              <div class="row">
+                                   <input type="text" class="form-control col-md-10 inputSearch" placeholder="Tìm theo tên"
+                                        style="border-radius:10px" v-model="nameToSearch" @keyup.enter="searchName" />
+                                   <button class="btn btnTimKiem mb-2" type="button" style="border:none; width: 10%"
+                                        @click="searchName">
+                                        <span class="fa fa-search" style="font-size:18px"></span>
+                                   </button>
+                              </div>
+                         </div>
+                         <div class="col-md-2 pl-5">
+                              <div class="row">
+                                   <TopHeader :currentUserid="currentUser.Employee_id" />
+                              </div>
                          </div>
                     </div>
 
-                    <div class="row mt-1 mb-2">
-                         <div class="col-sm-12">
-                              <h2 class="text-center">Vụ mùa</h2>
-                         </div>
-                    </div>
+                    <!-- <div class="row mt-1 mb-2">
+                              <div class="col-sm-12">
+                                   <h2 class="text-center">Vụ mùa</h2>
+                              </div>
+                         </div> -->
 
                     <div class="row mr-2 ml-3">
                          <div class="col-sm-8"></div>
-                         <div class="btnChoosePage col-sm-2">
-                              <p style="display: inline-block; padding-top: 1px;text-align: right;" class="soTrang">
-                                   Trang &nbsp;</p>
-                              <div class="numberPage">
-                                   <div class="dropdown">
-                                        <button class="dropbtn">{{ currentPage }}
-                                             <span class="fas fa-chevron-down"></span></button>
-                                        <div class="dropdown-content">
-                                             <a class="dropdown-item" v-for="(i, j) in num_pages() " :key="j"
-                                                  v-bind:class="[i == currentPage ? 'active' : '']"
-                                                  v-on:click="change_page(i)" aria-controls="my-table"> {{ i }}</a>
+                         <!-- <div class="btnChoosePage col-sm-2">
+                                   <p style="display: inline-block; padding-top: 1px;text-align: right;" class="soTrang">
+                                        Trang &nbsp;</p>
+                                   <div class="numberPage">
+                                        <div class="dropdown">
+                                             <button class="dropbtn">{{ currentPage }}
+                                                  <span class="fas fa-chevron-down"></span></button>
+                                             <div class="dropdown-content">
+                                                  <a class="dropdown-item" v-for="(i, j) in num_pages() " :key="j"
+                                                       v-bind:class="[i == currentPage ? 'active' : '']"
+                                                       v-on:click="change_page(i)" aria-controls="my-table"> {{ i }}</a>
+                                             </div>
                                         </div>
                                    </div>
-                              </div>
-                         </div>
+                              </div> -->
                          <div class="col-sm-2">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
                                         style="font-size: 15px;"></i>Thêm mẫu ruộng</button>
                          </div>
                     </div>
-                    <div class=" row riceCropList mt-1 ml-2 mr-2 justify-content-center">
-                         <table class="table mt-1 ml-2 mr-2">
-                              <thead>
-                                   <tr>
-                                        <th>STT</th>
-                                        <th>Mã</th>
-                                        <th>Tên mùa vụ</th>
-                                        <th>Giống lúa</th>
-                                        <th>Ngày xuống giống</th>
-                                        <th style="vertical-align: bottom; text-align: center;">Trạng thái</th>
-                                        <th>Tùy chọn</th>
-                                   </tr>
-                              </thead>
-                              <tbody>
-                                   <tr v-for="(ricecrop, i ) in get_rows()" :key="i" class="align-self-center">
-                                        <td v-if="currentPage > 1">{{ i + ((currentPage - 1) * 6) }}</td>
-                                        <td v-else>{{ i }}</td>
-                                        <td>{{ ricecrop.RiceCropInformation_id }}</td>
-                                        <td>{{ ricecrop.RiceCropInformation_name }}</td>
-                                        <td>{{ ricecrop.Seed_id }}</td>
-                                        <td v-if="ricecrop.RiceCropInformation_sowingDate == null"> </td>
-                                        <td v-if="ricecrop.RiceCropInformation_sowingDate != null">{{
-                                             formatDate(ricecrop.RiceCropInformation_sowingDate) }}</td>
-                                        <td style="vertical-align: bottom; text-align: center;">
-                                             <button class="btn btnMonitor"
-                                                  v-if="ricecrop.RiceCropInformation_harvestDate == null">
-                                                  Theo dõi
-                                             </button>
-                                             <button class="btn btnEnd" v-else>
-                                                  Hoàn thành
-                                             </button>
-                                             <!-- <a :href="`https://www.google.com/maps/place/`+arableland.ArableLand_location">{{ arableland.ArableLand_location }}</a> -->
-                                        </td>
-                                        <td>
-                                             <span class="action ml-2 ml-2"
-                                                  @click="setRiceCropChoosen(ricecrop), isOpenUpdateRiceCrop = !isOpenUpdateRiceCrop">
-                                                  <span class="fas fa-edit actionIcon"></span>
-                                             </span>
-                                             <span class="action ml-4"
-                                                  @click="setRiceCropChoosen(ricecrop), isOpenConfirm = !isOpenConfirm">
-                                                  <span class="fas fa-trash-alt actionIcon"></span>
-                                             </span>
-                                        </td>
-                                   </tr>
-                              </tbody>
-                         </table>
+                    <div class=" row riceCropList mt-5 ml-2 mr-2 justify-content-center">
+                         <div class="col-sm-3" v-for="(riceCrop, i) in riceCropList" :key="i">
+                              <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
+                         </div>
+                         <!-- <table class="table mt-1 ml-2 mr-2">
+                                   <thead>
+                                        <tr>
+                                             <th>STT</th>
+                                             <th>Mã</th>
+                                             <th>Tên mùa vụ</th>
+                                             <th>Giống lúa</th>
+                                             <th>Ngày xuống giống</th>
+                                             <th style="vertical-align: bottom; text-align: center;">Trạng thái</th>
+                                             <th>Tùy chọn</th>
+                                        </tr>
+                                   </thead>
+                                   <tbody>
+                                        <tr v-for="(ricecrop, i ) in get_rows()" :key="i" class="align-self-center">
+                                             <td v-if="currentPage > 1">{{ i + ((currentPage - 1) * 6) }}</td>
+                                             <td v-else>{{ i }}</td>
+                                             <td>{{ ricecrop.RiceCropInformation_id }}</td>
+                                             <td>{{ ricecrop.RiceCropInformation_name }}</td>
+                                             <td>{{ ricecrop.Seed_id }}</td>
+                                             <td v-if="ricecrop.RiceCropInformation_sowingDate == null"> </td>
+                                             <td v-if="ricecrop.RiceCropInformation_sowingDate != null">{{
+                                                  formatDate(ricecrop.RiceCropInformation_sowingDate) }}</td>
+                                             <td style="vertical-align: bottom; text-align: center;">
+                                                  <button class="btn btnMonitor"
+                                                       v-if="ricecrop.RiceCropInformation_harvestDate == null">
+                                                       Theo dõi
+                                                  </button>
+                                                  <button class="btn btnEnd" v-else>
+                                                       Hoàn thành
+                                                  </button>
+                                                  <a :href="`https://www.google.com/maps/place/`+arableland.ArableLand_location">{{ arableland.ArableLand_location }}</a> 
+                                             </td>
+                                             <td>
+                                                  <span class="action ml-2 ml-2"
+                                                       @click="setRiceCropChoosen(ricecrop), isOpenUpdateRiceCrop = !isOpenUpdateRiceCrop">
+                                                       <span class="fas fa-edit actionIcon"></span>
+                                                  </span>
+                                                  <span class="action ml-4"
+                                                       @click="setRiceCropChoosen(ricecrop), isOpenConfirm = !isOpenConfirm">
+                                                       <span class="fas fa-trash-alt actionIcon"></span>
+                                                  </span>
+                                             </td>
+                                        </tr>
+                                   </tbody>
+                              </table> -->
+
+
                     </div>
 
-                    
+
                     <div class="confirmationDialog" v-if="isOpenConfirm">
                          <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
                               class="labelConfirm">
@@ -119,9 +135,17 @@
                     <UpdateRiceCropForm v-if="isOpenUpdateRiceCrop" :seedList="seedList" :newRiceCrop="riceCropChoosen"
                          :arableLandList="arableLandList" @updateRiceCrop-submit="updateRiceCrop" :message1="message1"
                          :message2="message2" />
+                    <CreateFertilizerTimesForm v-if="isOpenCreateFertilizerTimes" :newFertilizerTimes="newFertilizerTimes"
+                         :fertilizerList="fertilizerList" :developmentStageList="developmentStageList"
+                         :currentUser="currentUser" :riceCropChoosen="riceCropChoosen" :arableLandList="arableLandList"
+                         @addFertilizerTimes-submit="createFertilizerTimes" :message1="message1" :message2="message2" />
+                    <CreateSprayingTimesForm v-if="isOpenCreateSprayingTimes" :newSprayingTimes="newSprayingTimes"
+                         :pesticideList="pesticideList" :developmentStageList="developmentStageList"
+                         :currentUser="currentUser" :riceCropChoosen="riceCropChoosen" :arableLandList="arableLandList"
+                         @addSprayingTimes-submit="createSprayingTimes" :message1="message1" :message2="message2" />
                </div>
           </div>
-</div>
+     </div>
 </template>
 
 <script>
@@ -132,18 +156,29 @@ import SeedService from '@/services/seed.service';
 import ArableLandService from '@/services/arableLand.service';
 import RiceCropService from '@/services/riceCropInformation.service';
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
-import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import CreateRiceCropForm from '@/components/catalogManagementComponents/createNewRiceCropForm.vue';
 import UpdateRiceCropForm from '@/components/catalogManagementComponents/updateRiceCropForm.vue';
-
+import fertilizerService from '@/services/fertilizer.service';
+import MonitorService from '@/services/monitor.service';
+import developmentStageService from '@/services/developmentStage.service';
+import CreateFertilizerTimesForm from '@/components/catalogManagementComponents/createNewFertilizerTimesForm.vue';
+import fertilizerTimesService from '@/services/fertilizerTimes.service';
+import PesticideService from '@/services/pesticide.service';
+import SprayingTimesService from '@/services/sprayingTimes.service';
+import CreateSprayingTimesForm from '@/components/catalogManagementComponents/createNewSprayingTimesForm.vue';
+import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
+import RiceCropComponent from '@/components/catalogManagementComponents/riceCropComponent.vue';
 
 export default {
      name: "HomePage",
      components: {
           Catalog,
-          TopHeader,
           CreateRiceCropForm,
           UpdateRiceCropForm,
+          CreateFertilizerTimesForm,
+          CreateSprayingTimesForm,
+          TopHeader,
+          RiceCropComponent,
      },
 
      data() {
@@ -152,19 +187,27 @@ export default {
                cropList: [],
                seedList: [],
                arableLandList: [],
+               fertilizerList: [],
+               developmentStageList: [],
+               pesticideList: [],
                openCreate: false,
+               newSprayingTimes: {},
                newRiceCrop: {},
+               newFertilizerTimes: {},
                message1: " ",
                message2: " ",
                isOpenMessage: false,
                isOpenConfirm: false,
+               isOpenCreateSprayingTimes: false,
                riceCropChoosen: {},
                isOpenUpdateRiceCrop: false,
+               isOpenCreateFertilizerTimes: false,
                nameToSearch: "",
                message: "",
                currentPage: 1,
                elementsPerPage: 6,
                ascending: false,
+               fullListRiceCrop: [],
           }
      },
 
@@ -181,7 +224,7 @@ export default {
                "initEmployeeState"
           ]),
 
-          async retrieveRiceCropList() {
+          async retrieveFullRiceCropList() {
                const [err, respone] = await this.handle(
                     RiceCropService.getAll()
                );
@@ -189,17 +232,41 @@ export default {
                     console.log(err)
                }
                else {
+
+                    this.fullListRiceCrop = respone.data;
+                    var temp = (String(this.fullListRiceCrop[this.fullListRiceCrop.length - 1].RiceCropInformation_id)).split("");
+                    console.log(temp)
+                    var id = "";
+                    temp.forEach(element => {
+                         if (element != "R" && element != "I" && element != "C" & element != "0") {
+                              id += element;
+                         }
+                    });
+
+                    if (id < 9) {
+                         this.newRiceCrop.RiceCropInformation_id = "RCI000000" + String(Number(id) + 1);
+                    }
+                    else if (id > 8 && id < 99) {
+                         this.newRiceCrop.RiceCropInformation_id = "RCI00000" + String(Number(id) + 1);
+                    }
+                    else if (id > 98 && id < 999) {
+                         this.newRiceCrop.RiceCropInformation_id = "RCI0000" + String(Number(id) + 1);
+                    }
+                    else {
+                         this.newRiceCrop.RiceCropInformation_id = "RCI00" + String(Number(id) + 1);
+                    }
+
+               }
+          },
+          async retrieveRiceCropList() {
+               const [err, respone] = await this.handle(
+                    MonitorService.findByName(this.currentUser.Employee_id)
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
                     this.riceCropList = respone.data;
-                    console.log(respone.data);
-                    if (this.riceCropList.length < 10) {
-                         this.newRiceCrop.RiceCropInformation_id = "RCI000000" + (this.riceCropList.length + 1);
-                    }
-                    else if (this.riceCropList.length > 10 && this.riceCropList.length < 100) {
-                         this.newRiceCrop.RiceCropInformation_id = "RCI00000" + (this.riceCropList.length + 1);
-                    }
-                    else if (this.riceCropList.length > 100 && this.riceCropList.length < 1000) {
-                         this.newRiceCrop.RiceCropInformation_id = "RCI0000" + (this.riceCropList.length + 1);
-                    }
                }
           },
 
@@ -242,22 +309,62 @@ export default {
                }
           },
 
-          async setRiceCropChoosen(data){
+          async retrieveFertilizerList() {
+               const [err, respone] = await this.handle(
+                    fertilizerService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.fertilizerList = respone.data;
+                    console.log(respone.data);
+               }
+          },
+
+          async retrieveDvelopmentStageList() {
+               const [err, respone] = await this.handle(
+                    developmentStageService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.developmentStageList = respone.data;
+                    console.log(respone.data);
+               }
+          },
+
+          async retrievePesticideList() {
+               const [err, respone] = await this.handle(
+                    PesticideService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.pesticideList = respone.data;
+                    console.log(respone.data);
+               }
+          },
+
+          async setRiceCropChoosen(data) {
                this.riceCropChoosen = data;
                this.seedList.forEach(element => {
-                         if (data.Seed_id == element.Seed_id) {
-                              data.Seed_id = element.Seed_name;
-                         }
-                    });
+                    if (data.Seed_id == element.Seed_id) {
+                         data.Seed_id = element.Seed_name;
+                    }
+               });
 
-                    this.cropList.forEach(element => {
-                         if (data.Crop_id == element.Crop_id) {
-                              data.Crop_id = element.Crop_name;
-                         }
-                    });
+               this.cropList.forEach(element => {
+                    if (data.Crop_id == element.Crop_id) {
+                         data.Crop_id = element.Crop_name;
+                    }
+               });
           },
 
           async createRiceCrop(data) {
+               this.retrieveFullRiceCropList();
                if (data.close == false) {
                     this.openCreate = false;
                     this.message1 = " ";
@@ -313,7 +420,24 @@ export default {
                               this.message1 = "Thêm không thành công."
                          } else {
                               this.message2 = "Thêm thành công.";
+                              const monitor = {};
+                              monitor.Employee_id = this.currentUser.Employee_id;
+                              monitor.RiceCropInformation_id = data.RiceCropInformation_id;
+                              const [error, respone] = await this.handle(
+                                   MonitorService.create(monitor)
+                              );
+                              if (error) {
+                                   console.log(error);
+                                   this.message1 = "Thêm không thành công."
+                              } else if (respone.data == "Cập nhật thể tạo vụ mùa lúa mới.") {
+                                   this.message1 = "Thêm không thành công."
+                              } else {
+                                   this.message2 = "Thêm thành công.";
+                                   this.retrieveRiceCropList();
+                                   this.retrieveFullRiceCropList();
+                              }
                               this.retrieveRiceCropList();
+                              this.retrieveFullRiceCropList();
                          }
                     }
                     else {
@@ -324,12 +448,19 @@ export default {
           },
 
           async updateRiceCrop(data) {
+               this.retrieveFullRiceCropList();
                if (data.close == false) {
                     this.isOpenUpdateRiceCrop = false;
                     this.message1 = " ";
                     this.message2 = " ";
                     this.newRiceCrop = {};
                     this.retrieveRiceCropList();
+                    if (data.openFertilizerTime == true) {
+                         this.isOpenCreateFertilizerTimes = true;
+                    }
+                    if (data.isOpenCreateSprayingTimes == true) {
+                         this.isOpenCreateSprayingTimes = true;
+                    }
                }
                else {
                     this.message1 = " ";
@@ -379,6 +510,7 @@ export default {
                          } else {
                               this.message2 = "Cập nhật thành công.";
                               this.retrieveRiceCropList();
+                              this.retrieveFullRiceCropList();
                          }
                     }
                     else {
@@ -388,17 +520,136 @@ export default {
                }
           },
 
-          async deleteRiceCrop(data){
+          async deleteRiceCrop(data) {
                const [error, response] = await this.handle(
-                   RiceCropService.delete(data)
+                    RiceCropService.delete(data)
                );
                if (error) {
                     console.log(error);
                } else {
+                    this.retrieveFullRiceCropList();
                     this.retrieveRiceCropList();
                     console.log(response.data);
                     this.message = "Xóa phân bón thành công"
+
                }
+          },
+
+
+          async createFertilizerTimes(data) {
+               this.retrieveFullRiceCropList();
+               if (data.close == false) {
+                    this.isOpenCreateFertilizerTimes = false;
+                    this.message1 = " ";
+                    this.message2 = " ";
+                    this.newFertilizerTimes = {};
+               }
+               else {
+                    this.message1 = " ";
+                    this.message2 = " ";
+                    // console.log("development "+data.DevelopmentStage_id);
+                    this.developmentStageList.forEach(element => {
+                         if (element.DevelopmentStage_name == data.DevelopmentStage_name) {
+                              data.DevelopmentStage_id = element.DevelopmentStage_id;
+                         }
+                    });
+
+                    this.fertilizerList.forEach(element => {
+                         if (element.Fertilizer_name == data.Fertilizer_name) {
+                              data.Fertilizer_id = element.Fertilizer_id;
+                         }
+                    });
+
+                    data.RiceCropInformation_id = this.riceCropChoosen.RiceCropInformation_id;
+                    data.Employee_id = this.currentUser.Employee_id;
+
+
+                    if (data.FertilizerTimes_startDate != null) {
+                         data.FertilizerTimes_startDate = (moment(String(data.FertilizerTimes_startDate)).format("YYYY-MM-DD")).slice(0, 10);
+                    }
+                    else {
+                         data.FertilizerTimes_startDate = null;
+                    }
+                    if (data.FertilizerTimes_endDate != null) {
+                         data.FertilizerTimes_endDate = (moment(String(data.FertilizerTimes_endDate)).format("YYYY-MM-DD")).slice(0, 10);
+                    }
+                    else {
+                         data.FertilizerTimes_endDate = null;
+                    }
+
+                    const [error, respone] = await this.handle(
+                         fertilizerTimesService.create(data)
+                    );
+                    if (error) {
+                         console.log(error);
+                         this.message1 = "Thêm không thành công."
+                    } else if (respone.data == "Không thể tạo lần bón phân mới.") {
+                         this.message1 = "Thêm không thành công."
+                    } else {
+                         this.message2 = "Thêm thành công.";
+                         this.retrieveRiceCropList();
+                    }
+
+               }
+
+          },
+
+          async createSprayingTimes(data) {
+               this.retrieveFullRiceCropList();
+               if (data.close == false) {
+                    this.isOpenCreateSprayingTimes = false;
+                    this.message1 = " ";
+                    this.message2 = " ";
+                    this.newSrpayingTimes = {};
+               }
+               else {
+                    this.message1 = " ";
+                    this.message2 = " ";
+                    // console.log("development "+data.DevelopmentStage_id);
+                    this.developmentStageList.forEach(element => {
+                         if (element.DevelopmentStage_name == data.DevelopmentStage_name) {
+                              data.DevelopmentStage_id = element.DevelopmentStage_id;
+                         }
+                    });
+
+                    this.pesticideList.forEach(element => {
+                         if (element.Pesticide_name == data.Pesticide_name) {
+                              data.Pesticide_id = element.Pesticide_id;
+                         }
+                    });
+
+                    data.RiceCropInformation_id = this.riceCropChoosen.RiceCropInformation_id;
+                    data.Employee_id = this.currentUser.Employee_id;
+
+
+                    if (data.SprayingTimes_startDate != null) {
+                         data.SprayingTimes_startDate = (moment(String(data.SprayingTimes_startDate)).format("YYYY-MM-DD")).slice(0, 10);
+                    }
+                    else {
+                         data.SprayingTimes_startDate = null;
+                    }
+                    if (data.SprayingTimes_endDate != null) {
+                         data.SprayingTimes_endDate = (moment(String(data.SprayingTimes_endDate)).format("YYYY-MM-DD")).slice(0, 10);
+                    }
+                    else {
+                         data.SprayingTimes_endDate = null;
+                    }
+
+                    const [error, respone] = await this.handle(
+                         SprayingTimesService.create(data)
+                    );
+                    if (error) {
+                         console.log(error);
+                         this.message1 = "Thêm không thành công."
+                    } else if (respone.data == "Không thể tạo lần phun thuuốc mới.") {
+                         this.message1 = "Thêm không thành công."
+                    } else {
+                         this.message2 = "Thêm thành công.";
+                         this.retrieveRiceCropList();
+                    }
+
+               }
+
           },
 
           formatDate(data) {
@@ -431,10 +682,18 @@ export default {
           this.retrieveCropList();
           this.retrieveSeedList();
           this.retrieveArableLandList();
+          this.retrieveDvelopmentStageList();
+          this.retrieveFertilizerList();
+          this.retrieveFullRiceCropList();
+          this.retrievePesticideList();
+          this.newFertilizerTimes.Employee_id = this.currentUser.Employee_id;
+
      }
 }
 
 
 </script>
 
-<style>@import url(../../assets/riceCropStyle.css);</style>
+<style>
+@import url(../../assets/riceCropStyle.css);
+</style>

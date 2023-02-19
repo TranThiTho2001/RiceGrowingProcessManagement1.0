@@ -14,21 +14,21 @@
           <div class="row content">
                <div class="col-sm-12">
                     <div class="form-group">
-                         <label for="id" class="mt-2">Mã thuốc</label>
+                         <label for="id" class="mt-2">Mã thuốc <span style="color: red">*</span></label>
                          <Field name="id" type="name" class="form-control" v-model="newpesticide.Pesticide_id"
                               placeholder="Nhập mã thuốc..." />
                          <ErrorMessage name="id" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
-                         <label for="name" class="mt-3">Tên thuốc</label>
+                         <label for="name" class="mt-3">Tên thuốc <span style="color: red">*</span></label>
                          <Field name="name" class="form-control" v-model="newpesticide.Pesticide_name"
                               placeholder="Nhập tên thuốc..." />
                          <ErrorMessage name="name" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
-                         <label for="supplier" class="mt-3">Nhà cung cấp</label>
+                         <label for="supplier" class="mt-3">Nhà cung cấp <span style="color: red">*</span></label>
                          <Field name="supplier" class="form-control" v-model="newpesticide.Pesticide_supplier"
                               placeholder="Nhà cung cấp thuốc..." />
                          <ErrorMessage name="supplier" class="error-feedback" />

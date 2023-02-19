@@ -282,3 +282,14 @@
     background-color: none;
     color:darkgray
 }
+
+.arablelandManagement  .categoryList .btnArableland {
+     display: block;
+     width: 120%;
+     font-size: 19px;
+     background-color: #FFFA37;
+     color: #5C5D22;
+     border: none;
+     font-family: Inter;
+     border-radius: 14px;
+}

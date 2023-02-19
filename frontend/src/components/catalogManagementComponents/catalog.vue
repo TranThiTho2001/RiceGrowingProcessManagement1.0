@@ -1,37 +1,56 @@
-<template>
-     <!-- Cot ben trai -->
+<template><!-- Cot ben trai -->
      <div class="navigationBar container-fluid ">
-          <div class="row topRow mb-4 mt-3 ">
+          <div class="row topRow  mt-3">
+               <div class="col-sm-12 ">
+                    <div class="row">
+                         <div class="col-sm-3"></div>
+                         <div class="col-sm-6 text-center">
+                              <img class="img-fluid" src="../../assets/UserIcon/iconUser1.png">
+                         </div>
+                         <div class="col-sm-3"></div>
+                    </div>
+                    <div class="row" style="padding-bottom: 10px;">
+                         <div class="col-sm-12 text-center">
+                              <h4 style="font-family: Inter; font-size: 22px; display: block;color: #5C5D22;">{{ currentuser.Employee_name
+                              }}</h4>
+                              <span class="mt-0" style="font-family: Inter; font-size: 18px; color:#5C5D22">{{
+                                   currentuser.Role_name }}</span>
+                         </div>
+                    </div>
+                    <hr style="background-color: #919302; border-width: 1.2px;">
+               </div>
+
           </div>
-          <div class="row bottomRow">
+          <div class="row bottomRow mt-3">
                <div class="categoryList col-sm-12">
-                    <div class="row mt-1 pt-2">
-                         <button class="btn  pl-3 pr-5 btn-sm btn-outline-secondary btnMonitor"
-                              @click="goToQLMonitor"> <i class="fas fa-chart-line">&nbsp; &nbsp;</i>Theo dõi vụ mùa</button>
+                    <div class="row ">
+                         <button class="btn  pl-3 pr-5 btn-sm btn-outline-secondary btnMonitor" @click="goToQLMonitor"> <i
+                                   class="fas fa-chart-line">&nbsp; &nbsp;</i>Theo dõi vụ mùa</button>
                     </div>
                     <div class="row mt-1 pt-2">
                          <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnOtherActivities"
-                              @click="goToOtherActivities"> <i class="far fa-list-alt">&nbsp; &nbsp;</i>Các hoạt động </button>
+                              @click="goToOtherActivities"> <i class="far fa-list-alt">&nbsp; &nbsp;</i>Các hoạt động
+                         </button>
                     </div>
                     <div class="row mt-3">
-                         <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnSeed"
-                              @click="goToSeed"><i class="fas fa-seedling">&nbsp; &nbsp;</i> Giống lúa</button>
+                         <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnSeed" @click="goToSeed"><i
+                                   class="fas fa-seedling">&nbsp; &nbsp;</i> Giống lúa</button>
                     </div>
                     <div class="row mt-3">
                          <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnFertilizer" @click="goToFertilizer">
                               <i class="fas fa-fill-drip">&nbsp; &nbsp;</i>Phân bón </button>
                     </div>
                     <div class="row mt-3">
-                         <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnEpidemic"
-                              @click="goToEpidemic"><i class="fas fa-spider">&nbsp; &nbsp;</i>Dịch bệnh </button>
+                         <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnEpidemic" @click="goToEpidemic"><i
+                                   class="fas fa-spider">&nbsp; &nbsp;</i>Dịch bệnh </button>
                     </div>
                     <div class="row mt-3">
-                         <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnArableland"
-                              @click="goToArableLand"><i class="fas fa-square">&nbsp; &nbsp;</i>Mẫu ruộng</button>
+                         <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnArableland" @click="goToArableLand"><i
+                                   class="fas fa-square">&nbsp; &nbsp;</i>Mẫu ruộng</button>
                     </div>
                     <div class="row mt-3">
-                         <button class="btn pl-3 pr-2 btn-sm btn-outline-secondary btnPesticide"
-                              @click="goToPesticide"><i class="fas fa-flask">&nbsp; &nbsp;</i>Thuốc trị bệnh dịch</button>
+                         <button class="btn pl-3 pr-2 btn-sm btn-outline-secondary btnPesticide" @click="goToPesticide"><i
+                                   class="fas fa-flask">&nbsp; &nbsp;</i>Thuốc trị bệnh dịch</button>
                     </div>
                     <div class="null"></div>
                     <div class="moreInformation">
@@ -91,13 +110,13 @@ export default {
                else {
                     // this.employee = respone.data;
                     this.currentuser = respone.data;
-                    if(this.currentuser.Role_id == "01"){
+                    if (this.currentuser.Role_id == "01") {
                          this.currentuser.Role_name = "Quản trị viên";
                     }
-                    else if(this.currentuser.Role_id == "02"){
+                    else if (this.currentuser.Role_id == "02") {
                          this.currentuser.Role_name = "Chuyên gia";
                     }
-                    else{
+                    else {
                          this.currentuser.Role_name = "Nhân viên";
                     }
                }
@@ -105,68 +124,65 @@ export default {
      },
 
      mounted() {
-              this.PhanQuyenNhanVien();
+          this.PhanQuyenNhanVien();
      }
 
 };
 </script>
 
-<style>
-.navigationBar {
-     background-color: #6cc38c;
-     font-family: Inter;
-     height: 100vmin;
-     font-size: 18px;
-     display: inline-block;
-     margin-left: 0px;
-}
+<style> .navigationBar {
+      background-image: linear-gradient(#dffac8, #f7f8cc);
+      font-family: Inter;
+      height: 100vmin;
+      font-size: 18px;
+      display: inline-block;
+      margin-left: 0px;
+ }
 
-.navigationBar .null {
-     height: 19%;
-}
+ .navigationBar .null {
+      height: 19%;
+ }
 
-.categoryList {
-     margin-top: 20px;
-     width: 100%;
-}
+ .categoryList {
+      width: 100%;
+ }
 
-.categoryList .btn-outline-secondary,
-.moreInformation .btn-outline-secondary {
-     font-size: 19px;
-     font-family: Inter;
-     text-align: left;
-     min-width: 100%;
-     display: block;
-     background-color: #6cc38c;
-     color: #101010;
-     border: none;
-     border-radius: 0;
-}
+ .categoryList .btn-outline-secondary,
+ .moreInformation .btn-outline-secondary {
+      font-size: 19px;
+      font-family: Inter;
+      text-align: left;
+      min-width: 100%;
+      display: block;
+      background-color: none;
+      color: #737374;
+      border: none;
+      border-radius: 14px;
+ }
 
-.categoryList .btn-outline-secondary:hover,
-.moreInformation .btn-outline-secondary:hover {
-     display: block;
-     width: 120%;
-     font-size: 19px;
-     background-color: #ebfff3;;
-     color: black;
-     border: none;
-     font-family: Inter;
-     border-radius: 0;
-}
+ .categoryList .btn-outline-secondary:hover,
+ .moreInformation .btn-outline-secondary:hover {
+      display: block;
+      width: 100%;
+      font-size: 19px;
+      background-color: #FFFA37;
+      color: #5C5D22;
+      border: none;
+      font-family: Inter;
+      border-radius: 14px;
+ }
 
-.categoryList .fas,
-.categoryList .fa,
-.moreInformation .fas,
-.moreInformation .fa {
-     font-size: 20px;
-}
+ .categoryList .fas,
+ .categoryList .fa,
+ .moreInformation .fas,
+ .moreInformation .fa {
+      font-size: 20px;
+ }
 
-.navigationBar .iconUser {
-     font-size: 50px;
-}
+ .navigationBar .iconUser {
+      font-size: 50px;
+ }
 
-.navigationBar .topRow {
-     border-bottom: 3px solid #253e2d;
-}
-</style>
+ .navigationBar .topRow {
+      /* border-bottom: 1px solid #919302; */
+ }</style>

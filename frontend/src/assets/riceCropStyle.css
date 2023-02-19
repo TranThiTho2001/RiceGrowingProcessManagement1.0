@@ -230,7 +230,7 @@
     position: relative;
  }
 .riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement{
-     border-left: #00BA13 3px solid;
+     border-left: #bdf487 0.5px solid;
 }
  .riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement table tr{
      /* background-color: #ced4da; */
@@ -316,3 +316,14 @@
      font-size: 18px;
      font-family: Inter;
  }
+
+ .riceCropManagement .categoryList .btnMonitor {
+    display: block;
+    width: 120%;
+    font-size: 19px;
+    background-color: #FFFA37;
+    border-radius: 14px;
+    color: #5C5D22;
+    border: none;
+    font-family: Inter;
+}

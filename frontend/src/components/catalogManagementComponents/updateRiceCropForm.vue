@@ -1,9 +1,9 @@
 <template>
-     <Form @submit="newricecrop.close = true, $emit('updateRiceCrop-submit', newricecrop)" :validation-schema="schema"
+     <Form @submit="newricecrop.close = true,newricecrop.openFertilizerTime = true, $emit('updateRiceCrop-submit', newricecrop)" :validation-schema="schema"
           class="container updateRiceCropForm">
           <div class="row">
                <div class="col-sm-12 text-right">
-                    <i class="fas fa-times" @click="newricecrop.close = false, $emit('updateRiceCrop-submit', newricecrop)"
+                    <i class="fas fa-times" @click="newricecrop.close = false,newricecrop.openFertilizerTime = false, $emit('updateRiceCrop-submit', newricecrop)"
                          style="font-size: 25px; "></i>
                </div>
           </div>
@@ -114,7 +114,10 @@
                <button class="btn btn-outline-secondary btnLuu col-sm-2">Lưu</button>
                <div class="col-sm-5"></div>
           </div>
-
+          <div class="row">
+               <button @click="newricecrop.close = false, newricecrop.openFertilizerTime = true, $emit('updateRiceCrop-submit', newricecrop)">Thêm lần bón phân</button>
+               <button @click="newricecrop.close = false, newricecrop.isOpenCreateSprayingTimes = true, $emit('updateRiceCrop-submit', newricecrop)">Thêm lần phun thuốc </button>
+          </div>
 </form>
 </template>
  

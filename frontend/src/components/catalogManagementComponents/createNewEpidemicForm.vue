@@ -15,7 +15,7 @@
           <div class="row content">
                <div class="col-sm-6 mt-2">
                     <div class="form-group">
-                         <label for="id" class="mt-2">Mã</label>
+                         <label for="id" class="mt-2">Mã <span style="color: red">*</span></label>
                          <Field name="id" type="name" class="form-control" v-model="newepidemic.Epidemic_id"
                               placeholder="Nhập mã bệnh dịch..." />
                          <ErrorMessage name="id" class="error-feedback" />
@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="form-group ">
-                         <label for="environment" class="mt-4 pt-2">Môi trường phát triển</label>
+                         <label for="environment" class="mt-4 pt-2">Môi trường phát triển <span style="color: red">*</span></label>
                          <Field name="environment" class="form-control"
                               v-model="newepidemic.Epidemic_developmentEnvironment" as="textarea" style="height: 120px;"
                               placeholder="Nhập môi trường phát triển..." />
@@ -40,31 +40,27 @@
 
                <div class="col-sm-6 ">
                     <div class="form-group">
-                         <label for="name" class="mt-3">Tên</label>
+                         <label for="name" class="mt-3">Tên <span style="color: red">*</span></label>
                          <Field name="name" class="form-control" v-model="newepidemic.Epidemic_name"
                               placeholder="Nhập tên bệnh dịch..." />
                          <ErrorMessage name="name" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
-                         <label for="classtify" class="mt-3">Phân loại</label>
+                         <label for="classtify" class="mt-3">Phân loại <span style="color: red">*</span></label>
                          <Field name="classtify" v-model="newepidemic.EpidemicsClassification_id">
                               <select class="form-control" v-model="newepidemic.EpidemicsClassification_id" name="classtify" for="classtify">
-                                   <option v-if="newepidemic.EpidemicsClassification_id == 'EC000001'" :selected="true"  for="classtify">Côn trùng</option>
-                                   <option v-if="newepidemic.EpidemicsClassification_id != 'EC000001'"  for="classtify">Côn trùng</option>
-                                   <option v-if="newepidemic.EpidemicsClassification_id == 'EC000002'" :selected="true">Dịch bệnh</option>
-                                   <option v-if="newepidemic.EpidemicsClassification_id != 'EC000002'">Dịch bệnh</option>
-                                   <option  v-if="newepidemic.EpidemicsClassification_id == 'EC000003'" :selected="true">Nấm hại</option>
-                                   <option v-if="newepidemic.EpidemicsClassification_id != 'EC000003'">Nấm hại</option>
-                                   <option  v-if="newepidemic.EpidemicsClassification_id == 'EC000004'" :selected="true">Sâu bệnh</option>
-                                   <option  v-if="newepidemic.EpidemicsClassification_id != 'EC000004'">Sâu bệnh</option>
+                                   <option  for="classtify">Côn trùng</option>
+                                   <option>Dịch bệnh</option>
+                                   <option >Nấm hại</option>
+                                   <option >Sâu bệnh</option>
                               </select>
                         </Field>
                          <ErrorMessage name="classtify" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
-                         <label for="harm" class="mt-3">Tác hại</label>
+                         <label for="harm" class="mt-3">Tác hại <span style="color: red">*</span></label>
                          <Field name="harm" class="form-control" v-model="newepidemic.Epidemic_Harm" as="textarea"
                               style="height: 120px;" placeholder="Nhập tác hại..." />
                          <ErrorMessage name="harm" class="error-feedback" />

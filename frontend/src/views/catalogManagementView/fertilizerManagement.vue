@@ -1,5 +1,5 @@
 <template>
-     <div class="container-fluid fertilizerManagement pr-4 pl-4" style="background-color: #ebfff3;">
+     <div class="container-fluid fertilizerManagement pr-4 pl-4" style="background-color: #EAEAEA;">
           <div class="row fertilizerManagementFrame">
                <div class="col-md-2 col-sm-12 leftFertilizerManagement">
                     <div class="row">
@@ -7,12 +7,6 @@
                     </div>
                </div>
                <div class="col-md-10 rightFertilizerManagement">
-                    <div class="row">
-                         <div class="col-md-9"></div>
-                         <div class="col-md-3">
-                              <TopHeader :currentUserid="currentUser.Employee_id" />
-                         </div>
-                    </div>
                     <div class="row mt-1 mb-2">
                          <div class="col-sm-12">
                               <h2 class="text-center">PHÂN BÓN</h2>
@@ -121,7 +115,6 @@
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import { mapGetters, mapMutations } from "vuex";
 import FertilizerService from '../../services/fertilizer.service';
-import TopHeader from '../../components/catalogManagementComponents/topHeader.vue'
 import CreateFertilizerForm from '@/components/catalogManagementComponents/createNewFertilizerForm.vue';
 import UpdateFertilizerForm from '@/components/catalogManagementComponents/updateFertilizerForm.vue';
 export default {
@@ -129,7 +122,6 @@ export default {
      components: {
           Catalog,
           CreateFertilizerForm,
-          TopHeader,
           UpdateFertilizerForm,
      },
 
@@ -173,6 +165,26 @@ export default {
                else {
                     this.fertilizerList = respone.data;
                     console.log(respone.data);
+                    var temp = (String(this.fertilizerList[this.fertilizerList.length - 1].Fertilizer_id)).split("");
+                    var id = "";
+                    temp.forEach(element => {
+                         if (element != "F" && element != "R" & element != "0") {
+                              id += element;
+                         }
+                    });
+
+                    if (id < 10) {
+                         this.newFertilizer.Fertilizer_id = "FR0000000" + String(Number(id) + 1);
+                    }
+                    else if (id > 9 && id < 100) {
+                         this.newFertilizer.Fertilizer_id = "FR000000" + String(Number(id) + 1);
+                    }
+                    else if (id > 99 && id < 1000) {
+                         this.newFertilizer.Fertilizer_id = "FR00000" + String(Number(id) + 1);
+                    }
+                    else {
+                         this.newFertilizer.Fertilizer_id = "FR00" + String(Number(id) + 1);
+                    }
                }
           },
 
@@ -195,6 +207,7 @@ export default {
                          this.message1 = "Thêm không thành công."
                     } else {
                          this.message2 = "Thêm thành công.";
+                         this.newFertilizer = {}
                          this.retrieveFertilizerList();
                     }
                }
