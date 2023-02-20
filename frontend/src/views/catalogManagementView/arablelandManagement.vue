@@ -1,5 +1,5 @@
 <template>
-     <div class="container-fluid arablelandManagement pr-4 pl-4" style="background-color: #EAEAEA;">
+     <div class="container-fluid arablelandManagement pr-4" style="background-color: #EAEAEA;">
           <div class="row arablelandManagementFrame">
                <div class="col-md-2 col-sm-12 leftArableLandManagement">
                     <div class="row">

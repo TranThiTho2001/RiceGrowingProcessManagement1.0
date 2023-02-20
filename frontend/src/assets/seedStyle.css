@@ -227,7 +227,7 @@
     position: relative;
  }
 .seedManagement .seedManagementFrame .rightSeedManagement{
-     border-left: #00BA13 3px solid;
+    border-left: #bdf487 0.5px solid;
 }
  .seedManagement .seedManagementFrame .rightSeedManagement table tr{
      /* background-color: #ced4da; */
@@ -271,7 +271,7 @@
 
 .seedManagement .categoryList .btnSeed {
     display: block;
-    width: 120%;
+    width: 94%;
     font-size: 19px;
     background-color: #FFFA37;
     color: #5C5D22;

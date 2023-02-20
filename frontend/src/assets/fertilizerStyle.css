@@ -227,7 +227,7 @@
     position: relative;
  }
 .fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement{
-     border-left: #00BA13 3px solid;
+    border-left: #bdf487 0.5px solid;
 }
  .fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement table tr{
      /* background-color: #ced4da; */
@@ -266,7 +266,7 @@
 
 .fertilizerManagement .categoryList .btnFertilizer {
     display: block;
-    width: 120%;
+    width: 94%;
     font-size: 19px;
     background-color: #FFFA37;
     color: #5C5D22;

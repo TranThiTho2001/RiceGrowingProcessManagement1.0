@@ -20,6 +20,7 @@
     "vue-carousel": "^0.18.0",
     "vue-moment": "^4.1.0",
     "vue-router": "^4.0.13",
+    "vue-scrolling-table": "^2.0.0",
     "vue3-carousel": "^0.2.9",
     "vuejs3-datepicker": "^1.0.16",
     "vuex": "^4.1.0",

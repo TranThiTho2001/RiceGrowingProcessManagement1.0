@@ -1,5 +1,5 @@
 <template>
-     <div class="container-fluid fertilizerManagement pr-4 pl-4" style="background-color: #EAEAEA;">
+     <div class="container-fluid fertilizerManagement pr-4 " style="background-color: #EAEAEA;">
           <div class="row fertilizerManagementFrame">
                <div class="col-md-2 col-sm-12 leftFertilizerManagement">
                     <div class="row">

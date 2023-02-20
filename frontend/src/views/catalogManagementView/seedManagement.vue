@@ -1,5 +1,5 @@
 <template>
-     <div class="container-fluid seedManagement pr-4 pl-4" style="background-color: #EAEAEA;">
+     <div class="container-fluid seedManagement pr-4 " style="background-color: #EAEAEA;">
           <div class="row seedManagementFrame">
                <div class="col-md-2 col-sm-12 leftSeedManagement">
                     <div class="row">

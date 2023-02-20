@@ -178,7 +178,7 @@ export default {
                     },
                     // 1024 and up
                     1024: {
-                         itemsToShow: 5.5,
+                         itemsToShow: 5,
                          snapAlign: 'start',
                     },
                },
@@ -688,7 +688,8 @@ export default {
 .carousel__prev,
 .carousel__next {
      box-sizing: content-box;
-     color: aqua;
-     background-color: black;
+     color: rgb(32, 97, 97);
+     background-color: rgb(206, 202, 202);
+     box-shadow: 4px;
 }
 </style>

@@ -28,7 +28,10 @@ FertilizerTimes.create = (newFertilizerTimes, result) => {
 };
 
 FertilizerTimes.findByIdRiceCropInformation = (id, result) => {
-     sql.query(`SELECT * FROM FertilizerTimes WHERE RiceCropInformation_id like '${id}'`, (err, res) => {
+     sql.query(`SELECT * FROM FertilizerTimes JOIN Fertilizer on Fertilizer.Fertilizer_id = FertilizerTimes.Fertilizer_id ` +
+          `JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = FertilizerTimes.RiceCropInformation_id `+
+          ` JOIN Employee on Employee.Employee_id = FertilizerTimes.Employee_id `+
+          `WHERE FertilizerTimes.RiceCropInformation_id like '${id}'`, (err, res) => {
           if (err) {
                console.log("error: ", err);
                result(err, null);
@@ -44,7 +47,7 @@ FertilizerTimes.findByIdRiceCropInformation = (id, result) => {
 };
 
 FertilizerTimes.getAll = (Fertilizer_id, result) => {
-     let query = "SELECT * FROM FertilizerTimes";
+     let query = "SELECT * FROM FertilizerTimes ";
      if (Fertilizer_id) {
           query += ` WHERE Fertilizer_id LIKE '%${Fertilizer_id}%'`;
      }

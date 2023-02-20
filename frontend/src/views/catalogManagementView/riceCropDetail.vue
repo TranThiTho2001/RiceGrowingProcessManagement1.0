@@ -1,10 +1,10 @@
 <template>
      <div class="container-fluid riceCropDetail">
-          <div class="row riceCropDetailFrame">
+          <div class="row riceCropDetailFrame mr-2">
                <div class="col-sm-2">
                     <Catalog :currentUserid="currentUser.Employee_id" />
                </div>
-               <div class="col-md-10 rightRiceCropDetail">
+               <div class="col-md-10 rightRiceCropDetail pl-4">
                     <div class="row mr-2 mt-2 mb-5">
                          <div class="col-md-10 pr-5">
                               <div class="row">
@@ -26,10 +26,76 @@
                          <UpdateRiceCropForm :seedList="seedList" :newRiceCrop="newRiceCrop" :arableLandList="arableLandList"
                               @updateRiceCrop-submit="updateRiceCrop" :message1="message1" :message2="message2" />
                     </div>
-
-                    <div class="row activitiesList">
+                    <div class="row functionName mt-1">
+                         <div class=" btn btn-midle text-center btnFertilizerTimes" v-if="!isOpenTableFertilizerTimes"
+                              @click="setTable('btnFertilizerTimes')">Bón phân</div>
+                         <div class=" btn btn-midle text-center btnFertilizerTimes" v-if="isOpenTableFertilizerTimes"
+                              style="background-color: bisque;">Bón phân</div>
+                         <div class=" btn btn-midle text-center btnSprayingTimes" v-if="isOpenTableSprayingTimes"
+                              style="background-color: bisque;">Phun thuốc</div>
+                         <div class=" btn btn-midle text-center btnSprayingTimes" v-if="!isOpenTableSprayingTimes"
+                              @click="setTable('btnSprayingTimes')">Phun thuốc</div>
+                         <div class=" btn btn-midle text-center btnActivities" v-if="isOpenTableOtherActivitiesTimes"
+                              style="background-color: bisque;">Hoạt động khác</div>
+                         <div class=" btn btn-midle text-center btnActivities" @click="setTable('btnActivities')"
+                              v-if="!isOpenTableOtherActivitiesTimes">Hoạt động khác</div>
+                         <div class=" btn btn-midle text-center btnEpidemic" v-if="isOpenTableEpidemicTimes"
+                              style="background-color: bisque;">Tình bệnh dịch</div>
+                         <div class=" btn btn-midle text-center btnEpidemic" v-if="!isOpenTableEpidemicTimes"
+                              @click="setTable('btnEpidemic')">Tình bệnh dịch</div>
+                         <div class=" btn btn-midle text-center btnAttendee" v-if="isOpenTableMonitor"
+                              style="background-color: bisque;">Người theo dõi</div>
+                         <div class=" btn btn-midle text-center btnAttendee" v-if="!isOpenTableMonitor"
+                              @click="setTable('btnAttendee')">Người theo dõi</div>
 
                     </div>
+                    <div class="row activitiesList" >
+                         <button class="btn mt-3" style="background-color: gold;">Thêm</button>
+                         <table class="table-fixed" v-if="isOpenTableFertilizerTimes" style="height: 200px; width: 100%;">
+                              <thead>
+                                   <tr >
+                                        <th class="text-center " >Mã</th>
+                                        <th>Tên phân bón</th>
+                                        <th class="text-center ">Số lượng (kg/ha)</th>
+                                        <th class="text-center ">Ngày bất đầu</th>
+                                        <th class="text-center ">Ngày kết thúc</th>
+                                        <th class="">Nhân viên</th>
+                                        <th class="">Tùy chọn</th>
+                                   </tr>
+                              </thead>
+                              <tbody >
+                                   <tr v-for="(fertilizer, i ) in fertilizerTimesList" :key="i">
+                                        <td class="text-center " >{{ fertilizer.FertilizerTimes_times }}</td>
+                                        <td class="">{{ fertilizer.Fertilizer_name }}</td>
+                                        <td class="text-center ">{{ fertilizer.FertilizerTimes_amount }}</td>
+                                        <td class="text-center ">{{ formatDate(fertilizer.FertilizerTimes_startDate)
+                                        }}</td>
+                                        <td class="text-center ">{{ formatDate(fertilizer.FertilizerTimes_endDate) }}
+                                        </td>
+                                        <td class="">{{ fertilizer.Employee_name }}</td>
+                                        <td style="border-top: none;" class="">
+                                             <span class="action" style="border-top: none;"
+                                                  @click="setEpidemicChoosen(fertilizer), isOpenUpdateEpidemic = !isOpenUpdateEpidemic">
+                                                  <span class="fas fa-edit actionIcon"></span>
+                                             </span>
+                                             <span class="action pl-4" style="border-top: none;"
+                                                  @click="setEpidemicChoosen(fertilizer), isOpenConfirm = !isOpenConfirm">
+                                                  <span class="fas fa-trash-alt actionIcon"></span>
+                                             </span>
+                                        </td>
+                                   </tr>
+                              </tbody>
+                         </table>
+
+
+
+                    </div>
+
+                    <CreateFertilizerTimesForm v-if="isOpenCreateFertilizerTimesForm"
+                         :newFertilizerTimes="newFertilizerTimes" :fertilizerList="fertilizerList"
+                         :developmentStageList="developmentStageList" :currentUser="currentUser"
+                         :riceCropChoosen="riceCropChoosen" :arableLandList="arableLandList"
+                         @addFertilizerTimes-submit="createFertilizerTimes" :message1="message1" :message2="message2" />
                </div>
           </div>
      </div>
@@ -48,7 +114,7 @@ import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import fertilizerService from '@/services/fertilizer.service';
 import MonitorService from '@/services/monitor.service';
 import developmentStageService from '@/services/developmentStage.service';
-// import CreateFertilizerTimesForm from '@/components/catalogManagementComponents/createNewFertilizerTimesForm.vue';
+import CreateFertilizerTimesForm from '@/components/catalogManagementComponents/createNewFertilizerTimesForm.vue';
 import PesticideService from '@/services/pesticide.service';
 // import CreateSprayingTimesForm from '@/components/catalogManagementComponents/createNewSprayingTimesForm.vue';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
@@ -65,7 +131,7 @@ export default {
           UpdateRiceCropForm,
           Catalog,
           // UpdateRiceCropForm,
-          // CreateFertilizerTimesForm,
+          CreateFertilizerTimesForm,
           // CreateSprayingTimesForm,
           TopHeader,
      },
@@ -86,10 +152,16 @@ export default {
                pesticideList: [],
                arableLandList: [],
                developmentStageList: [],
-               fertiliserTimesList: [],
+               fertilizerTimesList: [],
                SprayingTimesList: [],
                message1: "",
                message2: "",
+               isOpenTableFertilizerTimes: false,
+               isOpenTableSprayingTimes: false,
+               isOpenTableOtherActivitiesTimes: false,
+               isOpenTableEpidemicTimes: false,
+               isOpenTableMonitor: false,
+               isOpenCreateFertilizerTimesForm: false,
           }
      },
 
@@ -102,10 +174,6 @@ export default {
 
      created() {
           this.newRiceCrop.RiceCropInformation_id = this.$route.params.id;
-          this.initEmployeeState();
-          this.retrieveCropList();
-          this.retrieveSeedList();
-          this.retrieveNewRiceCrop();
      },
 
 
@@ -202,7 +270,7 @@ export default {
                     console.log(err)
                }
                else {
-                    this.fertiliserTimesList = respone.data;
+                    this.fertilizerTimesList = respone.data;
                     console.log(respone.data);
                }
           },
@@ -308,22 +376,53 @@ export default {
                }
           },
 
+          formatDate(data) {
+               if (data == null) return "";
+               return (moment(String(data)).format("YYYY-MM-DD")).slice(0, 10);
+          },
 
-},
+          async setTable(data) {
+               this.isOpenTableEpidemicTimes = false;
+               this.isOpenTableFertilizerTimes = false;
+               this.isOpenTableMonitor = false;
+               this.isOpenTableOtherActivitiesTimes = false
+               this.isOpenTableSprayingTimes = false;
+               if (data == "btnFertilizerTimes") {
+                    this.isOpenTableFertilizerTimes = true;
+               }
+               else if (data == "btnSprayingTimes") {
+                    this.isOpenTableSprayingTimes = true;
+               }
+               else if (data == "btnActivities") {
+                    this.isOpenTableOtherActivitiesTimes = true;
+               }
+               else if (data == "btnEpidemic") {
+                    this.isOpenTableEpidemicTimes = true;
+               }
+               else {
+                    this.isOpenTableMonitor = true;
+               }
+          },
 
-mounted() {
-     this.retrieveArableLandList();
-     this.retrieveCropList();
-     this.retrieveDvelopmentStageList();
-     this.retrieveFertilizerList();
-     this.retrievePesticideList();
-     this.retrieveSeedList();
-     this.retrieveFertilizerTimesList();
-     this.retrieveSprayingTimesList();
-     this.retrieveMonitorList();
-     this.retrieveNewRiceCrop();
-}
+
+     },
+
+     mounted() {
+          this.retrieveArableLandList();
+          this.retrieveCropList();
+          this.retrieveDvelopmentStageList();
+          this.retrieveFertilizerList();
+          this.retrievePesticideList();
+          this.retrieveSeedList();
+          this.retrieveFertilizerTimesList();
+          this.retrieveSprayingTimesList();
+          this.retrieveMonitorList();
+          this.retrieveNewRiceCrop();
+          this.initEmployeeState();
+     }
 };
 </script>
 
-<style></style>
+<style>
+
+</style>

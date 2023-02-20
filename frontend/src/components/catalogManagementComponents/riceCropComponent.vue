@@ -68,7 +68,7 @@ export default {
 
 .riceCropComponent {
      /* padding: 2px 2px 3px; */
-     margin-right: 5%;
+     margin-right: 10%;
      margin-top: 5%;
      /* margin-bottom: 20%; */
      -moz-border-radius: 2px;
@@ -77,7 +77,7 @@ export default {
      -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), inset 0px 4px 4px rgba(0, 0, 0, 0.25);
      border-radius: 10px;
-     width: 100%;
+     width: 90%;
      text-align: left;
      
 
@@ -128,6 +128,7 @@ export default {
       font-size: 18px;  
       width: max-content;
       font-weight: 600;
+      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .riceCropComponent .btnFinish{

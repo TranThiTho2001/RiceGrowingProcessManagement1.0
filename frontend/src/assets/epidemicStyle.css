@@ -228,7 +228,7 @@
     position: relative;
  }
 .epidemicManagement .epidemicManagementFrame .rightEpidemicManagement{
-     border-left: #00BA13 3px solid;
+    border-left: #bdf487 0.5px solid;
 }
  .epidemicManagement .epidemicManagementFrame .rightEpidemicManagement table tr{
      /* background-color: #ced4da; */
@@ -279,7 +279,7 @@
 
 .epidemicManagement .categoryList .btnEpidemic{
     display: block;
-    width: 120%;
+    width: 94%;
     font-size: 19px;
     background-color: #FFFA37;
     color: #5C5D22;

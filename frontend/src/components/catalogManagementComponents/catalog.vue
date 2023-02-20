@@ -23,34 +23,34 @@
           </div>
           <div class="row bottomRow mt-1">
                <div class="categoryList col-sm-12">
-                    <div class="row ">
-                         <button class="btn  pl-3 pr-5 btn-sm btn-outline-secondary btnMonitor" @click="goToQLMonitor"> <i
-                                   class="fas fa-chart-line">&nbsp; &nbsp;</i>Theo dõi vụ mùa</button>
+                    <div class="row " >
+                         <button class="btn ml-2 pl-3 pr-5 btn-sm btn-outline-secondary btnMonitor" @click="goToQLMonitor"> <i
+                                   class="fas fa-chart-line" >&nbsp; </i>Theo dõi vụ mùa</button>
                     </div>
                     <div class="row mt-1 pt-2">
-                         <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnOtherActivities"
+                         <button class="btn ml-2 pl-3 pr-5 btn-sm btn-outline-secondary btnOtherActivities"
                               @click="goToOtherActivities"> <i class="far fa-list-alt">&nbsp; &nbsp;</i>Các hoạt động
                          </button>
                     </div>
                     <div class="row mt-3">
-                         <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnSeed" @click="goToSeed"><i
+                         <button class="btn ml-2 pl-3 pr-5 btn-sm btn-outline-secondary btnSeed" @click="goToSeed"><i
                                    class="fas fa-seedling">&nbsp; &nbsp;</i> Giống lúa</button>
                     </div>
                     <div class="row mt-3">
-                         <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnFertilizer" @click="goToFertilizer">
+                         <button class="btn ml-2 pl-3 pr-5 btn-sm btn-outline-secondary btnFertilizer" @click="goToFertilizer">
                               <i class="fas fa-fill-drip">&nbsp; &nbsp;</i>Phân bón </button>
                     </div>
                     <div class="row mt-3">
-                         <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnEpidemic" @click="goToEpidemic"><i
+                         <button class="btn ml-2 pl-3 pr-5 btn-sm btn-outline-secondary btnEpidemic" @click="goToEpidemic"><i
                                    class="fas fa-spider">&nbsp; &nbsp;</i>Dịch bệnh </button>
                     </div>
                     <div class="row mt-3">
-                         <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnArableland" @click="goToArableLand"><i
+                         <button class="btn ml-2 pl-3 pr-5 btn-sm btn-outline-secondary btnArableland" @click="goToArableLand"><i
                                    class="fas fa-square">&nbsp; &nbsp;</i>Mẫu ruộng</button>
                     </div>
                     <div class="row mt-3">
-                         <button class="btn pl-3 pr-2 btn-sm btn-outline-secondary btnPesticide" @click="goToPesticide"><i
-                                   class="fas fa-flask">&nbsp; &nbsp;</i>Thuốc trị bệnh dịch</button>
+                         <button class="btn ml-2 pl-3 pr-2 btn-sm btn-outline-secondary btnPesticide" @click="goToPesticide"><i
+                                   class="fas fa-flask">&nbsp; &nbsp;</i>Thuốc trị bệnh &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dịch </button>
                     </div>
                </div>
                <!-- Cot ben phai -->
@@ -132,7 +132,7 @@ export default {
       height: 100vmin;
       font-size: 18px;
       display: inline-block;
-      margin-left: 0px;
+
  }
 
  .navigationBar .null {
@@ -148,7 +148,7 @@ export default {
       font-size: 19px;
       font-family: Inter;
       text-align: left;
-      min-width: 100%;
+      min-width: 94%;
       display: block;
       background-color: none;
       color: #737374;
@@ -159,7 +159,7 @@ export default {
  .categoryList .btn-outline-secondary:hover,
  .moreInformation .btn-outline-secondary:hover {
       display: block;
-      width: 100%;
+      width: 94%;
       font-size: 19px;
       background-color: #FFFA37;
       color: #5C5D22;

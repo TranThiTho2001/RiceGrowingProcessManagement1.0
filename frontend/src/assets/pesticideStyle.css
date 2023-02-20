@@ -228,7 +228,7 @@
     position: relative;
  }
 .pesticideManagement .pesticideManagementFrame .rightPesticideManagement{
-     border-left: #00BA13 3px solid;
+    border-left: #bdf487 0.5px solid;
 }
  .pesticideManagement .pesticideManagementFrame .rightPesticideManagement table tr{
      /* background-color: #ced4da; */
@@ -272,7 +272,7 @@
 
 .pesticideManagement .categoryList .btnPesticide {
     display: block;
-    width: 120%;
+    width: 95%;
     font-size: 19px;
     background-color: #FFFA37;
     color: #5C5D22;
