@@ -168,7 +168,10 @@ export default {
                     var id = "";
                     temp.forEach(element => {
                          if (element != "S" && element != "D" & element != "0") {
-                              id += element;
+                              for (let index = temp.indexOf(element); index < temp.length; index++) {
+                              id += temp[index];
+                               break;
+                             }
                          }
                     });
 

@@ -39,6 +39,7 @@ Monitor.getAll = (employee_id, result) => {
     if (employee_id) {
         query += ` WHERE Employee_id LIKE '%${employee_id}%'`;
     }
+    query += " ORDER BY Ricecropinformation.RiceCropInformation_id"
     sql.query(query, (err, res) => {
         if (err) {
             console.log("error: ", err);

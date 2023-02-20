@@ -7,7 +7,7 @@
                     </div>
                </div>
                <div class="col-md-10 rightRiceCropManagement">
-                    <div class="row mr-2 mt-3 mb-5">
+                    <div class="row mr-2 mt-2 mb-5">
                          <div class="col-md-10 pr-5">
                               <div class="row">
                                    <input type="text" class="form-control col-md-10 inputSearch" placeholder="Tìm theo tên"
@@ -25,87 +25,36 @@
                          </div>
                     </div>
 
-                    <!-- <div class="row mt-1 mb-2">
-                              <div class="col-sm-12">
-                                   <h2 class="text-center">Vụ mùa</h2>
-                              </div>
-                         </div> -->
-
                     <div class="row mr-2 ml-3">
                          <div class="col-sm-8"></div>
-                         <!-- <div class="btnChoosePage col-sm-2">
-                                   <p style="display: inline-block; padding-top: 1px;text-align: right;" class="soTrang">
-                                        Trang &nbsp;</p>
-                                   <div class="numberPage">
-                                        <div class="dropdown">
-                                             <button class="dropbtn">{{ currentPage }}
-                                                  <span class="fas fa-chevron-down"></span></button>
-                                             <div class="dropdown-content">
-                                                  <a class="dropdown-item" v-for="(i, j) in num_pages() " :key="j"
-                                                       v-bind:class="[i == currentPage ? 'active' : '']"
-                                                       v-on:click="change_page(i)" aria-controls="my-table"> {{ i }}</a>
-                                             </div>
-                                        </div>
-                                   </div>
-                              </div> -->
                          <div class="col-sm-2">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
                                         style="font-size: 15px;"></i>Thêm mẫu ruộng</button>
                          </div>
                     </div>
-                    <div class=" row riceCropList mt-5 ml-2 mr-2 justify-content-center">
-                         <div class="col-sm-3" v-for="(riceCrop, i) in riceCropList" :key="i">
-                              <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
-                         </div>
-                         <!-- <table class="table mt-1 ml-2 mr-2">
-                                   <thead>
-                                        <tr>
-                                             <th>STT</th>
-                                             <th>Mã</th>
-                                             <th>Tên mùa vụ</th>
-                                             <th>Giống lúa</th>
-                                             <th>Ngày xuống giống</th>
-                                             <th style="vertical-align: bottom; text-align: center;">Trạng thái</th>
-                                             <th>Tùy chọn</th>
-                                        </tr>
-                                   </thead>
-                                   <tbody>
-                                        <tr v-for="(ricecrop, i ) in get_rows()" :key="i" class="align-self-center">
-                                             <td v-if="currentPage > 1">{{ i + ((currentPage - 1) * 6) }}</td>
-                                             <td v-else>{{ i }}</td>
-                                             <td>{{ ricecrop.RiceCropInformation_id }}</td>
-                                             <td>{{ ricecrop.RiceCropInformation_name }}</td>
-                                             <td>{{ ricecrop.Seed_id }}</td>
-                                             <td v-if="ricecrop.RiceCropInformation_sowingDate == null"> </td>
-                                             <td v-if="ricecrop.RiceCropInformation_sowingDate != null">{{
-                                                  formatDate(ricecrop.RiceCropInformation_sowingDate) }}</td>
-                                             <td style="vertical-align: bottom; text-align: center;">
-                                                  <button class="btn btnMonitor"
-                                                       v-if="ricecrop.RiceCropInformation_harvestDate == null">
-                                                       Theo dõi
-                                                  </button>
-                                                  <button class="btn btnEnd" v-else>
-                                                       Hoàn thành
-                                                  </button>
-                                                  <a :href="`https://www.google.com/maps/place/`+arableland.ArableLand_location">{{ arableland.ArableLand_location }}</a> 
-                                             </td>
-                                             <td>
-                                                  <span class="action ml-2 ml-2"
-                                                       @click="setRiceCropChoosen(ricecrop), isOpenUpdateRiceCrop = !isOpenUpdateRiceCrop">
-                                                       <span class="fas fa-edit actionIcon"></span>
-                                                  </span>
-                                                  <span class="action ml-4"
-                                                       @click="setRiceCropChoosen(ricecrop), isOpenConfirm = !isOpenConfirm">
-                                                       <span class="fas fa-trash-alt actionIcon"></span>
-                                                  </span>
-                                             </td>
-                                        </tr>
-                                   </tbody>
-                              </table> -->
-
-
+                    <div class=" row riceCropList mt-4 pt-3 ml-2 mr-4 text-left">
+                         <carousel :settings="settings" :breakpoints="breakpoints" style="width:100%">
+                              <slide v-for="(riceCrop, i) in riceCropListByMonitoring" :key="i">
+                                   <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
+                              </slide>
+                              <template #addons>
+                                   <navigation />
+                                   <pagination style="color: #00BA13;" />
+                              </template>
+                         </carousel>
                     </div>
+                    <div class="row riceCropList ml-2 mr-4 text-left">
+                         <carousel :settings="settings" :breakpoints="breakpoints" style="width:100%">
+                              <slide v-for="(riceCrop, i) in riceCropListByFinish" :key="i" style="text-align: left; ">
+                                   <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
 
+                              </slide>
+                              <template #addons>
+                                   <navigation v-if="riceCropListByFinish.length > 4" />
+                                   <pagination v-if="riceCropListByFinish.length > 4" style="color: #00BA13;" />
+                              </template>
+                         </carousel>
+                    </div>
 
                     <div class="confirmationDialog" v-if="isOpenConfirm">
                          <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
@@ -148,7 +97,7 @@
      </div>
 </template>
 
-<script>
+<script type=”text/javascript”>
 import moment from 'moment';
 import { mapGetters, mapMutations } from "vuex";
 import CropService from '@/services/crop.service';
@@ -168,6 +117,8 @@ import SprayingTimesService from '@/services/sprayingTimes.service';
 import CreateSprayingTimesForm from '@/components/catalogManagementComponents/createNewSprayingTimesForm.vue';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import RiceCropComponent from '@/components/catalogManagementComponents/riceCropComponent.vue';
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
 
 export default {
      name: "HomePage",
@@ -179,6 +130,10 @@ export default {
           CreateSprayingTimesForm,
           TopHeader,
           RiceCropComponent,
+          Carousel,
+          Slide,
+          Pagination,
+          Navigation,
      },
 
      data() {
@@ -190,6 +145,8 @@ export default {
                fertilizerList: [],
                developmentStageList: [],
                pesticideList: [],
+               riceCropListByMonitoring: [],
+               riceCropListByFinish: [],
                openCreate: false,
                newSprayingTimes: {},
                newRiceCrop: {},
@@ -208,11 +165,27 @@ export default {
                elementsPerPage: 6,
                ascending: false,
                fullListRiceCrop: [],
+               settings: {
+                    itemsToShow: 1,
+                    snapAlign: 'center',
+
+               },
+               breakpoints: {
+                    // 700px and up
+                    700: {
+                         itemsToShow: 3.5,
+                         snapAlign: 'center',
+                    },
+                    // 1024 and up
+                    1024: {
+                         itemsToShow: 5.5,
+                         snapAlign: 'start',
+                    },
+               },
           }
      },
 
      computed: {
-
           ...mapGetters({
                currentUser: "loggedInEmployee",
           }),
@@ -239,9 +212,14 @@ export default {
                     var id = "";
                     temp.forEach(element => {
                          if (element != "R" && element != "I" && element != "C" & element != "0") {
-                              id += element;
+                              for (let index = temp.indexOf(element); index < temp.length; index++) {
+                                   id += temp[index];
+                                   break;
+                              }
+
                          }
                     });
+                    console.log(id);
 
                     if (id < 9) {
                          this.newRiceCrop.RiceCropInformation_id = "RCI000000" + String(Number(id) + 1);
@@ -267,6 +245,16 @@ export default {
                }
                else {
                     this.riceCropList = respone.data;
+                    this.riceCropListByFinish = [];
+                    this.riceCropListByMonitoring = [];
+                    this.riceCropList.forEach(element => {
+                         if (element.RiceCropInformation_harvestDate == null) {
+                              this.riceCropListByMonitoring.push(element);
+                         }
+                         else {
+                              this.riceCropListByFinish.push(element);
+                         }
+                    });
                }
           },
 
@@ -696,4 +684,11 @@ export default {
 
 <style>
 @import url(../../assets/riceCropStyle.css);
+
+.carousel__prev,
+.carousel__next {
+     box-sizing: content-box;
+     color: aqua;
+     background-color: black;
+}
 </style>

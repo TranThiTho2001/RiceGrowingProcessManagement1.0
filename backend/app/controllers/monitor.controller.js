@@ -28,7 +28,7 @@ exports.findAll = async (req, res) => {
 
 exports.findbyIdRiceCropInformation = async (req, res) => {
      const id = req.params.id;
-     Monitor.findById(id, (err, data) => {
+     Monitor.findByIdRiceCropInformation(id, (err, data) => {
           if (err) {
                if (err.kind === "not_found") {
                     res.send("Không tìm thấy quyền giám sát.")

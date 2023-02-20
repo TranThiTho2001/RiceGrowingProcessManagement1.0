@@ -1,4 +1,4 @@
-.createRiceCropForm, .updateRiceCropForm{
+.createRiceCropForm{
      background-color: #b7f8d0;
      font-family: Inter;
      border-radius: 10px;
@@ -7,7 +7,11 @@
      left: 10%;
      width: 80%;
 }
-
+.updateRiceCropForm{
+    background-color: #b7f8d0;
+    font-family: Inter;
+    border-radius: 10px;
+}
 
 
 .createRiceCropForm .messege{
@@ -60,14 +64,20 @@
      font-family: Inter;
 }
 
-.createRiceCropForm .btnLuu, 
-.updateRiceCropForm .btnLuu{
+.createRiceCropForm .btnLuu{
      background-color: rgb(4, 105, 4);
      color: #f0f0f0;
      font-size: 20px;
      text-align: center;
 }
 
+.updateRiceCropForm .btnLuu{
+    background-color: rgb(4, 105, 4);
+    color: #f0f0f0;
+    font-size: 20px;
+    float: left;
+    
+}
 
 .riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement   .confirmationDialog{
      background-color: rgb(5, 207, 137);

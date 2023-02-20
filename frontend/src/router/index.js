@@ -99,6 +99,12 @@ const routes = [
         component: () => import("../views/catalogManagementView/pesticideManagement.vue"),  
     }, 
 
+    {
+        path: "/RiceCropDetail/:id",
+        alias: "/RiceCropDetail",
+        name: "RiceCropDetail",
+        component: () => import("../views/catalogManagementView/riceCropDetail.vue"),  
+    },  
 
 ];
 

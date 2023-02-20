@@ -41,6 +41,7 @@ ArableLand.getAll = (name, result) => {
     if (name) {
         query += ` WHERE ArableLand_location LIKE '%${name}%'`;
     }
+    query += " ORDER BY ArableLand.ArableLand_id"
     // query += " (JOIN Soil one Soil.Soil_id = ArableLand.Soil_id)"
     sql.query(query, (err, res) => {
         if (err) {

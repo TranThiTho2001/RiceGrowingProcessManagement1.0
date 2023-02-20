@@ -1,6 +1,6 @@
 <template><!-- Cot ben trai -->
      <div class="navigationBar container-fluid ">
-          <div class="row topRow  mt-3">
+          <div class="row topRow  mt-2">
                <div class="col-sm-12 ">
                     <div class="row">
                          <div class="col-sm-3"></div>
@@ -21,7 +21,7 @@
                </div>
 
           </div>
-          <div class="row bottomRow mt-3">
+          <div class="row bottomRow mt-1">
                <div class="categoryList col-sm-12">
                     <div class="row ">
                          <button class="btn  pl-3 pr-5 btn-sm btn-outline-secondary btnMonitor" @click="goToQLMonitor"> <i
@@ -51,10 +51,6 @@
                     <div class="row mt-3">
                          <button class="btn pl-3 pr-2 btn-sm btn-outline-secondary btnPesticide" @click="goToPesticide"><i
                                    class="fas fa-flask">&nbsp; &nbsp;</i>Thuốc trị bệnh dịch</button>
-                    </div>
-                    <div class="null"></div>
-                    <div class="moreInformation">
-
                     </div>
                </div>
                <!-- Cot ben phai -->

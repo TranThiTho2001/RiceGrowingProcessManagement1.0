@@ -15,11 +15,10 @@
                     <div class="row ml-3 mr-2">
                          <div class="col-sm-8 input-group">
                               <div class="row">
-                                   <input type="text" class="form-control col-md-10 inputSearch"
-                                        placeholder="Tìm theo tên" style="border-radius:10px" v-model="nameToSearch"
-                                        @keyup.enter="searchName" />
-                                   <button class="btn btnTimKiem mb-2" type="button"
-                                        style="border:none; width: 10%" @click="searchName">
+                                   <input type="text" class="form-control col-md-10 inputSearch" placeholder="Tìm theo tên"
+                                        style="border-radius:10px" v-model="nameToSearch" @keyup.enter="searchName" />
+                                   <button class="btn btnTimKiem mb-2" type="button" style="border:none; width: 10%"
+                                        @click="searchName">
                                         <span class="fa fa-search" style="font-size:18px"></span>
                                    </button>
                               </div>
@@ -40,8 +39,8 @@
                               </div>
                          </div>
                          <div class="col-sm-2">
-                              <button class="btn btnCreate" @click="openCreate = !openCreate"><i
-                                        class="fas fa-plus-circle" style="font-size: 15px;"></i>Thêm mẫu ruộng</button>
+                              <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
+                                        style="font-size: 15px;"></i>Thêm mẫu ruộng</button>
                          </div>
                     </div>
                     <div class=" row arablelandList mt-1 ml-2 mr-2 justify-content-center">
@@ -59,15 +58,16 @@
                               </thead>
                               <tbody>
                                    <tr v-for="(arableland, i ) in get_rows()" :key="i" class="align-self-center">
-                                        <td v-if="currentPage > 1">{{ i+ ((currentPage - 1) * 6)}}</td>
+                                        <td v-if="currentPage > 1">{{ i + ((currentPage - 1) * 6) }}</td>
                                         <td v-else>{{ i }}</td>
                                         <td>{{ arableland.ArableLand_id }}</td>
                                         <td>{{ arableland.ArableLand_area }}</td>
                                         <td>{{ arableland.ArableLand_owner }}</td>
                                         <td>{{ arableland.Soil_name }}</td>
-                                        <td> 
+                                        <td>
                                              <i class="fas fa-map-marker-alt"></i>
-                                             <a :href="`https://www.google.com/maps/place/`+arableland.ArableLand_location">{{ arableland.ArableLand_location }}</a>
+                                             <a :href="`https://www.google.com/maps/place/` + arableland.ArableLand_location">{{
+                                                  arableland.ArableLand_location }}</a>
                                         </td>
                                         <td>
                                              <span class="action ml-2 ml-2"
@@ -172,26 +172,29 @@ export default {
                else {
                     this.arablelandList = respone.data;
                     console.log(respone.data);
-                   var temp = (String(this.arablelandList[this.arablelandList.length-1].ArableLand_id)).split("");
-                   var id = "";
-                   temp.forEach(element => {
-                         if(element != "A" && element != "L"  & element != "0"){
-                              id += element;
+                    var temp = (String(this.arablelandList[this.arablelandList.length - 1].ArableLand_id)).split("");
+                    var id = "";
+                    temp.forEach(element => {
+                         if (element != "A" && element != "L" & element != "0") {
+                              for (let index = temp.indexOf(element); index < temp.length; index++) {
+                                   id += temp[index];
+                                   break;
+                              }
                          }
-                   });
-                   
-                   if(id <10){
-                    this.newArableLand.ArableLand_id = "AL0000000" + String(Number(id)+1);
-                   }
-                   else if(id > 9 && id < 100){
-                    this.newArableLand.ArableLand_id = "AL000000" + String(Number(id)+1);
-                   }
-                   else if(id>99 && id<1000){
-                    this.newArableLand.ArableLand_id = "AL00000" + String(Number(id)+1);
-                   }
-                   else {
-                    this.newArableLand.ArableLand_id = "AL00" + String(Number(id)+1);
-                   }
+                    });
+
+                    if (id < 10) {
+                         this.newArableLand.ArableLand_id = "AL0000000" + String(Number(id) + 1);
+                    }
+                    else if (id > 9 && id < 100) {
+                         this.newArableLand.ArableLand_id = "AL000000" + String(Number(id) + 1);
+                    }
+                    else if (id > 99 && id < 1000) {
+                         this.newArableLand.ArableLand_id = "AL00000" + String(Number(id) + 1);
+                    }
+                    else {
+                         this.newArableLand.ArableLand_id = "AL00" + String(Number(id) + 1);
+                    }
                }
           },
 
@@ -204,19 +207,19 @@ export default {
                else {
                     this.message1 = "";
                     this.message2 = "";
-                    if(data.Soil_id == "Đất phù sa ven sông"){
+                    if (data.Soil_id == "Đất phù sa ven sông") {
                          data.Soil_id = "AL00000001";
                     }
-                    else if(data.Soil_id == "Đất phù sa xa xông"){
+                    else if (data.Soil_id == "Đất phù sa xa xông") {
                          data.Soil_id = "SL00000002";
                     }
-                    else if(data.Soil_id == "Đất nhiễm phèn"){
+                    else if (data.Soil_id == "Đất nhiễm phèn") {
                          data.Soil_id = "SL00000003";
                     }
-                    else if(data.Soil_id == "Đất nhiễm mặn"){
+                    else if (data.Soil_id == "Đất nhiễm mặn") {
                          data.Soil_id = "SL00000004";
                     }
-                    else{
+                    else {
                          data.Soil_id = "SL00000005";
                     }
                     const [error, respone] = await this.handle(
@@ -243,19 +246,19 @@ export default {
                else {
                     this.message1 = "";
                     this.message2 = "";
-                    if(data.Soil_id == "Đất phù sa ven sông" || data.Soil_id == "AL00000001"){
+                    if (data.Soil_id == "Đất phù sa ven sông" || data.Soil_id == "AL00000001") {
                          data.Soil_id = "SL00000001";
                     }
-                    else if(data.Soil_id == "Đất phù sa xa xông" || data.Soil_id == "AL00000002"){
+                    else if (data.Soil_id == "Đất phù sa xa xông" || data.Soil_id == "AL00000002") {
                          data.Soil_id = "SL00000002";
                     }
-                    else if(data.Soil_id == "Đất nhiễm phèn" || data.Soil_id == "AL00000003"){
+                    else if (data.Soil_id == "Đất nhiễm phèn" || data.Soil_id == "AL00000003") {
                          data.Soil_id = "SL00000003";
                     }
-                    else if(data.Soil_id == "Đất nhiễm mặn"  || data.Soil_id == "AL00000004"){
+                    else if (data.Soil_id == "Đất nhiễm mặn" || data.Soil_id == "AL00000004") {
                          data.Soil_id = "SL00000004";
                     }
-                    else{
+                    else {
                          data.Soil_id = "SL00000005";
                     }
                     const [error, respone] = await this.handle(
@@ -340,5 +343,4 @@ export default {
 
 <style>
 @import url(../../assets/arablelandStyle.css);
-
 </style>

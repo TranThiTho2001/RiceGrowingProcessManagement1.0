@@ -1,18 +1,8 @@
 <template>
-     <Form @submit="newricecrop.close = true,newricecrop.openFertilizerTime = true, $emit('updateRiceCrop-submit', newricecrop)" :validation-schema="schema"
-          class="container updateRiceCropForm">
-          <div class="row">
-               <div class="col-sm-12 text-right">
-                    <i class="fas fa-times" @click="newricecrop.close = false,newricecrop.openFertilizerTime = false, $emit('updateRiceCrop-submit', newricecrop)"
-                         style="font-size: 25px; "></i>
-               </div>
-          </div>
-          <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Mùa vụ
-               </p>
-          </div>
+     <Form @submit="$emit('updateRiceCrop-submit', newricecrop)" :validation-schema="schema"
+          class="container-fluid updateRiceCropForm">
           <div class="row content">
-               <div class="col-sm-6 mt-2">
+               <div class="col-sm-3 mt-2">
                     <div class="form-group">
                          <label for="id" class="mt-2">Mã mùa vụ</label>
                          <Field name="id" type="name" class="form-control" v-model="newricecrop.RiceCropInformation_id"
@@ -24,25 +14,37 @@
                          <label for="seed" class="mt-3">Giống lúa</label>
                          <Field name="seed" v-model="newricecrop.Seed_id">
                               <select class="form-control" v-model="newricecrop.Seed_id" name="seed" for="seed">
-                                   <option v-for="(seed, i) in seedlist" :key="i">{{ seed.Seed_name }}</option>
+                                   <option v-for="(seed, i) in seedList" :key="i">{{ seed.Seed_name }}</option>
                               </select>
                          </Field>
                          <ErrorMessage name="seed" class="error-feedback" />
                     </div>
+               </div>
+               <div class="col-sm-3">
                     <div class="form-group">
-                         <label for="arableLand" class="mt-1">Mẫu ruộng</label>
+                         <label for="name" class="mt-3">Tên mùa vụ</label>
+                         <Field name="name" class="form-control" v-model="newricecrop.RiceCropInformation_name"
+                              placeholder="Tên mùa vụ..." />
+                         <ErrorMessage name="name" class="error-feedback" />
+                    </div>
+
+                    <div class="form-group">
+                         <label for="arableLand" class="mt-3">Mẫu ruộng</label>
                          <Field name="arableLand" class="form-control" v-model="newricecrop.ArableLand_id"
                               placeholder="Nhập vị trí mẫu ruộng...">
-                              <select class="form-control" v-model="newricecrop.ArableLand_id" name="arableLand" for="arableLand">
-                                   <option v-for="(arableLand, i) in arableLandlist" :key="i">{{ arableLand.ArableLand_id }}
+                              <select class="form-control" v-model="newricecrop.ArableLand_id" name="arableLand"
+                                   for="arableLand">
+                                   <option v-for="(arableLand, i) in arableLandList" :key="i">{{ arableLand.ArableLand_id }}
                                    </option>
                               </select>
                          </Field>
                          <ErrorMessage name="arableLand" class="error-feedback" />
                     </div>
+               </div>
 
+               <div class="col-sm-3">
                     <div class="form-group">
-                         <label for="sowingDate" class="">Ngày gieo xạ</label>
+                         <label for="sowingDate" class="mt-3">Ngày gieo xạ</label>
                          <Field name="sowingDate" class="form-control" v-model="newricecrop.RiceCropInformation_sowingDate"
                               placeholder="Ngày sinh">
                               <datepicker :enable-time-picker="false" :value="newricecrop.RiceCropInformation_sowingDate"
@@ -51,15 +53,6 @@
                               </datepicker>
                          </Field>
                          <ErrorMessage name="sowingDate" class="error-feedback" />
-                    </div>
-
-               </div>
-               <div class="col-sm-6">
-                    <div class="form-group">
-                         <label for="name" class="mt-3">Tên mùa vụ</label>
-                         <Field name="name" class="form-control" v-model="newricecrop.RiceCropInformation_name"
-                              placeholder="Tên mùa vụ..." />
-                         <ErrorMessage name="name" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
@@ -73,14 +66,9 @@
                          </Field>
                          <ErrorMessage name="crop" class="error-feedback" />
                     </div>
+               </div>
 
-                    <div class="form-group">
-                         <label for="yield" class="mt-1">Năng suất</label>
-                         <Field name="yield" class="form-control" v-model="newricecrop.RiceCropInformation_yield"
-                              placeholder="Năng suất..." />
-                         <ErrorMessage name="yield" class="error-feedback" />
-                    </div>
-
+               <div class="col-sm-3">
                     <div class="form-group">
                          <label for="harvestDate" class="mt-3">Ngày thu hoạch</label>
                          <Field name="harvestDate" class="form-control" v-model="newricecrop.RiceCropInformation_harvestDate"
@@ -91,6 +79,13 @@
                               </datepicker>
                          </Field>
                          <ErrorMessage name="harvestDate" class="error-feedback" />
+                    </div>
+
+                    <div class="form-group">
+                         <label for="yield" class="mt-3">Năng suất</label>
+                         <Field name="yield" class="form-control" v-model="newricecrop.RiceCropInformation_yield"
+                              placeholder="Năng suất..." />
+                         <ErrorMessage name="yield" class="error-feedback" />
                     </div>
                </div>
           </div>
@@ -104,21 +99,17 @@
                          style="color:red; text-align: center; display: inline;"></span>
                     <span v-if="message2 == 'Cập nhật thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;">
                          {{ message2 }}</span>
-                    <span v-if="message1 == 'Cập nhật không thành công.'" class="textMessage1 pt-2 pb-2"> {{ message1 }} Một mùa vụ đang được theo dõi hoặc vừa được khởi tạo trên mẫu ruộng.
+                    <span v-if="message1 == 'Cập nhật không thành công.'" class="textMessage1 pt-2 pb-2"> {{ message1 }} Một
+                         mùa vụ đang được theo dõi hoặc vừa được khởi tạo trên mẫu ruộng.
                     </span>
                </div>
                <div class="col-sm-2"></div>
           </div>
-          <div class="row mb-4">
-               <div class="col-sm-5"></div>
-               <button class="btn btn-outline-secondary btnLuu col-sm-2">Lưu</button>
-               <div class="col-sm-5"></div>
-          </div>
           <div class="row">
-               <button @click="newricecrop.close = false, newricecrop.openFertilizerTime = true, $emit('updateRiceCrop-submit', newricecrop)">Thêm lần bón phân</button>
-               <button @click="newricecrop.close = false, newricecrop.isOpenCreateSprayingTimes = true, $emit('updateRiceCrop-submit', newricecrop)">Thêm lần phun thuốc </button>
+               <button class="btn btn-outline-secondary btnLuu ml-3">Cập nhật</button>
           </div>
-</form>
+
+     </form>
 </template>
  
 <script>
@@ -176,4 +167,6 @@ export default {
 };
 </script>
  
-<style>@import url(../../assets/riceCropStyle.css);</style>
+<style>
+@import url(../../assets/riceCropStyle.css);
+</style>
