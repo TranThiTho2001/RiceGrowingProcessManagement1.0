@@ -1,28 +1,151 @@
-.loginForm{
+.loginForm {
      background-color: aquamarine;
+     height: 100vh;
 }
 
-.loginForm .content{
-     /* background-color: rgb(245, 173, 173); */
+.loginForm .leftForm {
+     background-image: url(../images/Rice1.png);
 }
 
-.loginForm .content .row{
+
+.loginForm .leftForm .iconFamer .famerImage {
+     position: absolute;
+     width: 400px;
+     height: 400px;
+     left: -9%;
+     top: 36%;
+}
+
+.loginForm .rightForm {
+     background-image: url(../images/Rice2.png);
+}
+
+.loginForm .leftForm .iconFamer {
+     background: rgba(255, 255, 255, 0.3);
+     border: 4px solid #FFFFFF;
+     border-right: none;
+     box-shadow: inset 7px 7px 7px rgba(0, 0, 0, 0.25);
+     backdrop-filter: blur(3.5px);
+     border-bottom-left-radius: 10px;
+     border-top-left-radius: 10px;
+     position: static;
+     position: absolute;
+     width: 800px;
+     height: 580px;
+     left: 41.8%;
+     top: 85px;
+}
+
+.loginForm .rightForm .content {
+     background: #FAFAFC;
+     border-radius: 0px 10px 10px 0px;
+     backdrop-filter: blur(3.5px);
+     position: static;
+     position: absolute;
+     width: 800px;
+     height: 580px;
+     top: 85px;
+}
+
+.loginForm .rightForm .content .title {
+     font-style: normal;
+     font-weight: 700;
+     font-size: 39px;
+     line-height: 45px;
+     color: #5C5D22;
+}
+
+.loginForm .content .row {
      /* background-color: rgb(207, 223, 218); */
 }
 
-.loginForm .content .form-control{
-     /* background-color: blueviolet; */
+.loginForm .form-control {
+     background: #FFFFED;
+     box-shadow: inset 1px 7px 7px rgba(0, 0, 0, 0.25);
+     border-bottom-left-radius: 20px;
+     border-top-left-radius: 20px;
+     border-right: none;
+     font-family: Roboto;
+     font-style: normal;
+     font-weight: 400;
+     font-size: 16px;
+     line-height: 0px;
+     color: #D0D1D6;
 }
 
-.form-group{
+.passField {
+     background: #FFFFED;
+     box-shadow: inset 0px 7px 7px rgba(0, 0, 0, 0.25);
+     border-radius: 20px;
+     font-family: Roboto;
+     font-style: normal;
+     font-weight: 400;
+     font-size: 16px;
+     line-height: 23px;
+     color: #D0D1D6;
+}
+
+.loginForm .form-control-pass {
+     background: #FFFFED;
+     box-shadow: inset 0px 7px 7px rgba(0, 0, 0, 0.25);
+     border-top-right-radius: 20px;
+     border-bottom-right-radius: 20px;
+     font-family: Roboto;
+     font-style: n rmal;
+     font-weight: 400;
+     font-size: 16px;
+     line-height: 23px;
+     color: #D0D1D6;
+}
+
+.loginForm .btnHienMatKhau {
+     background: none;
+
+}
+
+.loginForm .text-left {
+     background: none;
+     border-radius: 20px;
+     font-family: Roboto;
+     font-style: normal;
+     font-weight: 400;
+     font-size: 16px;
+     line-height: 23px;
+}
+
+.form-group {
      /* background-color: cadetblue; */
 }
 
-.loginForm .content .form{
-     /* background-color: darkolivegreen; */
+.loginForm .content .error-feedback {
+     float: right;
+     color: red;
 }
 
-.loginForm .content .labelTitle{
+.loginForm .content .labelTitle {
      font-family: Inter;
      font-size: 18px;
+}
+
+.loginForm .btnDangNhap {
+     background: #FFFA37;
+     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     border-radius: 10px;
+     position: absolute;
+     width: 140px;
+     height: 40px;
+     text-align: center;
+     left: 35%;
+     top: 65%;
+     color: #5C5D22;
+     font-size: 20px;
+     font-weight: 700;
+}
+
+.loginForm .rightForm .studentImage {
+     position: absolute;
+     width: 210px;
+     height: 210x;
+     left: 73%;
+     top: 70%;
 }

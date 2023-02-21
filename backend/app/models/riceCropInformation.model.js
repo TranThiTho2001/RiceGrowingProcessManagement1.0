@@ -24,7 +24,11 @@ RiceCropInformation.create = (newRiceCropInformation, result) => {
 };
 
 RiceCropInformation.findById = (id, result) => {
-     sql.query(`SELECT * FROM RiceCropInformation WHERE RiceCropInformation_id like '${id}'`, (err, res) => {
+     sql.query(`SELECT * FROM RiceCropInformation` + 
+     ` JOIN Seed on Seed.Seed_id = RiceCropInformation.Seed_id` +
+     ` JOIN ArableLand on ArableLand.ArableLand_id= RiceCropInformation.ArableLand_id` +
+     ` JOIN Crop on Crop.Crop_id = RiceCropInformation.Crop_id` + 
+     ` WHERE RiceCropInformation_id like '${id}'`, (err, res) => {
           if (err) {
                console.log("error: ", err);
                result(err, null);

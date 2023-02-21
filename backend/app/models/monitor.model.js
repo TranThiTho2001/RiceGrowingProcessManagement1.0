@@ -18,7 +18,9 @@ Monitor.create = (newMonitor, result) => {
 };
 
 Monitor.findByIdRiceCropInformation = (id, result) => {
-    sql.query(`SELECT * FROM Monitor WHERE RiceCropInformation_id like '${id}'`, (err, res) => {
+    sql.query(`SELECT * FROM Monitor` +
+    ` Join Employee on Employee.Employee_id = Monitor.Employee_id` +
+     ` WHERE RiceCropInformation_id like '${id}'`, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);

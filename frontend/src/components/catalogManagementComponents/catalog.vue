@@ -24,33 +24,33 @@
           <div class="row bottomRow mt-1">
                <div class="categoryList col-sm-12">
                     <div class="row " >
-                         <button class="btn ml-2 pl-3 pr-5 btn-sm btn-outline-secondary btnMonitor" @click="goToQLMonitor"> <i
-                                   class="fas fa-chart-line" >&nbsp; </i>Theo dõi vụ mùa</button>
+                         <button class="btn ml-2 pl-2 pr-5 btn-sm btn-outline-secondary btnMonitor" @click="goToQLMonitor"> <i
+                                   class="fas fa-chart-line" >&nbsp; </i>Theo Dõi Mùa Vụ</button>
                     </div>
                     <div class="row mt-1 pt-2">
-                         <button class="btn ml-2 pl-3 pr-5 btn-sm btn-outline-secondary btnOtherActivities"
-                              @click="goToOtherActivities"> <i class="far fa-list-alt">&nbsp;</i>Các hoạt động
+                         <button class="btn ml-2 pl-2 pr-5 btn-sm btn-outline-secondary btnOtherActivities"
+                              @click="goToOtherActivities"> <i class="far fa-list-alt">&nbsp;</i>Các Hoạt Động
                          </button>
                     </div>
                     <div class="row mt-3">
-                         <button class="btn ml-2 pl-3 pr-5 btn-sm btn-outline-secondary btnSeed" @click="goToSeed"><i
-                                   class="fas fa-seedling">&nbsp;</i> Giống lúa</button>
+                         <button class="btn ml-2 pl-2 pr-5 btn-sm btn-outline-secondary btnSeed" @click="goToSeed"><i
+                                   class="fas fa-seedling">&nbsp;</i>Giống Lúa</button>
                     </div>
                     <div class="row mt-3">
-                         <button class="btn ml-2 pl-3 pr-5 btn-sm btn-outline-secondary btnFertilizer" @click="goToFertilizer">
-                              <i class="fas fa-fill-drip">&nbsp;</i>Phân bón </button>
+                         <button class="btn ml-2 pl-2 pr-5 btn-sm btn-outline-secondary btnFertilizer" @click="goToFertilizer">
+                              <i class="fas fa-fill-drip">&nbsp;</i>Phân Bón </button>
                     </div>
                     <div class="row mt-3">
-                         <button class="btn ml-2 pl-3 pr-5 btn-sm btn-outline-secondary btnEpidemic" @click="goToEpidemic"><i
-                                   class="fas fa-spider">&nbsp;</i>Dịch bệnh </button>
+                         <button class="btn ml-2 pl-2 pr-5 btn-sm btn-outline-secondary btnEpidemic" @click="goToEpidemic"><i
+                                   class="fas fa-spider">&nbsp;</i>Dịch Bệnh </button>
                     </div>
                     <div class="row mt-3">
-                         <button class="btn ml-2 pl-3 pr-5 btn-sm btn-outline-secondary btnArableland" @click="goToArableLand"><i
-                                   class="fas fa-square">&nbsp;</i>Mẫu ruộng</button>
+                         <button class="btn ml-2 pl-2 pr-5 btn-sm btn-outline-secondary btnArableland" @click="goToArableLand"><i
+                                   class="fas fa-square">&nbsp;</i>Mẫu Ruộng</button>
                     </div>
                     <div class="row mt-3">
-                         <button class="btn ml-2 pl-3 pr-2 btn-sm btn-outline-secondary btnPesticide" @click="goToPesticide"><i
-                                   class="fas fa-flask">&nbsp;</i>Thuốc trị bệnh dịch </button>
+                         <button class="btn ml-2 pl-2 pr-2 btn-sm btn-outline-secondary btnPesticide" @click="goToPesticide"><i
+                                   class="fas fa-flask">&nbsp;</i>Thuốc Trị Bệnh Dịch </button>
                     </div>
                </div>
                <!-- Cot ben phai -->

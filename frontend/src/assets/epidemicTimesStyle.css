@@ -1,4 +1,4 @@
-.updateEpidemicTimesForm, .updateFertilizerTimesForm{
+.updateEpidemicTimesForm, .createEpidemicTimesForm{
      background-color: #b7f8d0;
      font-family: Inter;
      border-radius: 10px;
@@ -14,21 +14,21 @@
     background-color: #6cc38c;
 }
 .updateEpidemicTimesForm .content .error-feedback,
-.updateFertilizerTimesForm .content .error-feedback{
+.createEpidemicTimesForm .content .error-feedback{
      color: red;
      float: right;
 }
 
 
 .updateEpidemicTimesForm .content .form-group label,
-.updateEpidemicTimesForm .content .form-group label{
+.createEpidemicTimesForm .content .form-group label{
      float: left;
      font-family: Inter;
      font-size: 18px;
 }
 
 .updateEpidemicTimesForm .content .form-group .selectBox,
-.updateFertilizerTimesForm .content .form-group .selectBox{
+.createEpidemicTimesForm .content .form-group .selectBox{
      width: 100%;
      height: 38px;
      border: 1px solid #ced4da;
@@ -36,24 +36,24 @@
 }
 
 .updateEpidemicTimesForm .content .form-group input,
-.updateFertilizerTimesForm .content .form-group input{
+.createEpidemicTimesForm .content .form-group input{
      float: left;
 }
 
 .updateEpidemicTimesForm .content .form-group .form-control,
-.updateFertilizerTimesForm .content .form-group .form-control{
+.createEpidemicTimesForm .content .form-group .form-control{
      background-color: #f0f0f0;
 }
 
 .updateEpidemicTimesForm .functionName,
-.updateFertilizerTimesForm .functionName{
+.createEpidemicTimesForm .functionName{
      font-family: Inter;
      font-size: 24px;
 }
 .updateEpidemicTimesForm .form-group .textMessage2,
 .updateEpidemicTimesForm .form-group .textMessage1,
-.updateFertilizerTimesForm .form-group .textMessage1,
-.updateFertilizerTimesForm .form-group .textMessage2{
+.createEpidemicTimesForm .form-group .textMessage1,
+.createEpidemicTimesForm .form-group .textMessage2{
      text-align: center; 
      display: inline;
      font-size: 18px;
@@ -61,7 +61,7 @@
 }
 
 .updateEpidemicTimesForm .btnLuu, 
-.updateFertilizerTimesForm .btnLuu{
+.createEpidemicTimesForm .btnLuu{
      background-color: rgb(4, 105, 4);
      color: #f0f0f0;
      font-size: 20px;

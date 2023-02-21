@@ -4,16 +4,16 @@
           <div class="row content">
                <div class="col-sm-3 mt-2">
                     <div class="form-group">
-                         <label for="id" class="mt-2">Mã mùa vụ</label>
+                         <label for="id" class="mt-2">Mã mùa vụ <span style="color:red">*</span></label>
                          <Field name="id" type="name" class="form-control" v-model="newricecrop.RiceCropInformation_id"
-                              placeholder="Nhập mã mùa vụ..." />
+                              placeholder="Nhập mã mùa vụ..." :disabled="true"/>
                          <ErrorMessage name="id" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
-                         <label for="seed" class="mt-3">Giống lúa</label>
-                         <Field name="seed" v-model="newricecrop.Seed_id">
-                              <select class="form-control" v-model="newricecrop.Seed_id" name="seed" for="seed">
+                         <label for="seed" class="mt-3">Giống lúa <span style="color:red">*</span></label>
+                         <Field name="seed" v-model="newricecrop.Seed_name">
+                              <select class="form-control" v-model="newricecrop.Seed_name" name="seed" for="seed">
                                    <option v-for="(seed, i) in seedList" :key="i">{{ seed.Seed_name }}</option>
                               </select>
                          </Field>
@@ -22,14 +22,14 @@
                </div>
                <div class="col-sm-3">
                     <div class="form-group">
-                         <label for="name" class="mt-3">Tên mùa vụ</label>
+                         <label for="name" class="mt-3">Tên mùa vụ <span style="color:red">*</span></label>
                          <Field name="name" class="form-control" v-model="newricecrop.RiceCropInformation_name"
                               placeholder="Tên mùa vụ..." />
                          <ErrorMessage name="name" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
-                         <label for="arableLand" class="mt-3">Mẫu ruộng</label>
+                         <label for="arableLand" class="mt-3">Mẫu ruộng <span style="color:red">*</span></label>
                          <Field name="arableLand" class="form-control" v-model="newricecrop.ArableLand_id"
                               placeholder="Nhập vị trí mẫu ruộng...">
                               <select class="form-control" v-model="newricecrop.ArableLand_id" name="arableLand"
@@ -56,9 +56,9 @@
                     </div>
 
                     <div class="form-group">
-                         <label for="crop" class="mt-3">Vụ mùa</label>
-                         <Field name="crop" class="form-control" v-model="newricecrop.Crop_id" placeholder="Vụ mùa">
-                              <select class="form-control" v-model="newricecrop.Crop_id" name="soil" for="soil">
+                         <label for="crop" class="mt-3">Vụ mùa <span style="color:red">*</span></label>
+                         <Field name="crop" class="form-control" v-model="newricecrop.Crop_name" placeholder="Vụ mùa">
+                              <select class="form-control" v-model="newricecrop.Crop_name" name="soil" for="soil">
                                    <option>Đông Xuân</option>
                                    <option>Hè Thu</option>
                                    <option>Vụ Mùa</option>

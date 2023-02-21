@@ -1,11 +1,13 @@
 <template>
-     <div class="container-fluid riceCropDetail">
-          <div class="row riceCropDetailFrame mr-2">
-               <div class="col-sm-2">
-                    <Catalog :currentUserid="currentUser.Employee_id" />
+     <div class="container-fluid riceCropDetail" style="background-color: #EAEAEA;">
+          <div class="row riceCropDetailFrame">
+               <div class="col-md-2">
+                    <div class="row">
+                         <Catalog :currentUserid="currentUser.Employee_id" />
+                    </div>
                </div>
-               <div class="col-md-10 rightRiceCropDetail pl-4">
-                    <div class="row mr-2 mt-2 mb-5">
+               <div class="col-md-10 rightRiceCropDetail">
+                    <div class="row mr-1 mt-2 mb-5 ml-2">
                          <div class="col-md-10 pr-5">
                               <div class="row">
                                    <input type="text" class="form-control col-md-10 inputSearch" placeholder="Tìm theo tên"
@@ -16,17 +18,17 @@
                                    </button>
                               </div>
                          </div>
-                         <div class="col-md-2 pl-5">
+                         <div class="col-md-2 text-right">
                               <div class="row">
                                    <TopHeader :currentUserid="currentUser.Employee_id" />
                               </div>
                          </div>
                     </div>
-                    <div class="row updateRiceCrop">
+                    <div class="row updateRiceCrop mr-2 ml-2">
                          <UpdateRiceCropForm :seedList="seedList" :newRiceCrop="newRiceCrop" :arableLandList="arableLandList"
                               @updateRiceCrop-submit="updateRiceCrop" :message1="message1" :message2="message2" />
                     </div>
-                    <div class="row functionName mt-1">
+                    <div class="row functionName mt-1 ml-2">
                          <div class=" btn btn-midle text-center btnFertilizerTimes" v-if="!isOpenTableFertilizerTimes"
                               @click="setTable('btnFertilizerTimes')">Bón phân</div>
                          <div class=" btn btn-midle text-center btnFertilizerTimes" v-if="isOpenTableFertilizerTimes"
@@ -50,7 +52,7 @@
 
                     </div>
                     <!-- ----------------------FertilizerTimes Tab-------------- -->
-                    <div class="row activitiesList" v-if="isOpenTableFertilizerTimes">
+                    <div class="row activitiesList ml-2 mr-2" v-if="isOpenTableFertilizerTimes">
                          <button class="btn mt-3" style="background-color: gold;"
                               @click="isOpenCreateFertilizerTimesForm = !isOpenCreateFertilizerTimesForm">Thêm</button>
                          <table class="table">
@@ -91,7 +93,7 @@
                     </div>
 
                     <!-- ----------------------SprayingTimes Tab-------------- -->
-                    <div class="row activitiesList" v-if="isOpenTableSprayingTimes">
+                    <div class="row activitiesList ml-2 mr-2" v-if="isOpenTableSprayingTimes">
                          <button class="btn mt-3" style="background-color: gold;"
                               @click="isOpenCreateSprayingTimesForm = !isOpenCreateSprayingTimesForm">Thêm</button>
                          <table class="table">
@@ -132,7 +134,7 @@
                     </div>
 
                     <!-- ----------------------EpidemicTimes Tab-------------- -->
-                    <div class="row activitiesList" v-if="isOpenTableEpidemicTimes">
+                    <div class="row activitiesList ml-2 mr-2" v-if="isOpenTableEpidemicTimes">
                          <button class="btn mt-3" style="background-color: gold;"
                               @click="isOpenCreateEpidemicTimesForm = !isOpenCreateEpidemicTimesForm">Thêm</button>
                          <table class="table">
@@ -170,6 +172,43 @@
                          </table>
                     </div>
 
+                    <!-- ----------------------Monitor Tab-------------- -->
+                    <div class="row activitiesList ml-2 mr-2" v-if="isOpenTableMonitor">
+                         <button class="btn mt-3" style="background-color: gold;"
+                              @click="isOpenCreateEpidemicTimesForm = !isOpenCreateEpidemicTimesForm">Thêm</button>
+                         <table class="table">
+                              <thead>
+                                   <tr>
+                                        <th class="text-center ">STT</th>
+                                        <th class="text-center ">Mã</th>
+                                        <th>Họ và Tên</th>
+                                        <th>Chuyên môn</th>
+                                        <th class="">Vai trò</th>
+                                        <th class="">Tùy chọn</th>
+                                   </tr>
+                              </thead>
+                              <tbody>
+                                   <tr v-for="(monitor, i ) in monitorList" :key="i">
+                                        <td class="text-center">{{ i }}</td>
+                                        <td class="text-center">{{ monitor.Employee_id }}</td>
+                                        <td>{{ monitor.Employee_name }}</td>
+                                        <td>{{ monitor.Employee_major }}
+                                        </td>
+                                        <td class="">{{ monitor.Role_name }}</td>
+                                        <td style="border-top: none;" class="">
+                                             <span class="action" style="border-top: none;"
+                                                  @click="setEpidemicChoosen(monitor), isOpenUpdateEpidemicTimesForm = !isOpenUpdateEpidemicTimesForm">
+                                                  <span class="fas fa-edit actionIcon"></span>
+                                             </span>
+                                             <span class="action pl-4" style="border-top: none;"
+                                                  @click="setEpidemicChoosen(monitor), isOpenConfirm = !isOpenConfirm">
+                                                  <span class="fas fa-trash-alt actionIcon"></span>
+                                             </span>
+                                        </td>
+                                   </tr>
+                              </tbody>
+                         </table>
+                    </div>
 
                     <CreateFertilizerTimesForm v-if="isOpenCreateFertilizerTimesForm"
                          :newFertilizerTimes="newFertilizerTimes" :fertilizerList="fertilizerList"
@@ -270,6 +309,7 @@ export default {
                SprayingTimesList: [],
                epidemicList: [],
                epidemicTimesList: [],
+               riceCropList: [],
                message1: "",
                message2: "",
                isOpenTableFertilizerTimes: false,
@@ -286,6 +326,7 @@ export default {
                isOpenCreateEpidemicTimesForm: false,
                isOpenUpdateEpidemicTimesForm: false,
                epidemicTimesChoosen: {},
+               isOpenCreateMonitorForm: false,
           }
      },
 
@@ -381,7 +422,18 @@ export default {
                     console.log(respone.data);
                }
           },
-
+          async retrieveRiceCropList() {
+               const [err, respone] = await this.handle(
+                    RiceCropService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.riceCropList = respone.data;
+                    console.log(respone.data);
+               }
+          },
           async retrieveFertilizerList() {
                const [err, respone] = await this.handle(
                     fertilizerService.getAll()
@@ -447,9 +499,11 @@ export default {
                     console.log(err)
                }
                else {
-                    this.SprayingTimesList = respone.data;
-                    console.log(respone.data);
-                    this.newSprayingTimes.SprayingTimes_times = this.SprayingTimesList[this.SprayingTimesList.length - 1].SprayingTimes_times + 1;
+                    if (respone.data != "Không tìm thấy lần phun thuuốc mới.") {
+                         this.SprayingTimesList = respone.data;
+                         console.log(respone.data);
+                         this.newSprayingTimes.SprayingTimes_times = this.SprayingTimesList[this.SprayingTimesList.length - 1].SprayingTimes_times + 1;
+                    }
                }
           },
 
@@ -462,6 +516,17 @@ export default {
                }
                else {
                     this.monitorList = respone.data;
+                    this.monitorList.forEach(element => {
+                         if (element.Role_id == '01') {
+                              element.Role_name = "Quản trị viên";
+                         }
+                         else if (element.Role_id == '02') {
+                              element.Role_name = "Chuyên gia";
+                         }
+                         else {
+                              element.Role_name = "Nhân viên"
+                         }
+                    });
                     console.log(respone.data);
                }
           },
@@ -478,20 +543,12 @@ export default {
                     this.newRiceCrop.RiceCropInformation_id = respone.data.RiceCropInformation_id;
                     this.newRiceCrop.RiceCropInformation_name = respone.data.RiceCropInformation_name;
                     this.newRiceCrop.Seed_id = respone.data.Seed_id;
-                    this.seedList.forEach(element => {
-                         if (element.Seed_id == this.newRiceCrop.Seed_id) {
-                              this.newRiceCrop.Seed_id = element.Seed_name;
-                         }
-                    });
+                    this.newRiceCrop.Seed_name = respone.data.Seed_name;
                     this.newRiceCrop.RiceCropInformation_sowingDate = respone.data.RiceCropInformation_sowingDate;
                     this.newRiceCrop.RiceCropInformation_harvestDate = respone.data.RiceCropInformation_harvestDate;
                     this.newRiceCrop.RiceCropInformation_yield = respone.data.RiceCropInformation_yield;
                     this.newRiceCrop.Crop_id = respone.data.Crop_id;
-                    this.cropList.forEach(element => {
-                         if (element.Crop_id == this.newRiceCrop.Crop_id) {
-                              this.newRiceCrop.Crop_id = element.Crop_name;
-                         }
-                    });
+                    this.newRiceCrop.Crop_name = respone.data.Crop_name;
                     this.newRiceCrop.ArableLand_id = respone.data.ArableLand_id;
                     console.log(respone.data);
                }
@@ -501,13 +558,13 @@ export default {
                this.message1 = " ";
                this.message2 = " ";
                this.seedList.forEach(element => {
-                    if (data.Seed_id == element.Seed_name) {
+                    if (data.Seed_name == element.Seed_name) {
                          data.Seed_id = element.Seed_id;
                     }
                });
 
                this.cropList.forEach(element => {
-                    if (data.Crop_id == element.Crop_name) {
+                    if (data.Crop_name == element.Crop_name) {
                          data.Crop_id = element.Crop_id;
                     }
                });
@@ -526,18 +583,31 @@ export default {
                else {
                     data.RiceCropInformation_harvestDate = null;
                }
-
-               const [error, respone] = await this.handle(
-                    RiceCropService.update(data.RiceCropInformation_id, data)
-               );
-               if (error) {
-                    console.log(error);
-                    this.message1 = "Cập nhật không thành công."
-               } else if (respone.data == "Đã xảy ra lỗi trong quá trình cập nhật thông tin!") {
-                    this.message1 = "Cập nhật không thành công."
-               } else {
-                    this.message2 = "Cập nhật thành công.";
-                    this.retrieveNewRiceCrop();
+               var check = true;
+               this.riceCropList.forEach(element => {
+                    if (element.ArableLand_id == data.ArableLand_id) {
+                         if (element.RiceCropInformation_harvestDate == null) {
+                              check = false;
+                              console.log("alo" + check);
+                         }
+                    }
+               });
+               if (check == true) {
+                    const [error, respone] = await this.handle(
+                         RiceCropService.update(data.RiceCropInformation_id, data)
+                    );
+                    if (error) {
+                         console.log(error);
+                         this.message1 = "Cập nhật không thành công."
+                    } else if (respone.data == "Đã xảy ra lỗi trong quá trình cập nhật thông tin!") {
+                         this.message1 = "Cập nhật không thành công."
+                    } else {
+                         this.message2 = "Cập nhật thành công.";
+                         this.retrieveNewRiceCrop();
+                    }
+               }
+               else {
+                    this.message1 = "Cập nhật không thành công.";
                }
           },
 
@@ -864,7 +934,7 @@ export default {
                          }
                     });
 
-                    console.log("tên "+data.Epidemic_name +"id " +data.Epidemic_id)
+                    console.log("tên " + data.Epidemic_name + "id " + data.Epidemic_id)
                     data.RiceCropInformation_id = this.newRiceCrop.RiceCropInformation_id;
                     data.Employee_id = this.currentUser.Employee_id;
 
@@ -883,7 +953,7 @@ export default {
                     }
 
                     const [error, respone] = await this.handle(
-                         EpidemicTimesService.update(this.newRiceCrop.RiceCropInformation_id, data.Epidemic_id, data.EpidemicTimes_times,data)
+                         EpidemicTimesService.update(this.newRiceCrop.RiceCropInformation_id, data.Epidemic_id, data.EpidemicTimes_times, data)
                     );
                     if (error) {
                          console.log(error);
@@ -951,6 +1021,7 @@ export default {
           this.initEmployeeState();
           this.retrieveEpidemicList();
           this.retrieveEpidemicTimesList();
+          this.retrieveRiceCropList();
      }
 };
 </script>
