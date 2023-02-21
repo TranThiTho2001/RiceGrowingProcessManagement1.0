@@ -1,10 +1,10 @@
 <template>
-     <Form @submit="newfertilizertimes.close = true, $emit('addFertilizerTimes-submit', newfertilizertimes)"
-          :validation-schema="schema" class="container createFertilizerTimesForm">
+     <Form @submit="newfertilizertimes.close = true, $emit('updateFertilizerTimes-submit', newfertilizertimes)"
+          :validation-schema="schema" class="container updateFertilizerTimesForm">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times"
-                         @click="newfertilizertimes.close = false, $emit('addFertilizerTimes-submit', newfertilizertimes)"
+                         @click="newfertilizertimes.close = false, $emit('updateFertilizerTimes-submit', newfertilizertimes)"
                          style="font-size: 25px; "></i>
                </div>
           </div>
@@ -61,7 +61,7 @@
                          <Field name="developmentid" class="form-control" v-model="newfertilizertimes.DevelopmentStage_name">
                               <select class="form-control" v-model="newfertilizertimes.DevelopmentStage_name"
                                    name="developmentid" for="developmentid">
-                                   <option v-for="(developmentStage, i) in development" :key="i">
+                                   <option v-for="(developmentStage, i) in developmentStageList" :key="i">
                                         {{ developmentStage.DevelopmentStage_name }}
                                    </option>
                               </select>
@@ -127,13 +127,13 @@
           <div class="row ">
                <div class="col-sm-2"></div>
                <div class="col-sm-8 mt-2 mb-3 text-center">
-                    <span v-if="message2 == 'Thêm thành công.'" class="fas fa-check-circle"
+                    <span v-if="message2 == 'Cập nhật thành công.'" class="fas fa-check-circle"
                          style="color:#00BA13; text-align: center; display: inline;"></span>
-                    <span v-if="message1 == 'Thêm không thành công.'" class="fas fa-times-circle"
+                    <span v-if="message1 == 'Cập nhật không thành công.'" class="fas fa-times-circle"
                          style="color:red; text-align: center; display: inline;"></span>
-                    <span v-if="message2 == 'Thêm thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;">
+                    <span v-if="message2 == 'Cập nhật thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;">
                          {{ message2 }}</span>
-                    <span v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2"> {{ message1 }}
+                    <span v-if="message1 == 'Cập nhật không thành công.'" class="textMessage1 pt-2 pb-2"> {{ message1 }}
                     </span>
                </div>
                <div class="col-sm-2"></div>
@@ -154,14 +154,14 @@ import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 
 export default {
-     name: "createFertilizerTimesForm",
+     name: "updateFertilizerTimesForm",
      components: {
           Form,
           Field,
           ErrorMessage,
           Datepicker,
      },
-     emits: ["addFertilizerTimes-submit"],
+     emits: ["updateFertilizerTimes-submit"],
      props: ["newFertilizerTimes", "message1", "message2", "fertilizerList", "developmentStageList", "currentUser", "riceCropChoosen"],
      data() {
 
@@ -193,13 +193,16 @@ export default {
                     .string()
                     .required("Loại phân phải có giá trị"),
                temperature: yup
-                    .string(),
+                    .string()
+                    .nullable(),
                // .required("Loại phân phải có giá trị"),
                radiation: yup
-                    .string(),
+                    .string()
+                    .nullable(),
                // .required("Loại phân phải có giá trị"),
                precipitation: yup
-                    .string(),
+                    .string()
+                    .nullable(),
                // .required("Loại phân phải có giá trị"),
           });
           return {

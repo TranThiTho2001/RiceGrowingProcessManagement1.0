@@ -28,7 +28,10 @@ SprayingTimes.create = (newSprayingTimes, result) => {
 };
 
 SprayingTimes.findByIdRiceCropInformation = (id, result) => {
-     sql.query(`SELECT * FROM SprayingTimes WHERE RiceCropInformation_id like '${id}'`, (err, res) => {
+     sql.query(`SELECT * FROM SprayingTimes JOIN Employee on Employee.Employee_id = SprayingTimes.Employee_id` +
+     ` JOIN Pesticide on Pesticide.Pesticide_id = SprayingTimes.Pesticide_id` + 
+     ` JOIN Developmentstage on developmentstage.DevelopmentStage_id = SprayingTimes.DevelopmentStage_id` +
+      ` WHERE RiceCropInformation_id like '${id}' ORDER BY SprayingTimes.SprayingTimes_times`, (err, res) => {
           if (err) {
                console.log("error: ", err);
                result(err, null);
@@ -44,7 +47,9 @@ SprayingTimes.findByIdRiceCropInformation = (id, result) => {
 };
 
 SprayingTimes.getAll = (Pesticide_id, result) => {
-     let query = "SELECT * FROM SprayingTimes";
+     let query = "SELECT * FROM SprayingTimes JOIN Employee on Employee.Employee_id = SprayingTimes.Employee_id" +
+     " JOIN Pesticide on Pesticide.Pesticide_id = SprayingTimes.Pesticide_id" + 
+     " JOIN Developmentstage on developmentstage.DevelopmentStage_id = SprayingTimes.DevelopmentStage_id";
      if (Pesticide_id) {
           query += ` WHERE Pesticide_id LIKE '%${Pesticide_id}%'`;
      }

@@ -7,14 +7,9 @@
                     </div>
                </div>
                <div class="col-md-10 rightPesticideManagement">
-
-                    <div class="row mt-1 mb-2">
-                         <div class="col-sm-12">
-                              <h2 class="text-center">THUỐC TRỊ BỆNH DỊCH</h2>
-                         </div>
-                    </div>
-                    <div class="row ml-3 mr-2">
-                         <div class="col-sm-8 input-group">
+                    <div class="row mr-2 mt-2 mb-4">
+                         <div class="col-md-3"></div>
+                         <div class="col-md-7 pr-5">
                               <div class="row">
                                    <input type="text" class="form-control col-md-10 inputSearch"
                                         placeholder="Tìm theo tên" style="border-radius:10px" v-model="nameToSearch"
@@ -25,6 +20,19 @@
                                    </button>
                               </div>
                          </div>
+                         <div class="col-md-2 pl-5 text-right">
+                              <div class="row">
+                                   <TopHeader :currentUserid="currentUser.Employee_id" />
+                              </div>
+                         </div>
+                    </div>
+                    <div class="row ml-2 mt-1">
+                         <div class="col-sm-12  text-center">
+                              <h2>THUỐC TRỊ BỆNH DỊCH</h2>
+                         </div>
+                    </div>
+                    <div class="row ml-2 mr-2">
+
                          <div class="btnChoosePage col-sm-2">
                               <p style="display: inline-block; padding-top: 1px;text-align: right;" class="soTrang">
                                    Trang &nbsp;</p>
@@ -40,12 +48,14 @@
                                    </div>
                               </div>
                          </div>
+                         <div class="col-sm-8 input-group">
+                         </div>
                          <div class="col-sm-2">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i
                                         class="fas fa-plus-circle" style="font-size: 15px;"></i>Thêm phân bón</button>
                          </div>
                     </div>
-                    <div class=" row pesticideList mt-1 ml-2 mr-2 justify-content-center">
+                    <div class=" row pesticideList mt-3 ml-2 mr-2 justify-content-center">
                          <table class="table mt-1 ml-2 mr-2">
                               <thead>
                                    <tr>
@@ -116,14 +126,17 @@
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import { mapGetters, mapMutations } from "vuex";
 import PesticideService from '../../services/pesticide.service';
+import TopHeader from '@/components/catalogManagementComponents/topHeader.vue'
 import CreatePesticideForm from '@/components/catalogManagementComponents/createNewPesticideForm.vue';
 import UpdatePesticideForm from '@/components/catalogManagementComponents/updatePesticideForm.vue';
 export default {
      name: "PesticideManagement",
      components: {
           Catalog,
+          TopHeader,
           CreatePesticideForm,
           UpdatePesticideForm,
+          
      },
 
      data() {

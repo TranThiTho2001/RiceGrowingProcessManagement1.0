@@ -1,0 +1,69 @@
+.updateEpidemicTimesForm, .updateFertilizerTimesForm{
+     background-color: #b7f8d0;
+     font-family: Inter;
+     border-radius: 10px;
+     position: absolute;
+     top: calc(8%);
+     left: 10%;
+     width: 70%;
+}
+
+
+
+.updateEpidemicTimesForm .messege{
+    background-color: #6cc38c;
+}
+.updateEpidemicTimesForm .content .error-feedback,
+.updateFertilizerTimesForm .content .error-feedback{
+     color: red;
+     float: right;
+}
+
+
+.updateEpidemicTimesForm .content .form-group label,
+.updateEpidemicTimesForm .content .form-group label{
+     float: left;
+     font-family: Inter;
+     font-size: 18px;
+}
+
+.updateEpidemicTimesForm .content .form-group .selectBox,
+.updateFertilizerTimesForm .content .form-group .selectBox{
+     width: 100%;
+     height: 38px;
+     border: 1px solid #ced4da;
+     border-radius: 4px;
+}
+
+.updateEpidemicTimesForm .content .form-group input,
+.updateFertilizerTimesForm .content .form-group input{
+     float: left;
+}
+
+.updateEpidemicTimesForm .content .form-group .form-control,
+.updateFertilizerTimesForm .content .form-group .form-control{
+     background-color: #f0f0f0;
+}
+
+.updateEpidemicTimesForm .functionName,
+.updateFertilizerTimesForm .functionName{
+     font-family: Inter;
+     font-size: 24px;
+}
+.updateEpidemicTimesForm .form-group .textMessage2,
+.updateEpidemicTimesForm .form-group .textMessage1,
+.updateFertilizerTimesForm .form-group .textMessage1,
+.updateFertilizerTimesForm .form-group .textMessage2{
+     text-align: center; 
+     display: inline;
+     font-size: 18px;
+     font-family: Inter;
+}
+
+.updateEpidemicTimesForm .btnLuu, 
+.updateFertilizerTimesForm .btnLuu{
+     background-color: rgb(4, 105, 4);
+     color: #f0f0f0;
+     font-size: 20px;
+     text-align: center;
+}

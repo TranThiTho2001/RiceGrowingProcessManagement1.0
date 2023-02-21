@@ -1,333 +1,335 @@
-.createRiceCropForm{
-     background-color: #b7f8d0;
-     font-family: Inter;
-     border-radius: 10px;
-     position: absolute;
-     top: calc(22%);
-     left: 10%;
-     width: 80%;
+.createRiceCropForm {
+    background-color: #b7f8d0;
+    font-family: Inter;
+    border-radius: 10px;
+    position: absolute;
+    top: calc(22%);
+    left: 10%;
+    width: 80%;
 }
-.updateRiceCropForm{
+
+.updateRiceCropForm {
     background-color: #b7f8d0;
     font-family: Inter;
     border-radius: 10px;
 }
 
 
-.createRiceCropForm .messege{
+.createRiceCropForm .messege {
     background-color: #6cc38c;
 }
+
 .createRiceCropForm .content .error-feedback,
-.updateRiceCropForm .content .error-feedback{
-     color: red;
-     float: right;
+.updateRiceCropForm .content .error-feedback {
+    color: red;
+    float: right;
 }
 
 
 .createRiceCropForm .content .form-group label,
-.updateRiceCropForm .content .form-group label{
-     float: left;
-     font-family: Inter;
-     font-size: 18px;
+.updateRiceCropForm .content .form-group label {
+    float: left;
+    font-family: Inter;
+    font-size: 18px;
 }
 
 .createRiceCropForm .content .form-group .selectBox,
-.updateRiceCropForm .content .form-group .selectBox{
-     width: 100%;
-     height: 38px;
-     border: 1px solid #ced4da;
-     border-radius: 4px;
+.updateRiceCropForm .content .form-group .selectBox {
+    width: 100%;
+    height: 38px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
 }
 
 .createRiceCropForm .content .form-group input,
-.updateRiceCropForm .content .form-group input{
-     float: left;
+.updateRiceCropForm .content .form-group input {
+    float: left;
 }
 
 .createRiceCropForm .content .form-group .form-control,
-.updateRiceCropForm .content .form-group .form-control{
-     background-color: #f0f0f0;
+.updateRiceCropForm .content .form-group .form-control {
+    background-color: #f0f0f0;
 }
 
 .createRiceCropForm .functionName,
-.updateRiceCropForm .functionName{
-     font-family: Inter;
-     font-size: 24px;
+.updateRiceCropForm .functionName {
+    font-family: Inter;
+    font-size: 24px;
 }
+
 .createRiceCropForm .form-group .textMessage2,
 .createRiceCropForm .form-group .textMessage1,
 .updateRiceCropForm .form-group .textMessage1,
-.updateRiceCropForm .form-group .textMessage2{
-     text-align: center; 
-     display: inline;
-     font-size: 18px;
-     font-family: Inter;
+.updateRiceCropForm .form-group .textMessage2 {
+    text-align: center;
+    display: inline;
+    font-size: 18px;
+    font-family: Inter;
 }
 
-.createRiceCropForm .btnLuu{
-     background-color: rgb(4, 105, 4);
-     color: #f0f0f0;
-     font-size: 20px;
-     text-align: center;
+.createRiceCropForm .btnLuu {
+    background-color: rgb(4, 105, 4);
+    color: #f0f0f0;
+    font-size: 20px;
+    text-align: center;
 }
 
-.updateRiceCropForm .btnLuu{
+.updateRiceCropForm .btnLuu {
     background-color: rgb(4, 105, 4);
     color: #f0f0f0;
     font-size: 20px;
     float: left;
-    
+
 }
 
-.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement   .confirmationDialog{
-     background-color: rgb(5, 207, 137);
-     border: 1px solid rgb(62, 77, 77);
-     border-radius: 10px;
-     position:absolute;
-     top: calc(38%);
-     transform: translateX(80%);
-     border-radius: 16px;
-     display: block;
-     width: 404px;
-     height: 187px;
-     border-radius: 15px; 
-     text-align: center;
+.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .confirmationDialog {
+    background-color: rgb(5, 207, 137);
+    border: 1px solid rgb(62, 77, 77);
+    border-radius: 10px;
+    position: absolute;
+    top: calc(38%);
+    transform: translateX(80%);
+    border-radius: 16px;
+    display: block;
+    width: 404px;
+    height: 187px;
+    border-radius: 15px;
+    text-align: center;
 }
 
-.riceCropManagement  .riceCropManagemenFrame .rightRiceCropManagement .confirmationDialog .btnYes{
-     background-color: rgb(244, 61, 61);
-     color: white;
-     font-family: Inter;
-     font-size: 16px;
+.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .confirmationDialog .btnYes {
+    background-color: rgb(244, 61, 61);
+    color: white;
+    font-family: Inter;
+    font-size: 16px;
 }
 
-.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .confirmationDialog .btnNo{
-     background-color: rgb(196, 191, 191);
-     color: rgb(33, 33, 33);
-     font-family: Inter;
-     font-size: 16px;
+.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .confirmationDialog .btnNo {
+    background-color: rgb(196, 191, 191);
+    color: rgb(33, 33, 33);
+    font-family: Inter;
+    font-size: 16px;
 }
 
-.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .messageDialog .btnOK{
-     background-color: rgb(196, 191, 191);
-     color: rgb(33, 33, 33);
-     font-family: Inter;
-     font-size: 16px;
+.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .messageDialog .btnOK {
+    background-color: rgb(196, 191, 191);
+    color: rgb(33, 33, 33);
+    font-family: Inter;
+    font-size: 16px;
 }
-.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .messageDialog{
-     background-color: rgb(5, 207, 137);
-     border: 1px solid rgb(62, 77, 77);
-     border-radius: 10px;
-     position:absolute;
-     top: calc(38%);
-     transform: translateX(80%);
-     border-radius: 16px;
-     display: block;
-     width: 404px;
-     height: 187px;
-     border-radius: 15px; 
-     text-align: center;
+
+.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .messageDialog {
+    background-color: rgb(5, 207, 137);
+    border: 1px solid rgb(62, 77, 77);
+    border-radius: 10px;
+    position: absolute;
+    top: calc(38%);
+    transform: translateX(80%);
+    border-radius: 16px;
+    display: block;
+    width: 404px;
+    height: 187px;
+    border-radius: 15px;
+    text-align: center;
 }
-.btnChoosePage {
 
- }
- 
- /* Dropup Button */
- .dropbtn {
-     color: black;
-     font-size: 16px;
-     border: none;
-     width: 80px;
-     height: 35px;
-     background-color: none;
-     border-radius: 10px;
- }
- 
- /* The container <div> - needed to position the dropup content */
- .dropdown {
-     position: relative;
-     display: inline-block;
-     border-radius: 1px;
- }
- 
- /* Dropup content (Hidden by Default) */
- .dropdown-content {
-     display: none;
-     position: absolute;
-     bottom: 50px;
-     min-width: 80px;
-     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-     /* z-index: 1; */
-     font-family: Inter;
-     font-size: 17px;
-     border-radius: 15px;
- }
- 
- /* Links inside the dropup */
- .dropdown-content a {
-     color: black;
-     padding: 12px 16px;
-     text-decoration: none;
-     display: block;
-     font-family: Inter;
-     font-size: 17px;
- }
- 
- /* Change color of dropup links on hover */
- .dropdown-content a:hover {
-     border: #00BA13 1px solid;
-     background-color: #3c8456;
-     border-radius: 1px;
-     font-size: 18px;
-     font-family: Inter;
- }
- 
- .dropdown-content a.active {
-     background-color: #47de7e;
- }
- 
- /* Show the dropup menu on hover */
- .dropdown:hover .dropdown-content {
-     display: block;
-     border: #00BA13 1px solid;
-     background-color: #3b9c5f;
+.btnChoosePage {}
 
-     font-size: 18px;
-     font-family: Inter;
-     right: 1%;
-     top:calc(98%)
- }
- 
- /* Change the background color of the dropup button when the dropup content is shown */
- .dropdown:hover .dropbtn {
-     border-radius: 1px;
-     font-size: 18px;
-     font-family: Inter;
-     border-radius: 10px;
- }
- 
- .btnCreate{
-     border: #00BA13 1px solid;
-     border-radius: 5px;
-     font-size: 18px;
-     font-family: Inter;
-     width: max-content;
- }
+/* Dropup Button */
+.dropbtn {
+    color: black;
+    font-size: 16px;
+    border: none;
+    width: 80px;
+    height: 35px;
+    background-color: none;
+    border-radius: 10px;
+}
 
- .btnCreate:hover{
-     border: #00BA13 1px solid;
-     background-color: #6cc38c;
-     border-radius: 5px;
-     font-size: 18px;
-     font-family: Inter;
- }
-
- .numberPage {
-     display: inline-block;
-     margin-top: 2px;
-     border-radius: 5px;
-     border: 1px solid #00BA13;
- }
-
- .numberPage:hover {
-     display: inline-block;
-     margin-top: 2px;
-     border-radius: 5px;
-     border: 1px solid #00BA13;
- }
-
- .fertilizerManagement{
+/* The container <div> - needed to position the dropup content */
+.dropdown {
     position: relative;
- }
-.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement{
-     border-left: #bdf487 0.5px solid;
+    display: inline-block;
+    border-radius: 1px;
 }
- .riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement table tr{
-     /* background-color: #ced4da; */
-     border-top: 1px solid #515151;
- }
 
- .riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .actions{
-     border: none;
-     color: black;
- }
- .riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement tr{
-    width: max-content; 
- }
- .riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .actions .action{
-     text-align: center;
-     display: inline;
- }
- .riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .actions .action .actionIcon{
-     border: none;
-     color: black;
- }
+/* Dropup content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    bottom: 50px;
+    min-width: 80px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    /* z-index: 1; */
+    font-family: Inter;
+    font-size: 17px;
+    border-radius: 15px;
+}
 
- .riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .riceCropList .table .td{
-     font-size: 14px;
-     text-align: justify;
-     vertical-align:top;
- }
+/* Links inside the dropup */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-family: Inter;
+    font-size: 17px;
+}
 
- .riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .riceCropList .table{
-     height: max-content;
- }
+/* Change color of dropup links on hover */
+.dropdown-content a:hover {
+    border: #00BA13 1px solid;
+    background-color: #3c8456;
+    border-radius: 1px;
+    font-size: 18px;
+    font-family: Inter;
+}
 
- .riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .riceCropList .table a{
+.dropdown-content a.active {
+    background-color: #47de7e;
+}
+
+/* Show the dropup menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+    border: #00BA13 1px solid;
+    background-color: #3b9c5f;
+
+    font-size: 18px;
+    font-family: Inter;
+    right: 1%;
+    top: calc(98%)
+}
+
+/* Change the background color of the dropup button when the dropup content is shown */
+.dropdown:hover .dropbtn {
+    border-radius: 15px;
+    font-size: 18px;
+    font-family: Inter;
+    border:none;
+}
+
+.riceCropManagement .btnCreate {
+    background: #EEEA41;
+    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
+    font-size: 18px;
+    font-family: Inter;
+    width: max-content;
+    border: none;
+    border-radius: 10px;
+}
+
+.riceCropManagement .btnCreate:hover {
+    background: #008B8E;
+    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
+    font-size: 18px;
+    font-family: Inter;
+    border: none;
+    border-radius: 10px;
+}
+
+.numberPage {
+    display: inline-block;
+    margin-top: 2px;
+    border-radius: 5px;
+    border: 1px solid #00BA13;
+}
+
+.numberPage:hover {
+    display: inline-block;
+    margin-top: 2px;
+    border-radius: 5px;
+    border: 1px solid #00BA13;
+}
+
+.fertilizerManagement {
+    position: relative;
+}
+
+.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement {
+    border-left: #bdf487 0.5px solid;
+}
+
+.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement table tr {
+    /* background-color: #ced4da; */
+    border-top: 1px solid #515151;
+}
+
+.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .actions {
+    border: none;
+    color: black;
+}
+
+.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement tr {
+    width: max-content;
+}
+
+.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .actions .action {
+    text-align: center;
+    display: inline;
+}
+
+.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .actions .action .actionIcon {
+    border: none;
+    color: black;
+}
+
+.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .riceCropList .table .td {
+    font-size: 14px;
+    text-align: justify;
+    vertical-align: top;
+}
+
+.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .riceCropList .table {
+    height: max-content;
+}
+
+.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .riceCropList {
+    height: 270px;
+    margin-bottom: 2px;
+}
+
+.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .riceCropList .table a {
     text-decoration: none;
     color: black;
- }
+}
 
- .riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .riceCropList .table a:hover{
-    text-decoration:underline;
+.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .riceCropList .table a:hover {
+    text-decoration: underline;
     color: black;
- }
+}
 
-.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .btnTimKiem:hover{
+.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .btnTimKiem:hover {
     background-color: none;
-    color:#515151;
+    color: #515151;
 }
 
-.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .btnTimKiem{
+.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .btnTimKiem {
     background-color: none;
-    color:darkgray
-}
-.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .riceCropList .btnEnd{
-     width: 120px;
-     font-size: 16px;
-     background-color:slategray;
+    color: darkgray
 }
 
-.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .riceCropList .btnMonitor{
-     width: 120px;
-     font-size: 16px;
-     background-color:aquamarine;
+.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .riceCropList .btnEnd {
+    width: 120px;
+    font-size: 16px;
+    background-color: slategray;
 }
 
-.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .riceCropList .table td{
-     font-size: 15px;
-     text-align: justify;
-     vertical-align: middle;
+.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .riceCropList .btnMonitor {
+    width: 120px;
+    font-size: 16px;
+    background-color: aquamarine;
 }
 
- 
-.btnCreate{
-     border: #00BA13 1px solid;
-     border-radius: 5px;
-     font-size: 18px;
-     font-family: Inter;
-     width: max-content;
- }
+.riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .riceCropList .table td {
+    font-size: 15px;
+    text-align: justify;
+    vertical-align: middle;
+}
 
- .btnCreate:hover{
-     border: #00BA13 1px solid;
-     background-color: #6cc38c;
-     border-radius: 5px;
-     font-size: 18px;
-     font-family: Inter;
- }
 
- .riceCropManagement .categoryList .btnMonitor {
+
+.riceCropManagement .categoryList .btnMonitor {
     display: block;
     width: 95%;
     font-size: 19px;

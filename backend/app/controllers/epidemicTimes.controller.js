@@ -6,7 +6,7 @@ exports.store = async (req, res) => {
      // Create 
      const epidemicTimes = new EpidemicTimes({
           RiceCropInformation_id: req.body.RiceCropInformation_id,
-          Epidemics_id: req.body.Epidemics_id,
+          Epidemic_id: req.body.Epidemic_id,
           DevelopmentStage_id: req.body.DevelopmentStage_id,
           Employee_id: req.body.Employee_id,
           EpidemicTimes_times: req.body.EpidemicTimes_times,
@@ -49,9 +49,12 @@ exports.findbyIdRiceCropInformation = async (req, res) => {
 
 // Update a EpidemicTimes identified by the id in the request
 exports.update = async (req, res) => {
+     console.log( req.params.RiceCropInformation_id,
+          req.params.Epidemic_id,
+          req.params.EpidemicTimes_times);
      EpidemicTimes.updateById(
           req.params.RiceCropInformation_id,
-          req.params.Epidemics_id,
+          req.params.Epidemic_id,
           req.params.EpidemicTimes_times,
           req.body,
           (err, data) => {
@@ -68,7 +71,7 @@ exports.update = async (req, res) => {
 
 // Delete a EpidemicTimes with the specified id in the request
 exports.delete = async (req, res) => {
-     EpidemicTimes.remove(req.params.RiceCropInformation_id, req.params.Epidemics_id, req.params.EpidemicTimes_times, (err, data) => {
+     EpidemicTimes.remove(req.params.RiceCropInformation_id, req.params.Epidemic_id, req.params.EpidemicTimes_times, (err, data) => {
           if (err) {
                if (err.kind === "not_found") {
                     res.send(`Không tìm thấy lần bị dịch bệnh có mã vụ mùa ${req.params.RiceCropInformation_id} và mã dịch bệnh ${req.params.Epidemics_id}`)

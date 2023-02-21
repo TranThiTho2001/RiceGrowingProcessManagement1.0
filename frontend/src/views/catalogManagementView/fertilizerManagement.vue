@@ -7,13 +7,9 @@
                     </div>
                </div>
                <div class="col-md-10 rightFertilizerManagement">
-                    <div class="row mt-1 mb-2">
-                         <div class="col-sm-12">
-                              <h2 class="text-center">PHÂN BÓN</h2>
-                         </div>
-                    </div>
-                    <div class="row ml-3">
-                         <div class="col-sm-8 input-group">
+                    <div class="row mr-2 mt-2 mb-4">
+                         <div class="col-md-3"></div>
+                         <div class="col-md-7 pr-5">
                               <div class="row">
                                    <input type="text" class="form-control col-md-10 inputSearch"
                                         placeholder="Tìm theo tên" style="border-radius:10px" v-model="nameToSearch"
@@ -24,6 +20,18 @@
                                    </button>
                               </div>
                          </div>
+                         <div class="col-md-2 pl-5 text-right">
+                              <div class="row">
+                                   <TopHeader :currentUserid="currentUser.Employee_id" />
+                              </div>
+                         </div>
+                    </div>
+                    <div class="row ml-2 mt-1">
+                         <div class="col-sm-12  text-center">
+                              <h2>PHÂN BÓN</h2>
+                         </div>
+                    </div>
+                    <div class="row ml-2 mt-3">
                          <div class="btnChoosePage col-sm-2">
                               <p style="display: inline-block; padding-top: 1px;text-align: right;" class="soTrang">
                                    Trang &nbsp;</p>
@@ -38,6 +46,8 @@
                                         </div>
                                    </div>
                               </div>
+                         </div>
+                         <div class="col-sm-8 input-group">
                          </div>
                          <div class="col-sm-2">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i
@@ -115,12 +125,14 @@
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import { mapGetters, mapMutations } from "vuex";
 import FertilizerService from '../../services/fertilizer.service';
+import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import CreateFertilizerForm from '@/components/catalogManagementComponents/createNewFertilizerForm.vue';
 import UpdateFertilizerForm from '@/components/catalogManagementComponents/updateFertilizerForm.vue';
 export default {
      name: "FertilizerManagement",
      components: {
           Catalog,
+          TopHeader,
           CreateFertilizerForm,
           UpdateFertilizerForm,
      },

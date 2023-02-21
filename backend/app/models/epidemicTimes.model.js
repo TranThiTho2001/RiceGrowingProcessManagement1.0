@@ -2,7 +2,7 @@ const sql = require("./db");
 
 const EpidemicTimes = function (epidemicTimes) {
      this.RiceCropInformation_id = epidemicTimes.RiceCropInformation_id;
-     this.Epidemics_id = epidemicTimes.Epidemics_id;
+     this.Epidemic_id = epidemicTimes.Epidemic_id;
      this.DevelopmentStage_id = epidemicTimes.DevelopmentStage_id;
      this.Employee_id = epidemicTimes.Employee_id;
      this.EpidemicTimes_times = epidemicTimes.EpidemicTimes_times;
@@ -27,7 +27,11 @@ EpidemicTimes.create = (newEpidemicTimes, result) => {
 };
 
 EpidemicTimes.findByIdRiceCropInformation = (id, result) => {
-     sql.query(`SELECT * FROM EpidemicTimes WHERE RiceCropInformation_id like '${id}'`, (err, res) => {
+     sql.query(`SELECT * FROM EpidemicTimes`+
+          ` JOIN Employee on Employee.Employee_id = EpidemicTimes.Employee_id` +
+          ` JOIN Epidemic on Epidemic.Epidemic_id = EpidemicTimes.Epidemic_id` +
+          ` Join Developmentstage on DevelopmentStage.DevelopmentStage_id = EpidemicTimes.DevelopmentStage_id` + 
+          ` WHERE RiceCropInformation_id like '${id}'`, (err, res) => {
           if (err) {
                console.log("error: ", err);
                result(err, null);
@@ -45,7 +49,7 @@ EpidemicTimes.findByIdRiceCropInformation = (id, result) => {
 EpidemicTimes.getAll = (Epidemics_id, result) => {
      let query = "SELECT * FROM EpidemicTimes";
      if (Epidemics_id) {
-          query += ` WHERE Epidemics_id LIKE '%${Epidemics_id}%'`;
+          query += ` WHERE Epidemic_id LIKE '%${Epidemics_id}%'`;
      }
      sql.query(query, (err, res) => {
           if (err) {
@@ -57,10 +61,10 @@ EpidemicTimes.getAll = (Epidemics_id, result) => {
      });
 };
 
-EpidemicTimes.updateById = (riceCropInformation_id, Epidemics_id, times, epidemicTimes, result) => {
+EpidemicTimes.updateById = (riceCropInformation_id, Epidemic_id, times, epidemicTimes, result) => {
      sql.query(
-          "UPDATE EpidemicTimes SET Employee_id = ?, DevelopmentStage_id = ?, EpidemicTimes_startDate = ?, EpidemicTimes_endDate = ?, EpidemicTimes_temperature = ?, EpidemicTimes_radiation = ?, EpidemicTimes_precipitation = ? WHERE (RiceCropInformation_id = ? And Epidemics_id = ? and EpidemicTimes_times = ?)",
-          [epidemicTimes.Employee_id, epidemicTimes.DevelopmentStage_id, epidemicTimes.EpidemicTimes_startDate, epidemicTimes.EpidemicTimes_endDate, epidemicTimes.EpidemicTimes_temperature, epidemicTimes.EpidemicTimes_radiation, epidemicTimes.EpidemicTimes_precipitation, riceCropInformation_id, Epidemics_id, times],
+          "UPDATE EpidemicTimes SET Employee_id = ?, DevelopmentStage_id = ?, EpidemicTimes_startDate = ?, EpidemicTimes_endDate = ?, EpidemicTimes_temperature = ?, EpidemicTimes_radiation = ?, EpidemicTimes_precipitation = ? WHERE (RiceCropInformation_id = ? And Epidemic_id = ? and EpidemicTimes_times = ?)",
+          [epidemicTimes.Employee_id, epidemicTimes.DevelopmentStage_id, epidemicTimes.EpidemicTimes_startDate, epidemicTimes.EpidemicTimes_endDate, epidemicTimes.EpidemicTimes_temperature, epidemicTimes.EpidemicTimes_radiation, epidemicTimes.EpidemicTimes_precipitation, riceCropInformation_id, Epidemic_id, times],
           (err, res) => {
                if (err) {
                     console.log("error: ", err);
@@ -78,8 +82,8 @@ EpidemicTimes.updateById = (riceCropInformation_id, Epidemics_id, times, epidemi
      );
 };
 
-EpidemicTimes.remove = (riceCropInformation_id, epidemics_id, times, result) => {
-     sql.query(`DELETE FROM EpidemicTimes WHERE (RiceCropInformation_id LIKE '${riceCropInformation_id}' AND Epidemics_id LIKE '${epidemics_id}' AND EpidemicTimes_times LIKE '${times}')`, (err, res) => {
+EpidemicTimes.remove = (riceCropInformation_id, epidemic_id, times, result) => {
+     sql.query(`DELETE FROM EpidemicTimes WHERE (RiceCropInformation_id LIKE '${riceCropInformation_id}' AND Epidemic_id LIKE '${epidemic_id}' AND EpidemicTimes_times LIKE '${times}')`, (err, res) => {
           if (err) {
                console.log("error: ", err);
                result(null, err);

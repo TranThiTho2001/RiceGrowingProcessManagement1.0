@@ -8,7 +8,8 @@
                </div>
                <div class="col-md-10 rightRiceCropManagement">
                     <div class="row mr-2 mt-2 mb-5">
-                         <div class="col-md-10 pr-5">
+                         <div class="col-md-3"></div>
+                         <div class="col-md-7 pr-5">
                               <div class="row">
                                    <input type="text" class="form-control col-md-10 inputSearch" placeholder="Tìm theo tên"
                                         style="border-radius:10px" v-model="nameToSearch" @keyup.enter="searchName" />
@@ -18,32 +19,32 @@
                                    </button>
                               </div>
                          </div>
-                         <div class="col-md-2 pl-5">
+                         <div class="col-md-2 pl-5 text-right">
                               <div class="row">
                                    <TopHeader :currentUserid="currentUser.Employee_id" />
                               </div>
                          </div>
                     </div>
 
-                    <div class="row mr-2 ml-3">
-                         <div class="col-sm-8"></div>
+                    <div class="row mr-3 ml-3">
+                         <div class="col-sm-10"></div>
                          <div class="col-sm-2">
-                              <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
+                              <button  class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
                                         style="font-size: 15px;"></i>Thêm mẫu ruộng</button>
                          </div>
                     </div>
-                    <div class=" row riceCropList mt-4 pt-3 ml-2 mr-4 text-left">
+                    <div class=" row riceCropList mt-5 ml-2 mr-4 text-left">
                          <carousel :settings="settings" :breakpoints="breakpoints" style="width:100%">
                               <slide v-for="(riceCrop, i) in riceCropListByMonitoring" :key="i">
                                    <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
                               </slide>
                               <template #addons>
                                    <navigation />
-                                   <pagination style="color: #00BA13;" />
+                                   <!-- <pagination style="color: #00BA13;" /> -->
                               </template>
                          </carousel>
                     </div>
-                    <div class="row riceCropList ml-2 mr-4 text-left">
+                    <div class="row riceCropList pt-1 ml-2 mr-4 text-left">
                          <carousel :settings="settings" :breakpoints="breakpoints" style="width:100%">
                               <slide v-for="(riceCrop, i) in riceCropListByFinish" :key="i" style="text-align: left; ">
                                    <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
@@ -171,16 +172,25 @@ export default {
 
                },
                breakpoints: {
+                    700:{
+                         itemsToShow: 2,
+                         snapAlign: 'center',
+                    },
                     // 700px and up
-                    700: {
+                    1000: {
                          itemsToShow: 3.5,
                          snapAlign: 'center',
                     },
+                    1200: {
+                         itemsToShow: 4,
+                         snapAlign: 'center',
+                    },
                     // 1024 and up
-                    1024: {
+                    1300: {
                          itemsToShow: 5,
                          snapAlign: 'start',
                     },
+
                },
           }
      },

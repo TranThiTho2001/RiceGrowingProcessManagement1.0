@@ -1,0 +1,8 @@
+.riceCropDetail {
+
+}
+
+.riceCropDetail .table tbody{
+     max-height: 300px; 
+     width: 100%;
+}

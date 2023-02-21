@@ -196,21 +196,24 @@
      border-radius: 10px;
  }
  
- .btnCreate{
-     border: #00BA13 1px solid;
-     border-radius: 5px;
-     font-size: 18px;
-     font-family: Inter;
-     width: max-content;
- }
+ .btnCreate {
+    background: #EEEA41;
+    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
+    font-size: 18px;
+    font-family: Inter;
+    width: max-content;
+    border: none;
+    border-radius: 10px;
+}
 
- .btnCreate:hover{
-     border: #00BA13 1px solid;
-     background-color: #6cc38c;
-     border-radius: 5px;
-     font-size: 18px;
-     font-family: Inter;
- }
+ .btnCreate:hover {
+    background: #008B8E;
+    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
+    font-size: 18px;
+    font-family: Inter;
+    border: none;
+    border-radius: 10px;
+}
 
  .numberPage {
      display: inline-block;

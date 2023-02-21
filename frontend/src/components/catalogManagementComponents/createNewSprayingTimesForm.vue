@@ -9,16 +9,15 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Cập nhật thông
-                    tin giống lúa mới
+               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Thêm Lần Phun Thuốc
                </p>
           </div>
           <div class="row content">
-               <div class="col-sm-6 mt-2">
+               <div class="col-sm-4 mt-2">
                     <div class="form-group">
                          <label for="ricecropid" class="mt-2">Mã mẫu ruộng <span style="color:red">*</span></label>
                          <Field name="ricecropid" type="name" class="form-control"
-                              v-model="ricecropchoosen.RiceCropInformation_id" />
+                              v-model="ricecropchoosen.RiceCropInformation_id" :disabled="true"/>
                          <ErrorMessage name="ricecropid" class="error-feedback" />
                     </div>
 
@@ -26,17 +25,9 @@
                     <div class="form-group">
                          <label for="employeeid" class="mt-3">Nhân viên thực hiện<span style="color:red">*</span></label>
                          <Field name="employeeid" class="form-control" v-model="currentuser.Employee_id"
-                              placeholder="Nhập mã nhân viên...." />
+                              placeholder="Nhập mã nhân viên...." :disabled="true"/>
                          <ErrorMessage name="employeeid" class="error-feedback" />
                     </div>
-
-                    <div class="form-group ">
-                         <label for="times" class="mt-3 pt-1">Lần<span style="color:red">*</span></label>
-                         <Field name="times" class="form-control" v-model="newsprayingtimes.SprayingTimes_times"
-                              placeholder="Nhập lần thực hiện..." />
-                         <ErrorMessage name="times" class="error-feedback" />
-                    </div>
-
 
                     <div class="form-group">
                          <label for="start" class="mt-3">Ngày bắt đầu</label>
@@ -57,14 +48,15 @@
                          <ErrorMessage name="temperature" class="error-feedback" />
                     </div>
 
-                    <div class="form-group ">
-                         <label for="radiation" class="mt-3 pt-1">Độ ẩm</label>
-                         <Field name="radiation" class="form-control" v-model="newsprayingtimes.SprayingTimes_radiation"
-                              placeholder="Nhập độ ẩm..." />
-                         <ErrorMessage name="radiation" class="error-feedback" />
-                    </div>
                </div>
-               <div class="col-sm-6 ">
+               <div class="col-sm-4">
+                    <div class="form-group ">
+                         <label for="times" class="mt-3">Lần<span style="color:red">*</span></label>
+                         <Field name="times" class="form-control" v-model="newsprayingtimes.SprayingTimes_times"
+                              placeholder="Nhập lần thực hiện..." />
+                         <ErrorMessage name="times" class="error-feedback" />
+                    </div>
+
                     <div class="form-group">
                          <label for="developmentid" class="mt-3">Giai đoạn phát triển<span style="color:red">*</span></label>
                          <Field name="developmentid" class="form-control" v-model="newsprayingtimes.DevelopmentStage_name">
@@ -79,7 +71,28 @@
                     </div>
 
                     <div class="form-group">
-                         <label for="fertilizer" class="">Loại phân<span style="color:red">*</span></label>
+                         <label for="end" class="">Ngày kết thúc</label>
+                         <Field name="harvendestDate" class="form-control"
+                              v-model="newsprayingtimes.SprayingTimes_endDate" placeholder="Ngày sinh">
+                              <datepicker :enable-time-picker="false" :value="newsprayingtimes.SprayingTimes_endDate"
+                                   :hide-input-icon="true" v-model="newsprayingtimes.SprayingTimes_endDate"
+                                   placeholder="YYYY-MM-DD">
+                              </datepicker>
+                         </Field>
+                         <ErrorMessage name="end" class="error-feedback" />
+                    </div>
+
+                    <div class="form-group ">
+                         <label for="radiation" class="mt-3 pt-1">Độ ẩm</label>
+                         <Field name="radiation" class="form-control" v-model="newsprayingtimes.SprayingTimes_radiation"
+                              placeholder="Nhập độ ẩm..." />
+                         <ErrorMessage name="radiation" class="error-feedback" />
+                    </div>
+               </div>
+               <div class="col-sm-4">
+
+                    <div class="form-group">
+                         <label for="fertilizer" class="mt-3">tên thuốc<span style="color:red">*</span></label>
                          <Field name="fertilizer" v-model="newsprayingtimes.Pesticide_name">
                               <select class="form-control" v-model="newsprayingtimes.Pesticide_name" name="classtify"
                                    for="classtify">
@@ -100,18 +113,7 @@
                     </div>
 
                     <div class="form-group">
-                         <label for="end" class="mt-3">Ngày kết thúc</label>
-                         <Field name="harvendestDate" class="form-control"
-                              v-model="newsprayingtimes.SprayingTimes_endDate" placeholder="Ngày sinh">
-                              <datepicker :enable-time-picker="false" :value="newsprayingtimes.SprayingTimes_endDate"
-                                   :hide-input-icon="true" v-model="newsprayingtimes.SprayingTimes_endDate"
-                                   placeholder="YYYY-MM-DD">
-                              </datepicker>
-                         </Field>
-                         <ErrorMessage name="end" class="error-feedback" />
-                    </div>
-                    <div class="form-group">
-                         <label for="precipitation" class="mt-1">Lượng mưa</label>
+                         <label for="precipitation" class="mt-2 pt-1">Lượng mưa</label>
                          <Field name="precipitation" class="form-control" v-model="newsprayingtimes.SprayingTimes_precipitation"
                               placeholder="Nhập lượng mưa..." />
                          <ErrorMessage name="precipitation" class="error-feedback" />
@@ -200,9 +202,9 @@ export default {
           });
           return {
                newsprayingtimes: this.newSprayingTimes,
-               ricecropchoosen: this.riceCropChoosen,
                currentuser: this.currentUser,
                development: this.developmentStageList,
+               ricecropchoosen: this.riceCropChoosen,
                schema,
           };
      },

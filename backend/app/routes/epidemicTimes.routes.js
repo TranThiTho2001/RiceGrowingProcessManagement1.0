@@ -14,10 +14,10 @@ module.exports = (app) => {
      router.post("/", epidemicTimes.store);
 
      // Update  with id
-     router.put("/:RiceCropInformation_id/:Epidemics_id/:EpidemicTimes_times", epidemicTimes.update);
+     router.put("/:RiceCropInformation_id/:Epidemic_id/:EpidemicTimes_times", epidemicTimes.update);
 
      // Delete  with id
-     router.delete("/:RiceCropInformation_id/:Epidemics_id/:EpidemicTimes_times", epidemicTimes.delete);
+     router.delete("/:RiceCropInformation_id/:Epidemic_id/:EpidemicTimes_times", epidemicTimes.delete);
 
      app.use("/api/epidemicTimes", router);
 };

@@ -17,9 +17,9 @@
                                    currentuser.Role_name }}</span>
                          </div>
                     </div>
-                    <hr style="background-color: #919302; border-width: 1.2px;">
+                    
                </div>
-
+               <hr style="background-color: #919302; border-width: 1.2px;; width: 235px;">
           </div>
           <div class="row bottomRow mt-1">
                <div class="categoryList col-sm-12">
@@ -29,28 +29,28 @@
                     </div>
                     <div class="row mt-1 pt-2">
                          <button class="btn ml-2 pl-3 pr-5 btn-sm btn-outline-secondary btnOtherActivities"
-                              @click="goToOtherActivities"> <i class="far fa-list-alt">&nbsp; &nbsp;</i>Các hoạt động
+                              @click="goToOtherActivities"> <i class="far fa-list-alt">&nbsp;</i>Các hoạt động
                          </button>
                     </div>
                     <div class="row mt-3">
                          <button class="btn ml-2 pl-3 pr-5 btn-sm btn-outline-secondary btnSeed" @click="goToSeed"><i
-                                   class="fas fa-seedling">&nbsp; &nbsp;</i> Giống lúa</button>
+                                   class="fas fa-seedling">&nbsp;</i> Giống lúa</button>
                     </div>
                     <div class="row mt-3">
                          <button class="btn ml-2 pl-3 pr-5 btn-sm btn-outline-secondary btnFertilizer" @click="goToFertilizer">
-                              <i class="fas fa-fill-drip">&nbsp; &nbsp;</i>Phân bón </button>
+                              <i class="fas fa-fill-drip">&nbsp;</i>Phân bón </button>
                     </div>
                     <div class="row mt-3">
                          <button class="btn ml-2 pl-3 pr-5 btn-sm btn-outline-secondary btnEpidemic" @click="goToEpidemic"><i
-                                   class="fas fa-spider">&nbsp; &nbsp;</i>Dịch bệnh </button>
+                                   class="fas fa-spider">&nbsp;</i>Dịch bệnh </button>
                     </div>
                     <div class="row mt-3">
                          <button class="btn ml-2 pl-3 pr-5 btn-sm btn-outline-secondary btnArableland" @click="goToArableLand"><i
-                                   class="fas fa-square">&nbsp; &nbsp;</i>Mẫu ruộng</button>
+                                   class="fas fa-square">&nbsp;</i>Mẫu ruộng</button>
                     </div>
                     <div class="row mt-3">
                          <button class="btn ml-2 pl-3 pr-2 btn-sm btn-outline-secondary btnPesticide" @click="goToPesticide"><i
-                                   class="fas fa-flask">&nbsp; &nbsp;</i>Thuốc trị bệnh &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dịch </button>
+                                   class="fas fa-flask">&nbsp;</i>Thuốc trị bệnh dịch </button>
                     </div>
                </div>
                <!-- Cot ben phai -->

@@ -49,12 +49,14 @@
                               @click="setTable('btnAttendee')">Người theo dõi</div>
 
                     </div>
-                    <div class="row activitiesList" >
-                         <button class="btn mt-3" style="background-color: gold;">Thêm</button>
-                         <table class="table-fixed" v-if="isOpenTableFertilizerTimes" style="height: 200px; width: 100%;">
+                    <!-- ----------------------FertilizerTimes Tab-------------- -->
+                    <div class="row activitiesList" v-if="isOpenTableFertilizerTimes">
+                         <button class="btn mt-3" style="background-color: gold;"
+                              @click="isOpenCreateFertilizerTimesForm = !isOpenCreateFertilizerTimesForm">Thêm</button>
+                         <table class="table">
                               <thead>
-                                   <tr >
-                                        <th class="text-center " >Mã</th>
+                                   <tr>
+                                        <th class="text-center ">Mã</th>
                                         <th>Tên phân bón</th>
                                         <th class="text-center ">Số lượng (kg/ha)</th>
                                         <th class="text-center ">Ngày bất đầu</th>
@@ -63,9 +65,9 @@
                                         <th class="">Tùy chọn</th>
                                    </tr>
                               </thead>
-                              <tbody >
+                              <tbody>
                                    <tr v-for="(fertilizer, i ) in fertilizerTimesList" :key="i">
-                                        <td class="text-center " >{{ fertilizer.FertilizerTimes_times }}</td>
+                                        <td class="text-center ">{{ fertilizer.FertilizerTimes_times }}</td>
                                         <td class="">{{ fertilizer.Fertilizer_name }}</td>
                                         <td class="text-center ">{{ fertilizer.FertilizerTimes_amount }}</td>
                                         <td class="text-center ">{{ formatDate(fertilizer.FertilizerTimes_startDate)
@@ -75,27 +77,129 @@
                                         <td class="">{{ fertilizer.Employee_name }}</td>
                                         <td style="border-top: none;" class="">
                                              <span class="action" style="border-top: none;"
-                                                  @click="setEpidemicChoosen(fertilizer), isOpenUpdateEpidemic = !isOpenUpdateEpidemic">
+                                                  @click="setFertilizerChoosen(fertilizer), isOpenUpdateFertilizerTimesForm = !isOpenUpdateFertilizerTimesForm">
                                                   <span class="fas fa-edit actionIcon"></span>
                                              </span>
                                              <span class="action pl-4" style="border-top: none;"
-                                                  @click="setEpidemicChoosen(fertilizer), isOpenConfirm = !isOpenConfirm">
+                                                  @click="setFertilizerChoosen(fertilizer), isOpenConfirm = !isOpenConfirm">
                                                   <span class="fas fa-trash-alt actionIcon"></span>
                                              </span>
                                         </td>
                                    </tr>
                               </tbody>
                          </table>
-
-
-
                     </div>
+
+                    <!-- ----------------------SprayingTimes Tab-------------- -->
+                    <div class="row activitiesList" v-if="isOpenTableSprayingTimes">
+                         <button class="btn mt-3" style="background-color: gold;"
+                              @click="isOpenCreateSprayingTimesForm = !isOpenCreateSprayingTimesForm">Thêm</button>
+                         <table class="table">
+                              <thead>
+                                   <tr>
+                                        <th class="text-center ">Mã</th>
+                                        <th>Tên thuốc</th>
+                                        <th class="text-center ">Số lượng (kg/ha)</th>
+                                        <th class="text-center ">Ngày bất đầu</th>
+                                        <th class="text-center ">Ngày kết thúc</th>
+                                        <th class="">Nhân viên</th>
+                                        <th class="">Tùy chọn</th>
+                                   </tr>
+                              </thead>
+                              <tbody>
+                                   <tr v-for="(sprayingTimes, i ) in SprayingTimesList" :key="i">
+                                        <td class="text-center ">{{ sprayingTimes.SprayingTimes_times }}</td>
+                                        <td class="">{{ sprayingTimes.Pesticide_name }}</td>
+                                        <td class="text-center ">{{ sprayingTimes.SprayingTimes_amount }}</td>
+                                        <td class="text-center ">{{ formatDate(sprayingTimes.SprayingTimes_startDate)
+                                        }}</td>
+                                        <td class="text-center ">{{ formatDate(sprayingTimes.SprayingTimes_endDate) }}
+                                        </td>
+                                        <td class="">{{ sprayingTimes.Employee_name }}</td>
+                                        <td style="border-top: none;" class="">
+                                             <span class="action" style="border-top: none;"
+                                                  @click="setSprayingTimes(sprayingTimes), isOpenUpdateSprayingTimesForm = !isOpenUpdateSprayingTimesForm">
+                                                  <span class="fas fa-edit actionIcon"></span>
+                                             </span>
+                                             <span class="action pl-4" style="border-top: none;"
+                                                  @click="setSprayingTimes(sprayingTimes), isOpenConfirm = !isOpenConfirm">
+                                                  <span class="fas fa-trash-alt actionIcon"></span>
+                                             </span>
+                                        </td>
+                                   </tr>
+                              </tbody>
+                         </table>
+                    </div>
+
+                    <!-- ----------------------EpidemicTimes Tab-------------- -->
+                    <div class="row activitiesList" v-if="isOpenTableEpidemicTimes">
+                         <button class="btn mt-3" style="background-color: gold;"
+                              @click="isOpenCreateEpidemicTimesForm = !isOpenCreateEpidemicTimesForm">Thêm</button>
+                         <table class="table">
+                              <thead>
+                                   <tr>
+                                        <th class="text-center ">Lần</th>
+                                        <th>Tên bệnh dịch</th>
+                                        <th class="text-center ">Ngày bất đầu</th>
+                                        <th class="text-center ">Ngày kết thúc</th>
+                                        <th class="">Nhân viên</th>
+                                        <th class="">Tùy chọn</th>
+                                   </tr>
+                              </thead>
+                              <tbody>
+                                   <tr v-for="(epidemic, i ) in epidemicTimesList" :key="i">
+                                        <td class="text-center ">{{ epidemic.EpidemicTimes_times }}</td>
+                                        <td class="">{{ epidemic.Epidemic_name }}</td>
+                                        <td class="text-center ">{{ formatDate(epidemic.EpidemicTimes_startDate)
+                                        }}</td>
+                                        <td class="text-center ">{{ formatDate(epidemic.EpidemicTimes_endDate) }}
+                                        </td>
+                                        <td class="">{{ epidemic.Employee_name }}</td>
+                                        <td style="border-top: none;" class="">
+                                             <span class="action" style="border-top: none;"
+                                                  @click="setEpidemicChoosen(epidemic), isOpenUpdateEpidemicTimesForm = !isOpenUpdateEpidemicTimesForm">
+                                                  <span class="fas fa-edit actionIcon"></span>
+                                             </span>
+                                             <span class="action pl-4" style="border-top: none;"
+                                                  @click="setEpidemicChoosen(epidemic), isOpenConfirm = !isOpenConfirm">
+                                                  <span class="fas fa-trash-alt actionIcon"></span>
+                                             </span>
+                                        </td>
+                                   </tr>
+                              </tbody>
+                         </table>
+                    </div>
+
 
                     <CreateFertilizerTimesForm v-if="isOpenCreateFertilizerTimesForm"
                          :newFertilizerTimes="newFertilizerTimes" :fertilizerList="fertilizerList"
                          :developmentStageList="developmentStageList" :currentUser="currentUser"
-                         :riceCropChoosen="riceCropChoosen" :arableLandList="arableLandList"
+                         :riceCropChoosen="newRiceCrop" :arableLandList="arableLandList"
                          @addFertilizerTimes-submit="createFertilizerTimes" :message1="message1" :message2="message2" />
+                    <UpdateFertilizerTimesForm v-if="isOpenUpdateFertilizerTimesForm"
+                         :newFertilizerTimes="fertilizerTimesChoosen" :fertilizerList="fertilizerList"
+                         :developmentStageList="developmentStageList" :currentUser="currentUser"
+                         :riceCropChoosen="newRiceCrop" :arableLandList="arableLandList"
+                         @updateFertilizerTimes-submit="updateFertilizerTimes" :message1="message1" :message2="message2" />
+
+                    <CreateSprayingTimesForm v-if="isOpenCreateSprayingTimesForm" :newSprayingTimes="newSprayingTimes"
+                         :pesticideList="pesticideList" :developmentStageList="developmentStageList"
+                         :currentUser="currentUser" :riceCropChoosen="newRiceCrop" :arableLandList="arableLandList"
+                         @addSprayingTimes-submit="createNewSprayingTimes" :message1="message1" :message2="message2" />
+
+                    <UpdateSprayingTimesForm v-if="isOpenUpdateSprayingTimesForm" :newSprayingTimes="sprayingTimesChoosen"
+                         :pesticideList="pesticideList" :developmentStageList="developmentStageList"
+                         :currentUser="currentUser" :riceCropChoosen="newRiceCrop" :arableLandList="arableLandList"
+                         @updateSprayingTimes-submit="updateSprayingTimes" :message1="message1" :message2="message2" />
+                    <CreateEpidemicTimesForm v-if="isOpenCreateEpidemicTimesForm" :newEpidemicTimes="newEpidemicTimes"
+                         :epidemicList="epidemicList" :developmentStageList="developmentStageList" :currentUser="currentUser"
+                         :riceCropChoosen="newRiceCrop" :arableLandList="arableLandList"
+                         @addEpidemicTimes-submit="createEpidemicTimes" :message1="message1" :message2="message2" />
+
+                    <UpdateEpidemicTimesForm v-if="isOpenUpdateEpidemicTimesForm" :newEpidemicTimes="epidemicTimesChoosen"
+                         :epidemicList="epidemicList" :developmentStageList="developmentStageList" :currentUser="currentUser"
+                         :riceCropChoosen="newRiceCrop" :arableLandList="arableLandList"
+                         @updateEpidemicTimes-submit="updateEpidemicTimes" :message1="message1" :message2="message2" />
                </div>
           </div>
      </div>
@@ -116,11 +220,16 @@ import MonitorService from '@/services/monitor.service';
 import developmentStageService from '@/services/developmentStage.service';
 import CreateFertilizerTimesForm from '@/components/catalogManagementComponents/createNewFertilizerTimesForm.vue';
 import PesticideService from '@/services/pesticide.service';
-// import CreateSprayingTimesForm from '@/components/catalogManagementComponents/createNewSprayingTimesForm.vue';
+import EpidemicService from '@/services/epidemic.service';
+import EpidemicTimesService from '@/services/epidemicTimes.service';
+import CreateSprayingTimesForm from '@/components/catalogManagementComponents/createNewSprayingTimesForm.vue';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import FertilizerTimesService from '@/services/fertilizerTimes.service';
 import SprayingTimesService from '@/services/sprayingTimes.service';
-
+import UpdateFertilizerTimesForm from '@/components/catalogManagementComponents/updateFertilizerTimesForm.vue';
+import UpdateSprayingTimesForm from '@/components/catalogManagementComponents/updateSprayingTimesForm.vue';
+import CreateEpidemicTimesForm from '@/components/catalogManagementComponents/createNewEpidemicTimesForm.vue';
+import UpdateEpidemicTimesForm from '@/components/catalogManagementComponents/updateEpidemicTimesForm.vue';
 
 export default {
      name: "riceCropDetail",
@@ -132,7 +241,11 @@ export default {
           Catalog,
           // UpdateRiceCropForm,
           CreateFertilizerTimesForm,
-          // CreateSprayingTimesForm,
+          UpdateFertilizerTimesForm,
+          CreateSprayingTimesForm,
+          UpdateSprayingTimesForm,
+          CreateEpidemicTimesForm,
+          UpdateEpidemicTimesForm,
           TopHeader,
      },
 
@@ -145,6 +258,7 @@ export default {
                newOtherActivities: {},
                newFertilizerTimes: {},
                newSprayingTimes: {},
+               newEpidemicTimes: {},
                newOtherActivitiesTimes: {},
                monitorList: [],
                cropList: [],
@@ -154,6 +268,8 @@ export default {
                developmentStageList: [],
                fertilizerTimesList: [],
                SprayingTimesList: [],
+               epidemicList: [],
+               epidemicTimesList: [],
                message1: "",
                message2: "",
                isOpenTableFertilizerTimes: false,
@@ -162,6 +278,14 @@ export default {
                isOpenTableEpidemicTimes: false,
                isOpenTableMonitor: false,
                isOpenCreateFertilizerTimesForm: false,
+               isOpenUpdateFertilizerTimesForm: false,
+               fertilizerTimesChoosen: {},
+               isOpenCreateSprayingTimesForm: false,
+               isOpenUpdateSprayingTimesForm: false,
+               sprayingTimesChoosen: {},
+               isOpenCreateEpidemicTimesForm: false,
+               isOpenUpdateEpidemicTimesForm: false,
+               epidemicTimesChoosen: {},
           }
      },
 
@@ -174,6 +298,7 @@ export default {
 
      created() {
           this.newRiceCrop.RiceCropInformation_id = this.$route.params.id;
+          this.initEmployeeState();
      },
 
 
@@ -193,6 +318,40 @@ export default {
                else {
                     this.cropList = respone.data;
                     console.log(respone.data);
+               }
+          },
+
+          async retrieveEpidemicList() {
+               const [err, respone] = await this.handle(
+                    EpidemicService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.epidemicList = respone.data;
+                    console.log(respone.data);
+               }
+          },
+
+          async retrieveEpidemicTimesList() {
+               const [err, respone] = await this.handle(
+                    EpidemicTimesService.get(this.newRiceCrop.RiceCropInformation_id)
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    if (respone.data != "Không tìm thấy lần bị dịch bệnh.") {
+                         this.epidemicTimesList = respone.data;
+                         console.log(respone.data);
+                         this.newEpidemicTimes.EpidemicTimes_times = this.epidemicTimesList[this.epidemicTimesList.length - 1].EpidemicTimes_times + 1;
+                    }
+                    else {
+                         this.newEpidemicTimes.EpidemicTimes_times = 1;
+
+                    }
+
                }
           },
 
@@ -270,8 +429,13 @@ export default {
                     console.log(err)
                }
                else {
-                    this.fertilizerTimesList = respone.data;
-                    console.log(respone.data);
+                    if (respone.data != "Không tìm thấy lần bón phân.") {
+                         this.fertilizerTimesList = respone.data;
+                         console.log(respone.data);
+                         this.newFertilizerTimes.FertilizerTimes_times = this.fertilizerTimesList[this.fertilizerTimesList.length - 1].FertilizerTimes_times + 1;
+
+                    }
+
                }
           },
 
@@ -285,6 +449,7 @@ export default {
                else {
                     this.SprayingTimesList = respone.data;
                     console.log(respone.data);
+                    this.newSprayingTimes.SprayingTimes_times = this.SprayingTimesList[this.SprayingTimesList.length - 1].SprayingTimes_times + 1;
                }
           },
 
@@ -376,6 +541,365 @@ export default {
                }
           },
 
+          async setFertilizerChoosen(data) {
+               this.fertilizerTimesChoosen = data;
+               this.fertilizerTimesChoosen.Fertilizer_id = data.Fertilizer_id;
+               this.developmentStageList.forEach(element => {
+                    if (data.DevelopmentStage_id == element.DevelopmentStage_id) {
+                         data.DevelopmentStage_name = element.DevelopmentStage_name;
+                    }
+               });
+          },
+
+          async createFertilizerTimes(data) {
+               if (data.close == false) {
+                    this.isOpenCreateFertilizerTimesForm = false;
+                    this.message1 = " ";
+                    this.message2 = " ";
+                    this.newFertilizerTimes = {};
+               }
+               else {
+                    this.message1 = " ";
+                    this.message2 = " ";
+                    // console.log("development "+data.DevelopmentStage_id);
+                    this.developmentStageList.forEach(element => {
+                         if (element.DevelopmentStage_name == data.DevelopmentStage_name) {
+                              data.DevelopmentStage_id = element.DevelopmentStage_id;
+                         }
+                    });
+
+                    this.fertilizerList.forEach(element => {
+                         if (element.Fertilizer_name == data.Fertilizer_name) {
+                              data.Fertilizer_id = element.Fertilizer_id;
+                         }
+                    });
+                    data.RiceCropInformation_id = this.newRiceCrop.RiceCropInformation_id;
+                    data.Employee_id = this.currentUser.Employee_id;
+
+
+                    if (data.FertilizerTimes_startDate != null) {
+                         data.FertilizerTimes_startDate = (moment(String(data.FertilizerTimes_startDate)).format("YYYY-MM-DD")).slice(0, 10);
+                    }
+                    else {
+                         data.FertilizerTimes_startDate = null;
+                    }
+                    if (data.FertilizerTimes_endDate != null) {
+                         data.FertilizerTimes_endDate = (moment(String(data.FertilizerTimes_endDate)).format("YYYY-MM-DD")).slice(0, 10);
+                    }
+                    else {
+                         data.FertilizerTimes_endDate = null;
+                    }
+
+                    const [error, respone] = await this.handle(
+                         FertilizerTimesService.create(data)
+                    );
+                    if (error) {
+                         console.log(error);
+                         this.message1 = "Thêm không thành công."
+                    } else if (respone.data == "Không thể tạo lần bón phân mới.") {
+                         this.message1 = "Thêm không thành công."
+                    } else {
+                         this.message2 = "Thêm thành công.";
+                         this.retrieveFertilizerTimesList();
+                    }
+
+               }
+
+          },
+
+          async updateFertilizerTimes(data) {
+               if (data.close == false) {
+                    this.isOpenUpdateFertilizerTimesForm = false;
+                    this.message1 = " ";
+                    this.message2 = " ";
+                    this.newFertilizerTimes = {};
+               }
+               else {
+                    this.message1 = " ";
+                    this.message2 = " ";
+                    // console.log("development "+data.DevelopmentStage_id);
+                    this.developmentStageList.forEach(element => {
+                         if (element.DevelopmentStage_name == data.DevelopmentStage_name) {
+                              data.DevelopmentStage_id = element.DevelopmentStage_id;
+                         }
+                    });
+
+                    this.fertilizerList.forEach(element => {
+                         if (element.Fertilizer_name == data.Fertilizer_name) {
+                              data.Fertilizer_id = element.Fertilizer_id;
+                         }
+                    });
+                    data.RiceCropInformation_id = this.newRiceCrop.RiceCropInformation_id;
+                    data.Employee_id = this.currentUser.Employee_id;
+
+
+                    if (data.FertilizerTimes_startDate != null) {
+                         data.FertilizerTimes_startDate = (moment(String(data.FertilizerTimes_startDate)).format("YYYY-MM-DD")).slice(0, 10);
+                    }
+                    else {
+                         data.FertilizerTimes_startDate = null;
+                    }
+                    if (data.FertilizerTimes_endDate != null) {
+                         data.FertilizerTimes_endDate = (moment(String(data.FertilizerTimes_endDate)).format("YYYY-MM-DD")).slice(0, 10);
+                    }
+                    else {
+                         data.FertilizerTimes_endDate = null;
+                    }
+
+                    const [error, respone] = await this.handle(
+                         FertilizerTimesService.update(this.newRiceCrop.RiceCropInformation_id, data.Fertilizer_id, data.FertilizerTimes_times, data)
+                    );
+                    if (error) {
+                         console.log(error);
+                         this.message1 = "Cập nhật không thành công."
+                    } else if (respone.data == "Đã xảy ra lỗi trong quá trình cập nhật thông tin!") {
+                         this.message1 = "Cập nhật không thành công."
+                    } else {
+                         this.message2 = "Cập nhật thành công.";
+                         this.retrieveFertilizerTimesList();
+                    }
+
+               }
+
+          },
+
+          async setSprayingTimes(data) {
+               this.sprayingTimesChoosen = data;
+          },
+
+          async createNewSprayingTimes(data) {
+               if (data.close == false) {
+                    this.isOpenCreateSprayingTimesForm = false;
+                    this.message1 = " ";
+                    this.message2 = " ";
+                    this.newSprayingTimes = {};
+               }
+               else {
+                    this.message1 = " ";
+                    this.message2 = " ";
+                    // console.log("development "+data.DevelopmentStage_id);
+                    this.developmentStageList.forEach(element => {
+                         if (element.DevelopmentStage_name == data.DevelopmentStage_name) {
+                              data.DevelopmentStage_id = element.DevelopmentStage_id;
+                         }
+                    });
+
+                    this.pesticideList.forEach(element => {
+                         if (element.Pesticide_name == data.Pesticide_name) {
+                              data.Pesticide_id = element.Pesticide_id;
+                         }
+                    });
+
+                    data.RiceCropInformation_id = this.newRiceCrop.RiceCropInformation_id;
+                    data.Employee_id = this.currentUser.Employee_id;
+
+
+                    if (data.SprayingTimes_startDate != null) {
+                         data.SprayingTimes_startDate = (moment(String(data.SprayingTimes_startDate)).format("YYYY-MM-DD")).slice(0, 10);
+                    }
+                    else {
+                         data.SprayingTimes_startDate = null;
+                    }
+                    if (data.SprayingTimes_endDate != null) {
+                         data.SprayingTimes_endDate = (moment(String(data.SprayingTimes_endDate)).format("YYYY-MM-DD")).slice(0, 10);
+                    }
+                    else {
+                         data.SprayingTimes_endDate = null;
+                    }
+
+                    const [error, respone] = await this.handle(
+                         SprayingTimesService.create(data)
+                    );
+                    if (error) {
+                         console.log(error);
+                         this.message1 = "Thêm không thành công."
+                    } else if (respone.data == "Không thể tạo lần phun thuuốc mới.") {
+                         this.message1 = "Thêm không thành công."
+                    } else {
+                         this.message2 = "Thêm thành công.";
+                         this.retrieveSprayingTimesList();
+                    }
+
+               }
+
+          },
+
+          async updateSprayingTimes(data) {
+               if (data.close == false) {
+                    this.isOpenUpdateSprayingTimesForm = false;
+                    this.message1 = " ";
+                    this.message2 = " ";
+                    this.newSprayingTimes = {};
+               }
+               else {
+                    this.message1 = " ";
+                    this.message2 = " ";
+                    // console.log("development "+data.DevelopmentStage_id);
+                    this.developmentStageList.forEach(element => {
+                         if (element.DevelopmentStage_name == data.DevelopmentStage_name) {
+                              data.DevelopmentStage_id = element.DevelopmentStage_id;
+                         }
+                    });
+
+                    this.pesticideList.forEach(element => {
+                         if (element.Pesticide_name == data.Pesticide_name) {
+                              data.Pesticide_id = element.Pesticide_id;
+                         }
+                    });
+
+                    data.RiceCropInformation_id = this.newRiceCrop.RiceCropInformation_id;
+                    data.Employee_id = this.currentUser.Employee_id;
+
+
+                    if (data.SprayingTimes_startDate != null) {
+                         data.SprayingTimes_startDate = (moment(String(data.SprayingTimes_startDate)).format("YYYY-MM-DD")).slice(0, 10);
+                    }
+                    else {
+                         data.SprayingTimes_startDate = null;
+                    }
+                    if (data.SprayingTimes_endDate != null) {
+                         data.SprayingTimes_endDate = (moment(String(data.SprayingTimes_endDate)).format("YYYY-MM-DD")).slice(0, 10);
+                    }
+                    else {
+                         data.SprayingTimes_endDate = null;
+                    }
+
+                    const [error, respone] = await this.handle(
+                         SprayingTimesService.update(this.newRiceCrop.RiceCropInformation_id, data.Pesticide_id, data.SprayingTimes_times, data)
+                    );
+                    if (error) {
+                         console.log(error);
+                         this.message1 = "Cập nhật không thành công."
+                    } else if (respone.data == "Đã xảy ra lỗi trong quá trình cập nhật thông tin!") {
+                         this.message1 = "Cập nhật không thành công."
+                    } else {
+                         this.message2 = "Cập nhật thành công.";
+                         this.retrieveSprayingTimesList();
+                    }
+
+               }
+
+          },
+
+          async setEpidemicChoosen(data) {
+               this.epidemicTimesChoosen = data;
+          },
+
+          async createEpidemicTimes(data) {
+               if (data.close == false) {
+                    this.isOpenCreateEpidemicTimesForm = false;
+                    this.message1 = " ";
+                    this.message2 = " ";
+                    this.newSprayingTimes = {};
+               }
+               else {
+                    this.message1 = " ";
+                    this.message2 = " ";
+                    // console.log("development "+data.DevelopmentStage_id);
+                    this.developmentStageList.forEach(element => {
+                         if (element.DevelopmentStage_name == data.DevelopmentStage_name) {
+                              data.DevelopmentStage_id = element.DevelopmentStage_id;
+                         }
+                    });
+
+                    this.epidemicList.forEach(element => {
+                         if (element.Epidemic_name == data.Epidemic_name) {
+                              data.Epidemic_id = element.Epidemic_id;
+                         }
+                    });
+
+                    data.RiceCropInformation_id = this.newRiceCrop.RiceCropInformation_id;
+                    data.Employee_id = this.currentUser.Employee_id;
+
+
+                    if (data.EpidemicTimes_startDate != null) {
+                         data.EpidemicTimes_startDate = (moment(String(data.EpidemicTimes_startDate)).format("YYYY-MM-DD")).slice(0, 10);
+                    }
+                    else {
+                         data.EpidemicTimes_startDate = null;
+                    }
+                    if (data.EpidemicTimes_endDate != null) {
+                         data.EpidemicTimes_endDate = (moment(String(data.EpidemicTimes_endDate)).format("YYYY-MM-DD")).slice(0, 10);
+                    }
+                    else {
+                         data.EpidemicTimes_endDate = null;
+                    }
+
+                    const [error, respone] = await this.handle(
+                         EpidemicTimesService.create(data)
+                    );
+                    if (error) {
+                         console.log(error);
+                         this.message1 = "Thêm không thành công."
+                    } else if (respone.data == "Không thể tạo lần bị dịch bệnh mới.") {
+                         this.message1 = "Thêm không thành công."
+                    } else {
+                         this.message2 = "Thêm thành công.";
+                         this.retrieveEpidemicTimesList();
+                    }
+
+               }
+          },
+
+          async updateEpidemicTimes(data) {
+               if (data.close == false) {
+                    this.isOpenUpdateEpidemicTimesForm = false;
+                    this.message1 = " ";
+                    this.message2 = " ";
+                    this.newSprayingTimes = {};
+               }
+               else {
+                    this.message1 = " ";
+                    this.message2 = " ";
+                    // console.log("development "+data.DevelopmentStage_id);
+                    this.developmentStageList.forEach(element => {
+                         if (element.DevelopmentStage_name == data.DevelopmentStage_name) {
+                              data.DevelopmentStage_id = element.DevelopmentStage_id;
+                         }
+                    });
+
+                    this.epidemicList.forEach(element => {
+                         if (element.Epidemic_name == data.Epidemic_name) {
+                              data.Epidemic_id = element.Epidemic_id;
+                         }
+                    });
+
+                    console.log("tên "+data.Epidemic_name +"id " +data.Epidemic_id)
+                    data.RiceCropInformation_id = this.newRiceCrop.RiceCropInformation_id;
+                    data.Employee_id = this.currentUser.Employee_id;
+
+
+                    if (data.EpidemicTimes_startDate != null) {
+                         data.EpidemicTimes_startDate = (moment(String(data.EpidemicTimes_startDate)).format("YYYY-MM-DD")).slice(0, 10);
+                    }
+                    else {
+                         data.EpidemicTimes_startDate = null;
+                    }
+                    if (data.EpidemicTimes_endDate != null) {
+                         data.EpidemicTimes_endDate = (moment(String(data.EpidemicTimes_endDate)).format("YYYY-MM-DD")).slice(0, 10);
+                    }
+                    else {
+                         data.EpidemicTimes_endDate = null;
+                    }
+
+                    const [error, respone] = await this.handle(
+                         EpidemicTimesService.update(this.newRiceCrop.RiceCropInformation_id, data.Epidemic_id, data.EpidemicTimes_times,data)
+                    );
+                    if (error) {
+                         console.log(error);
+                         this.message1 = "Cập nhật không thành công."
+                    } else if (respone.data == "Đã xảy ra lỗi trong quá trình cập nhật thông tin!") {
+                         this.message1 = "Cập nhật không thành công."
+                    } else {
+                         this.message2 = "Cập nhật thành công.";
+                         console.log(respone.data);
+                         this.retrieveEpidemicTimesList();
+                    }
+
+               }
+          },
+
+
           formatDate(data) {
                if (data == null) return "";
                return (moment(String(data)).format("YYYY-MM-DD")).slice(0, 10);
@@ -388,15 +912,20 @@ export default {
                this.isOpenTableOtherActivitiesTimes = false
                this.isOpenTableSprayingTimes = false;
                if (data == "btnFertilizerTimes") {
+                    this.retrieveFertilizerTimesList();
                     this.isOpenTableFertilizerTimes = true;
+
                }
                else if (data == "btnSprayingTimes") {
+                    this.retrieveSprayingTimesList();
                     this.isOpenTableSprayingTimes = true;
                }
                else if (data == "btnActivities") {
+
                     this.isOpenTableOtherActivitiesTimes = true;
                }
                else if (data == "btnEpidemic") {
+                    this.retrieveEpidemicTimesList();
                     this.isOpenTableEpidemicTimes = true;
                }
                else {
@@ -408,6 +937,7 @@ export default {
      },
 
      mounted() {
+          this.initEmployeeState();
           this.retrieveArableLandList();
           this.retrieveCropList();
           this.retrieveDvelopmentStageList();
@@ -419,10 +949,12 @@ export default {
           this.retrieveMonitorList();
           this.retrieveNewRiceCrop();
           this.initEmployeeState();
+          this.retrieveEpidemicList();
+          this.retrieveEpidemicTimesList();
      }
 };
 </script>
 
 <style>
-
+@import url(../../assets/riceCropDetailStyle.css);
 </style>

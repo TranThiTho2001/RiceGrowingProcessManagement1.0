@@ -7,13 +7,9 @@
                     </div>
                </div>
                <div class="col-md-10 rightSeedManagement">
-                    <div class="row mt-1 mb-2">
-                         <div class="col-sm-12">
-                              <h2 class="text-center">GIỐNG LÚA</h2>
-                         </div>
-                    </div>
-                    <div class="row ml-3">
-                         <div class="col-sm-8 input-group">
+                    <div class="row mr-2 mt-2 mb-4">
+                         <div class="col-md-3"></div>
+                         <div class="col-md-7 pr-5">
                               <div class="row">
                                    <input type="text" class="form-control col-md-10 inputSearch"
                                         placeholder="Tìm theo tên" style="border-radius:10px" v-model="nameToSearch"
@@ -24,6 +20,18 @@
                                    </button>
                               </div>
                          </div>
+                         <div class="col-md-2 pl-5 text-right">
+                              <div class="row">
+                                   <TopHeader :currentUserid="currentUser.Employee_id" />
+                              </div>
+                         </div>
+                    </div>
+                    <div class="row ml-2 mt-1">
+                         <div class="col-sm-12  text-center">
+                              <h2>GIỐNG LÚA</h2>
+                         </div>
+                    </div>
+                    <div class="row ml-2 mr-2 mt-3">                   
                          <div class="btnChoosePage col-sm-2">
                               <p style="display: inline-block; padding-top: 1px;text-align: right;" class="soTrang">
                                    Trang &nbsp;</p>
@@ -39,12 +47,13 @@
                                    </div>
                               </div>
                          </div>
-                         <div class="col-sm-2">
+                         <div class="col-sm-7"></div>
+                         <div class="col-sm-3 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i
                                         class="fas fa-plus-circle"></i>Thêm giống lúa</button>
                          </div>
                     </div>
-                    <div class=" row seedList mt-1 ml-2 mr-2 justify-content-center">
+                    <div class=" row seedList  ml-2 mr-2 justify-content-center">
                          <table class="table mt-1 ml-2 mr-2">
                               <thead>
                                    <tr>
@@ -111,17 +120,20 @@
 
 <script>
 
-import Catalog from '../../components/catalogManagementComponents/catalog.vue';
+
 import { mapGetters, mapMutations } from "vuex";
 import SeedService from '../../services/seed.service';
+import TopHeader from '@/components/catalogManagementComponents/topHeader.vue'
 import createSeedForm from '@/components/catalogManagementComponents/createNewSeedForm.vue';
 import updateSeedForm from '@/components/catalogManagementComponents/updateSeedForm.vue';
+import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 export default {
      name: "SeedManagement",
      components: {
           Catalog,
           createSeedForm,
           updateSeedForm,
+          TopHeader,
      },
 
      data() {

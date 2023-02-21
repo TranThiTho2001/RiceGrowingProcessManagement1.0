@@ -1,39 +1,39 @@
 <template>
-     <Form @submit="newfertilizertimes.close = true, $emit('addFertilizerTimes-submit', newfertilizertimes)"
+     <Form @submit="newepidemictimes.close = true, $emit('addEpidemicTimes-submit', newepidemictimes)"
           :validation-schema="schema" class="container createFertilizerTimesForm">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times"
-                         @click="newfertilizertimes.close = false, $emit('addFertilizerTimes-submit', newfertilizertimes)"
+                         @click="newepidemictimes.close = false, $emit('addEpidemicTimes-submit',newepidemictimes)"
                          style="font-size: 25px; "></i>
-               </div>
+               </div> 
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Thêm lần bón phân</p>
+               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Thêm Lần Bị Bệnh Dịch</p>
           </div>
           <div class="row content">
                <div class="col-sm-4 mt-2">
                     <div class="form-group">
                          <label for="ricecropid" class="mt-2">Mã mẫu ruộng <span style="color:red">*</span></label>
                          <Field name="ricecropid" type="name" class="form-control"
-                              v-model="ricecropchoosen.RiceCropInformation_id" />
+                              v-model="ricecropchoosen.RiceCropInformation_id"  :disabled="true"/>
                          <ErrorMessage name="ricecropid" class="error-feedback" />
                     </div>
 
 
                     <div class="form-group">
                          <label for="employeeid" class="mt-3">Nhân viên thực hiện<span style="color:red">*</span></label>
-                         <Field name="employeeid" class="form-control" v-model="currentuser.Employee_id"
+                         <Field name="employeeid" class="form-control" v-model="currentuser.Employee_id"  :disabled="true"
                               placeholder="Nhập mã nhân viên...." />
                          <ErrorMessage name="employeeid" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
                          <label for="start" class="mt-3 pt-1">Ngày bắt đầu</label>
-                         <Field name="start" class="form-control" v-model="newfertilizertimes.FertilizerTimes_startDate"
+                         <Field name="start" class="form-control" v-model="newepidemictimes.EpidemicTimes_startDate"
                               placeholder="Ngày bắt đầu">
-                              <datepicker :enable-time-picker="false" :value="newfertilizertimes.FertilizerTimes_startDate"
-                                   :hide-input-icon="true" v-model="newfertilizertimes.FertilizerTimes_startDate"
+                              <datepicker :enable-time-picker="false" :value="newepidemictimes.EpidemicTimes_startDate"
+                                   :hide-input-icon="true" v-model="newepidemictimes.EpidemicTimes_startDate"
                                    placeholder="YYYY-MM-DD">
                               </datepicker>
                          </Field>
@@ -43,7 +43,7 @@
                     <div class="form-group ">
                          <label for="temperature" class="mt-3 pt-1">Nhiệt độ</label>
                          <Field name="temperature" class="form-control"
-                              v-model="newfertilizertimes.FertilizerTimes_temperature" placeholder="Nhập nhiệt độ..." />
+                              v-model="newepidemictimes.EpidemicTimes_temperature" placeholder="Nhập nhiệt độ..." />
                          <ErrorMessage name="temperature" class="error-feedback" />
                     </div>
 
@@ -51,15 +51,15 @@
                <div class="col-sm-4">
                     <div class="form-group ">
                          <label for="times" class="mt-3 pt-1">Lần<span style="color:red">*</span></label>
-                         <Field name="times" class="form-control" v-model="newfertilizertimes.FertilizerTimes_times"
+                         <Field name="times" class="form-control" v-model="newepidemictimes.EpidemicTimes_times"
                               placeholder="Nhập lần thực hiện..." />
                          <ErrorMessage name="times" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
                          <label for="developmentid" class="mt-3">Giai đoạn phát triển<span style="color:red">*</span></label>
-                         <Field name="developmentid" class="form-control" v-model="newfertilizertimes.DevelopmentStage_name">
-                              <select class="form-control" v-model="newfertilizertimes.DevelopmentStage_name"
+                         <Field name="developmentid" class="form-control" v-model="newepidemictimes.DevelopmentStage_name">
+                              <select class="form-control" v-model="newepidemictimes.DevelopmentStage_name"
                                    name="developmentid" for="developmentid">
                                    <option v-for="(developmentStage, i) in development" :key="i">
                                         {{ developmentStage.DevelopmentStage_name }}
@@ -71,9 +71,9 @@
                     <div class="form-group ">
                          <label for="end" class="">Ngày kết thúc</label>
                          <Field name="harvendestDate" class="form-control"
-                              v-model="newfertilizertimes.FertilizerTimes_endDate" placeholder="Ngày sinh">
-                              <datepicker :enable-time-picker="false" :value="newfertilizertimes.FertilizerTimes_endDate"
-                                   :hide-input-icon="true" v-model="newfertilizertimes.FertilizerTimes_endDate"
+                              v-model="newepidemictimes.EpidemicTimes_endDate" placeholder="Ngày sinh">
+                              <datepicker :enable-time-picker="false" :value="newepidemictimes.EpidemicTimes_endDate"
+                                   :hide-input-icon="true" v-model="newepidemictimes.EpidemicTimes_endDate"
                                    placeholder="YYYY-MM-DD">
                               </datepicker>
                          </Field>
@@ -81,7 +81,7 @@
                     <ErrorMessage name="end" class="error-feedback" />
                     <div class="form-group ">
                          <label for="radiation" class="mt-3 pt-1">Độ ẩm</label>
-                         <Field name="radiation" class="form-control" v-model="newfertilizertimes.FertilizerTimes_radiation"
+                         <Field name="radiation" class="form-control" v-model="newepidemictimes.EpidemicTimes_radiation"
                               placeholder="Nhập độ ẩm..." />
                          <ErrorMessage name="radiation" class="error-feedback" />
                     </div>
@@ -91,11 +91,11 @@
 
                <div class="col-sm-4 ">
                     <div class="form-group ">
-                         <label for="fertilizer" class="mt-3 pt-1">Loại phân<span style="color:red">*</span></label>
-                         <Field name="fertilizer" v-model="newfertilizertimes.Fertilizer_name">
-                              <select class="form-control" v-model="newfertilizertimes.Fertilizer_name" name="classtify"
+                         <label for="fertilizer" class="mt-3 pt-1">Tên bệnh dịch<span style="color:red">*</span></label>
+                         <Field name="fertilizer" v-model="newepidemictimes.Epidemic_name">
+                              <select class="form-control" v-model="newepidemictimes.Epidemic_name" name="classtify"
                                    for="classtify">
-                                   <option v-for="(fertilizer, i) in fertilizerList" :key="i">{{ fertilizer.Fertilizer_name
+                                   <option v-for="(epidemic, i) in epidemicList" :key="i">{{ epidemic.Epidemic_name
                                    }}
                                    </option>
 
@@ -105,19 +105,9 @@
                     </div>
 
                     <div class="form-group">
-                         <label for="amount" class="mt-1">Số lượng(kg/ha)<span style="color:red">*</span></label>
-                         <Field name="amount" class="form-control" v-model="newfertilizertimes.FertilizerTimes_amount"
-                              placeholder="Nhập số lượng phân đã bón..." />
-                         <ErrorMessage name="amount" class="error-feedback" />
-                    </div>
-
-                    <div class="form-group">
-
-                    </div>
-                    <div class="form-group">
                          <label for="precipitation" class="mt-2 pt-1">Lượng mưa</label>
                          <Field name="precipitation" class="form-control"
-                              v-model="newfertilizertimes.FertilizerTimes_precipitation" placeholder="Nhập lượng mưa..." />
+                              v-model="newepidemictimes.EpidemicTimes_precipitation" placeholder="Nhập lượng mưa..." />
                          <ErrorMessage name="precipitation" class="error-feedback" />
                     </div>
 
@@ -154,15 +144,15 @@ import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 
 export default {
-     name: "createFertilizerTimesForm",
+     name: "createEpidemicTimesForm",
      components: {
           Form,
           Field,
           ErrorMessage,
           Datepicker,
      },
-     emits: ["addFertilizerTimes-submit"],
-     props: ["newFertilizerTimes", "message1", "message2", "fertilizerList", "developmentStageList", "currentUser", "riceCropChoosen"],
+     emits: ["addEpidemicTimes-submit"],
+     props: ["newEpidemicTimes", "message1", "message2", "epidemicList", "developmentStageList", "currentUser", "riceCropChoosen"],
      data() {
 
           const schema = yup.object().shape({
@@ -179,10 +169,10 @@ export default {
                     .required("Giai đoạn phát triển phải có giá trị"),
                times: yup
                     .string()
-                    .required("Lần bón phải có giá trị"),
-               amount: yup
-                    .string()
-                    .required("Số lượng phải có giá trị"),
+                    .required("Lần bị bệnh dịch phải có giá trị"),
+               // amount: yup
+               //      .string()
+               //      .required("Phân loại phải có giá trị"),
                start: yup
                     .string(),
                // .required("Phân loại bệnh dịch phải có giá trị"),
@@ -203,7 +193,7 @@ export default {
                // .required("Loại phân phải có giá trị"),
           });
           return {
-               newfertilizertimes: this.newFertilizerTimes,
+               newepidemictimes: this.newEpidemicTimes,
                ricecropchoosen: this.riceCropChoosen,
                currentuser: this.currentUser,
                development: this.developmentStageList,
