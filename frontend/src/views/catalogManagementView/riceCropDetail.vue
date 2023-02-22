@@ -75,7 +75,7 @@
                                                   <span class="fas fa-edit actionIcon"></span>
                                              </span>
                                              <span class="action pl-4" style="border-top: none;"
-                                                  @click="setFertilizerChoosen(fertilizer), isOpenConfirm = !isOpenConfirm">
+                                                  @click="setFertilizerChoosen(fertilizer), isOpenConfirm = !isOpenConfirm, setDelete('FertilizerTimes')">
                                                   <span class="fas fa-trash-alt actionIcon"></span>
                                              </span>
                                         </td>
@@ -83,32 +83,38 @@
                               </tbody>
                          </table>
                          <nav aria-label="...">
-                         <ul class="pagination " aria-controls="my-table">
-                              <li class="page-item disabled" v-if="currentPage == 1">
-                                   <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
-                              </li>
-                              <li class="page-item " v-if="currentPage > 1">
-                                   <a class="page-link" href="#" @click="change_page('-', fertilizerTimesList)" aria-controls="my-table">{{
-                                        previous }}</a>
-                              </li>
-                              <li class="page-item"><a class="page-link" href="#" @click="change_page(currentPage - 1, monitorList)"
-                                        v-if="currentPage > 1">{{ currentPage - 1 }}</a></li>
-                              <li class="page-item active">
-                                   <a class="page-link" style="background-color: #EEEA41; border-color: #EEEA41;" href="#">{{
-                                        currentPage }} <span class="sr-only">(current)</span></a>
-                              </li>
-                              <li class="page-item"><a class="page-link" href="#" v-if="currentPage < num_pages(fertilizerTimesList)"
-                                        @click="change_page(currentPage + 1, fertilizerTimesList)">{{ currentPage + 1 }}</a></li>
-                              <li class="page-item">
-                                   <a class="page-link" href="#" @click="change_page('+', fertilizerTimesList)"
-                                        v-if="currentPage < num_pages(fertilizerTimesList)">{{
+                              <ul class="pagination " aria-controls="my-table">
+                                   <li class="page-item disabled" v-if="currentPage == 1">
+                                        <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
+                                   </li>
+                                   <li class="page-item " v-if="currentPage > 1">
+                                        <a class="page-link" href="#" @click="change_page('-', fertilizerTimesList)"
+                                             aria-controls="my-table">{{
+                                                  previous }}</a>
+                                   </li>
+                                   <li class="page-item"><a class="page-link" href="#"
+                                             @click="change_page(currentPage - 1, monitorList)" v-if="currentPage > 1">{{
+                                                  currentPage - 1 }}</a></li>
+                                   <li class="page-item active">
+                                        <a class="page-link" style="background-color: #EEEA41; border-color: #EEEA41;"
+                                             href="#">{{
+                                                  currentPage }} <span class="sr-only">(current)</span></a>
+                                   </li>
+                                   <li class="page-item"><a class="page-link" href="#"
+                                             v-if="currentPage < num_pages(fertilizerTimesList)"
+                                             @click="change_page(currentPage + 1, fertilizerTimesList)">{{ currentPage + 1
+                                             }}</a></li>
+                                   <li class="page-item">
+                                        <a class="page-link" href="#" @click="change_page('+', fertilizerTimesList)"
+                                             v-if="currentPage < num_pages(fertilizerTimesList)">{{
+                                                  next }}</a>
+                                   </li>
+                                   <li class="page-item disabled">
+                                        <a class="page-link" href="#" v-if="currentPage >= num_pages(fertilizerTimesList)">{{
                                              next }}</a>
-                              </li>
-                              <li class="page-item disabled">
-                                   <a class="page-link" href="#" v-if="currentPage >= num_pages(fertilizerTimesList)">{{ next }}</a>
-                              </li>
-                         </ul>
-                    </nav>
+                                   </li>
+                              </ul>
+                         </nav>
                     </div>
 
                     <!-- ----------------------SprayingTimes Tab-------------- -->
@@ -120,7 +126,7 @@
                                    <tr>
                                         <th class="text-center ">Mã</th>
                                         <th>Tên thuốc</th>
-                                        <th class="text-center ">Số lượng (kg/ha)</th>
+                                        <th class="text-center ">Liều lượng (lít/ha)</th>
                                         <th class="text-center ">Ngày bất đầu</th>
                                         <th class="text-center ">Ngày kết thúc</th>
                                         <th class="">Nhân viên</th>
@@ -143,7 +149,7 @@
                                                   <span class="fas fa-edit actionIcon"></span>
                                              </span>
                                              <span class="action pl-4" style="border-top: none;"
-                                                  @click="setSprayingTimes(sprayingTimes), isOpenConfirm = !isOpenConfirm">
+                                                  @click="setSprayingTimes(sprayingTimes), isOpenConfirm = !isOpenConfirm, setDelete('SprayingTimes')">
                                                   <span class="fas fa-trash-alt actionIcon"></span>
                                              </span>
                                         </td>
@@ -151,32 +157,38 @@
                               </tbody>
                          </table>
                          <nav aria-label="...">
-                         <ul class="pagination " aria-controls="my-table">
-                              <li class="page-item disabled" v-if="currentPage == 1">
-                                   <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
-                              </li>
-                              <li class="page-item " v-if="currentPage > 1">
-                                   <a class="page-link" href="#" @click="change_page('-', SprayingTimesList)" aria-controls="my-table">{{
-                                        previous }}</a>
-                              </li>
-                              <li class="page-item"><a class="page-link" href="#" @click="change_page(currentPage - 1, SprayingTimesList)"
-                                        v-if="currentPage > 1">{{ currentPage - 1 }}</a></li>
-                              <li class="page-item active">
-                                   <a class="page-link" style="background-color: #EEEA41; border-color: #EEEA41;" href="#">{{
-                                        currentPage }} <span class="sr-only">(current)</span></a>
-                              </li>
-                              <li class="page-item"><a class="page-link" href="#" v-if="currentPage < num_pages(SprayingTimesList)"
-                                        @click="change_page(currentPage + 1, SprayingTimesList)">{{ currentPage + 1 }}</a></li>
-                              <li class="page-item">
-                                   <a class="page-link" href="#" @click="change_page('+', SprayingTimesList)"
-                                        v-if="currentPage < num_pages(SprayingTimesList)">{{
+                              <ul class="pagination " aria-controls="my-table">
+                                   <li class="page-item disabled" v-if="currentPage == 1">
+                                        <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
+                                   </li>
+                                   <li class="page-item " v-if="currentPage > 1">
+                                        <a class="page-link" href="#" @click="change_page('-', SprayingTimesList)"
+                                             aria-controls="my-table">{{
+                                                  previous }}</a>
+                                   </li>
+                                   <li class="page-item"><a class="page-link" href="#"
+                                             @click="change_page(currentPage - 1, SprayingTimesList)"
+                                             v-if="currentPage > 1">{{ currentPage - 1 }}</a></li>
+                                   <li class="page-item active">
+                                        <a class="page-link" style="background-color: #EEEA41; border-color: #EEEA41;"
+                                             href="#">{{
+                                                  currentPage }} <span class="sr-only">(current)</span></a>
+                                   </li>
+                                   <li class="page-item"><a class="page-link" href="#"
+                                             v-if="currentPage < num_pages(SprayingTimesList)"
+                                             @click="change_page(currentPage + 1, SprayingTimesList)">{{ currentPage + 1
+                                             }}</a></li>
+                                   <li class="page-item">
+                                        <a class="page-link" href="#" @click="change_page('+', SprayingTimesList)"
+                                             v-if="currentPage < num_pages(SprayingTimesList)">{{
+                                                  next }}</a>
+                                   </li>
+                                   <li class="page-item disabled">
+                                        <a class="page-link" href="#" v-if="currentPage >= num_pages(SprayingTimesList)">{{
                                              next }}</a>
-                              </li>
-                              <li class="page-item disabled">
-                                   <a class="page-link" href="#" v-if="currentPage >= num_pages(SprayingTimesList)">{{ next }}</a>
-                              </li>
-                         </ul>
-                    </nav>
+                                   </li>
+                              </ul>
+                         </nav>
                     </div>
 
                     <!-- ----------------------EpidemicTimes Tab-------------- -->
@@ -209,7 +221,7 @@
                                                   <span class="fas fa-edit actionIcon"></span>
                                              </span>
                                              <span class="action pl-4" style="border-top: none;"
-                                                  @click="setEpidemicChoosen(epidemic), isOpenConfirm = !isOpenConfirm">
+                                                  @click="setEpidemicChoosen(epidemic), isOpenConfirm = !isOpenConfirm, setDelete('EpidemicTimes')">
                                                   <span class="fas fa-trash-alt actionIcon"></span>
                                              </span>
                                         </td>
@@ -217,32 +229,38 @@
                               </tbody>
                          </table>
                          <nav aria-label="...">
-                         <ul class="pagination " aria-controls="my-table">
-                              <li class="page-item disabled" v-if="currentPage == 1">
-                                   <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
-                              </li>
-                              <li class="page-item " v-if="currentPage > 1">
-                                   <a class="page-link" href="#" @click="change_page('-', epidemicTimesList)" aria-controls="my-table">{{
-                                        previous }}</a>
-                              </li>
-                              <li class="page-item"><a class="page-link" href="#" @click="change_page(currentPage - 1, epidemicTimesList)"
-                                        v-if="currentPage > 1">{{ currentPage - 1 }}</a></li>
-                              <li class="page-item active">
-                                   <a class="page-link" style="background-color: #EEEA41; border-color: #EEEA41;" href="#">{{
-                                        currentPage }} <span class="sr-only">(current)</span></a>
-                              </li>
-                              <li class="page-item"><a class="page-link" href="#" v-if="currentPage < num_pages(epidemicTimesList)"
-                                        @click="change_page(currentPage + 1, epidemicList)">{{ currentPage + 1 }}</a></li>
-                              <li class="page-item">
-                                   <a class="page-link" href="#" @click="change_page('+', epidemicTimesList)"
-                                        v-if="currentPage < num_pages(epidemicTimesList)">{{
+                              <ul class="pagination " aria-controls="my-table">
+                                   <li class="page-item disabled" v-if="currentPage == 1">
+                                        <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
+                                   </li>
+                                   <li class="page-item " v-if="currentPage > 1">
+                                        <a class="page-link" href="#" @click="change_page('-', epidemicTimesList)"
+                                             aria-controls="my-table">{{
+                                                  previous }}</a>
+                                   </li>
+                                   <li class="page-item"><a class="page-link" href="#"
+                                             @click="change_page(currentPage - 1, epidemicTimesList)"
+                                             v-if="currentPage > 1">{{ currentPage - 1 }}</a></li>
+                                   <li class="page-item active">
+                                        <a class="page-link" style="background-color: #EEEA41; border-color: #EEEA41;"
+                                             href="#">{{
+                                                  currentPage }} <span class="sr-only">(current)</span></a>
+                                   </li>
+                                   <li class="page-item"><a class="page-link" href="#"
+                                             v-if="currentPage < num_pages(epidemicTimesList)"
+                                             @click="change_page(currentPage + 1, epidemicList)">{{ currentPage + 1 }}</a>
+                                   </li>
+                                   <li class="page-item">
+                                        <a class="page-link" href="#" @click="change_page('+', epidemicTimesList)"
+                                             v-if="currentPage < num_pages(epidemicTimesList)">{{
+                                                  next }}</a>
+                                   </li>
+                                   <li class="page-item disabled">
+                                        <a class="page-link" href="#" v-if="currentPage >= num_pages(epidemicTimesList)">{{
                                              next }}</a>
-                              </li>
-                              <li class="page-item disabled">
-                                   <a class="page-link" href="#" v-if="currentPage >= num_pages(epidemicTimesList)">{{ next }}</a>
-                              </li>
-                         </ul>
-                    </nav>
+                                   </li>
+                              </ul>
+                         </nav>
                     </div>
 
                     <!-- ----------------------Monitor Tab-------------- -->
@@ -262,8 +280,9 @@
                               </thead>
                               <tbody>
                                    <tr v-for="(monitor, i ) in get_rows(monitorList)" :key="i">
-                                        <td class="text-center"  v-if="currentPage>1">{{ i+((currentPage-1)*elementsPerPage)}}</td>
-                                        <td class="text-center"  v-else>{{ i }}</td>
+                                        <td class="text-center" v-if="currentPage > 1">{{ i + ((currentPage - 1) * elementsPerPage) }}
+                                        </td>
+                                        <td class="text-center" v-else>{{ i }}</td>
                                         <td class="text-center">{{ monitor.Employee_id }}</td>
                                         <td>{{ monitor.Employee_name }}</td>
                                         <td>{{ monitor.Employee_major }}
@@ -271,11 +290,11 @@
                                         <td class="">{{ monitor.Role_name }}</td>
                                         <td style="border-top: none;" class="">
                                              <span class="action" style="border-top: none;"
-                                                  @click="setEpidemicChoosen(monitor), isOpenUpdateEpidemicTimesForm = !isOpenUpdateEpidemicTimesForm">
+                                                  @click="setMonitorChoosen(monitor), isOpenUpdateEpidemicTimesForm = !isOpenUpdateEpidemicTimesForm">
                                                   <span class="fas fa-edit actionIcon"></span>
                                              </span>
                                              <span class="action pl-4" style="border-top: none;"
-                                                  @click="setEpidemicChoosen(monitor), isOpenConfirm = !isOpenConfirm">
+                                                  @click="setMonitorChoosen(monitor), isOpenConfirm = !isOpenConfirm, setDelete('Monitor')">
                                                   <span class="fas fa-trash-alt actionIcon"></span>
                                              </span>
                                         </td>
@@ -283,32 +302,62 @@
                               </tbody>
                          </table>
                          <nav aria-label="...">
-                         <ul class="pagination " aria-controls="my-table">
-                              <li class="page-item disabled" v-if="currentPage == 1">
-                                   <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
-                              </li>
-                              <li class="page-item " v-if="currentPage > 1">
-                                   <a class="page-link" href="#" @click="change_page('-', monitorList)" aria-controls="my-table">{{
-                                        previous }}</a>
-                              </li>
-                              <li class="page-item"><a class="page-link" href="#" @click="change_page(currentPage - 1, monitorList)"
-                                        v-if="currentPage > 1">{{ currentPage - 1 }}</a></li>
-                              <li class="page-item active">
-                                   <a class="page-link" style="background-color: #EEEA41; border-color: #EEEA41;" href="#">{{
-                                        currentPage }} <span class="sr-only">(current)</span></a>
-                              </li>
-                              <li class="page-item"><a class="page-link" href="#" v-if="currentPage < num_pages(monitorList)"
-                                        @click="change_page(currentPage + 1, monitorList)">{{ currentPage + 1 }}</a></li>
-                              <li class="page-item">
-                                   <a class="page-link" href="#" @click="change_page('+', monitorList)"
-                                        v-if="currentPage < num_pages(monitorList)">{{
-                                             next }}</a>
-                              </li>
-                              <li class="page-item disabled">
-                                   <a class="page-link" href="#" v-if="currentPage >= num_pages(monitorList)">{{ next }}</a>
-                              </li>
-                         </ul>
-                    </nav>
+                              <ul class="pagination " aria-controls="my-table">
+                                   <li class="page-item disabled" v-if="currentPage == 1">
+                                        <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
+                                   </li>
+                                   <li class="page-item " v-if="currentPage > 1">
+                                        <a class="page-link" href="#" @click="change_page('-', monitorList)"
+                                             aria-controls="my-table">{{
+                                                  previous }}</a>
+                                   </li>
+                                   <li class="page-item"><a class="page-link" href="#"
+                                             @click="change_page(currentPage - 1, monitorList)" v-if="currentPage > 1">{{
+                                                  currentPage - 1 }}</a></li>
+                                   <li class="page-item active">
+                                        <a class="page-link" style="background-color: #EEEA41; border-color: #EEEA41;"
+                                             href="#">{{
+                                                  currentPage }} <span class="sr-only">(current)</span></a>
+                                   </li>
+                                   <li class="page-item"><a class="page-link" href="#"
+                                             v-if="currentPage < num_pages(monitorList)"
+                                             @click="change_page(currentPage + 1, monitorList)">{{ currentPage + 1 }}</a>
+                                   </li>
+                                   <li class="page-item">
+                                        <a class="page-link" href="#" @click="change_page('+', monitorList)"
+                                             v-if="currentPage < num_pages(monitorList)">{{
+                                                  next }}</a>
+                                   </li>
+                                   <li class="page-item disabled">
+                                        <a class="page-link" href="#" v-if="currentPage >= num_pages(monitorList)">{{ next
+                                        }}</a>
+                                   </li>
+                              </ul>
+                         </nav>
+                    </div>
+
+                    <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
+
+                    <div class="confirmationDialog" v-if="isOpenConfirm">
+                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
+                              class="labelConfirm">
+                              <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
+                         </p>
+                         <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
+                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, choosenDelete()">Xóa</button>
+                         <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                              @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
+                    </div>
+
+                    <div class="messageDialog" v-if="isOpenMessage">
+                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
+                              class="labelThongBao">
+                              <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
+                                   message
+                              }}
+                         </p>
+                         <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                              @click="isOpenMessage = !isOpenMessage">OK</button>
                     </div>
 
                     <CreateFertilizerTimesForm v-if="isOpenCreateFertilizerTimesForm"
@@ -340,9 +389,9 @@
                          :epidemicList="epidemicList" :developmentStageList="developmentStageList" :currentUser="currentUser"
                          :riceCropChoosen="newRiceCrop" :arableLandList="arableLandList"
                          @updateEpidemicTimes-submit="updateEpidemicTimes" :message1="message1" :message2="message2" />
-               <CreateMonitorForm v-if="isOpenCreateMonitorForm" :newMonitor="newMonitor" :employeeList="employeeList"
-                         :newRiceCrop="newRiceCrop"
-                         @addMonitor-submit="createNewMonitor" :message1="message1" :message2="message2" />
+                    <CreateMonitorForm v-if="isOpenCreateMonitorForm" :newMonitor="newMonitor" :employeeList="employeeList"
+                         :newRiceCrop="newRiceCrop" @addMonitor-submit="createNewMonitor" :message1="message1"
+                         :message2="message2" />
                </div>
           </div>
      </div>
@@ -435,10 +484,15 @@ export default {
                epidemicTimesChoosen: {},
                isOpenCreateMonitorForm: false,
                currentPage: 1,
-               elementsPerPage: 2,
+               elementsPerPage: 4,
                ascending: false,
                previous: '<<',
                next: '>>',
+               delete: "",
+               isOpenConfirm: false,
+               isOpenMessage: false,
+               message:"",
+               monitorChoosen: {},
           }
      },
 
@@ -514,7 +568,6 @@ export default {
                     }
                     else {
                          this.newEpidemicTimes.EpidemicTimes_times = 1;
-
                     }
 
                }
@@ -609,9 +662,10 @@ export default {
                          this.fertilizerTimesList = respone.data;
                          console.log(respone.data);
                          this.newFertilizerTimes.FertilizerTimes_times = this.fertilizerTimesList[this.fertilizerTimesList.length - 1].FertilizerTimes_times + 1;
-
                     }
-
+                    else{
+                         this.newFertilizerTimes.FertilizerTimes_times = 1;
+                    }
                }
           },
 
@@ -627,6 +681,10 @@ export default {
                          this.SprayingTimesList = respone.data;
                          console.log(respone.data);
                          this.newSprayingTimes.SprayingTimes_times = this.SprayingTimesList[this.SprayingTimesList.length - 1].SprayingTimes_times + 1;
+                    }
+                    else{
+                         this.newSprayingTimes.SprayingTimes_times = 1;
+
                     }
                }
           },
@@ -751,6 +809,7 @@ export default {
                     this.message1 = " ";
                     this.message2 = " ";
                     this.newFertilizerTimes = {};
+                    this.newFertilizerTimes.FertilizerTimes_times = this.fertilizerTimesList[this.fertilizerTimesList.length - 1].FertilizerTimes_times + 1;
                }
                else {
                     this.message1 = " ";
@@ -795,6 +854,7 @@ export default {
                     } else {
                          this.message2 = "Thêm thành công.";
                          this.retrieveFertilizerTimesList();
+
                     }
 
                }
@@ -807,6 +867,7 @@ export default {
                     this.message1 = " ";
                     this.message2 = " ";
                     this.newFertilizerTimes = {};
+                    this.newFertilizerTimes.FertilizerTimes_times = this.fertilizerTimesList[this.fertilizerTimesList.length - 1].FertilizerTimes_times + 1;
                }
                else {
                     this.message1 = " ";
@@ -857,6 +918,44 @@ export default {
 
           },
 
+          async setDelete(data){
+               this.delete = data;
+          },
+
+          async choosenDelete(){
+               if(this.delete == "FertilizerTimes"){
+                    this.deleteFertilizerTimes(this.fertilizerTimesChoosen);
+               }
+               else if(this.delete == "SprayingTimes"){
+                    this.deleteSprayingTimes();
+               }
+               else if(this.delete == "EpidemicTimes"){
+                    this.deleteEpidemicTimes();
+               }
+               else if(this.delete == "Monitor"){
+                    this.deleteMonitor();
+               }
+               else{
+                    this.delete = ""
+               }
+          },
+
+          async deleteFertilizerTimes(data){
+               const [error, respone] = await this.handle(
+                         FertilizerTimesService.delete(this.newRiceCrop.RiceCropInformation_id, data.Fertilizer_id, data.FertilizerTimes_times, data)
+                    );
+                    if (error) {
+                         console.log(error);
+                         this.message = "Xóa không thành công."
+                    } else if (respone.data == "Lỗi trong quá trình lần bón phân!!") {
+                         this.message = "Xóa không thành công."
+                    } else {
+                         this.message = "Đã xóa thành công.";
+                         this.retrieveFertilizerTimesList();
+               }
+               this.delete = "";
+
+          },
           async setSprayingTimes(data) {
                this.sprayingTimesChoosen = data;
           },
@@ -867,6 +966,13 @@ export default {
                     this.message1 = " ";
                     this.message2 = " ";
                     this.newSprayingTimes = {};
+                    if(this.sprayingTimes.length>0){
+                         this.newSprayingTimes.SprayingTimes_times = this.SprayingTimesList[this.SprayingTimesList.length - 1].SprayingTimes_times + 1;
+
+                    }
+                    else{
+                         this.newSprayingTimes.SprayingTimes_times = 1;
+                    }
                }
                else {
                     this.message1 = " ";
@@ -907,7 +1013,7 @@ export default {
                     if (error) {
                          console.log(error);
                          this.message1 = "Thêm không thành công."
-                    } else if (respone.data == "Không thể tạo lần phun thuuốc mới.") {
+                    } else if (respone.data == "Không thể tạo lần phun thuốc mới.") {
                          this.message1 = "Thêm không thành công."
                     } else {
                          this.message2 = "Thêm thành công.";
@@ -924,6 +1030,7 @@ export default {
                     this.message1 = " ";
                     this.message2 = " ";
                     this.newSprayingTimes = {};
+                    this.newSprayingTimes.SprayingTimes_times = this.SprayingTimesList[this.SprayingTimesList.length - 1].SprayingTimes_times + 1;
                }
                else {
                     this.message1 = " ";
@@ -975,6 +1082,22 @@ export default {
 
           },
 
+          async deleteSprayingTimes(){
+               const [error, respone] = await this.handle(
+                         SprayingTimesService.delete(this.newRiceCrop.RiceCropInformation_id, this.sprayingTimesChoosen.Pesticide_id, this.sprayingTimesChoosen.SprayingTimes_times)
+                    );
+                    if (error) {
+                         console.log(error);
+                         this.message = "Xóa không thành công."
+                    } else if (respone.data == "Lỗi trong quá trình xóa lần phun thuốc!!") {
+                         this.message = "Xóa không thành công."
+                    } else {
+                         this.message = "Xóa thành công.";
+                         this.retrieveSprayingTimesList();
+               }
+               this.delete = "";
+          },
+
           async setEpidemicChoosen(data) {
                this.epidemicTimesChoosen = data;
           },
@@ -984,7 +1107,14 @@ export default {
                     this.isOpenCreateEpidemicTimesForm = false;
                     this.message1 = " ";
                     this.message2 = " ";
-                    this.newSprayingTimes = {};
+                    this.newEpidemicTimes = {};
+                    if (this.epidemicTimesList.length > 0) {
+                         this.newEpidemicTimes.EpidemicTimes_times = this.epidemicTimesList[this.epidemicTimesList.length - 1].EpidemicTimes_times + 1;
+                    }
+                    else {
+                         this.newEpidemicTimes.EpidemicTimes_times = this.epidemicTimesList[this.epidemicTimesList.length - 1].EpidemicTimes_times + 1;
+                    }
+
                }
                else {
                     this.message1 = " ";
@@ -1041,6 +1171,8 @@ export default {
                     this.message1 = " ";
                     this.message2 = " ";
                     this.newSprayingTimes = {};
+                    this.newEpidemicTimes.EpidemicTimes_times = this.epidemicTimesList[this.epidemicTimesList.length - 1].EpidemicTimes_times + 1;
+
                }
                else {
                     this.message1 = " ";
@@ -1058,10 +1190,8 @@ export default {
                          }
                     });
 
-                    console.log("tên " + data.Epidemic_name + "id " + data.Epidemic_id)
                     data.RiceCropInformation_id = this.newRiceCrop.RiceCropInformation_id;
                     data.Employee_id = this.currentUser.Employee_id;
-
 
                     if (data.EpidemicTimes_startDate != null) {
                          data.EpidemicTimes_startDate = (moment(String(data.EpidemicTimes_startDate)).format("YYYY-MM-DD")).slice(0, 10);
@@ -1093,6 +1223,54 @@ export default {
                }
           },
 
+          async deleteEpidemicTimes(){
+               const [error, respone] = await this.handle(
+                         EpidemicTimesService.delete(this.newRiceCrop.RiceCropInformation_id,this.epidemicTimesChoosen.Epidemic_id, this.epidemicTimesChoosen.EpidemicTimes_times)
+                    );
+                    if (error) {
+                         console.log(error);
+                         this.message = "Xóa không thành công."
+                    } else if (respone.data == "Lỗi trong quá trình xóa lần bị dịch bệnh!!") {
+                         this.message = "Xóa không thành công."
+                    } else {
+                         this.message = "Xóa thành công.";
+                         console.log(respone.data);
+                         this.retrieveEpidemicTimesList();
+               }
+               this.delete = "";
+          },
+
+          async setMonitorChoosen(data){
+               this.monitorChoosen = data;
+          },
+
+          async createNewMonitor(data) {
+               if (data.close == false) {
+                    this.isOpenCreateMonitorForm = false;
+                    this.retrieveMonitorList();
+               }
+          },
+
+          async deleteMonitor(){
+               const [error, response] = await this.handle(
+                    MonitorService.delete(this.newRiceCrop.RiceCropInformation_id, this.monitorChoosen.Employee_id )
+               );
+               if (error) {
+                    console.log(error);
+               } else {
+                    if(response.data == error){
+                         this.message = "Xóa không thành công.";
+                    }
+                    else if (response.data =="Lỗi trong quá trình xóa quyền giám sát!!") {
+                         this.message = "Xóa không thành công";
+                    }
+                    else{
+                         this.message = "Xóa thành công.";
+                         this.retrieveMonitorList();
+                    }
+               }
+               this.delete = "";
+          },
 
           formatDate(data) {
                if (data == null) return "";
@@ -1187,20 +1365,19 @@ export default {
 };
 </script>
 
-<style>
-@import url(../../assets/riceCropDetailStyle.css);
- nav {
+<style>@import url(../../assets/riceCropDetailStyle.css);
+
+nav {
      float: right;
 }
 
- nav .pagination .page-link {
+nav .pagination .page-link {
      color: #5C5D22;
      font-size: 17px;
 }
 
-nav{
+nav {
      position: absolute;
-     left:85%;
-     top: 92%;
-}
-</style>
+     left: 85%;
+     top: 94%;
+}</style>

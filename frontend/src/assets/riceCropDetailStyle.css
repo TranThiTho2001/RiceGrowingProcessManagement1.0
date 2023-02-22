@@ -6,3 +6,55 @@
      max-height: 300px; 
      width: 100%;
 }
+
+.riceCropDetail  .confirmationDialog{
+     background-color: rgb(5, 207, 137);
+     border: 1px solid rgb(62, 77, 77);
+     border-radius: 10px;
+     position:absolute;
+     top: calc(38%);
+     transform: translateX(80%);
+     border-radius: 16px;
+     display: block;
+     width: 404px;
+     height: 187px;
+     border-radius: 15px; 
+     text-align: center;
+}
+
+.riceCropDetail .confirmationDialog .btnYes{
+     background-color: rgb(244, 61, 61);
+     color: white;
+     font-family: Inter;
+     font-size: 16px;
+}
+
+.riceCropDetail .confirmationDialog .btnNo{
+     background-color: rgb(196, 191, 191);
+     color: rgb(33, 33, 33);
+     font-family: Inter;
+     font-size: 16px;
+}
+
+.riceCropDetail .messageDialog .btnOK{
+     background-color: rgb(196, 191, 191);
+     color: rgb(33, 33, 33);
+     font-family: Inter;
+     font-size: 16px;
+}
+.riceCropDetail .messageDialog{
+     background-color: rgb(5, 207, 137);
+     border: 1px solid rgb(62, 77, 77);
+     border-radius: 10px;
+     position:absolute;
+     top: calc(38%);
+     transform: translateX(80%);
+     border-radius: 16px;
+     display: block;
+     width: 404px;
+     height: 187px;
+     border-radius: 15px; 
+     text-align: center;
+}
+
+ 

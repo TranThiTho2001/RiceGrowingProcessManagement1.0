@@ -40,7 +40,7 @@ exports.findbyIdRiceCropInformation = async (req, res) => {
      SprayingTimes.findByIdRiceCropInformation(id, (err, data) => {
           if (err) {
                if (err.kind === "not_found") {
-                    res.send("Không tìm thấy lần phun thuuốc mới.")
+                    res.send("Không tìm thấy lần phun thuốc mới.")
                } else {
                     res.send("Lỗi trong quá trình tìm kiếm. Vui lòng thử lại sau!!!!")
                }
@@ -58,7 +58,7 @@ exports.update = async (req, res) => {
           (err, data) => {
                if (err) {
                     if (err.kind === "not_found") {
-                         res.send("Không tìm thấy lần phun thuuốc mới.")
+                         res.send("Không tìm thấy lần phun thuốc.")
                     } else {
                          res.send("Đã xảy ra lỗi trong quá trình cập nhật thông tin!")
                     }
@@ -74,7 +74,7 @@ exports.delete = async (req, res) => {
                if (err.kind === "not_found") {
                     res.send(`Không tìm thấy lần phun thuốc có mã vụ mùa ${req.params.RiceCropInformation_id} và mã thuốc ${req.params.Pesticide_id}`)
                } else {
-                    res.redirect("Lỗi trong quá trình xóa lần phun thuuốc mới!!");
+                    res.redirect("Lỗi trong quá trình xóa lần phun thuốc!!");
                }
           } else res.send(data);
      });
