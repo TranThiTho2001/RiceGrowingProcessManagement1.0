@@ -8,18 +8,17 @@
                </div>
                <div class="col-md-10 rightArableLandManagement">
                     <div class="row mr-2 mt-2 mb-4">
-                         <div class="col-md-3"></div>
                          <div class="col-md-7 pr-5">
                               <div class="row">
-                                   <input type="text" class="form-control col-md-10 inputSearch"
+                                   <input type="text" class="form-control col-sm-8 ml-4 pt-2 inputSearch"
                                         placeholder="Tìm theo tên" style="border-radius:10px" v-model="nameToSearch"
                                         @keyup.enter="searchName" />
-                                   <button class="btn btnTimKiem mb-2" type="button"
-                                        style="border:none; width: 10%" @click="searchName">
-                                        <span class="fa fa-search" style="font-size:18px"></span>
+                                   <button class=" btnSearch pt-2" @click="searchName">
+                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                                    </button>
                               </div>
                          </div>
+                         <div class="col-md-3"></div>
                          <div class="col-md-2 pl-5 text-right">
                               <div class="row">
                                    <TopHeader :currentUserid="currentUser.Employee_id" />
@@ -32,7 +31,7 @@
                          </div>
                     </div>
                     <div class="row ml-3 mr-2 mt-3">
- 
+
                          <div class="btnChoosePage col-sm-2">
                               <p style="display: inline-block; padding-top: 1px;text-align: right;" class="soTrang">
                                    Trang &nbsp;</p>
@@ -48,7 +47,7 @@
                                    </div>
                               </div>
                          </div>
-                          <div class="col-sm-8 input-group">                        
+                         <div class="col-sm-8 input-group">
                          </div>
                          <div class="col-sm-2">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
@@ -78,8 +77,9 @@
                                         <td>{{ arableland.Soil_name }}</td>
                                         <td>
                                              <i class="fas fa-map-marker-alt"></i>
-                                             <a :href="`https://www.google.com/maps/place/` + arableland.ArableLand_location">{{
-                                                  arableland.ArableLand_location }}</a>
+                                             <a
+                                                  :href="`https://www.google.com/maps/place/` + arableland.ArableLand_location">{{
+                                                       arableland.ArableLand_location }}</a>
                                         </td>
                                         <td>
                                              <span class="action ml-2 ml-2"

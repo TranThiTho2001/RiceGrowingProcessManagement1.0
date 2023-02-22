@@ -1,4 +1,5 @@
-<template><!-- Cot ben trai -->
+<template>
+     <!-- Cot ben trai -->
      <div class="navigationBar container-fluid ">
           <div class="row topRow  mt-2">
                <div class="col-sm-12 ">
@@ -11,21 +12,22 @@
                     </div>
                     <div class="row" style="padding-bottom: 10px;">
                          <div class="col-sm-12 text-center">
-                              <h4 style="font-family: Inter; font-size: 22px; display: block;color: #5C5D22;">{{ currentuser.Employee_name
+                              <h4 style="font-family: Inter; font-size: 22px; display: block;color: #5C5D22;">{{
+                                   currentuser.Employee_name
                               }}</h4>
                               <span class="mt-0" style="font-family: Inter; font-size: 18px; color:#5C5D22">{{
                                    currentuser.Role_name }}</span>
                          </div>
                     </div>
-                    
+
                </div>
                <hr style="background-color: #919302; border-width: 1.2px;; width: 235px;">
           </div>
           <div class="row bottomRow mt-1">
                <div class="categoryList col-sm-12">
-                    <div class="row " >
-                         <button class="btn ml-2 pl-2 pr-5 btn-sm btn-outline-secondary btnMonitor" @click="goToQLMonitor"> <i
-                                   class="fas fa-chart-line" >&nbsp; </i>Theo Dõi Mùa Vụ</button>
+                    <div class="row ">
+                         <button class="btn ml-2 pl-2 pr-5 btn-sm btn-outline-secondary btnMonitor" @click="goToQLMonitor">
+                              <i class="fas fa-chart-line">&nbsp; </i>Theo Dõi Mùa Vụ</button>
                     </div>
                     <div class="row mt-1 pt-2">
                          <button class="btn ml-2 pl-2 pr-5 btn-sm btn-outline-secondary btnOtherActivities"
@@ -37,7 +39,8 @@
                                    class="fas fa-seedling">&nbsp;</i>Giống Lúa</button>
                     </div>
                     <div class="row mt-3">
-                         <button class="btn ml-2 pl-2 pr-5 btn-sm btn-outline-secondary btnFertilizer" @click="goToFertilizer">
+                         <button class="btn ml-2 pl-2 pr-5 btn-sm btn-outline-secondary btnFertilizer"
+                              @click="goToFertilizer">
                               <i class="fas fa-fill-drip">&nbsp;</i>Phân Bón </button>
                     </div>
                     <div class="row mt-3">
@@ -45,12 +48,12 @@
                                    class="fas fa-spider">&nbsp;</i>Dịch Bệnh </button>
                     </div>
                     <div class="row mt-3">
-                         <button class="btn ml-2 pl-2 pr-5 btn-sm btn-outline-secondary btnArableland" @click="goToArableLand"><i
-                                   class="fas fa-square">&nbsp;</i>Mẫu Ruộng</button>
+                         <button class="btn ml-2 pl-2 pr-5 btn-sm btn-outline-secondary btnArableland"
+                              @click="goToArableLand"><i class="fas fa-square">&nbsp;</i>Mẫu Ruộng</button>
                     </div>
                     <div class="row mt-3">
-                         <button class="btn ml-2 pl-2 pr-2 btn-sm btn-outline-secondary btnPesticide" @click="goToPesticide"><i
-                                   class="fas fa-flask">&nbsp;</i>Thuốc Trị Bệnh Dịch </button>
+                         <button class="btn ml-2 pl-2 pr-2 btn-sm btn-outline-secondary btnPesticide"
+                              @click="goToPesticide"><i class="fas fa-flask">&nbsp;</i>Thuốc Trị Bệnh Dịch </button>
                     </div>
                </div>
                <!-- Cot ben phai -->
@@ -127,7 +130,8 @@ export default {
 </script>
 
 <style> .navigationBar {
-      background-image: linear-gradient(#dffac8, #f7f8cc);
+      background: linear-gradient(180deg, rgba(128, 255, 0, 0.15) 0%, rgba(250, 255, 0, 0.15) 100%);
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
       font-family: Inter;
       height: 100vmin;
       font-size: 18px;

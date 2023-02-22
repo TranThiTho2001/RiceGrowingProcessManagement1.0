@@ -8,18 +8,18 @@
                </div>
                <div class="col-md-10 rightPesticideManagement">
                     <div class="row mr-2 mt-2 mb-4">
-                         <div class="col-md-3"></div>
+                         
                          <div class="col-md-7 pr-5">
                               <div class="row">
-                                   <input type="text" class="form-control col-md-10 inputSearch"
+                                   <input type="text" class="form-control col-sm-8 ml-4 pt-2 inputSearch"
                                         placeholder="Tìm theo tên" style="border-radius:10px" v-model="nameToSearch"
                                         @keyup.enter="searchName" />
-                                   <button class="btn btnTimKiem mb-2" type="button"
-                                        style="border:none; width: 10%" @click="searchName">
-                                        <span class="fa fa-search" style="font-size:18px"></span>
+                                   <button class=" btnSearch pt-2" @click="searchName">
+                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                                    </button>
                               </div>
                          </div>
+                         <div class="col-md-3"></div>
                          <div class="col-md-2 pl-5 text-right">
                               <div class="row">
                                    <TopHeader :currentUserid="currentUser.Employee_id" />
@@ -32,22 +32,6 @@
                          </div>
                     </div>
                     <div class="row ml-2 mr-2">
-
-                         <div class="btnChoosePage col-sm-2">
-                              <p style="display: inline-block; padding-top: 1px;text-align: right;" class="soTrang">
-                                   Trang &nbsp;</p>
-                              <div class="numberPage">
-                                   <div class="dropdown">
-                                        <button class="dropbtn">{{ currentPage }}
-                                             <span class="fas fa-chevron-down"></span></button>
-                                        <div class="dropdown-content">
-                                             <a class="dropdown-item" v-for="(i, j) in num_pages() " :key="j"
-                                                  v-bind:class="[i == currentPage ? 'active' : '']"
-                                                  v-on:click="change_page(i)" aria-controls="my-table"> {{ i }}</a>
-                                        </div>
-                                   </div>
-                              </div>
-                         </div>
                          <div class="col-sm-8 input-group">
                          </div>
                          <div class="col-sm-2">
@@ -67,7 +51,7 @@
                                    </tr>
                               </thead>
                               <tbody>
-                                   <tr v-for="(pesticide, i ) in get_rows()" :key="i" class="align-self-center">
+                                   <tr v-for="(pesticide, i ) in get_rows(pesticideList)" :key="i" class="align-self-center">
                                         <td v-if="currentPage > 1">{{ i+ ((currentPage - 1) * 6)}}</td>
                                         <td v-else>{{ i }}</td>
                                         <td>{{ pesticide.Pesticide_id }}</td>
@@ -86,6 +70,33 @@
                                    </tr>
                               </tbody>
                          </table>
+                         <nav aria-label="..." v-if="pesticideChoosen.length>6">
+                         <ul class="pagination " aria-controls="my-table">
+                              <li class="page-item disabled" v-if="currentPage == 1">
+                                   <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
+                              </li>
+                              <li class="page-item " v-if="currentPage > 1">
+                                   <a class="page-link" href="#" @click="change_page('-', pesticideList)" aria-controls="my-table">{{
+                                        previous }}</a>
+                              </li>
+                              <li class="page-item"><a class="page-link" href="#" @click="change_page(currentPage - 1, pesticideList)"
+                                        v-if="currentPage > 1">{{ currentPage - 1 }}</a></li>
+                              <li class="page-item active">
+                                   <a class="page-link" style="background-color: #EEEA41; border-color: #EEEA41;" href="#">{{
+                                        currentPage }} <span class="sr-only">(current)</span></a>
+                              </li>
+                              <li class="page-item"><a class="page-link" href="#" v-if="currentPage < num_pages(pesticideList)"
+                                        @click="change_page(currentPage + 1, seedList)">{{ currentPage + 1 }}</a></li>
+                              <li class="page-item">
+                                   <a class="page-link" href="#" @click="change_page('+', seedList)"
+                                        v-if="currentPage < num_pages(pesticideList)">{{
+                                             next }}</a>
+                              </li>
+                              <li class="page-item disabled">
+                                   <a class="page-link" href="#" v-if="currentPage >= num_pages(pesticideList)">{{ next }}</a>
+                              </li>
+                         </ul>
+                    </nav>
                     </div>
                     <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
 
@@ -144,6 +155,8 @@ export default {
                currentPage: 1,
                elementsPerPage: 6,
                ascending: false,
+               previous: '<<',
+               next: '>>',
                pesticideList: [],
                openCreate: false,
                newPesticide: {},
@@ -320,4 +333,18 @@ export default {
 
 <style>
 @import url(../../assets/pesticideStyle.css);
+nav {
+     float: right;
+}
+
+ nav .pagination .page-link {
+     color: #5C5D22;
+     font-size: 17px;
+}
+
+nav{
+     position: absolute;
+     left:85%;
+     top: 92%;
+}
 </style>

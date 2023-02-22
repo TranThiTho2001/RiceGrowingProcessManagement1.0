@@ -22,7 +22,7 @@
    
                <div class="form-group text-left" style="margin-top:10%">
                  <label for="password">Mật khẩu</label>
-                 <div class="row" style="background-color: #F5F4F4; border-radius: 15px; margin: 0 0 0 0">
+                 <div class="row">
                    <Field v-if="!isOpenPassword" name="password" type="password" class="form-control col-md-10"
                      placeholder="Nhập mật khẩu" v-model="employee.Employee_password" />
                    <Field v-if="employee.Employee_password == '' & isOpenPassword" name="password" type="text"

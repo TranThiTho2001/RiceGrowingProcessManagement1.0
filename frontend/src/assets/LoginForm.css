@@ -1,6 +1,10 @@
+.loginFrame{
+     position: relative;
+}
 .loginForm {
      background-color: aquamarine;
      height: 100vh;
+     position: relative;
 }
 
 .loginForm .leftForm {
@@ -8,14 +12,17 @@
 }
 
 
-.loginForm .leftForm .iconFamer .famerImage {
+ .famerImage {
      position: absolute;
-     width: 400px;
-     height: 400px;
-     left: -9%;
-     top: 36%;
+     width: 510px;
+     height: 510px;
+     left: -12%;
+     top: 22%;
 }
-
+.loginForm .leftForm,
+.loginForm .rightForm{
+     position: relative;
+}
 .loginForm .rightForm {
      background-image: url(../images/Rice2.png);
 }
@@ -28,23 +35,21 @@
      backdrop-filter: blur(3.5px);
      border-bottom-left-radius: 10px;
      border-top-left-radius: 10px;
-     position: static;
      position: absolute;
-     width: 800px;
-     height: 580px;
+     width: 580px;
+     height: 610px;
      left: 41.8%;
-     top: 85px;
+     top: 70px;
 }
 
 .loginForm .rightForm .content {
      background: #FAFAFC;
      border-radius: 0px 10px 10px 0px;
      backdrop-filter: blur(3.5px);
-     position: static;
      position: absolute;
-     width: 800px;
-     height: 580px;
-     top: 85px;
+     width: 580px;
+     height:610px;
+     top: 70px;
 }
 
 .loginForm .rightForm .content .title {
@@ -55,52 +60,57 @@
      color: #5C5D22;
 }
 
-.loginForm .content .row {
-     /* background-color: rgb(207, 223, 218); */
-}
 
 .loginForm .form-control {
      background: #FFFFED;
      box-shadow: inset 1px 7px 7px rgba(0, 0, 0, 0.25);
-     border-bottom-left-radius: 20px;
-     border-top-left-radius: 20px;
-     border-right: none;
-     font-family: Roboto;
+     border-radius: 20px;
+     border: none;
+     font-family: 'Roboto';
      font-style: normal;
      font-weight: 400;
-     font-size: 16px;
+     font-size: 17px;
+     line-height: 0px;
+     color: #D0D1D6;
+}
+.loginForm .form-control:hover {
+     background: #FFFFED;
+     box-shadow: inset 1px 7px 7px rgba(0, 0, 0, 0.25);
+     border-radius: 20px;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 400;
+     font-size: 17px;
      line-height: 0px;
      color: #D0D1D6;
 }
 
-.passField {
-     background: #FFFFED;
-     box-shadow: inset 0px 7px 7px rgba(0, 0, 0, 0.25);
+.loginForm .form-control:focus {
+     background: #f8f8d9;
+     box-shadow: inset 1px 7px 7px rgba(0, 0, 0, 0.25);
      border-radius: 20px;
-     font-family: Roboto;
+     border-right: none;
+     font-family: 'Roboto';
      font-style: normal;
      font-weight: 400;
-     font-size: 16px;
-     line-height: 23px;
+     font-size: 17px;
+     line-height: 0px;
      color: #D0D1D6;
 }
 
-.loginForm .form-control-pass {
-     background: #FFFFED;
-     box-shadow: inset 0px 7px 7px rgba(0, 0, 0, 0.25);
-     border-top-right-radius: 20px;
-     border-bottom-right-radius: 20px;
-     font-family: Roboto;
-     font-style: n rmal;
-     font-weight: 400;
-     font-size: 16px;
-     line-height: 23px;
-     color: #D0D1D6;
+.loginForm .rightForm .form-group {
+     width: 80%;
+
 }
 
-.loginForm .btnHienMatKhau {
+.loginForm .btnHienMatKhau,
+.loginForm .btnAnMatKhau {
      background: none;
-
+     position: absolute;
+     left: 78%;
+     color: #84858A;
+     font-size: 20px;
+     margin-top: -2px;
 }
 
 .loginForm .text-left {
@@ -113,24 +123,28 @@
      line-height: 23px;
 }
 
-.form-group {
-     /* background-color: cadetblue; */
-}
 
 .loginForm .content .error-feedback {
      float: right;
-     color: red;
+     color: #D30000;
+     font-weight: 500;
 }
 
 .loginForm .content .labelTitle {
      font-family: Inter;
-     font-size: 18px;
+     font-size: 20px;
+     color: #919302;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 700;
+     line-height: 29px;
 }
 
 .loginForm .btnDangNhap {
      background: #FFFA37;
      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
      border-radius: 10px;
+     border: none;
      position: absolute;
      width: 140px;
      height: 40px;
@@ -144,8 +158,8 @@
 
 .loginForm .rightForm .studentImage {
      position: absolute;
-     width: 210px;
-     height: 210x;
-     left: 73%;
-     top: 70%;
+     width: 220px;
+     height: 220x;
+     left: 66%;
+     top: 72%;
 }

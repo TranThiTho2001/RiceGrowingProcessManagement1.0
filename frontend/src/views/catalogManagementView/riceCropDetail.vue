@@ -9,14 +9,6 @@
                <div class="col-md-10 rightRiceCropDetail">
                     <div class="row mr-1 mt-2 mb-5 ml-2">
                          <div class="col-md-10 pr-5">
-                              <div class="row">
-                                   <input type="text" class="form-control col-md-10 inputSearch" placeholder="Tìm theo tên"
-                                        style="border-radius:10px" v-model="nameToSearch" @keyup.enter="searchName" />
-                                   <button class="btn btnTimKiem mb-2" type="button" style="border:none; width: 10%"
-                                        @click="searchName">
-                                        <span class="fa fa-search" style="font-size:18px"></span>
-                                   </button>
-                              </div>
                          </div>
                          <div class="col-md-2 text-right">
                               <div class="row">
@@ -68,7 +60,7 @@
                                    </tr>
                               </thead>
                               <tbody>
-                                   <tr v-for="(fertilizer, i ) in fertilizerTimesList" :key="i">
+                                   <tr v-for="(fertilizer, i ) in get_rows(fertilizerTimesList)" :key="i">
                                         <td class="text-center ">{{ fertilizer.FertilizerTimes_times }}</td>
                                         <td class="">{{ fertilizer.Fertilizer_name }}</td>
                                         <td class="text-center ">{{ fertilizer.FertilizerTimes_amount }}</td>
@@ -90,6 +82,33 @@
                                    </tr>
                               </tbody>
                          </table>
+                         <nav aria-label="...">
+                         <ul class="pagination " aria-controls="my-table">
+                              <li class="page-item disabled" v-if="currentPage == 1">
+                                   <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
+                              </li>
+                              <li class="page-item " v-if="currentPage > 1">
+                                   <a class="page-link" href="#" @click="change_page('-', fertilizerTimesList)" aria-controls="my-table">{{
+                                        previous }}</a>
+                              </li>
+                              <li class="page-item"><a class="page-link" href="#" @click="change_page(currentPage - 1, monitorList)"
+                                        v-if="currentPage > 1">{{ currentPage - 1 }}</a></li>
+                              <li class="page-item active">
+                                   <a class="page-link" style="background-color: #EEEA41; border-color: #EEEA41;" href="#">{{
+                                        currentPage }} <span class="sr-only">(current)</span></a>
+                              </li>
+                              <li class="page-item"><a class="page-link" href="#" v-if="currentPage < num_pages(fertilizerTimesList)"
+                                        @click="change_page(currentPage + 1, fertilizerTimesList)">{{ currentPage + 1 }}</a></li>
+                              <li class="page-item">
+                                   <a class="page-link" href="#" @click="change_page('+', fertilizerTimesList)"
+                                        v-if="currentPage < num_pages(fertilizerTimesList)">{{
+                                             next }}</a>
+                              </li>
+                              <li class="page-item disabled">
+                                   <a class="page-link" href="#" v-if="currentPage >= num_pages(fertilizerTimesList)">{{ next }}</a>
+                              </li>
+                         </ul>
+                    </nav>
                     </div>
 
                     <!-- ----------------------SprayingTimes Tab-------------- -->
@@ -109,7 +128,7 @@
                                    </tr>
                               </thead>
                               <tbody>
-                                   <tr v-for="(sprayingTimes, i ) in SprayingTimesList" :key="i">
+                                   <tr v-for="(sprayingTimes, i ) in get_rows(SprayingTimesList)" :key="i">
                                         <td class="text-center ">{{ sprayingTimes.SprayingTimes_times }}</td>
                                         <td class="">{{ sprayingTimes.Pesticide_name }}</td>
                                         <td class="text-center ">{{ sprayingTimes.SprayingTimes_amount }}</td>
@@ -131,6 +150,33 @@
                                    </tr>
                               </tbody>
                          </table>
+                         <nav aria-label="...">
+                         <ul class="pagination " aria-controls="my-table">
+                              <li class="page-item disabled" v-if="currentPage == 1">
+                                   <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
+                              </li>
+                              <li class="page-item " v-if="currentPage > 1">
+                                   <a class="page-link" href="#" @click="change_page('-', SprayingTimesList)" aria-controls="my-table">{{
+                                        previous }}</a>
+                              </li>
+                              <li class="page-item"><a class="page-link" href="#" @click="change_page(currentPage - 1, SprayingTimesList)"
+                                        v-if="currentPage > 1">{{ currentPage - 1 }}</a></li>
+                              <li class="page-item active">
+                                   <a class="page-link" style="background-color: #EEEA41; border-color: #EEEA41;" href="#">{{
+                                        currentPage }} <span class="sr-only">(current)</span></a>
+                              </li>
+                              <li class="page-item"><a class="page-link" href="#" v-if="currentPage < num_pages(SprayingTimesList)"
+                                        @click="change_page(currentPage + 1, SprayingTimesList)">{{ currentPage + 1 }}</a></li>
+                              <li class="page-item">
+                                   <a class="page-link" href="#" @click="change_page('+', SprayingTimesList)"
+                                        v-if="currentPage < num_pages(SprayingTimesList)">{{
+                                             next }}</a>
+                              </li>
+                              <li class="page-item disabled">
+                                   <a class="page-link" href="#" v-if="currentPage >= num_pages(SprayingTimesList)">{{ next }}</a>
+                              </li>
+                         </ul>
+                    </nav>
                     </div>
 
                     <!-- ----------------------EpidemicTimes Tab-------------- -->
@@ -149,7 +195,7 @@
                                    </tr>
                               </thead>
                               <tbody>
-                                   <tr v-for="(epidemic, i ) in epidemicTimesList" :key="i">
+                                   <tr v-for="(epidemic, i ) in get_rows(epidemicTimesList)" :key="i">
                                         <td class="text-center ">{{ epidemic.EpidemicTimes_times }}</td>
                                         <td class="">{{ epidemic.Epidemic_name }}</td>
                                         <td class="text-center ">{{ formatDate(epidemic.EpidemicTimes_startDate)
@@ -170,12 +216,39 @@
                                    </tr>
                               </tbody>
                          </table>
+                         <nav aria-label="...">
+                         <ul class="pagination " aria-controls="my-table">
+                              <li class="page-item disabled" v-if="currentPage == 1">
+                                   <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
+                              </li>
+                              <li class="page-item " v-if="currentPage > 1">
+                                   <a class="page-link" href="#" @click="change_page('-', epidemicTimesList)" aria-controls="my-table">{{
+                                        previous }}</a>
+                              </li>
+                              <li class="page-item"><a class="page-link" href="#" @click="change_page(currentPage - 1, epidemicTimesList)"
+                                        v-if="currentPage > 1">{{ currentPage - 1 }}</a></li>
+                              <li class="page-item active">
+                                   <a class="page-link" style="background-color: #EEEA41; border-color: #EEEA41;" href="#">{{
+                                        currentPage }} <span class="sr-only">(current)</span></a>
+                              </li>
+                              <li class="page-item"><a class="page-link" href="#" v-if="currentPage < num_pages(epidemicTimesList)"
+                                        @click="change_page(currentPage + 1, epidemicList)">{{ currentPage + 1 }}</a></li>
+                              <li class="page-item">
+                                   <a class="page-link" href="#" @click="change_page('+', epidemicTimesList)"
+                                        v-if="currentPage < num_pages(epidemicTimesList)">{{
+                                             next }}</a>
+                              </li>
+                              <li class="page-item disabled">
+                                   <a class="page-link" href="#" v-if="currentPage >= num_pages(epidemicTimesList)">{{ next }}</a>
+                              </li>
+                         </ul>
+                    </nav>
                     </div>
 
                     <!-- ----------------------Monitor Tab-------------- -->
                     <div class="row activitiesList ml-2 mr-2" v-if="isOpenTableMonitor">
                          <button class="btn mt-3" style="background-color: gold;"
-                              @click="isOpenCreateEpidemicTimesForm = !isOpenCreateEpidemicTimesForm">Thêm</button>
+                              @click="isOpenCreateMonitorForm = !isOpenCreateMonitorForm">Thêm</button>
                          <table class="table">
                               <thead>
                                    <tr>
@@ -188,8 +261,9 @@
                                    </tr>
                               </thead>
                               <tbody>
-                                   <tr v-for="(monitor, i ) in monitorList" :key="i">
-                                        <td class="text-center">{{ i }}</td>
+                                   <tr v-for="(monitor, i ) in get_rows(monitorList)" :key="i">
+                                        <td class="text-center"  v-if="currentPage>1">{{ i+((currentPage-1)*elementsPerPage)}}</td>
+                                        <td class="text-center"  v-else>{{ i }}</td>
                                         <td class="text-center">{{ monitor.Employee_id }}</td>
                                         <td>{{ monitor.Employee_name }}</td>
                                         <td>{{ monitor.Employee_major }}
@@ -208,6 +282,33 @@
                                    </tr>
                               </tbody>
                          </table>
+                         <nav aria-label="...">
+                         <ul class="pagination " aria-controls="my-table">
+                              <li class="page-item disabled" v-if="currentPage == 1">
+                                   <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
+                              </li>
+                              <li class="page-item " v-if="currentPage > 1">
+                                   <a class="page-link" href="#" @click="change_page('-', monitorList)" aria-controls="my-table">{{
+                                        previous }}</a>
+                              </li>
+                              <li class="page-item"><a class="page-link" href="#" @click="change_page(currentPage - 1, monitorList)"
+                                        v-if="currentPage > 1">{{ currentPage - 1 }}</a></li>
+                              <li class="page-item active">
+                                   <a class="page-link" style="background-color: #EEEA41; border-color: #EEEA41;" href="#">{{
+                                        currentPage }} <span class="sr-only">(current)</span></a>
+                              </li>
+                              <li class="page-item"><a class="page-link" href="#" v-if="currentPage < num_pages(monitorList)"
+                                        @click="change_page(currentPage + 1, monitorList)">{{ currentPage + 1 }}</a></li>
+                              <li class="page-item">
+                                   <a class="page-link" href="#" @click="change_page('+', monitorList)"
+                                        v-if="currentPage < num_pages(monitorList)">{{
+                                             next }}</a>
+                              </li>
+                              <li class="page-item disabled">
+                                   <a class="page-link" href="#" v-if="currentPage >= num_pages(monitorList)">{{ next }}</a>
+                              </li>
+                         </ul>
+                    </nav>
                     </div>
 
                     <CreateFertilizerTimesForm v-if="isOpenCreateFertilizerTimesForm"
@@ -239,6 +340,9 @@
                          :epidemicList="epidemicList" :developmentStageList="developmentStageList" :currentUser="currentUser"
                          :riceCropChoosen="newRiceCrop" :arableLandList="arableLandList"
                          @updateEpidemicTimes-submit="updateEpidemicTimes" :message1="message1" :message2="message2" />
+               <CreateMonitorForm v-if="isOpenCreateMonitorForm" :newMonitor="newMonitor" :employeeList="employeeList"
+                         :newRiceCrop="newRiceCrop"
+                         @addMonitor-submit="createNewMonitor" :message1="message1" :message2="message2" />
                </div>
           </div>
      </div>
@@ -269,6 +373,8 @@ import UpdateFertilizerTimesForm from '@/components/catalogManagementComponents/
 import UpdateSprayingTimesForm from '@/components/catalogManagementComponents/updateSprayingTimesForm.vue';
 import CreateEpidemicTimesForm from '@/components/catalogManagementComponents/createNewEpidemicTimesForm.vue';
 import UpdateEpidemicTimesForm from '@/components/catalogManagementComponents/updateEpidemicTimesForm.vue';
+import EmployeeService from '@/services/employee.service';
+import CreateMonitorForm from '@/components/catalogManagementComponents/createNewMonitorForm.vue';
 
 export default {
      name: "riceCropDetail",
@@ -285,6 +391,7 @@ export default {
           UpdateSprayingTimesForm,
           CreateEpidemicTimesForm,
           UpdateEpidemicTimesForm,
+          CreateMonitorForm,
           TopHeader,
      },
 
@@ -327,6 +434,11 @@ export default {
                isOpenUpdateEpidemicTimesForm: false,
                epidemicTimesChoosen: {},
                isOpenCreateMonitorForm: false,
+               currentPage: 1,
+               elementsPerPage: 2,
+               ascending: false,
+               previous: '<<',
+               next: '>>',
           }
      },
 
@@ -348,6 +460,18 @@ export default {
           ...mapMutations([
                "initEmployeeState"
           ]),
+          async retrieveEmpoyeeList() {
+               const [err, respone] = await this.handle(
+                    EmployeeService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.employeeList = respone.data;
+                    console.log(respone.data);
+               }
+          },
 
           async retrieveCropList() {
                const [err, respone] = await this.handle(
@@ -984,25 +1108,60 @@ export default {
                if (data == "btnFertilizerTimes") {
                     this.retrieveFertilizerTimesList();
                     this.isOpenTableFertilizerTimes = true;
-
+                    this.num_pages(this.fertilizerList);
+                    this.currentPage = 1;
                }
                else if (data == "btnSprayingTimes") {
                     this.retrieveSprayingTimesList();
                     this.isOpenTableSprayingTimes = true;
+                    this.num_pages(this.SprayingTimesList)
+                    this.currentPage = 1;
                }
                else if (data == "btnActivities") {
 
                     this.isOpenTableOtherActivitiesTimes = true;
+                    this.currentPage = 1;
                }
                else if (data == "btnEpidemic") {
                     this.retrieveEpidemicTimesList();
                     this.isOpenTableEpidemicTimes = true;
+                    this.num_pages(this.SprayingTimesList)
+                    this.currentPage = 1;
                }
                else {
                     this.isOpenTableMonitor = true;
+                    this.retrieveMonitorList();
+                    this.num_pages(this.SprayingTimesList)
+                    this.currentPage = 1;
                }
           },
 
+          get_rows(list) {
+               var start = (this.currentPage - 1) * this.elementsPerPage;
+               var end = start + this.elementsPerPage;
+               return list.slice(start, end);
+
+          },
+
+          // So trang cua danh sach danh muc
+          num_pages(list) {
+               return Math.ceil(list.length / this.elementsPerPage);
+          },
+
+          async change_page(page, list) {
+               if (page == '-' && this.currentPage > 1) {
+                    this.currentPage -= 1;
+                    this.get_rows(list);
+               }
+               else if (page == '+' && this.currentPage < this.num_pages(list)) {
+                    this.currentPage += 1;
+                    this.get_rows(list);
+               }
+               else {
+                    this.currentPage = page;
+                    this.get_rows(list);
+               }
+          },
 
      },
 
@@ -1022,10 +1181,26 @@ export default {
           this.retrieveEpidemicList();
           this.retrieveEpidemicTimesList();
           this.retrieveRiceCropList();
+          this.retrieveEmpoyeeList();
+
      }
 };
 </script>
 
 <style>
 @import url(../../assets/riceCropDetailStyle.css);
+ nav {
+     float: right;
+}
+
+ nav .pagination .page-link {
+     color: #5C5D22;
+     font-size: 17px;
+}
+
+nav{
+     position: absolute;
+     left:85%;
+     top: 92%;
+}
 </style>

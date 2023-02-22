@@ -23,7 +23,7 @@ Epidemic.create = (newEpidemic, result) => {
 };
 
 Epidemic.findById = (id, result) => {
-    sql.query(`SELECT * FROM Epidemic WHERE Epidemic_id like '${id}' JOIN Epidemicsclassification where Epidemic.EpidemicsClassification_id = Epidemicsclassification.EpidemicsClassification_id`, (err, res) => {
+    sql.query(`SELECT * FROM Epidemic JOIN Epidemicsclassification on Epidemic.EpidemicsClassification_id = Epidemicsclassification.EpidemicsClassification_id WHERE Epidemic_id like '${id}' `, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -39,11 +39,10 @@ Epidemic.findById = (id, result) => {
 };
 
 Epidemic.getAll = (name, result) => {
-    let query = "SELECT * FROM Epidemic";
+    let query = "SELECT * FROM Epidemic JOIN Epidemicsclassification on Epidemic.EpidemicsClassification_id = Epidemicsclassification.EpidemicsClassification_id";
     if (name) {
         query += ` WHERE Epidemic_name LIKE '%${name}%'`;
     }
-    query += " JOIN Epidemicsclassification where Epidemic.EpidemicsClassification_id = Epidemicsclassification.EpidemicsClassification_id"
     sql.query(query, (err, res) => {
         if (err) {
             console.log("error: ", err);

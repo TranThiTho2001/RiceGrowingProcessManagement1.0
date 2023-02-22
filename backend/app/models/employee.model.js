@@ -42,11 +42,10 @@ Employee.findById = (id, result) => {
     });
 };
 Employee.getAll = (name, result) => {
-    let query = "SELECT * FROM Employee";
-    if (name) {
+    let query = "SELECT * FROM Employee  JOIN Role on Role.Role_id = Employee.Role_id";
+    if(name) {
         query += ` WHERE Employee_name LIKE '%${name}%'`;
     }
-    query += " JOIN Role where Role.Role_id = Employee.Role_id";
     sql.query(query, (err, res) => {
         if (err) {
             console.log("error: ", err);
@@ -72,7 +71,6 @@ Employee.updateById = (id, employee, result) => {
                 result({ kind: "not_found" }, null);
                 return;
             }
-            console.log("updated employee: ", { id: id, ...employee });
             result(null, { id: id, ...employee });
             
         }

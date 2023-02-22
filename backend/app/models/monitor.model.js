@@ -37,7 +37,9 @@ Monitor.findByIdRiceCropInformation = (id, result) => {
 };
 
 Monitor.getAll = (employee_id, result) => {
-    let query = "SELECT * FROM Monitor JOIN Ricecropinformation ON Ricecropinformation.RiceCropInformation_id = Monitor.RiceCropInformation_id";
+    let query = "SELECT * FROM Monitor" + 
+    " JOIN Ricecropinformation ON Ricecropinformation.RiceCropInformation_id = Monitor.RiceCropInformation_id"
+    " JOIN Employee on Employee.Employee_id = Monitor.Employee_id ";
     if (employee_id) {
         query += ` WHERE Employee_id LIKE '%${employee_id}%'`;
     }

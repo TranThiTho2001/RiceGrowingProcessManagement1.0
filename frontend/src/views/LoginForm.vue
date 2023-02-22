@@ -17,29 +17,29 @@
             <div class="row mt-5">
               <Form @submit="signin()" :validation-schema="schema" v-slot="{ isSubmitting }" class="form container-fluid">
                 <h1 class="title"  style="text-align: center; margin-bottom: 10%;">ĐĂNG NHẬP</h1>
-                <div class="form-group text-left">
+                <div class="form-group text-left ml-4" style="width: 87%;">
                   <label for="username" class="labelTitle">Tên tài khoản đăng nhập</label>
-                  <Field name="username" type="text" class="form-control form-control-pass" placeholder="Nhập tên tài khoản đăng nhập"
+                  <Field name="username" type="text" class="form-control" placeholder="Nhập tên tài khoản đăng nhập"
                     v-model="employee.Employee_id" />
                   <ErrorMessage name="username" class="error-feedback" />
 
                 </div>
 
-                <div class="form-group text-left pl-3 pr-3" style="margin-top:10%">
+                <div class="form-group text-left ml-5 pr-3" style="margin-top:10%">
                   <label for="password" class="labelTitle" style="margin-left: -10px;">Mật khẩu</label>
                   <div class="row passField">
-                    <Field v-if="!isOpenPassword" name="password" type="password" class=" form-control col-md-10 "
+                    <Field v-if="!isOpenPassword" name="password" type="password" class=" form-control "
                       placeholder="Nhập mật khẩu" v-model="employee.Employee_password" />
                     <Field v-if="employee.Employee_password == '' & isOpenPassword" name="password" type="text"
-                      class="form-control col-md-10 ml-2" placeholder="Nhập mật khẩu" v-model="employee.Employee_password" />
+                      class="form-control " placeholder="Nhập mật khẩu" v-model="employee.Employee_password" />
 
                     <Field v-if="employee.Employee_password != '' & isOpenPassword" name="password" type="text"
-                      class="form-control col-md-10" placeholder="{{employee.Employee_password}}"
+                      class="form-control " placeholder="{{employee.Employee_password}}"
                       v-model="employee.Employee_password" />
 
-                    <span v-if="!isOpenPassword" class="btn far fa-eye btnHienMatKhau col-md-2"
+                    <span v-if="!isOpenPassword" class="btn far fa-eye btnHienMatKhau "
                       @click="isOpenPassword = !isOpenPassword"></span>
-                    <span v-else class="btn far fa-eye-slash btnAnMatKhau col-md-2"
+                    <span v-else class="btn far fa-eye-slash btnAnMatKhau "
                       @click="isOpenPassword = !isOpenPassword"></span>
                   </div>
 

@@ -8,18 +8,18 @@
                </div>
                <div class="col-md-10 rightSeedManagement">
                     <div class="row mr-2 mt-2 mb-4">
-                         <div class="col-md-3"></div>
+
                          <div class="col-md-7 pr-5">
                               <div class="row">
-                                   <input type="text" class="form-control col-md-10 inputSearch"
+                                   <input type="text" class="form-control col-sm-8 ml-4 pt-2 inputSearch"
                                         placeholder="Tìm theo tên" style="border-radius:10px" v-model="nameToSearch"
                                         @keyup.enter="searchName" />
-                                   <button class="btn mb-2 btnTimKiem" type="button"
-                                        style="border:none; width: 10%" @click="searchName">
-                                        <span class="fa fa-search" style="font-size:18px"></span>
+                                   <button class=" btnSearch pt-2" @click="searchName">
+                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                                    </button>
                               </div>
-                         </div>
+                         </div> 
+                                                 <div class="col-md-3"></div>
                          <div class="col-md-2 pl-5 text-right">
                               <div class="row">
                                    <TopHeader :currentUserid="currentUser.Employee_id" />
@@ -31,21 +31,8 @@
                               <h2>GIỐNG LÚA</h2>
                          </div>
                     </div>
-                    <div class="row ml-2 mr-2 mt-3">                   
+                    <div class="row ml-2 mr-2 mt-4 pb-2">
                          <div class="btnChoosePage col-sm-2">
-                              <p style="display: inline-block; padding-top: 1px;text-align: right;" class="soTrang">
-                                   Trang &nbsp;</p>
-                              <div class="numberPage">
-                                   <div class="dropdown">
-                                        <button class="dropbtn">{{ currentPage }}
-                                             <span class="fas fa-chevron-down"></span></button>
-                                        <div class="dropdown-content">
-                                             <a class="dropdown-item" v-for="(i, j) in num_pages() " :key="j"
-                                                  v-bind:class="[i == currentPage ? 'active' : '']"
-                                                  v-on:click="change_page(i)" aria-controls="my-table"> {{ i }}</a>
-                                        </div>
-                                   </div>
-                              </div>
                          </div>
                          <div class="col-sm-7"></div>
                          <div class="col-sm-3 text-right">
@@ -65,12 +52,13 @@
                                    </tr>
                               </thead>
                               <tbody>
-                                   <tr v-for="(seed, i ) in get_rows()" :key="i">
+                                   <tr v-for="(seed, i ) in get_rows(seedList)" :key="i">
                                         <td>{{ seed.Seed_id }}</td>
                                         <td>{{ seed.Seed_name }}</td>
                                         <td style="width: max-content;">{{ seed.Seed_supplier }}</td>
-                                        <td class="text-truncate" style="max-width: 520px;">{{ seed.Seed_characteristic }}</td>
-                                        <td >
+                                        <td class="text-truncate" style="max-width: 520px;">{{ seed.Seed_characteristic }}
+                                        </td>
+                                        <td>
                                              <span class=" action mt-1 ml-2"
                                                   @click="setSeedChoosen(seed), isOpenUpdateSeed = !isOpenUpdateSeed">
                                                   <span class="fas fa-edit actionIcon"></span>
@@ -83,6 +71,33 @@
                                    </tr>
                               </tbody>
                          </table>
+                         <nav aria-label="...">
+                         <ul class="pagination " aria-controls="my-table">
+                              <li class="page-item disabled" v-if="currentPage == 1">
+                                   <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
+                              </li>
+                              <li class="page-item " v-if="currentPage > 1">
+                                   <a class="page-link" href="#" @click="change_page('-', seedList)" aria-controls="my-table">{{
+                                        previous }}</a>
+                              </li>
+                              <li class="page-item"><a class="page-link" href="#" @click="change_page(currentPage - 1, seedList)"
+                                        v-if="currentPage > 1">{{ currentPage - 1 }}</a></li>
+                              <li class="page-item active">
+                                   <a class="page-link" style="background-color: #EEEA41; border-color: #EEEA41;" href="#">{{
+                                        currentPage }} <span class="sr-only">(current)</span></a>
+                              </li>
+                              <li class="page-item"><a class="page-link" href="#" v-if="currentPage < num_pages(seedList)"
+                                        @click="change_page(currentPage + 1, seedList)">{{ currentPage + 1 }}</a></li>
+                              <li class="page-item">
+                                   <a class="page-link" href="#" @click="change_page('+', seedList)"
+                                        v-if="currentPage < num_pages(seedList)">{{
+                                             next }}</a>
+                              </li>
+                              <li class="page-item disabled">
+                                   <a class="page-link" href="#" v-if="currentPage >= num_pages(epidemicTimesList)">{{ next }}</a>
+                              </li>
+                         </ul>
+                    </nav>
                     </div>
                     <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
 
@@ -108,8 +123,8 @@
                               @click="isOpenMessage = !isOpenMessage">OK</button>
                     </div>
 
-                    <createSeedForm v-if="openCreate" :newSeed="newSeed" @addSeed-submit="createSeed"
-                         :message1="message1" :message2="message2" />
+                    <createSeedForm v-if="openCreate" :newSeed="newSeed" @addSeed-submit="createSeed" :message1="message1"
+                         :message2="message2" />
 
                     <updateSeedForm v-if="isOpenUpdateSeed" :newSeed="seedChoosen" @updateSeed-submit="updateSeed"
                          :message1="message1" :message2="message2" />
@@ -141,6 +156,8 @@ export default {
                currentPage: 1,
                elementsPerPage: 6,
                ascending: false,
+               previous: '<<',
+               next: '>>',
                seedList: [],
                openCreate: false,
                newSeed: {},
@@ -181,9 +198,9 @@ export default {
                     temp.forEach(element => {
                          if (element != "S" && element != "D" & element != "0") {
                               for (let index = temp.indexOf(element); index < temp.length; index++) {
-                              id += temp[index];
-                               break;
-                             }
+                                   id += temp[index];
+                                   break;
+                              }
                          }
                     });
 
@@ -320,4 +337,18 @@ export default {
 
 <style>
 @import url(../../assets/seedStyle.css);
+nav {
+     float: right;
+}
+
+ nav .pagination .page-link {
+     color: #5C5D22;
+     font-size: 17px;
+}
+
+nav{
+     position: absolute;
+     left:85%;
+     top: 92%;
+}
 </style>

@@ -8,17 +8,17 @@
                </div>
                <div class="col-md-10 rightRiceCropManagement">
                     <div class="row mr-2 mt-2 mb-5">
-                         <div class="col-md-3"></div>
                          <div class="col-md-7 pr-5">
                               <div class="row">
-                                   <input type="text" class="form-control col-md-10 inputSearch" placeholder="Tìm theo tên"
-                                        style="border-radius:10px" v-model="nameToSearch" @keyup.enter="searchName" />
-                                   <button class="btn btnTimKiem mb-2" type="button" style="border:none; width: 10%"
-                                        @click="searchName">
-                                        <span class="fa fa-search" style="font-size:18px"></span>
+                                   <input type="text" class="form-control col-sm-8 ml-4 pt-2 inputSearch"
+                                        placeholder="Tìm theo tên" style="border-radius:10px" v-model="nameToSearch"
+                                        @keyup.enter="searchName" />
+                                   <button class=" btnSearch pt-2" @click="searchName">
+                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                                    </button>
                               </div>
                          </div>
+                         <div class="col-md-3"></div>
                          <div class="col-md-2 pl-5 text-right">
                               <div class="row">
                                    <TopHeader :currentUserid="currentUser.Employee_id" />
@@ -30,7 +30,7 @@
                          <div class="col-sm-10"></div>
                          <div class="col-sm-2">
                               <button  class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
-                                        style="font-size: 15px;"></i>Thêm mẫu ruộng</button>
+                                        style="font-size: 15px;"></i>Thêm Mùa Vụ</button>
                          </div>
                     </div>
                     <div class=" row riceCropList mt-5 ml-2 mr-4 text-left">

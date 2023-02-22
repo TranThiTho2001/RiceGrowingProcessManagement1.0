@@ -11,7 +11,7 @@ exports.store = async (req, res) => {
      // Save Monitor in the database
      Monitor.create(monitor, (err, data) => {
           if (err)
-               res.send("Không thể tạo quyền giám sát mới.")
+               res.send("Không thể tạo quyền theo dõi mới.")
           else res.send(data);
      });
 };

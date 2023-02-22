@@ -83,7 +83,24 @@
     float: left;
 
 }
+.riceCropManagement .inputSearch {
+    background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: 16px;
+    color: #84858A;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    border: none;
+}
 
+.riceCropManagement .btnSearch {
+    position: absolute;
+    left: 62%;
+    border-radius: 10px;
+    border: none;
+    background: none;
+}
 .riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .confirmationDialog {
     background-color: rgb(5, 207, 137);
     border: 1px solid rgb(62, 77, 77);
