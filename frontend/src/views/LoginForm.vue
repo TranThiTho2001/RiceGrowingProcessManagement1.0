@@ -152,21 +152,7 @@ export default {
       }
     },
 
-    async getAPI() {
-      // // let urlAPI = `https://history.openweathermap.org/data/2.5/history/city?q=London,type=hour&start=1643763774&end=1643763774&appid=9aed1da02f473617712a9955f04e0d01`;
-      // let urlAPI =  `https://api.openweathermap.org/data/2.5/weather?q=Can Tho&appid=9aed1da02f473617712a9955f04e0d01`
-      // // let urlAPI = `https://history.openweathermap.org/data/2.5/history/city?q=London,UK&appid=9aed1da02f473617712a9955f04e0d01`
-      // let urlAPI = `https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}`
-      // let data = await fetch(urlAPI).then( res => res.json())
-      // console.log(data)
-      // var temp = (data.main.temp-273.15).toFixed(0);
-      // var pre = data.rain;
-      // console.log(temp+ "C");
-      // console.log(pre+ "");
-      // let url = `http://api.weatherapi.com/v1/current.json?key=48d1cbaaef0941fca5424813232502&q=London&aqi=no`;
-      // let data = await fetch(url).then( res => res.json())
-      // console.log(data.Date)
-    }
+    
 
 
   },
