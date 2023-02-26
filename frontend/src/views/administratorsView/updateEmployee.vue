@@ -59,7 +59,6 @@ export default {
           },
 
           async updateEmployee(data) {
-
                this.newEmployee.Employee_id = data.Employee_id;
                this.newEmployee.Employee_name = data.Employee_name;
                this.newEmployee.Employee_major = data.Employee_major;

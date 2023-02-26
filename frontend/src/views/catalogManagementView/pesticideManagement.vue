@@ -31,16 +31,14 @@
                               <h2>THUỐC TRỊ BỆNH DỊCH</h2>
                          </div>
                     </div>
-                    <div class="row ml-2 mr-2">
-                         <div class="col-sm-8 input-group">
-                         </div>
-                         <div class="col-sm-2">
+                    <div class="row ml-2 mr-2 mt-3 ">
+                         <div class="col-sm-12 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i
-                                        class="fas fa-plus-circle" style="font-size: 15px;"></i>Thêm phân bón</button>
+                                        class="fas fa-plus-circle" style="font-size: 15px;"></i>Thêm loại thuốc mới</button>
                          </div>
                     </div>
                     <div class=" row pesticideList mt-3 ml-2 mr-2 justify-content-center">
-                         <table class="table mt-1 ml-2 mr-2">
+                         <table class="table mt-1 ml-2 mr-3">
                               <thead>
                                    <tr>
                                         <th>STT</th>
@@ -86,9 +84,9 @@
                                         currentPage }} <span class="sr-only">(current)</span></a>
                               </li>
                               <li class="page-item"><a class="page-link" href="#" v-if="currentPage < num_pages(pesticideList)"
-                                        @click="change_page(currentPage + 1, seedList)">{{ currentPage + 1 }}</a></li>
+                                        @click="change_page(currentPage + 1, pesticideList)">{{ currentPage + 1 }}</a></li>
                               <li class="page-item">
-                                   <a class="page-link" href="#" @click="change_page('+', seedList)"
+                                   <a class="page-link" href="#" @click="change_page('+', pesticideList)"
                                         v-if="currentPage < num_pages(pesticideList)">{{
                                              next }}</a>
                               </li>
@@ -194,22 +192,23 @@ export default {
                     console.log(respone.data);
                     var temp = (String(this.pesticideList[this.pesticideList.length - 1].Pesticide_id)).split("");
                     var id = "";
-                    temp.forEach(element => {
+                    for (let index = 0; index < temp.length; index++) {
+                         const element = temp[index];
                          if (element != "P" && element != "E" & element != "0") {
-                              for (let index = temp.indexOf(element); index < temp.length; index++) {
-                              id += temp[index];
-                               break;
-                             }
+                              for (let i = index; i < temp.length; i++) {
+                                   id = id.concat(temp[i]);                               
+                              }
+                              break;
                          }
-                    });
+                    }
 
-                    if (id < 10) {
+                    if (id < 9) {
                          this.newPesticide.Pesticide_id = "PE0000000" + String(Number(id) + 1);
                     }
-                    else if (id > 9 && id < 100) {
+                    else if (id >= 9 && id < 99) {
                          this.newPesticide.Pesticide_id = "PE000000" + String(Number(id) + 1);
                     }
-                    else if (id > 99 && id < 1000) {
+                    else if (id >= 99 && id < 99) {
                          this.newPesticide.Pesticide_id = "PE00000" + String(Number(id) + 1);
                     }
                     else {
@@ -304,20 +303,31 @@ export default {
 
 
           //  so hang của danh sach danh muc
-          get_rows() {
+          get_rows(list) {
                var start = (this.currentPage - 1) * this.elementsPerPage;
                var end = start + this.elementsPerPage;
-               return this.pesticideList.slice(start, end);
+               return list.slice(start, end);
+
           },
 
           // So trang cua danh sach danh muc
-          num_pages() {
-               return Math.ceil(this.pesticideList.length / this.elementsPerPage);
-
+          num_pages(list) {
+               return Math.ceil(list.length / this.elementsPerPage);
           },
 
-          async change_page(page) {
-               this.currentPage = page;
+          async change_page(page, list) {
+               if (page == '-' && this.currentPage > 1) {
+                    this.currentPage -= 1;
+                    this.get_rows(list);
+               }
+               else if (page == '+' && this.currentPage < this.num_pages(list)) {
+                    this.currentPage += 1;
+                    this.get_rows(list);
+               }
+               else {
+                    this.currentPage = page;
+                    this.get_rows(list);
+               }
           },
      },
 

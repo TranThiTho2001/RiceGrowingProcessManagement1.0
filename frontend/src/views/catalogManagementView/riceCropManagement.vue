@@ -1,5 +1,5 @@
 <template>
-     <div class="container-fluid riceCropManagement " style="background-color: #EAEAEA;">
+     <div class="container-fluid riceCropManagement" style="background-color:  #EAEAEA;">
           <div class="row riceCropManagemenFrame">
                <div class="col-md-2 col-sm-12 leftRiceCropManagement">
                     <div class="row">
@@ -7,15 +7,16 @@
                     </div>
                </div>
                <div class="col-md-10 rightRiceCropManagement">
-                    <div class="row mr-2 mt-2 mb-5">
-                         <div class="col-md-7 pr-5">
-                              <div class="row">
-                                   <input type="text" class="form-control col-sm-8 ml-4 pt-2 inputSearch"
+                    <div class="row mr-2 pt-2 pb-5">
+                         <div class="col-md-7 pr-5 " >
+                              <div class="row text-right">
+                                   <div class="col-sm-12">
+                                   <input type="text" class="form-control col-sm-8 inputSearch"
                                         placeholder="Tìm theo tên" style="border-radius:10px" v-model="nameToSearch"
                                         @keyup.enter="searchName" />
-                                   <button class=" btnSearch pt-2" @click="searchName">
+                                   <button class="btnSearch" @click="searchName">
                                         <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                                   </button>
+                                   </button></div>
                               </div>
                          </div>
                          <div class="col-md-3"></div>
@@ -26,33 +27,33 @@
                          </div>
                     </div>
 
-                    <div class="row mr-3 ml-3">
+                    <div class="row ml-3 mt-4 pt-3">
                          <div class="col-sm-10"></div>
                          <div class="col-sm-2">
-                              <button  class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
+                              <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
                                         style="font-size: 15px;"></i>Thêm Mùa Vụ</button>
                          </div>
                     </div>
-                    <div class=" row riceCropList mt-5 ml-2 mr-4 text-left">
+                    <div class=" row riceCropList ml-2 mr-2 text-left mt-2 pt-1">
                          <carousel :settings="settings" :breakpoints="breakpoints" style="width:100%">
                               <slide v-for="(riceCrop, i) in riceCropListByMonitoring" :key="i">
                                    <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
                               </slide>
                               <template #addons>
-                                   <navigation />
+                                   <navigation v-if="riceCropListByMonitoring.length > 6" />
                                    <!-- <pagination style="color: #00BA13;" /> -->
                               </template>
                          </carousel>
                     </div>
                     <div class="row riceCropList pt-1 ml-2 mr-4 text-left">
                          <carousel :settings="settings" :breakpoints="breakpoints" style="width:100%">
-                              <slide v-for="(riceCrop, i) in riceCropListByFinish" :key="i" style="text-align: left; ">
+                              <slide v-for="(riceCrop, i) in riceCropListByFinish" :key="i">
                                    <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
 
                               </slide>
                               <template #addons>
-                                   <navigation v-if="riceCropListByFinish.length > 4" />
-                                   <pagination v-if="riceCropListByFinish.length > 4" style="color: #00BA13;" />
+                                   <navigation v-if="riceCropListByFinish.length > 6" />
+                                   <!-- <pagination v-if="riceCropListByFinish.length > 4" style="color: #00BA13;" /> -->
                               </template>
                          </carousel>
                     </div>
@@ -119,7 +120,8 @@ import CreateSprayingTimesForm from '@/components/catalogManagementComponents/cr
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import RiceCropComponent from '@/components/catalogManagementComponents/riceCropComponent.vue';
 import 'vue3-carousel/dist/carousel.css'
-import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
+import { Carousel, Slide, Navigation } from 'vue3-carousel';
+// import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
 
 export default {
      name: "HomePage",
@@ -133,7 +135,6 @@ export default {
           RiceCropComponent,
           Carousel,
           Slide,
-          Pagination,
           Navigation,
      },
 
@@ -172,23 +173,39 @@ export default {
 
                },
                breakpoints: {
-                    700:{
+                    500: {
                          itemsToShow: 2,
-                         snapAlign: 'center',
+                         snapAlign: 'left',
                     },
+                    800: {
+                         itemsToShow: 3,
+                         snapAlign: 'left',
+                    },
+
                     // 700px and up
                     1000: {
-                         itemsToShow: 3.5,
-                         snapAlign: 'center',
+                         itemsToShow: 4.5,
+                         snapAlign: 'left',
                     },
                     1200: {
-                         itemsToShow: 4,
-                         snapAlign: 'center',
+                         itemsToShow: 5,
+                         snapAlign: 'left',
                     },
                     // 1024 and up
-                    1300: {
-                         itemsToShow: 5,
+                    1400: {
+                         itemsToShow: 5.5,
                          snapAlign: 'start',
+                         
+                    },
+                    1500: {
+                         itemsToShow: 6,
+                         snapAlign: 'start',
+                         
+                    },
+                    1600: {
+                         itemsToShow: 8,
+                         snapAlign: 'start',
+                         
                     },
 
                },
@@ -220,15 +237,15 @@ export default {
                     var temp = (String(this.fullListRiceCrop[this.fullListRiceCrop.length - 1].RiceCropInformation_id)).split("");
                     console.log(temp)
                     var id = "";
-                    temp.forEach(element => {
-                         if (element != "R" && element != "I" && element != "C" & element != "0") {
-                              for (let index = temp.indexOf(element); index < temp.length; index++) {
-                                   id += temp[index];
-                                   break;
+                    for (let index = 0; index < temp.length; index++) {
+                         const element = temp[index];
+                         if (element != "R" && element != "C" && element != "I" & element != "0") {
+                              for (let i = index; i < temp.length; i++) {
+                                   id = id.concat(temp[i]);
                               }
-
+                              break;
                          }
-                    });
+                    }
                     console.log(id);
 
                     if (id < 9) {
@@ -650,24 +667,69 @@ export default {
 
           },
 
+          async searchName() {
+               if (this.nameToSearch == "") {
+                    this.retrieveRiceCropList();
+               }
+               else {
+                    const [error, response] = await this.handle(
+                         RiceCropService.findByEmployeeAndRiceCropName(this.nameToSearch, this.currentUser.Employee_id)
+                    );
+                    if (error) {
+                         console.log(error);
+                    } else {
+                         if (response.data != null) {
+                              console.log(response.data);
+                              this.riceCropList = response.data;
+                              this.riceCropListByFinish = [];
+                              this.riceCropListByMonitoring = [];
+                              this.riceCropList.forEach(element => {
+                                   if (element.RiceCropInformation_harvestDate == null) {
+                                        this.riceCropListByMonitoring.push(element);
+                                   }
+                                   else {
+                                        this.riceCropListByFinish.push(element);
+                                   }
+                              });
+                         }
+                         else {
+                              console.log(response.data)
+                         }
+
+                    }
+               }
+
+          },
+
+
           formatDate(data) {
                return (moment(String(data)).format("YYYY-MM-DD")).slice(0, 10);
           },
-          //  so hang của danh sach danh muc
-          get_rows() {
+          get_rows(list) {
                var start = (this.currentPage - 1) * this.elementsPerPage;
                var end = start + this.elementsPerPage;
-               return this.riceCropList.slice(start, end);
+               return list.slice(start, end);
+
           },
 
           // So trang cua danh sach danh muc
-          num_pages() {
-               return Math.ceil(this.riceCropList.length / this.elementsPerPage);
-
+          num_pages(list) {
+               return Math.ceil(list.length / this.elementsPerPage);
           },
 
-          async change_page(page) {
-               this.currentPage = page;
+          async change_page(page, list) {
+               if (page == '-' && this.currentPage > 1) {
+                    this.currentPage -= 1;
+                    this.get_rows(list);
+               }
+               else if (page == '+' && this.currentPage < this.num_pages(list)) {
+                    this.currentPage += 1;
+                    this.get_rows(list);
+               }
+               else {
+                    this.currentPage = page;
+                    this.get_rows(list);
+               }
           },
      },
 
@@ -701,5 +763,9 @@ export default {
      color: rgb(32, 97, 97);
      background-color: rgb(206, 202, 202);
      box-shadow: 4px;
+}
+
+.riceCropManagement{
+     height: 100vmin;
 }
 </style>

@@ -8,7 +8,11 @@ module.exports = (app) => {
      router.get("/", riceCropInformation.findAll);
 
      //find by id
-     router.get("/:id", riceCropInformation.find)
+     router.get("/:id", riceCropInformation.find);
+
+     //find by employee and name ricecrop
+     router.get("/:name/:Employee_id", riceCropInformation.findbyEmployeeAndRiceCrop)
+
 
      // Store 
      router.post("/", riceCropInformation.store);

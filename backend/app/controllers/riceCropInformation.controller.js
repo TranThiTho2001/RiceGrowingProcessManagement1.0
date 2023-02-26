@@ -45,6 +45,20 @@ exports.find = async (req, res) => {
     })
 };
 
+exports.findbyEmployeeAndRiceCrop = async (req, res) => {
+    const name = req.params.name;
+    const id = req.params.Employee_id;
+    RiceCropInformation.getByemployeeAndRiceCrop(name, id,  (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                res.send("Không tìm thấy vụ mùa lúa.")
+            } else {
+                res.send("Lỗi trong quá trình tìm kiếm. Vui lòng thử lại sau!!!!")
+            }
+        } else res.send(data)
+    })
+};
+
 // Update a RiceCropInformation identified by the id in the request
 exports.update = async (req, res) => {
      RiceCropInformation.updateById(

@@ -25,34 +25,38 @@
           </div>
           <div class="row bottomRow mt-1">
                <div class="categoryList col-sm-12">
-                    <div class="row ">
-                         <button class="btn ml-2 pl-2 pr-5 btn-sm btn-outline-secondary btnMonitor" @click="goToQLMonitor">
-                              <i class="fas fa-chart-line">&nbsp; </i>Theo Dõi Mùa Vụ</button>
+                    <div class="row" v-if="currentuser.Role_id=='03' || currentuser.Role_id=='02'">
+                         <button class="btn ml-2 pl-4 pr-5 btn-sm btn-outline-secondary btnMonitor" @click="goToQLMonitor">
+                              <i class="fas fa-chart-line">&nbsp;</i>Theo Dõi Mùa Vụ</button>
                     </div>
-                    <div class="row mt-1 pt-2">
-                         <button class="btn ml-2 pl-2 pr-5 btn-sm btn-outline-secondary btnOtherActivities"
+                    <div class="row" v-if="currentuser.Role_id=='01'">
+                         <button class="btn ml-2 pl-4  pr-2 mr-2 btn-sm btnEmployee">
+                              <i class="fas fa-users">&nbsp;</i>Quản Lý Nhân Viên</button>
+                    </div>
+                    <div class="row mt-1 pt-2" v-if="currentuser.Role_id=='03' || currentuser.Role_id=='02'">
+                         <button class="btn ml-2 pl-4 pr-5 btn-sm btn-outline-secondary btnOtherActivities"
                               @click="goToOtherActivities"> <i class="far fa-list-alt">&nbsp;</i>Các Hoạt Động
                          </button>
                     </div>
-                    <div class="row mt-3">
-                         <button class="btn ml-2 pl-2 pr-5 btn-sm btn-outline-secondary btnSeed" @click="goToSeed"><i
+                    <div class="row mt-3" v-if="currentuser.Role_id=='03' || currentuser.Role_id=='02'">
+                         <button class="btn ml-2 pl-4 pr-5 btn-sm btn-outline-secondary btnSeed" @click="goToSeed"><i
                                    class="fas fa-seedling">&nbsp;</i>Giống Lúa</button>
                     </div>
-                    <div class="row mt-3">
-                         <button class="btn ml-2 pl-2 pr-5 btn-sm btn-outline-secondary btnFertilizer"
+                    <div class="row mt-3" v-if="currentuser.Role_id=='03' || currentuser.Role_id=='02'">
+                         <button class="btn ml-2 pl-4 pr-5 btn-sm btn-outline-secondary btnFertilizer"
                               @click="goToFertilizer">
                               <i class="fas fa-fill-drip">&nbsp;</i>Phân Bón </button>
                     </div>
-                    <div class="row mt-3">
-                         <button class="btn ml-2 pl-2 pr-5 btn-sm btn-outline-secondary btnEpidemic" @click="goToEpidemic"><i
+                    <div class="row mt-3" v-if="currentuser.Role_id=='03' || currentuser.Role_id=='02'">
+                         <button class="btn ml-2 pl-4 pr-5 btn-sm btn-outline-secondary btnEpidemic" @click="goToEpidemic"><i
                                    class="fas fa-spider">&nbsp;</i>Dịch Bệnh </button>
                     </div>
-                    <div class="row mt-3">
-                         <button class="btn ml-2 pl-2 pr-5 btn-sm btn-outline-secondary btnArableland"
+                    <div class="row mt-3" v-if="currentuser.Role_id=='03' || currentuser.Role_id=='02'">
+                         <button class="btn ml-2 pl-4 pr-5 btn-sm btn-outline-secondary btnArableland"
                               @click="goToArableLand"><i class="fas fa-square">&nbsp;</i>Mẫu Ruộng</button>
                     </div>
-                    <div class="row mt-3">
-                         <button class="btn ml-2 pl-2 pr-2 btn-sm btn-outline-secondary btnPesticide"
+                    <div class="row mt-3" v-if="currentuser.Role_id=='03' || currentuser.Role_id=='02'">
+                         <button class="btn ml-2 pl-4 pr-2 btn-sm btn-outline-secondary btnPesticide"
                               @click="goToPesticide"><i class="fas fa-flask">&nbsp;</i>Thuốc Trị Bệnh Dịch </button>
                     </div>
                </div>
@@ -77,7 +81,7 @@ export default {
      methods: {
 
           goToQLMonitor() {
-               this.$router.push("/Monitor");
+               this.$router.push("/MainForm");
           },
           goToOtherActivities() {
                this.$router.push("/OtherActivities");
@@ -139,20 +143,16 @@ export default {
 
  }
 
- .navigationBar .null {
-      height: 19%;
- }
-
  .categoryList {
       width: 100%;
  }
 
  .categoryList .btn-outline-secondary,
  .moreInformation .btn-outline-secondary {
-      font-size: 19px;
+      font-size: 17px;
       font-family: Inter;
       text-align: left;
-      min-width: 94%;
+      width: 94%;
       display: block;
       background-color: none;
       color: #737374;
@@ -164,7 +164,7 @@ export default {
  .moreInformation .btn-outline-secondary:hover {
       display: block;
       width: 94%;
-      font-size: 19px;
+      font-size: 17px;
       background-color: #FFFA37;
       color: #5C5D22;
       border: none;
@@ -185,4 +185,19 @@ export default {
 
  .navigationBar .topRow {
       /* border-bottom: 1px solid #919302; */
- }</style>
+ }
+ 
+ .navigationBar .btnEmployee{
+     font-size: 16px;
+      font-family: Inter;
+      text-align: left;
+      min-width: 90%;
+      width: 100%;
+      display: block;
+      background-color: none;
+      color: #737374;
+      border: none;
+      border-radius: 14px;
+      font-weight: 500;
+ }
+ </style>

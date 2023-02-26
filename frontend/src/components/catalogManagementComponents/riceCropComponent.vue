@@ -19,15 +19,15 @@
                          </div>
                          <div class="row pl-2 pr-1 mb-2">
                               <div class="col-sm-2">
-                                   <i class="fas fa-info-circle mt-2" style="color: #919302; font-size: 30px;"></i>
+                                   <i class="fas fa-info-circle mt-2" style="color: #919302; font-size: 28px;"></i>
                               </div>
-                              <div class="col-sm-8 text-center " v-if="riceCrop.RiceCropInformation_harvestDate == null">
-                                   <button class="btn  btn-sm btnMonitoring">Đang theo dõi</button>
+                              <div class="col-sm-8 text-center" v-if="riceCrop.RiceCropInformation_harvestDate == null">
+                                   <button class="btn  btn-sm btnMonitoring ">Đang theo dõi</button>
                               </div>
                               <div class="col-sm-8 text-center" v-if="riceCrop.RiceCropInformation_harvestDate != null">
                                    <button class="btn  btnFinish">Đã kết thúc</button>
                               </div>
-                              <div class="col-sm-1">
+                              <div class="col-sm-2">
                                    <i class="fas fa-ellipsis-v mt-2" style="color: #919302; font-size: 25px;"></i>
                               </div>
                          </div>
@@ -110,6 +110,9 @@ export default {
      font-size: 16px;
      color: #919302;
      font-weight: 500;
+     white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
 }
 
 .riceCropComponent .textTenSanPham {
@@ -122,18 +125,18 @@ export default {
 
 .riceCropComponent .btnMonitoring,
 .riceCropComponent .btnFinish {
-     font-size: 18px;
+     font-size: 16px;
      width: max-content;
      font-weight: 600;
      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
      border-radius: 15px;
-     flex-direction: row;
-     justify-content: center;
+     justify-content:center;
      align-items: center;
-     padding: 10px;
-     gap: 10px;
-     height: 43px;
+     height: 30px;
+     position: absolute;
      display: flex;
+     left: 14%;
+     top:15%
 }
 
 .riceCropComponent .btnFinish {

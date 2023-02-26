@@ -1,72 +1,69 @@
-
+  
 <template>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
   <div class="container-fluid loginFrame">
-    <div class="row loginForm">
+    <div class="row background" style="position: fixed; width: 100%; z-index: -10;"> <!-- background-->
       <div class="col-sm-6 leftForm">
-        <div class="row mt-5">
-          <div class="col-sm-5"></div>
-          <div class="col-sm-7 iconFamer text-right">
-            <img src="../images/Rice3.png" class="famerImage ">
-          </div>
-        </div>
       </div>
       <div class="col-sm-6 rightForm">
-        <div class="row mt-5">
-          <div class="col-sm-7 content">
-            <div class="row mt-5">
-              <Form @submit="signin()" :validation-schema="schema" v-slot="{ isSubmitting }" class="form container-fluid">
-                <h1 class="title"  style="text-align: center; margin-bottom: 10%;">ĐĂNG NHẬP</h1>
-                <div class="form-group text-left ml-4" style="width: 87%;">
-                  <label for="username" class="labelTitle">Tên tài khoản đăng nhập</label>
-                  <Field name="username" type="text" class="form-control" placeholder="Nhập tên tài khoản đăng nhập"
-                    v-model="employee.Employee_id" />
-                  <ErrorMessage name="username" class="error-feedback" />
+      </div>
+    </div>
+    <div class="form-center">
+      <div class="form-login">
+        <img src="../images/Rice3.png" class="famerImage">
+        <div class="row" style="height: 100%;">
+          <div class="col-sm-6 iconFamer"> </div>
+          <div class="col-sm-6 content ">
+            <Form @submit="signin()" :validation-schema="schema" v-slot="{ isSubmitting }" class="form container-fluid mt-5">
+              <h1 class="title" style="text-align: center; margin-bottom: 10%;">ĐĂNG NHẬP</h1>
+              <div class="form-group text-left ml-2" style="width: 97%;">
+                <label for="username" class="labelTitle">Tên tài khoản</label>
+                <Field name="username" type="text" class="form-control" placeholder="Nhập tên tài khoản đăng nhập"
+                  v-model="employee.Employee_id" />
+                <ErrorMessage name="username" class="error-feedback" />
 
+              </div>
+
+              <div class="form-group text-left ml-4 pr-3" style="margin-top:10%">
+                <label for="password" class="labelTitle" style="margin-left: -10px;">Mật khẩu</label>
+                <div class="row passField">
+                  <Field v-if="!isOpenPassword" name="password" type="password" class=" form-control "
+                    placeholder="Nhập mật khẩu" v-model="employee.Employee_password" />
+                  <Field v-if="employee.Employee_password == '' & isOpenPassword" name="password" type="text"
+                    class="form-control " placeholder="Nhập mật khẩu" v-model="employee.Employee_password" />
+
+                  <Field v-if="employee.Employee_password != '' & isOpenPassword" name="password" type="text"
+                    class="form-control " placeholder="{{employee.Employee_password}}"
+                    v-model="employee.Employee_password" />
+
+                  <span v-if="!isOpenPassword" class="btn far fa-eye btnHienMatKhau "
+                    @click="isOpenPassword = !isOpenPassword"></span>
+                  <span v-else class="btn far fa-eye-slash btnAnMatKhau "
+                    @click="isOpenPassword = !isOpenPassword"></span>
                 </div>
 
-                <div class="form-group text-left ml-5 pr-3" style="margin-top:10%">
-                  <label for="password" class="labelTitle" style="margin-left: -10px;">Mật khẩu</label>
-                  <div class="row passField">
-                    <Field v-if="!isOpenPassword" name="password" type="password" class=" form-control "
-                      placeholder="Nhập mật khẩu" v-model="employee.Employee_password" />
-                    <Field v-if="employee.Employee_password == '' & isOpenPassword" name="password" type="text"
-                      class="form-control " placeholder="Nhập mật khẩu" v-model="employee.Employee_password" />
-
-                    <Field v-if="employee.Employee_password != '' & isOpenPassword" name="password" type="text"
-                      class="form-control " placeholder="{{employee.Employee_password}}"
-                      v-model="employee.Employee_password" />
-
-                    <span v-if="!isOpenPassword" class="btn far fa-eye btnHienMatKhau "
-                      @click="isOpenPassword = !isOpenPassword"></span>
-                    <span v-else class="btn far fa-eye-slash btnAnMatKhau "
-                      @click="isOpenPassword = !isOpenPassword"></span>
-                  </div>
-
-                  <ErrorMessage name="password" class="error-feedback mt-1 mb-2" />
-                </div>
+                <ErrorMessage name="password" class="error-feedback mt-1 mb-2" />
+              </div>
 
 
-                <p v-if="message" style=" color: red; text-align: center; font-size: 17px; margin-top: 4%;">
-                  {{ message }}
-                </p>
+              <p v-if="message" style=" color: red; text-align: center; font-size: 17px; margin-top: 4%;">
+                {{ message }}
+              </p>
 
-                <div class="form-group mt-3 btn-login ">
-          
-                  <button class="btn btn-sm btn-outline-secondary btn-block btnDangNhap" :disabled="isSubmitting"
-                    :class="{ 'submitting': isSubmitting }">
-                    <span v-show="loading" class="spinner-border spinner-border-sm"></span>
-                    <span>Đăng Nhập</span>
-                  </button>
-                </div>
-              </Form>
-            </div>
+              <div class="form-group mt-2 btn-login ">
+                <button class="btn btnDangNhap" :disabled="isSubmitting"
+                  :class="{ 'submitting': isSubmitting }">
+                  <span v-show="loading" class="spinner-border spinner-border-sm"></span>
+                  <span>Đăng Nhập</span>
+                </button>
+              </div>
+            </Form>
             <img src="../images/Rice4.png" class="studentImage">
           </div>
-          <div class="col-sm-5"></div>
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -145,15 +142,31 @@ export default {
         console.log("login thanh coong!!!")
         console.log(data);
         if (data.Role_id == "01") {
-          this.$router.push("/SystemManagement");
+          this.$router.push("/EmployeeManager");
         }
 
-        else if (data.Role_id == "02") {
-          this.$router.push("/HomePage");
+        else if (data.Role_id == "02" || data.Role_id == "03") {
+          this.$router.push("/Monitor");
         }
 
       }
     },
+
+    async getAPI() {
+      // // let urlAPI = `https://history.openweathermap.org/data/2.5/history/city?q=London,type=hour&start=1643763774&end=1643763774&appid=9aed1da02f473617712a9955f04e0d01`;
+      // let urlAPI =  `https://api.openweathermap.org/data/2.5/weather?q=Can Tho&appid=9aed1da02f473617712a9955f04e0d01`
+      // // let urlAPI = `https://history.openweathermap.org/data/2.5/history/city?q=London,UK&appid=9aed1da02f473617712a9955f04e0d01`
+      // let urlAPI = `https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}`
+      // let data = await fetch(urlAPI).then( res => res.json())
+      // console.log(data)
+      // var temp = (data.main.temp-273.15).toFixed(0);
+      // var pre = data.rain;
+      // console.log(temp+ "C");
+      // console.log(pre+ "");
+      // let url = `http://api.weatherapi.com/v1/current.json?key=48d1cbaaef0941fca5424813232502&q=London&aqi=no`;
+      // let data = await fetch(url).then( res => res.json())
+      // console.log(data.Date)
+    }
 
 
   },
@@ -161,6 +174,7 @@ export default {
     this.employee.Employee_password = '';
     this.initEmployeeState();
     this.retrieveEmployee();
+    // this.getAPI();
   },
 }
 </script>

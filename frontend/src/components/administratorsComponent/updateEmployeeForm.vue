@@ -1,10 +1,20 @@
 <template>
-     <Form @submit="$emit('updateEmployee-submit', newemployee)" :validation-schema="schema"
+     <Form @submit="newemployee.close = true, $emit('updateEmployee-submit', newemployee)" :validation-schema="schema"
           class="container-fluid updateEmployeeForm">
+
+          <div class="row">
+               <div class="col-sm-12 text-right">
+                    <i class="fas fa-times"
+                         @click="newemployee.close = false, $emit('updateEmployee-submit', newemployee)"
+                         style="font-size: 25px; "></i>
+               </div>
+          </div>
+
           <div class="row">
                <p class="col-sm-12 text-center functionName"><span class="fa fa-plus-circle"> </span> Cập nhật thông tin nhân viên
                </p>
           </div>
+
           <div class="row  content">
                <div class="col-md-6">
                     <div class="form-group">
@@ -28,10 +38,10 @@
 
                     <div class="form-group">
                          <label for="birthDate" class="mt-3">Ngày sinh</label>
-                         <Field name="birthDate" class="form-control" v-model="newemployee.Employee_birthdate"
+                         <Field name="birthDate" class="form-control" v-model="newemployee.Employee_birthDate"
                               placeholder="Ngày sinh">
-                              <datepicker  :value="newemployee.Employee_birthdate" :enable-time-picker="false" :hide-input-icon="true" 
-                                    v-model="newemployee.Employee_birthdate" >
+                              <datepicker  :value="newemployee.Employee_birthDate" :enable-time-picker="false" :hide-input-icon="true" 
+                                    v-model="newemployee.Employee_birthDate" >
                               </datepicker>
                          </Field>
                          <ErrorMessage name="birthDate" class="error-feedback" />
@@ -87,7 +97,7 @@
                     <div class="form-group">
                          <label for="role" class="mt-3">Chức vụ &nbsp; </label><br>
                          <Field name="role" class="form-control" v-model="newemployee.Role_id" placeholder="Chức vụ: ">
-                              <select v-model="newemployee.Role_id" class="selectBox ">
+                              <select v-model="newemployee.Role_name" class="selectBox ">
                                    <option selected style="font-size:17px">Quản lý</option>
                                    <option>Chuyên gia</option>
                                    <option>Nhân viên</option>
@@ -113,7 +123,7 @@
           <div class="form-group">
                <div class="row">
                     <div class="col-sm-4"></div>
-                    <div class="col-sm-4 mt-2 mb-3">
+                    <div class="col-sm-4 mt-2 mb-3 text-center">
                          <span v-if="message2 == 'Cập nhật thành công.'" class="fas fa-check-circle"
                               style="color:#00BA13; text-align: center;margin-left: 15%;"></span>
                          <span v-if="message1 == 'Cập nhật không thành công.'" class="fas fa-times-circle "

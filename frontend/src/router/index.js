@@ -56,12 +56,12 @@ const routes = [
         
     },
 
-    // {
-    //     path: "/OtherActivities",
-    //     alias: "/OtherActivities",
-    //     name: "OtherActivities",
-    //     component: () => import("../views/catalogManagementView/OtherActivitiesManagement.vue"),
-    // },
+    {
+        path: "/MainForm",
+        alias: "/mainForm",
+        name: "OtherActivities",
+        component: () => import("../views/MainForm.vue"),
+    },
     
     {
         path: "/Seed",

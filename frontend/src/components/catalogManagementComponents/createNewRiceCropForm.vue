@@ -85,9 +85,9 @@
                          <label for="harvestDate" class="mt-3">Ngày thu hoạch</label>
                          <Field name="harvestDate" class="form-control" v-model="newricecrop.RiceCropInformation_harvestDate"
                               placeholder="Ngày sinh">
-                              <datepicker :enable-time-picker="false" :value="newricecrop.RiceCropInformation_harvestDate"
+                              <datepicker :enable-time-picker="false" :value="newricecrop.RiceCropInformation_harvestDate" :input-class-name ="myclass"
                                    :hide-input-icon="true" v-model="newricecrop.RiceCropInformation_harvestDate"
-                                   placeholder="YYYY-MM-DD">
+                                   placeholder="YYYY-MM-DD" style="background-color: red !important; ">
                               </datepicker>
                          </Field>
                          <ErrorMessage name="harvestDate" class="error-feedback" />
@@ -171,4 +171,9 @@ export default {
 };
 </script>
  
-<style>@import url(../../assets/riceCropStyle.css);</style>
+<style >
+@import url(../../assets/riceCropStyle.css);
+.createRiceCropForm{
+     height: 100px;
+}
+</style>

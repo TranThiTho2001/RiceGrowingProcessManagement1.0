@@ -21,6 +21,13 @@
                               @updateRiceCrop-submit="updateRiceCrop" :message1="message1" :message2="message2" />
                     </div>
                     <div class="row functionName mt-1 ml-2">
+                         <div class="btn btn-midle text-center btnImage" v-if="isOpenImage" @click="setTable('btnImage')"
+                              style="background-color: bisque;">
+                              Hình ảnh
+                         </div>
+                         <div class="btn btn-midle text-center btnImage" v-if="!isOpenImage" @click="setTable('btnImage')">
+                              Hình ảnh
+                         </div>
                          <div class=" btn btn-midle text-center btnFertilizerTimes" v-if="!isOpenTableFertilizerTimes"
                               @click="setTable('btnFertilizerTimes')">Bón phân</div>
                          <div class=" btn btn-midle text-center btnFertilizerTimes" v-if="isOpenTableFertilizerTimes"
@@ -41,6 +48,12 @@
                               style="background-color: bisque;">Người theo dõi</div>
                          <div class=" btn btn-midle text-center btnAttendee" v-if="!isOpenTableMonitor"
                               @click="setTable('btnAttendee')">Người theo dõi</div>
+
+                    </div>
+                    <div class="row activitiesList ml-2 mr-2">
+                         <button class="btnAddimage" @click="isOpenCreateImage = !isOpenCreateImage">
+                              Thêm
+                         </button>
 
                     </div>
                     <!-- ----------------------FertilizerTimes Tab-------------- -->
@@ -280,7 +293,8 @@
                               </thead>
                               <tbody>
                                    <tr v-for="(monitor, i ) in get_rows(monitorList)" :key="i">
-                                        <td class="text-center" v-if="currentPage > 1">{{ i + ((currentPage - 1) * elementsPerPage) }}
+                                        <td class="text-center" v-if="currentPage > 1">{{ i + ((currentPage - 1) *
+                                             elementsPerPage) }}
                                         </td>
                                         <td class="text-center" v-else>{{ i }}</td>
                                         <td class="text-center">{{ monitor.Employee_id }}</td>
@@ -392,6 +406,9 @@
                     <CreateMonitorForm v-if="isOpenCreateMonitorForm" :newMonitor="newMonitor" :employeeList="employeeList"
                          :newRiceCrop="newRiceCrop" @addMonitor-submit="createNewMonitor" :message1="message1"
                          :message2="message2" />
+
+                    <CreateImageForm v-if="isOpenCreateImage" :newImage="newImage" :message1="message1" :message2="message2"
+                         @addImage-submit=createNewImage />
                </div>
           </div>
      </div>
@@ -424,7 +441,9 @@ import CreateEpidemicTimesForm from '@/components/catalogManagementComponents/cr
 import UpdateEpidemicTimesForm from '@/components/catalogManagementComponents/updateEpidemicTimesForm.vue';
 import EmployeeService from '@/services/employee.service';
 import CreateMonitorForm from '@/components/catalogManagementComponents/createNewMonitorForm.vue';
-
+// import CreateImageForm from '@/components/catalogManagementComponents/createNewImageForm.vue';
+import CreateImageForm from '@/components/catalogManagementComponents/SanPhamFormThem.vue';
+import ImageService from '@/services/image.service';
 export default {
      name: "riceCropDetail",
 
@@ -441,6 +460,7 @@ export default {
           CreateEpidemicTimesForm,
           UpdateEpidemicTimesForm,
           CreateMonitorForm,
+          CreateImageForm,
           TopHeader,
      },
 
@@ -473,6 +493,9 @@ export default {
                isOpenTableOtherActivitiesTimes: false,
                isOpenTableEpidemicTimes: false,
                isOpenTableMonitor: false,
+               isOpenImage: true,
+               isOpenCreateImage: false,
+               newImage: {},
                isOpenCreateFertilizerTimesForm: false,
                isOpenUpdateFertilizerTimesForm: false,
                fertilizerTimesChoosen: {},
@@ -491,7 +514,7 @@ export default {
                delete: "",
                isOpenConfirm: false,
                isOpenMessage: false,
-               message:"",
+               message: "",
                monitorChoosen: {},
           }
      },
@@ -663,7 +686,7 @@ export default {
                          console.log(respone.data);
                          this.newFertilizerTimes.FertilizerTimes_times = this.fertilizerTimesList[this.fertilizerTimesList.length - 1].FertilizerTimes_times + 1;
                     }
-                    else{
+                    else {
                          this.newFertilizerTimes.FertilizerTimes_times = 1;
                     }
                }
@@ -682,7 +705,7 @@ export default {
                          console.log(respone.data);
                          this.newSprayingTimes.SprayingTimes_times = this.SprayingTimesList[this.SprayingTimesList.length - 1].SprayingTimes_times + 1;
                     }
-                    else{
+                    else {
                          this.newSprayingTimes.SprayingTimes_times = 1;
 
                     }
@@ -918,40 +941,40 @@ export default {
 
           },
 
-          async setDelete(data){
+          async setDelete(data) {
                this.delete = data;
           },
 
-          async choosenDelete(){
-               if(this.delete == "FertilizerTimes"){
+          async choosenDelete() {
+               if (this.delete == "FertilizerTimes") {
                     this.deleteFertilizerTimes(this.fertilizerTimesChoosen);
                }
-               else if(this.delete == "SprayingTimes"){
+               else if (this.delete == "SprayingTimes") {
                     this.deleteSprayingTimes();
                }
-               else if(this.delete == "EpidemicTimes"){
+               else if (this.delete == "EpidemicTimes") {
                     this.deleteEpidemicTimes();
                }
-               else if(this.delete == "Monitor"){
+               else if (this.delete == "Monitor") {
                     this.deleteMonitor();
                }
-               else{
+               else {
                     this.delete = ""
                }
           },
 
-          async deleteFertilizerTimes(data){
+          async deleteFertilizerTimes(data) {
                const [error, respone] = await this.handle(
-                         FertilizerTimesService.delete(this.newRiceCrop.RiceCropInformation_id, data.Fertilizer_id, data.FertilizerTimes_times, data)
-                    );
-                    if (error) {
-                         console.log(error);
-                         this.message = "Xóa không thành công."
-                    } else if (respone.data == "Lỗi trong quá trình lần bón phân!!") {
-                         this.message = "Xóa không thành công."
-                    } else {
-                         this.message = "Đã xóa thành công.";
-                         this.retrieveFertilizerTimesList();
+                    FertilizerTimesService.delete(this.newRiceCrop.RiceCropInformation_id, data.Fertilizer_id, data.FertilizerTimes_times, data)
+               );
+               if (error) {
+                    console.log(error);
+                    this.message = "Xóa không thành công."
+               } else if (respone.data == "Lỗi trong quá trình lần bón phân!!") {
+                    this.message = "Xóa không thành công."
+               } else {
+                    this.message = "Đã xóa thành công.";
+                    this.retrieveFertilizerTimesList();
                }
                this.delete = "";
 
@@ -966,11 +989,11 @@ export default {
                     this.message1 = " ";
                     this.message2 = " ";
                     this.newSprayingTimes = {};
-                    if(this.sprayingTimes.length>0){
+                    if (this.sprayingTimes.length > 0) {
                          this.newSprayingTimes.SprayingTimes_times = this.SprayingTimesList[this.SprayingTimesList.length - 1].SprayingTimes_times + 1;
 
                     }
-                    else{
+                    else {
                          this.newSprayingTimes.SprayingTimes_times = 1;
                     }
                }
@@ -1082,18 +1105,18 @@ export default {
 
           },
 
-          async deleteSprayingTimes(){
+          async deleteSprayingTimes() {
                const [error, respone] = await this.handle(
-                         SprayingTimesService.delete(this.newRiceCrop.RiceCropInformation_id, this.sprayingTimesChoosen.Pesticide_id, this.sprayingTimesChoosen.SprayingTimes_times)
-                    );
-                    if (error) {
-                         console.log(error);
-                         this.message = "Xóa không thành công."
-                    } else if (respone.data == "Lỗi trong quá trình xóa lần phun thuốc!!") {
-                         this.message = "Xóa không thành công."
-                    } else {
-                         this.message = "Xóa thành công.";
-                         this.retrieveSprayingTimesList();
+                    SprayingTimesService.delete(this.newRiceCrop.RiceCropInformation_id, this.sprayingTimesChoosen.Pesticide_id, this.sprayingTimesChoosen.SprayingTimes_times)
+               );
+               if (error) {
+                    console.log(error);
+                    this.message = "Xóa không thành công."
+               } else if (respone.data == "Lỗi trong quá trình xóa lần phun thuốc!!") {
+                    this.message = "Xóa không thành công."
+               } else {
+                    this.message = "Xóa thành công.";
+                    this.retrieveSprayingTimesList();
                }
                this.delete = "";
           },
@@ -1223,24 +1246,24 @@ export default {
                }
           },
 
-          async deleteEpidemicTimes(){
+          async deleteEpidemicTimes() {
                const [error, respone] = await this.handle(
-                         EpidemicTimesService.delete(this.newRiceCrop.RiceCropInformation_id,this.epidemicTimesChoosen.Epidemic_id, this.epidemicTimesChoosen.EpidemicTimes_times)
-                    );
-                    if (error) {
-                         console.log(error);
-                         this.message = "Xóa không thành công."
-                    } else if (respone.data == "Lỗi trong quá trình xóa lần bị dịch bệnh!!") {
-                         this.message = "Xóa không thành công."
-                    } else {
-                         this.message = "Xóa thành công.";
-                         console.log(respone.data);
-                         this.retrieveEpidemicTimesList();
+                    EpidemicTimesService.delete(this.newRiceCrop.RiceCropInformation_id, this.epidemicTimesChoosen.Epidemic_id, this.epidemicTimesChoosen.EpidemicTimes_times)
+               );
+               if (error) {
+                    console.log(error);
+                    this.message = "Xóa không thành công."
+               } else if (respone.data == "Lỗi trong quá trình xóa lần bị dịch bệnh!!") {
+                    this.message = "Xóa không thành công."
+               } else {
+                    this.message = "Xóa thành công.";
+                    console.log(respone.data);
+                    this.retrieveEpidemicTimesList();
                }
                this.delete = "";
           },
 
-          async setMonitorChoosen(data){
+          async setMonitorChoosen(data) {
                this.monitorChoosen = data;
           },
 
@@ -1251,20 +1274,20 @@ export default {
                }
           },
 
-          async deleteMonitor(){
+          async deleteMonitor() {
                const [error, response] = await this.handle(
-                    MonitorService.delete(this.newRiceCrop.RiceCropInformation_id, this.monitorChoosen.Employee_id )
+                    MonitorService.delete(this.newRiceCrop.RiceCropInformation_id, this.monitorChoosen.Employee_id)
                );
                if (error) {
                     console.log(error);
                } else {
-                    if(response.data == error){
+                    if (response.data == error) {
                          this.message = "Xóa không thành công.";
                     }
-                    else if (response.data =="Lỗi trong quá trình xóa quyền giám sát!!") {
+                    else if (response.data == "Lỗi trong quá trình xóa quyền giám sát!!") {
                          this.message = "Xóa không thành công";
                     }
-                    else{
+                    else {
                          this.message = "Xóa thành công.";
                          this.retrieveMonitorList();
                     }
@@ -1278,12 +1301,16 @@ export default {
           },
 
           async setTable(data) {
+               this.isOpenImage = false;
                this.isOpenTableEpidemicTimes = false;
                this.isOpenTableFertilizerTimes = false;
                this.isOpenTableMonitor = false;
                this.isOpenTableOtherActivitiesTimes = false
                this.isOpenTableSprayingTimes = false;
-               if (data == "btnFertilizerTimes") {
+               if (data == "btnImage") {
+                    this.isOpenImage = true;
+               }
+               else if (data == "btnFertilizerTimes") {
                     this.retrieveFertilizerTimesList();
                     this.isOpenTableFertilizerTimes = true;
                     this.num_pages(this.fertilizerList);
@@ -1312,6 +1339,28 @@ export default {
                     this.num_pages(this.SprayingTimesList)
                     this.currentPage = 1;
                }
+          },
+
+          async createNewImage(data) {
+
+               const formData = new FormData();
+               
+            formData.append("image", data);
+            console.log("HFWBEFE   `    ")
+            const response = await ImageService.create(formData);
+            this.fileName = response.data.filename;
+            console.log(response.data)
+          },
+
+          async selectFile(event) {
+                this.newImage.fileImage = event.target.files[0];
+               const Image_name = "image_" + this.newImage.fileImage.name;
+               console.log(Image_name);
+               // this.newimage.Image = event.target.files[0];
+               // console.log(this.newimage.Image);
+               // this.url = URL.createObjectURL(this.fileImage);
+
+               console.log(this.url)
           },
 
           get_rows(list) {
@@ -1365,7 +1414,8 @@ export default {
 };
 </script>
 
-<style>@import url(../../assets/riceCropDetailStyle.css);
+<style>
+@import url(../../assets/riceCropDetailStyle.css);
 
 nav {
      float: right;
@@ -1380,4 +1430,10 @@ nav {
      position: absolute;
      left: 85%;
      top: 94%;
-}</style>
+}
+
+.btnAddimage {
+     background-color: rgb(241, 248, 164);
+     border-radius: 5px;
+}
+</style>

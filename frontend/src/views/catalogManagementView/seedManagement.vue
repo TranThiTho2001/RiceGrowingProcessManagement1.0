@@ -8,7 +8,6 @@
                </div>
                <div class="col-md-10 rightSeedManagement">
                     <div class="row mr-2 mt-2 mb-4">
-
                          <div class="col-md-7 pr-5">
                               <div class="row">
                                    <input type="text" class="form-control col-sm-8 ml-4 pt-2 inputSearch"
@@ -31,7 +30,7 @@
                               <h2>GIỐNG LÚA</h2>
                          </div>
                     </div>
-                    <div class="row ml-2 mr-2 mt-4 pb-2">
+                    <div class="row ml-2 mr-1 mt-4 pb-2">
                          <div class="btnChoosePage col-sm-2">
                          </div>
                          <div class="col-sm-7"></div>
@@ -40,7 +39,7 @@
                                         class="fas fa-plus-circle"></i>Thêm giống lúa</button>
                          </div>
                     </div>
-                    <div class=" row seedList  ml-2 mr-2 justify-content-center">
+                    <div class=" row seedList ml-2 mr-2 justify-content-center">
                          <table class="table mt-1 ml-2 mr-2">
                               <thead>
                                    <tr>
@@ -94,7 +93,7 @@
                                              next }}</a>
                               </li>
                               <li class="page-item disabled">
-                                   <a class="page-link" href="#" v-if="currentPage >= num_pages(epidemicTimesList)">{{ next }}</a>
+                                   <a class="page-link" href="#" v-if="currentPage >= num_pages(seedList)">{{ next }}</a>
                               </li>
                          </ul>
                     </nav>
@@ -204,13 +203,13 @@ export default {
                          }
                     });
 
-                    if (id < 10) {
+                    if (id < 9) {
                          this.newSeed.Seed_id = "SD0000000" + String(Number(id) + 1);
                     }
-                    else if (id > 9 && id < 100) {
+                    else if (id >= 9 && id < 99) {
                          this.newSeed.Seed_id = "SD000000" + String(Number(id) + 1);
                     }
-                    else if (id > 99 && id < 1000) {
+                    else if (id >= 99 && id < 999) {
                          this.newSeed.Seed_id = "SD00000" + String(Number(id) + 1);
                     }
                     else {
@@ -307,21 +306,31 @@ export default {
                this.$router.push("/CreateNewSeed");
           },
 
-          //  so hang của danh sach danh muc
-          get_rows() {
+          get_rows(list) {
                var start = (this.currentPage - 1) * this.elementsPerPage;
                var end = start + this.elementsPerPage;
-               return this.seedList.slice(start, end);
+               return list.slice(start, end);
+
           },
 
           // So trang cua danh sach danh muc
-          num_pages() {
-               return Math.ceil(this.seedList.length / this.elementsPerPage);
-
+          num_pages(list) {
+               return Math.ceil(list.length / this.elementsPerPage);
           },
 
-          async change_page(page) {
-               this.currentPage = page;
+          async change_page(page, list) {
+               if (page == '-' && this.currentPage > 1) {
+                    this.currentPage -= 1;
+                    this.get_rows(list);
+               }
+               else if (page == '+' && this.currentPage < this.num_pages(list)) {
+                    this.currentPage += 1;
+                    this.get_rows(list);
+               }
+               else {
+                    this.currentPage = page;
+                    this.get_rows(list);
+               }
           },
      },
 

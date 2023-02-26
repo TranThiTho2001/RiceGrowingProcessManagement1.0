@@ -30,13 +30,16 @@
                     </thead>
                     <tbody>
                          <tr v-for="(employee, i) in get_rows()" :key="i">
-                              <td class="text-center">{{ i }}</td>
+                              <td class="text-center" v-if="currentPage > 1">{{ i + ((currentPage - 1) * elementsPerPage) }}
+                              </td>
+                              <td class="text-center" v-else>{{ i }}</td>
                               <td class="text-center">{{ employee.Employee_id }}</td>
                               <td>{{ employee.Employee_name }}</td>
                               <td>{{ employee.Employee_major }}</td>
                               <td>{{ employee.Role_name }}</td>
                               <td class="text-center">
-                                   <button class="btnMonitor" v-if="!employee.Employee_monitor" @click="CreateNewMonitor(employee)">
+                                   <button class="btnMonitor" v-if="!employee.Employee_monitor"
+                                        @click="CreateNewMonitor(employee)">
                                         Cấp quyền theo dõi
                                    </button>
                                    <button class="btnMonitoring" v-if="employee.Employee_monitor">
@@ -147,16 +150,16 @@ export default {
                     console.log(error);
                } else {
                     if (response.data != null) {
-                         this.monitorList= response.data;
-                         
+                         this.monitorList = response.data;
+
                     }
                }
           },
 
-          async CreateNewMonitor(data){
+          async CreateNewMonitor(data) {
                data.RiceCropInformation_id = this.newriceCrop.RiceCropInformation_id;
                const [error, response] = await this.handle(
-                   MonitorService.create(data)
+                    MonitorService.create(data)
                );
                if (error) {
                     console.log(error);
@@ -164,7 +167,7 @@ export default {
                     if (response.data == "Không thể tạo quyền theo dõi mới.") {
                          this.message = "Không thể tạo quyền theo dõi mới.";
                     }
-                    else{
+                    else {
                          this.retrieveMonitor();
                          this.get_rows();
                     }
@@ -217,7 +220,7 @@ export default {
           },
      },
 
-     mounted(){
+     mounted() {
           this.retrieveMonitor();
      }
 };
@@ -299,6 +302,7 @@ export default {
      font-family: 'Roboto';
      width: 150px;
 }
+
 .createMonitorForm .inputSearch {
      background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);

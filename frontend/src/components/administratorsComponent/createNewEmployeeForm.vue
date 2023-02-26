@@ -1,6 +1,13 @@
 <template>
-     <Form @submit="$emit('addEmployee-submit', newemployee)" :validation-schema="schema"
+     <Form @submit="newemployee.close = true, $emit('addEmployee-submit', newemployee)" :validation-schema="schema"
           class="container-fluid createEmployeeForm">
+          <div class="row">
+               <div class="col-sm-12 text-right">
+                    <i class="fas fa-times"
+                         @click="newemployee.close = false, $emit('addEmployee-submit', newemployee)"
+                         style="font-size: 25px; "></i>
+               </div>
+          </div>
           <div class="row">
                <p class="col-sm-12 text-center functionName"><span class="fa fa-plus-circle"> </span> Thêm nhân viên mới
                </p>
