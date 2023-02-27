@@ -1,16 +1,18 @@
-const Image = require("../models/image.model");
+const Images = require("../models/images.model");
 const config = require("../config");
 
 // Create and Save 
 exports.store = async (req, res) => {
 
     console.log(req.file)
-    const image = new Image({
-        id: req.file.name,
-        Image_link: req.file.filename,
+    const image = new Images({
+        Image_id: req.body.Image_id,
+        Image_link: req.body.Image_link,
+        Image_date: req.body.Image_date,
+        RiceCropInformation_id:  req.body.RiceCropInformation_id,
    });
    // Save Monitor in the database
-   Image.create(image, (err, data) => {
+   Images.create(image, (err, data) => {
         if (err)
              res.send("Không thể lưu hình ảnh.")
         else res.send(data);
@@ -21,7 +23,7 @@ exports.store = async (req, res) => {
 // Retrieve all Epidemic from the database (with condition).
 exports.findAll = async (req, res) => {
     const name = req.query.name;
-    Image.getAll(name, (err, data) => {
+    Images.getAll(name, (err, data) => {
         if (err)
             res.send("Lỗi trong quá trình tìm kiếm.")
         else res.send(data);
@@ -30,7 +32,7 @@ exports.findAll = async (req, res) => {
 
 exports.find = async (req, res) => {
     const id = req.params.id;
-    Image.findById(id, (err, data) => {
+    Images.findById(id, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
                 res.send("Không tìm thấy hình ảnh.")
@@ -43,7 +45,7 @@ exports.find = async (req, res) => {
 
 // Update a Epidemic identified by the id in the request
 exports.update = async (req, res) => {
-     Image.updateById(
+     Images.updateById(
         req.params.id,
         req.body,
         (err, data) => {
@@ -60,7 +62,7 @@ exports.update = async (req, res) => {
 
 // Delete a Epidemic with the specified id in the request
 exports.delete = async (req, res) => {
-     Image.remove(req.params.id, (err, data) => {
+     Images.remove(req.params.id, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
                 res.send(`Không tìm thấy hình ảnh có mã ${req.params.id}.`)

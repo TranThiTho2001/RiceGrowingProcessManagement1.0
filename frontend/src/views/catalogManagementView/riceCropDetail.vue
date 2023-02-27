@@ -54,7 +54,10 @@
                          <button class="btnAddimage" @click="isOpenCreateImage = !isOpenCreateImage">
                               Thêm
                          </button>
-
+                         <div class="col-sm-3" v-for="(images, i) in imagesList" :key="i">
+                              <img :src="require(`@/images/${images.Image_link}`)" >
+                              <!-- <img src="../"> -->
+                         </div>
                     </div>
                     <!-- ----------------------FertilizerTimes Tab-------------- -->
                     <div class="row activitiesList ml-2 mr-2" v-if="isOpenTableFertilizerTimes">
@@ -408,7 +411,7 @@
                          :message2="message2" />
 
                     <CreateImageForm v-if="isOpenCreateImage" :newImage="newImage" :message1="message1" :message2="message2"
-                         @addImage-submit=createNewImage />
+                         :newRiceCrop="newRiceCrop" @addImage-submit=createNewImage />
                </div>
           </div>
      </div>
@@ -443,7 +446,8 @@ import EmployeeService from '@/services/employee.service';
 import CreateMonitorForm from '@/components/catalogManagementComponents/createNewMonitorForm.vue';
 // import CreateImageForm from '@/components/catalogManagementComponents/createNewImageForm.vue';
 import CreateImageForm from '@/components/catalogManagementComponents/SanPhamFormThem.vue';
-import ImageService from '@/services/image.service';
+// import ImageService from '@/services/image.service';
+import ImagesService from '@/services/images.service';
 import axios from 'axios';
 export default {
      name: "riceCropDetail",
@@ -487,6 +491,7 @@ export default {
                epidemicList: [],
                epidemicTimesList: [],
                riceCropList: [],
+               imagesList:[],
                message1: "",
                message2: "",
                isOpenTableFertilizerTimes: false,
@@ -517,6 +522,7 @@ export default {
                isOpenMessage: false,
                message: "",
                monitorChoosen: {},
+               idImage: 0,
           }
      },
 
@@ -1342,69 +1348,98 @@ export default {
                }
           },
 
-          async getIdImage() {
-               const[error, response] = await this.handle(
-                    ImageService.getAll()
+          async getIdImage(){
+               const [error, response] = await this.handle(
+                    ImagesService.getAll()
                );
                if (error) {
                     console.log(error);
                } else {
-                    const tp = response.data();
-                    console.log(tp)
+                    if (response.data == error) {
+                         console.log(error)
+                    }
+                    else {
+                        const temp = response.data;
+                        if(temp.length>0){
+                         this.idImage = temp[temp.length-1].Image_id+1;
+                        }
+                        else{
+                         this.idImage = 1;
+                         
+                        }
+                    //     console.log(this.idImage)
+                    }
                }
+          },
+          async retrieveImagesList(){
+               const [error, response] = await this.handle(
+                    ImagesService.findByName(this.newRiceCrop.RiceCropInformation_id)
+               );
+               if (error) {
+                    console.log(error);
+               } else {
+                    if (response.data == error) {
+                         console.log(error)
+                    }
+                    else {
+                        this.imagesList = response.data;
+                        console.log(this.imagesList);
+                    }
+               }
+          },
+          async retrieveImageID(link) {
+               this.getIdImage();
+               const data = {};
+               data.Image_link = link;
+               const day = new Date();
+               data.Image_id = this.idImage; console.log(this.idImage)
+               data.Image_date = (day.getFullYear())+ "-" +(day.getMonth()) + "-" + (day.getDate()) + " " +(day.getHours())+ ":"+day.getMinutes()+":"+day.getSeconds();
+               console.log((day.getFullYear())+ "-" +(day.getMonth()) + "-" + (day.getDate()) + " " +(day.getHours())+ ":"+day.getMinutes()+":"+day.getSeconds())
+               data.RiceCropInformation_id = this.newRiceCrop.RiceCropInformation_id;
+               const [error, response] = await this.handle(
+                    ImagesService.create(data)
+               );
+               if (error) {
+                    console.log(error);
+               } else {
+                    if (response.data == error) {
+                         this.message = "Them không thành công.";
+                    }
+                    else if (response.data == "Không thể lưu hình ảnh.") {
+                         this.message = "Xóa không thành công";
+                    }
+                    else {
+                         this.message = "Xóa thành công.";
+                    }
+               }
+               console.log(data);
           },
 
           async createNewImage(data) {
                const formdata = require('form-data');
-               var temp = false;
                const formData = new formdata();
-               formData.append("image", data.Image, 8);
-               console.log("HFWBEFE   `    ")
+               formData.append("image", data.Image);
+               console.log("HFWBEFE   `    ");
                axios.post('http://localhost:8080/api/image', formData, {
                     headers: {
                          'Content-Type': `multipart/form-data;`,
                     }
                },
-               ).then(function () {
-                    console.log('SUCCESS!!');
-                    temp = true;
-               })
-                    .catch(function () {
-                         console.log('FAILURE!!');
-                    });
-               if (temp) {
-                    const [error, response] = await this.handle(
-                         ImageService.update()
-                    );
-                    if (error) {
-                         console.log(error);
-                    } else {
-                         if (response.data == error) {
-                              this.message = "Xóa không thành công.";
-                         }
-                         else if (response.data == "Lỗi trong quá trình xóa quyền giám sát!!") {
-                              this.message = "Xóa không thành công";
-                         }
-                         else {
-                              this.message = "Xóa thành công.";
-                              this.retrieveMonitorList();
-                         }
-                    }
-               }
-               // this.fileName = response.data.filename;
-               // console.log(response.data)
+               ).then((response) => {
+                    fnSuccess(response);
+               }).catch((error) => {
+                    fnFail(error);
+               });
+
+               const fnSuccess = (response) => {
+                    this.retrieveImageID(response.data.Image_link);
+               };
+
+               const fnFail = (error) => {
+                    console.log(error);
+               };
           },
 
-          async selectFile(event) {
-               this.newImage.fileImage = event.target.files[0];
-               const Image_name = "image_" + this.newImage.fileImage.name;
-               console.log(Image_name);
-               // this.newimage.Image = event.target.files[0];
-               // console.log(this.newimage.Image);
-               // this.url = URL.createObjectURL(this.fileImage);
-
-               console.log(this.url)
-          },
 
           get_rows(list) {
                var start = (this.currentPage - 1) * this.elementsPerPage;
@@ -1452,7 +1487,7 @@ export default {
           this.retrieveEpidemicTimesList();
           this.retrieveRiceCropList();
           this.retrieveEmpoyeeList();
-
+this.retrieveImagesList();
      }
 };
 </script>

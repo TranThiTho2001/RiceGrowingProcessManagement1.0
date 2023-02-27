@@ -11,6 +11,7 @@
                     <div class="row" >
                         <div class="col-md-5">
                             <img v-if="url!=''" :src="url" class="img-fluid">
+                            
                         </div>
                         <div class="col-md-7">
                         </div>
@@ -42,13 +43,12 @@ export default {
         Form,
     },
     emits: ["addImage-submit", "author-delete"],
-    props: ["newImage", "message1", "message2"],
+    props: ["newImage", "message1", "message2", "newRiceCrop"],
     data() {
 
         return {
             sanphamLocal: this.newImage,
-            danhmucActive: "",
-            thuonghieuActive: "",
+            newriceCrop: this.newRiceCrop,
             fileImage: {},
             url:""
         };
@@ -61,13 +61,12 @@ export default {
 
         async selectFile(event) {
             this.fileImage = event.target.files[0];
-            this.sanphamLocal.SP_HinhAnh = "image_" + this.fileImage.name;
+            this.sanphamLocal.SP_HinhAnh = this.newriceCrop.RiceCropInformation_id + this.fileImage.name;
             console.log(this.fileImage.name);
             this.sanphamLocal.Image = this.fileImage;
             this.url = URL.createObjectURL(this.fileImage);
         },
-
-
+        
         async show() {
             console.log(this.sanphamLocal);
         }

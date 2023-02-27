@@ -9,6 +9,7 @@ const setupCropRoutes = require("./app/routes/crop.routes");
 const setupSeedRoutes = require("./app/routes/seed.routes");
 const setupSoilRoutes = require("./app/routes/soil.routes");
 const setUpImageRoutes = require("./app/routes/image.router");
+const setUpImagesRoutes = require("./app/routes/images.router");
 const setupMonitorRoutes = require("./app/routes/Monitor.routes");
 const setupEpidemicRoutes = require("./app/routes/epidemic.routes");
 const setupEmployeeRoutes = require("./app/routes/employee.routes");
@@ -43,6 +44,7 @@ setupCropRoutes(app);
 setupSeedRoutes(app);
 setupSoilRoutes(app);
 setUpImageRoutes(app);
+setUpImagesRoutes(app);
 setupMonitorRoutes(app);
 setupEpidemicRoutes(app);
 setupEmployeeRoutes(app);
@@ -59,28 +61,7 @@ setupRiceCropInformationRoutes(app);
 setupEpidemicsClassificationRoutes(app);
 
 
-// SET STORAGE
-// var storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//       cb(null, '/uploads')
-//     },
-//     filename: function (req, file, cb) {
-//       cb(null, file.fieldname + '-' + Date.now())
-//     }
-//   })
 
-//   var upload = multer({ storage: storage })
-
-//   app.post('/api/image', upload.single('image'), (req, res, next) => {
-//     const file = req.file
-//     console.log(file);
-//     if (!file) {
-//       const error = new Error('Please upload a file')
-//       error.httpStatusCode = 400
-//       return next(error)
-//     }
-//     res.send(file)
-//   })
 // define error-handling middleware last, after other app.use() and routes calls
 app.use((err, req, res, next) => {
     console.log(err);
