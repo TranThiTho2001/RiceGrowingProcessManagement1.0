@@ -12,7 +12,6 @@ Monitor.create = (newMonitor, result) => {
             result(err, null);
             return;
         }
-        console.log("create Monitor: ", { id: res.insertId, ...newMonitor});
         result(null, { id: res.insertId, ...newMonitor });
     });
 };
@@ -27,7 +26,6 @@ Monitor.findByIdRiceCropInformation = (id, result) => {
             return;
         }
         if (res.length) {
-            console.log("found Monitor: ", res);
             result(null, res);
             return;
         }

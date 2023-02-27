@@ -19,7 +19,6 @@ const verifyToken = (req, res, next) => {
             console.log(error);
             return next(new BadRequestError(401, "Unauthorized"));
         }
-        console.log("jwt");
         req.Employee_id = decoded.Employee_id;
         return next();
     });

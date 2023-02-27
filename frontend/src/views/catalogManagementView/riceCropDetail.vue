@@ -444,6 +444,7 @@ import CreateMonitorForm from '@/components/catalogManagementComponents/createNe
 // import CreateImageForm from '@/components/catalogManagementComponents/createNewImageForm.vue';
 import CreateImageForm from '@/components/catalogManagementComponents/SanPhamFormThem.vue';
 import ImageService from '@/services/image.service';
+import axios from 'axios';
 export default {
      name: "riceCropDetail",
 
@@ -1341,19 +1342,61 @@ export default {
                }
           },
 
-          async createNewImage(data) {
+          async getIdImage() {
+               const[error, response] = await this.handle(
+                    ImageService.getAll()
+               );
+               if (error) {
+                    console.log(error);
+               } else {
+                    const tp = response.data();
+                    console.log(tp)
+               }
+          },
 
-               const formData = new FormData();
-               
-            formData.append("image", data);
-            console.log("HFWBEFE   `    ")
-            const response = await ImageService.create(formData);
-            this.fileName = response.data.filename;
-            console.log(response.data)
+          async createNewImage(data) {
+               const formdata = require('form-data');
+               var temp = false;
+               const formData = new formdata();
+               formData.append("image", data.Image, 8);
+               console.log("HFWBEFE   `    ")
+               axios.post('http://localhost:8080/api/image', formData, {
+                    headers: {
+                         'Content-Type': `multipart/form-data;`,
+                    }
+               },
+               ).then(function () {
+                    console.log('SUCCESS!!');
+                    temp = true;
+               })
+                    .catch(function () {
+                         console.log('FAILURE!!');
+                    });
+               if (temp) {
+                    const [error, response] = await this.handle(
+                         ImageService.update()
+                    );
+                    if (error) {
+                         console.log(error);
+                    } else {
+                         if (response.data == error) {
+                              this.message = "Xóa không thành công.";
+                         }
+                         else if (response.data == "Lỗi trong quá trình xóa quyền giám sát!!") {
+                              this.message = "Xóa không thành công";
+                         }
+                         else {
+                              this.message = "Xóa thành công.";
+                              this.retrieveMonitorList();
+                         }
+                    }
+               }
+               // this.fileName = response.data.filename;
+               // console.log(response.data)
           },
 
           async selectFile(event) {
-                this.newImage.fileImage = event.target.files[0];
+               this.newImage.fileImage = event.target.files[0];
                const Image_name = "image_" + this.newImage.fileImage.name;
                console.log(Image_name);
                // this.newimage.Image = event.target.files[0];

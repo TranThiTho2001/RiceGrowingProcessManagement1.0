@@ -8,6 +8,7 @@ class ImageService {
           return http.post("/image", data); 
      }
      findByName(name) { return http.get(`/image?name=${name}`); }
+     update(id,data) { return http.put(`image/${id}`, data); }
 }
 
 export default new ImageService();

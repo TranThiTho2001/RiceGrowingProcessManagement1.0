@@ -127,7 +127,6 @@ exports.signin = async (req, res, next) => {
                 const token = jwt.sign({ Employee_id: data.Employee_id }, config.jwt.secret, {
                     expiresIn: 86400, // 24 hours
                 });
-                console.log("Dang nhap thanh cong");
                 res.status(200).send({
                     Employee_id: data.Employee_id,
                     Employee_name: data.Employee_name,

@@ -1,18 +1,13 @@
 <template>
-    <Form @submit="$emit('addImage-submit', sanphamLocal)" :validation-schema="schema" enctype="multipart/form-data" class="createForm">
+    <Form @submit="$emit('addImage-submit', sanphamLocal)"  enctype="multipart/form-data" class="createForm">
         <div class="functionName">
             <span class="fa fa-plus-circle"> </span>
             <p style="display:inline"> Thêm sản phẩm mới </p>
         </div>
         <div class="row container-fluid">
-            
-                <div class="form-group">
                     <label for="image">Hình ảnh &nbsp; &nbsp;</label>
-                    <Field name="image" class="form-control " v-model="sanphamLocal.SP_HinhAnh"
-                                @click="chonHinhAnh = true" >
-                                <input type="file" ref="file" name="image" @change="selectFile" accept="image/*"
+                                <input type="file" ref="file" name="image" @change="selectFile($event)" accept="image/*" enctype="multipart/form-data"
                                     class="" v-bind:aria-disabled="true">
-                            </Field>
                     <div class="row" >
                         <div class="col-md-5">
                             <img v-if="url!=''" :src="url" class="img-fluid">
@@ -20,7 +15,6 @@
                         <div class="col-md-7">
                         </div>
                     </div>
-                </div>
         </div>
 
         <div class="form-group">
@@ -39,14 +33,13 @@
 
 <script>
 
-import { Form, Field} from "vee-validate";
+import { Form} from "vee-validate";
 // import ImageService from '../../services/image'
 
 export default {
     name: "SanPhamFormThem",
     components: {
         Form,
-        Field,
     },
     emits: ["addImage-submit", "author-delete"],
     props: ["newImage", "message1", "message2"],
