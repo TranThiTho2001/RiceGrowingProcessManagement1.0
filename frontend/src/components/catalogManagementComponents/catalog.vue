@@ -81,7 +81,7 @@ export default {
      methods: {
 
           goToQLMonitor() {
-               this.$router.push("/MainForm");
+               this.$router.push("/Monitor");
           },
           goToOtherActivities() {
                this.$router.push("/OtherActivities");

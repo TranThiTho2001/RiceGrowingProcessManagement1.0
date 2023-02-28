@@ -174,6 +174,6 @@ export default {
 <style >
 @import url(../../assets/riceCropStyle.css);
 .createRiceCropForm{
-     height: 100px;
+     
 }
 </style>

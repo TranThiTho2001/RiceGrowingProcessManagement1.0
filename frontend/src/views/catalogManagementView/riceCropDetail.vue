@@ -7,7 +7,7 @@
                     </div>
                </div>
                <div class="col-md-10 rightRiceCropDetail">
-                    <div class="row mr-1 mt-2 mb-5 ml-2">
+                    <div class="row mr-1 mt-2 mb-2 ml-2">
                          <div class="col-md-10 pr-5">
                          </div>
                          <div class="col-md-2 text-right">
@@ -16,12 +16,13 @@
                               </div>
                          </div>
                     </div>
-                    <div class="row updateRiceCrop mr-2 ml-2">
+                    <div class="row updateRiceCrop mr-2 ml-2" style="width: 100%;">
                          <UpdateRiceCropForm :seedList="seedList" :newRiceCrop="newRiceCrop" :arableLandList="arableLandList"
                               @updateRiceCrop-submit="updateRiceCrop" :message1="message1" :message2="message2" />
+
                     </div>
                     <div class="row functionName mt-1 ml-2">
-                         <div class="btn btn-midle text-center btnImage" v-if="isOpenImage" @click="setTable('btnImage')"
+                         <div class="btn btn-midle text-center btnImage" v-if="isOpenImage"
                               style="background-color: bisque;">
                               Hình ảnh
                          </div>
@@ -50,13 +51,25 @@
                               @click="setTable('btnAttendee')">Người theo dõi</div>
 
                     </div>
-                    <div class="row activitiesList ml-2 mr-2">
-                         <button class="btnAddimage" @click="isOpenCreateImage = !isOpenCreateImage">
-                              Thêm
-                         </button>
-                         <div class="col-sm-3" v-for="(images, i) in imagesList" :key="i">
-                              <img :src="require(`@/images/${images.Image_link}`)" >
-                              <!-- <img src="../"> -->
+                    <div class="row activitiesList ml-2 mr-2" v-if="isOpenImage">
+                         <div class="col-sm-12">
+                              <div class="row">
+                                   <button class="btnAddimage" @click="isOpenCreateImage = !isOpenCreateImage">
+                                        Thêm
+                                   </button>
+                              </div>
+                              <div class="row mt-2">
+                                   <carousel :settings="settings" :breakpoints="breakpoints"
+                                        style="width:100%; height: 195px;">
+                                        <slide v-for="(image, i) in imagesList" :key="i">
+                                             <ImageComponent :images="image" />
+                                        </slide>
+                                        <template #addons>
+                                             <navigation v-if="imagesList.length > getWidth()" />
+                                             <!-- <pagination style="color: #00BA13;" />  -->
+                                        </template>
+                                   </carousel>
+                              </div>
                          </div>
                     </div>
                     <!-- ----------------------FertilizerTimes Tab-------------- -->
@@ -446,8 +459,10 @@ import EmployeeService from '@/services/employee.service';
 import CreateMonitorForm from '@/components/catalogManagementComponents/createNewMonitorForm.vue';
 // import CreateImageForm from '@/components/catalogManagementComponents/createNewImageForm.vue';
 import CreateImageForm from '@/components/catalogManagementComponents/SanPhamFormThem.vue';
-// import ImageService from '@/services/image.service';
 import ImagesService from '@/services/images.service';
+import ImageComponent from '@/components/catalogManagementComponents/imageComponent.vue';
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Navigation } from 'vue3-carousel';
 import axios from 'axios';
 export default {
      name: "riceCropDetail",
@@ -457,7 +472,7 @@ export default {
      components: {
           UpdateRiceCropForm,
           Catalog,
-          // UpdateRiceCropForm,
+          ImageComponent,
           CreateFertilizerTimesForm,
           UpdateFertilizerTimesForm,
           CreateSprayingTimesForm,
@@ -467,10 +482,14 @@ export default {
           CreateMonitorForm,
           CreateImageForm,
           TopHeader,
+          Carousel,
+          Slide,
+          Navigation,
      },
 
      data() {
           return {
+
                activitiesList: [],
                newRiceCrop: {},
                employeeList: {},
@@ -491,7 +510,7 @@ export default {
                epidemicList: [],
                epidemicTimesList: [],
                riceCropList: [],
-               imagesList:[],
+               imagesList: [],
                message1: "",
                message2: "",
                isOpenTableFertilizerTimes: false,
@@ -523,6 +542,45 @@ export default {
                message: "",
                monitorChoosen: {},
                idImage: 0,
+               settings: {
+                    itemsToShow: 1,
+                    snapAlign: 'center',
+
+               },
+               breakpoints: {
+                    500: {
+                         itemsToShow: 2,
+                         snapAlign: 'left',
+                    },
+                    800: {
+                         itemsToShow: 3,
+                         snapAlign: 'left',
+                    },
+
+                    // 700px and up
+                    1000: {
+                         itemsToShow: 4.5,
+                         snapAlign: 'left',
+                    },
+                    1200: {
+                         itemsToShow: 5,
+                         snapAlign: 'left',
+                    },
+                    // 1024 and up
+                    1400: {
+                         itemsToShow: 5.5,
+                         snapAlign: 'start',
+                    },
+                    1500: {
+                         itemsToShow: 6,
+                         snapAlign: 'start',
+                    },
+                    1600: {
+                         itemsToShow: 8,
+                         snapAlign: 'start',
+                    },
+
+               },
           }
      },
 
@@ -1314,6 +1372,7 @@ export default {
                this.isOpenTableMonitor = false;
                this.isOpenTableOtherActivitiesTimes = false
                this.isOpenTableSprayingTimes = false;
+               this.isOpenImage = false;
                if (data == "btnImage") {
                     this.isOpenImage = true;
                }
@@ -1340,15 +1399,18 @@ export default {
                     this.num_pages(this.SprayingTimesList)
                     this.currentPage = 1;
                }
-               else {
+               else if (data == "btnAttendee") {
                     this.isOpenTableMonitor = true;
                     this.retrieveMonitorList();
                     this.num_pages(this.SprayingTimesList)
                     this.currentPage = 1;
                }
+               else {
+                    this.isOpenImage = true;
+               }
           },
 
-          async getIdImage(){
+          async getIdImage() {
                const [error, response] = await this.handle(
                     ImagesService.getAll()
                );
@@ -1359,19 +1421,18 @@ export default {
                          console.log(error)
                     }
                     else {
-                        const temp = response.data;
-                        if(temp.length>0){
-                         this.idImage = temp[temp.length-1].Image_id+1;
-                        }
-                        else{
-                         this.idImage = 1;
-                         
-                        }
-                    //     console.log(this.idImage)
+                         const temp = response.data;
+                         if (temp.length > 0) {
+                              this.idImage = temp[temp.length - 1].Image_id + 1;
+                         }
+                         else {
+                              this.idImage = 1;
+
+                         }
                     }
                }
           },
-          async retrieveImagesList(){
+          async retrieveImagesList() {
                const [error, response] = await this.handle(
                     ImagesService.findByName(this.newRiceCrop.RiceCropInformation_id)
                );
@@ -1382,8 +1443,10 @@ export default {
                          console.log(error)
                     }
                     else {
-                        this.imagesList = response.data;
-                        console.log(this.imagesList);
+                         this.imagesList = response.data;
+                         this.imagesList.forEach(element => {
+                              element.Image_link = require('@/images/' + element.Image_link);
+                         });
                     }
                }
           },
@@ -1393,8 +1456,8 @@ export default {
                data.Image_link = link;
                const day = new Date();
                data.Image_id = this.idImage; console.log(this.idImage)
-               data.Image_date = (day.getFullYear())+ "-" +(day.getMonth()) + "-" + (day.getDate()) + " " +(day.getHours())+ ":"+day.getMinutes()+":"+day.getSeconds();
-               console.log((day.getFullYear())+ "-" +(day.getMonth()) + "-" + (day.getDate()) + " " +(day.getHours())+ ":"+day.getMinutes()+":"+day.getSeconds())
+               data.Image_date = (day.getFullYear()) + "-" + (day.getMonth()) + "-" + (day.getDate()) + " " + (day.getHours()) + ":" + day.getMinutes() + ":" + day.getSeconds();
+               console.log((day.getFullYear()) + "-" + (day.getMonth()) + "-" + (day.getDate()) + " " + (day.getHours()) + ":" + day.getMinutes() + ":" + day.getSeconds())
                data.RiceCropInformation_id = this.newRiceCrop.RiceCropInformation_id;
                const [error, response] = await this.handle(
                     ImagesService.create(data)
@@ -1416,31 +1479,68 @@ export default {
           },
 
           async createNewImage(data) {
-               const formdata = require('form-data');
-               const formData = new formdata();
-               formData.append("image", data.Image);
-               console.log("HFWBEFE   `    ");
-               axios.post('http://localhost:8080/api/image', formData, {
-                    headers: {
-                         'Content-Type': `multipart/form-data;`,
+               if (data.close == false) {
+                    this.isOpenCreateImage = false;
+               }
+               else {
+
+
+                    if (data.Image != null) {
+                         const formdata = require('form-data');
+                         const formData = new formdata();
+                         formData.append("image", data.Image);
+                         console.log("HFWBEFE   `    ");
+                         axios.post('http://localhost:8080/api/image', formData, {
+                              headers: {
+                                   'Content-Type': `multipart/form-data;`,
+                              }
+                         },
+                         ).then((response) => {
+                              fnSuccess(response);
+                         }).catch((error) => {
+                              fnFail(error);
+                         });
+
+                         const fnSuccess = (response) => {
+                              this.retrieveImageID(response.data.Image_link);
+                              this.message2 = "Thêmthành công";
+                         };
+
+                         const fnFail = (error) => {
+                              console.log(error);
+                              this.message2 = "Thêm không thành công";
+                         };
                     }
-               },
-               ).then((response) => {
-                    fnSuccess(response);
-               }).catch((error) => {
-                    fnFail(error);
-               });
-
-               const fnSuccess = (response) => {
-                    this.retrieveImageID(response.data.Image_link);
-               };
-
-               const fnFail = (error) => {
-                    console.log(error);
-               };
+                    else {
+                         this.message1 = "Vui lòng chọn hình ảnh!!"
+                    }
+               }
           },
 
-
+          getWidth() {
+               var width = document.body.clientWidth;
+               if (width > 500 && width < 800) {
+                    return 2
+               }
+               else if (width >= 800 && width < 1000) {
+                    return 3;
+               }
+               else if (width >= 100 && width < 1200) {
+                    return 4.5;
+               }
+               else if (width >= 1200 && width < 1400) {
+                    return 5;
+               }
+               else if (width >= 1400 & width < 1500) {
+                    return 5.5;
+               }
+               else if (width >= 1500 && width < 1600) {
+                    return 6;
+               }
+               else if (width >= 1600) {
+                    return 8;
+               }
+          },
           get_rows(list) {
                var start = (this.currentPage - 1) * this.elementsPerPage;
                var end = start + this.elementsPerPage;
@@ -1487,7 +1587,7 @@ export default {
           this.retrieveEpidemicTimesList();
           this.retrieveRiceCropList();
           this.retrieveEmpoyeeList();
-this.retrieveImagesList();
+          this.retrieveImagesList();
      }
 };
 </script>

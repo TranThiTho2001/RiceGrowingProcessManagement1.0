@@ -3,9 +3,10 @@
     font-family: Inter;
     border-radius: 10px;
     position: absolute;
-    top: calc(22%);
+    top: calc(18%);
     left: 10%;
     width: 80%;
+    height: max-content;
 }
 
 .updateRiceCropForm {
@@ -35,7 +36,7 @@
 .updateRiceCropForm .content .form-group label {
     float: left;
     font-family: Inter;
-    font-size: 17px;
+    font-size: 16px;
 }
 
 .createRiceCropForm .content .form-group .selectBox,
@@ -54,6 +55,8 @@
 .createRiceCropForm .content .form-group .form-control,
 .updateRiceCropForm .content .form-group .form-control {
     background-color: #f0f0f0;
+    font-size: 17px;
+    height: 38px;
 }
 
 .createRiceCropForm .functionName,
@@ -84,7 +87,6 @@
     color: #f0f0f0;
     font-size: 20px;
     float: left;
-
 }
 .riceCropManagement .inputSearch {
     background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;

@@ -26,7 +26,6 @@
                               </div>
                          </div>
                     </div>
-
                     <div class="row ml-3 mt-4 pt-3">
                          <div class="col-sm-10"></div>
                          <div class="col-sm-2">
@@ -35,12 +34,12 @@
                          </div>
                     </div>
                     <div class=" row riceCropList ml-2 mr-2 text-left mt-2 pt-1">
-                         <carousel :settings="settings" :breakpoints="breakpoints" style="width:100%">
+                         <carousel :settings="settings" :breakpoints="breakpoints" style="width:100%" >
                               <slide v-for="(riceCrop, i) in riceCropListByMonitoring" :key="i">
                                    <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
                               </slide>
                               <template #addons>
-                                   <navigation v-if="riceCropListByMonitoring.length > 6" />
+                                   <navigation v-if="riceCropListByMonitoring.length > getWidth()" />
                                    <!-- <pagination style="color: #00BA13;" /> -->
                               </template>
                          </carousel>
@@ -52,12 +51,12 @@
 
                               </slide>
                               <template #addons>
-                                   <navigation v-if="riceCropListByFinish.length > 6" />
+                                   <navigation v-if="riceCropListByFinish.length > getWidth" />
                                    <!-- <pagination v-if="riceCropListByFinish.length > 4" style="color: #00BA13;" /> -->
                               </template>
                          </carousel>
                     </div>
-
+                    
                     <div class="confirmationDialog" v-if="isOpenConfirm">
                          <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
                               class="labelConfirm">
@@ -119,6 +118,8 @@ import SprayingTimesService from '@/services/sprayingTimes.service';
 import CreateSprayingTimesForm from '@/components/catalogManagementComponents/createNewSprayingTimesForm.vue';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import RiceCropComponent from '@/components/catalogManagementComponents/riceCropComponent.vue';
+
+import ImagesService from '@/services/images.service';
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Navigation } from 'vue3-carousel';
 // import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
@@ -140,6 +141,7 @@ export default {
 
      data() {
           return {
+                number:0,
                riceCropList: [],
                cropList: [],
                seedList: [],
@@ -195,17 +197,14 @@ export default {
                     1400: {
                          itemsToShow: 5.5,
                          snapAlign: 'start',
-                         
                     },
                     1500: {
                          itemsToShow: 6,
                          snapAlign: 'start',
-                         
                     },
                     1600: {
                          itemsToShow: 8,
                          snapAlign: 'start',
-                         
                     },
 
                },
@@ -216,13 +215,36 @@ export default {
           ...mapGetters({
                currentUser: "loggedInEmployee",
           }),
-
      },
 
      methods: {
           ...mapMutations([
                "initEmployeeState"
           ]),
+     getWidth(){
+          var width = document.body.clientWidth;
+          if(width>500 && width<800){
+               return 2
+          }
+          else if(width>=800 && width<1000){
+               return 3;
+          }
+          else if(width>=100 && width<1200){
+               return 4.5;
+          }
+          else if(width>=1200 && width<1400){
+               return 5;
+          }
+          else if(width>=1400 & width<1500){
+               return 5.5;
+          }
+          else if(width>=1500 && width<1600){
+               return 6;
+          }
+          else if(width>=1600){
+               return 8;
+          }
+     },
 
           async retrieveFullRiceCropList() {
                const [err, respone] = await this.handle(
@@ -263,6 +285,28 @@ export default {
 
                }
           },
+
+          async getURL(position) {
+               const [err, response] = await this.handle(
+                    ImagesService.findByName(this.riceCropList[position].RiceCropInformation_id)
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    const temp = response.data;
+                    console.log(temp)
+                    if (temp.length > 0) {
+                         
+                         this.riceCropList[position].Images_link = require('@/images/'+temp[temp.length-1].Image_link);
+                         console.log(this.urlImage);
+                    }
+                    else{
+                         this.riceCropList[position].Images_link = require('@/images/'+"Rice1.png");
+                    }
+               }
+          },
+
           async retrieveRiceCropList() {
                const [err, respone] = await this.handle(
                     MonitorService.findByName(this.currentUser.Employee_id)
@@ -274,14 +318,19 @@ export default {
                     this.riceCropList = respone.data;
                     this.riceCropListByFinish = [];
                     this.riceCropListByMonitoring = [];
+                    var i= 0;
                     this.riceCropList.forEach(element => {
+                         this.getURL(i);
                          if (element.RiceCropInformation_harvestDate == null) {
                               this.riceCropListByMonitoring.push(element);
                          }
                          else {
                               this.riceCropListByFinish.push(element);
                          }
+                         i++;
                     });
+                    console.log(this.riceCropList)
+                    console.log(this.riceCropListByFinish)
                }
           },
 
@@ -747,7 +796,6 @@ export default {
           this.retrieveFullRiceCropList();
           this.retrievePesticideList();
           this.newFertilizerTimes.Employee_id = this.currentUser.Employee_id;
-
      }
 }
 

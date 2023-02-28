@@ -2,8 +2,9 @@
      <div style="height: 280px;">
           <router-link class="linktoRiceCropInfor container-fuild"
                :to="{ name: 'RiceCropDetail', params: { id: riceCrop.RiceCropInformation_id } }">
-               <div class="riceCropComponent text-dark border  ">
-                    <div class="img mt-2 ml-2 mr-2"><img src="../../assets/Giong-lua-ST25.png" class="img-fluid" alt="">
+               <div class="riceCropComponent text-dark border ">
+                    <div class="img mt-2 ml-2 mr-2" style="min-height: 125px;"><img :src="riceCrop.Images_link"
+                              class="img-fluid" alt="">
                     </div>
                     <div class="body-riceCropComponent">
                          <div class="row ml-1 mr-1">
@@ -27,11 +28,15 @@
                               <div class="col-sm-8 text-center" v-if="riceCrop.RiceCropInformation_harvestDate != null">
                                    <button class="btn  btnFinish">Đã kết thúc</button>
                               </div>
-                              <div class="col-sm-2">
-                                   <i class="fas fa-ellipsis-v mt-2" style="color: #919302; font-size: 25px;"></i>
+                              <div class="col-sm-2 opendelete">
+                                   <i class="fas fa-ellipsis-v mt-2 pr-1" style="color: #919302; font-size: 25px;">
+                                        <div class="deleteIcon ">
+                                             <a style="width: 70px; height: 30px; background-color:#919302; font-size: 15px;" class="row">Xoas
+                                             </a>
+                                        </div>
+                                   </i>
                               </div>
                          </div>
-
                     </div>
                </div>
           </router-link>
@@ -39,8 +44,10 @@
 </template>
    
 <script>
+
 export default {
      name: "riceCrop",
+
      props: ["riceCrop"],
 
      methods: {
@@ -48,6 +55,7 @@ export default {
                let val = (data / 1).toFixed(0).replace(".", ",");
                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
           },
+
      }
 };
 </script>
@@ -79,9 +87,11 @@ export default {
 
 
 }
-.riceCropComponent:hover{
+
+.riceCropComponent:hover {
      background-color: #dfdfdf;
 }
+
 .add-btn:hover {
      color: #919302;
      /* background-color: #515151; */
@@ -130,22 +140,41 @@ export default {
      font-weight: 600;
      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
      border-radius: 15px;
-     justify-content:center;
+     justify-content: center;
      align-items: center;
      height: 30px;
      position: absolute;
      display: flex;
      left: 14%;
-     top:15%
+     top: 15%
 }
 
 .riceCropComponent .btnFinish {
      color: #6D6E73;
      background-color: #ABD2C8;
+     position: absolute;
+     left: 16%;
 }
 
 .riceCropComponent .btnMonitoring {
      color: #5C5D22;
      background: #EEEA41;
+     position: absolute;
+     left: 12%;
 }
-</style>
+
+.riceCropComponent .fa-ellipsis-v {
+     position: absolute;
+     left: 30%;
+}
+
+.riceCropComponent .deleteIcon {
+     position: absolute;
+     display: none;
+}
+
+.riceCropComponent .fa-ellipsis-v:hover .deleteIcon {
+     display: inline;
+     left: -300%;
+     top: 95%;
+}</style>
