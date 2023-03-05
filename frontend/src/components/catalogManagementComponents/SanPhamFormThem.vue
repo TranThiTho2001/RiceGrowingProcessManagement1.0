@@ -1,6 +1,6 @@
 <template>
     <Form @submit="newimage.close = true, $emit('addImage-submit', newimage)" enctype="multipart/form-data"
-        class="createImageForm container-fluid">
+        class="createImageForm container" style="width: 60%;">
         <div class="row">
             <div class="col-sm-12 text-right">
                 <i class="fas fa-times" @click="newimage.close = false, $emit('addImage-submit', newimage)"
@@ -92,7 +92,7 @@ export default {
     height: 520px;
     background-color: aquamarine;
     top: 18%;
-    left: 18%;
+    left: 15%;
     border-radius: 10px;
 }
 
