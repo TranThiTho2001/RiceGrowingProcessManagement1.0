@@ -3,7 +3,7 @@
           <div class="row pesticideManagementFrame">
                <div class="col-md-2 col-sm-12 leftPesticideManagement">
                     <div class="row">
-                         <Catalog :currentUserid="currentUser.Employee_id" />
+                         <Catalog  />
                     </div>
                </div>
                <div class="col-md-10 rightPesticideManagement">
@@ -22,7 +22,7 @@
                          <div class="col-md-3"></div>
                          <div class="col-md-2 pl-5 text-right">
                               <div class="row">
-                                   <TopHeader :currentUserid="currentUser.Employee_id" />
+                                   <TopHeader />
                               </div>
                          </div>
                     </div>

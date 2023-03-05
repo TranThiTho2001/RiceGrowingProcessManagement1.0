@@ -3,7 +3,7 @@
           <div class="row riceCropManagemenFrame">
                <div class="col-md-2 col-sm-12 leftRiceCropManagement">
                     <div class="row">
-                         <Catalog :currentUserid="currentUser.Employee_id" />
+                         <Catalog  />
                     </div>
                </div>
                <div class="col-md-10 rightRiceCropManagement">
@@ -22,7 +22,7 @@
                          <div class="col-md-3"></div>
                          <div class="col-md-2 pl-5 text-right">
                               <div class="row">
-                                   <TopHeader :currentUserid="currentUser.Employee_id" />
+                                   <TopHeader  />
                               </div>
                          </div>
                     </div>
@@ -33,7 +33,7 @@
                                         style="font-size: 15px;"></i>Thêm Mùa Vụ</button>
                          </div>
                     </div>
-                    <div class=" row riceCropList ml-2 mr-2 text-left mt-2 pt-1">
+                    <div class=" row riceCropList ml-2 mr-2 text-left  pt-1">
                          <carousel :settings="settings" :breakpoints="breakpoints" style="width:100%" >
                               <slide v-for="(riceCrop, i) in riceCropListByMonitoring" :key="i">
                                    <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>

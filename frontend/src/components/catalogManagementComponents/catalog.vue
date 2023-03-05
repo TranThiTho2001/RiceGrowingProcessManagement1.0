@@ -66,12 +66,15 @@
 </template>
 <script>
 import EmployeeService from "../../services/employee.service";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
      name: `Catalog`,
-     props: [
-          "currentUserid",
-     ],
+     computed: {
+        ...mapGetters({
+            currentUser: "loggedInEmployee",
+        }),
+    },
      data() {
           return {
                currentuser: {}
@@ -79,7 +82,9 @@ export default {
      },
 
      methods: {
-
+          ...mapMutations([
+          "initEmployeeState"
+        ]),
           goToQLMonitor() {
                this.$router.push("/Monitor");
           },
@@ -105,7 +110,7 @@ export default {
           async PhanQuyenNhanVien() {
                console.log(this.employee)
                const [err, respone] = await this.handle(
-                    EmployeeService.get(this.currentUserid)
+                    EmployeeService.get(this.currentUser.Employee_id)
                );
                if (err) {
                     console.log(err)
@@ -127,6 +132,7 @@ export default {
      },
 
      mounted() {
+          this.initEmployeeState();
           this.PhanQuyenNhanVien();
      }
 

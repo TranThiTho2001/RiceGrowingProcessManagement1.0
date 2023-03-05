@@ -137,14 +137,11 @@ export default {
       if (error) {
         console.log(error);
         this.loading = false;
-        this.message = "Số điện thoại hoặc mật khẩu đăng nhập sai";
+        this.message = "Tên tài khoản hoặc mật khẩu đăng nhập sai";
       } else {
-        console.log("login thanh coong!!!")
-        console.log(data);
         if (data.Role_id == "01") {
           this.$router.push("/EmployeeManager");
         }
-
         else if (data.Role_id == "02" || data.Role_id == "03") {
           this.$router.push("/Monitor");
         }
@@ -159,7 +156,7 @@ export default {
   mounted() {
     this.employee.Employee_password = '';
     this.initEmployeeState();
-    this.retrieveEmployee();
+    // this.retrieveEmployee();
     // this.getAPI();
   },
 }

@@ -14,7 +14,7 @@ exports.store = async (req, res) => {
           SprayingTimes_startDate: req.body.SprayingTimes_startDate,
           SprayingTimes_endDate: req.body.SprayingTimes_endDate,
           SprayingTimes_temperature: req.body.SprayingTimes_temperature,
-          SprayingTimes_radiation: req.body.SprayingTimes_radiation,
+          SprayingTimes_humidity: req.body.SprayingTimes_humidity,
           SprayingTimes_precipitation: req.body.SprayingTimes_precipitation
      });
      // Save sprayingTimes in the database

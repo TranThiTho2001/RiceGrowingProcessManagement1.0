@@ -3,7 +3,7 @@
           <div class="row EmployeeManager">
                <div class="col-sm-2">
                     <div class="row">
-                         <Catalog :currentUserid="currentUser.Employee_id" />
+                         <Catalog />
                     </div>
                </div>
 
@@ -22,7 +22,7 @@
                          <div class="col-md-3"></div>
                          <div class="col-md-2 pl-5 text-right">
                               <div class="row">
-                                   <TopHeader :currentUserid="currentUser.Employee_id" />
+                                   <TopHeader  />
                               </div>
                          </div>
                     </div>

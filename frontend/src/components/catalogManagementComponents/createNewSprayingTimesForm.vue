@@ -83,10 +83,10 @@
                     </div>
 
                     <div class="form-group ">
-                         <label for="radiation" class="mt-3 pt-1">Độ ẩm</label>
-                         <Field name="radiation" class="form-control" v-model="newsprayingtimes.SprayingTimes_radiation"
+                         <label for="humidity" class="mt-3 pt-1">Độ ẩm</label>
+                         <Field name="humidity" class="form-control" v-model="newsprayingtimes.SprayingTimes_humidity"
                               placeholder="Nhập độ ẩm..." />
-                         <ErrorMessage name="radiation" class="error-feedback" />
+                         <ErrorMessage name="humidity" class="error-feedback" />
                     </div>
                </div>
                <div class="col-sm-4">
@@ -193,7 +193,7 @@ export default {
                temperature: yup
                     .string(),
                     // .required("Loại phân phải có giá trị"),
-               radiation: yup
+               humidity: yup
                     .string(),
                     // .required("Loại phân phải có giá trị"),
                precipitation: yup

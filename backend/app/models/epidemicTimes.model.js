@@ -9,7 +9,7 @@ const EpidemicTimes = function (epidemicTimes) {
      this.EpidemicTimes_startDate = epidemicTimes.EpidemicTimes_startDate;
      this.EpidemicTimes_endDate = epidemicTimes.EpidemicTimes_endDate;
      this.EpidemicTimes_temperature = epidemicTimes.EpidemicTimes_temperature;
-     this.EpidemicTimes_radiation = epidemicTimes.EpidemicTimes_radiation;
+     this.EpidemicTimes_humidity = epidemicTimes.EpidemicTimes_humidity;
      this.EpidemicTimes_precipitation = epidemicTimes.EpidemicTimes_precipitation
 }
 
@@ -63,8 +63,8 @@ EpidemicTimes.getAll = (Epidemics_id, result) => {
 
 EpidemicTimes.updateById = (riceCropInformation_id, Epidemic_id, times, epidemicTimes, result) => {
      sql.query(
-          "UPDATE EpidemicTimes SET Employee_id = ?, DevelopmentStage_id = ?, EpidemicTimes_startDate = ?, EpidemicTimes_endDate = ?, EpidemicTimes_temperature = ?, EpidemicTimes_radiation = ?, EpidemicTimes_precipitation = ? WHERE (RiceCropInformation_id = ? And Epidemic_id = ? and EpidemicTimes_times = ?)",
-          [epidemicTimes.Employee_id, epidemicTimes.DevelopmentStage_id, epidemicTimes.EpidemicTimes_startDate, epidemicTimes.EpidemicTimes_endDate, epidemicTimes.EpidemicTimes_temperature, epidemicTimes.EpidemicTimes_radiation, epidemicTimes.EpidemicTimes_precipitation, riceCropInformation_id, Epidemic_id, times],
+          "UPDATE EpidemicTimes SET Employee_id = ?, DevelopmentStage_id = ?, EpidemicTimes_startDate = ?, EpidemicTimes_endDate = ?, EpidemicTimes_temperature = ?, EpidemicTimes_humidity = ?, EpidemicTimes_precipitation = ? WHERE (RiceCropInformation_id = ? And Epidemic_id = ? and EpidemicTimes_times = ?)",
+          [epidemicTimes.Employee_id, epidemicTimes.DevelopmentStage_id, epidemicTimes.EpidemicTimes_startDate, epidemicTimes.EpidemicTimes_endDate, epidemicTimes.EpidemicTimes_temperature, epidemicTimes.EpidemicTimes_humidity, epidemicTimes.EpidemicTimes_precipitation, riceCropInformation_id, Epidemic_id, times],
           (err, res) => {
                if (err) {
                     console.log("error: ", err);

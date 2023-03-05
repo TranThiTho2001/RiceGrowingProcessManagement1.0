@@ -10,7 +10,7 @@ exports.store = async (req, res) => {
           ActivityDetails_startDate: req.body.ActivityDetails_startDate,
           ActivityDetails_endDate: req.body.ActivityDetails_endDate,
           ActivityDetails_temperature: req.body.ActivityDetails_temperature,
-          ActivityDetails_radiation: req.body.ActivityDetails_radiation,
+          ActivityDetails_humidity: req.body.ActivityDetails_humidity,
           ActivityDetails_precipitation: req.body.ActivityDetails_precipitation,
           Employee_id: req.body.Employee_id,
           ActivityDetails_times: req.body.ActivityDetails_times,

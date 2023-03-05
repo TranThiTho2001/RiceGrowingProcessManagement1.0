@@ -14,7 +14,7 @@ exports.store = async (req, res) => {
           FertilizerTimes_startDate: req.body.FertilizerTimes_startDate,
           FertilizerTimes_endDate: req.body.FertilizerTimes_endDate,
           temperatFertilizerTimes_temperatureure: req.body.FertilizerTimes_temperature,
-          FertilizerTimes_radiation: req.body.FertilizerTimes_radiation,
+          FertilizerTimes_humidity: req.body.FertilizerTimes_humidity,
           FertilizerTimes_precipitation: req.body.FertilizerTimes_precipitation
      });
      // Save FertilizerTimes in the database

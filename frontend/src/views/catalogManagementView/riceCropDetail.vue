@@ -3,7 +3,7 @@
           <div class="row riceCropDetailFrame">
                <div class="col-md-2">
                     <div class="row">
-                         <Catalog :currentUserid="currentUser.Employee_id" />
+                         <Catalog />
                     </div>
                </div>
                <div class="col-md-10 rightRiceCropDetail">
@@ -16,11 +16,25 @@
                               </div>
                          </div>
                     </div>
-                    <div class="row updateRiceCrop mr-2 ml-2" style="width: 100%;">
-                         <UpdateRiceCropForm :seedList="seedList" :newRiceCrop="newRiceCrop" :arableLandList="arableLandList"
+                    <div class="row updateRiceCrop mr-2 ml-2 mb-5" style="width: 100%;">
+                         <UpdateRiceCropForm  :seedList="seedList" :newRiceCrop="newRiceCrop" :arableLandList="arableLandList"
                               @updateRiceCrop-submit="updateRiceCrop" :message1="message1" :message2="message2" />
-
-                    </div>
+                              <!-- <div class="col-sm-12">
+                                   <div class="row">
+                                        <div class="col-sm-3">Mã: {{ newRiceCrop.RiceCropInformation_id }}</div>
+                                        <div class="col-sm-3">Tên: {{ newRiceCrop.RiceCropInformation_name }}</div>
+                                        <div class="col-sm-3">Vụ mùa: {{ newRiceCrop.Crop_name }}</div>
+                                        <div class="col-sm-3">Năng suất: {{ newRiceCrop.RiceCropInformation_yield }}</div>
+                                   </div>
+                                   <div class="row pt-3">
+                                        <div class="col-sm-3">Giống lúa: {{ newRiceCrop.Seed_name }}</div>
+                                        <div class="col-sm-3">Mẫu ruộng: {{ newRiceCrop.ArableLand_id }}</div>
+                                        <div class="col-sm-3">Ngày gieo xạ: {{ formatDate(newRiceCrop.RiceCropInformation_sowingDate) }}</div>
+                                        <div class="col-sm-3">Ngày thu hoạch: {{ formatDate(newRiceCrop.RiceCropInformation_harvestDate) }}</div>
+                                   </div>
+                              </div> -->
+                    
+                         </div>
                     <div class="row functionName mt-1 ml-2">
                          <div class="btn btn-midle text-center btnImage" v-if="isOpenImage"
                               style="background-color: bisque;">
@@ -45,9 +59,9 @@
                               style="background-color: bisque;">Tình bệnh dịch</div>
                          <div class=" btn btn-midle text-center btnEpidemic" v-if="!isOpenTableEpidemicTimes"
                               @click="setTable('btnEpidemic')">Tình bệnh dịch</div>
-                         <div class=" btn btn-midle text-center btnAttendee" v-if="isOpenTableMonitor"
+                         <div class=" btn btn-midle text-center btnAttendee" v-if="isOpenTableMonitor && currentUser.Role_id=='02'"
                               style="background-color: bisque;">Người theo dõi</div>
-                         <div class=" btn btn-midle text-center btnAttendee" v-if="!isOpenTableMonitor"
+                         <div class=" btn btn-midle text-center btnAttendee" v-if="!isOpenTableMonitor && currentUser.Role_id=='02'"
                               @click="setTable('btnAttendee')">Người theo dõi</div>
 
                     </div>
@@ -93,10 +107,8 @@
                                         <td class="text-center ">{{ fertilizer.FertilizerTimes_times }}</td>
                                         <td class="">{{ fertilizer.Fertilizer_name }}</td>
                                         <td class="text-center ">{{ fertilizer.FertilizerTimes_amount }}</td>
-                                        <td class="text-center ">{{ formatDate(fertilizer.FertilizerTimes_startDate)
-                                        }}</td>
-                                        <td class="text-center ">{{ formatDate(fertilizer.FertilizerTimes_endDate) }}
-                                        </td>
+                                        <td class="text-center ">{{ formatDate(fertilizer.FertilizerTimes_startDate) }}</td>
+                                        <td class="text-center ">{{ formatDate(fertilizer.FertilizerTimes_endDate) }}</td>
                                         <td class="">{{ fertilizer.Employee_name }}</td>
                                         <td style="border-top: none;" class="">
                                              <span class="action" style="border-top: none;"
@@ -1453,6 +1465,7 @@ export default {
           async retrieveImageID(link) {
                this.getIdImage();
                const data = {};
+               data.Employee_id = this.currentUser.Employee_id;
                data.Image_link = link;
                const day = new Date();
                data.Image_id = this.idImage; console.log(this.idImage)
