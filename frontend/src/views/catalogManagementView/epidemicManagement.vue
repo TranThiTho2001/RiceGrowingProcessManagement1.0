@@ -7,30 +7,37 @@
                     </div>
                </div>
                <div class="col-md-10 rightEpidemicManagement">
-                    <div class="row mr-2 mt-2 mb-4">
-                         <div class="col-md-7 pr-5">
-                              <div class="row">
-                                   <input type="text" class="form-control col-sm-8 ml-4 pt-2 inputSearch"
-                                        placeholder="Tìm theo tên" style="border-radius:10px" v-model="nameToSearch"
-                                        @keyup.enter="searchName" />
-                                   <button class=" btnSearch pt-2" @click="searchName">
-                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                                   </button>
-                              </div>
+                    <div class="row ml-2 pt-3 mb-5 pb-1 mr-2 topRight">
+                         <div class="col-md-7" v-if="!isOpenSearch">
+                              <h3 class="name">Dịch bệnh</h3>
                          </div>
-                         <div class="col-md-3"></div>
-                         <div class="col-md-2 pl-5 text-right">
+                         <div class="col-md-2" v-if="isOpenSearch">
+                              <h3 class="name">Dịch bệnh</h3>
+                         </div>
+                         <div class="col-md-3 text-right" v-if="!isOpenSearch">
+                              <input type="text" class="form-control col-sm-8 inputSearch1" placeholder="Tìm"
+                                    v-model="nameToSearch" @keyup.enter="searchName"
+                                   @click="isOpenSearch = !isOpenSearch" />
+                              <button class="btnSearch1" @click="searchName">
+                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                              </button>
+                         </div>
+                         <div class="col-md-8 " v-if="isOpenSearch">
+                              <input type="text" class="form-control inputSearch2" placeholder="" 
+                                   v-model="nameToSearch" @keyup.enter="searchName" />
+                              <button class="btnSearch2" @click="searchName">
+                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                              </button>
+                         </div>
+
+                         <div class="col-md-2 text-right">
                               <div class="row">
                                    <TopHeader />
                               </div>
                          </div>
                     </div>
-                    <div class="row ml-2 mt-1">
-                         <div class="col-sm-12  text-center">
-                              <h2>BỆNH DỊCH GÂY HẠI LÚA</h2>
-                         </div>
-                    </div>
-                    <div class="row ml-2 mr-2 mt-4 pb-1">
+
+                    <div class="row ml-2 mr-2 mt-4  pt-3 pb-1">
                          <div class="col-sm-12 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i
                                         class="fas fa-plus-circle pt-1" style="font-size: 20px;"></i>Thêm bệnh dịch</button>
@@ -174,6 +181,7 @@ export default {
                isOpenUpdateEpidemic: false,
                nameToSearch: "",
                message: "",
+               isOpenSearch: false,
           }
      },
 

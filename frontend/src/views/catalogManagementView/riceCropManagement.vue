@@ -3,38 +3,48 @@
           <div class="row riceCropManagemenFrame">
                <div class="col-md-2 col-sm-12 leftRiceCropManagement">
                     <div class="row">
-                         <Catalog  />
+                         <Catalog />
                     </div>
                </div>
                <div class="col-md-10 rightRiceCropManagement">
-                    <div class="row mr-2 pt-2 pb-5">
-                         <div class="col-md-7 pr-5 " >
-                              <div class="row text-right">
-                                   <div class="col-sm-12">
-                                   <input type="text" class="form-control col-sm-8 inputSearch"
-                                        placeholder="Tìm theo tên" style="border-radius:10px" v-model="nameToSearch"
-                                        @keyup.enter="searchName" />
-                                   <button class="btnSearch" @click="searchName">
-                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                                   </button></div>
-                              </div>
+                    <div class="row ml-2 pt-3 mb-5 pb-1 mr-2 topRight">
+                         <div class="col-md-7" v-if="!isOpenSearch">
+                              <h3 class="name">Theo dõi mùa vụ</h3>
                          </div>
-                         <div class="col-md-3"></div>
-                         <div class="col-md-2 pl-5 text-right">
+                         <div class="col-md-3" v-if="isOpenSearch">
+                              <h3 class="name">Theo dõi mùa vụ</h3>
+                         </div>
+                         <div class="col-md-3 text-right" v-if="!isOpenSearch">
+                              <input type="text" class="form-control col-sm-8 inputSearch1" placeholder="Tìm"
+                                    v-model="nameToSearch" @keyup.enter="searchName"
+                                   @click="isOpenSearch = !isOpenSearch" />
+                              <button class="btnSearch1" @click="searchName">
+                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                              </button>
+                         </div>
+                         <div class="col-md-7 " v-if="isOpenSearch">
+                              <input type="text" class="form-control inputSearch2" placeholder=""
+                                   v-model="nameToSearch" @keyup.enter="searchName" />
+                              <button class="btnSearch2" @click="searchName">
+                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                              </button>
+                         </div>
+
+                         <div class="col-md-2 text-right">
                               <div class="row">
-                                   <TopHeader  />
+                                   <TopHeader />
                               </div>
                          </div>
                     </div>
-                    <div class="row ml-3 mt-4 pt-3">
+                    <div class="row ml-3  pt-4 pb-3 pr-3 ">
                          <div class="col-sm-10"></div>
-                         <div class="col-sm-2">
+                         <div class="col-sm-2 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
-                                        style="font-size: 15px;"></i>Thêm Mùa Vụ</button>
+                                        style="font-size: 15px;"></i> Thêm Mùa Vụ</button>
                          </div>
                     </div>
-                    <div class=" row riceCropList ml-2 mr-2 text-left  pt-1">
-                         <carousel :settings="settings" :breakpoints="breakpoints" style="width:100%" >
+                    <div class=" row riceCropList ml-2 mr-2 text-left">
+                         <carousel :settings="settings" :breakpoints="breakpoints" style="width:100%">
                               <slide v-for="(riceCrop, i) in riceCropListByMonitoring" :key="i">
                                    <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
                               </slide>
@@ -56,7 +66,7 @@
                               </template>
                          </carousel>
                     </div>
-                    
+
                     <div class="confirmationDialog" v-if="isOpenConfirm">
                          <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
                               class="labelConfirm">
@@ -141,7 +151,7 @@ export default {
 
      data() {
           return {
-                number:0,
+               number: 0,
                riceCropList: [],
                cropList: [],
                seedList: [],
@@ -169,6 +179,7 @@ export default {
                elementsPerPage: 6,
                ascending: false,
                fullListRiceCrop: [],
+               isOpenSearch: false,
                settings: {
                     itemsToShow: 1,
                     snapAlign: 'center',
@@ -221,30 +232,30 @@ export default {
           ...mapMutations([
                "initEmployeeState"
           ]),
-     getWidth(){
-          var width = document.body.clientWidth;
-          if(width>500 && width<800){
-               return 2
-          }
-          else if(width>=800 && width<1000){
-               return 3;
-          }
-          else if(width>=100 && width<1200){
-               return 4.5;
-          }
-          else if(width>=1200 && width<1400){
-               return 5;
-          }
-          else if(width>=1400 & width<1500){
-               return 5.5;
-          }
-          else if(width>=1500 && width<1600){
-               return 6;
-          }
-          else if(width>=1600){
-               return 8;
-          }
-     },
+          getWidth() {
+               var width = document.body.clientWidth;
+               if (width > 500 && width < 800) {
+                    return 2
+               }
+               else if (width >= 800 && width < 1000) {
+                    return 3;
+               }
+               else if (width >= 100 && width < 1200) {
+                    return 4.5;
+               }
+               else if (width >= 1200 && width < 1400) {
+                    return 5;
+               }
+               else if (width >= 1400 & width < 1500) {
+                    return 5.5;
+               }
+               else if (width >= 1500 && width < 1600) {
+                    return 6;
+               }
+               else if (width >= 1600) {
+                    return 8;
+               }
+          },
 
           async retrieveFullRiceCropList() {
                const [err, respone] = await this.handle(
@@ -297,12 +308,12 @@ export default {
                     const temp = response.data;
                     console.log(temp)
                     if (temp.length > 0) {
-                         
-                         this.riceCropList[position].Images_link = require('@/images/'+temp[temp.length-1].Image_link);
+
+                         this.riceCropList[position].Images_link = require('@/images/' + temp[temp.length - 1].Image_link);
                          console.log(this.urlImage);
                     }
-                    else{
-                         this.riceCropList[position].Images_link = require('@/images/'+"Rice1.png");
+                    else {
+                         this.riceCropList[position].Images_link = require('@/images/' + "Rice1.png");
                     }
                }
           },
@@ -318,7 +329,7 @@ export default {
                     this.riceCropList = respone.data;
                     this.riceCropListByFinish = [];
                     this.riceCropListByMonitoring = [];
-                    var i= 0;
+                    var i = 0;
                     this.riceCropList.forEach(element => {
                          this.getURL(i);
                          if (element.RiceCropInformation_harvestDate == null) {
@@ -813,7 +824,7 @@ export default {
      box-shadow: 4px;
 }
 
-.riceCropManagement{
+.riceCropManagement {
      height: 100vmin;
 }
 </style>

@@ -88,11 +88,11 @@ export default {
 /* @import '../../assets/QLSanPhamStyle.css' */
 .createImageForm {
     position: absolute;
-    width: 60%;
+    width: 50%;
     height: 520px;
     background-color: aquamarine;
     top: 18%;
-    left: 15%;
+    left: 28%;
     border-radius: 10px;
 }
 

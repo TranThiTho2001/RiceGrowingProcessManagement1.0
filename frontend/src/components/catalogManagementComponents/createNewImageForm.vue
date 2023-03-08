@@ -111,7 +111,7 @@ export default {
 .createImageForm {
      position: absolute;
      top: 20%;
-     left: 10%;
+     left: 15%;
      background-color: beige;
      width: 20%;
      height: 500px;

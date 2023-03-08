@@ -133,36 +133,80 @@
      border-radius: 14px;
  }
 
- .EmployeeManagerFrame .inputSearch {
-     background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
-     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+ .EmployeeManagerFrame .inputSearch1 {
      font-size: 16px;
      color: #84858A;
      font-family: 'Roboto';
      font-style: normal;
      font-weight: 400;
+     background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
+     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+     border-radius: 12px;
+     width: 90px;
+     position: relative;
+     left: 92%;
+ 
  }
  
- .EmployeeManagerFrame .btnSearch {
+ .EmployeeManagerFrame  .btnSearch1 {
      position: absolute;
-     left: 62%;
+     left:106%;
+     top: 16%;
      border-radius: 10px;
      border: none;
      background: none;
  }
  
-
- .btnCreate {
-     background: #EEEA41;
-     box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
-     font-size: 18px;
-     font-family: Inter;
-     width: max-content;
-     border: none;
-     border-radius: 10px;
+ 
+ .EmployeeManagerFrame  .inputSearch2 {
+     font-size: 16px;
+     color: #84858A;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 400;
+     background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
+     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+     border-radius: 12px;
+     position: relative;
+     left:-5%;
+     width:115%;
  }
  
-  .btnCreate:hover {
+ .EmployeeManagerFrame  .btnSearch2 {
+     position: absolute;
+     left: 102%;
+     top: 15%;
+     border-radius: 10px;
+     border: none;
+     background: none;
+ }
+ .EmployeeManagerFrame  .topRight {
+     background: #E4E5EB;
+     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     border-radius: 0px 0px 15px 15px;
+ }
+ 
+ .EmployeeManagerFrame .name {
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 700;
+     font-size: 30px;
+     line-height: 46px;
+     color: #B3B4BA;
+     position: relative;
+     top:-10%
+ }
+ .EmployeeManagerFrame .btnCreate {
+     border-radius: 12px;
+     background: #008B8E;
+     box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
+     font-size: 17px;
+     font-family: 'Roboto';
+     border: none;
+     color: #FFFED8;
+ }
+ 
+ .EmployeeManagerFrame .btnCreate:hover {
      background: #008B8E;
      box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
      font-size: 18px;

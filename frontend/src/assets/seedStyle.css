@@ -1,34 +1,36 @@
-.createSeedForm, .updateSeedForm{
+.seedManagement .createSeedForm,
+.seedManagement .updateSeedForm {
      background-color: #b7f8d0;
      font-family: Inter;
      border-radius: 10px;
      position: absolute;
      top: calc(10%);
      left: 25%;
-     width: 50%;
+     max-width: 50%;
 }
 
 
 
-.createSeedForm .messege{
-    background-color: #6cc38c;
+.createSeedForm .messege {
+     background-color: #6cc38c;
 }
+
 .createSeedForm .content .error-feedback,
-.updateSeedForm .content .error-feedback{
+.updateSeedForm .content .error-feedback {
      color: red;
      float: right;
 }
 
 
 .createSeedForm .content .form-group label,
-.updateSeedForm .content .form-group label{
+.updateSeedForm .content .form-group label {
      float: left;
      font-family: Inter;
      font-size: 18px;
 }
 
 .createSeedForm .content .form-group .selectBox,
-.updateSeedForm .content .form-group .selectBox{
+.updateSeedForm .content .form-group .selectBox {
      width: 100%;
      height: 38px;
      border: 1px solid #ced4da;
@@ -36,32 +38,33 @@
 }
 
 .createSeedForm .content .form-group input,
-.updateSeedForm .content .form-group input{
+.updateSeedForm .content .form-group input {
      float: left;
 }
 
 .createSeedForm .content .form-group .form-control,
-.updateSeedForm .content .form-group .form-control{
+.updateSeedForm .content .form-group .form-control {
      background-color: #f0f0f0;
 }
 
 .createSeedForm .functionName,
-.updateSeedForm .functionName{
+.updateSeedForm .functionName {
      font-family: Inter;
      font-size: 24px;
 }
+
 .createSeedForm .form-group .textMessage2,
 .createSeedForm .form-group .textMessage1,
 .updateSeedForm .form-group .textMessage1,
-.updateSeedForm .form-group .textMessage2{
-     text-align: center; 
+.updateSeedForm .form-group .textMessage2 {
+     text-align: center;
      display: inline;
      font-size: 18px;
      font-family: Inter;
 }
 
-.createSeedForm .btnLuu, 
-.updateSeedForm .btnLuu{
+.createSeedForm .btnLuu,
+.updateSeedForm .btnLuu {
      background-color: rgb(4, 105, 4);
      color: #f0f0f0;
      font-size: 20px;
@@ -69,148 +72,203 @@
 }
 
 
-.seedManagement .seedManagementFrame .rightSeedManagement   .confirmationDialog{
+.seedManagement .seedManagementFrame .rightSeedManagement .confirmationDialog {
      background-color: rgb(5, 207, 137);
      border: 1px solid rgb(62, 77, 77);
      border-radius: 10px;
-     position:absolute;
+     position: absolute;
      top: calc(38%);
      transform: translateX(80%);
      border-radius: 16px;
      display: block;
      width: 404px;
      height: 187px;
-     border-radius: 15px; 
+     border-radius: 15px;
      text-align: center;
 }
 
-.seedManagement .seedManagementFrame .rightSeedManagement .confirmationDialog .btnYes{
+.seedManagement .seedManagementFrame .rightSeedManagement .confirmationDialog .btnYes {
      background-color: rgb(244, 61, 61);
      color: white;
      font-family: Inter;
      font-size: 16px;
 }
 
-.seedManagement .seedManagementFrame .rightSeedManagement .confirmationDialog .btnNo{
+.seedManagement .seedManagementFrame .rightSeedManagement .confirmationDialog .btnNo {
      background-color: rgb(196, 191, 191);
      color: rgb(33, 33, 33);
      font-family: Inter;
      font-size: 16px;
 }
 
-.seedManagement .seedManagementFrame .rightSeedManagement .messageDialog .btnOK{
+.seedManagement .seedManagementFrame .rightSeedManagement .messageDialog .btnOK {
      background-color: rgb(196, 191, 191);
      color: rgb(33, 33, 33);
      font-family: Inter;
      font-size: 16px;
 }
-.seedManagement .seedManagementFrame .rightSeedManagement .messageDialog{
+
+.seedManagement .seedManagementFrame .rightSeedManagement .messageDialog {
      background-color: rgb(5, 207, 137);
      border: 1px solid rgb(62, 77, 77);
      border-radius: 10px;
-     position:absolute;
+     position: absolute;
      top: calc(38%);
      transform: translateX(80%);
      border-radius: 16px;
      display: block;
      width: 404px;
      height: 187px;
-     border-radius: 15px; 
+     border-radius: 15px;
      text-align: center;
 }
 
- 
 
- .btnCreate {
-    background: #EEEA41;
-    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
-    font-size: 17px;
-    font-family: Inter;
-    width: 180px;
-    border: none;
-    border-radius: 10px;
-}
 
- .btnCreate:hover {
-    background: #008B8E;
-    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
-    font-size: 17px;
-    font-family: Inter;
-    border: none;
-    border-radius: 10px;
-    font-weight: 600;
-}
-.seedManagement .inputSearch {
-    background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
-    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-    font-size: 16px;
-    color: #84858A;
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
+.seedManagement .btnCreate {
+     border-radius: 15px;
+     background: #008B8E;
+     box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
+     font-size: 17px;
+     font-family: 'Roboto';
+     border: none;
+     color: #FFFED8;
 }
 
-.seedManagement .btnSearch {
-    position: absolute;
-    left: 62%;
-    border-radius: 10px;
-    border: none;
-    background: none;
+.seedManagement .btnCreate:hover {
+     background: #008B8E;
+     box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
+     font-size: 17px;
+     font-family:'Roboto';
+     border: none;
+     border-radius: 10px;
 }
 
- .seedManagement{
-    position: relative;
- }
-.seedManagement .seedManagementFrame .rightSeedManagement{
-    border-left: #bdf487 0.5px solid;
+.seedManagement .inputSearch1 {
+     font-size: 16px;
+     color: #84858A;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 400;
+     background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
+     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+     border-radius: 12px;
+     width: 90px;
+     position: relative;
+     left: 92%;
+
 }
- .seedManagement .seedManagementFrame .rightSeedManagement table tr{
+
+.seedManagement .btnSearch1 {
+     position: absolute;
+     left:106%;
+     top: 16%;
+     border-radius: 10px;
+     border: none;
+     background: none;
+}
+
+
+.seedManagement .inputSearch2 {
+     font-size: 16px;
+     color: #84858A;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 400;
+     background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
+     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+     border-radius: 12px;
+     position: relative;
+     left: -6%;
+     width: 115%;
+     top:5%;
+}
+
+.seedManagement .btnSearch2 {
+     position: absolute;
+     left: 102%;
+     top: 16%;
+     border-radius: 10px;
+     border: none;
+     background: none;
+}
+
+.seedManagement .topRight {
+     background: #E4E5EB;
+     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     border-radius: 0px 0px 15px 15px;
+}
+
+.seedManagement .name {
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 700;
+     font-size: 30px;
+     line-height: 46px;
+     color: #B3B4BA;
+     position: relative;
+     top:-8%
+}
+
+.seedManagement {
+     position: relative;
+}
+
+.seedManagement .seedManagementFrame .rightSeedManagement {
+     border-left: #bdf487 0.5px solid;
+}
+
+.seedManagement .seedManagementFrame .rightSeedManagement table tr {
      /* background-color: #ced4da; */
      border-top: 1px solid #515151;
- }
-
- .seedManagement .seedManagementFrame .rightSeedManagement .actions{
-     border: none;
-     color: black;
- }
- .seedManagement .seedManagementFrame .rightSeedManagement tr{
-    width: max-content; 
- }
- .seedManagement .seedManagementFrame .rightSeedManagement .actions .action{
-     text-align: center;
-     display: inline;
- }
- .seedManagement .seedManagementFrame .rightSeedManagement .actions .action .actionIcon{
-     border: none;
-     color: black;
- }
-
- .seedManagement .seedManagementFrame .rightSeedManagement .seedList .table td{
-    font-size: 15px;
-    text-align: justify;
-    vertical-align:top;
- }
- .seedManagement .seedManagementFrame .rightSeedManagement .seedList .table{
-     height: max-content;
- }
-
- .seedManagement .seedManagementFrame .rightSeedManagement .btnTimKiem:hover{
-    background-color: none;
-    color:#515151;
 }
 
-.seedManagement .seedManagementFrame .rightSeedManagement .btnTimKiem{
-    background-color: none;
-    color:darkgray
+.seedManagement .seedManagementFrame .rightSeedManagement .actions {
+     border: none;
+     color: black;
+}
+
+.seedManagement .seedManagementFrame .rightSeedManagement tr {
+     width: max-content;
+}
+
+.seedManagement .seedManagementFrame .rightSeedManagement .actions .action {
+     text-align: center;
+     display: inline;
+}
+
+.seedManagement .seedManagementFrame .rightSeedManagement .actions .action .actionIcon {
+     border: none;
+     color: black;
+}
+
+.seedManagement .seedManagementFrame .rightSeedManagement .seedList .table td {
+     font-size: 15px;
+     text-align: justify;
+     vertical-align: top;
+}
+
+.seedManagement .seedManagementFrame .rightSeedManagement .seedList .table {
+     height: max-content;
+}
+
+.seedManagement .seedManagementFrame .rightSeedManagement .btnTimKiem:hover {
+     background-color: none;
+     color: #515151;
+}
+
+.seedManagement .seedManagementFrame .rightSeedManagement .btnTimKiem {
+     background-color: none;
+     color: darkgray
 }
 
 .seedManagement .categoryList .btnSeed {
-    display: block;
-    width: 94%;
-    font-size: 18px;
-    background-color: #FFFA37;
-    color: #5C5D22;
-    border: none;
-    font-family: Inter;
-    border-radius: 14px;
+     display: block;
+     width: 94%;
+     font-size: 18px;
+     background-color: #FFFA37;
+     color: #5C5D22;
+     border: none;
+     font-family: Inter;
+     border-radius: 14px;
 }

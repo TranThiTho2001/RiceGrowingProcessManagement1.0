@@ -4,15 +4,9 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
      <div class="container-fluid topHeader">
           <div class="btn btnUser dropdown">
-               <div class="row topRow text-center">
-                    <div class="col-sm-3">
-                         <span class="fas fa-user-circle iconUser mt-2"></span>
-                    </div>
-                    <div class="col-sm-9 text-left">
-                         <h6 class="username pt-2">{{ formatName(currentuser.Employee_name) }} <i class="fas fa-caret-down"
-                                   style="color: #919302"></i></h6>
-                    </div>
-               </div>
+               <i class="fas fa-user-circle iconUser"></i>
+               <h6 class="username "> &nbsp;{{ formatName(currentuser.Employee_name) }} <i class="fas fa-caret-down"
+                         style="color: #6D6E73"></i></h6>
                <div class="dropdown-conten" style="background-color: #919302;">
                     <a @click="logout">Đăng xuất</a>
                </div>
@@ -31,14 +25,14 @@ export default {
           }
      },
      computed: {
-        ...mapGetters({
-            currentUser: "loggedInEmployee",
-        }),
-    },
+          ...mapGetters({
+               currentUser: "loggedInEmployee",
+          }),
+     },
      methods: {
           ...mapMutations([
-          "initEmployeeState"
-        ]),
+               "initEmployeeState"
+          ]),
           async PhanQuyenNhanVien() {
                console.log(this.employee)
                const [err, respone] = await this.handle(
@@ -69,13 +63,13 @@ export default {
 
           },
           logout() {
-            
-            this.$router.push("/");
-            this.$store.commit("logout");
-        },
+
+               this.$router.push("/");
+               this.$store.commit("logout");
+          },
      },
 
-     mounted() {        
+     mounted() {
           this.initEmployeeState();
           this.PhanQuyenNhanVien();
      },
@@ -91,25 +85,33 @@ export default {
      display: inline-block;
      margin-left: 0px;
      border-radius: 10px;
+     height: 10px;
+     position: relative;
 }
 
 .topHeader .iconUser {
      font-size: 26px;
-     color: #5C5D22;
+     color: #6D6E73;
+     position: relative;
+     top: -3%;
 }
 
 .topHeader .username {
      font-family: Inter;
      font-size: 18px;
-     display: block;
-     color: #5C5D22;
+     display: inline;
+     color: #6D6E73;
+     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     position: relative;
+     top: -12%
 }
 
 .topHeader .btnUser {
-     border: none;
-     border-radius: 15px;
-     background-color: #EEEA41;
-     width: max-content;
+     height: 37px;
+     background: #ABD2C8;
+     border: 1px solid #FAFAFC;
+     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     border-radius: 10px;
 }
 
 
@@ -124,35 +126,44 @@ export default {
 .dropdown {
      position: relative;
      display: inline-block;
+     height: 37px;
+     background: #ABD2C8;
+     border: 1px solid #FAFAFC;
+     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     border-radius: 20px;
+     position: relative;
 }
 
 .dropdown-conten {
      display: none;
-     background-color:#EEEA41;
-     min-width: 120px;  
+     background-color: #EEEA41;
+     min-width: 120px;
      font-family: Inter;
-     font-size: 20px; 
+     font-size: 20px;
      min-width: 140px;
-     height: 40px; 
+     height: 40px;
 }
+
 .dropdown-conten:hover {
-     background-color:#EEEA41;
-    
+     background-color: #EEEA41;
+
 }
+
 .dropdown:hover .dropdown-conten {
      display: block;
      position: absolute;
-     top:95%;
-     left:-2%;
-     background-color:#EEEA41;
+     top: 95%;
+     left: -2%;
+     background-color: #EEEA41;
      background: #EEEA41;
 }
+
 .dropdown:checked .dropdown-conten {
      display: block;
      position: absolute;
-     top:95%;
-     left:-2%;
-     background-color:#EEEA41;
+     top: 95%;
+     left: -2%;
+     background-color: #EEEA41;
      background: #EEEA41;
 }
 </style>

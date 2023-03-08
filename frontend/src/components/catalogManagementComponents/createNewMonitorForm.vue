@@ -232,8 +232,10 @@ export default {
      width: 80%;
      height: 80vh;
      top: 15%;
-     left: 10%;
+     left: 20%;
      background-color: rgb(254, 254, 254);
+     border:solid 1px #84858A;
+     border-radius: 10px;
 }
 
 .createMonitorForm .table thead td {

@@ -1,4 +1,5 @@
-.createEpidemicForm, .updateEpidemicForm{
+.epidemicManagement .createEpidemicForm,
+.epidemicManagement .updateEpidemicForm{
      background-color: #b7f8d0;
      font-family: Inter;
      border-radius: 10px;
@@ -118,95 +119,18 @@
      border-radius: 15px; 
      text-align: center;
 }
-.btnChoosePage {
 
- }
- 
- /* Dropup Button */
- .dropbtn {
-     color: black;
-     font-size: 16px;
-     border: none;
-     width: 80px;
-     height: 35px;
-     background-color: none;
-     border-radius: 10px;
- }
- 
- /* The container <div> - needed to position the dropup content */
- .dropdown {
-     position: relative;
-     display: inline-block;
-     border-radius: 1px;
- }
- 
- /* Dropup content (Hidden by Default) */
- .dropdown-content {
-     display: none;
-     position: absolute;
-     bottom: 50px;
-     min-width: 80px;
-     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-     /* z-index: 1; */
-     font-family: Inter;
-     font-size: 17px;
-     border-radius: 15px;
- }
- 
- /* Links inside the dropup */
- .dropdown-content a {
-     color: black;
-     padding: 12px 16px;
-     text-decoration: none;
-     display: block;
-     font-family: Inter;
-     font-size: 17px;
- }
- 
- /* Change color of dropup links on hover */
- .dropdown-content a:hover {
-     border: #00BA13 1px solid;
-     background-color: #3c8456;
-     border-radius: 1px;
-     font-size: 18px;
-     font-family: Inter;
- }
- 
- .dropdown-content a.active {
-     background-color: #47de7e;
- }
- 
- /* Show the dropup menu on hover */
- .dropdown:hover .dropdown-content {
-     display: block;
-     border: #00BA13 1px solid;
-     background-color: #3b9c5f;
-
-     font-size: 18px;
-     font-family: Inter;
-     right: 1%;
-     top:calc(98%)
- }
- 
- /* Change the background color of the dropup button when the dropup content is shown */
- .dropdown:hover .dropbtn {
-     border-radius: 1px;
-     font-size: 18px;
-     font-family: Inter;
-     border-radius: 10px;
- }
- 
- .btnCreate {
-    background: #EEEA41;
+.epidemicManagement .btnCreate {
+    border-radius: 12px;
+    background: #008B8E;
     box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
-    font-size: 18px;
-    font-family: Inter;
-    width: max-content;
+    font-size: 17px;
+    font-family: 'Roboto';
     border: none;
-    border-radius: 10px;
+    color: #FFFED8;
 }
 
- .btnCreate:hover {
+.epidemicManagement .btnCreate:hover {
     background: #008B8E;
     box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
     font-size: 18px;
@@ -214,35 +138,69 @@
     border: none;
     border-radius: 10px;
 }
- .numberPage {
-     display: inline-block;
-     margin-top: 2px;
-     border-radius: 5px;
-     border: 1px solid #00BA13;
- }
 
- .numberPage:hover {
-     display: inline-block;
-     margin-top: 2px;
-     border-radius: 5px;
-     border: 1px solid #00BA13;
- }
- .epidemicManagement .inputSearch {
-    background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
-    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+ .epidemicManagement .inputSearch1 {
     font-size: 16px;
     color: #84858A;
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
+    background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 13px;
+    width: 90px;
+    position: relative;
+    left: 92%;
+
 }
 
-.epidemicManagement .btnSearch {
+.epidemicManagement .btnSearch1 {
     position: absolute;
-    left: 62%;
+    left:106%;
+    top: 16%;
     border-radius: 10px;
     border: none;
     background: none;
+}
+
+
+.epidemicManagement .inputSearch2 {
+    font-size: 16px;
+    color: #84858A;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 13px;
+    position: relative;
+    left:-6%;
+    width:115%;
+}
+
+.epidemicManagement .btnSearch2 {
+    position: absolute;
+    left: 102%;
+    top: 16%;
+    border-radius: 10px;
+    border: none;
+    background: none;
+}
+.epidemicManagement .topRight {
+    background: #E4E5EB;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 0px 0px 15px 15px;
+}
+
+.epidemicManagement .name {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 46px;
+    color: #B3B4BA;
+    position: relative;
+    top:-10%
 }
  .epidemicManagement{
     position: relative;

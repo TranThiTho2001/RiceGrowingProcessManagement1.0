@@ -1,19 +1,19 @@
 <template>
-     <div style="height: 195px;" class="container-fuild">
-               <div class="imageComponent text-dark border ">
-                    <div class="img mt-2 ml-2 mr-2" style="min-height: 135px; max" ><img :src="images.Image_link" class="img-fluid" alt="" >
+     <div style="height: 195px; width: 203px;" class="container-fuild">
+          <div class="imageComponent text-dark border ">
+               <div class="img mt-2 ml-2 mr-2"><img :src="images.Image_link" class="img-fluid" alt=""
+                         style="min-height: 135px; max-height: 134px;">
+               </div>
+               <div class="row">
+                    <div class="col-sm-10 ">
+                         <div class="row pl-4 pr-4 infor">Ngày: {{ formatDate(images.Image_date) }}</div>
+                         <div class="row pl-4 pr-4 infor">Giờ: {{ formatTimes(images.Image_date) }}</div>
                     </div>
-                    <div class="row" >
-                         <div class="col-sm-10 ">
-                              <div class="row pl-4 pr-4 infor">Ngày: {{ formatDate(images.Image_date) }}</div>                          
-                              <div class="row pl-4 pr-4 infor">Giờ: {{ formatTimes(images.Image_date) }}</div>
-                         
-                         </div>
-                         <div class="col-sm-2">
-                              <i class="fas fa-ellipsis-v mt-2 "  style="color: #919302; font-size: 25px;"></i>
-                         </div>
+                    <div class="col-sm-2">
+                         <i class="fas fa-ellipsis-v mt-2 " style="color: #919302; font-size: 25px;"></i>
                     </div>
                </div>
+          </div>
      </div>
 </template>
    
@@ -25,13 +25,13 @@ export default {
      name: "imageItem",
 
      props: ["images"],
-     
+
      methods: {
-          formatDate(data){
+          formatDate(data) {
                return moment(String(data)).format("MM/DD/YYYY");
           },
 
-          formatTimes(data){
+          formatTimes(data) {
                return moment(String(data)).format("hh:mm:ss A");
           }
 
@@ -41,7 +41,8 @@ export default {
    
 <style>
 .imageComponent {
-     margin-right: 10%;;
+     margin-right: 10%;
+     ;
      -moz-border-radius: 2px;
      -webkit-border-radius: 2px;
      -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
@@ -59,14 +60,14 @@ export default {
      background-color: #dfdfdf;
 }
 
-.imageComponent .fa-ellipsis-v{
+.imageComponent .fa-ellipsis-v {
      position: absolute;
      left: 10%;
 }
 
-.imageComponent .infor{
+.imageComponent .infor {
      font-family: Inter;
      font-size: 15px;
-     color:rgb(195, 195, 103);
+     color: rgb(195, 195, 103);
 }
 </style>
