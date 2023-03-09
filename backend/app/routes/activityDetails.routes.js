@@ -8,7 +8,7 @@ module.exports = (app) => {
      router.get("/", activityDetails.findAll);
 
      //find by id
-     router.get("/:RiceCropInformation_id", activityDetails.findbyIdRiceCropInformation)
+     router.get("/:RiceCropInformation_id/:OtherActivities_id", activityDetails.findbyIdRiceCropInformation)
 
      // Store 
      router.post("/", activityDetails.store);

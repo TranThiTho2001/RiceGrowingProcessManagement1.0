@@ -1,8 +1,8 @@
 <template>
-     <div style="height: 195px; width: 203px;" class="container-fuild">
-          <div class="imageComponent text-dark border ">
-               <div class="img mt-2 ml-2 mr-2"><img :src="images.Image_link" class="img-fluid" alt=""
-                         style="min-height: 135px; max-height: 134px;">
+     <div style="height: 300px; width: 300px;" class="container-fuild">
+          <div class="imageComponent text-dark border">
+               <div class="img mt-2 ml-2 mr-2 text-center"><img :src="images.Image_link" class="img-fluid" alt=""
+                         style="min-height: 200px; max-height: 200px;">
                </div>
                <div class="row">
                     <div class="col-sm-10 ">

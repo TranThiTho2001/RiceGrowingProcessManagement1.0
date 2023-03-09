@@ -26,8 +26,10 @@ ActivityDetails.create = (newActivityDetails, result) => {
      });
 };
 
-ActivityDetails.findByIdRiceCropInformation = (id, result) => {
-     sql.query(`SELECT * FROM ActivityDetails WHERE RiceCropInformation_id like '${id}'`, (err, res) => {
+ActivityDetails.findByIdRiceCropInformation = (id, otherActivities_id, result) => {
+     sql.query(`SELECT * FROM ActivityDetails JOIN otheractivities on otheractivities.OtherActivities_id=ActivityDetails.OtherActivities_id`
+     + ` JOIN Employee on Employee.Employee_id = ActivityDetails.Employee_id`
+     + ` WHERE RiceCropInformation_id like '${id}' and ActivityDetails.OtherActivities_id like'${otherActivities_id}'`, (err, res) => {
           if (err) {
                console.log("error: ", err);
                result(err, null);
@@ -42,10 +44,11 @@ ActivityDetails.findByIdRiceCropInformation = (id, result) => {
      });
 };
 
-ActivityDetails.getAll = (otherActivities_id, result) => {
-     let query = "SELECT * FROM ActivityDetails";
-     if (otherActivities_id) {
-          query += ` WHERE OtherActivities_id LIKE '%${otherActivities_id}%'`;
+ActivityDetails.getAll = (riceCropInformation_id, result) => {
+     let query = "SELECT * FROM ActivityDetails JOIN otheractivities on otheractivities.OtherActivities_id=ActivityDetails.OtherActivities_id"
+     + " JOIN Employee on Employee.Employee_id = ActivityDetails.Employee_id";
+     if (riceCropInformation_id) {
+          query += ` WHERE RiceCropInformation_id LIKE '%${riceCropInformation_id}%'`;
      }
      sql.query(query, (err, res) => {
           if (err) {

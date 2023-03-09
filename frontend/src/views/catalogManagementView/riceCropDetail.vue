@@ -405,6 +405,87 @@
                                    </nav>
                               </div>
 
+                              <!-- ----------------------OtherActivity Tab-------------- -->
+                              <div class="row activitiesList ml-2 mr-2" v-if="isOpenTableOtherActivitiesTimes">
+                                   <button class="btn mt-3" style="background-color: gold;"
+                                        @click="isOpenCreateActivitiesDetail = !isOpenCreateActivitiesDetail, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
+
+                                   <table class="table">
+                                        <thead>
+                                             <tr>
+                                                  <th class="text-center ">STT</th>
+                                                  <th class="text-center ">Mã</th>
+                                                  <th>Tên hoạt động</th>
+                                                  <th>Lần</th>
+                                                  <th class="">Ngày bắt đầu</th>
+                                                  <th class="">Ngày kết thúc</th>
+                                                  <th class="">Nhân viên</th>
+                                                  <th class="">Tùy chọn</th>
+                                             </tr>
+                                        </thead>
+                                        <tbody>
+                                             <tr v-for="(activity, i ) in get_rows(activitiesDetailList)" :key="i">
+                                                  <td class="text-center" v-if="currentPage > 1">{{ i + ((currentPage - 1) *
+                                                       elementsPerPage) }}
+                                                  </td>
+                                                  <td class="text-center" v-else>{{ i }}</td>
+                                                  <td class="text-center">{{ activity.OtherActivities_id }}</td>
+
+                                                  <td>{{ activity.OtherActivities_name }}</td>
+                                                  <td>{{ activity.ActivityDetails_times }}</td>
+                                                  <td>{{ formatDate(activity.OtherActivities_startDate) }}</td>
+                                                  <td>{{ formatDate(activity.ActivityDetails_endDate) }}</td>
+                                                  <td class="">{{ activity.Employee_name }}</td>
+                                                  <td style="border-top: none;" class="">
+                                                       <span class="action" style="border-top: none;"
+                                                            @click="setMonitorChoosen(activity), isOpenUpdateEpidemicTimesForm = !isOpenUpdateEpidemicTimesForm">
+                                                            <span class="fas fa-edit actionIcon"></span>
+                                                       </span>
+                                                       <span class="action pl-4" style="border-top: none;"
+                                                            @click="setMonitorChoosen(activity), isOpenConfirm = !isOpenConfirm, setDelete('Monitor')">
+                                                            <span class="fas fa-trash-alt actionIcon"></span>
+                                                       </span>
+                                                  </td>
+                                             </tr>
+                                        </tbody>
+                                   </table>
+                                   <nav aria-label="...">
+                                        <ul class="pagination " aria-controls="my-table">
+                                             <li class="page-item disabled" v-if="currentPage == 1">
+                                                  <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
+                                             </li>
+                                             <li class="page-item " v-if="currentPage > 1">
+                                                  <a class="page-link" href="#" @click="change_page('-', monitorList)"
+                                                       aria-controls="my-table">{{
+                                                            previous }}</a>
+                                             </li>
+                                             <li class="page-item"><a class="page-link" href="#"
+                                                       @click="change_page(currentPage - 1, monitorList)"
+                                                       v-if="currentPage > 1">{{
+                                                            currentPage - 1 }}</a></li>
+                                             <li class="page-item active">
+                                                  <a class="page-link"
+                                                       style="background-color: #EEEA41; border-color: #EEEA41;" href="#">{{
+                                                            currentPage }} <span class="sr-only">(current)</span></a>
+                                             </li>
+                                             <li class="page-item"><a class="page-link" href="#"
+                                                       v-if="currentPage < num_pages(monitorList)"
+                                                       @click="change_page(currentPage + 1, monitorList)">{{ currentPage + 1
+                                                       }}</a>
+                                             </li>
+                                             <li class="page-item">
+                                                  <a class="page-link" href="#" @click="change_page('+', monitorList)"
+                                                       v-if="currentPage < num_pages(monitorList)">{{
+                                                            next }}</a>
+                                             </li>
+                                             <li class="page-item disabled">
+                                                  <a class="page-link" href="#"
+                                                       v-if="currentPage >= num_pages(monitorList)">{{ next
+                                                       }}</a>
+                                             </li>
+                                        </ul>
+                                   </nav>
+                              </div>
                               <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
 
                               <div class="confirmationDialog" v-if="isOpenConfirm">
@@ -466,6 +547,10 @@
 
           <CreateImageForm v-if="isOpenCreateImage" :newImage="newImage" :message1="message1" :message2="message2"
                :newRiceCrop="newRiceCrop" @addImage-submit=createNewImage />
+
+          <CreateActivitiiesDetailForm v-if="isOpenCreateActivitiesDetail" :newActivityDetail="newActivityDetail"
+               :currentUser="currentUser" :developmentStageList="developmentStageList" :riceCropChoosen="newRiceCrop"
+               @addOtherActivityTimes-submit="createNewActivitiesDetail" :message1="message1" :message2="message2" />
      </div>
 </template>
 
@@ -502,6 +587,9 @@ import ImagesService from '@/services/images.service';
 import ImageComponent from '@/components/catalogManagementComponents/imageComponent.vue';
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Navigation } from 'vue3-carousel';
+import ActivityDetailsService from '@/services/activityDetails.service';
+// import CreateOtherActiviesForm from '@/components/catalogManagementComponents/createNewOtherActivities.vue';
+import CreateActivitiiesDetailForm from '@/components/catalogManagementComponents/createNewOtherActivityTimesForm.vue';
 import axios from 'axios';
 export default {
      name: "riceCropDetail",
@@ -520,6 +608,8 @@ export default {
           UpdateEpidemicTimesForm,
           CreateMonitorForm,
           CreateImageForm,
+          CreateActivitiiesDetailForm,
+          // CreateOtherActiviesForm,
           TopHeader,
           Carousel,
           Slide,
@@ -528,7 +618,6 @@ export default {
 
      data() {
           return {
-
                activitiesList: [],
                newRiceCrop: {},
                employeeList: {},
@@ -550,6 +639,8 @@ export default {
                epidemicTimesList: [],
                riceCropList: [],
                imagesList: [],
+               otherActivitiesList: [],
+               activitiesDetailList: [],
                message1: "",
                message2: "",
                isOpenTableFertilizerTimes: false,
@@ -570,6 +661,8 @@ export default {
                isOpenUpdateEpidemicTimesForm: false,
                epidemicTimesChoosen: {},
                isOpenCreateMonitorForm: false,
+               newActivityDetail: {},
+               isOpenCreateActivitiesDetail: false,
                currentPage: 1,
                elementsPerPage: 4,
                ascending: false,
@@ -611,7 +704,7 @@ export default {
                          snapAlign: 'start',
                     },
                     1500: {
-                         itemsToShow: 6,
+                         itemsToShow: 4,
                          snapAlign: 'start',
                     },
                     1600: {
@@ -842,6 +935,20 @@ export default {
                          }
                     });
                     console.log(respone.data);
+               }
+          },
+
+
+
+          async retrieveActivitiesDetail() {
+               const [err, respone] = await this.handle(
+                    ActivityDetailsService.findByName(this.newRiceCrop.RiceCropInformation_id)
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.activitiesDetailList = respone.data;
                }
           },
 
@@ -1150,9 +1257,9 @@ export default {
                     );
                     if (error) {
                          console.log(error);
-                         this.message1 = "Thêm không thành công."
+                         this.message1 = "Thêm không thành công.";
                     } else if (respone.data == "Không thể tạo lần phun thuốc mới.") {
-                         this.message1 = "Thêm không thành công."
+                         this.message1 = "Thêm không thành công.";
                     } else {
                          this.message2 = "Thêm thành công.";
                          this.retrieveSprayingTimesList();
@@ -1541,8 +1648,6 @@ export default {
                     this.isOpenCreateImage = false;
                }
                else {
-
-
                     if (data.Image != null) {
                          const formdata = require('form-data');
                          const formData = new formdata();
@@ -1572,6 +1677,56 @@ export default {
                     else {
                          this.message1 = "Vui lòng chọn hình ảnh!!"
                     }
+               }
+          },
+
+          async createNewActivitiesDetail(data) {
+               this.message1 = "";
+               this.message2 = "";
+               if (!data.close) {
+                    this.isOpenCreateActivitiesDetail = false;
+                    this.newActivityDetail = {};
+               }
+               else {
+                    data.RiceCropInformation_id = this.newRiceCrop.RiceCropInformation_id;
+                    data.Employee_id = this.currentUser.Employee_id;
+                    this.otherActivitiesList.forEach(element => {
+                         if (data.OtherActivities_name == element.OtherActivities_name) {
+                              data.OtherActivities_id = element.OtherActivities_id;
+                         }
+                    });
+                    this.developmentStageList.forEach(element => {
+                         if (data.DevelopmentStage_name == element.DevelopmentStage_name) {
+                              data.DevelopmentStage_id = element.DevelopmentStage_id;
+                         }
+                    });
+console.log(data.ActivityDetails_startDate)
+                    if (data.ActivityDetails_endDate != null) {
+                         data.ActivityDetails_endDate = (moment(String(data.ActivityDetails_endDate)).format("YYYY-MM-DD")).slice(0, 10);
+                    }
+                    else {
+                         data.ActivityDetails_endDate = null;
+                    }
+                    if (data.ActivityDetails_startDate != null) {
+                         data.ActivityDetails_startDate = (moment(String(data.ActivityDetails_startDate)).format("YYYY-MM-DD")).slice(0, 10);
+                    }
+                    else {
+                         data.ActivityDetails_startDate = null;
+                    }
+                    const [error, response] = await this.handle(
+                         ActivityDetailsService.create(data)
+                    );
+
+                    if (response.data == error) {
+                         this.message1 = "Thêm không thành công.";
+                    }
+                    else if (response.data == "Không thể tạo chi tiết hoạt động mới.") {
+                         this.message1 = "Thêm không thành công.";
+                    }
+                    else {
+                         this.message2 = "Thêm thành công.";
+                    }
+
                }
           },
 
@@ -1646,6 +1801,7 @@ export default {
           this.retrieveRiceCropList();
           this.retrieveEmpoyeeList();
           this.retrieveImagesList();
+          this.retrieveActivitiesDetail();
      }
 };
 </script>
@@ -1682,4 +1838,5 @@ nav {
      border: none;
      font-family: Inter;
      border-radius: 14px;
-}</style>
+}
+</style>

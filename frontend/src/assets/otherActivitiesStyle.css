@@ -1,0 +1,269 @@
+.createOtherActiviesForm ,
+.createOtherActiviesForm .updateFertilizerForm{
+     background-color: #51745e;
+     font-family: Inter;
+     border-radius: 10px;
+     position: absolute;
+     top: calc(24%);
+     left: 40%;
+     width: 40% !important;
+}
+
+
+
+.createOtherActiviesForm .messege{
+    background-color: #6cc38c;
+}
+.createOtherActiviesForm .content .error-feedback,
+.updateFertilizerForm .content .error-feedback{
+     color: red;
+     float: right;
+}
+
+
+.createOtherActiviesForm .content .form-group label,
+.updateFertilizerForm .content .form-group label{
+     float: left;
+     font-family: Inter;
+     font-size: 18px;
+}
+
+.createOtherActiviesForm .content .form-group .selectBox,
+.updateFertilizerForm .content .form-group .selectBox{
+     width: 100%;
+     height: 38px;
+     border: 1px solid #ced4da;
+     border-radius: 4px;
+}
+
+.createOtherActiviesForm .content .form-group input,
+.updateFertilizerForm .content .form-group input{
+     float: left;
+}
+
+.createOtherActiviesForm .content .form-group .form-control,
+.updateFertilizerForm .content .form-group .form-control{
+     background-color: #f0f0f0;
+}
+
+.createOtherActiviesForm .functionName,
+.updateFertilizerForm .functionName{
+     font-family: Inter;
+     font-size: 24px;
+}
+.createOtherActiviesForm .form-group .textMessage2,
+.createOtherActiviesForm .form-group .textMessage1,
+.updateFertilizerForm .form-group .textMessage1,
+.updateFertilizerForm .form-group .textMessage2{
+     text-align: center; 
+     display: inline;
+     font-size: 18px;
+     font-family: Inter;
+}
+
+.createOtherActiviesForm .btnLuu, 
+.updateFertilizerForm .btnLuu{
+     background-color: rgb(4, 105, 4);
+     color: #f0f0f0;
+     font-size: 20px;
+     text-align: center;
+}
+
+
+.createOtherActiviesForm .fertilizerManagementFrame .rightFertilizerManagement   .confirmationDialog{
+     background-color: rgb(5, 207, 137);
+     border: 1px solid rgb(62, 77, 77);
+     border-radius: 10px;
+     position:absolute;
+     top: calc(38%);
+     transform: translateX(80%);
+     border-radius: 16px;
+     display: block;
+     width: 404px;
+     height: 187px;
+     border-radius: 15px; 
+     text-align: center;
+}
+
+.fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .confirmationDialog .btnYes{
+     background-color: rgb(244, 61, 61);
+     color: white;
+     font-family: Inter;
+     font-size: 16px;
+}
+
+.fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .confirmationDialog .btnNo{
+     background-color: rgb(196, 191, 191);
+     color: rgb(33, 33, 33);
+     font-family: Inter;
+     font-size: 16px;
+}
+
+.fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .messageDialog .btnOK{
+     background-color: rgb(196, 191, 191);
+     color: rgb(33, 33, 33);
+     font-family: Inter;
+     font-size: 16px;
+}
+.fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .messageDialog{
+     background-color: rgb(5, 207, 137);
+     border: 1px solid rgb(62, 77, 77);
+     border-radius: 10px;
+     position:absolute;
+     top: calc(38%);
+     transform: translateX(80%);
+     border-radius: 16px;
+     display: block;
+     width: 404px;
+     height: 187px;
+     border-radius: 15px; 
+     text-align: center;
+}
+
+ 
+.fertilizerManagement .btnCreate {
+    border-radius: 12px;
+    background: #008B8E;
+    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
+    font-size: 17px;
+    font-family: 'Roboto';
+    border: none;
+    color: #FFFED8;
+}
+
+.fertilizerManagement .btnCreate:hover {
+    background: #008B8E;
+    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
+    font-size: 18px;
+    font-family: Inter;
+    border: none;
+    border-radius: 12px;
+}
+ .numberPage {
+     display: inline-block;
+     margin-top: 2px;
+     border-radius: 5px;
+     border: 1px solid #00BA13;
+ }
+
+ .numberPage:hover {
+     display: inline-block;
+     margin-top: 2px;
+     border-radius: 5px;
+     border: 1px solid #00BA13;
+ }
+
+ .fertilizerManagement .inputSearch1 {
+    font-size: 16px;
+    color: #84858A;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    width: 90px;
+    position: relative;
+    left: 92%;
+
+}
+
+.fertilizerManagement  .btnSearch1 {
+    position: absolute;
+    left:106%;
+    top: 16%;
+    border-radius: 10px;
+    border: none;
+    background: none;
+}
+
+
+.fertilizerManagement  .inputSearch2 {
+    font-size: 16px;
+    color: #84858A;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    position: relative;
+    left:-5%;
+    width:115%;
+}
+
+.fertilizerManagement  .btnSearch2 {
+    position: absolute;
+    left: 102%;
+    top: 15%;
+    border-radius: 10px;
+    border: none;
+    background: none;
+}
+.fertilizerManagement .topRight {
+    background: #E4E5EB;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 0px 0px 15px 15px;
+}
+
+.fertilizerManagement .name {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 46px;
+    color: #B3B4BA;
+    position: relative;
+    top:-10%
+}
+ .fertilizerManagement{
+    position: relative;
+ }
+.fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement{
+    border-left: #bdf487 0.5px solid;
+}
+ .fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement table tr{
+     /* background-color: #ced4da; */
+     border-top: 1px solid #515151;
+ }
+
+ .fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .actions{
+     border: none;
+     color: black;
+ }
+ .fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement tr{
+    width: max-content; 
+ }
+ .fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .actions .action{
+     text-align: center;
+     display: inline;
+ }
+ .fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .actions .action .actionIcon{
+     border: none;
+     color: black;
+ }
+
+ .fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .fertilizerList .table{
+     height: max-content;
+ }
+
+.fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .btnTimKiem:hover{
+    background-color: none;
+    color:#515151;
+}
+
+.fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .btnTimKiem{
+    background-color: none;
+    color:darkgray
+}
+
+.fertilizerManagement .categoryList .btnFertilizer {
+    display: block;
+    width: 94%;
+    font-size: 18px;
+    background-color: #FFFA37;
+    color: #5C5D22;
+    border: none;
+    font-family: Inter;
+    border-radius: 14px;
+}

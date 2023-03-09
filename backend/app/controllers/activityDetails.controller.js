@@ -36,7 +36,8 @@ exports.findAll = async (req, res) => {
 
 exports.findbyIdRiceCropInformation = async (req, res) => {
      const id = req.params.RiceCropInformation_id;
-     ActivityDetails.findByIdRiceCropInformation(id, (err, data) => {
+     const OtherActivities_id = req.params.OtherActivities_id
+     ActivityDetails.findByIdRiceCropInformation(id,OtherActivities_id, (err, data) => {
           if (err) {
                if (err.kind === "not_found") {
                     res.send("Không tìm thấy chi tiết hoạt động.")
