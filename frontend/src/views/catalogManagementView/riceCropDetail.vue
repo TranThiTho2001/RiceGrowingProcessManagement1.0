@@ -22,32 +22,10 @@
                     <div class="row updateRiceCrop mr-2 ml-2 mb-1" style="width: 100%;">
                          <UpdateRiceCropForm :seedList="seedList" :newRiceCrop="newRiceCrop" :arableLandList="arableLandList"
                               @updateRiceCrop-submit="updateRiceCrop" :message1="message1" :message2="message2" />
-                         <!-- <div class="col-sm-12">
-                                   <div class="row">
-                                        <div class="col-sm-3">Mã: {{ newRiceCrop.RiceCropInformation_id }}</div>
-                                        <div class="col-sm-3">Tên: {{ newRiceCrop.RiceCropInformation_name }}</div>
-                                        <div class="col-sm-3">Vụ mùa: {{ newRiceCrop.Crop_name }}</div>
-                                        <div class="col-sm-3">Năng suất: {{ newRiceCrop.RiceCropInformation_yield }}</div>
-                                   </div>
-                                   <div class="row pt-3">
-                                        <div class="col-sm-3">Giống lúa: {{ newRiceCrop.Seed_name }}</div>
-                                        <div class="col-sm-3">Mẫu ruộng: {{ newRiceCrop.ArableLand_id }}</div>
-                                        <div class="col-sm-3">Ngày gieo xạ: {{ formatDate(newRiceCrop.RiceCropInformation_sowingDate) }}</div>
-                                        <div class="col-sm-3">Ngày thu hoạch: {{ formatDate(newRiceCrop.RiceCropInformation_harvestDate) }}</div>
-                                   </div>
-                              </div> -->
-
                     </div>
                     <div class="row bottomrow ml-2 mr-2 pt-1">
                          <div class="col-sm-12">
                               <div class="row functionName mt-1 ml-2">
-                                   <div class="btn btn-midle text-center btnImage btnNameActive" v-if="isOpenImage">
-                                        Hình ảnh
-                                   </div>
-                                   <div class="btn btn-midle text-center btnImage btnName" v-if="!isOpenImage"
-                                        @click="setTable('btnImage')">
-                                        Hình ảnh
-                                   </div>
                                    <div class=" btn btn-midle text-center btnFertilizerTimes btnName"
                                         v-if="!isOpenTableFertilizerTimes" @click="setTable('btnFertilizerTimes')">Bón phân
                                    </div>
@@ -68,6 +46,13 @@
                                    <div class=" btn btn-midle text-center btnEpidemic btnName"
                                         v-if="!isOpenTableEpidemicTimes" @click="setTable('btnEpidemic')">Tình bệnh dịch
                                    </div>
+                                   <div class="btn btn-midle text-center btnImage btnNameActive" v-if="isOpenImage">
+                                        Hình ảnh
+                                   </div>
+                                   <div class="btn btn-midle text-center btnImage btnName" v-if="!isOpenImage"
+                                        @click="setTable('btnImage')">
+                                        Hình ảnh
+                                   </div>
                                    <div class=" btn btn-midle text-center btnAttendee btnNameActive"
                                         v-if="isOpenTableMonitor && currentUser.Role_id == '02'">Người theo dõi</div>
                                    <div class=" btn btn-midle text-center btnAttendee btnName"
@@ -75,7 +60,7 @@
                                         @click="setTable('btnAttendee')">Người theo dõi</div>
 
                               </div>
-                              <div class="row activitiesList ml-2 mr-2" v-if="isOpenImage">
+                              <div class="row activitiesList ml-2 mr-2 pb-5" v-if="isOpenImage">
                                    <div class="col-sm-12">
                                         <div class="row">
                                              <button class="btnAddimage"
@@ -98,393 +83,286 @@
                                    </div>
                               </div>
                               <!-- ----------------------FertilizerTimes Tab-------------- -->
-                              <div class="row activitiesList ml-2 mr-2" v-if="isOpenTableFertilizerTimes">
-                                   <button class="btn mt-3" style="background-color: gold;"
+                              <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableFertilizerTimes">
+                                   <input type="text" class="form-control inputSearch1" placeholder="Tìm"
+                                        v-model="nameToSearch" @keyup.enter="searchName"
+                                        @click="isOpenSearch = !isOpenSearch" />
+                                   <button class="btnSearch1" @click="searchName">
+                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                                   </button>
+                                   <button class="btn mt-1 btnAdd "
                                         @click="isOpenCreateFertilizerTimesForm = !isOpenCreateFertilizerTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
-                                   <table class="table">
-                                        <thead>
-                                             <tr>
-                                                  <th class="text-center ">Mã</th>
-                                                  <th>Tên phân bón</th>
-                                                  <th class="text-center ">Số lượng (kg/ha)</th>
-                                                  <th class="text-center ">Ngày bất đầu</th>
-                                                  <th class="text-center ">Ngày kết thúc</th>
-                                                  <th class="">Nhân viên</th>
-                                                  <th class="">Tùy chọn</th>
-                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                             <tr v-for="(fertilizer, i ) in get_rows(fertilizerTimesList)" :key="i">
-                                                  <td class="text-center ">{{ fertilizer.FertilizerTimes_times }}</td>
-                                                  <td class="">{{ fertilizer.Fertilizer_name }}</td>
-                                                  <td class="text-center ">{{ fertilizer.FertilizerTimes_amount }}</td>
-                                                  <td class="text-center ">{{
-                                                       formatDate(fertilizer.FertilizerTimes_startDate) }}</td>
-                                                  <td class="text-center ">{{ formatDate(fertilizer.FertilizerTimes_endDate)
-                                                  }}</td>
-                                                  <td class="">{{ fertilizer.Employee_name }}</td>
-                                                  <td style="border-top: none;" class="">
-                                                       <span class="action" style="border-top: none;"
-                                                            @click="setFertilizerChoosen(fertilizer), isOpenUpdateFertilizerTimesForm = !isOpenUpdateFertilizerTimesForm">
-                                                            <span class="fas fa-edit actionIcon"></span>
-                                                       </span>
-                                                       <span class="action pl-4" style="border-top: none;"
-                                                            @click="setFertilizerChoosen(fertilizer), isOpenConfirm = !isOpenConfirm, setDelete('FertilizerTimes')">
-                                                            <span class="fas fa-trash-alt actionIcon"></span>
-                                                       </span>
-                                                  </td>
-                                             </tr>
-                                        </tbody>
-                                   </table>
-                                   <nav aria-label="...">
-                                        <ul class="pagination " aria-controls="my-table">
-                                             <li class="page-item disabled" v-if="currentPage == 1">
-                                                  <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
-                                             </li>
-                                             <li class="page-item " v-if="currentPage > 1">
-                                                  <a class="page-link" href="#"
-                                                       @click="change_page('-', fertilizerTimesList)"
-                                                       aria-controls="my-table">{{
-                                                            previous }}</a>
-                                             </li>
-                                             <li class="page-item"><a class="page-link" href="#"
-                                                       @click="change_page(currentPage - 1, monitorList)"
-                                                       v-if="currentPage > 1">{{
-                                                            currentPage - 1 }}</a></li>
-                                             <li class="page-item active">
-                                                  <a class="page-link"
-                                                       style="background-color: #EEEA41; border-color: #EEEA41;" href="#">{{
-                                                            currentPage }} <span class="sr-only">(current)</span></a>
-                                             </li>
-                                             <li class="page-item"><a class="page-link" href="#"
-                                                       v-if="currentPage < num_pages(fertilizerTimesList)"
-                                                       @click="change_page(currentPage + 1, fertilizerTimesList)">{{
-                                                            currentPage + 1
-                                                       }}</a></li>
-                                             <li class="page-item">
-                                                  <a class="page-link" href="#"
-                                                       @click="change_page('+', fertilizerTimesList)"
-                                                       v-if="currentPage < num_pages(fertilizerTimesList)">{{
-                                                            next }}</a>
-                                             </li>
-                                             <li class="page-item disabled">
-                                                  <a class="page-link" href="#"
-                                                       v-if="currentPage >= num_pages(fertilizerTimesList)">{{
-                                                            next }}</a>
-                                             </li>
-                                        </ul>
-                                   </nav>
+                                   <div class="tableFixHead">
+                                        <table class="table" v-if="isOpenTable">
+                                             <thead>
+                                                  <tr >
+                                                       <th class="text-center ">Mã</th>
+                                                       <th>Tên phân bón</th>
+                                                       <th class="text-center ">Số lượng (kg/ha)</th>
+                                                       <th class="text-center ">Ngày bất đầu</th>
+                                                       <th class="text-center ">Ngày kết thúc</th>
+                                                       <th class="">Nhân viên</th>
+                                                       <th style="width: 2%;"></th>
+                                                  </tr>
+                                             </thead>
+                                             <tbody class="overflow-auto">
+                                                  <tr v-for="(fertilizer, i ) in (fertilizerTimesList)" :key="i">
+                                                       <td class="text-center ">{{ fertilizer.FertilizerTimes_times }}</td>
+                                                       <td class="">{{ fertilizer.Fertilizer_name }}</td>
+                                                       <td class="text-center ">{{ fertilizer.FertilizerTimes_amount }}</td>
+                                                       <td class="text-center ">{{
+                                                            formatDate(fertilizer.FertilizerTimes_startDate) }}</td>
+                                                       <td class="text-center ">{{
+                                                            formatDate(fertilizer.FertilizerTimes_endDate)
+                                                       }}</td>
+                                                       <td class="">{{ fertilizer.Employee_name }}</td>
+                                                       <td class="">
+                                                            <button type="button" class="btn btn-sm"
+                                                                 data-toggle="dropdown" aria-haspopup="true"
+                                                                 aria-expanded="false">
+                                                                 <i class="fas fa-ellipsis-v"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu">
+                                                                 <a class="dropdown-item action" @click="setFertilizerChoosen(fertilizer), isOpenUpdateFertilizerTimesForm = !isOpenUpdateFertilizerTimesForm, isOpenTable = !isOpenTable">
+                                                                      <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
+                                                                 </a>
+                                                                 <a class="dropdown-item" href="#" @click="setFertilizerChoosen(fertilizer), isOpenUpdateFertilizerTimesForm = !isOpenUpdateFertilizerTimesForm">
+                                                                      <span class="fas fa-trash-alt actionIcon"></span> Xóa
+                                                                 </a>
+
+                                                            </div>
+                                                       </td>
+                                                  </tr>
+                                             </tbody>
+                                        </table>
+                                   </div>
+
                               </div>
 
                               <!-- ----------------------SprayingTimes Tab-------------- -->
-                              <div class="row activitiesList ml-2 mr-2" v-if="isOpenTableSprayingTimes">
-                                   <button class="btn mt-3" style="background-color: gold;"
+                              <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableSprayingTimes">
+                                   <input type="text" class="form-control inputSearch1" placeholder="Tìm"
+                                        v-model="nameToSearch" @keyup.enter="searchName"
+                                        @click="isOpenSearch = !isOpenSearch" />
+                                   <button class="btnSearch1" @click="searchName">
+                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                                   </button>
+                                   <button class="btn mt-1 btnAdd"
                                         @click="isOpenCreateSprayingTimesForm = !isOpenCreateSprayingTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
-                                   <table class="table">
-                                        <thead>
-                                             <tr>
-                                                  <th class="text-center ">Mã</th>
-                                                  <th>Tên thuốc</th>
-                                                  <th class="text-center ">Liều lượng (lít/ha)</th>
-                                                  <th class="text-center ">Ngày bất đầu</th>
-                                                  <th class="text-center ">Ngày kết thúc</th>
-                                                  <th class="">Nhân viên</th>
-                                                  <th class="">Tùy chọn</th>
-                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                             <tr v-for="(sprayingTimes, i ) in get_rows(SprayingTimesList)" :key="i">
-                                                  <td class="text-center ">{{ sprayingTimes.SprayingTimes_times }}</td>
-                                                  <td class="">{{ sprayingTimes.Pesticide_name }}</td>
-                                                  <td class="text-center ">{{ sprayingTimes.SprayingTimes_amount }}</td>
-                                                  <td class="text-center ">{{
-                                                       formatDate(sprayingTimes.SprayingTimes_startDate)
-                                                  }}</td>
-                                                  <td class="text-center ">{{ formatDate(sprayingTimes.SprayingTimes_endDate)
-                                                  }}
-                                                  </td>
-                                                  <td class="">{{ sprayingTimes.Employee_name }}</td>
-                                                  <td style="border-top: none;" class="">
-                                                       <span class="action" style="border-top: none;"
-                                                            @click="setSprayingTimes(sprayingTimes), isOpenUpdateSprayingTimesForm = !isOpenUpdateSprayingTimesForm">
-                                                            <span class="fas fa-edit actionIcon"></span>
-                                                       </span>
-                                                       <span class="action pl-4" style="border-top: none;"
-                                                            @click="setSprayingTimes(sprayingTimes), isOpenConfirm = !isOpenConfirm, setDelete('SprayingTimes')">
-                                                            <span class="fas fa-trash-alt actionIcon"></span>
-                                                       </span>
-                                                  </td>
-                                             </tr>
-                                        </tbody>
-                                   </table>
-                                   <nav aria-label="...">
-                                        <ul class="pagination " aria-controls="my-table">
-                                             <li class="page-item disabled" v-if="currentPage == 1">
-                                                  <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
-                                             </li>
-                                             <li class="page-item " v-if="currentPage > 1">
-                                                  <a class="page-link" href="#" @click="change_page('-', SprayingTimesList)"
-                                                       aria-controls="my-table">{{
-                                                            previous }}</a>
-                                             </li>
-                                             <li class="page-item"><a class="page-link" href="#"
-                                                       @click="change_page(currentPage - 1, SprayingTimesList)"
-                                                       v-if="currentPage > 1">{{ currentPage - 1 }}</a></li>
-                                             <li class="page-item active">
-                                                  <a class="page-link"
-                                                       style="background-color: #EEEA41; border-color: #EEEA41;" href="#">{{
-                                                            currentPage }} <span class="sr-only">(current)</span></a>
-                                             </li>
-                                             <li class="page-item"><a class="page-link" href="#"
-                                                       v-if="currentPage < num_pages(SprayingTimesList)"
-                                                       @click="change_page(currentPage + 1, SprayingTimesList)">{{
-                                                            currentPage + 1
-                                                       }}</a></li>
-                                             <li class="page-item">
-                                                  <a class="page-link" href="#" @click="change_page('+', SprayingTimesList)"
-                                                       v-if="currentPage < num_pages(SprayingTimesList)">{{
-                                                            next }}</a>
-                                             </li>
-                                             <li class="page-item disabled">
-                                                  <a class="page-link" href="#"
-                                                       v-if="currentPage >= num_pages(SprayingTimesList)">{{
-                                                            next }}</a>
-                                             </li>
-                                        </ul>
-                                   </nav>
+                                   <div class="tableFixHead">
+                                        <table class="table" v-if="isOpenTable" >
+                                             <thead>
+                                                  <tr>
+                                                       <th class="text-center ">Mã</th>
+                                                       <th>Tên thuốc</th>
+                                                       <th class="text-center ">Liều lượng (lít/ha)</th>
+                                                       <th class="text-center ">Ngày bất đầu</th>
+                                                       <th class="text-center ">Ngày kết thúc</th>
+                                                       <th class="">Nhân viên</th>
+                                                       <th class=""></th>
+                                                  </tr>
+                                             </thead>
+                                             <tbody>
+                                                  <tr v-for="(sprayingTimes, i ) in (SprayingTimesList)" :key="i">
+                                                       <td class="text-center ">{{ sprayingTimes.SprayingTimes_times }}</td>
+                                                       <td class="">{{ sprayingTimes.Pesticide_name }}</td>
+                                                       <td class="text-center ">{{ sprayingTimes.SprayingTimes_amount }}</td>
+                                                       <td class="text-center ">{{
+                                                            formatDate(sprayingTimes.SprayingTimes_startDate)
+                                                       }}</td>
+                                                       <td class="text-center ">{{
+                                                            formatDate(sprayingTimes.SprayingTimes_endDate)
+                                                       }}
+                                                       </td>
+                                                       <td class="">{{ sprayingTimes.Employee_name }}</td>
+                                                       <td class="">
+                                                            <button type="button" class="btn btn-sm"
+                                                                 data-toggle="dropdown" aria-haspopup="true"
+                                                                 aria-expanded="false">
+                                                                 <i class="fas fa-ellipsis-v"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu">
+                                                                 <a class="dropdown-item action" @click="setSprayingTimes(sprayingTimes), isOpenUpdateSprayingTimesForm = !isOpenUpdateSprayingTimesForm, isOpenTable = !isOpenTable">
+                                                                      <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
+                                                                 </a>
+                                                                 <a class="dropdown-item" href="#"  @click="setSprayingTimes(sprayingTimes), isOpenConfirm = !isOpenConfirm, setDelete('SprayingTimes')">
+                                                                      <span class="fas fa-trash-alt actionIcon"></span> Xóa
+                                                                 </a>
+
+                                                            </div>
+                                                       </td>
+                                                  </tr>
+                                             </tbody>
+                                        </table>
+                                   </div>
                               </div>
 
                               <!-- ----------------------EpidemicTimes Tab-------------- -->
-                              <div class="row activitiesList ml-2 mr-2" v-if="isOpenTableEpidemicTimes">
-                                   <button class="btn mt-3" style="background-color: gold;"
+                              <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableEpidemicTimes">
+                                   <input type="text" class="form-control inputSearch1" placeholder="Tìm"
+                                        v-model="nameToSearch" @keyup.enter="searchName"
+                                        @click="isOpenSearch = !isOpenSearch" />
+                                   <button class="btnSearch1" @click="searchName">
+                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                                   </button>
+                                   <button class="btn mt-1 btnAdd"
                                         @click="isOpenCreateEpidemicTimesForm = !isOpenCreateEpidemicTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
-                                   <table class="table">
-                                        <thead>
-                                             <tr>
-                                                  <th class="text-center ">Lần</th>
-                                                  <th>Tên bệnh dịch</th>
-                                                  <th class="text-center ">Ngày bất đầu</th>
-                                                  <th class="text-center ">Ngày kết thúc</th>
-                                                  <th class="">Nhân viên</th>
-                                                  <th class="">Tùy chọn</th>
-                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                             <tr v-for="(epidemic, i ) in get_rows(epidemicTimesList)" :key="i">
-                                                  <td class="text-center ">{{ epidemic.EpidemicTimes_times }}</td>
-                                                  <td class="">{{ epidemic.Epidemic_name }}</td>
-                                                  <td class="text-center ">{{ formatDate(epidemic.EpidemicTimes_startDate)
-                                                  }}</td>
-                                                  <td class="text-center ">{{ formatDate(epidemic.EpidemicTimes_endDate) }}
-                                                  </td>
-                                                  <td class="">{{ epidemic.Employee_name }}</td>
-                                                  <td style="border-top: none;" class="">
-                                                       <span class="action" style="border-top: none;"
-                                                            @click="setEpidemicChoosen(epidemic), isOpenUpdateEpidemicTimesForm = !isOpenUpdateEpidemicTimesForm">
-                                                            <span class="fas fa-edit actionIcon"></span>
-                                                       </span>
-                                                       <span class="action pl-4" style="border-top: none;"
-                                                            @click="setEpidemicChoosen(epidemic), isOpenConfirm = !isOpenConfirm, setDelete('EpidemicTimes')">
-                                                            <span class="fas fa-trash-alt actionIcon"></span>
-                                                       </span>
-                                                  </td>
-                                             </tr>
-                                        </tbody>
-                                   </table>
-                                   <nav aria-label="...">
-                                        <ul class="pagination " aria-controls="my-table">
-                                             <li class="page-item disabled" v-if="currentPage == 1">
-                                                  <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
-                                             </li>
-                                             <li class="page-item " v-if="currentPage > 1">
-                                                  <a class="page-link" href="#" @click="change_page('-', epidemicTimesList)"
-                                                       aria-controls="my-table">{{
-                                                            previous }}</a>
-                                             </li>
-                                             <li class="page-item"><a class="page-link" href="#"
-                                                       @click="change_page(currentPage - 1, epidemicTimesList)"
-                                                       v-if="currentPage > 1">{{ currentPage - 1 }}</a></li>
-                                             <li class="page-item active">
-                                                  <a class="page-link"
-                                                       style="background-color: #EEEA41; border-color: #EEEA41;" href="#">{{
-                                                            currentPage }} <span class="sr-only">(current)</span></a>
-                                             </li>
-                                             <li class="page-item"><a class="page-link" href="#"
-                                                       v-if="currentPage < num_pages(epidemicTimesList)"
-                                                       @click="change_page(currentPage + 1, epidemicList)">{{ currentPage + 1
-                                                       }}</a>
-                                             </li>
-                                             <li class="page-item">
-                                                  <a class="page-link" href="#" @click="change_page('+', epidemicTimesList)"
-                                                       v-if="currentPage < num_pages(epidemicTimesList)">{{
-                                                            next }}</a>
-                                             </li>
-                                             <li class="page-item disabled">
-                                                  <a class="page-link" href="#"
-                                                       v-if="currentPage >= num_pages(epidemicTimesList)">{{
-                                                            next }}</a>
-                                             </li>
-                                        </ul>
-                                   </nav>
+                                   <div class="tableFixHead">
+                                        <table class="table" v-if="isOpenTable">
+                                             <thead>
+                                                  <tr>
+                                                       <th class="text-center ">Lần</th>
+                                                       <th>Tên bệnh dịch</th>
+                                                       <th class="text-center ">Ngày bất đầu</th>
+                                                       <th class="text-center ">Ngày kết thúc</th>
+                                                       <th class="">Nhân viên</th>
+                                                       <th class=""></th>
+                                                  </tr>
+                                             </thead>
+                                             <tbody>
+                                                  <tr v-for="(epidemic, i ) in (epidemicTimesList)" :key="i">
+                                                       <td class="text-center ">{{ epidemic.EpidemicTimes_times }}</td>
+                                                       <td class="">{{ epidemic.Epidemic_name }}</td>
+                                                       <td class="text-center ">{{
+                                                            formatDate(epidemic.EpidemicTimes_startDate)
+                                                       }}</td>
+                                                       <td class="text-center ">{{ formatDate(epidemic.EpidemicTimes_endDate)
+                                                       }}
+                                                       </td>
+                                                       <td class="">{{ epidemic.Employee_name }}</td>
+                                                       <td class="">
+                                                            <button type="button" class="btn btn-sm"
+                                                                 data-toggle="dropdown" aria-haspopup="true"
+                                                                 aria-expanded="false">
+                                                                 <i class="fas fa-ellipsis-v"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu">
+                                                                 <a class="dropdown-item action" @click="setEpidemicChoosen(epidemic), isOpenUpdateEpidemicTimesForm = !isOpenUpdateEpidemicTimesForm, isOpenTable = !isOpenTable">
+                                                                      <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
+                                                                 </a>
+                                                                 <a class="dropdown-item" href="#"  @click="setEpidemicChoosen(epidemic), isOpenConfirm = !isOpenConfirm, setDelete('EpidemicTimes')">
+                                                                      <span class="fas fa-trash-alt actionIcon"></span> Xóa
+                                                                 </a>
+
+                                                            </div>
+                                                       </td>
+                                                  </tr>
+                                             </tbody>
+                                        </table>
+                                   </div>
                               </div>
 
                               <!-- ----------------------Monitor Tab-------------- -->
-                              <div class="row activitiesList ml-2 mr-2" v-if="isOpenTableMonitor">
-                                   <button class="btn mt-3" style="background-color: gold;"
+                              <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableMonitor">
+                                   <input type="text" class="form-control inputSearch1" placeholder="Tìm"
+                                        v-model="nameToSearch" @keyup.enter="searchName"
+                                        @click="isOpenSearch = !isOpenSearch" />
+                                   <button class="btnSearch1" @click="searchName">
+                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                                   </button>
+                                   <button class="btn mt-1 btnAdd"
                                         @click="isOpenCreateMonitorForm = !isOpenCreateMonitorForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
-                                   <table class="table">
-                                        <thead>
-                                             <tr>
-                                                  <th class="text-center ">STT</th>
-                                                  <th class="text-center ">Mã</th>
-                                                  <th>Họ và Tên</th>
-                                                  <th>Chuyên môn</th>
-                                                  <th class="">Vai trò</th>
-                                                  <th class="">Tùy chọn</th>
-                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                             <tr v-for="(monitor, i ) in get_rows(monitorList)" :key="i">
-                                                  <td class="text-center" v-if="currentPage > 1">{{ i + ((currentPage - 1) *
-                                                       elementsPerPage) }}
-                                                  </td>
-                                                  <td class="text-center" v-else>{{ i }}</td>
-                                                  <td class="text-center">{{ monitor.Employee_id }}</td>
-                                                  <td>{{ monitor.Employee_name }}</td>
-                                                  <td>{{ monitor.Employee_major }}
-                                                  </td>
-                                                  <td class="">{{ monitor.Role_name }}</td>
-                                                  <td style="border-top: none;" class="">
-                                                       <span class="action" style="border-top: none;"
-                                                            @click="setMonitorChoosen(monitor), isOpenUpdateEpidemicTimesForm = !isOpenUpdateEpidemicTimesForm">
-                                                            <span class="fas fa-edit actionIcon"></span>
-                                                       </span>
-                                                       <span class="action pl-4" style="border-top: none;"
-                                                            @click="setMonitorChoosen(monitor), isOpenConfirm = !isOpenConfirm, setDelete('Monitor')">
-                                                            <span class="fas fa-trash-alt actionIcon"></span>
-                                                       </span>
-                                                  </td>
-                                             </tr>
-                                        </tbody>
-                                   </table>
-                                   <nav aria-label="...">
-                                        <ul class="pagination " aria-controls="my-table">
-                                             <li class="page-item disabled" v-if="currentPage == 1">
-                                                  <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
-                                             </li>
-                                             <li class="page-item " v-if="currentPage > 1">
-                                                  <a class="page-link" href="#" @click="change_page('-', monitorList)"
-                                                       aria-controls="my-table">{{
-                                                            previous }}</a>
-                                             </li>
-                                             <li class="page-item"><a class="page-link" href="#"
-                                                       @click="change_page(currentPage - 1, monitorList)"
-                                                       v-if="currentPage > 1">{{
-                                                            currentPage - 1 }}</a></li>
-                                             <li class="page-item active">
-                                                  <a class="page-link"
-                                                       style="background-color: #EEEA41; border-color: #EEEA41;" href="#">{{
-                                                            currentPage }} <span class="sr-only">(current)</span></a>
-                                             </li>
-                                             <li class="page-item"><a class="page-link" href="#"
-                                                       v-if="currentPage < num_pages(monitorList)"
-                                                       @click="change_page(currentPage + 1, monitorList)">{{ currentPage + 1
-                                                       }}</a>
-                                             </li>
-                                             <li class="page-item">
-                                                  <a class="page-link" href="#" @click="change_page('+', monitorList)"
-                                                       v-if="currentPage < num_pages(monitorList)">{{
-                                                            next }}</a>
-                                             </li>
-                                             <li class="page-item disabled">
-                                                  <a class="page-link" href="#"
-                                                       v-if="currentPage >= num_pages(monitorList)">{{ next
-                                                       }}</a>
-                                             </li>
-                                        </ul>
-                                   </nav>
+                                   <div class="tableFixHead">
+                                        <table class="table" v-if="isOpenTable">
+                                             <thead>
+                                                  <tr>
+                                                       <th class="text-center ">STT</th>
+                                                       <th class="text-center ">Mã</th>
+                                                       <th>Họ và Tên</th>
+                                                       <th>Chuyên môn</th>
+                                                       <th class="">Vai trò</th>
+                                                       <th class=""></th>
+                                                  </tr>
+                                             </thead>
+                                             <tbody>
+                                                  <tr v-for="(monitor, i ) in (monitorList)" :key="i">
+                                                       <td class="text-center" v-if="currentPage > 1">{{ i + ((currentPage -
+                                                            1) *
+                                                            elementsPerPage) }}
+                                                       </td>
+                                                       <td class="text-center" v-else>{{ i }}</td>
+                                                       <td class="text-center">{{ monitor.Employee_id }}</td>
+                                                       <td>{{ monitor.Employee_name }}</td>
+                                                       <td>{{ monitor.Employee_major }}
+                                                       </td>
+                                                       <td class="">{{ monitor.Role_name }}</td>
+                                                       <td class="">
+                                                            <button type="button" class="btn btn-sm"
+                                                                 data-toggle="dropdown" aria-haspopup="true"
+                                                                 aria-expanded="false">
+                                                                 <i class="fas fa-ellipsis-v"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu">
+                                                                 <a class="dropdown-item" href="#"   @click="setMonitorChoosen(monitor), isOpenConfirm = !isOpenConfirm, setDelete('Monitor')">
+                                                                      <span class="fas fa-trash-alt actionIcon"></span> Xóa
+                                                                 </a>
+
+                                                            </div>
+                                                       </td>
+                                                  </tr>
+                                             </tbody>
+                                        </table>
+                                   </div>
                               </div>
 
                               <!-- ----------------------OtherActivity Tab-------------- -->
-                              <div class="row activitiesList ml-2 mr-2" v-if="isOpenTableOtherActivitiesTimes">
-                                   <button class="btn mt-3" style="background-color: gold;"
+                              <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableOtherActivitiesTimes">
+                                   <input type="text" class="form-control inputSearch1" placeholder="Tìm"
+                                        v-model="nameToSearch" @keyup.enter="searchName"
+                                        @click="isOpenSearch = !isOpenSearch" />
+                                   <button class="btnSearch1" @click="searchName">
+                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                                   </button>
+                                   <button class="btn mt-1 btnAdd"
                                         @click="isOpenCreateActivitiesDetail = !isOpenCreateActivitiesDetail, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
+                                   <div class="tableFixHead">
+                                        <table class="table" v-if="isOpenTable">
+                                             <thead>
+                                                  <tr>
+                                                       <th class="text-center ">STT</th>
+                                                       <th class="text-center ">Mã</th>
+                                                       <th>Tên hoạt động</th>
+                                                       <th>Lần</th>
+                                                       <th class="">Ngày bắt đầu</th>
+                                                       <th class="">Ngày kết thúc</th>
+                                                       <th class="">Nhân viên</th>
+                                                       <th class=""></th>
+                                                  </tr>
+                                             </thead>
+                                             <tbody>
+                                                  <tr v-for="(activity, i ) in (activitiesDetailList)" :key="i">
+                                                       <td class="text-center" v-if="currentPage > 1">{{ i + ((currentPage -
+                                                            1) *
+                                                            elementsPerPage) }}
+                                                       </td>
+                                                       <td class="text-center" v-else>{{ i }}</td>
+                                                       <td class="text-center">{{ activity.OtherActivities_id }}</td>
 
-                                   <table class="table">
-                                        <thead>
-                                             <tr>
-                                                  <th class="text-center ">STT</th>
-                                                  <th class="text-center ">Mã</th>
-                                                  <th>Tên hoạt động</th>
-                                                  <th>Lần</th>
-                                                  <th class="">Ngày bắt đầu</th>
-                                                  <th class="">Ngày kết thúc</th>
-                                                  <th class="">Nhân viên</th>
-                                                  <th class="">Tùy chọn</th>
-                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                             <tr v-for="(activity, i ) in get_rows(activitiesDetailList)" :key="i">
-                                                  <td class="text-center" v-if="currentPage > 1">{{ i + ((currentPage - 1) *
-                                                       elementsPerPage) }}
-                                                  </td>
-                                                  <td class="text-center" v-else>{{ i }}</td>
-                                                  <td class="text-center">{{ activity.OtherActivities_id }}</td>
+                                                       <td>{{ activity.OtherActivities_name }}</td>
+                                                       <td>{{ activity.ActivityDetails_times }}</td>
+                                                       <td>{{ formatDate(activity.OtherActivities_startDate) }}</td>
+                                                       <td>{{ formatDate(activity.ActivityDetails_endDate) }}</td>
+                                                       <td class="">{{ activity.Employee_name }}</td>
+                                                       <td class="">
+                                                            <button type="button" class="btn btn-sm"
+                                                                 data-toggle="dropdown" aria-haspopup="true"
+                                                                 aria-expanded="false">
+                                                                 <i class="fas fa-ellipsis-v"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu">
+                                                                 <a class="dropdown-item action" @click="setMonitorChoosen(activity), isOpenUpdateEpidemicTimesForm = !isOpenUpdateEpidemicTimesForm, isOpenTable = !isOpenTable">
+                                                                      <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
+                                                                 </a>
+                                                                 <a class="dropdown-item" href="#"    @click="setMonitorChoosen(activity), isOpenConfirm = !isOpenConfirm, setDelete('Monitor')">
+                                                                      <span class="fas fa-trash-alt actionIcon"></span> Xóa
+                                                                 </a>
 
-                                                  <td>{{ activity.OtherActivities_name }}</td>
-                                                  <td>{{ activity.ActivityDetails_times }}</td>
-                                                  <td>{{ formatDate(activity.OtherActivities_startDate) }}</td>
-                                                  <td>{{ formatDate(activity.ActivityDetails_endDate) }}</td>
-                                                  <td class="">{{ activity.Employee_name }}</td>
-                                                  <td style="border-top: none;" class="">
-                                                       <span class="action" style="border-top: none;"
-                                                            @click="setMonitorChoosen(activity), isOpenUpdateEpidemicTimesForm = !isOpenUpdateEpidemicTimesForm">
-                                                            <span class="fas fa-edit actionIcon"></span>
-                                                       </span>
-                                                       <span class="action pl-4" style="border-top: none;"
-                                                            @click="setMonitorChoosen(activity), isOpenConfirm = !isOpenConfirm, setDelete('Monitor')">
-                                                            <span class="fas fa-trash-alt actionIcon"></span>
-                                                       </span>
-                                                  </td>
-                                             </tr>
-                                        </tbody>
-                                   </table>
-                                   <nav aria-label="...">
-                                        <ul class="pagination " aria-controls="my-table">
-                                             <li class="page-item disabled" v-if="currentPage == 1">
-                                                  <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
-                                             </li>
-                                             <li class="page-item " v-if="currentPage > 1">
-                                                  <a class="page-link" href="#" @click="change_page('-', monitorList)"
-                                                       aria-controls="my-table">{{
-                                                            previous }}</a>
-                                             </li>
-                                             <li class="page-item"><a class="page-link" href="#"
-                                                       @click="change_page(currentPage - 1, monitorList)"
-                                                       v-if="currentPage > 1">{{
-                                                            currentPage - 1 }}</a></li>
-                                             <li class="page-item active">
-                                                  <a class="page-link"
-                                                       style="background-color: #EEEA41; border-color: #EEEA41;" href="#">{{
-                                                            currentPage }} <span class="sr-only">(current)</span></a>
-                                             </li>
-                                             <li class="page-item"><a class="page-link" href="#"
-                                                       v-if="currentPage < num_pages(monitorList)"
-                                                       @click="change_page(currentPage + 1, monitorList)">{{ currentPage + 1
-                                                       }}</a>
-                                             </li>
-                                             <li class="page-item">
-                                                  <a class="page-link" href="#" @click="change_page('+', monitorList)"
-                                                       v-if="currentPage < num_pages(monitorList)">{{
-                                                            next }}</a>
-                                             </li>
-                                             <li class="page-item disabled">
-                                                  <a class="page-link" href="#"
-                                                       v-if="currentPage >= num_pages(monitorList)">{{ next
-                                                       }}</a>
-                                             </li>
-                                        </ul>
-                                   </nav>
+                                                            </div>
+                                                       </td>
+                                                  </tr>
+                                             </tbody>
+                                        </table>
+                                   </div>
                               </div>
                               <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
 
@@ -554,7 +432,7 @@
      </div>
 </template>
 
-<script>
+<script >
 
 import UpdateRiceCropForm from '@/components/catalogManagementComponents/updateRiceCropForm.vue';
 import moment from 'moment';
@@ -618,6 +496,7 @@ export default {
 
      data() {
           return {
+               isOpenTable:true,
                activitiesList: [],
                newRiceCrop: {},
                employeeList: {},
@@ -643,12 +522,12 @@ export default {
                activitiesDetailList: [],
                message1: "",
                message2: "",
-               isOpenTableFertilizerTimes: false,
+               isOpenTableFertilizerTimes: true,
                isOpenTableSprayingTimes: false,
                isOpenTableOtherActivitiesTimes: false,
                isOpenTableEpidemicTimes: false,
                isOpenTableMonitor: false,
-               isOpenImage: true,
+               isOpenImage: false,
                isOpenCreateImage: false,
                newImage: {},
                isOpenCreateFertilizerTimesForm: false,
@@ -1104,6 +983,7 @@ export default {
 
           async updateFertilizerTimes(data) {
                if (data.close == false) {
+                    this.isOpenTable = true;
                     this.isOpenUpdateFertilizerTimesForm = false;
                     this.message1 = " ";
                     this.message2 = " ";
@@ -1272,6 +1152,7 @@ export default {
           async updateSprayingTimes(data) {
                if (data.close == false) {
                     this.isOpenUpdateSprayingTimesForm = false;
+                    this.isOpenTable = true;
                     this.message1 = " ";
                     this.message2 = " ";
                     this.stylebac.none = false;
@@ -1416,6 +1297,7 @@ export default {
 
           async updateEpidemicTimes(data) {
                if (data.close == false) {
+                    this.isOpenTable = true;
                     this.isOpenUpdateEpidemicTimesForm = false;
                     this.message1 = " ";
                     this.message2 = " ";
@@ -1700,7 +1582,7 @@ export default {
                               data.DevelopmentStage_id = element.DevelopmentStage_id;
                          }
                     });
-console.log(data.ActivityDetails_startDate)
+                    console.log(data.ActivityDetails_startDate)
                     if (data.ActivityDetails_endDate != null) {
                          data.ActivityDetails_endDate = (moment(String(data.ActivityDetails_endDate)).format("YYYY-MM-DD")).slice(0, 10);
                     }
@@ -1809,21 +1691,6 @@ console.log(data.ActivityDetails_startDate)
 <style>
 @import url(../../assets/riceCropDetailStyle.css);
 
-nav {
-     float: right;
-}
-
-nav .pagination .page-link {
-     color: #5C5D22;
-     font-size: 17px;
-}
-
-nav {
-     position: absolute;
-     left: 85%;
-     top: 86%;
-}
-
 .btnAddimage {
      background-color: rgb(241, 248, 164);
      border-radius: 5px;
@@ -1840,3 +1707,43 @@ nav {
      border-radius: 14px;
 }
 </style>
+
+
+<!-- <nav aria-label="...">
+     <ul class="pagination " aria-controls="my-table">
+          <li class="page-item disabled" v-if="currentPage == 1">
+               <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
+          </li>
+          <li class="page-item " v-if="currentPage > 1">
+               <a class="page-link" href="#"
+                    @click="change_page('-', fertilizerTimesList)"
+                    aria-controls="my-table">{{
+                         previous }}</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#"
+                    @click="change_page(currentPage - 1, monitorList)"
+                    v-if="currentPage > 1">{{
+                         currentPage - 1 }}</a></li>
+          <li class="page-item active">
+               <a class="page-link"
+                    style="background-color: #EEEA41; border-color: #EEEA41;" href="#">{{
+                         currentPage }} <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#"
+                    v-if="currentPage < num_pages(fertilizerTimesList)"
+                    @click="change_page(currentPage + 1, fertilizerTimesList)">{{
+                         currentPage + 1
+                    }}</a></li>
+          <li class="page-item">
+               <a class="page-link" href="#"
+                    @click="change_page('+', fertilizerTimesList)"
+                    v-if="currentPage < num_pages(fertilizerTimesList)">{{
+                         next }}</a>
+          </li>
+          <li class="page-item disabled">
+               <a class="page-link" href="#"
+                    v-if="currentPage >= num_pages(fertilizerTimesList)">{{
+                         next }}</a>
+          </li>
+     </ul>
+</nav> -->

@@ -1,5 +1,6 @@
 .riceCropDetail {
      width: 100%;
+     position: relative;
 }
 
 .active {
@@ -13,6 +14,7 @@
      color: #5C5D22;
      font-family: 'Roboto';
      font-style: normal;
+     font-size: 17px;
      font-weight: 700;
 }
 
@@ -23,6 +25,7 @@
      font-family: 'Roboto';
      font-style: normal;
      font-weight: 700;
+     font-size: 17px;
 }
 
 .riceCropDetail .topRight {
@@ -35,7 +38,8 @@
      background: #FAFAFC;
      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
      border-radius: 15px;
-     height: 410px;
+     height: 380px;
+     margin-top: 20px;
 }
 
 .riceCropDetail .name {
@@ -108,4 +112,111 @@
      height: 187px;
      border-radius: 15px;
      text-align: center;
+}
+
+.riceCropDetail .btnAdd {
+     background: #008B8E;
+     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     border-radius: 12px;
+     width: 100px;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 700;
+     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     color: #FFFED8;
+     position: absolute;
+     left: 90%;
+     top: 6.8%;
+}
+
+.riceCropDetail .inputSearch1 {
+     font-size: 16px;
+     color: #84858A;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 400;
+     background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
+     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+     border-radius: 12px;
+     width: 26%;
+     position: absolute;
+     left: 62%;
+     top: 8%;
+}
+
+.riceCropDetail .btnSearch1 {
+     position: absolute;
+     left: 85%;
+     top: 10%;
+     border-radius: 10px;
+     border: none;
+     background: none;
+}
+
+.riceCropDetail table thead tr {
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 500;
+     color: #1C1C1F;
+     border-top: 0.5px solid #B3B4BA;
+     ;
+     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+     background: #FAFAFC;
+     font-size: 17px;
+     height: min-content;
+}
+
+.riceCropDetail table tbody tr {
+     font-family: 'Roboto';
+     color: #1C1C1F;
+     background: #FAFAFC;
+     border: none;
+}
+
+/* .my-custom-scrollbar {
+     position: relative;
+     max-height: 260px;
+     overflow: auto;
+     background: #FAFAFC;
+     border: none;
+} */
+
+
+.riceCropDetail .tableFixHead {
+     overflow: auto;
+     height: 260px;
+     width: 100%;
+     margin-top: 30px;
+}
+
+.riceCropDetail  .tableFixHead thead th {
+     position:sticky;
+     top: 0;
+     z-index: 1;
+     background: #FAFAFC;
+}
+
+.riceCropDetail  .tableFixHead tbody th {
+     position: sticky;
+     left: 0;
+}
+
+/* Just common table stuff. Really. */
+.riceCropDetail  table {
+     border-collapse: collapse;
+     width: 100%;
+}
+
+.riceCropDetail  th,
+.riceCropDetail  td {
+     padding: 2px 2px;
+     white-space: nowrap;
+}
+
+.riceCropDetail  th {
+     background: #eee;
+}
+
+.riceCropDetail table thead tr{
+     background-color: none !important;
 }

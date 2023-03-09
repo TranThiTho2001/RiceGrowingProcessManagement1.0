@@ -16,15 +16,14 @@
                          </div>
                          <div class="col-md-3 text-right" v-if="!isOpenSearch">
                               <input type="text" class="form-control col-sm-8 inputSearch1" placeholder="Tìm"
-                                   v-model="nameToSearch" @keyup.enter="searchName"
-                                   @click="isOpenSearch = !isOpenSearch" />
+                                   v-model="nameToSearch" @keyup.enter="searchName" @click="isOpenSearch = !isOpenSearch" />
                               <button class="btnSearch1" @click="searchName">
                                    <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
                          </div>
                          <div class="col-md-8 " v-if="isOpenSearch">
-                              <input type="text" class="form-control inputSearch2" placeholder="" 
-                                   v-model="nameToSearch" @keyup.enter="searchName" />
+                              <input type="text" class="form-control inputSearch2" placeholder="" v-model="nameToSearch"
+                                   @keyup.enter="searchName" />
                               <button class="btnSearch2" @click="searchName">
                                    <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
@@ -43,8 +42,8 @@
                                         style="font-size: 15px;"></i>Thêm mẫu ruộng</button>
                          </div>
                     </div>
-                    <div class=" row arablelandList mt-1 ml-2 mr-3 justify-content-center">
-                         <table class="table mt-1 ml-2 mr-2">
+                    <div class=" row arablelandList mt-2 ml-2 mr-3 justify-content-center">
+                         <table class="table mt-4 ml-2 mr-2" style="height: 400px;">
                               <thead>
                                    <tr>
                                         <th>STT</th>
@@ -57,8 +56,10 @@
                                    </tr>
                               </thead>
                               <tbody>
-                                   <tr v-for="(arableland, i ) in get_rows(arablelandList)" :key="i" class="align-self-center">
-                                        <td class="text-center" v-if="currentPage > 1">{{ i + ((currentPage - 1) * elementsPerPage) }}</td>
+                                   <tr v-for="(arableland, i ) in get_rows(arablelandList)" :key="i"
+                                        class="align-self-center">
+                                        <td class="text-center" v-if="currentPage > 1">{{ i + ((currentPage - 1) *
+                                             elementsPerPage) }}</td>
                                         <td class="text-center" v-else>{{ i }}</td>
                                         <td>{{ arableland.ArableLand_id }}</td>
                                         <td>{{ arableland.ArableLand_area }}</td>
@@ -70,15 +71,22 @@
                                                   :href="`https://www.google.com/maps/place/` + arableland.ArableLand_location">{{
                                                        arableland.ArableLand_location }}</a>
                                         </td>
-                                        <td>
-                                             <span class="action ml-2 ml-2"
-                                                  @click="setArableLandChoosen(arableland), isOpenUpdateArableLand = !isOpenUpdateArableLand">
-                                                  <span class="fas fa-edit actionIcon"></span>
-                                             </span>
-                                             <span class="action ml-4"
-                                                  @click="setArableLandChoosen(arableland), isOpenConfirm = !isOpenConfirm">
-                                                  <span class="fas fa-trash-alt actionIcon"></span>
-                                             </span>
+                                        <td class="">
+                                             <button type="button" class="btn btn-sm" data-toggle="dropdown"
+                                                  aria-haspopup="true" aria-expanded="false">
+                                                  <i class="fas fa-ellipsis-v"></i>
+                                             </button>
+                                             <div class="dropdown-menu">
+                                                  <a class="dropdown-item action"
+                                                       @click="setArableLandChoosen(arableland), isOpenUpdateArableLand = !isOpenUpdateArableLand">
+                                                       <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
+                                                  </a>
+                                                  <a class="dropdown-item" href="#"
+                                                       @click="setArableLandChoosen(arableland), isOpenConfirm = !isOpenConfirm">
+                                                       <span class="fas fa-trash-alt actionIcon"></span> Xóa
+                                                  </a>
+
+                                             </div>
                                         </td>
                                    </tr>
                               </tbody>
@@ -171,7 +179,7 @@ export default {
      data() {
           return {
                currentPage: 1,
-               elementsPerPage: 6,
+               elementsPerPage: 7,
                ascending: false,
                previous: '<<',
                next: '>>',
@@ -393,18 +401,18 @@ export default {
 
 <style>
 @import url(../../assets/arablelandStyle.css);
+
 nav {
      float: right;
 }
 
- nav .pagination .page-link {
+nav .pagination .page-link {
      color: #5C5D22;
      font-size: 17px;
 }
 
-nav{
+nav {
      position: absolute;
-     left:85%;
+     left: 85%;
      top: 92%;
-}
-</style>
+}</style>
