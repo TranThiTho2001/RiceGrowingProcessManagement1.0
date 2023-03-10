@@ -7,25 +7,14 @@
                     </div>
                </div>
                <div class="col-md-10 rightSeedManagement">
-                    <div class="row mr-2 pt-2 mb-4 ml-2 topRight">
-                         <div class="col-md-7" v-if="!isOpenSearch">
+                    <div class="row ml-2 pt-3 mb-5 pb-1 mr-2 topRight">
+                         <div class="col-md-2">
                               <h3 class="name">Giống lúa</h3>
                          </div>
-                         <div class="col-md-2" v-if="isOpenSearch">
-                              <h3 class="name">Giống lúa</h3>
-                         </div>
-                         <div class="col-md-3 text-right" v-if="!isOpenSearch">
-                              <input type="text" class="form-control col-sm-8 inputSearch1" placeholder="Tìm"
-                                   v-model="nameToSearch" @keyup.enter="searchName"
-                                   @click="isOpenSearch = !isOpenSearch" />
-                              <button class="btnSearch1" @click="searchName">
-                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                              </button>
-                         </div>
-                         <div class="col-md-8" v-if="isOpenSearch">
-                              <input type="text" class="form-control inputSearch2" placeholder="" 
+                         <div class="col-md-8">
+                              <input type="text" class="form-control inputSearch1" placeholder="Tìm" 
                                    v-model="nameToSearch" @keyup.enter="searchName" />
-                              <button class="btnSearch2" @click="searchName">
+                              <button class="btnSearch1" @click="searchName">
                                    <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
                          </div>
@@ -36,7 +25,7 @@
                               </div>
                          </div>
                     </div>
-                    <div class="row ml-2 mr-1 mt-5 pt-4 pb-3">
+                    <div class="row ml-2 mr-2 mt-4 pt-3 pb-3">
                          <div class="btnChoosePage col-sm-2">
                          </div>
                          <div class="col-sm-7"></div>
@@ -46,32 +35,42 @@
                          </div>
                     </div>
                     <div class=" row seedList ml-2 mr-2 justify-content-center">
-                         <table class="table mt-1 ml-2 mr-2">
+                         <table class="table mt-4 ml-2 mr-2">
                               <thead>
                                    <tr>
+                                        <th class="text-center">STT</th>
                                         <th>Mã</th>
                                         <th>Tên</th>
                                         <th>Nhà cung cấp</th>
                                         <th>Đặc tính</th>
-                                        <th style="width: 8%;">Tùy chọn</th>
+                                        <th></th>
                                    </tr>
                               </thead>
                               <tbody>
                                    <tr v-for="(seed, i ) in get_rows(seedList)" :key="i">
-                                        <td>{{ seed.Seed_id }}</td>
+                                        <td class="text-center" v-if="currentPage > 1">{{ i + ((currentPage - 1) *
+                                             elementsPerPage) +1 }}</td>
+                                        <td class="text-center" v-else>{{ i+1 }}</td>
+                                        <td >{{ seed.Seed_id }}</td>
                                         <td>{{ seed.Seed_name }}</td>
                                         <td style="width: max-content;">{{ seed.Seed_supplier }}</td>
                                         <td class="text-truncate" style="max-width: 520px;">{{ seed.Seed_characteristic }}
                                         </td>
-                                        <td>
-                                             <span class=" action mt-1 ml-2"
+                                        <td class="">
+                                             <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown" 
+                                                  aria-haspopup="true" aria-expanded="false">
+                                                  <i class="fas fa-ellipsis-v"></i>
+                                             </button>
+                                             <div class="dropdown-menu">
+                                                  <a class="dropdown-item action"
                                                   @click="setSeedChoosen(seed), isOpenUpdateSeed = !isOpenUpdateSeed">
-                                                  <span class="fas fa-edit actionIcon"></span>
-                                             </span>
-                                             <span class=" action mt-1 ml-4"
+                                                       <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
+                                                  </a>
+                                                  <a class="dropdown-item" href="#"
                                                   @click="setSeedChoosen(seed), isOpenConfirm = !isOpenConfirm">
-                                                  <span class="fas fa-trash-alt actionIcon"></span>
-                                             </span>
+                                                       <span class="fas fa-trash-alt actionIcon"></span> Xóa
+                                                  </a>
+                                             </div>
                                         </td>
                                    </tr>
                               </tbody>
@@ -354,17 +353,17 @@ export default {
 <style>
 @import url(../../assets/seedStyle.css);
 nav {
-     float: right;
-}
-
- nav .pagination .page-link {
-     color: #5C5D22;
-     font-size: 17px;
-}
-
-nav{
      position: absolute;
-     left:85%;
+     left: 45%;
      top: 92%;
+}
+
+nav .pagination .active .page-link {
+     background: #ABD2C8 !important;
+     border: 1px solid #FAFAFC !important;
+     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+     border-radius: 15px !important;
+     margin-left: 10px !important;
+     margin-right: 10px !important;
 }
 </style>

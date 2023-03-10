@@ -7,25 +7,14 @@
                     </div>
                </div>
                <div class="col-md-10 rightFertilizerManagement">
-                    <div class="row mr-2 pt-2 mb-4 ml-2 topRight">
-                         <div class="col-md-7" v-if="!isOpenSearch">
+                    <div class="row ml-2 pt-3 mb-5 pb-1 mr-2  topRight">
+                         <div class="col-md-2">
                               <h3 class="name">Phân bón</h3>
                          </div>
-                         <div class="col-md-2" v-if="isOpenSearch">
-                              <h3 class="name">Phân bón</h3>
-                         </div>
-                         <div class="col-md-3 text-right" v-if="!isOpenSearch">
-                              <input type="text" class="form-control col-sm-8 inputSearch1" placeholder="Tìm"
-                                   v-model="nameToSearch" @keyup.enter="searchName"
-                                   @click="isOpenSearch = !isOpenSearch" />
-                              <button class="btnSearch1" @click="searchName">
-                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                              </button>
-                         </div>
-                         <div class="col-md-8" v-if="isOpenSearch">
-                              <input type="text" class="form-control inputSearch2" placeholder="" 
+                         <div class="col-md-8" >
+                              <input type="text" class="form-control inputSearch1" placeholder="Tìm" 
                                    v-model="nameToSearch" @keyup.enter="searchName" />
-                              <button class="btnSearch2" @click="searchName">
+                              <button class="btnSearch1" @click="searchName">
                                    <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
                          </div>
@@ -36,39 +25,45 @@
                               </div>
                          </div>
                     </div>
-                    <div class="row ml-2 mt-4  pt-5 pb-2 mr-1">
+                    <div class="row ml-2 mr-2 mt-4  pt-3 pb-2">
                          <div class="col-sm-12 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i
-                                        class="fas fa-plus-circle" style="font-size: 15px;"></i>Thêm phân bón</button>
+                                        class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm phân bón</button>
                          </div>
                     </div>
-                    <div class="row fertilizerList mt-1 ml-2 mr-2 justify-content-center">
-                         <table class="table mt-1 ml-2 mr-2">
+                    <div class="row fertilizerList mt-2 ml-2 mr-2 justify-content-center">
+                         <table class="table mt-4 ml-2 mr-2">
                               <thead>
                                    <tr>
-                                        <th>STT</th>
+                                        <th class="text-center">STT</th>
                                         <th>Mã</th>
                                         <th>Tên</th>
                                         <th>Nhà cung cấp</th>
-                                        <th><span class="ml-1">Tùy chọn</span></th>
+                                        <th></th>
                                    </tr>
                               </thead>
                               <tbody>
                                    <tr v-for="(fertilizer, i ) in get_rows(fertilizerList)" :key="i" class="align-self-center">
-                                        <td v-if="currentPage > 1">{{ i+ ((currentPage - 1) * 6)}}</td>
-                                        <td v-else>{{ i }}</td>
+                                        <td v-if="currentPage > 1" class="text-center">{{ i+ ((currentPage - 1) * 6 +1)}}</td>
+                                        <td v-else class="text-center">{{ i+1 }}</td>
                                         <td>{{ fertilizer.Fertilizer_id }}</td>
                                         <td>{{ fertilizer.Fertilizer_name }}</td>
                                         <td>{{ fertilizer.Fertilizer_supplier }}</td>
-                                        <td>
-                                             <span class="col-md-6 action mt-2 "
+                                        <td class="">
+                                             <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown" 
+                                                  aria-haspopup="true" aria-expanded="false">
+                                                  <i class="fas fa-ellipsis-v"></i>
+                                             </button>
+                                             <div class="dropdown-menu">
+                                                  <a class="dropdown-item action"
                                                   @click="setFertilizerChoosen(fertilizer), isOpenUpdateFertilizer = !isOpenUpdateFertilizer">
-                                                  <span class="fas fa-edit actionIcon"></span>
-                                             </span>
-                                             <span class="col-md-6 action mt-2"
+                                                       <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
+                                                  </a>
+                                                  <a class="dropdown-item" href="#"
                                                   @click="setFertilizerChoosen(fertilizer), isOpenConfirm = !isOpenConfirm">
-                                                  <span class="fas fa-trash-alt actionIcon"></span>
-                                             </span>
+                                                       <span class="fas fa-trash-alt actionIcon"></span> Xóa
+                                                  </a>
+                                             </div>
                                         </td>
                                    </tr>
                               </tbody>
@@ -348,17 +343,17 @@ export default {
 <style>
 @import url(../../assets/fertilizerStyle.css);
 nav {
-     float: right;
-}
-
- nav .pagination .page-link {
-     color: #5C5D22;
-     font-size: 17px;
-}
-
-nav{
      position: absolute;
-     left:85%;
+     left: 45%;
      top: 92%;
+}
+
+nav .pagination .active .page-link {
+     background: #ABD2C8 !important;
+     border: 1px solid #FAFAFC !important;
+     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+     border-radius: 15px !important;
+     margin-left: 10px !important;
+     margin-right: 10px !important;
 }
 </style>

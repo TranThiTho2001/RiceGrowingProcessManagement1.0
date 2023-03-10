@@ -37,6 +37,7 @@
     font-weight: 500;
     font-size: 17px;
     color: #008B8E;
+    margin-bottom: 0%;
 }
 
 .createRiceCropForm .content .form-group .selectBox,
@@ -57,7 +58,7 @@
     background-color: #FAFAFC;
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
     font-size: 17px;
-    height: 38px;
+    height: 80%;
     border-radius: 15px;
     color:#2F3033;
     font-family: 'Roboto';
@@ -66,7 +67,6 @@ font-weight: 500;
 }
 
 .calendaer {
-    /* background-color: #f0f0f0; */
     font-size: 17px;
     height: 38px !important;
     border-radius: 15px !important;
@@ -96,11 +96,15 @@ font-weight: 500;
 }
 
 .updateRiceCropForm .btnLuu {
-    color: #FFFED8;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     background: #008B8E;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 12px;
+    width: 100px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    color: #FFFED8;
 }
 
 .riceCropManagement .inputSearch1 {

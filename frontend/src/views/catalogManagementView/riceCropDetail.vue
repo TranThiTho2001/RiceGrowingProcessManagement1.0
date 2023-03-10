@@ -1,6 +1,6 @@
 <template>
      <div class="container-fluid riceCropDetail">
-          <div class="row riceCropDetailFrame">
+          <div class="row riceCropDetailFrame" @click="inputstyle.input1 = true, inputstyle.input2 = false">
                <div class="col-md-2">
                     <div class="row">
                          <Catalog />
@@ -85,17 +85,16 @@
                               <!-- ----------------------FertilizerTimes Tab-------------- -->
                               <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableFertilizerTimes">
                                    <input type="text" class="form-control inputSearch1" placeholder="Tìm"
-                                        v-model="nameToSearch" @keyup.enter="searchName"
-                                        @click="isOpenSearch = !isOpenSearch" />
-                                   <button class="btnSearch1" @click="searchName">
+                                        v-model="nameToSearch" @keyup.enter="searchNameFertilizer" />
+                                   <button class="btnSearch1" @click="searchNameFertilizer">
                                         <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                                    </button>
                                    <button class="btn mt-1 btnAdd "
                                         @click="isOpenCreateFertilizerTimesForm = !isOpenCreateFertilizerTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
                                    <div class="tableFixHead">
-                                        <table class="table" v-if="isOpenTable">
+                                        <table class="table">
                                              <thead>
-                                                  <tr >
+                                                  <tr>
                                                        <th class="text-center ">Mã</th>
                                                        <th>Tên phân bón</th>
                                                        <th class="text-center ">Số lượng (kg/ha)</th>
@@ -117,16 +116,17 @@
                                                        }}</td>
                                                        <td class="">{{ fertilizer.Employee_name }}</td>
                                                        <td class="">
-                                                            <button type="button" class="btn btn-sm"
-                                                                 data-toggle="dropdown" aria-haspopup="true"
-                                                                 aria-expanded="false">
+                                                            <button type="button" class="btn btn-sm" data-toggle="dropdown"
+                                                                 aria-haspopup="true" aria-expanded="false">
                                                                  <i class="fas fa-ellipsis-v"></i>
                                                             </button>
                                                             <div class="dropdown-menu">
-                                                                 <a class="dropdown-item action" @click="setFertilizerChoosen(fertilizer), isOpenUpdateFertilizerTimesForm = !isOpenUpdateFertilizerTimesForm, isOpenTable = !isOpenTable">
+                                                                 <a class="dropdown-item action"
+                                                                      @click="setFertilizerChoosen(fertilizer), isOpenUpdateFertilizerTimesForm = !isOpenUpdateFertilizerTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
                                                                       <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                                                  </a>
-                                                                 <a class="dropdown-item" href="#" @click="setFertilizerChoosen(fertilizer), isOpenUpdateFertilizerTimesForm = !isOpenUpdateFertilizerTimesForm">
+                                                                 <a class="dropdown-item" href="#"
+                                                                      @click="setFertilizerChoosen(fertilizer), isOpenUpdateFertilizerTimesForm = !isOpenUpdateFertilizerTimesForm">
                                                                       <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                                  </a>
 
@@ -142,15 +142,14 @@
                               <!-- ----------------------SprayingTimes Tab-------------- -->
                               <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableSprayingTimes">
                                    <input type="text" class="form-control inputSearch1" placeholder="Tìm"
-                                        v-model="nameToSearch" @keyup.enter="searchName"
-                                        @click="isOpenSearch = !isOpenSearch" />
-                                   <button class="btnSearch1" @click="searchName">
+                                        v-model="nameToSearch" @keyup.enter="searchNamePesticide" />
+                                   <button class="btnSearch1" @click="searchNamePesticide">
                                         <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                                    </button>
                                    <button class="btn mt-1 btnAdd"
                                         @click="isOpenCreateSprayingTimesForm = !isOpenCreateSprayingTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
                                    <div class="tableFixHead">
-                                        <table class="table" v-if="isOpenTable" >
+                                        <table class="table">
                                              <thead>
                                                   <tr>
                                                        <th class="text-center ">Mã</th>
@@ -176,16 +175,17 @@
                                                        </td>
                                                        <td class="">{{ sprayingTimes.Employee_name }}</td>
                                                        <td class="">
-                                                            <button type="button" class="btn btn-sm"
-                                                                 data-toggle="dropdown" aria-haspopup="true"
-                                                                 aria-expanded="false">
+                                                            <button type="button" class="btn btn-sm" data-toggle="dropdown"
+                                                                 aria-haspopup="true" aria-expanded="false">
                                                                  <i class="fas fa-ellipsis-v"></i>
                                                             </button>
                                                             <div class="dropdown-menu">
-                                                                 <a class="dropdown-item action" @click="setSprayingTimes(sprayingTimes), isOpenUpdateSprayingTimesForm = !isOpenUpdateSprayingTimesForm, isOpenTable = !isOpenTable">
+                                                                 <a class="dropdown-item action"
+                                                                      @click="setSprayingTimes(sprayingTimes), isOpenUpdateSprayingTimesForm = !isOpenUpdateSprayingTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
                                                                       <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                                                  </a>
-                                                                 <a class="dropdown-item" href="#"  @click="setSprayingTimes(sprayingTimes), isOpenConfirm = !isOpenConfirm, setDelete('SprayingTimes')">
+                                                                 <a class="dropdown-item" href="#"
+                                                                      @click="setSprayingTimes(sprayingTimes), isOpenConfirm = !isOpenConfirm, setDelete('SprayingTimes')">
                                                                       <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                                  </a>
 
@@ -200,15 +200,15 @@
                               <!-- ----------------------EpidemicTimes Tab-------------- -->
                               <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableEpidemicTimes">
                                    <input type="text" class="form-control inputSearch1" placeholder="Tìm"
-                                        v-model="nameToSearch" @keyup.enter="searchName"
+                                        v-model="nameToSearch" @keyup.enter="searchNameEpidemic"
                                         @click="isOpenSearch = !isOpenSearch" />
-                                   <button class="btnSearch1" @click="searchName">
+                                   <button class="btnSearch1" @click="searchNameEpidemic">
                                         <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                                    </button>
                                    <button class="btn mt-1 btnAdd"
                                         @click="isOpenCreateEpidemicTimesForm = !isOpenCreateEpidemicTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
                                    <div class="tableFixHead">
-                                        <table class="table" v-if="isOpenTable">
+                                        <table class="table">
                                              <thead>
                                                   <tr>
                                                        <th class="text-center ">Lần</th>
@@ -231,16 +231,17 @@
                                                        </td>
                                                        <td class="">{{ epidemic.Employee_name }}</td>
                                                        <td class="">
-                                                            <button type="button" class="btn btn-sm"
-                                                                 data-toggle="dropdown" aria-haspopup="true"
-                                                                 aria-expanded="false">
+                                                            <button type="button" class="btn btn-sm" data-toggle="dropdown"
+                                                                 aria-haspopup="true" aria-expanded="false">
                                                                  <i class="fas fa-ellipsis-v"></i>
                                                             </button>
                                                             <div class="dropdown-menu">
-                                                                 <a class="dropdown-item action" @click="setEpidemicChoosen(epidemic), isOpenUpdateEpidemicTimesForm = !isOpenUpdateEpidemicTimesForm, isOpenTable = !isOpenTable">
+                                                                 <a class="dropdown-item action"
+                                                                      @click="setEpidemicChoosen(epidemic), isOpenUpdateEpidemicTimesForm = !isOpenUpdateEpidemicTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
                                                                       <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                                                  </a>
-                                                                 <a class="dropdown-item" href="#"  @click="setEpidemicChoosen(epidemic), isOpenConfirm = !isOpenConfirm, setDelete('EpidemicTimes')">
+                                                                 <a class="dropdown-item" href="#"
+                                                                      @click="setEpidemicChoosen(epidemic), isOpenConfirm = !isOpenConfirm, setDelete('EpidemicTimes')">
                                                                       <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                                  </a>
 
@@ -255,15 +256,14 @@
                               <!-- ----------------------Monitor Tab-------------- -->
                               <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableMonitor">
                                    <input type="text" class="form-control inputSearch1" placeholder="Tìm"
-                                        v-model="nameToSearch" @keyup.enter="searchName"
-                                        @click="isOpenSearch = !isOpenSearch" />
-                                   <button class="btnSearch1" @click="searchName">
+                                        v-model="nameToSearch" @keyup.enter="searchNameMonitor" />
+                                   <button class="btnSearch1" @click="searchNameMonitor">
                                         <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                                    </button>
                                    <button class="btn mt-1 btnAdd"
                                         @click="isOpenCreateMonitorForm = !isOpenCreateMonitorForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
                                    <div class="tableFixHead">
-                                        <table class="table" v-if="isOpenTable">
+                                        <table class="table">
                                              <thead>
                                                   <tr>
                                                        <th class="text-center ">STT</th>
@@ -287,13 +287,13 @@
                                                        </td>
                                                        <td class="">{{ monitor.Role_name }}</td>
                                                        <td class="">
-                                                            <button type="button" class="btn btn-sm"
-                                                                 data-toggle="dropdown" aria-haspopup="true"
-                                                                 aria-expanded="false">
+                                                            <button type="button" class="btn btn-sm" data-toggle="dropdown"
+                                                                 aria-haspopup="true" aria-expanded="false">
                                                                  <i class="fas fa-ellipsis-v"></i>
                                                             </button>
                                                             <div class="dropdown-menu">
-                                                                 <a class="dropdown-item" href="#"   @click="setMonitorChoosen(monitor), isOpenConfirm = !isOpenConfirm, setDelete('Monitor')">
+                                                                 <a class="dropdown-item" href="#"
+                                                                      @click="setMonitorChoosen(monitor), isOpenConfirm = !isOpenConfirm, setDelete('Monitor')">
                                                                       <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                                  </a>
 
@@ -308,15 +308,14 @@
                               <!-- ----------------------OtherActivity Tab-------------- -->
                               <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableOtherActivitiesTimes">
                                    <input type="text" class="form-control inputSearch1" placeholder="Tìm"
-                                        v-model="nameToSearch" @keyup.enter="searchName"
-                                        @click="isOpenSearch = !isOpenSearch" />
-                                   <button class="btnSearch1" @click="searchName">
+                                        v-model="nameToSearch" @keyup.enter="searchNameOtherActivity" />
+                                   <button class="btnSearch1" @click="searchNameOtherActivity">
                                         <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                                    </button>
                                    <button class="btn mt-1 btnAdd"
                                         @click="isOpenCreateActivitiesDetail = !isOpenCreateActivitiesDetail, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
                                    <div class="tableFixHead">
-                                        <table class="table" v-if="isOpenTable">
+                                        <table class="table">
                                              <thead>
                                                   <tr>
                                                        <th class="text-center ">STT</th>
@@ -344,16 +343,17 @@
                                                        <td>{{ formatDate(activity.ActivityDetails_endDate) }}</td>
                                                        <td class="">{{ activity.Employee_name }}</td>
                                                        <td class="">
-                                                            <button type="button" class="btn btn-sm"
-                                                                 data-toggle="dropdown" aria-haspopup="true"
-                                                                 aria-expanded="false">
+                                                            <button type="button" class="btn btn-sm" data-toggle="dropdown"
+                                                                 aria-haspopup="true" aria-expanded="false">
                                                                  <i class="fas fa-ellipsis-v"></i>
                                                             </button>
                                                             <div class="dropdown-menu">
-                                                                 <a class="dropdown-item action" @click="setMonitorChoosen(activity), isOpenUpdateEpidemicTimesForm = !isOpenUpdateEpidemicTimesForm, isOpenTable = !isOpenTable">
+                                                                 <a class="dropdown-item action"
+                                                                      @click="setMonitorChoosen(activity), isOpenUpdateEpidemicTimesForm = !isOpenUpdateEpidemicTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
                                                                       <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                                                  </a>
-                                                                 <a class="dropdown-item" href="#"    @click="setMonitorChoosen(activity), isOpenConfirm = !isOpenConfirm, setDelete('Monitor')">
+                                                                 <a class="dropdown-item" href="#"
+                                                                      @click="setMonitorChoosen(activity), isOpenConfirm = !isOpenConfirm, setDelete('Monitor')">
                                                                       <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                                  </a>
 
@@ -496,7 +496,7 @@ export default {
 
      data() {
           return {
-               isOpenTable:true,
+               nameToSearch: "",
                activitiesList: [],
                newRiceCrop: {},
                employeeList: {},
@@ -596,6 +596,11 @@ export default {
                stylebac: {
                     active: true,
                     none: false,
+               },
+
+               inputstyle: {
+                    input1: true,
+                    input2: false,
                }
           }
      },
@@ -1305,7 +1310,8 @@ export default {
                     this.stylebac.active = true;
                     this.newSprayingTimes = {};
                     this.newEpidemicTimes.EpidemicTimes_times = this.epidemicTimesList[this.epidemicTimesList.length - 1].EpidemicTimes_times + 1;
-
+                    this.stylebac.none = false;
+                    this.stylebac.active = true;
                }
                else {
                     this.message1 = " ";
@@ -1420,37 +1426,28 @@ export default {
                this.isOpenTableOtherActivitiesTimes = false
                this.isOpenTableSprayingTimes = false;
                this.isOpenImage = false;
+               this.nameToSearch = "";
                if (data == "btnImage") {
                     this.isOpenImage = true;
                }
                else if (data == "btnFertilizerTimes") {
                     this.retrieveFertilizerTimesList();
                     this.isOpenTableFertilizerTimes = true;
-                    this.num_pages(this.fertilizerList);
-                    this.currentPage = 1;
                }
                else if (data == "btnSprayingTimes") {
                     this.retrieveSprayingTimesList();
                     this.isOpenTableSprayingTimes = true;
-                    this.num_pages(this.SprayingTimesList)
-                    this.currentPage = 1;
                }
                else if (data == "btnActivities") {
-
                     this.isOpenTableOtherActivitiesTimes = true;
-                    this.currentPage = 1;
                }
                else if (data == "btnEpidemic") {
                     this.retrieveEpidemicTimesList();
                     this.isOpenTableEpidemicTimes = true;
-                    this.num_pages(this.SprayingTimesList)
-                    this.currentPage = 1;
                }
                else if (data == "btnAttendee") {
                     this.isOpenTableMonitor = true;
                     this.retrieveMonitorList();
-                    this.num_pages(this.SprayingTimesList)
-                    this.currentPage = 1;
                }
           },
 
@@ -1567,6 +1564,8 @@ export default {
                this.message2 = "";
                if (!data.close) {
                     this.isOpenCreateActivitiesDetail = false;
+                    this.stylebac.none = false;
+                    this.stylebac.active = true;
                     this.newActivityDetail = {};
                }
                else {
@@ -1636,33 +1635,91 @@ export default {
                     return 8;
                }
           },
-          get_rows(list) {
-               var start = (this.currentPage - 1) * this.elementsPerPage;
-               var end = start + this.elementsPerPage;
-               return list.slice(start, end);
 
-          },
-
-          // So trang cua danh sach danh muc
-          num_pages(list) {
-               return Math.ceil(list.length / this.elementsPerPage);
-          },
-
-          async change_page(page, list) {
-               if (page == '-' && this.currentPage > 1) {
-                    this.currentPage -= 1;
-                    this.get_rows(list);
+          async searchNameEpidemic() {
+               if (this.nameToSearch != "") {
+                    const [err, respone] = await this.handle(
+                         EpidemicTimesService.getByName(this.nameToSearch, this.newRiceCrop.RiceCropInformation_id)
+                    );
+                    if (err) {
+                         console.log(err)
+                    }
+                    else {
+                         this.epidemicTimesList = respone.data;
+                    }
                }
-               else if (page == '+' && this.currentPage < this.num_pages(list)) {
-                    this.currentPage += 1;
-                    this.get_rows(list);
-               }
-               else {
-                    this.currentPage = page;
-                    this.get_rows(list);
+               else{
+                    this.retrieveEpidemicTimesList();
                }
           },
 
+          async searchNameFertilizer() {
+               if (this.nameToSearch != "") {
+                    const [err, respone] = await this.handle(
+                         FertilizerTimesService.getByName(this.nameToSearch, this.newRiceCrop.RiceCropInformation_id)
+                    );
+                    if (err) {
+                         console.log(err)
+                    }
+                    else {
+                         this.fertilizerTimesList = respone.data;
+                    }
+               }
+               else{
+                    this.retrieveFertilizerTimesList();
+               }
+          },
+
+          async searchNamePesticide() {
+               if (this.nameToSearch != "") {
+                    const [err, respone] = await this.handle(
+                         SprayingTimesService.getByName(this.nameToSearch, this.newRiceCrop.RiceCropInformation_id)
+                    );
+                    if (err) {
+                         console.log(err)
+                    }
+                    else {
+                         this.SprayingTimesList = respone.data;
+                    }
+               }
+               else{
+                    this.retrieveSprayingTimesList()
+               }
+          },
+          
+          async searchNameOtherActivity() {
+               if (this.nameToSearch != "") {
+                    const [err, respone] = await this.handle(
+                         ActivityDetailsService.getByName(this.nameToSearch, this.newRiceCrop.RiceCropInformation_id)
+                    );
+                    if (err) {
+                         console.log(err)
+                    }
+                    else {
+                         this.activitiesDetailList = respone.data;
+                    }
+               }
+               else{
+                    this.retrieveActivitiesDetail()
+               }
+          },
+
+          async searchNameMonitor() {
+               if (this.nameToSearch != "") {
+                    const [err, respone] = await this.handle(
+                         MonitorService.getByName(this.nameToSearch, this.newRiceCrop.RiceCropInformation_id)
+                    );
+                    if (err) {
+                         console.log(err)
+                    }
+                    else {
+                         this.monitorList = respone.data;
+                    }
+               }
+               else{
+                    this.retrieveActivitiesDetail()
+               }
+          },
      },
 
      mounted() {

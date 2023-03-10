@@ -4,10 +4,10 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
      <div class="container-fluid topHeader">
           <div class="btn btnUser dropdown">
-               <i class="fas fa-user-circle iconUser"></i>
+               <i class="fas fa-user-circle iconUser" ></i>
                <h6 class="username "> &nbsp;{{ formatName(currentuser.Employee_name) }} <i class="fas fa-caret-down"
-                         style="color: #6D6E73"></i></h6>
-               <div class="dropdown-conten" style="background-color: #919302;">
+                         style="color:  #FFFED8;"></i></h6>
+               <div class="dropdown-conten" style="background-color: #FFFED8;">
                     <a @click="logout">Đăng xuất</a>
                </div>
           </div>
@@ -91,7 +91,9 @@ export default {
 
 .topHeader .iconUser {
      font-size: 26px;
-     color: #6D6E73;
+     background:  #ABD2C8;
+     border-radius: 50%;
+     color: #FFFED8;
      position: relative;
      top: -3%;
 }
@@ -100,7 +102,7 @@ export default {
      font-family: Inter;
      font-size: 18px;
      display: inline;
-     color: #6D6E73;
+     color: #FFFED8;
      text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
      position: relative;
      top: -12%

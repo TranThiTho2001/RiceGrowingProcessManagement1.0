@@ -7,6 +7,9 @@ module.exports = (app) => {
      // Retrieve all 
      router.get("/", monitor.findAll);
 
+     
+     router.get("/findbyname/:RiceCropInformation_id", monitor.findbyName);
+
      //find by id
      router.get("/:id", monitor.findbyIdRiceCropInformation)
 

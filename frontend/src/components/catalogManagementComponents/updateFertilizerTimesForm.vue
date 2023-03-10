@@ -251,7 +251,7 @@ export default {
 }
 .dp__input {
     background-color: var(--dp-background-color);
-    border-radius: 10px;
+    border-radius: 12px;
     font-family: -apple-system,blinkmacsystemfont,"Segoe UI",roboto,oxygen,ubuntu,cantarell,"Open Sans","Helvetica Neue",sans-serif;
     border: 1px solid var(--dp-border-color);
     outline: none;

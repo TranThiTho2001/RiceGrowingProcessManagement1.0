@@ -11,7 +11,7 @@
                     </div>
 
                     <div class="form-group">
-                         <label for="seed" class="pt-1">Giống lúa <span style="color:red">*</span></label>
+                         <label for="seed" class="pt-3">Giống lúa <span style="color:red">*</span></label>
                          <Field name="seed" v-model="newricecrop.Seed_name">
                               <select class="form-control" v-model="newricecrop.Seed_name" name="seed" for="seed">
                                    <option v-for="(seed, i) in seedList" :key="i">{{ seed.Seed_name }}</option>
@@ -29,11 +29,11 @@
                     </div>
 
                     <div class="form-group">
-                         <label for="arableLand" class="pt-1">Mẫu ruộng <span style="color:red">*</span></label>
+                         <label for="arableLand" class="pt-3">Mẫu ruộng <span style="color:red">*</span></label>
                          <Field name="arableLand" class="form-control" v-model="newricecrop.ArableLand_id"
                               placeholder="Nhập vị trí mẫu ruộng...">
                               <select class="form-control" v-model="newricecrop.ArableLand_id" name="arableLand"
-                                   for="arableLand">
+                                   for="arableLand" style="margin-top: -10%; !important">
                                    <option v-for="(arableLand, i) in arableLandList" :key="i">{{ arableLand.ArableLand_id }}
                                    </option>
                               </select>
@@ -61,7 +61,7 @@
                     </div>
 
                     <div class="form-group">
-                         <label for="crop" class="pt-1">Vụ mùa <span style="color:red">*</span></label>
+                         <label for="crop" class="pt-3">Vụ mùa <span style="color:red">*</span></label>
                          <Field name="crop" class="form-control" v-model="newricecrop.Crop_name" placeholder="Vụ mùa">
                               <select class="form-control" v-model="newricecrop.Crop_name" name="soil" for="soil">
                                    <option>Đông Xuân</option>
@@ -87,7 +87,7 @@
                     </div>
 
                     <div class="form-group">
-                         <label for="yield" class="pt-1">Năng suất</label>
+                         <label for="yield" class="pt-3">Năng suất</label>
                          <Field name="yield" class="form-control" v-model="newricecrop.RiceCropInformation_yield"
                               placeholder="Năng suất..." />
                          <ErrorMessage name="yield" class="error-feedback" />
@@ -221,7 +221,7 @@ export default {
 
 .dp__input {
      background-color: var(--dp-background-color);
-     border-radius: 15px;
+     border-radius: 15px !important;
      font-family: 'Roboto';
      font-style: normal;
      font-size: 18px;
@@ -230,6 +230,7 @@ export default {
      outline: none;
      transition: border-color .2s cubic-bezier(0.645, 0.045, 0.355, 1);
      width: 100%;
+     height: 80%;
      font-size: 1rem;
      line-height: 1.5rem;
      padding: 6px 12px;

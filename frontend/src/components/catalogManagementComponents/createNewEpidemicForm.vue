@@ -48,8 +48,8 @@
 
                     <div class="form-group">
                          <label for="classtify" class="mt-3">Phân loại <span style="color: red">*</span></label>
-                         <Field name="classtify" v-model="newepidemic.EpidemicsClassification_id">
-                              <select class="form-control" v-model="newepidemic.EpidemicsClassification_id" name="classtify" for="classtify">
+                         <Field name="classtify" v-model="newepidemic.EpidemicsClassification_name">
+                              <select class="form-control" v-model="newepidemic.EpidemicsClassification_name" name="classtify" for="classtify">
                                    <option  for="classtify">Côn trùng</option>
                                    <option>Dịch bệnh</option>
                                    <option >Nấm hại</option>

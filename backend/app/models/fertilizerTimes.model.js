@@ -47,7 +47,10 @@ FertilizerTimes.findByIdRiceCropInformation = (id, result) => {
 };
 
 FertilizerTimes.getAll = (Fertilizer_id, result) => {
-     let query = "SELECT * FROM FertilizerTimes ";
+     let query = "SELECT * FROM FertilizerTimes "+
+    ` JOIN Fertilizer on Fertilizer.Fertilizer_id = FertilizerTimes.Fertilizer_id ` +
+          `JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = FertilizerTimes.RiceCropInformation_id `+
+          ` JOIN Employee on Employee.Employee_id = FertilizerTimes.Employee_id ` ;
      if (Fertilizer_id) {
           query += ` WHERE Fertilizer_id LIKE '%${Fertilizer_id}%'`;
      }
@@ -60,7 +63,24 @@ FertilizerTimes.getAll = (Fertilizer_id, result) => {
           result(null, res);
      });
 };
-
+FertilizerTimes.findByName = (name,id, result) => {
+     sql.query(`SELECT * FROM FertilizerTimes JOIN Fertilizer on Fertilizer.Fertilizer_id = FertilizerTimes.Fertilizer_id ` +
+          `JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = FertilizerTimes.RiceCropInformation_id `+
+          ` JOIN Employee on Employee.Employee_id = FertilizerTimes.Employee_id `+
+          `WHERE FertilizerTimes.RiceCropInformation_id like '${id}' AND Fertilizer.Fertilizer_name like '%${name}%' ORDER BY  FertilizerTimes.FertilizerTimes_times`, (err, res) => {
+          if (err) {
+               console.log("error: ", err);
+               result(err, null);
+               return;
+          }
+          if (res.length) {
+               result(null, res);
+               return;
+          }
+          // not found FertilizerTimes with the id
+          result({ kind: "not_found" }, null);
+     });
+};
 FertilizerTimes.updateById = (riceCropInformation_id, Fertilizer_id, times, fertilizerTimes, result) => {
      sql.query(
           "UPDATE FertilizerTimes SET Employee_id = ?, DevelopmentStage_id = ?, FertilizerTimes_amount = ?, FertilizerTimes_startDate = ?, FertilizerTimes_endDate = ?, FertilizerTimes_temperature = ?, FertilizerTimes_humidity = ?, FertilizerTimes_precipitation = ? WHERE (RiceCropInformation_id = ? And Fertilizer_id = ? and FertilizerTimes_times = ?)",

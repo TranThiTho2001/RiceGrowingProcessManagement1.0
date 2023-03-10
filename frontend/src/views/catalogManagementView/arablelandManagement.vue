@@ -39,28 +39,28 @@
                     <div class="row ml-2 mr-2 mt-5 pt-4">
                          <div class="col-sm-12 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
-                                        style="font-size: 15px;"></i>Thêm mẫu ruộng</button>
+                                        style="font-size: 15px;"></i> Thêm mẫu ruộng</button>
                          </div>
                     </div>
                     <div class=" row arablelandList mt-2 ml-2 mr-3 justify-content-center">
-                         <table class="table mt-4 ml-2 mr-2" style="height: 400px;">
+                         <table class="table mt-4 ml-2 mr-2">
                               <thead>
                                    <tr>
-                                        <th>STT</th>
+                                        <th class="text-center" style=" padding-right: 2px;">STT</th>
                                         <th>Mã</th>
                                         <th>Diện tích</th>
                                         <th>Chủ sỡ hưu</th>
                                         <th>Loại đất</th>
                                         <th>Vị trí</th>
-                                        <th>Tùy chọn</th>
+                                        <th></th>
                                    </tr>
                               </thead>
                               <tbody>
                                    <tr v-for="(arableland, i ) in get_rows(arablelandList)" :key="i"
-                                        class="align-self-center">
-                                        <td class="text-center" v-if="currentPage > 1">{{ i + ((currentPage - 1) *
-                                             elementsPerPage) }}</td>
-                                        <td class="text-center" v-else>{{ i }}</td>
+                                        class="">
+                                        <td class=""  v-if="currentPage > 1">{{ i + ((currentPage - 1) *
+                                             elementsPerPage)+1}}</td>
+                                        <td class="text-center" v-else >{{ i+1 }}</td>
                                         <td>{{ arableland.ArableLand_id }}</td>
                                         <td>{{ arableland.ArableLand_area }}</td>
                                         <td>{{ arableland.ArableLand_owner }}</td>
@@ -72,7 +72,7 @@
                                                        arableland.ArableLand_location }}</a>
                                         </td>
                                         <td class="">
-                                             <button type="button" class="btn btn-sm" data-toggle="dropdown"
+                                             <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown" 
                                                   aria-haspopup="true" aria-expanded="false">
                                                   <i class="fas fa-ellipsis-v"></i>
                                              </button>
@@ -85,7 +85,6 @@
                                                        @click="setArableLandChoosen(arableland), isOpenConfirm = !isOpenConfirm">
                                                        <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                   </a>
-
                                              </div>
                                         </td>
                                    </tr>
@@ -179,7 +178,7 @@ export default {
      data() {
           return {
                currentPage: 1,
-               elementsPerPage: 7,
+               elementsPerPage: 9,
                ascending: false,
                previous: '<<',
                next: '>>',
@@ -401,18 +400,18 @@ export default {
 
 <style>
 @import url(../../assets/arablelandStyle.css);
-
-nav {
-     float: right;
-}
-
-nav .pagination .page-link {
-     color: #5C5D22;
-     font-size: 17px;
-}
-
 nav {
      position: absolute;
-     left: 85%;
+     left: 45%;
      top: 92%;
-}</style>
+}
+
+nav .pagination .active .page-link {
+     background: #ABD2C8 !important;
+     border: 1px solid #FAFAFC !important;
+     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+     border-radius: 15px !important;
+     margin-left: 10px !important;
+     margin-right: 10px !important;
+}
+</style>

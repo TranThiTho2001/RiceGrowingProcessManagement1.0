@@ -1,123 +1,126 @@
 .epidemicManagement .createEpidemicForm,
-.epidemicManagement .updateEpidemicForm{
-     background-color: #b7f8d0;
-     font-family: Inter;
-     border-radius: 10px;
-     position: absolute;
-     top: calc(18%);
-     left: 8%;
-     width: 85%;
+.epidemicManagement .updateEpidemicForm {
+    background-color: #b7f8d0;
+    font-family: Inter;
+    border-radius: 10px;
+    position: absolute;
+    top: calc(18%);
+    left: 8%;
+    width: 85%;
 }
 
 
 
-.createEpidemicForm .messege{
+.createEpidemicForm .messege {
     background-color: #6cc38c;
 }
+
 .createEpidemicForm .content .error-feedback,
-.updateEpidemicForm .content .error-feedback{
-     color: red;
-     float: right;
+.updateEpidemicForm .content .error-feedback {
+    color: red;
+    float: right;
 }
 
 
 .createEpidemicForm .content .form-group label,
-.updateEpidemicForm .content .form-group label{
-     float: left;
-     font-family: Inter;
-     font-size: 18px;
+.updateEpidemicForm .content .form-group label {
+    float: left;
+    font-family: Inter;
+    font-size: 18px;
 }
 
 .createEpidemicForm .content .form-group .selectBox,
-.updateEpidemicForm .content .form-group .selectBox{
-     width: 100%;
-     height: 38px;
-     border: 1px solid #ced4da;
-     border-radius: 4px;
+.updateEpidemicForm .content .form-group .selectBox {
+    width: 100%;
+    height: 38px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
 }
 
 .createEpidemicForm .content .form-group input,
-.updateEpidemicForm .content .form-group input{
-     float: left;
+.updateEpidemicForm .content .form-group input {
+    float: left;
 }
 
 .createEpidemicForm .content .form-group .form-control,
-.updateEpidemicForm .content .form-group .form-control{
-     background-color: #f0f0f0;
+.updateEpidemicForm .content .form-group .form-control {
+    background-color: #f0f0f0;
 }
 
 .createEpidemicForm .functionName,
-.updateEpidemicForm .functionName{
-     font-family: Inter;
-     font-size: 24px;
+.updateEpidemicForm .functionName {
+    font-family: Inter;
+    font-size: 24px;
 }
+
 .createEpidemicForm .form-group .textMessage2,
 .createEpidemicForm .form-group .textMessage1,
 .updateEpidemicForm .form-group .textMessage1,
-.updateEpidemicForm .form-group .textMessage2{
-     text-align: center; 
-     display: inline;
-     font-size: 18px;
-     font-family: Inter;
+.updateEpidemicForm .form-group .textMessage2 {
+    text-align: center;
+    display: inline;
+    font-size: 18px;
+    font-family: Inter;
 }
 
-.createEpidemicForm .btnLuu, 
-.updateEpidemicForm .btnLuu{
-     background-color: rgb(4, 105, 4);
-     color: #f0f0f0;
-     font-size: 20px;
-     text-align: center;
+.createEpidemicForm .btnLuu,
+.updateEpidemicForm .btnLuu {
+    background-color: rgb(4, 105, 4);
+    color: #f0f0f0;
+    font-size: 20px;
+    text-align: center;
 }
 
 
-.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement   .confirmationDialog{
-     background-color: rgb(5, 207, 137);
-     border: 1px solid rgb(62, 77, 77);
-     border-radius: 10px;
-     position:absolute;
-     top: calc(38%);
-     transform: translateX(80%);
-     border-radius: 16px;
-     display: block;
-     width: 404px;
-     height: 187px;
-     border-radius: 15px; 
-     text-align: center;
+.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .confirmationDialog {
+    background-color: rgb(5, 207, 137);
+    border: 1px solid rgb(62, 77, 77);
+    border-radius: 10px;
+    position: absolute;
+    top: calc(38%);
+    transform: translateX(80%);
+    border-radius: 16px;
+    display: block;
+    width: 404px;
+    height: 187px;
+    border-radius: 15px;
+    text-align: center;
 }
 
-.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .confirmationDialog .btnYes{
-     background-color: rgb(244, 61, 61);
-     color: white;
-     font-family: Inter;
-     font-size: 16px;
+.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .confirmationDialog .btnYes {
+    background-color: rgb(244, 61, 61);
+    color: white;
+    font-family: Inter;
+    font-size: 16px;
 }
 
-.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .confirmationDialog .btnNo{
-     background-color: rgb(196, 191, 191);
-     color: rgb(33, 33, 33);
-     font-family: Inter;
-     font-size: 16px;
+.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .confirmationDialog .btnNo {
+    background-color: rgb(196, 191, 191);
+    color: rgb(33, 33, 33);
+    font-family: Inter;
+    font-size: 16px;
 }
 
-.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .messageDialog .btnOK{
-     background-color: rgb(196, 191, 191);
-     color: rgb(33, 33, 33);
-     font-family: Inter;
-     font-size: 16px;
+.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .messageDialog .btnOK {
+    background-color: rgb(196, 191, 191);
+    color: rgb(33, 33, 33);
+    font-family: Inter;
+    font-size: 16px;
 }
-.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .messageDialog{
-     background-color: rgb(5, 207, 137);
-     border: 1px solid rgb(62, 77, 77);
-     border-radius: 10px;
-     position:absolute;
-     top: calc(38%);
-     transform: translateX(80%);
-     border-radius: 16px;
-     display: block;
-     width: 404px;
-     height: 187px;
-     border-radius: 15px; 
-     text-align: center;
+
+.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .messageDialog {
+    background-color: rgb(5, 207, 137);
+    border: 1px solid rgb(62, 77, 77);
+    border-radius: 10px;
+    position: absolute;
+    top: calc(38%);
+    transform: translateX(80%);
+    border-radius: 16px;
+    display: block;
+    width: 404px;
+    height: 187px;
+    border-radius: 15px;
+    text-align: center;
 }
 
 .epidemicManagement .btnCreate {
@@ -139,7 +142,24 @@
     border-radius: 10px;
 }
 
- .epidemicManagement .inputSearch1 {
+.epidemicManagement .inputSearch1 {
+    font-size: 16px;
+    color: #84858A;
+    font-family: 'Roboto';
+    font-style: normal;
+    justify-content: center;
+    font-weight: 400;
+    background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    width: 80px;
+    height: 35px;
+    position: absolute;
+    left: 96%;
+    top: 3%;
+}
+
+.epidemicManagement .inputSearch1:focus {
     font-size: 16px;
     color: #84858A;
     font-family: 'Roboto';
@@ -147,45 +167,23 @@
     font-weight: 400;
     background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 13px;
-    width: 90px;
-    position: relative;
-    left: 92%;
-
+    border-radius: 12px;
+    width: 110%;
+    position: absolute;
+    left: -4%;
+    top: 3%;
+    border: none !important;
 }
 
 .epidemicManagement .btnSearch1 {
     position: absolute;
-    left:106%;
-    top: 16%;
-    border-radius: 10px;
-    border: none;
-    background: none;
-}
-
-
-.epidemicManagement .inputSearch2 {
-    font-size: 16px;
-    color: #84858A;
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
-    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 13px;
-    position: relative;
-    left:-6%;
-    width:115%;
-}
-
-.epidemicManagement .btnSearch2 {
-    position: absolute;
     left: 102%;
-    top: 16%;
+    top: 13%;
     border-radius: 10px;
     border: none;
     background: none;
 }
+
 .epidemicManagement .topRight {
     background: #E4E5EB;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -200,62 +198,75 @@
     line-height: 46px;
     color: #B3B4BA;
     position: relative;
-    top:-10%
+    top: -10%
 }
- .epidemicManagement{
+
+.epidemicManagement {
     position: relative;
- }
-.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement{
+}
+
+.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement {
     border-left: #bdf487 0.5px solid;
 }
- .epidemicManagement .epidemicManagementFrame .rightEpidemicManagement table tr{
-     /* background-color: #ced4da; */
-     border-top: 1px solid #515151;
- }
 
- .epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .actions{
-     border: none;
-     color: black;
- }
- .epidemicManagement .epidemicManagementFrame .rightEpidemicManagement tr{
-    width: max-content; 
- }
- .epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .actions .action{
-     /* text-align: center; */
-     display: inline;
- }
- .epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .actions .action .actionIcon{
-     border: none;
-     color: black;
- }
-
- .epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .epidemicList .table{
-     height: max-content;
- }
-
- .epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .epidemicList .table td{
-     font-size: 14px;
-     text-align: justify;
-     vertical-align:top;
- }
-
- 
- .epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .epidemicList .table th{
-     width: max-content;
- }
-
- 
- .epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .btnTimKiem:hover{
-    background-color: none;
-    color:#515151;
+.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .epidemicList{
+    background: #FAFAFC;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    height: 480px;
 }
 
-.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .btnTimKiem{
-    background-color: none;
-    color:darkgray
+.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .table {
+    height: min-content;
 }
 
-.epidemicManagement .categoryList .btnEpidemic{
+
+.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement.table a:hover {
+    text-decoration: underline;
+    color: black;
+}
+
+.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .table thead tr {
+    color: #1C1C1F;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .table tbody tr {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    border-bottom:  0.1px solid #f4f5f6 !important;
+}
+
+.epidemicManagement table tbody tr td{
+    padding: 4px !important;
+    vertical-align: middle;
+    border-bottom:  0.5px solid #cbcccf !important;
+    padding-left: 10px !important;
+}
+.epidemicManagement table thead tr th{
+    border-top: 0.5px solid #b5b5b7;
+    border-bottom: 0.5px solid #b5b5b7;
+    padding-left: 10px !important;
+}
+
+.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .btnTimKiem:hover {
+    background-color: none;
+    color: #515151;
+}
+
+.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .btnTimKiem {
+    background-color: none;
+    color: darkgray
+}
+
+.epidemicManagement .categoryList .btnEpidemic {
     display: block;
     width: 94%;
     font-size: 19px;

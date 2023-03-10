@@ -8,24 +8,13 @@
                </div>
                <div class="col-md-10 rightPesticideManagement">
                     <div class="row ml-2 pt-3 mb-5 pb-1 mr-2 topRight">
-                         <div class="col-md-7" v-if="!isOpenSearch">
+                         <div class="col-md-3">
                               <h3 class="name">Thuốc trị bệnh dịch</h3>
                          </div>
-                         <div class="col-md-3" v-if="isOpenSearch">
-                              <h3 class="name">Thuốc trị bệnh dịch</h3>
-                         </div>
-                         <div class="col-md-3 text-right" v-if="!isOpenSearch">
-                              <input type="text" class="form-control col-sm-8 inputSearch1" placeholder="Tìm"
-                                    v-model="nameToSearch" @keyup.enter="searchName"
-                                   @click="isOpenSearch = !isOpenSearch" />
-                              <button class="btnSearch1" @click="searchName">
-                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                              </button>
-                         </div>
-                         <div class="col-md-7 " v-if="isOpenSearch">
-                              <input type="text" class="form-control inputSearch2" placeholder="" 
+                         <div class="col-md-7 ">
+                              <input type="text" class="form-control inputSearch1" placeholder="Tìm" 
                                    v-model="nameToSearch" @keyup.enter="searchName" />
-                              <button class="btnSearch2" @click="searchName">
+                              <button class="btnSearch1" @click="searchName">
                                    <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
                          </div>
@@ -36,17 +25,17 @@
                               </div>
                          </div>
                     </div>
-                    <div class="row ml-2 mr-2 mt-4 pt-2 pb-1 ">
+                    <div class="row ml-2 mr-2 mt-4  pt-3 pb-2">
                          <div class="col-sm-12 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i
-                                        class="fas fa-plus-circle" style="font-size: 15px;"></i>Thêm loại thuốc mới</button>
+                                        class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm loại thuốc mới</button>
                          </div>
                     </div>
-                    <div class=" row pesticideList mt-3 ml-2 mr-2 justify-content-center">
-                         <table class="table mt-1 ml-2 mr-3">
+                    <div class=" row pesticideList mt-2 ml-2 mr-2 justify-content-center">
+                         <table class="table mt-4 ml-2 mr-3">
                               <thead>
                                    <tr>
-                                        <th>STT</th>
+                                        <th class="text-center">STT</th>
                                         <th>Mã</th>
                                         <th>Tên</th>
                                         <th>Nhà cung cấp</th>
@@ -55,20 +44,26 @@
                               </thead>
                               <tbody>
                                    <tr v-for="(pesticide, i ) in get_rows(pesticideList)" :key="i" class="align-self-center">
-                                        <td v-if="currentPage > 1">{{ i+ ((currentPage - 1) * 6)}}</td>
-                                        <td v-else>{{ i }}</td>
+                                        <td v-if="currentPage > 1"  class="text-center">{{ i+ ((currentPage - 1) * 6)}}</td>
+                                        <td v-else  class="text-center">{{ i }}</td>
                                         <td>{{ pesticide.Pesticide_id }}</td>
                                         <td>{{ pesticide.Pesticide_name }}</td>
                                         <td>{{ pesticide.Pesticide_supplier }}</td>
-                                        <td>
-                                             <span class="action ml-2 ml-2"
+                                        <td class="">
+                                             <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown" 
+                                                  aria-haspopup="true" aria-expanded="false">
+                                                  <i class="fas fa-ellipsis-v"></i>
+                                             </button>
+                                             <div class="dropdown-menu">
+                                                  <a class="dropdown-item action"
                                                   @click="setPesticideChoosen(pesticide), isOpenUpdatePesticide = !isOpenUpdatePesticide">
-                                                  <span class="fas fa-edit actionIcon"></span>
-                                             </span>
-                                             <span class="action ml-4"
+                                                       <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
+                                                  </a>
+                                                  <a class="dropdown-item" href="#"
                                                   @click="setPesticideChoosen(pesticide), isOpenConfirm = !isOpenConfirm">
-                                                  <span class="fas fa-trash-alt actionIcon"></span>
-                                             </span>
+                                                       <span class="fas fa-trash-alt actionIcon"></span> Xóa
+                                                  </a>
+                                             </div>
                                         </td>
                                    </tr>
                               </tbody>

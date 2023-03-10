@@ -50,8 +50,8 @@ SprayingTimes.getAll = (Pesticide_id, result) => {
      let query = "SELECT * FROM SprayingTimes JOIN Employee on Employee.Employee_id = SprayingTimes.Employee_id" +
      " JOIN Pesticide on Pesticide.Pesticide_id = SprayingTimes.Pesticide_id" + 
      " JOIN Developmentstage on developmentstage.DevelopmentStage_id = SprayingTimes.DevelopmentStage_id";
-     if (Pesticide_id) {
-          query += ` WHERE Pesticide_id LIKE '%${Pesticide_id}%'`;
+     if (Pesticide_name) {
+          query += ` WHERE Pesticide_id LIKE '%${Pesticide_id}%' AND RiceCropInformation_id LIKE '${id}' ORDER BY SprayingTimes.SprayingTimes_times`;
      }
      sql.query(query, (err, res) => {
           if (err) {
@@ -62,7 +62,22 @@ SprayingTimes.getAll = (Pesticide_id, result) => {
           result(null, res);
      });
 };
-
+SprayingTimes.findByName = (Pesticide_name,id, result) => {
+     let query = "SELECT * FROM SprayingTimes JOIN Employee on Employee.Employee_id = SprayingTimes.Employee_id" +
+     " JOIN Pesticide on Pesticide.Pesticide_id = SprayingTimes.Pesticide_id" + 
+     " JOIN Developmentstage on developmentstage.DevelopmentStage_id = SprayingTimes.DevelopmentStage_id";
+     if (Pesticide_name) {
+          query += ` WHERE Pesticide_name LIKE '%${Pesticide_name}%' AND RiceCropInformation_id LIKE '${id}' ORDER BY SprayingTimes.SprayingTimes_times`;
+     }
+     sql.query(query, (err, res) => {
+          if (err) {
+               console.log("error: ", err);
+               result(null, err);
+               return;
+          }
+          result(null, res);
+     });
+};
 SprayingTimes.updateById = (riceCropInformation_id, Pesticide_id, times, sprayingTimes, result) => {
      sql.query(
           "UPDATE SprayingTimes SET Employee_id = ?, DevelopmentStage_id = ?, SprayingTimes_amount = ?, SprayingTimes_startDate = ?, SprayingTimes_endDate = ?, SprayingTimes_temperature = ?, SprayingTimes_humidity = ?, SprayingTimes_precipitation = ? WHERE (RiceCropInformation_id = ? And Pesticide_id = ? and SprayingTimes_times = ?)",

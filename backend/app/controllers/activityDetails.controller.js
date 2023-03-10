@@ -47,7 +47,19 @@ exports.findbyIdRiceCropInformation = async (req, res) => {
           } else res.send(data)
      })
 };
-
+exports.findbyName = async (req, res) => {
+     const  name = req.query.name;
+     const  id = req.params.RiceCropInformation_id;
+     ActivityDetails.findByName(name,id, (err, data) => {
+          if (err) {
+               if (err.kind === "not_found") {
+                    res.send("Không tìm thấy chi tiết hoạt động.")
+               } else {
+                    res.send("Lỗi trong quá trình tìm kiếm. Vui lòng thử lại sau!!!!")
+               }
+          } else res.send(data)
+     })
+};
 // Update a ActivityDetails identified by the id in the request
 exports.update = async (req, res) => {
      ActivityDetails.updateById(

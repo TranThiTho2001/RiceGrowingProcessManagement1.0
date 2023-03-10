@@ -48,16 +48,10 @@
 
                     <div class="form-group">
                          <label for="classtify" class="mt-3">Phân loại <span style="color: red">*</span></label>
-                         <Field name="classtify" v-model="newepidemic.EpidemicsClassification_id">
-                              <select class="form-control" v-model="newepidemic.EpidemicsClassification_id" name="classtify" for="classtify">
-                                   <option v-if="newepidemic.EpidemicsClassification_id == 'EC000001'" :selected="true"  for="classtify">Côn trùng</option>
-                                   <option v-if="newepidemic.EpidemicsClassification_id != 'EC000001'"  for="classtify">Côn trùng</option>
-                                   <option v-if="newepidemic.EpidemicsClassification_id == 'EC000002'" :selected="true">Dịch bệnh</option>
-                                   <option v-if="newepidemic.EpidemicsClassification_id != 'EC000002'">Dịch bệnh</option>
-                                   <option  v-if="newepidemic.EpidemicsClassification_id == 'EC000003'" :selected="true">Nấm hại</option>
-                                   <option v-if="newepidemic.EpidemicsClassification_id != 'EC000003'">Nấm hại</option>
-                                   <option  v-if="newepidemic.EpidemicsClassification_id == 'EC000004'" :selected="true">Sâu bệnh</option>
-                                   <option  v-if="newepidemic.EpidemicsClassification_id != 'EC000004'">Sâu bệnh</option>
+                         <Field name="classtify" v-model="newepidemic.EpidemicsClassification_name">
+                              <select class="form-control" v-model="newepidemic.EpidemicsClassification_name" name="classtify" for="classtify">
+                                   <option for="classtify" v-for="(epidemicClasss,i) in (epidemicsClassificationList)" :key="i">{{ epidemicClasss.EpidemicsClassification_name }}</option>
+
                               </select>
                         </Field>
                          <ErrorMessage name="classtify" class="error-feedback" />
@@ -76,13 +70,13 @@
           <div class="row ">
                <div class="col-sm-2"></div>
                <div class="col-sm-8 mt-2 mb-3 text-center">
-                    <span v-if="message2 == 'Thêm thành công.'" class="fas fa-check-circle"
+                    <span v-if="message2 == 'Cập nhật thành công.'" class="fas fa-check-circle"
                          style="color:#00BA13; text-align: center; display: inline;"></span>
-                    <span v-if="message1 == 'Thêm không thành công.'" class="fas fa-times-circle"
+                    <span v-if="message1 == 'Cập nhật không thành công.'" class="fas fa-times-circle"
                          style="color:red; text-align: center; display: inline;"></span>
-                    <span v-if="message2 == 'Thêm thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;">
+                    <span v-if="message2 == 'Cập nhật thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;">
                          {{ message2 }}</span>
-                    <span v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2"> {{ message1 }}
+                    <span v-if="message1 == 'Cập nhật không thành công.'" class="textMessage1 pt-2 pb-2"> {{ message1 }}
                     </span>
                </div>
                <div class="col-sm-2"></div>
@@ -109,7 +103,7 @@ export default {
           ErrorMessage,
      },
      emits: ["updateEpidemic-submit"],
-     props: ["newEpidemic", "message1", "message2"],
+     props: ["newEpidemic", "message1", "message2", "epidemicsClassificationList"],
      data() {
 
           const schema = yup.object().shape({

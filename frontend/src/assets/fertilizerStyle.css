@@ -5,8 +5,8 @@
      border-radius: 10px;
      position: absolute;
      top: calc(24%);
-     left: 25%;
-     width: 0%;
+     left: 22%;
+     width: 60%;
 }
 
 
@@ -139,46 +139,25 @@
     border: none;
     border-radius: 12px;
 }
- .numberPage {
-     display: inline-block;
-     margin-top: 2px;
-     border-radius: 5px;
-     border: 1px solid #00BA13;
- }
 
- .numberPage:hover {
-     display: inline-block;
-     margin-top: 2px;
-     border-radius: 5px;
-     border: 1px solid #00BA13;
- }
-
- .fertilizerManagement .inputSearch1 {
+.fertilizerManagement .inputSearch1 {
     font-size: 16px;
     color: #84858A;
     font-family: 'Roboto';
     font-style: normal;
+    justify-content: center;
     font-weight: 400;
     background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 12px;
-    width: 90px;
-    position: relative;
-    left: 92%;
-
-}
-
-.fertilizerManagement  .btnSearch1 {
+    width: 80px;
+    height: 35px;
     position: absolute;
-    left:106%;
-    top: 16%;
-    border-radius: 10px;
-    border: none;
-    background: none;
+    left: 96%;
+    top: 3%;
 }
 
-
-.fertilizerManagement  .inputSearch2 {
+.fertilizerManagement .inputSearch1:focus {
     font-size: 16px;
     color: #84858A;
     font-family: 'Roboto';
@@ -187,19 +166,22 @@
     background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 12px;
-    position: relative;
-    left:-5%;
-    width:115%;
+    width: 110%;
+    position: absolute;
+    left: -4%;
+    top: 3%;
+    border: none !important;
 }
 
-.fertilizerManagement  .btnSearch2 {
+.fertilizerManagement .btnSearch1 {
     position: absolute;
     left: 102%;
-    top: 15%;
+    top: 13%;
     border-radius: 10px;
     border: none;
     background: none;
 }
+
 .fertilizerManagement .topRight {
     background: #E4E5EB;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -219,33 +201,52 @@
  .fertilizerManagement{
     position: relative;
  }
+
 .fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement{
     border-left: #bdf487 0.5px solid;
 }
- .fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement table tr{
-     /* background-color: #ced4da; */
-     border-top: 1px solid #515151;
- }
 
- .fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .actions{
-     border: none;
-     color: black;
- }
- .fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement tr{
-    width: max-content; 
- }
- .fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .actions .action{
-     text-align: center;
-     display: inline;
- }
- .fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .actions .action .actionIcon{
-     border: none;
-     color: black;
- }
+.fertilizerManagement .table {
+    height: min-content;
+}
 
- .fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .fertilizerList .table{
-     height: max-content;
- }
+.fertilizerManagement .fertilizerList{
+    background: #FAFAFC;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    height: 480px;
+}
+
+.fertilizerManagement .table thead tr {
+    color: #1C1C1F;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.fertilizerManagement .table tbody tr {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    border-bottom:  0.1px solid #f4f5f6 !important;
+}
+
+.fertilizerManagement table tbody tr td{
+    padding: 4px !important;
+    vertical-align: middle;
+    border-bottom:  0.5px solid #cbcccf !important;
+    padding-left: 10px !important;
+}
+
+.fertilizerManagement table thead tr th{
+    border-top: 0.5px solid #b5b5b7;
+    border-bottom: 0.5px solid #b5b5b7;
+    padding-left: 10px !important;
+}
 
 .fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .btnTimKiem:hover{
     background-color: none;

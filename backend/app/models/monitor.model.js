@@ -51,7 +51,23 @@ Monitor.getAll = (employee_id, result) => {
         result(null, res);
     });
 };
-
+Monitor.findByName = (name,id, result) => {
+    let query = "SELECT * FROM Monitor" + 
+    " JOIN Ricecropinformation ON Ricecropinformation.RiceCropInformation_id = Monitor.RiceCropInformation_id" +
+    " JOIN Employee on Employee.Employee_id = Monitor.Employee_id ";
+    if (name) {
+        query += ` WHERE Employee.Employee_name LIKE '%${name}%' AND Monitor.RiceCropInformation_id like '${id}'`;
+    }
+    query += " ORDER BY Monitor.Employee_id"
+    sql.query(query, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+        result(null, res);
+    });
+};
 Monitor.updateById = (id, monitor, result) => {
     sql.query(
         "UPDATE Monitor SET Employee_id = ? WHERE RiceCropInformation_id = ?",

@@ -39,6 +39,20 @@ exports.findbyIdRiceCropInformation = async (req, res) => {
      })
 };
 
+exports.findbyName = async (req, res) => {
+     const  name = req.query.name;
+     const  id = req.params.RiceCropInformation_id;
+     Monitor.findByName(name,id, (err, data) => {
+          if (err) {
+               if (err.kind === "not_found") {
+                    res.send("Không tìm thấy quyền giám sát.")
+               } else {
+                    res.send("Lỗi trong quá trình tìm kiếm. Vui lòng thử lại sau!!!!")
+               }
+          } else res.send(data)
+     })
+};
+
 // Update a Monitor identified by the id in the request
 exports.update = async (req, res) => {
      Monitor.updateById(

@@ -47,7 +47,19 @@ exports.findbyIdRiceCropInformation = async (req, res) => {
           } else res.send(data)
      })
 };
-
+exports.findbyname = async (req, res) => {
+     const  name = req.query.name;
+    const  id = req.params.RiceCropInformation_id;
+     FertilizerTimes.findByName(name,id, (err, data) => {
+          if (err) {
+               if (err.kind === "not_found") {
+                    res.send("Không tìm thấy lần bón phân.")
+               } else {
+                    res.send("Lỗi trong quá trình tìm kiếm. Vui lòng thử lại sau!!!!")
+               }
+          } else res.send(data)
+     })
+};
 // Update a FertilizerTimes identified by the id in the request
 exports.update = async (req, res) => {
      FertilizerTimes.updateById(

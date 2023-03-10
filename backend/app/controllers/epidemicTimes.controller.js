@@ -34,6 +34,20 @@ exports.findAll = async (req, res) => {
      });
 };
 
+exports.findByName = async (req, res) => {
+     const  name = req.query.name;
+    const  id = req.params.RiceCropInformation_id;
+    console.log(name, id)
+     EpidemicTimes.findByName(name,id, (err, data) => {
+          if (err) {
+               if (err.kind === "not_found") {
+                    res.send("Không tìm thấy lần bị dịch bệnh.")
+               } else {
+                    res.send("Lỗi trong quá trình tìm kiếm. Vui lòng thử lại sau!!!!")
+               }
+          } else res.send(data)
+     })
+};
 exports.findbyIdRiceCropInformation = async (req, res) => {
      const id = req.params.RiceCropInformation_id;
      EpidemicTimes.findByIdRiceCropInformation(id, (err, data) => {

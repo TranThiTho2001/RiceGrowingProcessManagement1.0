@@ -48,6 +48,20 @@ exports.findbyIdRiceCropInformation = async (req, res) => {
      })
 };
 
+
+exports.findbyname = async (req, res) => {
+     const  name = req.query.name;
+    const  id = req.params.RiceCropInformation_id;
+     SprayingTimes.findByName(name,id, (err, data) => {
+          if (err) {
+               if (err.kind === "not_found") {
+                    res.send("Không tìm thấy lần phun thuốc mới.")
+               } else {
+                    res.send("Lỗi trong quá trình tìm kiếm. Vui lòng thử lại sau!!!!")
+               }
+          } else res.send(data)
+     })
+};
 // Update a SprayingTimes identified by the id in the request
 exports.update = async (req, res) => {
      SprayingTimes.updateById(

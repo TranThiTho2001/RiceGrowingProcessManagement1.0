@@ -31,7 +31,7 @@ EpidemicTimes.findByIdRiceCropInformation = (id, result) => {
           ` JOIN Employee on Employee.Employee_id = EpidemicTimes.Employee_id` +
           ` JOIN Epidemic on Epidemic.Epidemic_id = EpidemicTimes.Epidemic_id` +
           ` Join Developmentstage on DevelopmentStage.DevelopmentStage_id = EpidemicTimes.DevelopmentStage_id` + 
-          ` WHERE RiceCropInformation_id like '${id}'`, (err, res) => {
+          ` WHERE RiceCropInformation_id like '${id}' ORDER BY EpidemicTimes_times`, (err, res) => {
           if (err) {
                console.log("error: ", err);
                result(err, null);
@@ -47,9 +47,30 @@ EpidemicTimes.findByIdRiceCropInformation = (id, result) => {
 };
 
 EpidemicTimes.getAll = (Epidemics_id, result) => {
-     let query = "SELECT * FROM EpidemicTimes";
+     let query = "SELECT * FROM EpidemicTimes"+
+     ` JOIN Employee on Employee.Employee_id = EpidemicTimes.Employee_id` +
+          ` JOIN Epidemic on Epidemic.Epidemic_id = EpidemicTimes.Epidemic_id` +
+          ` Join Developmentstage on DevelopmentStage.DevelopmentStage_id = EpidemicTimes.DevelopmentStage_id`;
      if (Epidemics_id) {
-          query += ` WHERE Epidemic_id LIKE '%${Epidemics_id}%'`;
+          query += ` WHERE Epidemic_id LIKE '%${Epidemics_id}%' ORDER By EpidemicTimes_times`;
+     }
+     sql.query(query, (err, res) => {
+          if (err) {
+               console.log("error: ", err);
+               result(null, err);
+               return;
+          }
+          result(null, res);
+     });
+};
+
+EpidemicTimes.findByName= (name,id, result) => {
+     let query = "SELECT * FROM EpidemicTimes"+
+     ` JOIN Employee on Employee.Employee_id = EpidemicTimes.Employee_id` +
+          ` JOIN Epidemic on Epidemic.Epidemic_id = EpidemicTimes.Epidemic_id` +
+          ` Join Developmentstage on DevelopmentStage.DevelopmentStage_id = EpidemicTimes.DevelopmentStage_id`;
+     if (name) {
+          query += ` WHERE Epidemic_name LIKE '%${name}%' AND RiceCropInformation_id like '${id}' ORDER BY EpidemicTimes_times`;
      }
      sql.query(query, (err, res) => {
           if (err) {
