@@ -87,7 +87,7 @@
                                    <input type="text" class="form-control inputSearch1" placeholder="Tìm"
                                         v-model="nameToSearch" @keyup.enter="searchNameFertilizer" />
                                    <button class="btnSearch1" @click="searchNameFertilizer">
-                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                                        <span class="fa fa-search" style="font-size:16px; color: #7E7E7E;"></span>
                                    </button>
                                    <button class="btn mt-1 btnAdd "
                                         @click="isOpenCreateFertilizerTimesForm = !isOpenCreateFertilizerTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
@@ -144,7 +144,7 @@
                                    <input type="text" class="form-control inputSearch1" placeholder="Tìm"
                                         v-model="nameToSearch" @keyup.enter="searchNamePesticide" />
                                    <button class="btnSearch1" @click="searchNamePesticide">
-                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                                        <span class="fa fa-search" style="font-size:16px; color: #7E7E7E;"></span>
                                    </button>
                                    <button class="btn mt-1 btnAdd"
                                         @click="isOpenCreateSprayingTimesForm = !isOpenCreateSprayingTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
@@ -203,7 +203,7 @@
                                         v-model="nameToSearch" @keyup.enter="searchNameEpidemic"
                                         @click="isOpenSearch = !isOpenSearch" />
                                    <button class="btnSearch1" @click="searchNameEpidemic">
-                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                                        <span class="fa fa-search" style="font-size:16px; color: #7E7E7E;"></span>
                                    </button>
                                    <button class="btn mt-1 btnAdd"
                                         @click="isOpenCreateEpidemicTimesForm = !isOpenCreateEpidemicTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
@@ -258,7 +258,7 @@
                                    <input type="text" class="form-control inputSearch1" placeholder="Tìm"
                                         v-model="nameToSearch" @keyup.enter="searchNameMonitor" />
                                    <button class="btnSearch1" @click="searchNameMonitor">
-                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                                        <span class="fa fa-search" style="font-size:16px; color: #7E7E7E;"></span>
                                    </button>
                                    <button class="btn mt-1 btnAdd"
                                         @click="isOpenCreateMonitorForm = !isOpenCreateMonitorForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
@@ -278,9 +278,9 @@
                                                   <tr v-for="(monitor, i ) in (monitorList)" :key="i">
                                                        <td class="text-center" v-if="currentPage > 1">{{ i + ((currentPage -
                                                             1) *
-                                                            elementsPerPage) }}
+                                                            elementsPerPage)+1 }}
                                                        </td>
-                                                       <td class="text-center" v-else>{{ i }}</td>
+                                                       <td class="text-center" v-else>{{ i+1 }}</td>
                                                        <td class="text-center">{{ monitor.Employee_id }}</td>
                                                        <td>{{ monitor.Employee_name }}</td>
                                                        <td>{{ monitor.Employee_major }}
@@ -310,7 +310,7 @@
                                    <input type="text" class="form-control inputSearch1" placeholder="Tìm"
                                         v-model="nameToSearch" @keyup.enter="searchNameOtherActivity" />
                                    <button class="btnSearch1" @click="searchNameOtherActivity">
-                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                                        <span class="fa fa-search" style="font-size:16px; color: #7E7E7E;"></span>
                                    </button>
                                    <button class="btn mt-1 btnAdd"
                                         @click="isOpenCreateActivitiesDetail = !isOpenCreateActivitiesDetail, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
@@ -786,7 +786,7 @@ export default {
                     console.log(err)
                }
                else {
-                    if (respone.data != "Không tìm thấy lần phun thuuốc mới.") {
+                    if (respone.data != "Không tìm thấy lần phun thuốc mới.") {
                          this.SprayingTimesList = respone.data;
                          console.log(respone.data);
                          this.newSprayingTimes.SprayingTimes_times = this.SprayingTimesList[this.SprayingTimesList.length - 1].SprayingTimes_times + 1;

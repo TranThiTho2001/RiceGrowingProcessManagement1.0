@@ -3,7 +3,7 @@
           <div class="row seedManagementFrame">
                <div class="col-md-2 col-sm-12 leftSeedManagement">
                     <div class="row">
-                         <Catalog  />
+                         <Catalog />
                     </div>
                </div>
                <div class="col-md-10 rightSeedManagement">
@@ -12,16 +12,31 @@
                               <h3 class="name">Giống lúa</h3>
                          </div>
                          <div class="col-md-8">
-                              <input type="text" class="form-control inputSearch1" placeholder="Tìm" 
-                                   v-model="nameToSearch" @keyup.enter="searchName" />
-                              <button class="btnSearch1" @click="searchName">
+                              <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
+                                   @click="retrieveSeedList()" @keyup.enter="searchName(nameToSearch)"
+                                   @focus="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                              <button class="btnSearch1" @click="searchName(nameToSearch)"
+                                   v-if="nameToSearch == '' && !isOpenSearch.open">
                                    <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
+                              <input type="text" class="form-control inputSearch2" placeholder="Tìm" v-model="nameToSearch"
+                                   v-if="nameToSearch != '' || isOpenSearch.open" @keyup.enter="searchName(nameToSearch)"
+                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                              <button class="btnSearch1" @click="searchName(nameToSearch)" @change="retrieveSeedList()">
+                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                              </button>
+                              <!-- :class="{ openSearch:isOpenSearch.open, closeSearch:isOpenSearch.close }"  -->
+                              <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }"
+                                   @focusout="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close">
+                                   <p class="fruit" v-for="seed in filteredList()" :key="seed.Seed_name"
+                                        @click="searchName(seed.Seed_name), isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close">
+                                        {{ seed.Seed_name }}</p>
+                              </div>
                          </div>
 
                          <div class="col-md-2 text-right">
                               <div class="row">
-                                   <TopHeader  />
+                                   <TopHeader />
                               </div>
                          </div>
                     </div>
@@ -49,25 +64,25 @@
                               <tbody>
                                    <tr v-for="(seed, i ) in get_rows(seedList)" :key="i">
                                         <td class="text-center" v-if="currentPage > 1">{{ i + ((currentPage - 1) *
-                                             elementsPerPage) +1 }}</td>
-                                        <td class="text-center" v-else>{{ i+1 }}</td>
-                                        <td >{{ seed.Seed_id }}</td>
+                                             elementsPerPage) + 1 }}</td>
+                                        <td class="text-center" v-else>{{ i + 1 }}</td>
+                                        <td>{{ seed.Seed_id }}</td>
                                         <td>{{ seed.Seed_name }}</td>
                                         <td style="width: max-content;">{{ seed.Seed_supplier }}</td>
                                         <td class="text-truncate" style="max-width: 520px;">{{ seed.Seed_characteristic }}
                                         </td>
                                         <td class="">
-                                             <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown" 
+                                             <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
                                                   aria-haspopup="true" aria-expanded="false">
                                                   <i class="fas fa-ellipsis-v"></i>
                                              </button>
                                              <div class="dropdown-menu">
                                                   <a class="dropdown-item action"
-                                                  @click="setSeedChoosen(seed), isOpenUpdateSeed = !isOpenUpdateSeed">
+                                                       @click="setSeedChoosen(seed), isOpenUpdateSeed = !isOpenUpdateSeed">
                                                        <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                                   </a>
                                                   <a class="dropdown-item" href="#"
-                                                  @click="setSeedChoosen(seed), isOpenConfirm = !isOpenConfirm">
+                                                       @click="setSeedChoosen(seed), isOpenConfirm = !isOpenConfirm">
                                                        <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                   </a>
                                              </div>
@@ -76,32 +91,37 @@
                               </tbody>
                          </table>
                          <nav aria-label="...">
-                         <ul class="pagination " aria-controls="my-table">
-                              <li class="page-item disabled" v-if="currentPage == 1">
-                                   <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
-                              </li>
-                              <li class="page-item " v-if="currentPage > 1">
-                                   <a class="page-link" href="#" @click="change_page('-', seedList)" aria-controls="my-table">{{
-                                        previous }}</a>
-                              </li>
-                              <li class="page-item"><a class="page-link" href="#" @click="change_page(currentPage - 1, seedList)"
-                                        v-if="currentPage > 1">{{ currentPage - 1 }}</a></li>
-                              <li class="page-item active">
-                                   <a class="page-link" style="background-color: #EEEA41; border-color: #EEEA41;" href="#">{{
-                                        currentPage }} <span class="sr-only">(current)</span></a>
-                              </li>
-                              <li class="page-item"><a class="page-link" href="#" v-if="currentPage < num_pages(seedList)"
-                                        @click="change_page(currentPage + 1, seedList)">{{ currentPage + 1 }}</a></li>
-                              <li class="page-item">
-                                   <a class="page-link" href="#" @click="change_page('+', seedList)"
-                                        v-if="currentPage < num_pages(seedList)">{{
-                                             next }}</a>
-                              </li>
-                              <li class="page-item disabled">
-                                   <a class="page-link" href="#" v-if="currentPage >= num_pages(seedList)">{{ next }}</a>
-                              </li>
-                         </ul>
-                    </nav>
+                              <ul class="pagination " aria-controls="my-table">
+                                   <li class="page-item disabled" v-if="currentPage == 1">
+                                        <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
+                                   </li>
+                                   <li class="page-item " v-if="currentPage > 1">
+                                        <a class="page-link" href="#" @click="change_page('-', seedList)"
+                                             aria-controls="my-table">{{
+                                                  previous }}</a>
+                                   </li>
+                                   <li class="page-item"><a class="page-link" href="#"
+                                             @click="change_page(currentPage - 1, seedList)" v-if="currentPage > 1">{{
+                                                  currentPage - 1 }}</a></li>
+                                   <li class="page-item active">
+                                        <a class="page-link" style="background-color: #EEEA41; border-color: #EEEA41;"
+                                             href="#">{{
+                                                  currentPage }} <span class="sr-only">(current)</span></a>
+                                   </li>
+                                   <li class="page-item"><a class="page-link" href="#"
+                                             v-if="currentPage < num_pages(seedList)"
+                                             @click="change_page(currentPage + 1, seedList)">{{ currentPage + 1 }}</a></li>
+                                   <li class="page-item">
+                                        <a class="page-link" href="#" @click="change_page('+', seedList)"
+                                             v-if="currentPage < num_pages(seedList)">{{
+                                                  next }}</a>
+                                   </li>
+                                   <li class="page-item disabled">
+                                        <a class="page-link" href="#" v-if="currentPage >= num_pages(seedList)">{{ next
+                                        }}</a>
+                                   </li>
+                              </ul>
+                         </nav>
                     </div>
                     <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
 
@@ -146,6 +166,15 @@ import TopHeader from '@/components/catalogManagementComponents/topHeader.vue'
 import createSeedForm from '@/components/catalogManagementComponents/createNewSeedForm.vue';
 import updateSeedForm from '@/components/catalogManagementComponents/updateSeedForm.vue';
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
+
+class Seed {
+     constructor(seed) {
+          this.Seed_id = seed.Seed_id;
+          this.Seed_name = seed.Seed_name;
+          this.Seed_supplier = seed.Seed_supplier;
+          this.Seed_characteristic = seed.Seed_characteristic;
+     }
+}
 export default {
      name: "SeedManagement",
      components: {
@@ -153,6 +182,7 @@ export default {
           createSeedForm,
           updateSeedForm,
           TopHeader,
+
      },
 
      data() {
@@ -173,7 +203,11 @@ export default {
                isOpenUpdateSeed: false,
                nameToSearch: "",
                message: "",
-               isOpenSearch: false,
+               isOpenSearch: {
+                    open: false,
+                    close: true,
+               },
+               cloneSeedList: [],
           }
      },
 
@@ -187,7 +221,11 @@ export default {
           ...mapMutations([
                "initEmployeeState"
           ]),
-
+          filteredList() {
+               return this.cloneSeedList.filter(seed => {
+                    return seed.Seed_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
+               })
+          },
           async retrieveSeedList() {
                const [err, respone] = await this.handle(
                     SeedService.getAll()
@@ -197,7 +235,11 @@ export default {
                }
                else {
                     this.seedList = respone.data;
-                    console.log(respone.data);
+                    this.cloneSeedList = respone.data
+                    this.cloneSeedList.forEach(element => {
+                         new Seed(element)
+                    });
+
                     var temp = (String(this.seedList[this.seedList.length - 1].Seed_id)).split("");
                     var id = "";
                     temp.forEach(element => {
@@ -286,8 +328,9 @@ export default {
           },
 
 
-          async searchName() {
-               const [error, response] = await this.handle(SeedService.findByName(this.nameToSearch));
+          async searchName(data) {
+               this.nameToSearch = data;
+               const [error, response] = await this.handle(SeedService.findByName(data));
                if (error) {
                     console.log(error);
                } else {
@@ -352,9 +395,10 @@ export default {
 
 <style>
 @import url(../../assets/seedStyle.css);
+
 nav {
      position: absolute;
-     left: 45%;
+     left: 42%;
      top: 92%;
 }
 
@@ -365,5 +409,19 @@ nav .pagination .active .page-link {
      border-radius: 15px !important;
      margin-left: 10px !important;
      margin-right: 10px !important;
+     color: #FFFED8 !important;
+
+     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     /* width: 40px !important; */
 }
-</style>
+
+nav .pagination .page-item .page-link {
+     color: #6D6E73;
+     border: none;
+     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 700;
+     background-color: #EAEAEA;
+     font-size: 20px;
+}</style>

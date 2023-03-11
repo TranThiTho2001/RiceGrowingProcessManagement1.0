@@ -189,9 +189,6 @@ export default {
       font-size: 50px;
  }
 
- .navigationBar .topRow {
-      /* border-bottom: 1px solid #919302; */
- }
  
  .navigationBar .btnEmployee{
      font-size: 16px;

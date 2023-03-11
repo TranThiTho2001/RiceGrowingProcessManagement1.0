@@ -11,7 +11,7 @@ module.exports = (app) => {
      router.get("/:id", riceCropInformation.find);
 
      //find by employee and name ricecrop
-     router.get("/:name/:Employee_id", riceCropInformation.findbyEmployeeAndRiceCrop)
+     router.get("/findbynameandemployee/:name/:Employee_id", riceCropInformation.findbyEmployeeAndRiceCrop)
 
 
      // Store 

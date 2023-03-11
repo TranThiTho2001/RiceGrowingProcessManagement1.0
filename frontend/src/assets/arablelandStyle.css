@@ -284,6 +284,16 @@ font-size: 18px;
     padding-left: 10px !important;
 }
 
+.arablelandList .table tbody tr:hover {
+    color: #1C1C1F;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    background-color: #EAEAEA;
+}
+
 .arablelandManagement .arablelandManagementFrame .rightArableLandManagement .btnTimKiem:hover {
     background-color: none;
     color: #515151;

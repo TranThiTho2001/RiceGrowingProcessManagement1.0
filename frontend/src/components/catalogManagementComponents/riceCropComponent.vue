@@ -1,5 +1,5 @@
 <template>
-     <div style="height: 280px; min-width: 203px;">
+     <div style="height: 260px; min-width: 203px;">
           <router-link class="linktoRiceCropInfor container-fuild"
                :to="{ name: 'RiceCropDetail', params: { id: riceCrop.RiceCropInformation_id } }">
                <div class="riceCropComponent text-dark border ">

@@ -47,7 +47,7 @@
                               <thead>
                                    <tr>
                                         <th class="text-center" style=" padding-right: 2px;">STT</th>
-                                        <th>Mã</th>
+                                        <th class="text-center">Mã</th>
                                         <th>Diện tích</th>
                                         <th>Chủ sỡ hưu</th>
                                         <th>Loại đất</th>
@@ -56,12 +56,11 @@
                                    </tr>
                               </thead>
                               <tbody>
-                                   <tr v-for="(arableland, i ) in get_rows(arablelandList)" :key="i"
-                                        class="">
-                                        <td class=""  v-if="currentPage > 1">{{ i + ((currentPage - 1) *
-                                             elementsPerPage)+1}}</td>
-                                        <td class="text-center" v-else >{{ i+1 }}</td>
-                                        <td>{{ arableland.ArableLand_id }}</td>
+                                   <tr v-for="(arableland, i ) in get_rows(arablelandList)" :key="i" class="">
+                                        <td class="" v-if="currentPage > 1">{{ i + ((currentPage - 1) *
+                                             elementsPerPage) + 1 }}</td>
+                                        <td class="text-center" v-else>{{ i + 1 }}</td>
+                                        <td class="text-center">{{ arableland.ArableLand_id }}</td>
                                         <td>{{ arableland.ArableLand_area }}</td>
                                         <td>{{ arableland.ArableLand_owner }}</td>
                                         <td>{{ arableland.Soil_name }}</td>
@@ -72,7 +71,7 @@
                                                        arableland.ArableLand_location }}</a>
                                         </td>
                                         <td class="">
-                                             <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown" 
+                                             <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
                                                   aria-haspopup="true" aria-expanded="false">
                                                   <i class="fas fa-ellipsis-v"></i>
                                              </button>
@@ -91,7 +90,7 @@
                               </tbody>
                          </table>
                          <nav aria-label="...">
-                              <ul class="pagination " aria-controls="my-table">
+                              <ul class="pagination" aria-controls="my-table">
                                    <li class="page-item disabled" v-if="currentPage == 1">
                                         <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
                                    </li>
@@ -104,7 +103,7 @@
                                              @click="change_page(currentPage - 1, arablelandList)" v-if="currentPage > 1">{{
                                                   currentPage - 1 }}</a></li>
                                    <li class="page-item active">
-                                        <a class="page-link" style="background-color: #EEEA41; border-color: #EEEA41;"
+                                        <a class="page-link"
                                              href="#">{{
                                                   currentPage }} <span class="sr-only">(current)</span></a>
                                    </li>
@@ -178,7 +177,7 @@ export default {
      data() {
           return {
                currentPage: 1,
-               elementsPerPage: 9,
+               elementsPerPage: 1,
                ascending: false,
                previous: '<<',
                next: '>>',
@@ -400,9 +399,10 @@ export default {
 
 <style>
 @import url(../../assets/arablelandStyle.css);
+
 nav {
      position: absolute;
-     left: 45%;
+     left: 42%;
      top: 92%;
 }
 
@@ -413,5 +413,23 @@ nav .pagination .active .page-link {
      border-radius: 15px !important;
      margin-left: 10px !important;
      margin-right: 10px !important;
+     color: #FFFED8 !important;
+
+     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     /* width: 40px !important; */
 }
+
+nav .pagination .page-item .page-link {
+     color: #6D6E73;
+     border: none;
+     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 700;
+     background-color:  #EAEAEA;
+     font-size: 20px;
+}
+
+
+
 </style>

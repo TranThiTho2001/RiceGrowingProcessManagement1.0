@@ -386,7 +386,7 @@ export default {
 
 nav {
      position: absolute;
-     left: 45%;
+     left: 42%;
      top: 92%;
 }
 
@@ -397,6 +397,21 @@ nav .pagination .active .page-link {
      border-radius: 15px !important;
      margin-left: 10px !important;
      margin-right: 10px !important;
+     color: #FFFED8 !important;
+
+     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     /* width: 40px !important; */
+}
+
+nav .pagination .page-item .page-link {
+     color: #6D6E73;
+     border: none;
+     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 700;
+     background-color:  #EAEAEA;
+     font-size: 20px;
 }
 
 </style>

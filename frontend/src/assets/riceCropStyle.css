@@ -1,11 +1,11 @@
-.createRiceCropForm {
+.riceCropManagement .createRiceCropForm {
     background-color: #b7f8d0;
     font-family: Inter;
     border-radius: 10px;
     position: absolute;
-    top: calc(18%);
-    left: 10%;
-    width: 80%;
+    top: calc(25%);
+    left: 8%;
+    width: 80% !important;
     height: max-content;
 }
 

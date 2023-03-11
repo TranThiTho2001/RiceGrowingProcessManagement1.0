@@ -16,15 +16,14 @@
                          </div>
                          <div class="col-md-3 text-right" v-if="!isOpenSearch">
                               <input type="text" class="form-control col-sm-8 inputSearch1" placeholder="Tìm"
-                                    v-model="nameToSearch" @keyup.enter="searchName"
-                                   @click="isOpenSearch = !isOpenSearch" />
+                                   v-model="nameToSearch" @keyup.enter="searchName" @click="isOpenSearch = !isOpenSearch" />
                               <button class="btnSearch1" @click="searchName">
                                    <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
                          </div>
                          <div class="col-md-7 " v-if="isOpenSearch">
-                              <input type="text" class="form-control inputSearch2" placeholder=""
-                                   v-model="nameToSearch" @keyup.enter="searchName" />
+                              <input type="text" class="form-control inputSearch2" placeholder="" v-model="nameToSearch"
+                                   @keyup.enter="searchName" />
                               <button class="btnSearch2" @click="searchName">
                                    <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
@@ -340,8 +339,6 @@ export default {
                          }
                          i++;
                     });
-                    console.log(this.riceCropList)
-                    console.log(this.riceCropListByFinish)
                }
           },
 
@@ -739,17 +736,20 @@ export default {
                          console.log(error);
                     } else {
                          if (response.data != null) {
-                              console.log(response.data);
+                              this.riceCropList = [];
                               this.riceCropList = response.data;
                               this.riceCropListByFinish = [];
                               this.riceCropListByMonitoring = [];
+                              var i = 0;
                               this.riceCropList.forEach(element => {
+                                   this.getURL(i);
                                    if (element.RiceCropInformation_harvestDate == null) {
                                         this.riceCropListByMonitoring.push(element);
                                    }
                                    else {
                                         this.riceCropListByFinish.push(element);
                                    }
+                                   i++;
                               });
                          }
                          else {
