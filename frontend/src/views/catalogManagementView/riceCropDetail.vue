@@ -1,6 +1,6 @@
 <template>
      <div class="container-fluid riceCropDetail">
-          <div class="row riceCropDetailFrame" @click="inputstyle.input1 = true, inputstyle.input2 = false">
+          <div class="row riceCropDetailFrame">
                <div class="col-md-2">
                     <div class="row">
                          <Catalog />
@@ -85,17 +85,27 @@
                               <!-- ----------------------FertilizerTimes Tab-------------- -->
                               <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableFertilizerTimes">
                                    <input type="text" class="form-control inputSearch1" placeholder="Tìm"
-                                        v-model="nameToSearch" @keyup.enter="searchNameFertilizer" />
-                                   <button class="btnSearch1" @click="searchNameFertilizer">
-                                        <span class="fa fa-search" style="font-size:16px; color: #7E7E7E;"></span>
+                                        v-model="nameToSearch" @click="retrieveFertilizerTimesList()"
+                                        @keyup.enter="searchNameFertilizer(nameToSearch)"
+                                        @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                                   <button class="btnSearch1" @click="searchNameFertilizer(nameToSearch)"
+                                        v-if="nameToSearch == '' && !isOpenSearch.open">
+                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                                    </button>
+                                   <!-- :class="{ openSearch:isOpenSearch.open, closeSearch:isOpenSearch.close }"  -->
+                                   <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                                        <p class="item" v-for="fertilizerTimes in filteredList()"
+                                             :key="fertilizerTimes.Fertilizer_id"
+                                             @click="searchNameFertilizer(fertilizerTimes.Fertilizer_name)">
+                                             {{ fertilizerTimes.Fertilizer_name }}</p>
+                                   </div>
                                    <button class="btn mt-1 btnAdd "
                                         @click="isOpenCreateFertilizerTimesForm = !isOpenCreateFertilizerTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
                                    <div class="tableFixHead">
                                         <table class="table">
                                              <thead>
                                                   <tr>
-                                                       <th class="text-center ">Mã</th>
+                                                       <th class="text-center ">Lần</th>
                                                        <th>Tên phân bón</th>
                                                        <th class="text-center ">Số lượng (kg/ha)</th>
                                                        <th class="text-center ">Ngày bất đầu</th>
@@ -104,8 +114,9 @@
                                                        <th style="width: 2%;"></th>
                                                   </tr>
                                              </thead>
-                                             <tbody class="overflow-auto">
-                                                  <tr v-for="(fertilizer, i ) in (fertilizerTimesList)" :key="i">
+                                             <tbody>
+                                                  <tr v-for="(fertilizer,i) in (fertilizerTimesList)"
+                                                       :key="i">
                                                        <td class="text-center ">{{ fertilizer.FertilizerTimes_times }}</td>
                                                        <td class="">{{ fertilizer.Fertilizer_name }}</td>
                                                        <td class="text-center ">{{ fertilizer.FertilizerTimes_amount }}</td>
@@ -278,9 +289,9 @@
                                                   <tr v-for="(monitor, i ) in (monitorList)" :key="i">
                                                        <td class="text-center" v-if="currentPage > 1">{{ i + ((currentPage -
                                                             1) *
-                                                            elementsPerPage)+1 }}
+                                                            elementsPerPage) + 1 }}
                                                        </td>
-                                                       <td class="text-center" v-else>{{ i+1 }}</td>
+                                                       <td class="text-center" v-else>{{ i + 1 }}</td>
                                                        <td class="text-center">{{ monitor.Employee_id }}</td>
                                                        <td>{{ monitor.Employee_name }}</td>
                                                        <td>{{ monitor.Employee_major }}
@@ -430,6 +441,8 @@
                :currentUser="currentUser" :developmentStageList="developmentStageList" :riceCropChoosen="newRiceCrop"
                @addOtherActivityTimes-submit="createNewActivitiesDetail" :message1="message1" :message2="message2" />
      </div>
+     <div v-if="isOpenSearch.open" class="outside" @click.passive="away()"></div>
+
 </template>
 
 <script >
@@ -598,10 +611,12 @@ export default {
                     none: false,
                },
 
-               inputstyle: {
-                    input1: true,
-                    input2: false,
-               }
+               isOpenSearch: {
+                    open: false,
+                    close: true,
+               },
+               cloneFertilizerTimesList: [],
+
           }
      },
 
@@ -623,6 +638,18 @@ export default {
           ...mapMutations([
                "initEmployeeState"
           ]),
+
+          filteredList() {
+               return this.cloneFertilizerTimesList.filter(fertilizerTimes => {
+                    return fertilizerTimes.Fertilizer_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
+               })
+          },
+
+          away() {
+               this.isOpenSearch.open = false;
+               this.isOpenSearch.close = true;
+          },
+
           async retrieveEmpoyeeList() {
                const [err, respone] = await this.handle(
                     EmployeeService.getAll()
@@ -769,7 +796,7 @@ export default {
                else {
                     if (respone.data != "Không tìm thấy lần bón phân.") {
                          this.fertilizerTimesList = respone.data;
-                         console.log(respone.data);
+                         this.cloneFertilizerTimesList = respone.data;
                          this.newFertilizerTimes.FertilizerTimes_times = this.fertilizerTimesList[this.fertilizerTimesList.length - 1].FertilizerTimes_times + 1;
                     }
                     else {
@@ -788,7 +815,6 @@ export default {
                else {
                     if (respone.data != "Không tìm thấy lần phun thuốc mới.") {
                          this.SprayingTimesList = respone.data;
-                         console.log(respone.data);
                          this.newSprayingTimes.SprayingTimes_times = this.SprayingTimesList[this.SprayingTimesList.length - 1].SprayingTimes_times + 1;
                     }
                     else {
@@ -1645,27 +1671,46 @@ export default {
                          console.log(err)
                     }
                     else {
-                         this.epidemicTimesList = respone.data;
+                         if (respone.data != "Không tìm thấy lần bị dịch bệnh.") {
+                              this.epidemicTimesList = respone.data;
+                         }
+                         else this.epidemicTimesList = [];
                     }
                }
-               else{
+               else {
                     this.retrieveEpidemicTimesList();
                }
           },
 
-          async searchNameFertilizer() {
+          async searchNameFertilizer(data) {
+               this.nameToSearch = data;
+               this.fertilizerTimesList = [];
+               console.log(data)
                if (this.nameToSearch != "") {
-                    const [err, respone] = await this.handle(
-                         FertilizerTimesService.getByName(this.nameToSearch, this.newRiceCrop.RiceCropInformation_id)
-                    );
-                    if (err) {
-                         console.log(err)
+                    this.cloneFertilizerTimesList.forEach(element => {
+                         if (this.nameToSearch == element.Fertilizer_name) {
+                              this.fertilizerTimesList.push(element)
+                         }
+                    });
+                    if (this.fertilizerTimesList.length == 0) {
+                         const [err, respone] = await this.handle(
+                              FertilizerTimesService.getByName(this.nameToSearch, this.newRiceCrop.RiceCropInformation_id)
+                         );
+                         if (err) {
+                              console.log(err)
+                         }
+                         else {
+                              console.log(respone.data)
+                              if (respone.data != "Không tìm thấy lần bón phân.") {
+                                   this.fertilizerTimesList = respone.data;
+                              }
+                              else this.fertilizerTimesList = [];
+                              console.log(this.fertilizerTimesList)
+                         }
                     }
-                    else {
-                         this.fertilizerTimesList = respone.data;
-                    }
+
                }
-               else{
+               else {
                     this.retrieveFertilizerTimesList();
                }
           },
@@ -1679,14 +1724,17 @@ export default {
                          console.log(err)
                     }
                     else {
-                         this.SprayingTimesList = respone.data;
+                         if (respone.data != "Không tìm thấy lần phun thuốc mới.") {
+                              this.SprayingTimesList = respone.data;
+                         }
+                         else this.SprayingTimesList = [];
                     }
                }
-               else{
+               else {
                     this.retrieveSprayingTimesList()
                }
           },
-          
+
           async searchNameOtherActivity() {
                if (this.nameToSearch != "") {
                     const [err, respone] = await this.handle(
@@ -1699,7 +1747,7 @@ export default {
                          this.activitiesDetailList = respone.data;
                     }
                }
-               else{
+               else {
                     this.retrieveActivitiesDetail()
                }
           },
@@ -1716,7 +1764,7 @@ export default {
                          this.monitorList = respone.data;
                     }
                }
-               else{
+               else {
                     this.retrieveActivitiesDetail()
                }
           },

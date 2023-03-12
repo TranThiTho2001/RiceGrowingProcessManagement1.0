@@ -8,25 +8,22 @@
                </div>
                <div class="col-md-10 rightArableLandManagement">
                     <div class="row ml-2 pt-3 mb-5 pb-1 mr-2 topRight">
-                         <div class="col-md-7" v-if="!isOpenSearch">
+                         <div class="col-md-2">
                               <h3 class="name">Mẫu ruộng</h3>
                          </div>
-                         <div class="col-md-2" v-if="isOpenSearch">
-                              <h3 class="name">Mẫu ruộng</h3>
-                         </div>
-                         <div class="col-md-3 text-right" v-if="!isOpenSearch">
-                              <input type="text" class="form-control col-sm-8 inputSearch1" placeholder="Tìm"
-                                   v-model="nameToSearch" @keyup.enter="searchName" @click="isOpenSearch = !isOpenSearch" />
-                              <button class="btnSearch1" @click="searchName">
+                         <div class="col-md-8">
+                              <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
+                                   @click="retrieveArableLandList()" @keyup.enter="searchName(nameToSearch)"
+                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                              <button class="btnSearch1" @click="searchName(nameToSearch)"
+                                   v-if="nameToSearch == '' && !isOpenSearch.open">
                                    <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
-                         </div>
-                         <div class="col-md-8 " v-if="isOpenSearch">
-                              <input type="text" class="form-control inputSearch2" placeholder="" v-model="nameToSearch"
-                                   @keyup.enter="searchName" />
-                              <button class="btnSearch2" @click="searchName">
-                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                              </button>
+                              <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                                   <p class="item" v-for="arableLand in filteredList()" :key="arableLand.ArableLand_id"
+                                        @click="searchName(arableLand.ArableLand_owner)">
+                                        {{ arableLand.ArableLand_owner }}</p>
+                              </div>
                          </div>
 
                          <div class="col-md-2 text-right">
@@ -103,9 +100,8 @@
                                              @click="change_page(currentPage - 1, arablelandList)" v-if="currentPage > 1">{{
                                                   currentPage - 1 }}</a></li>
                                    <li class="page-item active">
-                                        <a class="page-link"
-                                             href="#">{{
-                                                  currentPage }} <span class="sr-only">(current)</span></a>
+                                        <a class="page-link" href="#">{{
+                                             currentPage }} <span class="sr-only">(current)</span></a>
                                    </li>
                                    <li class="page-item"><a class="page-link" href="#"
                                              v-if="currentPage < num_pages(arablelandList)"
@@ -155,6 +151,7 @@
                </div>
           </div>
      </div>
+     <div v-if="isOpenSearch.open" class="outside" @click.passive="away()"></div>
 </template>
 
 <script>
@@ -165,6 +162,14 @@ import ArableLandService from '../../services/arableLand.service';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import CreateArableLandForm from '@/components/catalogManagementComponents/createNewArableLandForm.vue';
 import UpdateArableLandForm from '@/components/catalogManagementComponents/updateArableLandForm.vue';
+
+class ArableLand {
+     constructor(arableLand) {
+          this.ArableLand_id = arableLand.ArableLand_id;
+          this.ArableLand_owner = arableLand.ArableLand_owner;
+     }
+}
+
 export default {
      name: "ArableLandManagement",
      components: {
@@ -192,7 +197,11 @@ export default {
                isOpenUpdateArableLand: false,
                nameToSearch: "",
                message: "",
-               isOpenSearch: false,
+               isOpenSearch: {
+                    open: false,
+                    close: true,
+               },
+               cloneArableLandList: [],
           }
      },
 
@@ -207,6 +216,17 @@ export default {
                "initEmployeeState"
           ]),
 
+          filteredList() {
+               return this.cloneArableLandList.filter(arableLand => {
+                    return arableLand.ArableLand_owner.toLowerCase().includes(this.nameToSearch.toLowerCase())
+               })
+          },
+
+          away() {
+               this.isOpenSearch.open = false;
+               this.isOpenSearch.close = true;
+          },
+
           async retrieveArableLandList() {
                const [err, respone] = await this.handle(
                     ArableLandService.getAll()
@@ -216,7 +236,10 @@ export default {
                }
                else {
                     this.arablelandList = respone.data;
-                    console.log(respone.data);
+                    this.cloneArableLandList = respone.data;
+                    this.cloneArableLandList.forEach(element => {
+                         new ArableLand(element);
+                    });
                     var temp = (String(this.arablelandList[this.arablelandList.length - 1].ArableLand_id)).split("");
                     var id = "";
                     for (let index = 0; index < temp.length; index++) {
@@ -336,7 +359,8 @@ export default {
           },
 
 
-          async searchName() {
+          async searchName(data) {
+               this.nameToSearch = data;
                const [error, response] = await this.handle(ArableLandService.findByName(this.nameToSearch));
                if (error) {
                     console.log(error);
@@ -426,10 +450,7 @@ nav .pagination .page-item .page-link {
      font-family: 'Roboto';
      font-style: normal;
      font-weight: 700;
-     background-color:  #EAEAEA;
+     background-color: #EAEAEA;
      font-size: 20px;
 }
-
-
-
 </style>

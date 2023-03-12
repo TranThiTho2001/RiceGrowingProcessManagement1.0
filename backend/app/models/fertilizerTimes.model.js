@@ -64,6 +64,7 @@ FertilizerTimes.getAll = (Fertilizer_id, result) => {
      });
 };
 FertilizerTimes.findByName = (name,id, result) => {
+     console.log(name)
      sql.query(`SELECT * FROM FertilizerTimes JOIN Fertilizer on Fertilizer.Fertilizer_id = FertilizerTimes.Fertilizer_id ` +
           `JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = FertilizerTimes.RiceCropInformation_id `+
           ` JOIN Employee on Employee.Employee_id = FertilizerTimes.Employee_id `+

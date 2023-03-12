@@ -140,38 +140,19 @@
     border-radius: 10px;
 }
 
-
-.pesticideManagement  .inputSearch1 {
-    font-size: 16px;
-    color: #84858A;
-    font-family: 'Roboto';
-    font-style: normal;
-    justify-content: center;
-    font-weight: 400;
+.pesticideManagement .inputSearch1 {
     background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 12px;
-    width: 80px;
+    border-radius: 15px;
+    width: 40%;
     height: 35px;
     position: absolute;
-    left: 96%;
+    left: 66%;
     top: 3%;
 }
 
-.pesticideManagement  .inputSearch1:focus {
-    font-size: 16px;
-    color: #84858A;
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
-    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 12px;
-    width: 110%;
-    position: absolute;
-    left: -4%;
-    top: 3%;
-    border: none !important;
+.pesticideManagement .topRight .form-control:focus{
+    border-color: #E4E5EB !important;
 }
 
 .pesticideManagement .btnSearch1 {
@@ -181,6 +162,62 @@
     border-radius: 10px;
     border: none;
     background: none;
+}
+
+.pesticideManagement .closeSearch {
+    display: none;
+    width: 110%;
+    margin: 0 auto 10px auto;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+      rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  }
+
+  .pesticideManagement .openSearch {
+    display:inline-block;
+    position:absolute;
+    left: 66%;
+    top: 70%;
+    width: 40%;
+    background-color: #FAFAFC;
+    border-radius: 5px;
+    z-index: 1;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+      rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+.pesticideManagement  .item {
+    background-color: none;
+    cursor: pointer;
+    bottom: 0.1px;
+    color: #1C1C1F;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 0.1px;
+    margin: 0.2px;
+}
+
+.pesticideManagement .item:hover {
+    background-color: none;
+    cursor: pointer;
+    bottom: 0.1px;
+    background-color: #EAEAEA;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.outside {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
 }
 
 .pesticideManagement .topRight {

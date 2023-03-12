@@ -12,11 +12,19 @@
                               <h3 class="name">Dịch bệnh</h3>
                          </div>
                          <div class="col-md-8 ">
-                              <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
-                                   @keyup.enter="searchName" />
-                              <button class="btnSearch1" @click="searchName">
-                                   <span class="fa fa-search" style="font-size:16px; color: #7E7E7E;"></span>
+                              <input type="text" class="form-control inputSearch1"  placeholder="Tìm" v-model="nameToSearch" 
+                                   @click="retrieveEpidemicList()"
+                                   @keyup.enter="searchName(nameToSearch)"
+                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                              <button class="btnSearch1" @click="searchName(nameToSearch)"
+                                   v-if="nameToSearch == '' && !isOpenSearch.open">
+                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
+                              <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                                   <p class="item" v-for="epidemic in filteredList()" :key="epidemic.Epidemic_id"
+                                        @click="searchName(epidemic.Epidemic_name)">
+                                        {{ epidemic.Epidemic_name }}</p>
+                              </div>
                          </div>
 
                          <div class="col-md-2 text-right">
@@ -144,6 +152,7 @@
                </div>
           </div>
      </div>
+     <div v-if="isOpenSearch.open" class="outside" @click.passive="away()"></div>
 </template>
 
 <script>
@@ -155,6 +164,14 @@ import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import CreateEpidemicForm from '@/components/catalogManagementComponents/createNewEpidemicForm.vue';
 import UpdateEpidemicForm from '@/components/catalogManagementComponents/updateEpidemicForm.vue';
 import EpidemicsClassificationService from '@/services/epidemicsClassification.service';
+
+class Epidemic {
+     constructor(epidemic) {
+          this.Epidemic_id = epidemic.Epidemic_id;
+          this.Epidemic_name = epidemic.Epidemic_name;
+     }
+}
+
 export default {
      name: "EpidemicManagement",
      components: {
@@ -182,8 +199,12 @@ export default {
                isOpenUpdateEpidemic: false,
                nameToSearch: "",
                message: "",
-               isOpenSearch: false,
                epidemicsClassificationList: [],
+               isOpenSearch: {
+                    open: false,
+                    close: true,
+               },
+               cloneEpidemicList: [],
           }
      },
 
@@ -198,6 +219,17 @@ export default {
                "initEmployeeState"
           ]),
 
+          filteredList() {
+               return this.cloneEpidemicList.filter(epidemic => {
+                    return epidemic.Epidemic_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
+               })
+          },
+
+          away() {
+               this.isOpenSearch.open = false;
+               this.isOpenSearch.close = true;
+          },
+
           async retrieveEpidemicList() {
                const [err, respone] = await this.handle(
                     EpidemicService.getAll()
@@ -207,7 +239,10 @@ export default {
                }
                else {
                     this.epidemicList = respone.data;
-                    console.log(respone.data);
+                    this.cloneEpidemicList = respone.data;
+                    this.cloneEpidemicList.forEach(element => {
+                         new Epidemic(element)
+                    });
                     var temp = (String(this.epidemicList[this.epidemicList.length - 1].Epidemic_id)).split("");
                     var id = "";
                     for (let index = 0; index < temp.length; index++) {
@@ -219,7 +254,6 @@ export default {
                               break;
                          }
                     }
-
                     if (id < 9) {
                          this.newEpidemic.Epidemic_id = "EC0000000" + String(Number(id) + 1);
                     }
@@ -319,7 +353,8 @@ export default {
                     this.epidemicsClassificationList = response.data;
                }
           },
-          async searchName() {
+          async searchName(data) {
+               this.nameToSearch = data;
                const [error, response] = await this.handle(EpidemicService.findByName(this.nameToSearch));
                if (error) {
                     console.log(error);

@@ -107,7 +107,7 @@ font-weight: 500;
     color: #FFFED8;
 }
 
-.riceCropManagement .inputSearch1 {
+/* .riceCropManagement .inputSearch1 {
     font-size: 16px;
     color: #84858A;
     font-family: 'Roboto';
@@ -153,7 +153,79 @@ font-weight: 500;
     border-radius: 10px;
     border: none;
     background: none;
+} */
+
+.riceCropManagement .inputSearch1 {
+    background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    width: 40%;
+    height: 35px;
+    position: absolute;
+    left: 66%;
+    top: 3%;
 }
+
+.riceCropManagement .topRight .form-control:focus{
+    border-color: #E4E5EB !important;
+}
+
+.riceCropManagement .btnSearch1 {
+    position: absolute;
+    left: 102%;
+    top: 13%;
+    border-radius: 10px;
+    border: none;
+    background: none;
+}
+
+.riceCropManagement .closeSearch {
+    display: none;
+    width: 110%;
+    margin: 0 auto 10px auto;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+      rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  }
+
+  .riceCropManagement .openSearch {
+    display:inline-block;
+    position:absolute;
+    left: 66%;
+    top: 70%;
+    width: 40%;
+    background-color: #FAFAFC;
+    border-radius: 5px;
+    z-index: 1;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+      rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  }
+
+.riceCropManagement .item {
+    background-color: none;
+    cursor: pointer;
+    bottom: 0.1px;
+    color: #1C1C1F;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 0.1px;
+    margin: 0.2px;
+  }
+
+.riceCropManagement .item:hover {
+    background-color: none;
+    cursor: pointer;
+    bottom: 0.1px;
+    background-color: #EAEAEA;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+  }
 
 .riceCropManagement .topRight {
     background: #E4E5EB;
@@ -353,4 +425,12 @@ font-weight: 500;
     color: #5C5D22;
     border: none;
     font-family: Inter;
+}
+
+.outside {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
 }

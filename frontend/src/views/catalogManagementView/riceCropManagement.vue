@@ -8,27 +8,25 @@
                </div>
                <div class="col-md-10 rightRiceCropManagement">
                     <div class="row ml-2 pt-3 mb-5 pb-1 mr-2 topRight">
-                         <div class="col-md-7" v-if="!isOpenSearch">
+                         <div class="col-md-3">
                               <h3 class="name">Theo dõi mùa vụ</h3>
                          </div>
-                         <div class="col-md-3" v-if="isOpenSearch">
-                              <h3 class="name">Theo dõi mùa vụ</h3>
-                         </div>
-                         <div class="col-md-3 text-right" v-if="!isOpenSearch">
-                              <input type="text" class="form-control col-sm-8 inputSearch1" placeholder="Tìm"
-                                   v-model="nameToSearch" @keyup.enter="searchName" @click="isOpenSearch = !isOpenSearch" />
-                              <button class="btnSearch1" @click="searchName">
+                         <div class="col-sm-7">
+                              <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
+                                   @click="retrieveRiceCropList" @keyup.enter="searchName(nameToSearch)"
+                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                              <button class="btnSearch1" @click="searchName(nameToSearch)"
+                                   v-if="nameToSearch == '' && !isOpenSearch.open">
                                    <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
+                              <!-- :class="{ openSearch:isOpenSearch.open, closeSearch:isOpenSearch.close }"  -->
+                              <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                                   <p class="item" v-for="riceCrop in filteredList()"
+                                        :key="riceCrop.RiceCropInformation_name"
+                                        @click="searchName(riceCrop.RiceCropInformation_name)">
+                                        {{ riceCrop.RiceCropInformation_name }}</p>
+                              </div>
                          </div>
-                         <div class="col-md-7 " v-if="isOpenSearch">
-                              <input type="text" class="form-control inputSearch2" placeholder="" v-model="nameToSearch"
-                                   @keyup.enter="searchName" />
-                              <button class="btnSearch2" @click="searchName">
-                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                              </button>
-                         </div>
-
                          <div class="col-md-2 text-right">
                               <div class="row">
                                    <TopHeader />
@@ -42,7 +40,7 @@
                                         style="font-size: 15px;"></i> Thêm Mùa Vụ</button>
                          </div>
                     </div>
-                    <div class=" row riceCropList ml-2 mr-2 text-left">
+                    <div class=" row riceCropList ml-2 mr-2 text-left" v-if="riceCropListByMonitoring.length>0">
                          <carousel :settings="settings" :breakpoints="breakpoints" style="width:100%">
                               <slide v-for="(riceCrop, i) in riceCropListByMonitoring" :key="i">
                                    <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
@@ -105,6 +103,7 @@
                </div>
           </div>
      </div>
+     <div v-if="isOpenSearch.open" class="outside" @click.passive="away()"></div>
 </template>
 
 <script type=”text/javascript”>
@@ -127,12 +126,17 @@ import SprayingTimesService from '@/services/sprayingTimes.service';
 import CreateSprayingTimesForm from '@/components/catalogManagementComponents/createNewSprayingTimesForm.vue';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import RiceCropComponent from '@/components/catalogManagementComponents/riceCropComponent.vue';
-
 import ImagesService from '@/services/images.service';
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Navigation } from 'vue3-carousel';
 // import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
 
+class RiceCrop {
+     constructor(riceCrop) {
+          this.RiceCropInformation_id = riceCrop.RiceCropInformation_id
+          this.RiceCropInformation_name = riceCrop.RiceCropInformation_name;
+     }
+}
 export default {
      name: "HomePage",
      components: {
@@ -178,12 +182,16 @@ export default {
                elementsPerPage: 6,
                ascending: false,
                fullListRiceCrop: [],
-               isOpenSearch: false,
                settings: {
                     itemsToShow: 1,
                     snapAlign: 'center',
 
                },
+               isOpenSearch: {
+                    open: false,
+                    close: true,
+               },
+               cloneRiceCropList: [],
                breakpoints: {
                     500: {
                          itemsToShow: 2,
@@ -231,6 +239,18 @@ export default {
           ...mapMutations([
                "initEmployeeState"
           ]),
+
+          filteredList() {
+               return this.cloneRiceCropList.filter(riceCrop => {
+                    return riceCrop.RiceCropInformation_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
+               })
+          },
+
+          away() {
+               this.isOpenSearch.open = false;
+               this.isOpenSearch.close = true;
+          },
+
           getWidth() {
                var width = document.body.clientWidth;
                if (width > 500 && width < 800) {
@@ -326,6 +346,10 @@ export default {
                }
                else {
                     this.riceCropList = respone.data;
+                    this.cloneRiceCropList = respone.data;
+                    this.cloneRiceCropList.forEach(element => {
+                         new RiceCrop(element);
+                    });
                     this.riceCropListByFinish = [];
                     this.riceCropListByMonitoring = [];
                     var i = 0;
@@ -724,7 +748,8 @@ export default {
 
           },
 
-          async searchName() {
+          async searchName(data) {
+               this.nameToSearch = data;
                if (this.nameToSearch == "") {
                     this.retrieveRiceCropList();
                }

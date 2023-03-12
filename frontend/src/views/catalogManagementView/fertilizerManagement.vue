@@ -12,11 +12,19 @@
                               <h3 class="name">Phân bón</h3>
                          </div>
                          <div class="col-md-8" >
-                              <input type="text" class="form-control inputSearch1" placeholder="Tìm" 
-                                   v-model="nameToSearch" @keyup.enter="searchName" />
-                              <button class="btnSearch1" @click="searchName">
+                              <input type="text" class="form-control inputSearch1"  placeholder="Tìm" v-model="nameToSearch" 
+                                   @click="retrieveFertilizerList()"
+                                   @keyup.enter="searchName(nameToSearch)"
+                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                              <button class="btnSearch1" @click="searchName(nameToSearch)"
+                                   v-if="nameToSearch == '' && !isOpenSearch.open">
                                    <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
+                              <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                                   <p class="item" v-for="fertilizer in filteredList()" :key="fertilizer.Fertilizer_name"
+                                        @click="searchName(fertilizer.Fertilizer_name), isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close">
+                                        {{ fertilizer.Fertilizer_name }}</p>
+                              </div>
                          </div>
 
                          <div class="col-md-2 text-right">
@@ -128,6 +136,7 @@
                </div>
           </div>
      </div>
+     <div v-if="isOpenSearch.open" class="outside" @click.passive="away()"></div>
 </template>
 
 <script>
@@ -138,6 +147,14 @@ import FertilizerService from '../../services/fertilizer.service';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import CreateFertilizerForm from '@/components/catalogManagementComponents/createNewFertilizerForm.vue';
 import UpdateFertilizerForm from '@/components/catalogManagementComponents/updateFertilizerForm.vue';
+
+class Fertilizer {
+     constructor(fertilizer) {
+          this.Fertilizer_id = fertilizer.Fertilizer_id;
+          this.Fertilizer_name = fertilizer.Fertilizer_name;
+     }
+}
+
 export default {
      name: "FertilizerManagement",
      components: {
@@ -165,7 +182,11 @@ export default {
                isOpenUpdateFertilizer: false,
                nameToSearch: "",
                message: "",
-               isOpenSearch: false,
+               isOpenSearch: {
+                    open: false,
+                    close: true,
+               },
+               cloneFertilizerList: [],
           }
      },
 
@@ -180,6 +201,18 @@ export default {
                "initEmployeeState"
           ]),
 
+
+          filteredList() {
+               return this.cloneFertilizerList.filter(fertilizer => {
+                    return fertilizer.Fertilizer_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
+               })
+          },
+
+          away() {
+               this.isOpenSearch.open = false;
+               this.isOpenSearch.close = true;
+          },
+
           async retrieveFertilizerList() {
                const [err, respone] = await this.handle(
                     FertilizerService.getAll()
@@ -189,7 +222,10 @@ export default {
                }
                else {
                     this.fertilizerList = respone.data;
-                    console.log(respone.data);
+                    this.cloneFertilizerList = respone.data;
+                    this.cloneFertilizerList.forEach(element => {
+                         new Fertilizer(element)
+                    });
                     var temp = (String(this.fertilizerList[this.fertilizerList.length - 1].Fertilizer_id)).split("");
                     var id = "";
                     for (let index = 0; index < temp.length; index++) {
@@ -280,7 +316,8 @@ export default {
           },
 
 
-          async searchName() {
+          async searchName(data) {
+               this.nameToSearch = data;
                const [error, response] = await this.handle(FertilizerService.findByName(this.nameToSearch));
                if (error) {
                     console.log(error);
@@ -290,16 +327,13 @@ export default {
                          console.log(response.data)
                     }
                     else {
-                         // this.message = "Không tìm thấy phân bón!";
                          this.isOpenMessage = !this.isOpenMessage;
                     }
-
                }
           },
 
           async setFertilizerChoosen(fertilizer) {
                this.fertilizerChoosen = fertilizer;
-               console.log(this.fertilizerChoosen)
           },
 
           get_rows(list) {

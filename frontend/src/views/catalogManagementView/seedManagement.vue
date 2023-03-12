@@ -12,24 +12,18 @@
                               <h3 class="name">Giống lúa</h3>
                          </div>
                          <div class="col-md-8">
-                              <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
-                                   @click="retrieveSeedList()" @keyup.enter="searchName(nameToSearch)"
-                                   @focus="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                              <input type="text" class="form-control inputSearch1"  placeholder="Tìm" v-model="nameToSearch" 
+                                   @click="retrieveSeedList()"
+                                   @keyup.enter="searchName(nameToSearch)"
+                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
                               <button class="btnSearch1" @click="searchName(nameToSearch)"
                                    v-if="nameToSearch == '' && !isOpenSearch.open">
                                    <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
-                              <input type="text" class="form-control inputSearch2" placeholder="Tìm" v-model="nameToSearch"
-                                   v-if="nameToSearch != '' || isOpenSearch.open" @keyup.enter="searchName(nameToSearch)"
-                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                              <button class="btnSearch1" @click="searchName(nameToSearch)" @change="retrieveSeedList()">
-                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                              </button>
                               <!-- :class="{ openSearch:isOpenSearch.open, closeSearch:isOpenSearch.close }"  -->
-                              <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }"
-                                   @focusout="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close">
-                                   <p class="fruit" v-for="seed in filteredList()" :key="seed.Seed_name"
-                                        @click="searchName(seed.Seed_name), isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close">
+                              <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                                   <p class="item" v-for="seed in filteredList()" :key="seed.Seed_name"
+                                        @click="searchName(seed.Seed_name)">
                                         {{ seed.Seed_name }}</p>
                               </div>
                          </div>
@@ -155,6 +149,7 @@
                </div>
           </div>
      </div>
+     <div v-if="isOpenSearch.open" class="outside" @click.passive="away()"></div>
 </template>
 
 <script>
@@ -175,6 +170,7 @@ class Seed {
           this.Seed_characteristic = seed.Seed_characteristic;
      }
 }
+
 export default {
      name: "SeedManagement",
      components: {
@@ -182,7 +178,6 @@ export default {
           createSeedForm,
           updateSeedForm,
           TopHeader,
-
      },
 
      data() {
@@ -221,11 +216,18 @@ export default {
           ...mapMutations([
                "initEmployeeState"
           ]),
+
           filteredList() {
                return this.cloneSeedList.filter(seed => {
                     return seed.Seed_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
                })
           },
+
+          away() {
+               this.isOpenSearch.open = false;
+               this.isOpenSearch.close = true;
+          },
+
           async retrieveSeedList() {
                const [err, respone] = await this.handle(
                     SeedService.getAll()
@@ -424,4 +426,6 @@ nav .pagination .page-item .page-link {
      font-weight: 700;
      background-color: #EAEAEA;
      font-size: 20px;
-}</style>
+}
+
+</style>

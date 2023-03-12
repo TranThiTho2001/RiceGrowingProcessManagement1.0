@@ -11,12 +11,21 @@
                          <div class="col-md-3">
                               <h3 class="name">Thuốc trị bệnh dịch</h3>
                          </div>
-                         <div class="col-md-7 ">
-                              <input type="text" class="form-control inputSearch1" placeholder="Tìm" 
-                                   v-model="nameToSearch" @keyup.enter="searchName" />
-                              <button class="btnSearch1" @click="searchName">
+                              <div class="col-md-7">
+                              <input type="text" class="form-control inputSearch1"  placeholder="Tìm" v-model="nameToSearch" 
+                                   @click="retrievePesticideList()"
+                                   @keyup.enter="searchName(nameToSearch)"
+                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                              <button class="btnSearch1" @click="searchName(nameToSearch)"
+                                   v-if="nameToSearch == '' && !isOpenSearch.open">
                                    <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
+                              <!-- :class="{ openSearch:isOpenSearch.open, closeSearch:isOpenSearch.close }"  -->
+                              <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                                   <p class="item" v-for="pesticide in filteredList()" :key="pesticide.Pesticide_id"
+                                        @click="searchName(pesticide.Pesticide_name)">
+                                        {{ pesticide.Pesticide_name }}</p>
+                              </div>
                          </div>
 
                          <div class="col-md-2 text-right">
@@ -128,6 +137,7 @@
                </div>
           </div>
      </div>
+     <div v-if="isOpenSearch.open" class="outside" @click.passive="away()"></div>
 </template>
 
 <script>
@@ -138,6 +148,14 @@ import PesticideService from '../../services/pesticide.service';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue'
 import CreatePesticideForm from '@/components/catalogManagementComponents/createNewPesticideForm.vue';
 import UpdatePesticideForm from '@/components/catalogManagementComponents/updatePesticideForm.vue';
+
+class Pesticide {
+     constructor(pesticide) {
+          this.Pesticide_id = pesticide.Pesticide_id;
+          this.Pesticide_name = pesticide.Pesticide_name;
+     }
+}
+
 export default {
      name: "PesticideManagement",
      components: {
@@ -166,7 +184,11 @@ export default {
                isOpenUpdatePesticide: false,
                nameToSearch: "",
                message: "",
-               isOpenSearch: false,
+               isOpenSearch: {
+                    open: false,
+                    close: true,
+               },
+               clonePesticideList: [],
           }
      },
 
@@ -181,6 +203,17 @@ export default {
                "initEmployeeState"
           ]),
 
+          filteredList() {
+               return this.clonePesticideList.filter(pesticide => {
+                    return pesticide.Pesticide_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
+               })
+          },
+
+          away() {
+               this.isOpenSearch.open = false;
+               this.isOpenSearch.close = true;
+          },
+
           async retrievePesticideList() {
                const [err, respone] = await this.handle(
                     PesticideService.getAll()
@@ -190,7 +223,10 @@ export default {
                }
                else {
                     this.pesticideList = respone.data;
-                    console.log(respone.data);
+                    this.clonePesticideList = respone.data;
+                    this.pesticideList.forEach(element => {
+                         new Pesticide(element);
+                    });
                     var temp = (String(this.pesticideList[this.pesticideList.length - 1].Pesticide_id)).split("");
                     var id = "";
                     for (let index = 0; index < temp.length; index++) {
@@ -280,7 +316,8 @@ export default {
           },
 
 
-          async searchName() {
+          async searchName(data) {
+               this.nameToSearch = data;
                const [error, response] = await this.handle(PesticideService.findByName(this.nameToSearch));
                if (error) {
                     console.log(error);
