@@ -1,5 +1,6 @@
 .riceCropManagement .createRiceCropForm {
-    background-color: #b7f8d0;
+    background-color: #dbdbdb;
+    border: 0.5px solid #b8b5b5;
     font-family: Inter;
     border-radius: 10px;
     position: absolute;
@@ -18,7 +19,8 @@
 
 
 .createRiceCropForm .messege {
-    background-color: #6cc38c;
+    background-color: #dbdbdb;
+    border: 0.5px solid #b8b5b5;
 }
 
 .createRiceCropForm .content .error-feedback,
@@ -29,7 +31,13 @@
 
 
 
-.createRiceCropForm .content .form-group label,
+.createRiceCropForm .content .form-group label{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    float: left;
+}
 .updateRiceCropForm .content .form-group label {
     float: left;
     font-family: 'Roboto';
@@ -53,8 +61,7 @@
     float: left;
 }
 
-.createRiceCropForm .content .form-group .form-control,
-.updateRiceCropForm .content .form-group .form-control {
+.updateRiceCropForm .content .form-group .form-control{
     background-color: #FAFAFC;
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
     font-size: 17px;
@@ -62,8 +69,19 @@
     border-radius: 15px;
     color:#2F3033;
     font-family: 'Roboto';
-font-style: normal;
-font-weight: 500;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.createRiceCropForm .content .form-group .form-control {
+    background-color: #FAFAFC;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: 17px;
+    border-radius: 15px;
+    color:#2F3033;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
 }
 
 .calendaer {
@@ -245,8 +263,8 @@ font-weight: 500;
 }
 
 .riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .confirmationDialog {
-    background-color: rgb(5, 207, 137);
-    border: 1px solid rgb(62, 77, 77);
+    background-color: #dbdbdb;
+    border: 0.5px solid #b8b5b5;
     border-radius: 10px;
     position: absolute;
     top: calc(38%);
@@ -281,8 +299,8 @@ font-weight: 500;
 }
 
 .riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .messageDialog {
-    background-color: rgb(5, 207, 137);
-    border: 1px solid rgb(62, 77, 77);
+    background-color: #dbdbdb;
+    border: 0.5px solid #b8b5b5;
     border-radius: 10px;
     position: absolute;
     top: calc(38%);

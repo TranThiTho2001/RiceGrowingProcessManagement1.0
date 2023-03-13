@@ -339,7 +339,12 @@
      font-family: 'Roboto';
      color: #1C1C1F;
      background: #FAFAFC;
+}
 
+.riceCropDetail table tbody tr:hover {
+     font-family: 'Roboto';
+     color: #1C1C1F;
+     background: #e8e8e8;
 }
 
 /* .my-custom-scrollbar {

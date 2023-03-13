@@ -1,5 +1,6 @@
 .updateEpidemicTimesForm, .createEpidemicTimesForm{
-     background-color: #b7f8d0;
+     background-color: #dbdbdb;
+     border: 0.5px solid #b8b5b5;
      font-family: Inter;
      border-radius: 10px;
      position: absolute;
@@ -23,7 +24,9 @@
 .updateEpidemicTimesForm .content .form-group label,
 .createEpidemicTimesForm .content .form-group label{
      float: left;
-     font-family: Inter;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 500;
      font-size: 18px;
 }
 
@@ -42,7 +45,14 @@
 
 .updateEpidemicTimesForm .content .form-group .form-control,
 .createEpidemicTimesForm .content .form-group .form-control{
-     background-color: #f0f0f0;
+     background-color: #FAFAFC;
+     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+     font-size: 17px;
+     border-radius: 15px;
+     color: #2F3033;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 500;
 }
 
 .updateEpidemicTimesForm .functionName,

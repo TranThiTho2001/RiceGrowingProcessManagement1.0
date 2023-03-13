@@ -1,6 +1,7 @@
-.createOtherActiviesForm ,
-.createOtherActiviesForm .updateFertilizerForm{
-     background-color: #51745e;
+
+.createActivityDetailForm, .updateFertilizerForm{
+    background-color: #dbdbdb;
+    border: 0.5px solid #b8b5b5;
      font-family: Inter;
      border-radius: 10px;
      position: absolute;
@@ -11,25 +12,27 @@
 
 
 
-.createOtherActiviesForm .messege{
+.createActivityDetailForm .messege{
     background-color: #6cc38c;
 }
 .createOtherActiviesForm .content .error-feedback,
-.updateFertilizerForm .content .error-feedback{
+.createActivityDetailForm .content .error-feedback{
      color: red;
      float: right;
 }
 
 
-.createOtherActiviesForm .content .form-group label,
-.updateFertilizerForm .content .form-group label{
-     float: left;
-     font-family: Inter;
-     font-size: 18px;
+.createActivityDetailForm .content .form-group label,
+.createActivityDetailForm .content .form-group label{
+     float: left !important;
+     font-family: 'Roboto' !important;
+     font-style: normal !important;
+     font-weight: 500 !important;
+     font-size: 18px !important;
 }
 
-.createOtherActiviesForm .content .form-group .selectBox,
-.updateFertilizerForm .content .form-group .selectBox{
+.createActivityDetailForm .content .form-group .selectBox,
+.createActivityDetailForm .content .form-group .selectBox{
      width: 100%;
      height: 38px;
      border: 1px solid #ced4da;
@@ -43,16 +46,23 @@
 
 .createOtherActiviesForm .content .form-group .form-control,
 .updateFertilizerForm .content .form-group .form-control{
-     background-color: #f0f0f0;
+    background-color: #FAFAFC;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: 17px;
+    border-radius: 15px;
+    color: #2F3033;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
 }
 
-.createOtherActiviesForm .functionName,
+.createActivityDetailForm .functionName,
 .updateFertilizerForm .functionName{
      font-family: Inter;
      font-size: 24px;
 }
-.createOtherActiviesForm .form-group .textMessage2,
-.createOtherActiviesForm .form-group .textMessage1,
+.createActivityDetailForm .form-group .textMessage2,
+.createActivityDetailForm .form-group .textMessage1,
 .updateFertilizerForm .form-group .textMessage1,
 .updateFertilizerForm .form-group .textMessage2{
      text-align: center; 
@@ -61,7 +71,7 @@
      font-family: Inter;
 }
 
-.createOtherActiviesForm .btnLuu, 
+.createActivityDetailForm .btnLuu, 
 .updateFertilizerForm .btnLuu{
      background-color: rgb(4, 105, 4);
      color: #f0f0f0;
@@ -69,58 +79,6 @@
      text-align: center;
 }
 
-
-.createOtherActiviesForm .fertilizerManagementFrame .rightFertilizerManagement   .confirmationDialog{
-     background-color: rgb(5, 207, 137);
-     border: 1px solid rgb(62, 77, 77);
-     border-radius: 10px;
-     position:absolute;
-     top: calc(38%);
-     transform: translateX(80%);
-     border-radius: 16px;
-     display: block;
-     width: 404px;
-     height: 187px;
-     border-radius: 15px; 
-     text-align: center;
-}
-
-.fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .confirmationDialog .btnYes{
-     background-color: rgb(244, 61, 61);
-     color: white;
-     font-family: Inter;
-     font-size: 16px;
-}
-
-.fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .confirmationDialog .btnNo{
-     background-color: rgb(196, 191, 191);
-     color: rgb(33, 33, 33);
-     font-family: Inter;
-     font-size: 16px;
-}
-
-.fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .messageDialog .btnOK{
-     background-color: rgb(196, 191, 191);
-     color: rgb(33, 33, 33);
-     font-family: Inter;
-     font-size: 16px;
-}
-.fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement .messageDialog{
-     background-color: rgb(5, 207, 137);
-     border: 1px solid rgb(62, 77, 77);
-     border-radius: 10px;
-     position:absolute;
-     top: calc(38%);
-     transform: translateX(80%);
-     border-radius: 16px;
-     display: block;
-     width: 404px;
-     height: 187px;
-     border-radius: 15px; 
-     text-align: center;
-}
-
- 
 .fertilizerManagement .btnCreate {
     border-radius: 12px;
     background: #008B8E;

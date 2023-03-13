@@ -94,7 +94,7 @@
                                    </button>
                                    <!-- :class="{ openSearch:isOpenSearch.open, closeSearch:isOpenSearch.close }"  -->
                                    <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
-                                        <p class="item" v-for="fertilizerTimes in filteredList()"
+                                        <p class="item" v-for="fertilizerTimes in filteredFerilizerTimesList()"
                                              :key="fertilizerTimes.Fertilizer_id"
                                              @click="searchNameFertilizer(fertilizerTimes.Fertilizer_name)">
                                              {{ fertilizerTimes.Fertilizer_name }}</p>
@@ -115,8 +115,7 @@
                                                   </tr>
                                              </thead>
                                              <tbody>
-                                                  <tr v-for="(fertilizer,i) in (fertilizerTimesList)"
-                                                       :key="i">
+                                                  <tr v-for="(fertilizer, i) in (fertilizerTimesList)" :key="i">
                                                        <td class="text-center ">{{ fertilizer.FertilizerTimes_times }}</td>
                                                        <td class="">{{ fertilizer.Fertilizer_name }}</td>
                                                        <td class="text-center ">{{ fertilizer.FertilizerTimes_amount }}</td>
@@ -137,7 +136,7 @@
                                                                       <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                                                  </a>
                                                                  <a class="dropdown-item" href="#"
-                                                                      @click="setFertilizerChoosen(fertilizer), isOpenUpdateFertilizerTimesForm = !isOpenUpdateFertilizerTimesForm">
+                                                                      @click="setFertilizerChoosen(fertilizer), setDelete('FertilizerTimes'), isOpenConfirm = !isOpenConfirm">
                                                                       <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                                  </a>
 
@@ -153,10 +152,19 @@
                               <!-- ----------------------SprayingTimes Tab-------------- -->
                               <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableSprayingTimes">
                                    <input type="text" class="form-control inputSearch1" placeholder="Tìm"
-                                        v-model="nameToSearch" @keyup.enter="searchNamePesticide" />
-                                   <button class="btnSearch1" @click="searchNamePesticide">
-                                        <span class="fa fa-search" style="font-size:16px; color: #7E7E7E;"></span>
+                                        v-model="nameToSearch" @click="retrieveSprayingTimesList()"
+                                        @keyup.enter="searchNamePesticide(nameToSearch)"
+                                        @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                                   <button class="btnSearch1" @click="searchNamePesticide(nameToSearch)"
+                                        v-if="nameToSearch == '' && !isOpenSearch.open">
+                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                                    </button>
+                                   <!-- :class="{ openSearch:isOpenSearch.open, closeSearch:isOpenSearch.close }"  -->
+                                   <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                                        <p class="item" v-for="(sprayingTimes, i) in filteredSprayingTimesList()" :key="i"
+                                             @click="searchNamePesticide(sprayingTimes.Pesticide_name)">
+                                             {{ sprayingTimes.Pesticide_name }}</p>
+                                   </div>
                                    <button class="btn mt-1 btnAdd"
                                         @click="isOpenCreateSprayingTimesForm = !isOpenCreateSprayingTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
                                    <div class="tableFixHead">
@@ -211,11 +219,17 @@
                               <!-- ----------------------EpidemicTimes Tab-------------- -->
                               <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableEpidemicTimes">
                                    <input type="text" class="form-control inputSearch1" placeholder="Tìm"
-                                        v-model="nameToSearch" @keyup.enter="searchNameEpidemic"
-                                        @click="isOpenSearch = !isOpenSearch" />
-                                   <button class="btnSearch1" @click="searchNameEpidemic">
-                                        <span class="fa fa-search" style="font-size:16px; color: #7E7E7E;"></span>
-                                   </button>
+                                        v-model="nameToSearch" @click="retrieveEpidemicTimesList()"
+                                        @keyup.enter="searchNameEpidemic(nameToSearch)"
+                                        @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                                   <button class="btnSearch1" @click="searchNameEpidemic(nameToSearch)"
+                                        v-if="nameToSearch == '' && !isOpenSearch.open">
+                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                                   </button>                                   <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                                        <p class="item" v-for="(epidemicTimes, i) in filteredEpidemicTimesList()" :key="i"
+                                             @click="searchNameEpidemic(epidemicTimes.Epidemic_name)">
+                                             {{ epidemicTimes.Epidemic_name }}</p>
+                                   </div>
                                    <button class="btn mt-1 btnAdd"
                                         @click="isOpenCreateEpidemicTimesForm = !isOpenCreateEpidemicTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
                                    <div class="tableFixHead">
@@ -255,7 +269,6 @@
                                                                       @click="setEpidemicChoosen(epidemic), isOpenConfirm = !isOpenConfirm, setDelete('EpidemicTimes')">
                                                                       <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                                  </a>
-
                                                             </div>
                                                        </td>
                                                   </tr>
@@ -267,10 +280,17 @@
                               <!-- ----------------------Monitor Tab-------------- -->
                               <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableMonitor">
                                    <input type="text" class="form-control inputSearch1" placeholder="Tìm"
-                                        v-model="nameToSearch" @keyup.enter="searchNameMonitor" />
-                                   <button class="btnSearch1" @click="searchNameMonitor">
-                                        <span class="fa fa-search" style="font-size:16px; color: #7E7E7E;"></span>
-                                   </button>
+                                        v-model="nameToSearch" @click="retrieveMonitorList()"
+                                        @keyup.enter="searchNameMonitor(nameToSearch)"
+                                        @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                                   <button class="btnSearch1" @click="searchNameMonitor(nameToSearch)"
+                                        v-if="nameToSearch == '' && !isOpenSearch.open">
+                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                                   </button>                                   <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                                        <p class="item" v-for="(monitor, i) in filteredMonitorList()" :key="i"
+                                             @click="searchNameMonitor(monitor.Employee_name)">
+                                             {{ monitor.Employee_name }}</p>
+                                   </div>
                                    <button class="btn mt-1 btnAdd"
                                         @click="isOpenCreateMonitorForm = !isOpenCreateMonitorForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
                                    <div class="tableFixHead">
@@ -307,7 +327,6 @@
                                                                       @click="setMonitorChoosen(monitor), isOpenConfirm = !isOpenConfirm, setDelete('Monitor')">
                                                                       <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                                  </a>
-
                                                             </div>
                                                        </td>
                                                   </tr>
@@ -319,10 +338,17 @@
                               <!-- ----------------------OtherActivity Tab-------------- -->
                               <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableOtherActivitiesTimes">
                                    <input type="text" class="form-control inputSearch1" placeholder="Tìm"
-                                        v-model="nameToSearch" @keyup.enter="searchNameOtherActivity" />
-                                   <button class="btnSearch1" @click="searchNameOtherActivity">
-                                        <span class="fa fa-search" style="font-size:16px; color: #7E7E7E;"></span>
-                                   </button>
+                                        v-model="nameToSearch" @click="retrieveActivitiesDetail()"
+                                        @keyup.enter="searchNameOtherActivity(nameToSearch)"
+                                        @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                                   <button class="btnSearch1" @click="searchNameOtherActivity(nameToSearch)"
+                                        v-if="nameToSearch == '' && !isOpenSearch.open">
+                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                                   </button>                                   <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                                        <p class="item" v-for="(activityDetail, i) in filteredActivityDetailTimesList()" :key="i"
+                                             @click="searchNameOtherActivity(activityDetail.OtherActivities_name)">
+                                             {{ activityDetail.OtherActivities_name }}</p>
+                                   </div>
                                    <button class="btn mt-1 btnAdd"
                                         @click="isOpenCreateActivitiesDetail = !isOpenCreateActivitiesDetail, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
                                    <div class="tableFixHead">
@@ -350,7 +376,7 @@
 
                                                        <td>{{ activity.OtherActivities_name }}</td>
                                                        <td>{{ activity.ActivityDetails_times }}</td>
-                                                       <td>{{ formatDate(activity.OtherActivities_startDate) }}</td>
+                                                       <td>{{ formatDate(activity.ActivityDetails_startDate) }}</td>
                                                        <td>{{ formatDate(activity.ActivityDetails_endDate) }}</td>
                                                        <td class="">{{ activity.Employee_name }}</td>
                                                        <td class="">
@@ -360,11 +386,11 @@
                                                             </button>
                                                             <div class="dropdown-menu">
                                                                  <a class="dropdown-item action"
-                                                                      @click="setMonitorChoosen(activity), isOpenUpdateEpidemicTimesForm = !isOpenUpdateEpidemicTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
+                                                                      @click="setActivityChoosen(activity), isOpenUpdateActivitiesDetail = !isOpenUpdateActivitiesDetail, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
                                                                       <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                                                  </a>
                                                                  <a class="dropdown-item" href="#"
-                                                                      @click="setMonitorChoosen(activity), isOpenConfirm = !isOpenConfirm, setDelete('Monitor')">
+                                                                      @click="setActivityChoosen(activity), isOpenConfirm = !isOpenConfirm, setDelete('ActivitiseDetail')">
                                                                       <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                                  </a>
 
@@ -440,9 +466,11 @@
           <CreateActivitiiesDetailForm v-if="isOpenCreateActivitiesDetail" :newActivityDetail="newActivityDetail"
                :currentUser="currentUser" :developmentStageList="developmentStageList" :riceCropChoosen="newRiceCrop"
                @addOtherActivityTimes-submit="createNewActivitiesDetail" :message1="message1" :message2="message2" />
+          <UpadteActivitiiesDetailForm v-if="isOpenUpdateActivitiesDetail" :newActivityDetail="activitiesDetailChoosen"
+               :currentUser="currentUser" :developmentStageList="developmentStageList" :riceCropChoosen="newRiceCrop"
+               @updateActivitiesDetail-submit="updateNewActivitiesDetail" :message1="message1" :message2="message2" />
      </div>
      <div v-if="isOpenSearch.open" class="outside" @click.passive="away()"></div>
-
 </template>
 
 <script >
@@ -479,9 +507,10 @@ import ImageComponent from '@/components/catalogManagementComponents/imageCompon
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Navigation } from 'vue3-carousel';
 import ActivityDetailsService from '@/services/activityDetails.service';
-// import CreateOtherActiviesForm from '@/components/catalogManagementComponents/createNewOtherActivities.vue';
+import UpadteActivitiiesDetailForm from '@/components/catalogManagementComponents/updateActivitiesDetailForm.vue'
 import CreateActivitiiesDetailForm from '@/components/catalogManagementComponents/createNewOtherActivityTimesForm.vue';
 import axios from 'axios';
+import otherActivitiesService from '@/services/otherActivities.service';
 export default {
      name: "riceCropDetail",
 
@@ -500,7 +529,7 @@ export default {
           CreateMonitorForm,
           CreateImageForm,
           CreateActivitiiesDetailForm,
-          // CreateOtherActiviesForm,
+          UpadteActivitiiesDetailForm,
           TopHeader,
           Carousel,
           Slide,
@@ -555,6 +584,8 @@ export default {
                isOpenCreateMonitorForm: false,
                newActivityDetail: {},
                isOpenCreateActivitiesDetail: false,
+               isOpenUpdateActivitiesDetail: false,
+               activitiesDetailChoosen: {},
                currentPage: 1,
                elementsPerPage: 4,
                ascending: false,
@@ -615,8 +646,13 @@ export default {
                     open: false,
                     close: true,
                },
-               cloneFertilizerTimesList: [],
 
+               cloneFertilizerTimesList: [],
+               cloneSprayingTimesList: [],
+               cloneEpidemicTimesList: [],
+               cloneMonitorList: [],
+               cloneActivityDetailList: [],
+               cloneImageList: [],
           }
      },
 
@@ -639,9 +675,39 @@ export default {
                "initEmployeeState"
           ]),
 
-          filteredList() {
+          filteredFerilizerTimesList() {
                return this.cloneFertilizerTimesList.filter(fertilizerTimes => {
                     return fertilizerTimes.Fertilizer_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
+               })
+          },
+
+          filteredSprayingTimesList() {
+               return this.cloneSprayingTimesList.filter(sprayingTimes => {
+                    return sprayingTimes.Pesticide_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
+               })
+          },
+
+          filteredEpidemicTimesList() {
+               return this.cloneEpidemicTimesList.filter(epidemic => {
+                    return epidemic.Epidemic_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
+               })
+          },
+
+          filteredActivityDetailTimesList() {
+               return this.cloneActivityDetailList.filter(activity => {
+                    return activity.OtherActivities_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
+               })
+          },
+
+          filteredMonitorList() {
+               return this.cloneMonitorList.filter(monitor => {
+                    return monitor.Employee_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
+               })
+          },
+
+          filteredImagesList() {
+               return this.cloneImageList.filter(image => {
+                    return image.Images_date.toLowerCase().includes(this.nameToSearch.toLowerCase())
                })
           },
 
@@ -699,7 +765,7 @@ export default {
                else {
                     if (respone.data != "Không tìm thấy lần bị dịch bệnh.") {
                          this.epidemicTimesList = respone.data;
-                         console.log(respone.data);
+                         this.cloneEpidemicTimesList = respone.data;
                          this.newEpidemicTimes.EpidemicTimes_times = this.epidemicTimesList[this.epidemicTimesList.length - 1].EpidemicTimes_times + 1;
                     }
                     else {
@@ -815,11 +881,11 @@ export default {
                else {
                     if (respone.data != "Không tìm thấy lần phun thuốc mới.") {
                          this.SprayingTimesList = respone.data;
+                         this.cloneSprayingTimesList = respone.data;
                          this.newSprayingTimes.SprayingTimes_times = this.SprayingTimesList[this.SprayingTimesList.length - 1].SprayingTimes_times + 1;
                     }
                     else {
                          this.newSprayingTimes.SprayingTimes_times = 1;
-
                     }
                }
           },
@@ -844,7 +910,7 @@ export default {
                               element.Role_name = "Nhân viên"
                          }
                     });
-                    console.log(respone.data);
+                    this.cloneMonitorList = this.monitorList;
                }
           },
 
@@ -859,6 +925,19 @@ export default {
                }
                else {
                     this.activitiesDetailList = respone.data;
+                    this.retrieveOtherActivities();
+               }
+          },
+
+          async retrieveOtherActivities() {
+               const [err, respone] = await this.handle(
+                    otherActivitiesService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.cloneActivityDetailList = respone.data;                  
                }
           },
 
@@ -952,6 +1031,7 @@ export default {
                });
           },
 
+          // FertilizerTime
           async createFertilizerTimes(data) {
                if (data.close == false) {
                     this.isOpenCreateFertilizerTimesForm = false;
@@ -1078,7 +1158,7 @@ export default {
 
           async choosenDelete() {
                if (this.delete == "FertilizerTimes") {
-                    this.deleteFertilizerTimes(this.fertilizerTimesChoosen);
+                    this.deleteFertilizerTimes();
                }
                else if (this.delete == "SprayingTimes") {
                     this.deleteSprayingTimes();
@@ -1089,14 +1169,14 @@ export default {
                else if (this.delete == "Monitor") {
                     this.deleteMonitor();
                }
-               else {
-                    this.delete = ""
+               else if(this.delete == "ActivitiseDetail") {
+                    this.deleteActivitiesDetail();
                }
           },
 
-          async deleteFertilizerTimes(data) {
+          async deleteFertilizerTimes() {
                const [error, respone] = await this.handle(
-                    FertilizerTimesService.delete(this.newRiceCrop.RiceCropInformation_id, data.Fertilizer_id, data.FertilizerTimes_times, data)
+                    FertilizerTimesService.delete(this.newRiceCrop.RiceCropInformation_id, this.fertilizerTimesChoosen.Fertilizer_id, this.fertilizerTimesChoosen.FertilizerTimes_times)
                );
                if (error) {
                     console.log(error);
@@ -1105,11 +1185,13 @@ export default {
                     this.message = "Xóa không thành công."
                } else {
                     this.message = "Đã xóa thành công.";
-                    this.retrieveFertilizerTimesList();
+                    
                }
                this.delete = "";
-
+               this.retrieveFertilizerTimesList();
           },
+
+          // SprayingTimes
           async setSprayingTimes(data) {
                this.sprayingTimesChoosen = data;
           },
@@ -1257,6 +1339,7 @@ export default {
                this.delete = "";
           },
 
+          // EidemicTimes
           async setEpidemicChoosen(data) {
                this.epidemicTimesChoosen = data;
           },
@@ -1405,6 +1488,7 @@ export default {
                this.delete = "";
           },
 
+          // Monitor
           async setMonitorChoosen(data) {
                this.monitorChoosen = data;
           },
@@ -1441,7 +1525,7 @@ export default {
 
           formatDate(data) {
                if (data == null) return "";
-               return (moment(String(data)).format("YYYY-MM-DD")).slice(0, 10);
+               return (moment(String(data)).format("DD-MM-YYYY")).slice(0, 10);
           },
 
           async setTable(data) {
@@ -1477,6 +1561,7 @@ export default {
                }
           },
 
+          // Images
           async getIdImage() {
                const [error, response] = await this.handle(
                     ImagesService.getAll()
@@ -1585,11 +1670,16 @@ export default {
                }
           },
 
+          // ActivityDetail
+          async setActivityChoosen(data){
+               this.activitiesDetailChoosen = data;
+          },
+
           async createNewActivitiesDetail(data) {
                this.message1 = "";
                this.message2 = "";
                if (!data.close) {
-                    this.isOpenCreateActivitiesDetail = false;
+                    this.isOpenUpdateActivitiesDetail = false;
                     this.stylebac.none = false;
                     this.stylebac.active = true;
                     this.newActivityDetail = {};
@@ -1637,6 +1727,76 @@ export default {
                }
           },
 
+          async updateNewActivitiesDetail(data) {
+               console.log("hsjkcdsqa")
+               this.message1 = "";
+               this.message2 = "";
+               if (!data.close) {
+                    this.isOpenUpdateActivitiesDetail = false;
+                    this.stylebac.none = false;
+                    this.stylebac.active = true;
+                    this.newActivityDetail = {};
+               }
+               else {
+                    data.RiceCropInformation_id = this.newRiceCrop.RiceCropInformation_id;
+                    data.Employee_id = this.currentUser.Employee_id;
+                    this.otherActivitiesList.forEach(element => {
+                         if (data.OtherActivities_name == element.OtherActivities_name) {
+                              data.OtherActivities_id = element.OtherActivities_id;
+                         }
+                    });
+                    this.developmentStageList.forEach(element => {
+                         if (data.DevelopmentStage_name == element.DevelopmentStage_name) {
+                              data.DevelopmentStage_id = element.DevelopmentStage_id;
+                         }
+                    });
+                    if (data.ActivityDetails_endDate != null) {
+                         data.ActivityDetails_endDate = (moment(String(data.ActivityDetails_endDate)).format("YYYY-MM-DD")).slice(0, 10);
+                    }
+                    else {
+                         data.ActivityDetails_endDate = null;
+                    }
+                    if (data.ActivityDetails_startDate != null) {
+                         data.ActivityDetails_startDate = (moment(String(data.ActivityDetails_startDate)).format("YYYY-MM-DD")).slice(0, 10);
+                    }
+                    else {
+                         data.ActivityDetails_startDate = null;
+                    }
+                    //Ipdate
+                    const [error, response] = await this.handle(
+                         ActivityDetailsService.update(this.newRiceCrop.RiceCropInformation_id,data.OtherActivities_id, data.ActivityDetails_times,data)
+                    );
+
+                    if (response.data == error) {
+                         this.message1 = "Cập nhật không thành công.";
+                    }
+                    else if (response.data == "Đã xảy ra lỗi trong quá trình cập nhật thông tin!") {
+                         this.message1 = "Cập nhật không thành công.";
+                    }
+                    else {
+                         this.message2 = "Cập nhật thành công.";
+                    }
+                    this.retrieveActivitiesDetail()
+                    
+               }
+          },
+
+          async deleteActivitiesDetail(){
+               const [error, respone] = await this.handle(
+                    ActivityDetailsService.delete(this.newRiceCrop.RiceCropInformation_id, this.activitiesDetailChoosen.OtherActivities_id, this.activitiesDetailChoosen.ActivityDetails_times)
+               );
+               if (error) {
+                    console.log(error);
+                    this.message = "Xóa không thành công."
+               } else if (respone.data == "Lỗi trong quá trình lần bón phân!!") {
+                    this.message = "Xóa không thành công."
+               } else {
+                    this.message = "Đã xóa thành công.";
+                    this.retrieveActivitiesDetail()
+               }
+               this.delete = "";
+          },
+
           getWidth() {
                var width = document.body.clientWidth;
                if (width > 500 && width < 800) {
@@ -1662,19 +1822,30 @@ export default {
                }
           },
 
-          async searchNameEpidemic() {
+          // Search
+          async searchNameEpidemic(data) {
+               this.nameToSearch = data;
                if (this.nameToSearch != "") {
-                    const [err, respone] = await this.handle(
-                         EpidemicTimesService.getByName(this.nameToSearch, this.newRiceCrop.RiceCropInformation_id)
-                    );
-                    if (err) {
-                         console.log(err)
-                    }
-                    else {
-                         if (respone.data != "Không tìm thấy lần bị dịch bệnh.") {
-                              this.epidemicTimesList = respone.data;
+                    this.epidemicTimesList = [];
+                    this.cloneEpidemicTimesList.forEach(element => {
+                         if (element.Epidemic_name == data) {
+                              this.epidemicTimesList.push(element);
                          }
-                         else this.epidemicTimesList = [];
+                    });
+                    if (this.epidemicTimesList.length == 0) {
+
+                         const [err, respone] = await this.handle(
+                              EpidemicTimesService.getByName(this.nameToSearch, this.newRiceCrop.RiceCropInformation_id)
+                         );
+                         if (err) {
+                              console.log(err)
+                         }
+                         else {
+                              if (respone.data != "Không tìm thấy lần bị dịch bệnh.") {
+                                   this.epidemicTimesList = respone.data;
+                              }
+                              else this.epidemicTimesList = [];
+                         }
                     }
                }
                else {
@@ -1715,57 +1886,78 @@ export default {
                }
           },
 
-          async searchNamePesticide() {
+          async searchNamePesticide(data) {
+               this.nameToSearch = data;
                if (this.nameToSearch != "") {
-                    const [err, respone] = await this.handle(
-                         SprayingTimesService.getByName(this.nameToSearch, this.newRiceCrop.RiceCropInformation_id)
-                    );
-                    if (err) {
-                         console.log(err)
-                    }
-                    else {
-                         if (respone.data != "Không tìm thấy lần phun thuốc mới.") {
-                              this.SprayingTimesList = respone.data;
+                    this.SprayingTimesList = [];
+                    this.cloneSprayingTimesList.forEach(element => {
+                         if (element.Pesticide_name == data) {
+                              this.SprayingTimesList.push(element);
                          }
-                         else this.SprayingTimesList = [];
+                    });
+                    if (this.SprayingTimesList.length == 0) {
+
+                         const [err, respone] = await this.handle(
+                              SprayingTimesService.getByName(this.nameToSearch, this.newRiceCrop.RiceCropInformation_id)
+                         );
+                         if (err) {
+                              console.log(err)
+                         }
+                         else {
+                              if (respone.data != "Không tìm thấy lần phun thuốc mới.") {
+                                   this.SprayingTimesList = respone.data;
+                              }
+                              else this.SprayingTimesList = [];
+                         }
                     }
+
                }
                else {
                     this.retrieveSprayingTimesList()
                }
           },
 
-          async searchNameOtherActivity() {
+          async searchNameOtherActivity(data) {
+               this.nameToSearch = data;
                if (this.nameToSearch != "") {
-                    const [err, respone] = await this.handle(
-                         ActivityDetailsService.getByName(this.nameToSearch, this.newRiceCrop.RiceCropInformation_id)
-                    );
-                    if (err) {
-                         console.log(err)
-                    }
-                    else {
-                         this.activitiesDetailList = respone.data;
-                    }
+                         const [err, respone] = await this.handle(
+                              ActivityDetailsService.getByName(this.nameToSearch, this.newRiceCrop.RiceCropInformation_id)
+                         );
+                         if (err) {
+                              console.log(err)
+                         }
+                         else {
+                              this.activitiesDetailList = respone.data;
+                         }
                }
                else {
                     this.retrieveActivitiesDetail()
                }
           },
 
-          async searchNameMonitor() {
+          async searchNameMonitor(data) {
+               this.nameToSearch = data;
                if (this.nameToSearch != "") {
-                    const [err, respone] = await this.handle(
-                         MonitorService.getByName(this.nameToSearch, this.newRiceCrop.RiceCropInformation_id)
-                    );
-                    if (err) {
-                         console.log(err)
-                    }
-                    else {
-                         this.monitorList = respone.data;
+                    this.monitorList = [];
+                    this.cloneMonitorList.forEach(element => {
+                         if (element.Employee_name == data) {
+                              this.monitorList.push(element);
+                         }
+                    });
+                    if (this.monitorList.length == 0) {
+                         const [err, respone] = await this.handle(
+                              MonitorService.getByName(this.nameToSearch, this.newRiceCrop.RiceCropInformation_id)
+                         );
+                         if (err) {
+                              console.log(err)
+                         }
+                         else {
+                              this.monitorList = respone.data;
+                         }
                     }
                }
                else {
-                    this.retrieveActivitiesDetail()
+                    this.retrieveMonitorList()
                }
           },
      },

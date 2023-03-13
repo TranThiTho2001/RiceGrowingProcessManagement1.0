@@ -1,10 +1,11 @@
 .epidemicManagement .createEpidemicForm,
 .epidemicManagement .updateEpidemicForm {
-    background-color: #b7f8d0;
+    background-color: #dbdbdb;
+    border: 0.5px solid #b8b5b5;
     font-family: Inter;
     border-radius: 10px;
     position: absolute;
-    top: calc(18%);
+    top: calc(16%);
     left: 8%;
     width: 85%;
 }
@@ -25,7 +26,9 @@
 .createEpidemicForm .content .form-group label,
 .updateEpidemicForm .content .form-group label {
     float: left;
-    font-family: Inter;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
     font-size: 18px;
 }
 
@@ -44,7 +47,14 @@
 
 .createEpidemicForm .content .form-group .form-control,
 .updateEpidemicForm .content .form-group .form-control {
-    background-color: #f0f0f0;
+    background-color: #FAFAFC;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: 17px;
+    border-radius: 15px;
+    color: #2F3033;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
 }
 
 .createEpidemicForm .functionName,
@@ -73,12 +83,12 @@
 
 
 .epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .confirmationDialog {
-    background-color: rgb(5, 207, 137);
-    border: 1px solid rgb(62, 77, 77);
+    background-color: #dbdbdb;
+    border: 0.5px solid #b8b5b5;
     border-radius: 10px;
     position: absolute;
     top: calc(38%);
-    transform: translateX(80%);
+    transform: translateX(96%);
     border-radius: 16px;
     display: block;
     width: 404px;
@@ -109,12 +119,12 @@
 }
 
 .epidemicManagement .epidemicManagementFrame .rightEpidemicManagement .messageDialog {
-    background-color: rgb(5, 207, 137);
-    border: 1px solid rgb(62, 77, 77);
+    background-color: #dbdbdb;
+    border: 0.5px solid #b8b5b5;
     border-radius: 10px;
     position: absolute;
     top: calc(38%);
-    transform: translateX(80%);
+    transform: translateX(96%);
     border-radius: 16px;
     display: block;
     width: 404px;

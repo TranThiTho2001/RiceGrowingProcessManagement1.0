@@ -34,7 +34,7 @@
                               placeholder="Ngày bắt đầu">
                               <datepicker :enable-time-picker="false" :value="newfertilizertimes.FertilizerTimes_startDate"
                                    :hide-input-icon="true" v-model="newfertilizertimes.FertilizerTimes_startDate"
-                                   placeholder="YYYY-MM-DD" :clearable="false" >
+                                   placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false" >
                               </datepicker>
                          </Field>
                          <ErrorMessage name="start" class="error-feedback" />
@@ -74,7 +74,7 @@
                               v-model="newfertilizertimes.FertilizerTimes_endDate" placeholder="Ngày sinh">
                               <datepicker :enable-time-picker="false" :value="newfertilizertimes.FertilizerTimes_endDate"
                                    :hide-input-icon="true" v-model="newfertilizertimes.FertilizerTimes_endDate"
-                                   placeholder="YYYY-MM-DD" :clearable="false" >
+                                   placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false" >
                               </datepicker>
                          </Field>
                     </div>

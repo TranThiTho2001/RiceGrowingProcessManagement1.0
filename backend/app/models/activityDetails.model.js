@@ -29,6 +29,7 @@ ActivityDetails.create = (newActivityDetails, result) => {
 ActivityDetails.findByIdRiceCropInformation = (id, otherActivities_id, result) => {
      sql.query(`SELECT * FROM ActivityDetails JOIN otheractivities on otheractivities.OtherActivities_id=ActivityDetails.OtherActivities_id`
      + ` JOIN Employee on Employee.Employee_id = ActivityDetails.Employee_id`
+     + ` JOIN DevelopmentStage on DevelopmentStage.DevelopmentStage_id = ActivityDetails.DevelopmentStage_id`
      + ` WHERE RiceCropInformation_id like '${id}' and ActivityDetails.OtherActivities_id like'${otherActivities_id}'`, (err, res) => {
           if (err) {
                console.log("error: ", err);
@@ -46,7 +47,8 @@ ActivityDetails.findByIdRiceCropInformation = (id, otherActivities_id, result) =
 
 ActivityDetails.getAll = (riceCropInformation_id, result) => {
      let query = "SELECT * FROM ActivityDetails JOIN otheractivities on otheractivities.OtherActivities_id=ActivityDetails.OtherActivities_id"
-     + " JOIN Employee on Employee.Employee_id = ActivityDetails.Employee_id";
+     + " JOIN Employee on Employee.Employee_id = ActivityDetails.Employee_id"
+     + ` JOIN DevelopmentStage on DevelopmentStage.DevelopmentStage_id = ActivityDetails.DevelopmentStage_id`;
      if (riceCropInformation_id) {
           query += ` WHERE RiceCropInformation_id LIKE '%${riceCropInformation_id}%'`;
      }
@@ -62,6 +64,7 @@ ActivityDetails.getAll = (riceCropInformation_id, result) => {
 ActivityDetails.findByName = (name, riceCropInformation_id, result) => {
      let query = "SELECT * FROM ActivityDetails JOIN otheractivities on otheractivities.OtherActivities_id=ActivityDetails.OtherActivities_id"
      + " JOIN Employee on Employee.Employee_id = ActivityDetails.Employee_id"+
+     + ` JOIN DevelopmentStage on DevelopmentStage.DevelopmentStage_id = ActivityDetails.DevelopmentStage_id `
   ` WHERE RiceCropInformation_id LIKE '%${riceCropInformation_id}%' AND otheractivities.OtherActivities_name like'%${name}%' ORDER BY ActivityDetails_times`;
 
      sql.query(query, (err, res) => {

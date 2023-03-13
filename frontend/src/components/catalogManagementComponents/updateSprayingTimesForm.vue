@@ -35,7 +35,7 @@
                               placeholder="Ngày bắt đầu">
                               <datepicker :enable-time-picker="false" :value="newsprayingtimes.SprayingTimes_startDate"
                                    :hide-input-icon="true" v-model="newsprayingtimes.SprayingTimes_startDate"
-                                   placeholder="YYYY-MM-DD" :clearable="false" >
+                                   placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false" >
                               </datepicker>
                          </Field>
                          <ErrorMessage name="start" class="error-feedback" />
@@ -76,7 +76,7 @@
                               v-model="newsprayingtimes.SprayingTimes_endDate" placeholder="Ngày sinh">
                               <datepicker :enable-time-picker="false" :value="newsprayingtimes.SprayingTimes_endDate"
                                    :hide-input-icon="true" v-model="newsprayingtimes.SprayingTimes_endDate"
-                                   placeholder="YYYY-MM-DD" :clearable="false" >
+                                   placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false" >
                               </datepicker>
                          </Field>
                          <ErrorMessage name="end" class="error-feedback" />

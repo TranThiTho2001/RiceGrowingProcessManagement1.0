@@ -12,7 +12,7 @@
                <p class="col-sm-12 text-center functionName"><span class="fa fa-plus-circle"> </span> Thêm nhân viên mới
                </p>
           </div>
-          <div class="row  content">
+          <div class="row content">
                <div class="col-md-6">
                     <div class="form-group">
                          <label for="id" class="mt-2">Mã</label>
@@ -40,7 +40,7 @@
                          <Field name="birthDate" class="form-control" v-model="newemployee.Employee_birthDate"
                               placeholder="Ngày sinh">
                               <datepicker  :enable-time-picker="false" :value="newemployee.Employee_birthDate" :hide-input-icon="true" 
-                                   v-model="newemployee.Employee_birthDate" placeholder="YYYY-MM-DD" :clearable="false" >
+                                   v-model="newemployee.Employee_birthDate" placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false" >
                               </datepicker>
                          </Field>
                          <ErrorMessage name="birthDate" class="error-feedback" />

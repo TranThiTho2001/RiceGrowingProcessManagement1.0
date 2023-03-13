@@ -41,7 +41,7 @@
                          <Field name="birthDate" class="form-control" v-model="newemployee.Employee_birthDate"
                               placeholder="Ngày sinh">
                               <datepicker  :value="newemployee.Employee_birthDate" :enable-time-picker="false" :hide-input-icon="true" 
-                                    v-model="newemployee.Employee_birthDate" :clearable="false" >
+                                    v-model="newemployee.Employee_birthDate" :clearable="false"  placeholder="DD-MM-YYYY" format="dd-MM-yyyy">
                               </datepicker>
                          </Field>
                          <ErrorMessage name="birthDate" class="error-feedback" />

@@ -77,7 +77,10 @@
                                    </tr>
                               </tbody>
                          </table>
-                         <nav aria-label="..." v-if="pesticideChoosen.length>6">
+                    </div>
+                    <div class="row ml-2 mr-2 mt-2">
+                         <div class="col-sm-12" style="display: flex; justify-content: center;">
+                              <nav aria-label="...">
                          <ul class="pagination " aria-controls="my-table">
                               <li class="page-item disabled" v-if="currentPage == 1">
                                    <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
@@ -104,6 +107,7 @@
                               </li>
                          </ul>
                     </nav>
+                         </div>
                     </div>
                     <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
 
@@ -163,7 +167,6 @@ export default {
           TopHeader,
           CreatePesticideForm,
           UpdatePesticideForm,
-          
      },
 
      data() {
@@ -311,7 +314,7 @@ export default {
                } else {
                     this.retrievePesticideList()
                     console.log(response.data);
-                    this.message = "Xóa phân bón thành công"
+                    this.message = "Xóa thuốc trị bệnh dịch thành công"
                }
           },
 
@@ -327,10 +330,8 @@ export default {
                          console.log(response.data)
                     }
                     else {
-                         // this.message = "Không tìm thấy phân bón!";
                          this.isOpenMessage = !this.isOpenMessage;
                     }
-
                }
           },
 
@@ -338,7 +339,6 @@ export default {
                this.pesticideChoosen = pesticide;
                console.log(this.pesticideChoosen)
           },
-
 
           //  so hang của danh sach danh muc
           get_rows(list) {
@@ -383,8 +383,7 @@ export default {
 @import url(../../assets/pesticideStyle.css);
 nav {
      position: absolute;
-     left: 42%;
-     top: 92%;
+     display: inline !important;
 }
 
 nav .pagination .active .page-link {

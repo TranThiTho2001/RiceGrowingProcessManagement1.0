@@ -46,9 +46,9 @@
               </div>
 
 
-              <p v-if="message" style=" color: red; text-align: center; font-size: 17px; margin-top: 4%;">
+              <div class="row text-center ml-3" v-if="message" style=" color: red; text-align: center; font-size: 17px; margin-top: 4%;">
                 {{ message }}
-              </p>
+              </div>
 
               <div class="form-group mt-2 btn-login ">
                 <button class="btn btnDangNhap" :disabled="isSubmitting"

@@ -1,5 +1,6 @@
 .createFertilizerTimesForm, .updateFertilizerTimesForm{
-     background-color: #b7f8d0;
+    background-color: #dbdbdb;
+    border: 0.5px solid #b8b5b5;
      font-family: Inter;
      border-radius: 10px;
      position: absolute;
@@ -23,7 +24,9 @@
 .createFertilizerTimesForm .content .form-group label,
 .updateFertilizerTimesForm .content .form-group label{
      float: left;
-     font-family: Inter;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 500;
      font-size: 18px;
 }
 

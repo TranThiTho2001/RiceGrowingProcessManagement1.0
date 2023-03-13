@@ -48,11 +48,10 @@
                          <Field name="sowingDate" class="form-control " v-if="!selectdate"
                               v-model="newricecrop.RiceCropInformation_sowingDate" placeholder="Ngày sinh"
                               @click="selectdate = !selectdate">
-                              <datepicker :enable-time-picker="false" :format="dateFormat"
+                              <datepicker :enable-time-picker="false" format="dd-MM-yyyy"
                                    :value="newricecrop.RiceCropInformation_sowingDate" :hide-input-icon="true"
                                    :hide-navigation="true" placeholder=""
-                                   v-model="newricecrop.RiceCropInformation_sowingDate" :clearable="false"
-                                   @update:model-value="fotmatDate()">
+                                   v-model="newricecrop.RiceCropInformation_sowingDate" :clearable="false" >
                               </datepicker>
                          </Field>
 
@@ -80,7 +79,7 @@
                               placeholder="Ngày sinh">
                               <datepicker :enable-time-picker="false" :value="newricecrop.RiceCropInformation_harvestDate"
                                    :hide-input-icon="true" v-model="newricecrop.RiceCropInformation_harvestDate"
-                                   placeholder="MM/DD/YYYY" :clearable="false" :format="yyyy - MM - dd">
+                                   placeholder="DD-MM-YYYY" :clearable="false" format="dd-MM-yyyy" >
                               </datepicker>
                          </Field>
                          <ErrorMessage name="harvestDate" class="error-feedback" />
@@ -216,7 +215,6 @@ export default {
      --dp-tooltip-color: #fafafa;
      --dp-disabled-color-text: #8e8e8e;
      --dp-highlight-color: rgb(25 118 210 / 10%);
-
 }
 
 .dp__input {

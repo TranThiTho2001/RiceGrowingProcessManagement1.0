@@ -7,33 +7,34 @@
                     </div>
                </div>
 
-               <div class="col-sm-10 leftEmployeeManager">
-                    <div class="row mr-2 mt-2 mb-4">
-                         <div class="col-md-7 pr-5">
-                              <div class="row">
-                                   <input type="text" class="form-control col-sm-8 ml-4 pt-2 inputSearch"
-                                        placeholder="Tìm theo tên" style="border-radius:10px" v-model="nameToSearch"
-                                        @keyup.enter="searchName" />
-                                   <button class=" btnSearch pt-2" @click="searchName">
-                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                                   </button>
+               <div class="col-sm-10 rightEmployeeManager">
+                    <div class="row ml-2 pt-3 mb-5 pb-1 mr-2 topRight">
+                         <div class="col-md-2">
+                              <h3 class="name">Nhân viên</h3>
+                         </div>
+                         <div class="col-md-8">
+                              <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
+                                   @click="retrieveEmployeeList()" @keyup.enter="searchName(nameToSearch)"
+                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                              <button class="btnSearch1" @click="searchName(nameToSearch)"
+                                   v-if="nameToSearch == '' && !isOpenSearch.open">
+                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                              </button>
+                              <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                                   <p class="item" v-for="employee in filteredList()" :key="employee.Employee_id"
+                                        @click="searchName(employee.Employee_name)">
+                                        {{ employee.Employee_name }}</p>
                               </div>
                          </div>
-                         <div class="col-md-3"></div>
-                         <div class="col-md-2 pl-5 text-right">
+
+                         <div class="col-md-2 text-right">
                               <div class="row">
-                                   <TopHeader  />
+                                   <TopHeader />
                               </div>
                          </div>
                     </div>
 
-                    <div class="row mr-2 ml-2">
-                         <div class="col-sm-12 text-center">
-                              <h2>DANH SÁCH NHÂN VIÊN</h2>
-                         </div>
-                    </div>
-
-                    <div class="row mr-2 ml-2 mt-4 mb-3 ">
+                    <div class="row  ml-2 mr-2 mt-4 pt-3 pb-3">
                          <div class="col-sm-12 text-right">
                               <button class="btnCreate pt-1 pb-1"
                                    @click="isOpenCreateEmployeeForm = !isOpenCreateEmployeeForm">
@@ -41,8 +42,8 @@
                          </div>
                     </div>
 
-                    <div class=" row employeeList ml-2 mr-2">
-                         <table class="table">
+                    <div class="row employeeList  ml-2 mr-2 justify-content-center">
+                         <table class="table mt-4 ml-2 mr-2">
                               <thead>
                                    <tr>
                                         <th class="text-center">STT</th>
@@ -51,31 +52,42 @@
                                         <th>Số điện thoại</th>
                                         <th>Chuyên môn</th>
                                         <th>Vai trò</th>
-                                        <th>Tùy chọn</th>
+                                        <th></th>
                                    </tr>
                               </thead>
                               <tbody>
                                    <tr v-for="(employee, i ) in get_rows(employeeList)" :key="i">
-                                        <td class="text-center" v-if="currentPage > 1">{{ i + ((currentPage - 1) * elementsPerPage) }}
+                                        <td class="text-center" v-if="currentPage > 1">{{ i + ((currentPage - 1) *
+                                             elementsPerPage) + 1 }}
                                         </td>
-                                        <td class="text-center" v-else>{{ i }}</td>
+                                        <td class="text-center" v-else>{{ i + 1 }}</td>
                                         <td class="text-center">{{ employee.Employee_id }}</td>
                                         <td>{{ employee.Employee_name }}</td>
                                         <td>{{ employee.Employee_phoneNumber }}</td>
                                         <td>{{ employee.Employee_major }}</td>
                                         <td>{{ employee.Role_name }}</td>
-                                        <td>
-                                   <tr class="actions">
-                                        <span @click="setEmployeeChoosen(employee), isOpenUpdateEmployeeForm = !isOpenUpdateEmployeeForm"><span
-                                                  class="fas fa-edit pl-2"></span>
-                                        </span>
-                                        <span @click="setEmployeeChoosen(employee), isOpenXacNhan = !isOpenXacNhan"><span
-                                                  class="fas fa-trash-alt pl-4"></span></span>
-                                   </tr>
-                                   </td>
+                                        <td class="">
+                                             <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
+                                                  aria-haspopup="true" aria-expanded="false">
+                                                  <i class="fas fa-ellipsis-v"></i>
+                                             </button>
+                                             <div class="dropdown-menu">
+                                                  <a class="dropdown-item action"
+                                                       @click="setEmployeeChoosen(employee), isOpenUpdateEmployeeForm = !isOpenUpdateEmployeeForm">
+                                                       <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
+                                                  </a>
+                                                  <a class="dropdown-item" href="#"
+                                                       @click="setEmployeeChoosen(employee), isOpenXacNhan = !isOpenXacNhan">
+                                                       <span class="fas fa-trash-alt actionIcon"></span> Xóa
+                                                  </a>
+                                             </div>
+                                        </td>
                                    </tr>
                               </tbody>
                          </table>
+                    </div>
+                    <div class="row mt-2 ml-2 mr-2" style="display: flex; justify-content: center;">
+
                          <nav aria-label="...">
                               <ul class="pagination " aria-controls="my-table">
                                    <li class="page-item disabled" v-if="currentPage == 1">
@@ -141,6 +153,7 @@
                     @click="isOpenThongBao = !isOpenThongBao">OK</button>
           </div>
      </div>
+     <div v-if="isOpenSearch.open" class="outside" @click.passive="away()"></div>
 </template>
    
 <script>
@@ -178,6 +191,12 @@ export default {
                message2: " ",
                isOpenCreateEmployeeForm: false,
                isOpenUpdateEmployeeForm: false,
+               cloneEmployeeList: [],
+               nameToSearch: "",
+               isOpenSearch: {
+                    open: false,
+                    close: true,
+               },
           }
      },
 
@@ -197,6 +216,17 @@ export default {
                "initEmployeeState"
           ]),
 
+          filteredList() {
+               return this.cloneEmployeeList.filter(employee => {
+                    return employee.Employee_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
+               })
+          },
+
+          away() {
+               this.isOpenSearch.open = false;
+               this.isOpenSearch.close = true;
+          },
+
           async retrieveEmployeeList() {
                const [err, respone] = await this.handle(
                     employeeService.getAll()
@@ -206,6 +236,7 @@ export default {
                }
                else {
                     this.employeeList = respone.data;
+                    this.cloneEmployeeList = respone.data;
                     var temp = (String(this.employeeList[this.employeeList.length - 1].Employee_id)).split("");
                     var id = "";
                     for (let index = 0; index < temp.length; index++) {
@@ -250,7 +281,7 @@ export default {
                this.message2 = "";
                if (data.close == false) {
                     this.newEmployee = {},
-                    this.isOpenCreateEmployeeForm = false;
+                         this.isOpenCreateEmployeeForm = false;
                }
                else {
                     if (data.Role_id == "Quản lý") {
@@ -341,21 +372,35 @@ export default {
                }
           },
 
-          async searchName() {
-               const [error, response] = await this.handle(
-                    employeeService.findByName(this.nameToSearch));
-               if (error) {
-                    console.log(error);
-               } else {
-                    if (response.data != null) {
-                         this.employeeList = response.data;
-                         console.log(response.data)
+          async searchName(data) {
+               this.nameToSearch = data;
+               if (this.nameToSearch != '') {
+                    this.employeeList = [];
+                    this.employeeList.forEach(element => {
+                         if (element.Employee_name == data) {
+                              this.employeeList.push(element);
+                         }
+                    });
+                    if (this.employeeList.length == 0) {
+                         const [error, response] = await this.handle(
+                              employeeService.findByName(this.nameToSearch));
+                         if (error) {
+                              console.log(error);
+                         } else {
+                              if (response.data != null) {
+                                   this.employeeList = response.data;
+                                   console.log(response.data)
+                              }
+                              else {
+                                   console.log(response.data)
+                              }
+                         }
                     }
-                    else {
-                         console.log(response.data)
-                    }
-
                }
+               else {
+                    this.retrieveEmployeeList();
+               }
+
           },
 
           //  so hang của danh sach danh muc
@@ -396,6 +441,36 @@ export default {
    
 <style>
 @import url(../../assets/employeeStyle.css);
+
+nav {
+     position: absolute;
+     display: inline !important;
+}
+
+nav .pagination .active .page-link {
+     background: #ABD2C8 !important;
+     border: 1px solid #FAFAFC !important;
+     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+     border-radius: 15px !important;
+     margin-left: 10px !important;
+     margin-right: 10px !important;
+     color: #FFFED8 !important;
+
+     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     /* width: 40px !important; */
+}
+
+nav .pagination .page-item .page-link {
+     color: #6D6E73;
+     border: none;
+     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 700;
+     background-color: #EAEAEA;
+     font-size: 20px;
+     z-index: -2;
+}
 </style>
    
 

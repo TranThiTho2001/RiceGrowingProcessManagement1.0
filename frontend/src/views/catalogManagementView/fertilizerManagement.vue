@@ -11,10 +11,9 @@
                          <div class="col-md-2">
                               <h3 class="name">Phân bón</h3>
                          </div>
-                         <div class="col-md-8" >
-                              <input type="text" class="form-control inputSearch1"  placeholder="Tìm" v-model="nameToSearch" 
-                                   @click="retrieveFertilizerList()"
-                                   @keyup.enter="searchName(nameToSearch)"
+                         <div class="col-md-8">
+                              <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
+                                   @click="retrieveFertilizerList()" @keyup.enter="searchName(nameToSearch)"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
                               <button class="btnSearch1" @click="searchName(nameToSearch)"
                                    v-if="nameToSearch == '' && !isOpenSearch.open">
@@ -29,14 +28,14 @@
 
                          <div class="col-md-2 text-right">
                               <div class="row">
-                                   <TopHeader  />
+                                   <TopHeader />
                               </div>
                          </div>
                     </div>
                     <div class="row ml-2 mr-2 mt-4  pt-3 pb-2">
                          <div class="col-sm-12 text-right">
-                              <button class="btn btnCreate" @click="openCreate = !openCreate"><i
-                                        class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm phân bón</button>
+                              <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
+                                        style="font-size: 15px;"></i> Thêm phân bón</button>
                          </div>
                     </div>
                     <div class="row fertilizerList mt-2 ml-2 mr-2 justify-content-center">
@@ -51,24 +50,26 @@
                                    </tr>
                               </thead>
                               <tbody>
-                                   <tr v-for="(fertilizer, i ) in get_rows(fertilizerList)" :key="i" class="align-self-center">
-                                        <td v-if="currentPage > 1" class="text-center">{{ i+ ((currentPage - 1) * 6 +1)}}</td>
-                                        <td v-else class="text-center">{{ i+1 }}</td>
+                                   <tr v-for="(fertilizer, i ) in get_rows(fertilizerList)" :key="i"
+                                        class="align-self-center">
+                                        <td v-if="currentPage > 1" class="text-center">{{ i + ((currentPage - 1) * 6 + 1) }}
+                                        </td>
+                                        <td v-else class="text-center">{{ i + 1 }}</td>
                                         <td>{{ fertilizer.Fertilizer_id }}</td>
                                         <td>{{ fertilizer.Fertilizer_name }}</td>
                                         <td>{{ fertilizer.Fertilizer_supplier }}</td>
                                         <td class="">
-                                             <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown" 
+                                             <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
                                                   aria-haspopup="true" aria-expanded="false">
                                                   <i class="fas fa-ellipsis-v"></i>
                                              </button>
                                              <div class="dropdown-menu">
                                                   <a class="dropdown-item action"
-                                                  @click="setFertilizerChoosen(fertilizer), isOpenUpdateFertilizer = !isOpenUpdateFertilizer">
+                                                       @click="setFertilizerChoosen(fertilizer), isOpenUpdateFertilizer = !isOpenUpdateFertilizer">
                                                        <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                                   </a>
                                                   <a class="dropdown-item" href="#"
-                                                  @click="setFertilizerChoosen(fertilizer), isOpenConfirm = !isOpenConfirm">
+                                                       @click="setFertilizerChoosen(fertilizer), isOpenConfirm = !isOpenConfirm">
                                                        <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                   </a>
                                              </div>
@@ -76,67 +77,75 @@
                                    </tr>
                               </tbody>
                          </table>
-                         <nav aria-label="...">
-                         <ul class="pagination " aria-controls="my-table">
-                              <li class="page-item disabled" v-if="currentPage == 1">
-                                   <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
-                              </li>
-                              <li class="page-item " v-if="currentPage > 1">
-                                   <a class="page-link" href="#" @click="change_page('-', fertilizerList)" aria-controls="my-table">{{
-                                        previous }}</a>
-                              </li>
-                              <li class="page-item"><a class="page-link" href="#" @click="change_page(currentPage - 1, fertilizerList)"
-                                        v-if="currentPage > 1">{{ currentPage - 1 }}</a></li>
-                              <li class="page-item active">
-                                   <a class="page-link" style="background-color: #EEEA41; border-color: #EEEA41;" href="#">{{
-                                        currentPage }} <span class="sr-only">(current)</span></a>
-                              </li>
-                              <li class="page-item"><a class="page-link" href="#" v-if="currentPage < num_pages(fertilizerList)"
-                                        @click="change_page(currentPage + 1, fertilizerList)">{{ currentPage + 1 }}</a></li>
-                              <li class="page-item">
-                                   <a class="page-link" href="#" @click="change_page('+', fertilizerList)"
-                                        v-if="currentPage < num_pages(fertilizerList)">{{
-                                             next }}</a>
-                              </li>
-                              <li class="page-item disabled">
-                                   <a class="page-link" href="#" v-if="currentPage >= num_pages(fertilizerList)">{{ next }}</a>
-                              </li>
-                         </ul>
-                    </nav>
                     </div>
-                    <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
+                         <div class="row mt-2 ml-2 mr-2" style="display: flex; justify-content: center;">
+                              <nav aria-label="...">
+                                   <ul class="pagination " aria-controls="my-table">
+                                        <li class="page-item disabled" v-if="currentPage == 1">
+                                             <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
+                                        </li>
+                                        <li class="page-item " v-if="currentPage > 1">
+                                             <a class="page-link" href="#" @click="change_page('-', fertilizerList)"
+                                                  aria-controls="my-table">{{
+                                                       previous }}</a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#"
+                                                  @click="change_page(currentPage - 1, fertilizerList)"
+                                                  v-if="currentPage > 1">{{ currentPage - 1 }}</a></li>
+                                        <li class="page-item active">
+                                             <a class="page-link" style="background-color: #EEEA41; border-color: #EEEA41;"
+                                                  href="#">{{
+                                                       currentPage }} <span class="sr-only">(current)</span></a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#"
+                                                  v-if="currentPage < num_pages(fertilizerList)"
+                                                  @click="change_page(currentPage + 1, fertilizerList)">{{ currentPage + 1
+                                                  }}</a></li>
+                                        <li class="page-item">
+                                             <a class="page-link" href="#" @click="change_page('+', fertilizerList)"
+                                                  v-if="currentPage < num_pages(fertilizerList)">{{
+                                                       next }}</a>
+                                        </li>
+                                        <li class="page-item disabled">
+                                             <a class="page-link" href="#" v-if="currentPage >= num_pages(fertilizerList)">{{
+                                                  next }}</a>
+                                        </li>
+                                   </ul>
+                              </nav>
+                         </div>
+                         <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
 
-                    <div class="confirmationDialog" v-if="isOpenConfirm">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelConfirm">
-                              <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
-                         </p>
-                         <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteFertilizer(fertilizerChoosen.Fertilizer_id)">Xóa</button>
-                         <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
+                         <div class="confirmationDialog" v-if="isOpenConfirm">
+                              <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
+                                   class="labelConfirm">
+                                   <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
+                              </p>
+                              <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
+                                   @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteFertilizer(fertilizerChoosen.Fertilizer_id)">Xóa</button>
+                              <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                                   @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
+                         </div>
+
+                         <div class="messageDialog" v-if="isOpenMessage">
+                              <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
+                                   class="labelThongBao">
+                                   <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
+                                        message
+                                   }}
+                              </p>
+                              <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                                   @click="isOpenMessage = !isOpenMessage">OK</button>
+                         </div>
+
+                         <CreateFertilizerForm v-if="openCreate" :newFertilizer="newFertilizer"
+                              @addFertilizer-submit="createFertilizer" :message1="message1" :message2="message2" />
+
+                         <UpdateFertilizerForm v-if="isOpenUpdateFertilizer" :newFertilizer="fertilizerChoosen"
+                              @updateFertilizer-submit="updateFertilizer" :message1="message1" :message2="message2" />
                     </div>
-
-                    <div class="messageDialog" v-if="isOpenMessage">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelThongBao">
-                              <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
-                                   message
-                              }}
-                         </p>
-                         <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenMessage = !isOpenMessage">OK</button>
-                    </div>
-
-                    <CreateFertilizerForm v-if="openCreate" :newFertilizer="newFertilizer"
-                         @addFertilizer-submit="createFertilizer" :message1="message1" :message2="message2" />
-
-                    <UpdateFertilizerForm v-if="isOpenUpdateFertilizer" :newFertilizer="fertilizerChoosen"
-                         @updateFertilizer-submit="updateFertilizer" :message1="message1" :message2="message2" />
                </div>
           </div>
-     </div>
-     <div v-if="isOpenSearch.open" class="outside" @click.passive="away()"></div>
+          <div v-if="isOpenSearch.open" class="outside" @click.passive="away()"></div>
 </template>
 
 <script>
@@ -232,7 +241,7 @@ export default {
                          const element = temp[index];
                          if (element != "F" && element != "R" & element != "0") {
                               for (let i = index; i < temp.length; i++) {
-                                   id = id.concat(temp[i]);                               
+                                   id = id.concat(temp[i]);
                               }
                               break;
                          }
@@ -376,10 +385,11 @@ export default {
 
 <style>
 @import url(../../assets/fertilizerStyle.css);
+
 nav {
      position: absolute;
-     left: 42%;
-     top: 92%;
+     display: inline !important;
+     
 }
 
 nav .pagination .active .page-link {
@@ -390,7 +400,7 @@ nav .pagination .active .page-link {
      margin-left: 10px !important;
      margin-right: 10px !important;
      color: #FFFED8 !important;
-
+   
      text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
      /* width: 40px !important; */
 }
@@ -402,7 +412,6 @@ nav .pagination .page-item .page-link {
      font-family: 'Roboto';
      font-style: normal;
      font-weight: 700;
-     background-color:  #EAEAEA;
+     background-color: #EAEAEA;
      font-size: 20px;
-}
-</style>
+}</style>

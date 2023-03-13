@@ -12,9 +12,8 @@
                               <h3 class="name">Giống lúa</h3>
                          </div>
                          <div class="col-md-8">
-                              <input type="text" class="form-control inputSearch1"  placeholder="Tìm" v-model="nameToSearch" 
-                                   @click="retrieveSeedList()"
-                                   @keyup.enter="searchName(nameToSearch)"
+                              <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
+                                   @click="retrieveSeedList()" @keyup.enter="searchName(nameToSearch)"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
                               <button class="btnSearch1" @click="searchName(nameToSearch)"
                                    v-if="nameToSearch == '' && !isOpenSearch.open">
@@ -35,10 +34,7 @@
                          </div>
                     </div>
                     <div class="row ml-2 mr-2 mt-4 pt-3 pb-3">
-                         <div class="btnChoosePage col-sm-2">
-                         </div>
-                         <div class="col-sm-7"></div>
-                         <div class="col-sm-3 text-right">
+                         <div class="col-sm-12 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate" style="border-radius: 12px;"><i
                                         class="fas fa-plus-circle"></i> Thêm giống lúa</button>
                          </div>
@@ -84,38 +80,43 @@
                                    </tr>
                               </tbody>
                          </table>
-                         <nav aria-label="...">
-                              <ul class="pagination " aria-controls="my-table">
-                                   <li class="page-item disabled" v-if="currentPage == 1">
-                                        <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
-                                   </li>
-                                   <li class="page-item " v-if="currentPage > 1">
-                                        <a class="page-link" href="#" @click="change_page('-', seedList)"
-                                             aria-controls="my-table">{{
-                                                  previous }}</a>
-                                   </li>
-                                   <li class="page-item"><a class="page-link" href="#"
-                                             @click="change_page(currentPage - 1, seedList)" v-if="currentPage > 1">{{
-                                                  currentPage - 1 }}</a></li>
-                                   <li class="page-item active">
-                                        <a class="page-link" style="background-color: #EEEA41; border-color: #EEEA41;"
-                                             href="#">{{
-                                                  currentPage }} <span class="sr-only">(current)</span></a>
-                                   </li>
-                                   <li class="page-item"><a class="page-link" href="#"
-                                             v-if="currentPage < num_pages(seedList)"
-                                             @click="change_page(currentPage + 1, seedList)">{{ currentPage + 1 }}</a></li>
-                                   <li class="page-item">
-                                        <a class="page-link" href="#" @click="change_page('+', seedList)"
-                                             v-if="currentPage < num_pages(seedList)">{{
-                                                  next }}</a>
-                                   </li>
-                                   <li class="page-item disabled">
-                                        <a class="page-link" href="#" v-if="currentPage >= num_pages(seedList)">{{ next
-                                        }}</a>
-                                   </li>
-                              </ul>
-                         </nav>
+                    </div>
+                    <div class="row mt-2 ml-2 mr-2" >
+                         <div class="col-sm-12" style="display: flex; justify-content: center;">
+                              <nav aria-label="...">
+                                   <ul class="pagination " aria-controls="my-table">
+                                        <li class="page-item disabled" v-if="currentPage == 1">
+                                             <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
+                                        </li>
+                                        <li class="page-item " v-if="currentPage > 1">
+                                             <a class="page-link" href="#" @click="change_page('-', seedList)"
+                                                  aria-controls="my-table">{{
+                                                       previous }}</a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#"
+                                                  @click="change_page(currentPage - 1, seedList)" v-if="currentPage > 1">{{
+                                                       currentPage - 1 }}</a></li>
+                                        <li class="page-item active">
+                                             <a class="page-link" style="background-color: #EEEA41; border-color: #EEEA41;"
+                                                  href="#">{{
+                                                       currentPage }} <span class="sr-only">(current)</span></a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#"
+                                                  v-if="currentPage < num_pages(seedList)"
+                                                  @click="change_page(currentPage + 1, seedList)">{{ currentPage + 1 }}</a>
+                                        </li>
+                                        <li class="page-item">
+                                             <a class="page-link" href="#" @click="change_page('+', seedList)"
+                                                  v-if="currentPage < num_pages(seedList)">{{
+                                                       next }}</a>
+                                        </li>
+                                        <li class="page-item disabled">
+                                             <a class="page-link" href="#" v-if="currentPage >= num_pages(seedList)">{{ next
+                                             }}</a>
+                                        </li>
+                                   </ul>
+                              </nav>
+                         </div>
                     </div>
                     <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
 
@@ -400,8 +401,7 @@ export default {
 
 nav {
      position: absolute;
-     left: 42%;
-     top: 92%;
+     display: inline !important;
 }
 
 nav .pagination .active .page-link {
@@ -427,5 +427,4 @@ nav .pagination .page-item .page-link {
      background-color: #EAEAEA;
      font-size: 20px;
 }
-
 </style>

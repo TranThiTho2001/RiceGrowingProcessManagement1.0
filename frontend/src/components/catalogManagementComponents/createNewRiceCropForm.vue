@@ -47,7 +47,7 @@
                               placeholder="Ngày sinh">
                               <datepicker :enable-time-picker="false" :value="newricecrop.RiceCropInformation_sowingDate"
                                    :hide-input-icon="true" v-model="newricecrop.RiceCropInformation_sowingDate"
-                                   placeholder="YYYY-MM-DD">
+                                   placeholder="DD-MM-YYYY" format="dd-MM-yyyy" >
                               </datepicker>
                          </Field>
                          <ErrorMessage name="sowingDate" class="error-feedback" />
@@ -87,7 +87,7 @@
                               placeholder="Ngày sinh">
                               <datepicker :enable-time-picker="false" :value="newricecrop.RiceCropInformation_harvestDate" :input-class-name ="myclass"
                                    :hide-input-icon="true" v-model="newricecrop.RiceCropInformation_harvestDate"
-                                   placeholder="YYYY-MM-DD" style="background-color: red !important; ">
+                                   placeholder="DD-MM-YYYY" format="dd-MM-yyyy" style="background-color: red !important; ">
                               </datepicker>
                          </Field>
                          <ErrorMessage name="harvestDate" class="error-feedback" />

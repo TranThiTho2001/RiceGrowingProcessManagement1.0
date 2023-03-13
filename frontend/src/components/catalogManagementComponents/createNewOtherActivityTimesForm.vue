@@ -15,7 +15,7 @@
           <div class="row content">
                <div class="col-sm-6 mt-2">
                     <div class="form-group">
-                         <label for="ricecropid" class="mt-2">Mã mẫu ruộng <span style="color:red">*</span></label>
+                         <label for="ricecropid" class="mt-2 lable">Mã mẫu ruộng <span style="color:red">*</span></label>
                          <Field name="ricecropid" type="name" class="form-control"
                               v-model="ricecropchoosen.RiceCropInformation_id" :disabled="true" />
                          <ErrorMessage name="ricecropid" class="error-feedback" />
@@ -23,14 +23,14 @@
 
 
                     <div class="form-group">
-                         <label for="employeeid" class="mt-3 pt-1">Nhân viên thực hiện<span
+                         <label for="employeeid" class="mt-3 pt-1 lable">Nhân viên thực hiện<span
                                    style="color:red">*</span></label>
                          <Field name="employeeid" class="form-control" v-model="currentuser.Employee_id"
                               placeholder="Nhập mã nhân viên...." :disabled="true" />
                          <ErrorMessage name="employeeid" class="error-feedback" />
                     </div>
                     <div class="form-group">
-                         <label for="developmentid" class="mt-3 pt-1">Giai đoạn phát triển<span
+                         <label for="developmentid" class="mt-3 pt-1 lable">Giai đoạn phát triển<span
                                    style="color:red">*</span></label>
                          <Field name="developmentid" class="form-control"
                               v-model="newactivitiesDetail.DevelopmentStage_name">
@@ -44,12 +44,12 @@
                          <ErrorMessage name="developmentid" class="error-feedback" />
                     </div>
                     <div class="form-group">
-                         <label for="start" class="">Ngày bắt đầu</label>
+                         <label for="start" class="lable">Ngày bắt đầu</label>
                          <Field name="start" class="form-control" v-model="newactivitiesDetail.ActivityDetails_startDate"
                               placeholder="Ngày bắt đầu">
                               <datepicker :enable-time-picker="false" :value="newactivitiesDetail.ActivityDetails_startDate"
                                    :hide-input-icon="true" v-model="newactivitiesDetail.ActivityDetails_startDate"
-                                   placeholder="YYYY-MM-DD" :clearable="false">
+                                   placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false">
                               </datepicker>
                          </Field>
                          <ErrorMessage name="start" class="error-feedback" />
@@ -61,7 +61,7 @@
                               v-model="newactivitiesDetail.FertilizerTimes_endDate" placeholder="Ngày sinh">
                               <datepicker :enable-time-picker="false" :value="newactivitiesDetail.ActivityDetails_endDate"
                                    :hide-input-icon="true" v-model="newactivitiesDetail.ActivityDetails_endDate"
-                                   placeholder="YYYY-MM-DD" :clearable="false">
+                                   placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false">
                               </datepicker>
                          </Field>
                          <ErrorMessage name="end" class="error-feedback" />
@@ -70,7 +70,7 @@
                </div>
                <div class="col-sm-6">
                     <div class="form-group ">
-                         <label for="activity" class="mt-3 pt-1">Tên hoạt động<span style="color:red">*</span></label>
+                         <label for="activity" class="mt-3">Tên hoạt động<span style="color:red">*</span></label>
                          <Field name="activity" v-model="newactivitiesDetail.OtherActivities_name">
                               <select class="form-control" v-model="newactivitiesDetail.OtherActivities_name"
                                    @change="setOtherActivies()" name="classtify" for="classtify">
@@ -84,7 +84,7 @@
                          <ErrorMessage name="activity" class="error-feedback" />
                     </div>
                     <div class="form-group ">
-                         <label for="times" class="">Lần<span style="color:red">*</span></label>
+                         <label for="times" class="mt-1">Lần<span style="color:red">*</span></label>
                          <Field name="times" class="form-control" v-model="newactivitiesDetail.ActivityDetails_times"
                               placeholder="Nhập lần thực hiện..." :disabled="true" />
                          <ErrorMessage name="times" class="error-feedback" />
@@ -98,7 +98,7 @@
                          <ErrorMessage name="temperature" class="error-feedback" />
                     </div>
                     <div class="form-group ">
-                         <label for="humidity" class="mt-3 pt-1">Độ ẩm</label>
+                         <label for="humidity" class="mt-3">Độ ẩm</label>
                          <Field name="humidity" class="form-control" v-model="newactivitiesDetail.ActivityDetails_humidity"
                               placeholder="Nhập độ ẩm..." />
                          <ErrorMessage name="humidity" class="error-feedback" />
@@ -147,7 +147,7 @@ import ActivityDetailsService from "@/services/activityDetails.service";
 import OtherActivitiesService from "@/services/otherActivities.service";
 import CreateNewOtherActiviesForm from '@/components/catalogManagementComponents/createNewOtherActivities.vue';
 export default {
-     name: "createFertilizerTimesForm",
+     name: "createActivitiesDetailForm",
      components: {
           Form,
           Field,
@@ -336,6 +336,7 @@ mounted() {
      outline: none;
      transition: border-color .2s cubic-bezier(0.645, 0.045, 0.355, 1);
      width: 100%;
+     height: 39px;
      font-size: 1rem;
      line-height: 1.5rem;
      padding: 6px 12px;

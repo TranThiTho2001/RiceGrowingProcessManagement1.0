@@ -86,6 +86,8 @@
                                    </tr>
                               </tbody>
                          </table>
+                    </div>
+                    <div class="row mt-2 ml-2 mr-2" style="display: flex; justify-content: center;">
                          <nav aria-label="...">
                               <ul class="pagination" aria-controls="my-table">
                                    <li class="page-item disabled" v-if="currentPage == 1">
@@ -182,7 +184,7 @@ export default {
      data() {
           return {
                currentPage: 1,
-               elementsPerPage: 1,
+               elementsPerPage: 9,
                ascending: false,
                previous: '<<',
                next: '>>',
@@ -354,7 +356,7 @@ export default {
                } else {
                     this.retrieveArableLandList()
                     console.log(response.data);
-                    this.message = "Xóa phân bón thành công"
+                    this.message = "Xóa mẫu ruộng thành công"
                }
           },
 
@@ -424,10 +426,10 @@ export default {
 <style>
 @import url(../../assets/arablelandStyle.css);
 
+
 nav {
      position: absolute;
-     left: 42%;
-     top: 92%;
+     display: inline !important;
 }
 
 nav .pagination .active .page-link {

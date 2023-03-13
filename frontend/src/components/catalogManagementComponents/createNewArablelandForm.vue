@@ -132,4 +132,5 @@ export default {
 };
 </script>
  
-<style>@import url(../../assets/arablelandStyle.css);</style>
+<style>@import url(../../assets/arablelandStyle.css);
+</style>

@@ -85,6 +85,8 @@
                                    </tr>
                               </tbody>
                          </table>
+                    </div>
+                    <div class="row mt-2 ml-2 mr-2" style="display: flex; justify-content: center;">
                          <nav aria-label="...">
                               <ul class="pagination " aria-controls="my-table">
                                    <li class="page-item disabled" v-if="currentPage == 1">
@@ -339,7 +341,7 @@ export default {
                } else {
                     this.retrieveEpidemicList()
                     console.log(response.data);
-                    this.message = "Xóa giống lúa thành công"
+                    this.message = "Xóa bệnh dịch thành công"
                }
           },
 
@@ -353,6 +355,7 @@ export default {
                     this.epidemicsClassificationList = response.data;
                }
           },
+          
           async searchName(data) {
                this.nameToSearch = data;
                const [error, response] = await this.handle(EpidemicService.findByName(this.nameToSearch));
@@ -364,10 +367,8 @@ export default {
                          console.log(response.data)
                     }
                     else {
-                         this.message = "Không tìm thấy giống lúa!";
-                         // this.isOpenMessage = !this.isOpenMessage;
+                         this.message = "Không tìm thấy bệnh dịch!";
                     }
-
                }
           },
 
@@ -419,10 +420,10 @@ export default {
 <style>
 @import url(../../assets/epidemicStyle.css);
 
+
 nav {
-     position: absolute;
-     left: 42%;
-     top: 92%;
+     position: relative;
+     display: inline !important;
 }
 
 nav .pagination .active .page-link {

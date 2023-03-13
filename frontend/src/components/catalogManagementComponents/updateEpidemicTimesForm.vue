@@ -35,7 +35,7 @@
                               placeholder="Ngày bắt đầu">
                               <datepicker :enable-time-picker="false" :value="newepidemictimes.EpidemicTimes_startDate"
                                    :hide-input-icon="true" v-model="newepidemictimes.EpidemicTimes_startDate"
-                                   placeholder="YYYY-MM-DD" :clearable="false" >
+                                   placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false" >
                               </datepicker>
                          </Field>
                          <ErrorMessage name="start" class="error-feedback" />
@@ -94,7 +94,7 @@
                               placeholder="Ngày sinh">
                               <datepicker :enable-time-picker="false" :value="newepidemictimes.EpidemicTimes_endDate"
                                    :hide-input-icon="true" v-model="newepidemictimes.EpidemicTimes_endDate"
-                                   placeholder="YYYY-MM-DD" :clearable="false" >
+                                   placeholder="DD-MM-YYYY"  format="dd-MM-yyyy" :clearable="false" >
                               </datepicker>
                          </Field>
                           <ErrorMessage name="end" class="error-feedback" />
