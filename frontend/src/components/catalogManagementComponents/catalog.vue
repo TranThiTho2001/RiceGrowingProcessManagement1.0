@@ -25,39 +25,51 @@
           </div>
           <div class="row bottomRow mt-1">
                <div class="categoryList col-sm-12">
-                    <div class="row" v-if="currentuser.Role_id=='03' || currentuser.Role_id=='02'">
+                    <div class="row" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
                          <button class="btn ml-2 pl-4 pr-5 btn-sm btn-outline-secondary btnMonitor" @click="goToQLMonitor">
                               <i class="fas fa-chart-line">&nbsp;</i>Theo Dõi Mùa Vụ</button>
                     </div>
-                    <div class="row" v-if="currentuser.Role_id=='01'">
+                    <div class="row" v-if="currentuser.Role_id == '01'">
                          <button class="btn ml-2 pl-4  pr-2 mr-2 btn-sm btnEmployee">
                               <i class="fas fa-users">&nbsp;</i>Quản Lý Nhân Viên</button>
                     </div>
-                    <div class="row mt-1 pt-2" v-if="currentuser.Role_id=='03' || currentuser.Role_id=='02'">
+                    <div class="row mt-1 pt-2" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
+                         <button class="btn ml-2 pl-4 pr-5 btn-sm btn-outline-secondary btnOtherActivities"
+                              @click="goToThongKe"> <i class="fas fa-chart-pie" style="font-size: 20px;">&nbsp;</i> Thống Kê
+                         </button>
+                    </div>
+                    <div class="row mt-1 pt-2" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
                          <button class="btn ml-2 pl-4 pr-5 btn-sm btn-outline-secondary btnOtherActivities"
                               @click="goToOtherActivities"> <i class="far fa-list-alt">&nbsp;</i>Các Hoạt Động
                          </button>
                     </div>
-                    <div class="row mt-3" v-if="currentuser.Role_id=='03' || currentuser.Role_id=='02'">
-                         <button class="btn ml-2 pl-4 pr-5 btn-sm btn-outline-secondary btnSeed" @click="goToSeed"><i
-                                   class="fas fa-seedling">&nbsp;</i>Giống Lúa</button>
+                    <div class="row mt-3" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
+                         <button class="btn ml-2 pl-4 pr-5 btn-sm btn-outline-secondary btnCatalog"
+                              @click="isOpenCatalog = !isOpenCatalog"><i class="fas fa-caret-down" style="font-size: 28px;">&nbsp;</i> Danh
+                              Mục</button>
                     </div>
-                    <div class="row mt-3" v-if="currentuser.Role_id=='03' || currentuser.Role_id=='02'">
-                         <button class="btn ml-2 pl-4 pr-5 btn-sm btn-outline-secondary btnFertilizer"
-                              @click="goToFertilizer">
-                              <i class="fas fa-fill-drip">&nbsp;</i>Phân Bón </button>
-                    </div>
-                    <div class="row mt-3" v-if="currentuser.Role_id=='03' || currentuser.Role_id=='02'">
-                         <button class="btn ml-2 pl-4 pr-5 btn-sm btn-outline-secondary btnEpidemic" @click="goToEpidemic"><i
-                                   class="fas fa-spider">&nbsp;</i>Dịch Bệnh </button>
-                    </div>
-                    <div class="row mt-3" v-if="currentuser.Role_id=='03' || currentuser.Role_id=='02'">
-                         <button class="btn ml-2 pl-4 pr-5 btn-sm btn-outline-secondary btnArableland"
-                              @click="goToArableLand"><i class="fas fa-square">&nbsp;</i>Mẫu Ruộng</button>
-                    </div>
-                    <div class="row mt-3" v-if="currentuser.Role_id=='03' || currentuser.Role_id=='02'">
-                         <button class="btn ml-2 pl-4 pr-2 btn-sm btn-outline-secondary btnPesticide"
-                              @click="goToPesticide"><i class="fas fa-flask">&nbsp;</i>Thuốc Trị Bệnh Dịch </button>
+                    <div class="catalog" v-if="isOpenCatalog">
+                         <div class="row mt-3 ml-1" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
+                              <button class="btn ml-2 pl-4 pr-5 btn-sm btn-outline-secondary btnSeed" @click="goToSeed"><i
+                                        class="fas fa-seedling">&nbsp;</i>Giống Lúa</button>
+                         </div>
+                         <div class="row mt-3 ml-1" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
+                              <button class="btn ml-2 pl-4 pr-5 btn-sm btn-outline-secondary btnFertilizer"
+                                   @click="goToFertilizer">
+                                   <i class="fas fa-fill-drip">&nbsp;</i>Phân Bón </button>
+                         </div>
+                         <div class="row mt-3 ml-1" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
+                              <button class="btn ml-2 pl-4 pr-5 btn-sm btn-outline-secondary btnEpidemic"
+                                   @click="goToEpidemic"><i class="fas fa-spider">&nbsp;</i>Dịch Bệnh </button>
+                         </div>
+                         <div class="row mt-3 ml-1" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
+                              <button class="btn ml-2 pl-4 pr-5 btn-sm btn-outline-secondary btnArableland"
+                                   @click="goToArableLand"><i class="fas fa-square">&nbsp;</i>Mẫu Ruộng</button>
+                         </div>
+                         <div class="row mt-3 ml-1" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
+                              <button class="btn ml-2 pl-4 pr-2 btn-sm btn-outline-secondary btnPesticide"
+                                   @click="goToPesticide"><i class="fas fa-flask">&nbsp;</i>Thuốc Trị Bệnh Dịch </button>
+                         </div>
                     </div>
                </div>
                <!-- Cot ben phai -->
@@ -71,20 +83,21 @@ import { mapGetters, mapMutations } from "vuex";
 export default {
      name: `Catalog`,
      computed: {
-        ...mapGetters({
-            currentUser: "loggedInEmployee",
-        }),
-    },
+          ...mapGetters({
+               currentUser: "loggedInEmployee",
+          }),
+     },
      data() {
           return {
-               currentuser: {}
+               currentuser: {},
+               isOpenCatalog: false,
           }
      },
 
      methods: {
           ...mapMutations([
-          "initEmployeeState"
-        ]),
+               "initEmployeeState"
+          ]),
           goToQLMonitor() {
                this.$router.push("/Monitor");
           },
@@ -164,7 +177,9 @@ export default {
       border: none;
       border-radius: 14px;
  }
-
+.btnCatalog:focus{
+     border: none;
+}
  .categoryList .btn-outline-secondary:hover,
  .moreInformation .btn-outline-secondary:hover {
       display: block;
@@ -177,20 +192,27 @@ export default {
       border-radius: 14px;
  }
 
- .categoryList .fas,
  .categoryList .fa,
- .moreInformation .fas,
- .moreInformation .fa {
+ .categoryList .far,
+ .categoryList .fas {
       font-size: 20px;
  }
 
+ .categoryList .catalog .fa,
+ .categoryList .catalog .fas{
+     font-size: 15px;
+ }
+
+ .categoryList .catalog .btn-outline-secondary{
+     font-size: 16px;
+ }
  .navigationBar .iconUser {
       font-size: 50px;
  }
 
- 
- .navigationBar .btnEmployee{
-     font-size: 16px;
+
+ .navigationBar .btnEmployee {
+      font-size: 16px;
       font-family: Inter;
       text-align: left;
       min-width: 90%;
@@ -201,5 +223,4 @@ export default {
       border: none;
       border-radius: 14px;
       font-weight: 500;
- }
- </style>
+ }</style>

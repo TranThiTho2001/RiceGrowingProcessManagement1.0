@@ -14,7 +14,7 @@
                </p>
           </div>
           <div class="row content">
-               <div class="col-sm-6">
+               <div class="col-sm-5">
                     <div class="form-group">
                          <label for="id" class="mt-2">Mã thuốc <span style="color: red">*</span></label>
                          <Field name="id" type="name" class="form-control" v-model="newpesticide.Pesticide_id"
@@ -38,7 +38,7 @@
 
                </div>
 
-               <div class="col-sm-6">
+               <div class="col-sm-7">
                     <div class="form-group">
                          <div class="row">
                               <label for="" class="row">Điều trị bệnh dịch gây hại<span
@@ -59,12 +59,13 @@
                                         {{ epidemic.Epidemic_name }}</p>
                               </div>
                          </div>
-                         <div class="row mt-1" v-for="epidemic in epidemiclist" :key="epidemic.Epidemic_id">
+                         <div class="scrollList">
+                         <div class="row mt-1 selectItem" v-for="epidemic in epidemiclist" :key="epidemic.Epidemic_id">
                               <input v-bind:checked="check(epidemic.Epidemic_id)" type="checkbox" v-model="treatment"
                                    @change="show" :value="epidemic.Epidemic_id">
-                              <label>{{ epidemic.Epidemic_name }}</label>
-                              <label for="">{{ check(epidemic.Epidemic_id) }}</label>
+                              <label class="selectItem">{{ epidemic.Epidemic_name }}</label>
                          </div>
+                    </div>
                     </div>
 
                </div>
@@ -297,5 +298,17 @@ export default {
      font-style: normal;
      font-weight: 500;
      font-size: 16px;
+}
+
+.scrollList{
+     overflow: auto;
+     height: 200px;
+     width: 90%;
+     margin-top: 30px;
+}
+
+.selectItem{
+     white-space: nowrap;
+overflow: hidden;
 }
 </style>

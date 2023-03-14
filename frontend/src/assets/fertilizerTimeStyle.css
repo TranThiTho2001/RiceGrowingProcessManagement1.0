@@ -5,8 +5,8 @@
      border-radius: 10px;
      position: absolute;
      top: calc(12%);
-     left:21%;
-     width: 95%;
+     left:18%;
+     width: 80% !important;
 }
 
 
@@ -284,4 +284,11 @@
 .arablelandManagement .arablelandManagementFrame .rightArableLandManagement .btnTimKiem{
     background-color: none;
     color:darkgray
+}
+
+.fertilizerlist{
+    border: 1px solid #c9c8c8;
+    width: 99.5%;
+    margin-left: 10px;
+    background-color: white;
 }

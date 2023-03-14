@@ -11,8 +11,6 @@
                          <div class="col-md-10">
                               <h3 class="name">Theo dõi mùa vụ</h3>
                          </div>
-
-
                          <div class="col-md-2 text-right">
                               <div class="row">
                                    <TopHeader />
@@ -92,7 +90,6 @@
                                         v-if="nameToSearch == '' && !isOpenSearch.open">
                                         <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                                    </button>
-                                   <!-- :class="{ openSearch:isOpenSearch.open, closeSearch:isOpenSearch.close }"  -->
                                    <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
                                         <p class="item" v-for="fertilizerTimes in filteredFerilizerTimesList()"
                                              :key="fertilizerTimes.Fertilizer_id"
@@ -233,7 +230,8 @@
                                    </div>
                                    <button class="btn mt-1 btnAdd"
                                         @click="isOpenCreateEpidemicTimesForm = !isOpenCreateEpidemicTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
-                                   <div class="tableFixHead">
+                                        <p v-for="(treatment,i) in getTreatment('EC00000001')" :key="i">{{ i }}</p>
+                                        <div class="tableFixHead">
                                         <table class="table">
                                              <thead>
                                                   <tr>
@@ -242,10 +240,12 @@
                                                        <th class="text-center ">Ngày bất đầu</th>
                                                        <th class="text-center ">Ngày kết thúc</th>
                                                        <th class="">Nhân viên</th>
+                                                       <th>Gợi ý thuốc</th>
                                                        <th class=""></th>
                                                   </tr>
                                              </thead>
                                              <tbody>
+                                                  
                                                   <tr v-for="(epidemic, i ) in (epidemicTimesList)" :key="i">
                                                        <td class="text-center ">{{ epidemic.EpidemicTimes_times }}</td>
                                                        <td class="">{{ epidemic.Epidemic_name }}</td>
@@ -256,6 +256,9 @@
                                                        }}
                                                        </td>
                                                        <td class="">{{ epidemic.Employee_name }}</td>
+                                                       <td>
+                                                            <p v-for="(treatment,i) in epidemic.Treatment" :key="i" style="display: inline;">{{ treatment.Pesticide_name }}, </p>
+                                                       </td>
                                                        <td class="">
                                                             <button type="button" class="btn btn-sm" data-toggle="dropdown"
                                                                  aria-haspopup="true" aria-expanded="false">
@@ -514,6 +517,7 @@ import UpadteActivitiiesDetailForm from '@/components/catalogManagementComponent
 import CreateActivitiiesDetailForm from '@/components/catalogManagementComponents/createNewOtherActivityTimesForm.vue';
 import axios from 'axios';
 import otherActivitiesService from '@/services/otherActivities.service';
+import TreatmentService from '@/services/treatment.service';
 export default {
      name: "riceCropDetail",
 
@@ -656,6 +660,7 @@ export default {
                cloneMonitorList: [],
                cloneActivityDetailList: [],
                cloneImageList: [],
+               treatmentList: [],
           }
      },
 
@@ -728,7 +733,6 @@ export default {
                }
                else {
                     this.employeeList = respone.data;
-                    console.log(respone.data);
                }
           },
 
@@ -741,7 +745,6 @@ export default {
                }
                else {
                     this.cropList = respone.data;
-                    console.log(respone.data);
                }
           },
 
@@ -754,7 +757,6 @@ export default {
                }
                else {
                     this.epidemicList = respone.data;
-                    console.log(respone.data);
                }
           },
 
@@ -770,6 +772,14 @@ export default {
                          this.epidemicTimesList = respone.data;
                          this.cloneEpidemicTimesList = respone.data;
                          this.newEpidemicTimes.EpidemicTimes_times = this.epidemicTimesList[this.epidemicTimesList.length - 1].EpidemicTimes_times + 1;
+                         this.epidemicTimesList.forEach(element => {
+                              element.Treatment = [];
+                              this.getTreatment(element.Epidemic_id);
+                              this.treatmentList.forEach(t => {
+                                   element.Treatment.push(t);
+                              });
+                              
+                         });
                     }
                     else {
                          this.newEpidemicTimes.EpidemicTimes_times = 1;
@@ -867,6 +877,11 @@ export default {
                          this.fertilizerTimesList = respone.data;
                          this.cloneFertilizerTimesList = respone.data;
                          this.newFertilizerTimes.FertilizerTimes_times = this.fertilizerTimesList[this.fertilizerTimesList.length - 1].FertilizerTimes_times + 1;
+                         this.newFertilizerTimes.Fertilizer = [];
+                         var fertilizerInfor = {};
+                         fertilizerInfor.Fertilizer_name = "";
+                         fertilizerInfor.FertilizerTimes_amount = 0;
+                         this.newFertilizerTimes.Fertilizer.push(fertilizerInfor)
                     }
                     else {
                          this.newFertilizerTimes.FertilizerTimes_times = 1;
@@ -1058,13 +1073,16 @@ export default {
                     });
 
                     this.fertilizerList.forEach(element => {
-                         if (element.Fertilizer_name == data.Fertilizer_name) {
-                              data.Fertilizer_id = element.Fertilizer_id;
-                         }
+                         data.Fertilizer.forEach(fertilizerInformation => {
+                              if (element.Fertilizer_name == fertilizerInformation.Fertilizer_name) {
+                                   fertilizerInformation.Fertilizer_id = element.Fertilizer_id;
+                              }
+                         });
+
                     });
+
                     data.RiceCropInformation_id = this.newRiceCrop.RiceCropInformation_id;
                     data.Employee_id = this.currentUser.Employee_id;
-
 
                     if (data.FertilizerTimes_startDate != null) {
                          data.FertilizerTimes_startDate = (moment(String(data.FertilizerTimes_startDate)).format("YYYY-MM-DD")).slice(0, 10);
@@ -1078,23 +1096,32 @@ export default {
                     else {
                          data.FertilizerTimes_endDate = null;
                     }
-
-                    const [error, respone] = await this.handle(
-                         FertilizerTimesService.create(data)
-                    );
-                    if (error) {
-                         console.log(error);
-                         this.message1 = "Thêm không thành công."
-                    } else if (respone.data == "Không thể tạo lần bón phân mới.") {
-                         this.message1 = "Thêm không thành công."
-                    } else {
-                         this.message2 = "Thêm thành công.";
-                         this.retrieveFertilizerTimesList();
-
-                    }
+                    data.Fertilizer.forEach(element => {
+                         var fertilisertimes = {};
+                         fertilisertimes = data;
+                         fertilisertimes.Fertilizer_id = element.Fertilizer_id;
+                         fertilisertimes.FertilizerTimes_amount = element.FertilizerTimes_amount;
+                         this.createNewFertilizerTimes(fertilisertimes);
+                    });
 
                }
 
+          },
+
+          async createNewFertilizerTimes(data) {
+               const [error, respone] = await this.handle(
+                    FertilizerTimesService.create(data)
+               );
+               if (error) {
+                    console.log(error);
+                    this.message1 = "Thêm không thành công."
+               } else if (respone.data == "Không thể tạo lần bón phân mới.") {
+                    this.message1 = "Thêm không thành công."
+               } else {
+                    this.message2 = "Thêm thành công.";
+                    this.retrieveFertilizerTimesList();
+
+               }
           },
 
           async updateFertilizerTimes(data) {
@@ -1827,6 +1854,22 @@ export default {
                }
           },
 
+         async getTreatment(epidemicid){
+          const [error, response] = await this.handle(
+                    TreatmentService.findByEpidemicId(epidemicid)
+               );
+               if (error) {
+                    console.log(error);
+               } else {
+                    if (response.data == error) {
+                         console.log(error)
+                    }
+                    else {
+                         this.treatmentList = response.data;
+                    }
+               }
+         },
+
           // Search
           async searchNameEpidemic(data) {
                this.nameToSearch = data;
@@ -1966,23 +2009,23 @@ export default {
                }
           },
           async getAPI() {
-          //      console.log(this.newRiceCrop.ArableLand_location)
-          //      var weather = {};
-          //      let urlAPI = `https://api.openweathermap.org/data/2.5/weather?q=${this.newRiceCrop.ArableLand_location}&appid=9aed1da02f473617712a9955f04e0d01`
-          //      let data = await fetch(urlAPI).then(res => res.json())
-          //      weather.temp = (data.main.temp - 273.15).toFixed(0);
-          //     weather.rain = data.weather[0].main;
-          //      weather.humidity = data.main.humidity;
-          //      weather.icon = "https://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png";
-          //      weather.description= data.weather[0].description;
-          //      if (weather.temp > 20) {
-          //           alert("Chu y nhiet do tren 20 do c la moi trường cho rầy nâu phát triên")
-          //      }
+               //      console.log(this.newRiceCrop.ArableLand_location)
+               //      var weather = {};
+               //      let urlAPI = `https://api.openweathermap.org/data/2.5/weather?q=${this.newRiceCrop.ArableLand_location}&appid=9aed1da02f473617712a9955f04e0d01`
+               //      let data = await fetch(urlAPI).then(res => res.json())
+               //      weather.temp = (data.main.temp - 273.15).toFixed(0);
+               //     weather.rain = data.weather[0].main;
+               //      weather.humidity = data.main.humidity;
+               //      weather.icon = "https://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png";
+               //      weather.description= data.weather[0].description;
+               //      if (weather.temp > 20) {
+               //           alert("Chu y nhiet do tren 20 do c la moi trường cho rầy nâu phát triên")
+               //      }
           }
      },
 
      mounted() {
-         
+
           this.initEmployeeState();
           this.retrieveArableLandList();
           this.retrieveCropList();
