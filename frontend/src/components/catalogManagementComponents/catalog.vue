@@ -108,7 +108,6 @@ export default {
           },
 
           async PhanQuyenNhanVien() {
-               console.log(this.employee)
                const [err, respone] = await this.handle(
                     EmployeeService.get(this.currentUser.Employee_id)
                );

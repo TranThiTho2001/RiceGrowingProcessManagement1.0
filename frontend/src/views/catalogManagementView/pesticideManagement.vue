@@ -133,10 +133,10 @@
                               @click="isOpenMessage = !isOpenMessage">OK</button>
                     </div>
 
-                    <CreatePesticideForm v-if="openCreate" :newPesticide="newPesticide"
+                    <CreatePesticideForm v-if="openCreate" :newPesticide="newPesticide" :epidemicList="epidemicList"
                          @addPesticide-submit="createPesticide" :message1="message1" :message2="message2" />
 
-                    <UpdatePesticideForm v-if="isOpenUpdatePesticide" :newPesticide="pesticideChoosen"
+                    <UpdatePesticideForm v-if="isOpenUpdatePesticide" :newPesticide="pesticideChoosen" :epidemicList="epidemicList" :treatmentList="treatmentList"
                          @updatePesticide-submit="updatePesticide" :message1="message1" :message2="message2" />
                </div>
           </div>
@@ -150,6 +150,8 @@ import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import { mapGetters, mapMutations } from "vuex";
 import PesticideService from '../../services/pesticide.service';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue'
+import EpidemicService from '@/services/epidemic.service';
+import TreatmentService from '@/services/treatment.service';
 import CreatePesticideForm from '@/components/catalogManagementComponents/createNewPesticideForm.vue';
 import UpdatePesticideForm from '@/components/catalogManagementComponents/updatePesticideForm.vue';
 
@@ -192,6 +194,9 @@ export default {
                     close: true,
                },
                clonePesticideList: [],
+               treatment: [],
+               epidemicList: [],
+               treatmentList: [],
           }
      },
 
@@ -257,6 +262,18 @@ export default {
                }
           },
 
+          async retrieveEpidemicList() {
+               const [err, respone] = await this.handle(
+                    EpidemicService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.epidemicList = respone.data;
+               }
+          },
+
           async createPesticide(data) {
                if (data.close == false) {
                     this.openCreate = false;
@@ -276,9 +293,44 @@ export default {
                          this.message1 = "Thêm không thành công."
                     } else {
                          this.message2 = "Thêm thành công.";
+                         
+                         var temp = data.Treatment;
+                         temp.forEach(element => {
+                              var treatment = {};
+                              treatment.Epidemic_id = element;
+                              treatment.Pesticide_id = data.Pesticide_id;
+                              this.createTreatment(treatment);
+                         });
                          this.retrievePesticideList();
                     }
                }
+          },
+
+          async createTreatment(data) {
+                    const [error, respone] = await this.handle(
+                         TreatmentService.create(data)
+                    );
+                    if (error) {
+                         console.log(error);
+                         console.log("Thêm không thành công.");
+                    } else if (respone.data == "Lỗi trong quá trình xử lý.") {
+                         console.log("Thêm không thành công.");
+                    } else {
+                         console.log("Thêm thành công.");
+                         this.findTreatmentByPesticideId(data.Pesticide_id)
+                    }
+          },
+
+          async findTreatmentByPesticideId() {
+                    const [error, respone] = await this.handle(
+                         TreatmentService.findByPesticideId(this.pesticideChoosen.Pesticide_id)
+                    );
+                    if (error) {
+                         console.log(error);                       
+                    } else if(respone.data != "Không tìm thấy."){
+                         this.treatmentList = respone.data;
+                         console.log(this.treatmentList)
+                    }
           },
 
           async updatePesticide(data) {
@@ -288,8 +340,6 @@ export default {
                     this.message2 = " ";
                }
                else {
-                    this.message1 = "";
-                    this.message2 = "";
                     const [error, respone] = await this.handle(
                          PesticideService.update(data.Pesticide_id, data)
                     );
@@ -300,8 +350,50 @@ export default {
                          this.message1 = "Cập nhật không thành công."
                     } else {
                          this.message2 = "Cập nhật thành công.";
+                         console.log(this.message2)
+                         this.findTreatmentByPesticideId(data.Pesticide_id)
+                         var temp = 0;
+                         data.Treatment.forEach(EpidemicID => {
+                              this.treatmentList.forEach(element => {
+                                   if(element.Epidemic_id == EpidemicID){
+                                        temp= 1;
+                                   }
+                              });
+                              if(temp == 0){
+                                   var treatment = {};
+                                   treatment.Epidemic_id = EpidemicID;
+                                   treatment.Pesticide_id = data.Pesticide_id;
+                                   this.createTreatment(treatment);
+                              }
+                              temp = 0;
+                         });
+                         temp = 0;
+                         this.treatmentList.forEach(element => {
+                              data.Treatment.forEach(EpidemicID  => {
+                                   if(element.Epidemic_id == EpidemicID){
+                                        temp= 1;
+                                   }
+                              });
+                              if(temp == 0){
+                                   this.deleteTreatment(data.Pesticide_id, element.Epidemic_id);
+                              }
+                              temp = 0;
+                         });
                          this.retrievePesticideList();
                     }
+               }
+          },
+
+          async deleteTreatment(pesticideid, epidemicid) {
+               console.log(pesticideid,epidemicid)
+               const [error, response] = await this.handle(
+                    TreatmentService.delete(pesticideid,epidemicid)
+               );
+               if (error) {
+                    console.log(error);
+               } else {
+                    this.retrievePesticideList()
+                    console.log(response.data);
                }
           },
 
@@ -337,7 +429,7 @@ export default {
 
           async setPesticideChoosen(pesticide) {
                this.pesticideChoosen = pesticide;
-               console.log(this.pesticideChoosen)
+               this.findTreatmentByPesticideId();
           },
 
           //  so hang của danh sach danh muc
@@ -375,6 +467,7 @@ export default {
 
      mounted() {
           this.retrievePesticideList();
+          this.retrieveEpidemicList();
      }
 }
 </script>

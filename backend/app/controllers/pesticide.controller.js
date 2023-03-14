@@ -8,6 +8,7 @@ exports.store = async (req, res) => {
         Pesticide_id: req.body.Pesticide_id,
         Pesticide_name: req.body.Pesticide_name,
         Pesticide_supplier: req.body.Pesticide_supplier,
+        Epidemic_id: req.body.Epidemic_id,
      });
     // Save Pesticide in the database
     Pesticide.create(pesticide, (err, data) => {

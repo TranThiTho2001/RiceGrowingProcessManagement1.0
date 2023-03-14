@@ -225,7 +225,8 @@
                                    <button class="btnSearch1" @click="searchNameEpidemic(nameToSearch)"
                                         v-if="nameToSearch == '' && !isOpenSearch.open">
                                         <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                                   </button>                                   <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                                   </button>
+                                   <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
                                         <p class="item" v-for="(epidemicTimes, i) in filteredEpidemicTimesList()" :key="i"
                                              @click="searchNameEpidemic(epidemicTimes.Epidemic_name)">
                                              {{ epidemicTimes.Epidemic_name }}</p>
@@ -286,7 +287,8 @@
                                    <button class="btnSearch1" @click="searchNameMonitor(nameToSearch)"
                                         v-if="nameToSearch == '' && !isOpenSearch.open">
                                         <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                                   </button>                                   <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                                   </button>
+                                   <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
                                         <p class="item" v-for="(monitor, i) in filteredMonitorList()" :key="i"
                                              @click="searchNameMonitor(monitor.Employee_name)">
                                              {{ monitor.Employee_name }}</p>
@@ -344,9 +346,10 @@
                                    <button class="btnSearch1" @click="searchNameOtherActivity(nameToSearch)"
                                         v-if="nameToSearch == '' && !isOpenSearch.open">
                                         <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                                   </button>                                   <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
-                                        <p class="item" v-for="(activityDetail, i) in filteredActivityDetailTimesList()" :key="i"
-                                             @click="searchNameOtherActivity(activityDetail.OtherActivities_name)">
+                                   </button>
+                                   <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                                        <p class="item" v-for="(activityDetail, i) in filteredActivityDetailTimesList()"
+                                             :key="i" @click="searchNameOtherActivity(activityDetail.OtherActivities_name)">
                                              {{ activityDetail.OtherActivities_name }}</p>
                                    </div>
                                    <button class="btn mt-1 btnAdd"
@@ -937,7 +940,7 @@ export default {
                     console.log(err)
                }
                else {
-                    this.cloneActivityDetailList = respone.data;                  
+                    this.cloneActivityDetailList = respone.data;
                }
           },
 
@@ -960,7 +963,9 @@ export default {
                     this.newRiceCrop.Crop_id = respone.data.Crop_id;
                     this.newRiceCrop.Crop_name = respone.data.Crop_name;
                     this.newRiceCrop.ArableLand_id = respone.data.ArableLand_id;
-                    console.log(respone.data);
+                    this.newRiceCrop.ArableLand_location = respone.data.ArableLand_location;
+                    console.log(respone.data.ArableLand_location)
+                    this.getAPI()
                }
           },
 
@@ -1169,7 +1174,7 @@ export default {
                else if (this.delete == "Monitor") {
                     this.deleteMonitor();
                }
-               else if(this.delete == "ActivitiseDetail") {
+               else if (this.delete == "ActivitiseDetail") {
                     this.deleteActivitiesDetail();
                }
           },
@@ -1185,7 +1190,7 @@ export default {
                     this.message = "Xóa không thành công."
                } else {
                     this.message = "Đã xóa thành công.";
-                    
+
                }
                this.delete = "";
                this.retrieveFertilizerTimesList();
@@ -1671,7 +1676,7 @@ export default {
           },
 
           // ActivityDetail
-          async setActivityChoosen(data){
+          async setActivityChoosen(data) {
                this.activitiesDetailChoosen = data;
           },
 
@@ -1764,7 +1769,7 @@ export default {
                     }
                     //Ipdate
                     const [error, response] = await this.handle(
-                         ActivityDetailsService.update(this.newRiceCrop.RiceCropInformation_id,data.OtherActivities_id, data.ActivityDetails_times,data)
+                         ActivityDetailsService.update(this.newRiceCrop.RiceCropInformation_id, data.OtherActivities_id, data.ActivityDetails_times, data)
                     );
 
                     if (response.data == error) {
@@ -1777,11 +1782,11 @@ export default {
                          this.message2 = "Cập nhật thành công.";
                     }
                     this.retrieveActivitiesDetail()
-                    
+
                }
           },
 
-          async deleteActivitiesDetail(){
+          async deleteActivitiesDetail() {
                const [error, respone] = await this.handle(
                     ActivityDetailsService.delete(this.newRiceCrop.RiceCropInformation_id, this.activitiesDetailChoosen.OtherActivities_id, this.activitiesDetailChoosen.ActivityDetails_times)
                );
@@ -1920,15 +1925,15 @@ export default {
           async searchNameOtherActivity(data) {
                this.nameToSearch = data;
                if (this.nameToSearch != "") {
-                         const [err, respone] = await this.handle(
-                              ActivityDetailsService.getByName(this.nameToSearch, this.newRiceCrop.RiceCropInformation_id)
-                         );
-                         if (err) {
-                              console.log(err)
-                         }
-                         else {
-                              this.activitiesDetailList = respone.data;
-                         }
+                    const [err, respone] = await this.handle(
+                         ActivityDetailsService.getByName(this.nameToSearch, this.newRiceCrop.RiceCropInformation_id)
+                    );
+                    if (err) {
+                         console.log(err)
+                    }
+                    else {
+                         this.activitiesDetailList = respone.data;
+                    }
                }
                else {
                     this.retrieveActivitiesDetail()
@@ -1960,9 +1965,24 @@ export default {
                     this.retrieveMonitorList()
                }
           },
+          async getAPI() {
+          //      console.log(this.newRiceCrop.ArableLand_location)
+          //      var weather = {};
+          //      let urlAPI = `https://api.openweathermap.org/data/2.5/weather?q=${this.newRiceCrop.ArableLand_location}&appid=9aed1da02f473617712a9955f04e0d01`
+          //      let data = await fetch(urlAPI).then(res => res.json())
+          //      weather.temp = (data.main.temp - 273.15).toFixed(0);
+          //     weather.rain = data.weather[0].main;
+          //      weather.humidity = data.main.humidity;
+          //      weather.icon = "https://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png";
+          //      weather.description= data.weather[0].description;
+          //      if (weather.temp > 20) {
+          //           alert("Chu y nhiet do tren 20 do c la moi trường cho rầy nâu phát triên")
+          //      }
+          }
      },
 
      mounted() {
+         
           this.initEmployeeState();
           this.retrieveArableLandList();
           this.retrieveCropList();

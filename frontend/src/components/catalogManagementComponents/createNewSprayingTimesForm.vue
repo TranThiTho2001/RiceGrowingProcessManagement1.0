@@ -106,7 +106,7 @@
                     </div>
 
                     <div class="form-group">
-                         <label for="amount" class="mt-1">Số lượng(kg/ha)<span style="color:red">*</span></label>
+                         <label for="amount" class="mt-1">Liều lượng(ml/ha)<span style="color:red">*</span></label>
                          <Field name="amount" class="form-control" v-model="newsprayingtimes.SprayingTimes_amount"
                               placeholder="Nhập số lượng phân đã bón..." />
                          <ErrorMessage name="amount" class="error-feedback" />

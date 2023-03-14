@@ -48,7 +48,7 @@
                          <Field name="sowingDate" class="form-control " v-if="!selectdate"
                               v-model="newricecrop.RiceCropInformation_sowingDate" placeholder="Ngày sinh"
                               @click="selectdate = !selectdate">
-                              <datepicker :enable-time-picker="false" format="dd-MM-yyyy"
+                              <datepicker :enable-time-picker="false"
                                    :value="newricecrop.RiceCropInformation_sowingDate" :hide-input-icon="true"
                                    :hide-navigation="true" placeholder=""
                                    v-model="newricecrop.RiceCropInformation_sowingDate" :clearable="false" >

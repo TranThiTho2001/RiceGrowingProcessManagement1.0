@@ -8,11 +8,12 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Tạo thuốc trị bệnh dịch mới
+               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Tạo thuốc trị bệnh
+                    dịch mới
                </p>
           </div>
           <div class="row content">
-               <div class="col-sm-12">
+               <div class="col-sm-6">
                     <div class="form-group">
                          <label for="id" class="mt-2">Mã thuốc <span style="color: red">*</span></label>
                          <Field name="id" type="name" class="form-control" v-model="newpesticide.Pesticide_id"
@@ -30,8 +31,35 @@
                     <div class="form-group">
                          <label for="supplier" class="mt-3">Nhà cung cấp <span style="color: red">*</span></label>
                          <Field name="supplier" class="form-control" v-model="newpesticide.Pesticide_supplier"
-                              placeholder="Nhà cung cấp thuốc..." />
+                              placeholder="Nhà cung cấp thuốc..."  />
                          <ErrorMessage name="supplier" class="error-feedback" />
+                    </div>
+               </div>
+               <div class="col-sm-6">
+                    <div class="form-group">
+                         <div class="row">
+                              <label for="" class="row">Điều trị bệnh dịch gây hại<span
+                                        style="color: red">*</span></label><br>
+                         </div>
+                         <div class="row mt-2">
+                              <input type="text" class="form-control inputSearch3" placeholder="Tìm" v-model="nameToSearch"
+                                   @click="retrieveEpidemicList()" @keyup.enter="searchName(nameToSearch)"
+                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                              <button class="btnSearch3" @click="searchName(nameToSearch)"
+                                   v-if="nameToSearch == '' && !isOpenSearch.open">
+                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                              </button>
+                              <!-- :class="{ openSearch:isOpenSearch.open, closeSearch:isOpenSearch.close }"  -->
+                              <div :class="{ openSearch1: isOpenSearch.open, closeSearch1: isOpenSearch.close }">
+                                   <p class="item" v-for="epidemic in filteredList()" :key="epidemic.Epidemic_name"
+                                        @click="searchName(epidemic.Epidemic_name)">
+                                        {{ epidemic.Epidemic_name }}</p>
+                              </div>
+                         </div>
+                         <div class="row mt-1" v-for="epidemic in epidemiclist" :key="epidemic.Epidemic_id">
+                              <input type="checkbox" v-model="treatment" @change="show" :value="epidemic.Epidemic_id">
+                              <label>{{ epidemic.Epidemic_name }}</label>
+                         </div>
                     </div>
 
                </div>
@@ -44,7 +72,7 @@
                          style="color:#00BA13; text-align: center; display: inline;"></span>
                     <span v-if="message1 == 'Thêm không thành công.'" class="fas fa-times-circle"
                          style="color:red; text-align: center; display: inline;"></span>
-                    <span v-if="message2 == 'Thêm thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;"> 
+                    <span v-if="message2 == 'Thêm thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;">
                          {{ message2 }}</span>
                     <span v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2"> {{ message1 }} </span>
                </div>
@@ -55,14 +83,14 @@
                <button class="btn btn-outline-secondary btnLuu col-sm-2">Lưu</button>
                <div class="col-sm-5"></div>
           </div>
-
+          <div v-if="isOpenSearch.open" class="outside" @click.passive="away()"></div>
      </form>
-
 </template>
  
 <script>
 import * as yup from "yup";
 import { Form, Field, ErrorMessage } from "vee-validate";
+import EpidemicService from "@/services/epidemic.service";
 
 export default {
      name: "createPesticideForm",
@@ -72,7 +100,7 @@ export default {
           ErrorMessage,
      },
      emits: ["addPesticide-submit"],
-     props: ["newPesticide", "message1", "message2"],
+     props: ["newPesticide", "message1", "message2", "epidemicList"],
      data() {
 
           const schema = yup.object().shape({
@@ -91,15 +119,128 @@ export default {
           return {
                newpesticide: this.newPesticide,
                schema,
+               treatment: [],
+               epidemiclist: this.epidemicList,
+               cloneEpidemicList: this.epidemicList,
+               isOpenSearch: {
+                    open: false,
+                    close: true,
+               },
+               nameToSearch: "",
           };
      },
 
      methods: {
+          show() {
+               this.newpesticide.Treatment = this.treatment;
+          },
 
+          filteredList() {
+               return this.cloneEpidemicList.filter(epidemic => {
+                    return epidemic.Epidemic_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
+               })
+          },
+
+          away() {
+               this.isOpenSearch.open = false;
+               this.isOpenSearch.close = true;
+          },
+          async retrieveEpidemicList() {
+               const [err, respone] = await this.handle(
+                    EpidemicService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.epidemiclist = respone.data;
+                    this.cloneEpidemicList = respone.data;
+               }
+          },
+
+          async searchName(data) {
+               this.nameToSearch = data;
+               const [error, response] = await this.handle(EpidemicService.findByName(this.nameToSearch));
+               if (error) {
+                    console.log(error);
+               } else {
+                    if (response.data != null) {
+                         this.epidemiclist = response.data;
+                         console.log(response.data)
+                    }
+               }
+          },
      }
 };
 </script>
  
 <style>
 @import url(../../assets/pesticideStyle.css);
+.pesticideManagement .inputSearch3 {
+    background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    width: 95%;
+    height: 35px;
+}
+
+.pesticideManagement .topRight .form-control:focus{
+    border-color: #E4E5EB !important;
+}
+
+.pesticideManagement .btnSearch3 {
+    position: absolute;
+    left: 84%;
+    top: 17%;
+    border-radius: 10px;
+    border: none;
+    background: none;
+}
+
+.pesticideManagement .closeSearch1 {
+    display: none;
+    width: 110%;
+    margin: 0 auto 10px auto;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+      rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  }
+
+  .pesticideManagement .openSearch1 {
+    display:inline-block;
+    position:absolute;
+    top: 27%;
+    width: 95%;
+    background-color: #FAFAFC;
+    border-radius: 5px;
+    z-index: 5;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+      rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+.pesticideManagement  .item {
+    background-color: none;
+    cursor: pointer;
+    bottom: 0.1px;
+    color: #1C1C1F;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 0.1px;
+    margin: 0.2px;
+}
+
+.pesticideManagement .item:hover {
+    background-color: none;
+    cursor: pointer;
+    bottom: 0.1px;
+    background-color: #EAEAEA;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+}
 </style>

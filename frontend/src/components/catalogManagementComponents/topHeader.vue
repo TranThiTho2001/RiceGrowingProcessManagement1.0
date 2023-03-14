@@ -34,7 +34,6 @@ export default {
                "initEmployeeState"
           ]),
           async PhanQuyenNhanVien() {
-               console.log(this.employee)
                const [err, respone] = await this.handle(
                     EmployeeService.get(this.currentUser.Employee_id)
                );
@@ -42,7 +41,6 @@ export default {
                     console.log(err)
                }
                else {
-                    // this.employee = respone.data;
                     this.currentuser = respone.data;
                     if (this.currentuser.Role_id == "01") {
                          this.currentuser.Role_name = "Quản trị viên";
@@ -58,7 +56,6 @@ export default {
 
           formatName(data) {
                var temp = String(data).split(" ");
-               console.log(temp[temp.length])
                return temp[temp.length - 1];
 
           },

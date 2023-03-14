@@ -20,7 +20,7 @@ exports.store = async (req, res) => {
      // Save sprayingTimes in the database
      SprayingTimes.create(sprayingTimes, (err, data) => {
           if (err)
-               res.send("Không thể tạo lần phun thuuốc mới.")
+               res.send("Không thể tạo lần phun thuốc mới.")
           else res.send(data);
      });
 };

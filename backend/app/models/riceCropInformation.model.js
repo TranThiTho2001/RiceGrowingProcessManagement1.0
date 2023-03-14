@@ -44,7 +44,10 @@ RiceCropInformation.findById = (id, result) => {
 };
 
 RiceCropInformation.getAll = (name, result) => {
-     let query = "SELECT * FROM RiceCropInformation";
+     let query = "SELECT * FROM RiceCropInformation " +
+     ` JOIN Seed on Seed.Seed_id = RiceCropInformation.Seed_id` +
+     ` JOIN ArableLand on ArableLand.ArableLand_id= RiceCropInformation.ArableLand_id` +
+     ` JOIN Crop on Crop.Crop_id = RiceCropInformation.Crop_id`;
      if (name) {
           query += ` WHERE RiceCropInformation_name LIKE '%${name}%'`;
      }
@@ -59,7 +62,10 @@ RiceCropInformation.getAll = (name, result) => {
 };
 
 RiceCropInformation.getByemployeeAndRiceCrop = (name,id, result) => {
-     let query = "SELECT * FROM RiceCropInformation JOIN Monitor on Monitor.RiceCropInformation_id = RiceCropInformation.RiceCropInformation_id";
+     let query = "SELECT * FROM RiceCropInformation JOIN Monitor on Monitor.RiceCropInformation_id = RiceCropInformation.RiceCropInformation_id"+
+     ` JOIN Seed on Seed.Seed_id = RiceCropInformation.Seed_id` +
+     ` JOIN ArableLand on ArableLand.ArableLand_id= RiceCropInformation.ArableLand_id` +
+     ` JOIN Crop on Crop.Crop_id = RiceCropInformation.Crop_id`
      if (name) {
           query += ` WHERE RiceCropInformation_name LIKE '%${name}%' and Employee_id LIKE '%${id}%'`;
      }

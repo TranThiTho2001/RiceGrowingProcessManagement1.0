@@ -400,7 +400,7 @@ nav .pagination .active .page-link {
      margin-left: 10px !important;
      margin-right: 10px !important;
      color: #FFFED8 !important;
-   
+     z-index: 0;
      text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
      /* width: 40px !important; */
 }

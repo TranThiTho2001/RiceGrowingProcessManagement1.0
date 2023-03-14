@@ -338,13 +338,11 @@ export default {
 
           async getAPI() {
                // let urlAPI = `https://api.openweathermap.org/data/2.5/weather?q=Can Tho&lang=vi&appid=9aed1da02f473617712a9955f04e0d01`;
-
                // let data = await fetch(urlAPI).then(res => res.json())
                // this.weather.temp = (data.main.temp - 273.15).toFixed(0);
                // this.weather.rain = data.weather[0].main;
                // this.weather.humidity = data.main.humidity;
                // this.weather.icon = "https://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png";
-
                // this.weather.description= data.weather[0].description;
                // console.log(this.weather);
           }
