@@ -1,13 +1,22 @@
 <template>
      <div class="container-fluid fertilizerManagement pr-4 " style="background-color: #EAEAEA;">
-          <div class="row fertilizerManagementFrame">
-               <div class="col-md-2 col-sm-12 leftFertilizerManagement">
+          <div class="row fertilizerManagementFrame" style="height: 100vmin;">
+               <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
+                    @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
+               <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
+                    @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true, active.leftnNoneActive = false"></button>
+               <div class="" :class="{ menubar: openMenu.openMenu }" v-if="openMenu.openMenu">
                     <div class="row">
                          <Catalog />
                     </div>
                </div>
-               <div class="col-md-10 rightFertilizerManagement">
-                    <div class="row ml-2 pt-3 mb-5 pb-1 mr-2  topRight">
+               <div class="left">
+                    <div class="row">
+                         <Catalog />
+                    </div>
+               </div>
+               <div class="rightFertilizerManagement right" :class="{ leftNoneActive: active.leftnNoneActive }">
+                    <div class="row ml-4 pt-3 mb-5 pb-1 mr-2 topRight">
                          <div class="col-md-2">
                               <h3 class="name">Phân bón</h3>
                          </div>
@@ -32,120 +41,88 @@
                               </div>
                          </div>
                     </div>
-                    <div class="row ml-2 mr-2 mt-4  pt-3 pb-2">
+                    <div class="row ml-4 mr-1 mt-3 pb-4 pt-2">
                          <div class="col-sm-12 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
                                         style="font-size: 15px;"></i> Thêm phân bón</button>
                          </div>
                     </div>
-                    <div class="row fertilizerList mt-2 ml-2 mr-2 justify-content-center">
-                         <table class="table mt-4 ml-2 mr-2">
-                              <thead>
-                                   <tr>
-                                        <th class="text-center">STT</th>
-                                        <th>Mã</th>
-                                        <th>Tên</th>
-                                        <th>Nhà cung cấp</th>
-                                        <th></th>
-                                   </tr>
-                              </thead>
-                              <tbody>
-                                   <tr v-for="(fertilizer, i ) in get_rows(fertilizerList)" :key="i"
-                                        class="align-self-center">
-                                        <td v-if="currentPage > 1" class="text-center">{{ i + ((currentPage - 1) * 6 + 1) }}
-                                        </td>
-                                        <td v-else class="text-center">{{ i + 1 }}</td>
-                                        <td>{{ fertilizer.Fertilizer_id }}</td>
-                                        <td>{{ fertilizer.Fertilizer_name }}</td>
-                                        <td>{{ fertilizer.Fertilizer_supplier }}</td>
-                                        <td class="">
-                                             <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
-                                                  aria-haspopup="true" aria-expanded="false">
-                                                  <i class="fas fa-ellipsis-v"></i>
-                                             </button>
-                                             <div class="dropdown-menu">
-                                                  <a class="dropdown-item action"
-                                                       @click="setFertilizerChoosen(fertilizer), isOpenUpdateFertilizer = !isOpenUpdateFertilizer">
-                                                       <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
-                                                  </a>
-                                                  <a class="dropdown-item" href="#"
-                                                       @click="setFertilizerChoosen(fertilizer), isOpenConfirm = !isOpenConfirm">
-                                                       <span class="fas fa-trash-alt actionIcon"></span> Xóa
-                                                  </a>
-                                             </div>
-                                        </td>
-                                   </tr>
-                              </tbody>
-                         </table>
+                    <div class="row scrollTable">
+                         <div class="col-sm-12 justify-content-center">
+                              <table class="table fertilizerList">
+                                   <thead>
+                                        <tr>
+                                             <th class="text-center">STT</th>
+                                             <th>Mã</th>
+                                             <th>Tên</th>
+                                             <th>Nhà cung cấp</th>
+                                             <th></th>
+                                        </tr>
+                                   </thead>
+                                   <tbody>
+                                        <tr v-for="(fertilizer, i ) in get_rows(fertilizerList)" :key="i"
+                                             class="align-self-center">
+                                             <td v-if="currentPage > 1" class="text-center">{{ i + ((currentPage - 1) * 6 +
+                                                  1) }}
+                                             </td>
+                                             <td v-else class="text-center">{{ i + 1 }}</td>
+                                             <td>{{ fertilizer.Fertilizer_id }}</td>
+                                             <td>{{ fertilizer.Fertilizer_name }}</td>
+                                             <td>{{ fertilizer.Fertilizer_supplier }}</td>
+                                             <td class="">
+                                                  <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
+                                                       aria-haspopup="true" aria-expanded="false">
+                                                       <i class="fas fa-ellipsis-v"></i>
+                                                  </button>
+                                                  <div class="dropdown-menu">
+                                                       <a class="dropdown-item action"
+                                                            @click="setFertilizerChoosen(fertilizer), isOpenUpdateFertilizer = !isOpenUpdateFertilizer">
+                                                            <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
+                                                       </a>
+                                                       <a class="dropdown-item" href="#"
+                                                            @click="setFertilizerChoosen(fertilizer), isOpenConfirm = !isOpenConfirm">
+                                                            <span class="fas fa-trash-alt actionIcon"></span> Xóa
+                                                       </a>
+                                                  </div>
+                                             </td>
+                                        </tr>
+                                   </tbody>
+                              </table>
+                         </div>
                     </div>
-                         <div class="row mt-2 ml-2 mr-2" style="display: flex; justify-content: center;">
-                              <nav aria-label="...">
-                                   <ul class="pagination " aria-controls="my-table">
-                                        <li class="page-item disabled" v-if="currentPage == 1">
-                                             <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
-                                        </li>
-                                        <li class="page-item " v-if="currentPage > 1">
-                                             <a class="page-link" href="#" @click="change_page('-', fertilizerList)"
-                                                  aria-controls="my-table">{{
-                                                       previous }}</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#"
-                                                  @click="change_page(currentPage - 1, fertilizerList)"
-                                                  v-if="currentPage > 1">{{ currentPage - 1 }}</a></li>
-                                        <li class="page-item active">
-                                             <a class="page-link" style="background-color: #EEEA41; border-color: #EEEA41;"
-                                                  href="#">{{
-                                                       currentPage }} <span class="sr-only">(current)</span></a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#"
-                                                  v-if="currentPage < num_pages(fertilizerList)"
-                                                  @click="change_page(currentPage + 1, fertilizerList)">{{ currentPage + 1
-                                                  }}</a></li>
-                                        <li class="page-item">
-                                             <a class="page-link" href="#" @click="change_page('+', fertilizerList)"
-                                                  v-if="currentPage < num_pages(fertilizerList)">{{
-                                                       next }}</a>
-                                        </li>
-                                        <li class="page-item disabled">
-                                             <a class="page-link" href="#" v-if="currentPage >= num_pages(fertilizerList)">{{
-                                                  next }}</a>
-                                        </li>
-                                   </ul>
-                              </nav>
-                         </div>
-                         <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
+                    <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
 
-                         <div class="confirmationDialog" v-if="isOpenConfirm">
-                              <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                                   class="labelConfirm">
-                                   <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
-                              </p>
-                              <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                                   @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteFertilizer(fertilizerChoosen.Fertilizer_id)">Xóa</button>
-                              <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                                   @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
-                         </div>
-
-                         <div class="messageDialog" v-if="isOpenMessage">
-                              <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                                   class="labelThongBao">
-                                   <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
-                                        message
-                                   }}
-                              </p>
-                              <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                                   @click="isOpenMessage = !isOpenMessage">OK</button>
-                         </div>
-
-                         <CreateFertilizerForm v-if="openCreate" :newFertilizer="newFertilizer"
-                              @addFertilizer-submit="createFertilizer" :message1="message1" :message2="message2" />
-
-                         <UpdateFertilizerForm v-if="isOpenUpdateFertilizer" :newFertilizer="fertilizerChoosen"
-                              @updateFertilizer-submit="updateFertilizer" :message1="message1" :message2="message2" />
+                    <div class="confirmationDialog" v-if="isOpenConfirm">
+                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
+                              class="labelConfirm">
+                              <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
+                         </p>
+                         <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
+                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteFertilizer(fertilizerChoosen.Fertilizer_id)">Xóa</button>
+                         <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                              @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
                     </div>
+
+                    <div class="messageDialog" v-if="isOpenMessage">
+                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
+                              class="labelThongBao">
+                              <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
+                                   message
+                              }}
+                         </p>
+                         <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                              @click="isOpenMessage = !isOpenMessage">OK</button>
+                    </div>
+
+                    <CreateFertilizerForm v-if="openCreate" :newFertilizer="newFertilizer"
+                         @addFertilizer-submit="createFertilizer" :message1="message1" :message2="message2" />
+
+                    <UpdateFertilizerForm v-if="isOpenUpdateFertilizer" :newFertilizer="fertilizerChoosen"
+                         @updateFertilizer-submit="updateFertilizer" :message1="message1" :message2="message2" />
                </div>
           </div>
-          <div v-if="isOpenSearch.open" class="outside" @click.passive="away()"></div>
+     </div>
+     <div v-if="isOpenSearch.open" class="outside" @click.passive="away()"></div>
 </template>
 
 <script>
@@ -196,6 +173,16 @@ export default {
                     close: true,
                },
                cloneFertilizerList: [],
+               openMenu: {
+                    openMenu: false,
+                    isOpenMenuIcon: true,
+                    isCloseMenu: false,
+               },
+
+               active: {
+                    rightActive: false,
+                    leftnNoneActive: false,
+               }
           }
      },
 
@@ -389,7 +376,7 @@ export default {
 nav {
      position: absolute;
      display: inline !important;
-     
+
 }
 
 nav .pagination .active .page-link {
@@ -414,4 +401,6 @@ nav .pagination .page-item .page-link {
      font-weight: 700;
      background-color: #EAEAEA;
      font-size: 20px;
-}</style>
+}
+
+@import url(../../assets/mainStyle.css);</style>

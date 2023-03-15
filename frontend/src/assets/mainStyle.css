@@ -1,0 +1,369 @@
+.messege {
+     background-color: #6cc38c;
+}
+
+.error-feedback,
+.error-feedback {
+     color: red;
+     float: right;
+}
+
+
+.form-group label,
+.form-group label {
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 500;
+     font-size: 18px;
+}
+
+.form-group .selectBox,
+.form-group .selectBox {
+     width: 100%;
+     height: 38px;
+     border: 1px solid #ced4da;
+     border-radius: 4px;
+}
+
+.content .form-group input,
+.content .form-group input {
+     float: left;
+}
+
+.content .form-group .form-control,
+.content .form-group .form-control {
+     background-color: #f0f0f0;
+}
+
+.functionName,
+.functionName {
+     font-family: Inter;
+     font-size: 24px;
+}
+
+.form-group .textMessage2,
+.form-group .textMessage1,
+.form-group .textMessage1,
+.form-group .textMessage2 {
+     text-align: center;
+     display: inline;
+     font-size: 18px;
+     font-family: Inter;
+}
+
+.btnLuu,
+.btnLuu {
+     background-color: rgb(4, 105, 4);
+     color: #f0f0f0;
+     font-size: 20px;
+     text-align: center;
+}
+
+
+.confirmationDialog {
+     background-color: rgb(5, 207, 137);
+     border: 1px solid rgb(62, 77, 77);
+     border-radius: 10px;
+     position: absolute;
+     top: calc(38%);
+     transform: translateX(96%);
+     border-radius: 16px;
+     display: block;
+     width: 404px;
+     height: 187px;
+     border-radius: 15px;
+     text-align: center;
+}
+
+.confirmationDialog .btnYes {
+     background-color: rgb(244, 61, 61);
+     color: white;
+     font-family: Inter;
+     font-size: 16px;
+}
+
+.confirmationDialog .btnNo {
+     background-color: rgb(196, 191, 191);
+     color: rgb(33, 33, 33);
+     font-family: Inter;
+     font-size: 16px;
+}
+
+.messageDialog .btnOK {
+     background-color: rgb(196, 191, 191);
+     color: rgb(33, 33, 33);
+     font-family: Inter;
+     font-size: 16px;
+}
+
+.messageDialog {
+     background-color: rgb(5, 207, 137);
+     border: 1px solid rgb(62, 77, 77);
+     border-radius: 10px;
+     position: absolute;
+     top: calc(38%);
+     transform: translateX(96%);
+     border-radius: 16px;
+     display: block;
+     width: 404px;
+     height: 187px;
+     border-radius: 15px;
+     text-align: center;
+}
+
+
+
+.btnCreate {
+     border-radius: 15px;
+     background: #008B8E;
+     box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
+     font-size: 17px;
+     font-family: 'Roboto';
+     border: none;
+     color: #FFFED8;
+     z-index: -1;
+}
+
+.btnCreate:hover {
+     background: #008B8E;
+     box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
+     font-size: 17px;
+     font-family: 'Roboto';
+     border: none;
+     border-radius: 10px;
+}
+
+.inputSearch1 {
+     background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
+     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+     border-radius: 15px !important;
+     width: 40% !important;
+     height: 35px;
+     position: absolute;
+     right: -3%;
+     top: 3%;
+}
+
+.form-control:focus {
+     border-color: #E4E5EB !important;
+}
+
+
+.btnSearch1 {
+     position: absolute;
+     right:-3%;
+     top: 13%;
+     border-radius: 10px;
+     border: none;
+     background: none;
+}
+
+.closeSearch {
+     display: none;
+     width: 110%;
+     margin: 0 auto 10px auto;
+     padding: 10px 20px;
+     color: white;
+     border-radius: 5px;
+     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+          rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+.openSearch {
+     display: inline-block;
+     position: absolute;
+     left: 66%;
+     top: 70%;
+     width: 40%;
+     background-color: #FAFAFC;
+     border-radius: 5px;
+     z-index: 1;
+     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+          rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+.item {
+     background-color: none;
+     cursor: pointer;
+     bottom: 0.1px;
+     color: #1C1C1F;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 500;
+     font-size: 16px;
+     padding: 0.1px;
+     margin: 0.2px;
+}
+
+.item:hover {
+     background-color: none;
+     cursor: pointer;
+     bottom: 0.1px;
+     background-color: #EAEAEA;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 500;
+     font-size: 16px;
+}
+
+.topRight {
+     background: #E4E5EB;
+     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     border-radius: 0px 0px 15px 15px;
+}
+
+.name {
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 700;
+     font-size: 30px;
+     line-height: 46px;
+     color: #B3B4BA;
+     position: relative;
+     top: -8%
+}
+
+
+.table {
+     height: min-content !important;
+     width: 100%;
+     background: #FAFAFC !important;
+     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.scrollTable {
+     overflow: auto !important;
+     height: 540px !important;
+     width: 99% !important;
+     margin-left: 1% !important;
+}
+
+.scrollTable thead th {
+     position: sticky;
+     top: 0;
+     z-index: 0;
+     background: #FAFAFC;
+     border-bottom: 0.5px solid #b5b5b7;
+     padding-left: 10px !important;
+     background-color: #008B8E;
+     /* border-radius: 15px; */
+}
+
+.table tbody tr:hover {
+     color: #1C1C1F;
+     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 500;
+     font-size: 16px;
+     background-color: #EAEAEA;
+}
+
+.table tbody tr {
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 400;
+     font-size: 16px;
+     line-height: 19px;
+     border-bottom: 0.1px solid #f4f5f6 !important;
+     height: 20px !important;
+}
+
+table tbody tr td {
+     vertical-align: middle;
+     border-bottom: 0.5px solid #cbcccf !important;
+     padding-left: 10px !important;
+     vertical-align: middle !important;
+     height: 20px !important;
+     height: 10px;
+}
+
+
+.outside {
+     width: 100vw;
+     height: 100vh;
+     position: fixed;
+     top: 0px;
+     left: 0px;
+}
+
+
+.left {
+     position: relative;
+     display: inline;
+     width: 15%;
+     background: white;
+     background: linear-gradient(180deg, rgba(128, 255, 0, 0.15) 0%, rgba(250, 255, 0, 0.15) 100%);
+ }
+
+ .right {
+      width: 85%;
+      position: relative;
+ }
+
+@media only screen and (max-width: 1430px) {
+     .left {
+         position: absolute;
+         width: max-content;
+         z-index: 1;
+         width: 230px;
+         height: 100vmin;
+         display: none;
+     }
+
+     .right {
+          width: 100%;
+     }
+
+     .iconmenu1{
+          display: inline !important;
+          width: 40px;
+          height: 40px;
+          position: absolute;
+          z-index: 2;
+          color: lightblue;
+     }
+
+     .iconmenu2{
+          display: inline !important;
+          width: 40px;
+          height: 40px;
+          position: absolute;
+          z-index: 2;
+     }
+     .menubar {
+          position: absolute !important;
+          width: max-content;
+          z-index: 1;
+          width: 230px;
+          height: 100vmin;
+          display: inline  !important;
+          background:linear-gradient(180deg, rgba(128, 255, 0, 0.15) 0%, rgba(250, 255, 0, 0.15) 100%);
+
+      }
+}
+
+
+.iconmenu1{
+     font-size: 20px;
+     display: none;
+}
+.iconmenu2{
+     font-size: 20px;
+     display: none;
+}
+
+
+.menubar {
+     position: absolute !important;
+     width: max-content;
+     z-index: 1;
+     width: 230px;
+     height: 100vmin;
+     display: none;
+ }
+
+ .leftNoneActive{
+     filter: blur(0.5px) !important;
+     box-shadow: inset 7px 7px 7px rgba(0, 0, 0, 0.25) !important;
+ }

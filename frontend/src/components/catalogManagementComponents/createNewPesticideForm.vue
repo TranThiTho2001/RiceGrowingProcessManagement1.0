@@ -13,7 +13,7 @@
                </p>
           </div>
           <div class="row content">
-               <div class="col-sm-6">
+               <div class="col-sm-5">
                     <div class="form-group">
                          <label for="id" class="mt-2">Mã thuốc <span style="color: red">*</span></label>
                          <Field name="id" type="name" class="form-control" v-model="newpesticide.Pesticide_id"
@@ -35,13 +35,13 @@
                          <ErrorMessage name="supplier" class="error-feedback" />
                     </div>
                </div>
-               <div class="col-sm-6">
+               <div class="col-sm-7">
                     <div class="form-group">
-                         <div class="row">
+                         <div class="row ml-3 mt-2">
                               <label for="" class="row">Điều trị bệnh dịch gây hại<span
                                         style="color: red">*</span></label><br>
                          </div>
-                         <div class="row mt-2">
+                         <!-- <div class="row mt-2">
                               <input type="text" class="form-control inputSearch3" placeholder="Tìm" v-model="nameToSearch"
                                    @click="retrieveEpidemicList()" @keyup.enter="searchName(nameToSearch)"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
@@ -49,17 +49,20 @@
                                    v-if="nameToSearch == '' && !isOpenSearch.open">
                                    <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
-                              <!-- :class="{ openSearch:isOpenSearch.open, closeSearch:isOpenSearch.close }"  -->
+                               :class="{ openSearch:isOpenSearch.open, closeSearch:isOpenSearch.close }" 
                               <div :class="{ openSearch1: isOpenSearch.open, closeSearch1: isOpenSearch.close }">
                                    <p class="item" v-for="epidemic in filteredList()" :key="epidemic.Epidemic_name"
                                         @click="searchName(epidemic.Epidemic_name)">
                                         {{ epidemic.Epidemic_name }}</p>
                               </div>
-                         </div>
-                         <div class="row mt-1" v-for="epidemic in epidemiclist" :key="epidemic.Epidemic_id">
+                         </div> -->
+                         <div class="row epidemicSelect mr-2" style="overflow-y: scroll;">
+                              <div class="col-sm-12 mt-1">
+                         <div class="row ml-2" v-for="epidemic in epidemiclist" :key="epidemic.Epidemic_id">
                               <input type="checkbox" v-model="treatment" @change="show" :value="epidemic.Epidemic_id">
-                              <label>{{ epidemic.Epidemic_name }}</label>
-                         </div>
+                              <label style="">{{ epidemic.Epidemic_name }}</label>
+                         </div></div>
+                    </div>
                     </div>
 
                </div>
@@ -242,5 +245,12 @@ export default {
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
+}
+
+.epidemicSelect{
+     background-color: #f7f7f7;
+     border-radius: 3px;
+     max-height: 250px !important;
+     min-height: 220px;
 }
 </style>

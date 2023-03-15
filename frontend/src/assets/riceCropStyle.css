@@ -434,10 +434,9 @@
 
 
 
-.riceCropManagement .categoryList .btnMonitor {
+.riceCropManagement .navbar .btnMonitor {
     display: block;
-    width: 95%;
-    font-size: 18px;
+    font-size: 16px;
     background-color: #FFFA37;
     border-radius: 14px;
     color: #5C5D22;

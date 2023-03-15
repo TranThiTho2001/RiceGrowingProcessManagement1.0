@@ -1,13 +1,22 @@
 <template>
      <div class="container-fluid seedManagement pr-4 " style="background-color: #EAEAEA;">
-          <div class="row seedManagementFrame">
-               <div class="col-md-2 col-sm-12 leftSeedManagement">
+          <div class="row seedManagementFrame" style="height: 100vmin;">
+               <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
+                    @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
+               <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
+                    @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true, active.leftnNoneActive = false"></button>
+               <div class="" :class="{ menubar: openMenu.openMenu }" v-if="openMenu.openMenu">
                     <div class="row">
                          <Catalog />
                     </div>
                </div>
-               <div class="col-md-10 rightSeedManagement">
-                    <div class="row ml-2 pt-3 mb-5 pb-1 mr-2 topRight">
+               <div class="left" >
+                    <div class="row">
+                         <Catalog />
+                    </div>
+               </div>
+               <div class="rightSeedManagement right" :class="{ leftNoneActive: active.leftnNoneActive }">
+                    <div class="row ml-4 pt-3 mb-5 pb-1 mr-2 topRight">
                          <div class="col-md-2">
                               <h3 class="name">Giống lúa</h3>
                          </div>
@@ -33,14 +42,15 @@
                               </div>
                          </div>
                     </div>
-                    <div class="row ml-2 mr-2 mt-4 pt-3 pb-3">
+                    <div class="row ml-4 mr-2 pt-2 mt-5 pb-4">
                          <div class="col-sm-12 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate" style="border-radius: 12px;"><i
                                         class="fas fa-plus-circle"></i> Thêm giống lúa</button>
                          </div>
                     </div>
-                    <div class=" row seedList ml-2 mr-2 justify-content-center">
-                         <table class="table mt-4 ml-2 mr-2">
+                    <div class=" row scrollTable">
+                         <div class="col-sm-12 justify-content-center">
+                         <table class="table seedList">
                               <thead>
                                    <tr>
                                         <th class="text-center">STT</th>
@@ -80,42 +90,6 @@
                                    </tr>
                               </tbody>
                          </table>
-                    </div>
-                    <div class="row mt-2 ml-2 mr-2" >
-                         <div class="col-sm-12" style="display: flex; justify-content: center;">
-                              <nav aria-label="...">
-                                   <ul class="pagination " aria-controls="my-table">
-                                        <li class="page-item disabled" v-if="currentPage == 1">
-                                             <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
-                                        </li>
-                                        <li class="page-item " v-if="currentPage > 1">
-                                             <a class="page-link" href="#" @click="change_page('-', seedList)"
-                                                  aria-controls="my-table">{{
-                                                       previous }}</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#"
-                                                  @click="change_page(currentPage - 1, seedList)" v-if="currentPage > 1">{{
-                                                       currentPage - 1 }}</a></li>
-                                        <li class="page-item active">
-                                             <a class="page-link" style="background-color: #EEEA41; border-color: #EEEA41;"
-                                                  href="#">{{
-                                                       currentPage }} <span class="sr-only">(current)</span></a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#"
-                                                  v-if="currentPage < num_pages(seedList)"
-                                                  @click="change_page(currentPage + 1, seedList)">{{ currentPage + 1 }}</a>
-                                        </li>
-                                        <li class="page-item">
-                                             <a class="page-link" href="#" @click="change_page('+', seedList)"
-                                                  v-if="currentPage < num_pages(seedList)">{{
-                                                       next }}</a>
-                                        </li>
-                                        <li class="page-item disabled">
-                                             <a class="page-link" href="#" v-if="currentPage >= num_pages(seedList)">{{ next
-                                             }}</a>
-                                        </li>
-                                   </ul>
-                              </nav>
                          </div>
                     </div>
                     <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
@@ -204,6 +178,16 @@ export default {
                     close: true,
                },
                cloneSeedList: [],
+               openMenu: {
+                    openMenu: false,
+                    isOpenMenuIcon: true,
+                    isCloseMenu: false,
+               },
+
+               active: {
+                    rightActive: false,
+                    leftnNoneActive: false,
+               }
           }
      },
 
@@ -398,6 +382,7 @@ export default {
 
 <style>
 @import url(../../assets/seedStyle.css);
+@import url(../../assets/mainStyle.css);
 
 nav {
      position: absolute;

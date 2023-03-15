@@ -1,13 +1,22 @@
 <template>
      <div class="container-fluid arablelandManagement pr-4" style="background-color: #EAEAEA;">
-          <div class="row arablelandManagementFrame">
-               <div class="col-md-2 col-sm-12 leftArableLandManagement">
+          <div class="row arablelandManagementFrame" style="height: 100vmin;">
+               <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
+                    @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
+               <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
+                    @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true, active.leftnNoneActive = false"></button>
+               <div class="" :class="{ menubar: openMenu.openMenu }" v-if="openMenu.openMenu">
                     <div class="row">
                          <Catalog />
                     </div>
                </div>
-               <div class="col-md-10 rightArableLandManagement">
-                    <div class="row ml-2 pt-3 mb-5 pb-1 mr-2 topRight">
+               <div class="left" >
+                    <div class="row">
+                         <Catalog />
+                    </div>
+               </div>
+               <div class="rightArableLandManagement right" :class="{ leftNoneActive: active.leftnNoneActive }">
+                    <div class="row ml-4 pt-3 mb-5 pb-1 mr-2 topRight">
                          <div class="col-md-2">
                               <h3 class="name">Mẫu ruộng</h3>
                          </div>
@@ -33,94 +42,63 @@
                          </div>
                     </div>
 
-                    <div class="row ml-2 mr-2 mt-5 pt-4">
+                    <div class="row ml-4 mr-2 mt-3 pb-4 pt-2">
                          <div class="col-sm-12 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
                                         style="font-size: 15px;"></i> Thêm mẫu ruộng</button>
                          </div>
                     </div>
-                    <div class=" row arablelandList mt-2 ml-2 mr-3 justify-content-center">
-                         <table class="table mt-4 ml-2 mr-2">
-                              <thead>
-                                   <tr>
-                                        <th class="text-center" style=" padding-right: 2px;">STT</th>
-                                        <th class="text-center">Mã</th>
-                                        <th>Diện tích</th>
-                                        <th>Chủ sỡ hưu</th>
-                                        <th>Loại đất</th>
-                                        <th>Vị trí</th>
-                                        <th></th>
-                                   </tr>
-                              </thead>
-                              <tbody>
-                                   <tr v-for="(arableland, i ) in get_rows(arablelandList)" :key="i" class="">
-                                        <td class="" v-if="currentPage > 1">{{ i + ((currentPage - 1) *
-                                             elementsPerPage) + 1 }}</td>
-                                        <td class="text-center" v-else>{{ i + 1 }}</td>
-                                        <td class="text-center">{{ arableland.ArableLand_id }}</td>
-                                        <td>{{ arableland.ArableLand_area }}</td>
-                                        <td>{{ arableland.ArableLand_owner }}</td>
-                                        <td>{{ arableland.Soil_name }}</td>
-                                        <td>
-                                             <i class="fas fa-map-marker-alt"></i>
-                                             <a
-                                                  :href="`https://www.google.com/maps/place/` + arableland.ArableLand_location">{{
-                                                       arableland.ArableLand_location }}</a>
-                                        </td>
-                                        <td class="">
-                                             <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
-                                                  aria-haspopup="true" aria-expanded="false">
-                                                  <i class="fas fa-ellipsis-v"></i>
-                                             </button>
-                                             <div class="dropdown-menu">
-                                                  <a class="dropdown-item action"
-                                                       @click="setArableLandChoosen(arableland), isOpenUpdateArableLand = !isOpenUpdateArableLand">
-                                                       <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
-                                                  </a>
-                                                  <a class="dropdown-item" href="#"
-                                                       @click="setArableLandChoosen(arableland), isOpenConfirm = !isOpenConfirm">
-                                                       <span class="fas fa-trash-alt actionIcon"></span> Xóa
-                                                  </a>
-                                             </div>
-                                        </td>
-                                   </tr>
-                              </tbody>
-                         </table>
+                    <div class=" row scrollTable">
+                         <div class="col-sm-12 justify-content-center">
+                              <table class="table arablelandList">
+                                   <thead>
+                                        <tr>
+                                             <th class="text-center" style=" padding-right: 2px;">STT</th>
+                                             <th class="text-center">Mã</th>
+                                             <th>Diện tích</th>
+                                             <th>Chủ sỡ hưu</th>
+                                             <th>Loại đất</th>
+                                             <th>Vị trí</th>
+                                             <th></th>
+                                        </tr>
+                                   </thead>
+                                   <tbody>
+                                        <tr v-for="(arableland, i ) in get_rows(arablelandList)" :key="i">
+                                             <td class="" v-if="currentPage > 1">{{ i + ((currentPage - 1) *
+                                                  elementsPerPage) + 1 }}</td>
+                                             <td class="text-center" v-else>{{ i + 1 }}</td>
+                                             <td class="text-center">{{ arableland.ArableLand_id }}</td>
+                                             <td>{{ arableland.ArableLand_area }}</td>
+                                             <td>{{ arableland.ArableLand_owner }}</td>
+                                             <td>{{ arableland.Soil_name }}</td>
+                                             <td>
+                                                  <i class="fas fa-map-marker-alt"></i>
+                                                  <a
+                                                       :href="`https://www.google.com/maps/place/` + arableland.ArableLand_location">{{
+                                                            arableland.ArableLand_location }}</a>
+                                             </td>
+                                             <td class="">
+                                                  <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
+                                                       aria-haspopup="true" aria-expanded="false">
+                                                       <i class="fas fa-ellipsis-v"></i>
+                                                  </button>
+                                                  <div class="dropdown-menu">
+                                                       <a class="dropdown-item action"
+                                                            @click="setArableLandChoosen(arableland), isOpenUpdateArableLand = !isOpenUpdateArableLand">
+                                                            <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
+                                                       </a>
+                                                       <a class="dropdown-item" href="#"
+                                                            @click="setArableLandChoosen(arableland), isOpenConfirm = !isOpenConfirm">
+                                                            <span class="fas fa-trash-alt actionIcon"></span> Xóa
+                                                       </a>
+                                                  </div>
+                                             </td>
+                                        </tr>
+                                   </tbody>
+                              </table>
+                         </div>
                     </div>
-                    <div class="row mt-2 ml-2 mr-2" style="display: flex; justify-content: center;">
-                         <nav aria-label="...">
-                              <ul class="pagination" aria-controls="my-table">
-                                   <li class="page-item disabled" v-if="currentPage == 1">
-                                        <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
-                                   </li>
-                                   <li class="page-item " v-if="currentPage > 1">
-                                        <a class="page-link" href="#" @click="change_page('-', arablelandList)"
-                                             aria-controls="my-table">{{
-                                                  previous }}</a>
-                                   </li>
-                                   <li class="page-item"><a class="page-link" href="#"
-                                             @click="change_page(currentPage - 1, arablelandList)" v-if="currentPage > 1">{{
-                                                  currentPage - 1 }}</a></li>
-                                   <li class="page-item active">
-                                        <a class="page-link" href="#">{{
-                                             currentPage }} <span class="sr-only">(current)</span></a>
-                                   </li>
-                                   <li class="page-item"><a class="page-link" href="#"
-                                             v-if="currentPage < num_pages(arablelandList)"
-                                             @click="change_page(currentPage + 1, arablelandList)">{{ currentPage + 1 }}</a>
-                                   </li>
-                                   <li class="page-item">
-                                        <a class="page-link" href="#" @click="change_page('+', arablelandList)"
-                                             v-if="currentPage < num_pages(arablelandList)">{{
-                                                  next }}</a>
-                                   </li>
-                                   <li class="page-item disabled">
-                                        <a class="page-link" href="#" v-if="currentPage >= num_pages(arablelandList)">{{ next
-                                        }}</a>
-                                   </li>
-                              </ul>
-                         </nav>
-                    </div>
+
                     <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
 
                     <div class="confirmationDialog" v-if="isOpenConfirm">
@@ -204,6 +182,16 @@ export default {
                     close: true,
                },
                cloneArableLandList: [],
+               openMenu: {
+                    openMenu: false,
+                    isOpenMenuIcon: true,
+                    isCloseMenu: false,
+               },
+
+               active: {
+                    rightActive: false,
+                    leftnNoneActive: false,
+               }
           }
      },
 
@@ -229,6 +217,16 @@ export default {
                this.isOpenSearch.close = true;
           },
 
+          getWidth() {
+               console.log(document.body.clientWidth)
+               var width = document.body.clientWidth;
+               if (width > 1300 && width < 1600) {
+                    return true;
+               }
+               else {
+                    return false;
+               }
+          },
           async retrieveArableLandList() {
                const [err, respone] = await this.handle(
                     ArableLandService.getAll()
@@ -419,6 +417,7 @@ export default {
 
      mounted() {
           this.retrieveArableLandList();
+          this.getWidth()
      }
 }
 </script>
@@ -455,4 +454,5 @@ nav .pagination .page-item .page-link {
      background-color: #EAEAEA;
      font-size: 20px;
 }
-</style>
+
+@import url(../../assets/mainStyle.css);</style>

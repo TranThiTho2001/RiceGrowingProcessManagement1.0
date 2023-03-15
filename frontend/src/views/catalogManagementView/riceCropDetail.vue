@@ -1,7 +1,7 @@
 <template>
      <div class="container-fluid riceCropDetail">
-          <div class="row riceCropDetailFrame">
-               <div class="col-md-2">
+          <div class="row riceCropDetailFrame" style="height: 100vmin;">
+               <div class="col-md-2" style="background: linear-gradient(180deg, rgba(128, 255, 0, 0.15) 0%, rgba(250, 255, 0, 0.15) 100%);">
                     <div class="row">
                          <Catalog />
                     </div>
@@ -82,15 +82,15 @@
                               </div>
                               <!-- ----------------------FertilizerTimes Tab-------------- -->
                               <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableFertilizerTimes">
-                                   <input type="text" class="form-control inputSearch1" placeholder="Tìm"
+                                   <input type="text" class="form-control inputSearch5" placeholder="Tìm"
                                         v-model="nameToSearch" @click="retrieveFertilizerTimesList()"
                                         @keyup.enter="searchNameFertilizer(nameToSearch)"
                                         @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                                   <button class="btnSearch1" @click="searchNameFertilizer(nameToSearch)"
+                                   <button class="btnSearch5" @click="searchNameFertilizer(nameToSearch)"
                                         v-if="nameToSearch == '' && !isOpenSearch.open">
                                         <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                                    </button>
-                                   <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                                   <div :class="{ openSearch5: isOpenSearch.open, closeSearch5: isOpenSearch.close }">
                                         <p class="item" v-for="fertilizerTimes in filteredFerilizerTimesList()"
                                              :key="fertilizerTimes.Fertilizer_id"
                                              @click="searchNameFertilizer(fertilizerTimes.Fertilizer_name)">
@@ -148,11 +148,11 @@
 
                               <!-- ----------------------SprayingTimes Tab-------------- -->
                               <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableSprayingTimes">
-                                   <input type="text" class="form-control inputSearch1" placeholder="Tìm"
+                                   <input type="text" class="form-control 5" placeholder="Tìm"
                                         v-model="nameToSearch" @click="retrieveSprayingTimesList()"
                                         @keyup.enter="searchNamePesticide(nameToSearch)"
                                         @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                                   <button class="btnSearch1" @click="searchNamePesticide(nameToSearch)"
+                                   <button class="btnSearch5" @click="searchNamePesticide(nameToSearch)"
                                         v-if="nameToSearch == '' && !isOpenSearch.open">
                                         <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                                    </button>
@@ -215,15 +215,15 @@
 
                               <!-- ----------------------EpidemicTimes Tab-------------- -->
                               <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableEpidemicTimes">
-                                   <input type="text" class="form-control inputSearch1" placeholder="Tìm"
+                                   <input type="text" class="form-control inputSearch5" placeholder="Tìm"
                                         v-model="nameToSearch" @click="retrieveEpidemicTimesList()"
                                         @keyup.enter="searchNameEpidemic(nameToSearch)"
                                         @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                                   <button class="btnSearch1" @click="searchNameEpidemic(nameToSearch)"
+                                   <button class="btnSearch5" @click="searchNameEpidemic(nameToSearch)"
                                         v-if="nameToSearch == '' && !isOpenSearch.open">
                                         <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                                    </button>
-                                   <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                                   <div :class="{ openSearch5: isOpenSearch.open, closeSearch5: isOpenSearch.close }">
                                         <p class="item" v-for="(epidemicTimes, i) in filteredEpidemicTimesList()" :key="i"
                                              @click="searchNameEpidemic(epidemicTimes.Epidemic_name)">
                                              {{ epidemicTimes.Epidemic_name }}</p>
@@ -283,15 +283,15 @@
 
                               <!-- ----------------------Monitor Tab-------------- -->
                               <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableMonitor">
-                                   <input type="text" class="form-control inputSearch1" placeholder="Tìm"
+                                   <input type="text" class="form-control inputSearch5" placeholder="Tìm"
                                         v-model="nameToSearch" @click="retrieveMonitorList()"
                                         @keyup.enter="searchNameMonitor(nameToSearch)"
                                         @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                                   <button class="btnSearch1" @click="searchNameMonitor(nameToSearch)"
+                                   <button class="btnSearch5" @click="searchNameMonitor(nameToSearch)"
                                         v-if="nameToSearch == '' && !isOpenSearch.open">
                                         <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                                    </button>
-                                   <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                                   <div :class="{ openSearch5: isOpenSearch.open, closeSearch5: isOpenSearch.close }">
                                         <p class="item" v-for="(monitor, i) in filteredMonitorList()" :key="i"
                                              @click="searchNameMonitor(monitor.Employee_name)">
                                              {{ monitor.Employee_name }}</p>
@@ -342,15 +342,15 @@
 
                               <!-- ----------------------OtherActivity Tab-------------- -->
                               <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableOtherActivitiesTimes">
-                                   <input type="text" class="form-control inputSearch1" placeholder="Tìm"
+                                   <input type="text" class="form-control inputSearch5" placeholder="Tìm"
                                         v-model="nameToSearch" @click="retrieveActivitiesDetail()"
                                         @keyup.enter="searchNameOtherActivity(nameToSearch)"
                                         @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                                   <button class="btnSearch1" @click="searchNameOtherActivity(nameToSearch)"
+                                   <button class="btnSearch5" @click="searchNameOtherActivity(nameToSearch)"
                                         v-if="nameToSearch == '' && !isOpenSearch.open">
                                         <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                                    </button>
-                                   <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                                   <div :class="{ openSearch5: isOpenSearch.open, closeSearch5: isOpenSearch.close }">
                                         <p class="item" v-for="(activityDetail, i) in filteredActivityDetailTimesList()"
                                              :key="i" @click="searchNameOtherActivity(activityDetail.OtherActivities_name)">
                                              {{ activityDetail.OtherActivities_name }}</p>

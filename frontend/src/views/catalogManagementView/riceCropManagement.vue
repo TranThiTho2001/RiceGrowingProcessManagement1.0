@@ -1,7 +1,7 @@
 <template>
      <div class="container-fluid riceCropManagement" style="background-color:  #EAEAEA;">
-          <div class="row riceCropManagemenFrame">
-               <div class="col-md-2 col-sm-12 leftRiceCropManagement">
+          <div class="row riceCropManagemenFrame" style="height: 100vmin;">
+               <div class="col-md-2 col-sm-12 leftRiceCropManagement" style="background: linear-gradient(180deg, rgba(128, 255, 0, 0.15) 0%, rgba(250, 255, 0, 0.15) 100%);">
                     <div class="row">
                          <Catalog />
                     </div>

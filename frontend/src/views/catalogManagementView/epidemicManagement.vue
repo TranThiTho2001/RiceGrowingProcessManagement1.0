@@ -1,20 +1,25 @@
 <template>
      <div class="container-fluid epidemicManagement pr-4" style="background-color: #EAEAEA;">
-          <div class="row epidemicManagementFrame">
-               <div class="col-md-2 col-sm-12 leftEpidemicManagement">
+          <div class="row epidemicManagementFrame" style="height: 100vmin;">
+               <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
+                    @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
+               <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
+                    @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true"></button>
+               <div class="left" :class="{ menubar: openMenu.openMenu }"
+                    style="background: linear-gradient(180deg, rgba(128, 255, 0, 0.15) 0%, rgba(250, 255, 0, 0.15) 100%);">
+
                     <div class="row">
                          <Catalog />
                     </div>
                </div>
-               <div class="col-md-10 rightEpidemicManagement">
-                    <div class="row ml-2 pt-3 mb-5 pb-1 mr-2 topRight">
+               <div class="rightEpidemicManagement right">
+                    <div class="row ml-4 pt-3 mb-5 pb-1 mr-2 topRight">
                          <div class="col-md-2">
                               <h3 class="name">Dịch bệnh</h3>
                          </div>
                          <div class="col-md-8 ">
-                              <input type="text" class="form-control inputSearch1"  placeholder="Tìm" v-model="nameToSearch" 
-                                   @click="retrieveEpidemicList()"
-                                   @keyup.enter="searchName(nameToSearch)"
+                              <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
+                                   @click="retrieveEpidemicList()" @keyup.enter="searchName(nameToSearch)"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
                               <button class="btnSearch1" @click="searchName(nameToSearch)"
                                    v-if="nameToSearch == '' && !isOpenSearch.open">
@@ -34,93 +39,62 @@
                          </div>
                     </div>
 
-                    <div class="row ml-2 mr-2 mt-4  pt-3 pb-2">
+                    <div class="row ml-4 mr-2 pt-2 mt-2 pb-4">
                          <div class="col-sm-12 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i
                                         class="fas fa-plus-circle pt-1" style="font-size: 20px;"></i> Thêm bệnh dịch</button>
                          </div>
                     </div>
-                    <div class=" row epidemicList mt-2 ml-2 mr-2 justify-content-center">
-                         <table class="table mt-4 ml-2 mr-2">
-                              <thead>
-                                   <tr>
-                                        <th class="text-center" style=" padding-right: 2px;">STT</th>
-                                        <th>Mã</th>
-                                        <th>Tên</th>
-                                        <th>Thời điểm</th>
-                                        <th>Môi trường phát triển</th>
-                                        <th>Tác hại</th>
-                                        <th>Phân loại</th>
-                                        <th></th>
-                                   </tr>
-                              </thead>
-                              <tbody>
-                                   <tr v-for="(epidemic, i ) in get_rows(epidemicList)" :key="i">
-                                        <td class="text-center" v-if="currentPage > 1">{{ i + ((currentPage - 1) *
-                                             elementsPerPage) + 1 }}</td>
-                                        <td class="text-center" v-else>{{ i + 1 }}</td>
-                                        <td>{{ epidemic.Epidemic_id }}</td>
-                                        <td style="width: 15%;">{{ epidemic.Epidemic_name }}</td>
-                                        <td style="width: 10%;">{{ epidemic.Epidemic_timeOfDevelopment }}</td>
-                                        <td class="text-truncate" style="max-width: 250px;">{{
-                                             epidemic.Epidemic_developmentEnvironment }}</td>
-                                        <td class="text-truncate" style="max-width: 250px;">{{ epidemic.Epidemic_Harm }}</td>
-                                        <td style="width: 10%;">{{ epidemic.EpidemicsClassification_name }}</td>
-                                        <td class="">
-                                             <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
-                                                  aria-haspopup="true" aria-expanded="false">
-                                                  <i class="fas fa-ellipsis-v"></i>
-                                             </button>
-                                             <div class="dropdown-menu">
-                                                  <a class="dropdown-item action"
-                                                       @click="setEpidemicChoosen(epidemic), isOpenUpdateEpidemic = !isOpenUpdateEpidemic">
-                                                       <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
-                                                  </a>
-                                                  <a class="dropdown-item" href="#"
-                                                       @click="setEpidemicChoosen(epidemic), isOpenConfirm = !isOpenConfirm">
-                                                       <span class="fas fa-trash-alt actionIcon"></span> Xóa
-                                                  </a>
-                                             </div>
-                                        </td>
-                                   </tr>
-                              </tbody>
-                         </table>
+                    <div class=" row scrollTable">
+                         <div class="col-sm-12 justify-content-center">
+                              <table class="table epidemicList">
+                                   <thead>
+                                        <tr>
+                                             <th class="text-center" style=" padding-right: 2px;">STT</th>
+                                             <th>Mã</th>
+                                             <th>Tên</th>
+                                             <th>Thời điểm</th>
+                                             <th>Môi trường phát triển</th>
+                                             <th>Tác hại</th>
+                                             <th>Phân loại</th>
+                                             <th></th>
+                                        </tr>
+                                   </thead>
+                                   <tbody>
+                                        <tr v-for="(epidemic, i ) in get_rows(epidemicList)" :key="i">
+                                             <td class="text-center" v-if="currentPage > 1">{{ i + ((currentPage - 1) *
+                                                  elementsPerPage) + 1 }}</td>
+                                             <td class="text-center" v-else>{{ i + 1 }}</td>
+                                             <td>{{ epidemic.Epidemic_id }}</td>
+                                             <td style="width: 15%;">{{ epidemic.Epidemic_name }}</td>
+                                             <td style="width: 10%;">{{ epidemic.Epidemic_timeOfDevelopment }}</td>
+                                             <td class="text-truncate" style="max-width: 250px;">{{
+                                                  epidemic.Epidemic_developmentEnvironment }}</td>
+                                             <td class="text-truncate" style="max-width: 250px;">{{ epidemic.Epidemic_Harm }}
+                                             </td>
+                                             <td style="width: 10%;">{{ epidemic.EpidemicsClassification_name }}</td>
+                                             <td class="">
+                                                  <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
+                                                       aria-haspopup="true" aria-expanded="false">
+                                                       <i class="fas fa-ellipsis-v"></i>
+                                                  </button>
+                                                  <div class="dropdown-menu">
+                                                       <a class="dropdown-item action"
+                                                            @click="setEpidemicChoosen(epidemic), isOpenUpdateEpidemic = !isOpenUpdateEpidemic">
+                                                            <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
+                                                       </a>
+                                                       <a class="dropdown-item" href="#"
+                                                            @click="setEpidemicChoosen(epidemic), isOpenConfirm = !isOpenConfirm">
+                                                            <span class="fas fa-trash-alt actionIcon"></span> Xóa
+                                                       </a>
+                                                  </div>
+                                             </td>
+                                        </tr>
+                                   </tbody>
+                              </table>
+                         </div>
                     </div>
-                    <div class="row mt-2 ml-2 mr-2" style="display: flex; justify-content: center;">
-                         <nav aria-label="...">
-                              <ul class="pagination " aria-controls="my-table">
-                                   <li class="page-item disabled" v-if="currentPage == 1">
-                                        <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
-                                   </li>
-                                   <li class="page-item " v-if="currentPage > 1">
-                                        <a class="page-link" href="#" @click="change_page('-', epidemicList)"
-                                             aria-controls="my-table">{{
-                                                  previous }}</a>
-                                   </li>
-                                   <li class="page-item"><a class="page-link" href="#"
-                                             @click="change_page(currentPage - 1, epidemicList)" v-if="currentPage > 1">{{
-                                                  currentPage - 1 }}</a></li>
-                                   <li class="page-item active">
-                                        <a class="page-link" style="background-color: #EEEA41; border-color: #EEEA41;"
-                                             href="#">{{
-                                                  currentPage }} <span class="sr-only">(current)</span></a>
-                                   </li>
-                                   <li class="page-item"><a class="page-link" href="#"
-                                             v-if="currentPage < num_pages(epidemicList)"
-                                             @click="change_page(currentPage + 1, epidemicList)">{{ currentPage + 1 }}</a>
-                                   </li>
-                                   <li class="page-item">
-                                        <a class="page-link" href="#" @click="change_page('+', epidemicList)"
-                                             v-if="currentPage < num_pages(epidemicList)">{{
-                                                  next }}</a>
-                                   </li>
-                                   <li class="page-item disabled">
-                                        <a class="page-link" href="#" v-if="currentPage >= num_pages(epidemicList)">{{ next
-                                        }}</a>
-                                   </li>
-                              </ul>
-                         </nav>
-                    </div>
+
                     <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
 
                     <div class="confirmationDialog" v-if="isOpenConfirm">
@@ -207,6 +181,11 @@ export default {
                     close: true,
                },
                cloneEpidemicList: [],
+               openMenu: {
+                    openMenu: false,
+                    isOpenMenuIcon: true,
+                    isCloseMenu: false,
+               }
           }
      },
 
@@ -355,7 +334,7 @@ export default {
                     this.epidemicsClassificationList = response.data;
                }
           },
-          
+
           async searchName(data) {
                this.nameToSearch = data;
                const [error, response] = await this.handle(EpidemicService.findByName(this.nameToSearch));
@@ -446,8 +425,8 @@ nav .pagination .page-item .page-link {
      font-family: 'Roboto';
      font-style: normal;
      font-weight: 700;
-     background-color:  #EAEAEA;
+     background-color: #EAEAEA;
      font-size: 20px;
 }
 
-</style>
+@import url(../../assets/mainStyle.css);</style>
