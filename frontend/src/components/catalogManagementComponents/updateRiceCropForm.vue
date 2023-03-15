@@ -33,7 +33,7 @@
                          <Field name="arableLand" class="form-control" v-model="newricecrop.ArableLand_id"
                               placeholder="Nhập vị trí mẫu ruộng...">
                               <select class="form-control" v-model="newricecrop.ArableLand_id" name="arableLand"
-                                   for="arableLand" style="margin-top: -10%; !important">
+                                   for="arableLand" >
                                    <option v-for="(arableLand, i) in arableLandList" :key="i">{{ arableLand.ArableLand_id }}
                                    </option>
                               </select>

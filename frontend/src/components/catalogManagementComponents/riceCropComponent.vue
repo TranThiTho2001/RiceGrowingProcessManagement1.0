@@ -3,8 +3,8 @@
           <router-link class="linktoRiceCropInfor container-fuild"
                :to="{ name: 'RiceCropDetail', params: { id: riceCrop.RiceCropInformation_id } }">
                <div class="riceCropComponent text-dark border ">
-                    <div class="img mt-2 ml-2 mr-2 text-center" ><img :src="riceCrop.Images_link"
-                              class="img-fluid" alt="" style="max-height: 127px; min-height: 127px;">
+                    <div class="img mt-2 ml-2 mr-2 text-center"><img :src="riceCrop.Images_link" class="img-fluid" alt=""
+                              style="max-height: 127px; min-height: 127px;">
                     </div>
                     <div class="body-riceCropComponent">
                          <div class="row ml-1 mr-1">
@@ -18,24 +18,29 @@
                                    </p>
                               </div>
                          </div>
-                         <div class="row pl-2 pr-1 mb-2">
-                              <div class="col-sm-2">
-                                   <i class="fas fa-info-circle mt-2" style="color: #919302; font-size: 27px;"></i>
-                              </div>
-                              <div class="col-sm-8 text-center" v-if="riceCrop.RiceCropInformation_harvestDate == null">
-                                   <button class="btn  btn-sm btnMonitoring ">Đang theo dõi</button>
-                              </div>
-                              <div class="col-sm-8 text-center" v-if="riceCrop.RiceCropInformation_harvestDate != null">
-                                   <button class="btn  btnFinish">Đã kết thúc</button>
-                              </div>
-                              <div class="col-sm-2 opendelete">
-                                   <i class="fas fa-ellipsis-v mt-2 pr-1" style="color: #919302; font-size: 25px;">
-                                        <div class="deleteIcon ">
-                                             <a style="width: 70px; height: 30px; background-color:#919302; font-size: 15px;" class="row">Xoas
-                                             </a>
-                                        </div>
-                                   </i>
-                              </div>
+                         <div class="row pl-3 mb-2">
+                              <table style="width: 90%;">
+                                   <tr>
+                                        <td class="text-center"><i class="fas fa-info-circle mt-1"
+                                                  style="color: #919302; font-size: 26px;"></i></td>
+                                        <td class="text-center">
+                                             <button v-if="riceCrop.RiceCropInformation_harvestDate != null"
+                                                  class="btn btnFinish">Đã kết thúc</button>
+                                             <button v-if="riceCrop.RiceCropInformation_harvestDate == null"
+                                                  class="btn btn-sm btnMonitoring ">Đang theo dõi</button>
+                                        </td>
+                                        <td class="text-center"><i class="fas fa-ellipsis-v mt-1 "
+                                                  style="color: #919302; font-size: 25px; ">
+                                                  <div class="deleteIcon ">
+                                                       <a style="width: 70px; height: 30px; background-color:#919302; font-size: 15px;"
+                                                            class="row">Xoas
+                                                       </a>
+                                                  </div>
+                                             </i></td>
+                                   </tr>
+
+                              </table>
+
                          </div>
                     </div>
                </div>
@@ -80,7 +85,7 @@ export default {
      -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
      -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
      border-radius: 10px;
-     width: 91%;
+     width: 203px;
      text-align: left;
      background-color: #FAFAFC;
      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
@@ -143,29 +148,20 @@ export default {
      justify-content: center;
      align-items: center;
      height: 30px;
-     position: absolute;
      display: flex;
-     left: 14%;
-     top: 15%
+     
 }
 
 .riceCropComponent .btnFinish {
      color: #6D6E73;
      background-color: #ABD2C8;
-     position: absolute;
-     left: 15%;
+margin-left: 10px;
 }
 
 .riceCropComponent .btnMonitoring {
      color: #5C5D22;
      background: #EEEA41;
-     position: absolute;
-     left: 11%;
-}
-
-.riceCropComponent .fa-ellipsis-v {
-     position: absolute;
-     left: 30%;
+margin-left: 6px;
 }
 
 .riceCropComponent .deleteIcon {
@@ -173,13 +169,5 @@ export default {
      display: none;
 }
 
-.riceCropComponent .fa-ellipsis-v:hover .deleteIcon {
-     display: inline;
-     left: -300%;
-     top: 95%;
-}
-.riceCropComponent .fa-info-circle{
-     margin-top: 5px;
 
-}
-</style>
+.riceCropComponent .fa-info-circle {}</style>

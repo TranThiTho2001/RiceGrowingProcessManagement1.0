@@ -148,7 +148,7 @@
 
                               <!-- ----------------------SprayingTimes Tab-------------- -->
                               <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableSprayingTimes">
-                                   <input type="text" class="form-control 5" placeholder="Tìm"
+                                   <input type="text" class="form-control inputSearch5" placeholder="Tìm"
                                         v-model="nameToSearch" @click="retrieveSprayingTimesList()"
                                         @keyup.enter="searchNamePesticide(nameToSearch)"
                                         @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />

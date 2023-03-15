@@ -1,13 +1,22 @@
 <template>
      <div class="container-fluid riceCropManagement" style="background-color:  #EAEAEA;">
           <div class="row riceCropManagemenFrame" style="height: 100vmin;">
-               <div class="col-md-2 col-sm-12 leftRiceCropManagement" style="background: linear-gradient(180deg, rgba(128, 255, 0, 0.15) 0%, rgba(250, 255, 0, 0.15) 100%);">
+               <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
+                    @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
+               <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
+                    @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true, active.leftnNoneActive = false"></button>
+               <div class="" :class="{ menubar: openMenu.openMenu }" v-if="openMenu.openMenu">
                     <div class="row">
                          <Catalog />
                     </div>
                </div>
-               <div class="col-md-10 rightRiceCropManagement">
-                    <div class="row ml-2 pt-3 mb-5 pb-1 mr-2 topRight">
+               <div class="left">
+                    <div class="row">
+                         <Catalog />
+                    </div>
+               </div>
+               <div class="right rightRiceCropManagement" :class="{ leftNoneActive: active.leftnNoneActive }">
+                    <div class="row ml-4 pt-3 mb-5 pb-1 mr-2 topRight">
                          <div class="col-md-3">
                               <h3 class="name">Theo dõi mùa vụ</h3>
                          </div>
@@ -33,14 +42,14 @@
                               </div>
                          </div>
                     </div>
-                    <div class="row ml-3  pt-4 pb-3 pr-3 ">
+                    <div class="row ml-4 mr-2 mt-3  pt-2">
                          <div class="col-sm-10"></div>
                          <div class="col-sm-2 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
                                         style="font-size: 15px;"></i> Thêm Mùa Vụ</button>
                          </div>
                     </div>
-                    <div class=" row riceCropList ml-2 mr-2 text-left" v-if="riceCropListByMonitoring.length>0">
+                    <div class=" row riceCropList ml-4 mr-2 text-left" v-if="riceCropListByMonitoring.length > 0">
                          <carousel :settings="settings" :breakpoints="breakpoints" style="width:100%">
                               <slide v-for="(riceCrop, i) in riceCropListByMonitoring" :key="i">
                                    <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
@@ -51,7 +60,7 @@
                               </template>
                          </carousel>
                     </div>
-                    <div class="row riceCropList pt-1 ml-2 mr-4 text-left">
+                    <div class="row riceCropList pt-1 ml-4 mr-2 text-left">
                          <carousel :settings="settings" :breakpoints="breakpoints" style="width:100%">
                               <slide v-for="(riceCrop, i) in riceCropListByFinish" :key="i">
                                    <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
@@ -154,6 +163,16 @@ export default {
 
      data() {
           return {
+               openMenu: {
+                    openMenu: false,
+                    isOpenMenuIcon: true,
+                    isCloseMenu: false,
+               },
+
+               active: {
+                    rightActive: false,
+                    leftnNoneActive: false,
+               },
                number: 0,
                riceCropList: [],
                cropList: [],
@@ -193,35 +212,46 @@ export default {
                },
                cloneRiceCropList: [],
                breakpoints: {
-                    500: {
+                    300:{
+                         itemsToShow: 1.5,
+                         snapAlign: 'left',
+                    },
+                    450: {
                          itemsToShow: 2,
+                         snapAlign: 'left',
+                    },
+                    600: {
+                         itemsToShow: 2.5,
                          snapAlign: 'left',
                     },
                     800: {
                          itemsToShow: 3,
                          snapAlign: 'left',
                     },
-
+                    900: {
+                         itemsToShow: 3.5,
+                         snapAlign: 'left',
+                    },
                     // 700px and up
                     1000: {
-                         itemsToShow: 4.5,
+                         itemsToShow: 4,
                          snapAlign: 'left',
                     },
                     1200: {
-                         itemsToShow: 5,
+                         itemsToShow: 4.5,
                          snapAlign: 'left',
                     },
                     // 1024 and up
                     1400: {
-                         itemsToShow: 5.5,
+                         itemsToShow: 5,
                          snapAlign: 'start',
                     },
                     1500: {
-                         itemsToShow: 6,
+                         itemsToShow: 5.5,
                          snapAlign: 'start',
                     },
                     1600: {
-                         itemsToShow: 8,
+                         itemsToShow: 7.5,
                          snapAlign: 'start',
                     },
 
@@ -840,6 +870,7 @@ export default {
 
 <style>
 @import url(../../assets/riceCropStyle.css);
+@import url(../../assets/mainStyle.css);
 
 .carousel__prev,
 .carousel__next {

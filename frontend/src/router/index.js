@@ -49,6 +49,13 @@ const routes = [
     },
 
     {
+        path: "/Statistical",
+        alias: "/Statistical",
+        name: "Statistical",
+        component: () => import("../views/catalogManagementView/statisticalManagement.vue"),
+        
+    },
+    {
         path: "/Monitor",
         alias: "/Monitor",
         name: "Monitor",
