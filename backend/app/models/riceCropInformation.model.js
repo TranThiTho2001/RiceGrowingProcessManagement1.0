@@ -79,6 +79,24 @@ RiceCropInformation.getByemployeeAndRiceCrop = (name,id, result) => {
      });
 };
 
+RiceCropInformation.findByArableLand = (name,id, result) => {
+     let query = "SELECT * FROM RiceCropInformation JOIN Monitor on Monitor.RiceCropInformation_id = RiceCropInformation.RiceCropInformation_id"+
+     ` JOIN Seed on Seed.Seed_id = RiceCropInformation.Seed_id` +
+     ` JOIN ArableLand on ArableLand.ArableLand_id= RiceCropInformation.ArableLand_id` +
+     ` JOIN Crop on Crop.Crop_id = RiceCropInformation.Crop_id`
+     if (name) {
+          query += ` WHERE  LIKE ArableLand.ArableLand_name '%${name}%' or ArableLand.ArableLand_id LIKE '%${name}%'`;
+     }
+     sql.query(query, (err, res) => {
+          if (err) {
+               console.log("error: ", err);
+               result(null, err);
+               return;
+          }
+          result(null, res);
+     });
+};
+
 RiceCropInformation.updateById = (id, riceCropInformation, result) => {
      sql.query(
           "UPDATE RiceCropInformation SET Seed_id = ?, RiceCropInformation_name = ?, RiceCropInformation_sowingDate = ?, RiceCropInformation_harvestDate = ?, RiceCropInformation_yield = ?, ArableLand_id = ? WHERE RiceCropInformation_id = ?",

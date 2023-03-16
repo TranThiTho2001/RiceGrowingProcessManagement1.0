@@ -11,7 +11,17 @@
 
 
 
-.seedManagement .navbar .btnSeed {
+.seedManagement .navigationBar .btnSeed{
+     display: block;
+     width: 94%;
+     font-size: 17px;
+     background-color:  #faf567;
+     color: #5C5D22;
+     border: none;
+     font-family: Inter;
+     border-radius: 14px;
+}
+.seedManagement .navigationBar .btnCatalog  {
      display: block;
      width: 94%;
      font-size: 17px;
@@ -20,8 +30,7 @@
      border: none;
      font-family: Inter;
      border-radius: 14px;
-}
-
+ }
 .outside {
      width: 100vw;
      height: 100vh;

@@ -818,6 +818,7 @@ export default {
 
 
           formatDate(data) {
+               
                return (moment(String(data)).format("YYYY-MM-DD")).slice(0, 10);
           },
           get_rows(list) {

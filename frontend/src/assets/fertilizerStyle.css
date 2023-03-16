@@ -18,7 +18,18 @@
     border-left: #bdf487 0.5px solid;
 }
 
-.fertilizerManagement  .navbar .btnFertilizer {
+.fertilizerManagement  .navigationBar .btnFertilizer {
+    display: block;
+    width: 94%;
+    font-size: 17px;
+    background-color: #faf567;
+    color: #5C5D22;
+    border: none;
+    font-family: Inter;
+    border-radius: 14px;
+}
+
+.fertilizerManagement .navigationBar .btnCatalog  {
     display: block;
     width: 94%;
     font-size: 17px;

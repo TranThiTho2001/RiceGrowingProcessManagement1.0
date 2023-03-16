@@ -55,6 +55,15 @@ const routes = [
         component: () => import("../views/catalogManagementView/statisticalManagement.vue"),
         
     },
+
+    {
+        path: "/Statistical/StatisticsByRiceCrop",
+        alias: "/StatisticsByRiceCrop",
+        name: "StatisticsByRiceCrop",
+        component: () => import("../views/catalogManagementView/statisticsByRiceCrop.vue"),
+        
+    },
+
     {
         path: "/Monitor",
         alias: "/Monitor",

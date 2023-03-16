@@ -1,6 +1,6 @@
 <template>
-     <div class="container-fluid arablelandManagement pr-4" style="background-color: #EAEAEA;">
-          <div class="row arablelandManagementFrame" style="height: 100vmin;">
+     <div class="container-fluid StatisticalManagement pr-4" style="background-color: #EAEAEA;">
+          <div class="row StatisticalManagementManagementFrame" style="min-height: 100vmin;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -15,7 +15,7 @@
                          <Catalog />
                     </div>
                </div>
-               <div class="rightArableLandManagement right" :class="{ leftNoneActive: active.leftnNoneActive }">
+               <div class="rightStatisticalManagementManagement right" :class="{ leftNoneActive: active.leftnNoneActive }">
                     <div class="row ml-4 pt-3 mb-5 pb-1 mr-2 topRight">
                          <div class="col-md-2">
                               <h3 class="name">Mẫu ruộng</h3>
@@ -30,9 +30,64 @@
                               </div>
                          </div>
                     </div>
-                    <div class="row">
-                         <div class="col-sm-3">
-                              
+                    <div class="row mr-2 ml-2">
+                         <div class="statisticalComponent text-center" @click="goToStatiticsByriceCrop()">
+                              <div class="nameComponent">
+                                   <h2>Mùa Vụ</h2>
+                              </div>
+                              <apexchart width="100%" type="pie" :options="chartDataForRiceCrop.chartOptions"
+                                   :series="chartDataForRiceCrop.series">
+                              </apexchart>
+                         </div>
+
+                         <div class="statisticalComponent text-center">
+                              <div class="nameComponent">
+                                   <h2>Mẫu ruộng</h2>
+                              </div>
+                              <apexchart width="100%" type="pie" :options="chartDataForArableLand.chartOptions"
+                                   :series="chartDataForArableLand.series">
+                              </apexchart>
+
+                         </div>
+
+                         <div class="statisticalComponent text-center">
+                              <div class="nameComponent">
+                                   <h2>Phân bón</h2>
+                              </div>
+                              <apexchart width="100%" type="pie" :options="chartDataForRiceCrop.chartOptions"
+                                   :series="chartDataForRiceCrop.series">
+                              </apexchart>
+
+                         </div>
+
+
+                         <div class="statisticalComponent text-center">
+                              <div class="nameComponent">
+                                   <h2>Mùa Vụ</h2>
+                              </div>
+                              <apexchart width="100%" type="pie" :options="chartDataForRiceCrop.chartOptions"
+                                   :series="chartDataForRiceCrop.series">
+                              </apexchart>
+                         </div>
+
+                         <div class="statisticalComponent text-center">
+                              <div class="nameComponent">
+                                   <h2>Mùa Vụ</h2>
+                              </div>
+                              <apexchart width="100%" type="pie" :options="chartDataForRiceCrop.chartOptions"
+                                   :series="chartDataForRiceCrop.series">
+                              </apexchart>
+
+                         </div>
+
+                         <div class="statisticalComponent text-center">
+                              <div class="nameComponent">
+                                   <h2>Mùa Vụ</h2>
+                              </div>
+                              <apexchart width="100%" type="pie" :options="chartDataForRiceCrop.chartOptions"
+                                   :series="chartDataForRiceCrop.series">
+                              </apexchart>
+
                          </div>
                     </div>
                </div>
@@ -45,37 +100,26 @@
 
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import { mapGetters, mapMutations } from "vuex";
-
-
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
-
-
-
+import RiceCropInformationService from '@/services/riceCropInformation.service';
+import VueApexCharts from "vue3-apexcharts";
+import ArableLandService from '@/services/arableLand.service';
 export default {
      name: "ArableLandManagement",
      components: {
           Catalog,
           TopHeader,
+          apexchart: VueApexCharts,
+
      },
+
 
      data() {
           return {
-               currentPage: 1,
-               elementsPerPage: 9,
-               ascending: false,
-               previous: '<<',
-               next: '>>',
-               arablelandList: [],
-               openCreate: false,
-               newArableLand: {},
-               message1: " ",
-               message2: " ",
-               isOpenMessage: false,
-               isOpenConfirm: false,
-               arablelandChoosen: {},
-               isOpenUpdateArableLand: false,
-               nameToSearch: "",
-               message: "",
+               riceCropList: [],
+               riceCropListByMonitoring: [],
+               riceCropListByFinish: [],
+               arableLandList: [],
                isOpenSearch: {
                     open: false,
                     close: true,
@@ -90,6 +134,55 @@ export default {
                active: {
                     rightActive: false,
                     leftnNoneActive: false,
+               },
+               chartDataForRiceCrop: {
+                    series: [],
+                    chartOptions: {
+                         chart: {
+                              width: 500,
+                              type: 'pie',
+                         },
+                         labels: ["Đang theo dõi", "Đã kết thúc"],
+                         colors: ['#98f3c1', '#EEEA41'],
+                         responsive: [
+                              {
+                                   breakpoint: 1600,
+                                   options: {
+                                        legend: {
+                                             position: 'bottom'
+                                        }
+                                   }
+                              }
+                         ]
+                    },
+               },
+
+               chartDataForArableLand: {
+                    series: [0,0],
+                    chartOptions: {
+                         chart: {
+                              width: 500,
+                              type: 'pie',
+                         },
+                         labels: ["Đang trong mùa vụ", "Đang để trống"],
+                         colors: ['#98f3c1', 'rgb(175, 173, 171)'],
+                         responsive: [
+                              {
+                                   breakpoint: 1600,
+                                   options: {
+                                        legend: {
+                                             position: 'bottom'
+                                        }
+                                   }
+                              }
+                         ]
+                    },
+               },
+
+               loaded: false,
+               options: {
+                    responsive: true,
+                    maintainAspectRatio: false
                }
           }
      },
@@ -100,6 +193,7 @@ export default {
           }),
 
      },
+
      methods: {
           ...mapMutations([
                "initEmployeeState"
@@ -126,202 +220,75 @@ export default {
                     return false;
                }
           },
-          // async retrieveArableLandList() {
-          //      const [err, respone] = await this.handle(
-          //           ArableLandService.getAll()
-          //      );
-          //      if (err) {
-          //           console.log(err)
-          //      }
-          //      else {
-          //           this.arablelandList = respone.data;
-          //           this.cloneArableLandList = respone.data;
-          //           this.cloneArableLandList.forEach(element => {
-          //                new ArableLand(element);
-          //           });
-          //           var temp = (String(this.arablelandList[this.arablelandList.length - 1].ArableLand_id)).split("");
-          //           var id = "";
-          //           for (let index = 0; index < temp.length; index++) {
-          //                const element = temp[index];
-          //                if (element != "A" && element != "L" & element != "0") {
-          //                     for (let i = index; i < temp.length; i++) {
-          //                          id = id.concat(temp[i]);
-          //                     }
-          //                     break;
-          //                }
-          //           }
+          async retrieveRiceCropList() {
+               this.loaded = false;
+               const [err, respone] = await this.handle(
+                    RiceCropInformationService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.riceCropList = respone.data;
+                    this.riceCropListByFinish = [];
+                    this.riceCropListByMonitoring = [];
+                    this.riceCropList.forEach(element => {
+                         if (element.RiceCropInformation_harvestDate == null) {
+                              this.riceCropListByMonitoring.push(element);
+                         }
+                         else {
+                              this.riceCropListByFinish.push(element);
+                         }
+                    });
+                    this.chartDataForRiceCrop.series = [];
+                    this.chartDataForRiceCrop.series[0] = (this.riceCropListByMonitoring.length);
+                    this.chartDataForRiceCrop.series[1] = (this.riceCropListByFinish.length);
+                    this.loaded = true;
+               }
+          },
 
-          //           if (id < 9) {
-          //                this.newArableLand.ArableLand_id = "AL0000000" + String(Number(id) + 1);
-          //           }
-          //           else if (id >= 9 && id < 99) {
-          //                this.newArableLand.ArableLand_id = "AL000000" + String(Number(id) + 1);
-          //           }
-          //           else if (id >= 99 && id < 999) {
-          //                this.newArableLand.ArableLand_id = "AL00000" + String(Number(id) + 1);
-          //           }
-          //           else {
-          //                this.newArableLand.ArableLand_id = "AL00" + String(Number(id) + 1);
-          //           }
-          //      }
-          // },
+          async retrieveArableLandList() {
+               const [err, respone] = await this.handle(
+                    ArableLandService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.arableLandList = respone.data;
+                    this.arableLandList.forEach(element1 => {
+                         var check = 0;
+                         this.riceCropListByMonitoring.forEach(element2 => {
+                              if (element1.ArableLand_id == element2.ArableLand_id) {
+                                   this.chartDataForArableLand.series[0] += 1;
+                                   check = 1;
+                              }
+                         });
+                         if(!check){
+                              this.chartDataForArableLand.series[1] += 1; 
+                         }
+                    });
+                    console.log(this.chartDataForArableLand.series)
+               }
+          },
 
-          // async createArableLand(data) {
-          //      if (data.close == false) {
-          //           this.openCreate = false;
-          //           this.message1 = " ";
-          //           this.message2 = " ";
-          //      }
-          //      else {
-          //           this.message1 = "";
-          //           this.message2 = "";
-          //           if (data.Soil_id == "Đất phù sa ven sông") {
-          //                data.Soil_id = "AL00000001";
-          //           }
-          //           else if (data.Soil_id == "Đất phù sa xa xông") {
-          //                data.Soil_id = "SL00000002";
-          //           }
-          //           else if (data.Soil_id == "Đất nhiễm phèn") {
-          //                data.Soil_id = "SL00000003";
-          //           }
-          //           else if (data.Soil_id == "Đất nhiễm mặn") {
-          //                data.Soil_id = "SL00000004";
-          //           }
-          //           else {
-          //                data.Soil_id = "SL00000005";
-          //           }
-          //           const [error, respone] = await this.handle(
-          //                ArableLandService.create(data)
-          //           );
-          //           if (error) {
-          //                console.log(error);
-          //                this.message1 = "Thêm không thành công."
-          //           } else if (respone.data == "Không thể tạo một mẫu ruộng mới") {
-          //                this.message1 = "Thêm không thành công."
-          //           } else {
-          //                this.message2 = "Thêm thành công.";
-          //                this.retrieveArableLandList();
-          //           }
-          //      }
-          // },
+          goToStatiticsByriceCrop(){
+               this.$router.push("/Statistical/StatisticsByRiceCrop");
+          },
 
-          // async updateArableLand(data) {
-          //      if (data.close == false) {
-          //           this.isOpenUpdateArableLand = false;
-          //           this.message1 = " ";
-          //           this.message2 = " ";
-          //      }
-          //      else {
-          //           this.message1 = "";
-          //           this.message2 = "";
-          //           if (data.Soil_id == "Đất phù sa ven sông" || data.Soil_id == "AL00000001") {
-          //                data.Soil_id = "SL00000001";
-          //           }
-          //           else if (data.Soil_id == "Đất phù sa xa xông" || data.Soil_id == "AL00000002") {
-          //                data.Soil_id = "SL00000002";
-          //           }
-          //           else if (data.Soil_id == "Đất nhiễm phèn" || data.Soil_id == "AL00000003") {
-          //                data.Soil_id = "SL00000003";
-          //           }
-          //           else if (data.Soil_id == "Đất nhiễm mặn" || data.Soil_id == "AL00000004") {
-          //                data.Soil_id = "SL00000004";
-          //           }
-          //           else {
-          //                data.Soil_id = "SL00000005";
-          //           }
-          //           const [error, respone] = await this.handle(
-          //                ArableLandService.update(data.ArableLand_id, data)
-          //           );
-          //           if (error) {
-          //                console.log(error);
-          //                this.message1 = "Cập nhật không thành công."
-          //           } else if (respone.data == "Đã xảy ra lỗi trong quá trình cập nhật thông tin!") {
-          //                this.message1 = "Cập nhật không thành công."
-          //           } else {
-          //                this.message2 = "Cập nhật thành công.";
-          //                this.retrieveArableLandList();
-          //           }
-          //      }
-          // },
-
-          // async deleteArableLand(arablelandid) {
-          //      const [error, response] = await this.handle(
-          //           ArableLandService.delete(arablelandid)
-          //      );
-          //      if (error) {
-          //           console.log(error);
-          //      } else {
-          //           this.retrieveArableLandList()
-          //           console.log(response.data);
-          //           this.message = "Xóa mẫu ruộng thành công"
-          //      }
-          // },
-
-
-          // async searchName(data) {
-          //      this.nameToSearch = data;
-          //      const [error, response] = await this.handle(ArableLandService.findByName(this.nameToSearch));
-          //      if (error) {
-          //           console.log(error);
-          //      } else {
-          //           if (response.data != null) {
-          //                this.arablelandList = response.data;
-          //                console.log(response.data)
-          //           }
-          //           else {
-          //                // this.message = "Không tìm thấy phân bón!";
-          //                this.isOpenMessage = !this.isOpenMessage;
-          //           }
-
-          //      }
-          // },
-
-          // async setArableLandChoosen(arableland) {
-          //      this.arablelandChoosen = arableland;
-          //      console.log(this.arablelandChoosen)
-          // },
-
-
-          // get_rows(list) {
-          //      var start = (this.currentPage - 1) * this.elementsPerPage;
-          //      var end = start + this.elementsPerPage;
-          //      return list.slice(start, end);
-
-          // },
-
-          // // So trang cua danh sach danh muc
-          // num_pages(list) {
-          //      return Math.ceil(list.length / this.elementsPerPage);
-          // },
-
-          // async change_page(page, list) {
-          //      if (page == '-' && this.currentPage > 1) {
-          //           this.currentPage -= 1;
-          //           this.get_rows(list);
-          //      }
-          //      else if (page == '+' && this.currentPage < this.num_pages(list)) {
-          //           this.currentPage += 1;
-          //           this.get_rows(list);
-          //      }
-          //      else {
-          //           this.currentPage = page;
-          //           this.get_rows(list);
-          //      }
-          // },
      },
 
      created() {
+          this.retrieveRiceCropList();
+          this.retrieveArableLandList();
           this.initEmployeeState();
      },
 
-     mounted() {
-
-     }
 }
 </script>
 
 <style>
-@import url(../../assets/arablelandStyle.css);
+@import url(../../assets/statisticalStyle.css);
 
 
 nav {
@@ -353,5 +320,4 @@ nav .pagination .page-item .page-link {
      font-size: 20px;
 }
 
-@import url(../../assets/mainStyle.css);
-</style>
+@import url(../../assets/mainStyle.css);</style>

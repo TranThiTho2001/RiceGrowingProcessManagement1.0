@@ -132,6 +132,9 @@
      border: none;
      border-radius: 10px;
 }
+.form-control:focus {
+     border-color: #E4E5EB !important;
+}
 
 .inputSearch1 {
      background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
@@ -144,9 +147,7 @@
      top: 3%;
 }
 
-.form-control:focus {
-     border-color: #E4E5EB !important;
-}
+
 
 
 .btnSearch1 {
@@ -238,7 +239,8 @@
      margin-left: 1% !important;
 }
 
-.scrollTable thead th {
+.scrollTable thead th,
+.scrollStatisticalTable thead th {
      position: sticky;
      top: 0;
      z-index: 0;
