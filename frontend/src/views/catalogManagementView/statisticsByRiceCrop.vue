@@ -33,6 +33,18 @@
                     <div class="scroll" style="">
                          <div class="row mr-2 ml-2 statisticalBy" style="background-color: beige; height: 150px;">
                               <div class="leftStatistical">
+                                   <button @click="generateReport()" class="btn">Generate PDF</button>
+                                   <div>
+                                        <vue3html2pdf :show-layout="false" :float-layout="true" :enable-download="false"
+                                             :preview-modal="true" :paginate-elements-by-height="1400"
+                                             filename="nightprogrammerpdf" :pdf-quality="2" :manual-pagination="false"
+                                             pdf-format="a4" :pdf-margin="10" pdf-orientation="portrait"
+                                             pdf-content-width="1000px"  ref="html2Pdf">
+                                             <template v-slot:pdf-content>
+                                                  <riceCropReport :riceCropList="riceCropList" />
+                                             </template>
+                                        </vue3html2pdf>
+                                   </div>
                                    <label>Thống kê mùa vụ theo: </label>
                                    <select class="selection">
                                         <option> Tất cả</option>
@@ -103,12 +115,16 @@
                                              </tr>
                                         </tbody>
                                    </table>
+
                               </div>
                          </div>
                          <div style="width: 30%;">
-                              <apexchart v-if="nameToSearch!=''" type="bar" width="100%" height="350" :options="chartForArableLand.chartOptions" :series="chartForArableLand.series"></apexchart>
+                              <apexchart v-if="nameToSearch != ''" type="bar" width="100%" height="350"
+                                   :options="chartForArableLand.chartOptions" :series="chartForArableLand.series">
+                              </apexchart>
                          </div>
                     </div>
+
                </div>
           </div>
      </div>
@@ -125,14 +141,18 @@ import ArableLandService from '@/services/arableLand.service';
 import CropService from '@/services/crop.service';
 import moment from 'moment';
 import VueApexCharts from "vue3-apexcharts";
-
+import vue3html2pdf from 'vue3-html2pdf'
+import riceCropReport from '@/components/report/RiceCropReport.vue'
 export default {
      name: "ArableLandManagement",
      components: {
           Catalog,
           TopHeader,
           apexchart: VueApexCharts,
+          vue3html2pdf,
+          riceCropReport,
      },
+
 
 
      data() {
@@ -167,7 +187,7 @@ export default {
                          },
                          plotOptions: {
                               bar: {
-                                   borderRadius: 10,
+                                   borderRadius: 0,
                                    dataLabels: {
                                         position: 'top', // top, center, bottom
                                    },
@@ -230,7 +250,9 @@ export default {
           ...mapMutations([
                "initEmployeeState"
           ]),
-
+          generateReport() {
+               this.$refs.html2Pdf.generatePdf()
+          },
           filteredArableLandList() {
                return this.cloneArableLandList.filter(arableLand => {
                     return arableLand.id_owner.toLowerCase().includes(this.nameToSearch.toLowerCase())

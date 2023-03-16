@@ -248,6 +248,7 @@
      border-bottom: 0.5px solid #b5b5b7;
      padding-left: 10px !important;
      background-color: #008B8E;
+     vertical-align: middle !important;
      /* border-radius: 15px; */
 }
 
@@ -261,6 +262,9 @@
      background-color: #EAEAEA;
 }
 
+.table thead tr th{
+     vertical-align: middle !important;
+}
 .table tbody tr {
      font-family: 'Roboto';
      font-style: normal;
