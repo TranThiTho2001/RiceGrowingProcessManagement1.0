@@ -52,13 +52,13 @@
                                         <label for="seed">Giống lúa</label><br>
                                    </div>
                                    <div class="col-lg-6">
-                                        <input type="radio" id="epidemic" name="statisticsby" value="epidemic"
+                                        <input type="radio" id="epidemic" name="statisticsby" value="epidemic" @click="retrieveEpidemicTimesList(), retrieveEpidemicList(), deleteRiceCropList()"
                                              v-model="chooseSatisticsBy">
                                         <label for="epidemic">Dịch bệnh gây hại</label><br>
-                                        <input type="radio" id="fertilizer" name="statisticsby" value="fertilizer"
+                                        <input type="radio" id="fertilizer" name="statisticsby" value="fertilizer" @click="retrieveFertilizerList(), retrieveFertilizerTimesList(), deleteRiceCropList()"
                                              v-model="chooseSatisticsBy">
                                         <label for="fertilizer">Phân bón</label><br>
-                                        <input type="radio" id="pesticide" name="statisticsby" value="pesticide"
+                                        <input type="radio" id="pesticide" name="statisticsby" value="pesticide" @click="deleteRiceCropList(), retrievePesticideList(), retrievePrayingTimesList()"
                                              v-model="chooseSatisticsBy">
                                         <label for="pesticide">Thuốc trị bệnh dịch</label>
                                    </div>
@@ -118,6 +118,69 @@
                                              {{ seed.Seed_id_name }}</p>
                                    </div>
                               </div>
+
+                              <div class="statisticsByEpidemicList" v-if="chooseSatisticsBy == 'epidemic'">
+                                   <input type="text" class="form-control inputSearch4" placeholder="Tìm"
+                                        v-model="nameToSearch" @click="retrieveEpidemicTimesList()"
+                                        @keyup.enter="searchByEpidemic(nameToSearch)"
+                                        @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                                   <button class="btnSearch4" @click="searchByEpidemic(nameToSearch)"
+                                        v-if="nameToSearch == '' && !isOpenSearch.open">
+                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                                   </button>
+                                   <div :class="{ openSearch4: isOpenSearch.open, closeSearch4: isOpenSearch.close }">
+                                        <p class="item" v-for="epidemic in filteredEpidemicList()" :key="epidemic.Epidemic_name"
+                                             @click="searchByEpidemic(epidemic.Epidemic_name), isOpenSearch.open = false, isOpenSearch.close = true">
+                                             {{ epidemic.Epidemic_name }}</p>
+                                   </div>
+                                   <div class="arablelandScroll">
+                                        <p class="arablename" v-for="epidemic in epidemicList" :key="epidemic.Epidemic_id" :id="epidemic.Epidemic_name"
+                                             @click="searchByEpidemic(epidemic.Epidemic_name), isOpenSearch.open = false, isOpenSearch.close = true">
+                                             {{ epidemic.Epidemic_name }}</p>
+                                   </div>
+                              </div>
+
+                              <div class="statisticsByFertilizer" v-if="chooseSatisticsBy == 'fertilizer'">
+                                   <input type="text" class="form-control inputSearch4" placeholder="Tìm"
+                                        v-model="nameToSearch" @click="retrieveEpidemicList()"
+                                        @keyup.enter="searchByFertilizer(nameToSearch)"
+                                        @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                                   <button class="btnSearch4" @click="searchByFertilizer(nameToSearch)"
+                                        v-if="nameToSearch == '' && !isOpenSearch.open">
+                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                                   </button>
+                                   <div :class="{ openSearch4: isOpenSearch.open, closeSearch4: isOpenSearch.close }">
+                                        <p class="item" v-for="fertilizer in filteredFertilizerList()" :key="fertilizer.Fertilizer_name"
+                                             @click="searchByFertilizer(fertilizer.Fertilizer_name), isOpenSearch.open = false, isOpenSearch.close = true">
+                                             {{ fertilizer.Fertilizer_name }}</p>
+                                   </div>
+                                   <div class="arablelandScroll">
+                                        <p class="arablename" v-for="fertilizer in fertilizerList" :key="fertilizer.Epidemic_id" :id="fertilizer.Fertilizer_name"
+                                             @click="searchByFertilizer(fertilizer.Fertilizer_name), isOpenSearch.open = false, isOpenSearch.close = true">
+                                             {{ fertilizer.Fertilizer_name }}</p>
+                                   </div>
+                              </div>
+
+                              <div class="statisticsByPesticide" v-if="chooseSatisticsBy == 'pesticide'">
+                                   <input type="text" class="form-control inputSearch4" placeholder="Tìm"
+                                        v-model="nameToSearch" @click="retrievePesticideList()"
+                                        @keyup.enter="searchByPesticide(nameToSearch)"
+                                        @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                                   <button class="btnSearch4" @click="searchByPesticide(nameToSearch)"
+                                        v-if="nameToSearch == '' && !isOpenSearch.open">
+                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                                   </button>
+                                   <div :class="{ openSearch4: isOpenSearch.open, closeSearch4: isOpenSearch.close }">
+                                        <p class="item" v-for="pesticide in filteredPesticideList()" :key="pesticide.Pesticide_name"
+                                             @click="searchByPesticide(pesticide.Pesticide_name), isOpenSearch.open = false, isOpenSearch.close = true">
+                                             {{ pesticide.Pesticide_name }}</p>
+                                   </div>
+                                   <div class="arablelandScroll">
+                                        <p class="arablename" v-for="pesticide in pesticideList" :key="pesticide.Pesticide_name" :id="pesticide.Pesticide_name"
+                                             @click="searchByPesticide(pesticide.Pesticide_name), isOpenSearch.open = false, isOpenSearch.close = true">
+                                             {{ pesticide.Pesticide_name }}</p>
+                                   </div>
+                              </div>
                          </div>
                     </div>
                     <div class="scroll" style="">
@@ -148,6 +211,14 @@
                                                   <th>Ngày gieo xạ</th>
                                                   <th>Ngày thu hoạch</th>
                                                   <th>Năng suất</th>
+                                                  <th v-if="chooseSatisticsBy=='epidemic'">Dịch bệnh</th>
+                                                  <th v-if="chooseSatisticsBy == 'fertilizer'">Phân bón</th>
+                                                  <th v-if="chooseSatisticsBy == 'pesticide'">Thuốc trị bệnh dịch</th>
+                                                  <th v-if="chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide'">Lần</th>
+                                                  <th v-if="chooseSatisticsBy=='epidemic'  || chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide'">Ngày bắt đầu</th>
+                                                  <th v-if="chooseSatisticsBy=='epidemic'  || chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide'">Ngày kết thúc</th>
+                                                  <th v-if="chooseSatisticsBy == 'fertilizer'">Số lượng (Kg/ha)</th>
+                                                  <th v-if="chooseSatisticsBy == 'pesticide'">Liều lượng (ml/ha)</th>
                                              </tr>
                                         </thead>
                                         <tbody>
@@ -161,7 +232,11 @@
                                                   <td>{{ formatDate(riceCrop.RiceCropInformation_sowingDate) }}</td>
                                                   <td>{{ formatDate(riceCrop.RiceCropInformation_harvestDate) }}</td>
                                                   <td>{{ formatYield(riceCrop.RiceCropInformation_yield) }}</td>
-
+                                                  <td v-if="chooseSatisticsBy=='epidemic'  || chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide'">{{ riceCrop.name }}</td>
+                                                  <td v-if="chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide'">{{ riceCrop.times }}</td>
+                                                  <td v-if="chooseSatisticsBy=='epidemic'  || chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide'">{{ formatDate(riceCrop.startDate) }}</td>
+                                                  <td v-if="chooseSatisticsBy=='epidemic'  || chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide'">{{ formatDate(riceCrop.endDate) }}</td>
+                                                  <td v-if="chooseSatisticsBy == 'fertilizer'  || chooseSatisticsBy == 'pesticide'">{{ riceCrop.amount }}</td>
                                              </tr>
                                         </tbody>
                                    </table>
@@ -192,10 +267,17 @@ import RiceCropInformationService from '@/services/riceCropInformation.service';
 import ArableLandService from '@/services/arableLand.service';
 import CropService from '@/services/crop.service';
 import SeedService from '@/services/seed.service';
+import EpidemicTimesService from '@/services/epidemicTimes.service';
+import EpidemicService from '@/services/epidemic.service';
+import FertilizerService from '@/services/fertilizer.service';
+import FertilizerTimesService from '@/services/fertilizerTimes.service';
+import PesticideService from '@/services/pesticide.service';
+import SprayingTimesService from '@/services/sprayingTimes.service';
 import moment from 'moment';
 import VueApexCharts from "vue3-apexcharts";
 import vue3html2pdf from 'vue3-html2pdf'
 import riceCropReport from '@/components/report/RiceCropReport.vue'
+
 export default {
      name: "ArableLandManagement",
      components: {
@@ -219,6 +301,13 @@ export default {
                idToSearchByCrop: [],
                seedList: [],
                cloneSeedList: [],
+               epidemicTimesList: [],
+               cloneEpidemicTimesList: [],
+               epidemicList: [],
+               fertilizerList: [],
+               fertilizerTimesList: [],
+               pesticideList: [],
+               sprayingTimesList: [],
                chooseSatisticsBy: "",
                isOpenSearch: {
                     open: false,
@@ -316,11 +405,31 @@ export default {
                     return arableLand.id_owner.toLowerCase().includes(this.nameToSearch.toLowerCase())
                })
           },
+
           filteredSeedList() {
                return this.cloneSeedList.filter(seed => {
                     return seed.Seed_id_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
                })
           },
+
+          filteredEpidemicList() {
+               return this.epidemicList.filter(epidemic => {
+                    return epidemic.Epidemic_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
+               })
+          },
+
+          filteredPesticideList() {
+               return this.pesticideList.filter(pesticide => {
+                    return pesticide.Pesticide_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
+               })
+          },
+
+          filteredFertilizerList() {
+               return this.fertilizerList.filter(fertilizer => {
+                    return fertilizer.Fertilizer_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
+               })
+          },
+
           away() {
                this.isOpenSearch.open = false;
                this.isOpenSearch.close = true;
@@ -374,6 +483,10 @@ export default {
                     this.cropList = respone.data;
                }
           },
+
+          
+
+
           async retrieveSeedList() {
                const [err, respone] = await this.handle(
                     SeedService.getAll()
@@ -382,13 +495,11 @@ export default {
                     console.log(err)
                }
                else {
-                    
                     this.cloneSeedList = respone.data;
                     this.cloneSeedList.forEach(element => {
                          element.Seed_id_name = String(element.Seed_id).concat(" - " + element.Seed_name)
                          this.seedList.push(element);
                     });
-                    console.log(this.cloneSeedList)
                }
           },
 
@@ -401,11 +512,83 @@ export default {
                }
                else {
                     this.arableLandList = respone.data;
-
                     this.cloneArableLandList = respone.data;
                     this.cloneArableLandList.forEach(element => {
                          element.id_owner = String(element.ArableLand_id).concat(" - " + element.ArableLand_owner);
                     });
+               }
+          },
+          async retrieveEpidemicList() {
+               const [err, respone] = await this.handle(
+                    EpidemicService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.epidemicList = respone.data;
+                    this.cloneEpidemicList = respone.data;
+               }
+          },
+
+          async retrieveEpidemicTimesList() {
+               const [err, respone] = await this.handle(
+                    EpidemicTimesService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.epidemicTimesList = respone.data;
+               }
+          },
+
+          async retrieveFertilizerList() {
+               const [err, respone] = await this.handle(
+                    FertilizerService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.fertilizerList = respone.data;
+               }
+          },
+
+          async retrieveFertilizerTimesList() {
+               const [err, respone] = await this.handle(
+                    FertilizerTimesService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.fertilizerTimesList = respone.data;
+               }
+          },
+
+          async retrievePesticideList() {
+               const [err, respone] = await this.handle(
+                    PesticideService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.pesticideList= respone.data;
+               }
+          },
+
+
+          async retrievePrayingTimesList() {
+               const [err, respone] = await this.handle(
+                    SprayingTimesService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.sprayingTimesList = respone.data;
                }
           },
 
@@ -450,6 +633,7 @@ export default {
                     });
                });
           },
+
           async searchBySeed(data) {
                this.nameToSearch = data;
                var list = document.getElementsByClassName("arablename");
@@ -457,7 +641,6 @@ export default {
                     element.style.backgroundColor = '#FFFFFF'
                });
                document.getElementById(data.substring(0, data.indexOf('-')-1)).style.backgroundColor = '#cbcccf';
-
                this.riceCropList = [];
                if (data != '') {
                     this.cloneRiceCropList.forEach(element1 => {
@@ -469,8 +652,96 @@ export default {
                else{
                     this.retrieveCropList();
                }
-
           },
+
+          async searchByEpidemic(data) {
+               this.nameToSearch = data;
+               var list = document.getElementsByClassName("arablename");
+               Array.from(list).forEach(element => {
+                    element.style.backgroundColor = '#FFFFFF'
+               });
+               document.getElementById(data).style.backgroundColor = '#cbcccf';
+               this.riceCropList = [];
+               if (data != '') {
+                    this.cloneRiceCropList.forEach(ricecrop => {
+                         this.epidemicTimesList.forEach(epidemictimes => {
+                              if(ricecrop.RiceCropInformation_id == epidemictimes.RiceCropInformation_id && epidemictimes.Epidemic_name == data){
+                                   ricecrop.name = epidemictimes.Epidemic_name;
+                                   ricecrop.startDate = epidemictimes.EpidemicTimes_startDate;
+                                   ricecrop.endDate = epidemictimes.EpidemicTimes_endDate;
+                                   this.riceCropList.push(ricecrop);
+                              }
+                         });
+                    });
+               }
+               else{
+                    this.retrieveCropList();
+               }
+          },
+
+          async searchByFertilizer(data) {
+               this.nameToSearch = data;
+               var list = document.getElementsByClassName("arablename");
+               Array.from(list).forEach(element => {
+                    element.style.backgroundColor = '#FFFFFF'
+               });
+               document.getElementById(data).style.backgroundColor = '#cbcccf';
+               this.riceCropList = [];
+               if (data != '') {
+                    this.cloneRiceCropList.forEach(ricecrop => {
+                         this.fertilizerTimesList.forEach(fertilizertimes => {
+                              if(ricecrop.RiceCropInformation_id == fertilizertimes.RiceCropInformation_id && fertilizertimes.Fertilizer_name == data){
+                                   ricecrop.name = fertilizertimes.Fertilizer_name;
+                                   ricecrop.times = fertilizertimes.FertilizerTimes_times;
+                                   ricecrop.startDate = fertilizertimes.FertilizerTimes_startDate;
+                                   ricecrop.endDdate = fertilizertimes.FertilizerTimes_endDdate;
+                                   ricecrop.amount =fertilizertimes.FertilizerTimes_amount;
+                                   this.riceCropList.push(ricecrop);
+                              }
+                         });
+                    });
+               }
+               else{
+                    this.retrieveCropList();
+               }
+          },
+
+          async searchByPesticide(data) {
+               this.nameToSearch = data;
+               var list = document.getElementsByClassName("arablename");
+               Array.from(list).forEach(element => {
+                    element.style.backgroundColor = '#FFFFFF'
+               });
+               document.getElementById(data).style.backgroundColor = '#cbcccf';
+               this.riceCropList = [];
+               if (data != '') {
+                    console.log(this.sprayingTimesList)
+                    this.cloneRiceCropList.forEach(riceCrop => {
+                         var i = 0;
+                         this.sprayingTimesList.forEach(sprayingtimes => {
+                              const ricecrop = Object.assign({}, riceCrop);
+                              riceCrop.id = i;
+                              if(ricecrop.RiceCropInformation_id == sprayingtimes.RiceCropInformation_id && sprayingtimes.Pesticide_name == data){
+                                   ricecrop.name = sprayingtimes.Pesticide_name;
+                                   ricecrop.times = sprayingtimes.SprayingTimes_times;
+                                   
+                                   ricecrop.startDate = sprayingtimes.SprayingTimes_startDate;
+                                   ricecrop.endDdate = sprayingtimes.SprayingTimes_endDdate;
+                                   ricecrop.amount =sprayingtimes.SprayingTimes_amount;
+                                   ricecrop.times = sprayingtimes.SprayingTimes_times;
+                                   this.riceCropList.push(ricecrop);
+                                   console.log(riceCrop)
+                                   i++;
+                              }
+                         });
+                    });
+                    console.log(this.riceCropList)
+               }
+               else{
+                    this.retrieveCropList();
+               }
+          },
+
           formatDate(data) {
                if (data != null)
                     return (moment(String(data)).format("DD-MM-YYYY")).slice(0, 10);

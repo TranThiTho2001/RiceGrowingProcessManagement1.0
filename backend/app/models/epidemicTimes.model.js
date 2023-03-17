@@ -50,7 +50,8 @@ EpidemicTimes.getAll = (Epidemics_id, result) => {
      let query = "SELECT * FROM EpidemicTimes"+
      ` JOIN Employee on Employee.Employee_id = EpidemicTimes.Employee_id` +
           ` JOIN Epidemic on Epidemic.Epidemic_id = EpidemicTimes.Epidemic_id` +
-          ` Join Developmentstage on DevelopmentStage.DevelopmentStage_id = EpidemicTimes.DevelopmentStage_id`;
+          ` Join Developmentstage on DevelopmentStage.DevelopmentStage_id = EpidemicTimes.DevelopmentStage_id` +
+          ` Join RiceCropInformation on RiceCropInformation.RiceCropInformation_id = EpidemicTimes.RiceCropInformation_id`;
      if (Epidemics_id) {
           query += ` WHERE Epidemic_id LIKE '%${Epidemics_id}%' ORDER By EpidemicTimes_times`;
      }
@@ -63,6 +64,8 @@ EpidemicTimes.getAll = (Epidemics_id, result) => {
           result(null, res);
      });
 };
+
+
 
 EpidemicTimes.findByName= (name,id, result) => {
      let query = "SELECT * FROM EpidemicTimes"+

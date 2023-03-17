@@ -50,7 +50,7 @@ SprayingTimes.getAll = (Pesticide_id, result) => {
      let query = "SELECT * FROM SprayingTimes JOIN Employee on Employee.Employee_id = SprayingTimes.Employee_id" +
      " JOIN Pesticide on Pesticide.Pesticide_id = SprayingTimes.Pesticide_id" + 
      " JOIN Developmentstage on developmentstage.DevelopmentStage_id = SprayingTimes.DevelopmentStage_id";
-     if (Pesticide_name) {
+     if (Pesticide_id) {
           query += ` WHERE Pesticide_id LIKE '%${Pesticide_id}%' AND RiceCropInformation_id LIKE '${id}' ORDER BY SprayingTimes.SprayingTimes_times`;
      }
      sql.query(query, (err, res) => {
