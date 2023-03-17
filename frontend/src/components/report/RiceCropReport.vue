@@ -13,7 +13,7 @@
                <table class="table tabelreport">
                     <thead>
                          <tr>
-                              <th class="text-center" >STT</th>
+                              <th class="text-center">STT</th>
                               <th class="text-center">Mã</th>
                               <th>Tên</th>
                               <th>Giống lúa</th>
