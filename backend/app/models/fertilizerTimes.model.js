@@ -31,7 +31,8 @@ FertilizerTimes.findByIdRiceCropInformation = (id, result) => {
      sql.query(`SELECT * FROM FertilizerTimes JOIN Fertilizer on Fertilizer.Fertilizer_id = FertilizerTimes.Fertilizer_id ` +
           `JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = FertilizerTimes.RiceCropInformation_id `+
           ` JOIN Employee on Employee.Employee_id = FertilizerTimes.Employee_id `+
-          `WHERE FertilizerTimes.RiceCropInformation_id like '${id}'`, (err, res) => {
+          `WHERE FertilizerTimes.RiceCropInformation_id like '${id}'`
+          + ` ORDER BY  FertilizerTimes.FertilizerTimes_times`, (err, res) => {
           if (err) {
                console.log("error: ", err);
                result(err, null);
@@ -54,6 +55,7 @@ FertilizerTimes.getAll = (Fertilizer_id, result) => {
      if (Fertilizer_id) {
           query += ` WHERE Fertilizer_id LIKE '%${Fertilizer_id}%'`;
      }
+     query += + ` ORDER BY  FertilizerTimes.FertilizerTimes_times`;
      sql.query(query, (err, res) => {
           if (err) {
                console.log("error: ", err);

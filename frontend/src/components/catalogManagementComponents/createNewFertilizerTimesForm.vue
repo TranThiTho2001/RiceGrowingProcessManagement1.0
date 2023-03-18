@@ -9,7 +9,7 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Thêm lần bón phân
+               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> Thêm lần bón phân
                </p>
           </div>
           <div class="row content">
@@ -78,27 +78,6 @@
 
 
                <div class="col-sm-4 ">
-                    <!-- <div class="form-group ">
-                         <label for="fertilizer" class="mt-3 pt-1">Loại phân<span style="color:red">*</span></label>
-                         <Field name="fertilizer" v-model="newfertilizertimes.Fertilizer_name">
-                              <select class="form-control" v-model="newfertilizertimes.Fertilizer_name" name="classtify"
-                                   for="classtify">
-                                   <option v-for="(fertilizer, i) in fertilizerList" :key="i">{{ fertilizer.Fertilizer_name
-                                   }}
-                                   </option>
-
-                              </select>
-                         </Field>
-                         <ErrorMessage name="fertilizer" class="error-feedback" />
-                    </div>
-
-                    <div class="form-group">
-                         <label for="amount" class="mt-1">Số lượng(kg/ha)<span style="color:red">*</span></label>
-                         <Field name="amount" class="form-control" v-model="newfertilizertimes.FertilizerTimes_amount"
-                              placeholder="Nhập số lượng phân đã bón..." />
-                         <ErrorMessage name="amount" class="error-feedback" />
-                    </div> -->
-
                     <div class="form-group ">
                          <label for="temperature" class="mt-3 pt-1">Nhiệt độ</label>
                          <Field name="temperature" class="form-control"
@@ -122,43 +101,46 @@
 
                </div>
           </div>
+          <div class="row mt-2 ml-1 mr-1 fertilizerUsed">
+               <button type="button" @click="addFertilizer()"
+                    class="btnAddFertilizer row mt-2"> Thêm </button>
+               <div class=" fertilizerlist ml-2">
+                    <table class="table thead-dark table-striped" style="min-height: max-content;">
+                         <thead>
 
-          <div class="row fertilizerlist mt-3">
-               <table>
-                    <thead>
-                         <tr>
-                              <th>STT</th>
-                              <th>Tên loại phân</th>
-                              <th>Số lượng dùng</th>
-                              <th></th>
-                         </tr>
-                    </thead>
-                    <tbody>
-                         <tr v-for="(fertilizertimes, i) in newfertilizertimes.Fertilizer" :key="i">
-                              <td>i</td>
-                              <td>
-                                   <select class="form-control" name="classtify" v-model="fertilizertimes.Fertilizer_name"
-                                        for="classtify">
-                                        <option v-for="(fertilizer, i) in fertilizerList" :key="i"
-                                             :value="fertilizer.Fertilizer_name">{{
-                                                  fertilizer.Fertilizer_name
-                                             }}
-                                        </option>
+                              <tr>
+                                   <th class="text-center">STT</th>
+                                   <th>Tên loại phân</th>
+                                   <th>Số lượng dùng</th>
+                              </tr>
+                         </thead>
+                         <tbody>
+                              <tr v-for="(fertilizertimes, i) in newfertilizertimes.Fertilizer" :key="i">
+                                   <td class="text-center">{{i+1}}</td>
+                                   <td>
+                                        <select class="selectionFertilizer" name="classtify"
+                                             v-model="fertilizertimes.Fertilizer_name" for="classtify" @change="setFertilizer($event)">
+                                             <option v-for="(fertilizer, i) in fertilizerlist" :key="i" 
+                                                  :value="fertilizer.Fertilizer_name">{{
+                                                       fertilizer.Fertilizer_name
+                                                  }}
+                                             </option>
 
-                                   </select>
-                              </td>
-                              <td>
-                                   <div class="form-group mt-3">
-                                        <input class="inputAmount" type="text"
-                                             v-model="fertilizertimes.FertilizerTimes_amount">
-                                   </div>
-                              </td>
-                         </tr>
-                         <button @click="addFertilizer()">Them</button>
-                    </tbody>
-               </table>
+                                        </select>
+                                   </td>
+                                   <td>
+                                        <div class="">
+                                             <input class="inputAmount" type="text"
+                                                  v-model="fertilizertimes.FertilizerTimes_amount">
+                                        </div>
+                                   </td>
+                              </tr>
+
+                         </tbody>
+                    </table>
+               </div>
           </div>
-          <div class="row ">
+          <div class="row">
                <div class="col-sm-2"></div>
                <div class="col-sm-8 mt-2 mb-3 text-center">
                     <span v-if="message2 == 'Thêm thành công.'" class="fas fa-check-circle"
@@ -214,27 +196,16 @@ export default {
                times: yup
                     .string()
                     .required("Lần bón phải có giá trị"),
-               // amount: yup
-               //      .string()
-               //      .required("Số lượng phải có giá trị"),
                start: yup
                     .string(),
-               // .required("Phân loại bệnh dịch phải có giá trị"),
                end: yup
                     .string(),
-               // .required("Tác hại bệnh dịch phải có giá trị"),
-               // fertilizer: yup
-               //      .string()
-               //      .required("Loại phân phải có giá trị"),
                temperature: yup
                     .string(),
-               // .required("Loại phân phải có giá trị"),
                humidity: yup
                     .string(),
-               // .required("Loại phân phải có giá trị"),
                precipitation: yup
                     .string(),
-               // .required("Loại phân phải có giá trị"),
           });
           return {
                newfertilizertimes: this.newFertilizerTimes,
@@ -243,13 +214,17 @@ export default {
                development: this.developmentStageList,
                schema,
                amountFertilizer: 2,
+               fertilizerlist: this.fertilizerList.slice(),
           };
      },
 
      methods: {
           setFertilizer(event) {
-               this.newfertilizertimes.Fertilizer.push(event.target.value);
-               console.log(this.newfertilizertimes.Fertilizer);
+               this.fertilizerList.forEach(fertilizer => {
+                    if(fertilizer.Fertilizer_id == event.target.value){
+                         this.newfertilizertimes.Fertilizer.push(fertilizer);
+                    }
+               });
           },
 
           setAmount(event) {
@@ -260,17 +235,36 @@ export default {
           async addFertilizer() {
                var temp = {};
                temp.Fertilizer_name = "";
-               temp.FertilizerTimes_amount = '';
-               this.newfertilizertimes.Fertilizer.push(temp);
+               temp.FertilizerTimes_amount = 0;
+                this.newfertilizertimes.Fertilizer.push(temp);
+               // var clonefertilizer = this.fertilizerList.slice();
+               // this.fertilizerlist = [];
+               
+               // clonefertilizer.forEach(element => {
+               //      var check = 0;
+               //      console.log(this.newFertilizerTimes.Fertilizer)
+               //      console.log(element.Fertilizer_name)
+               //      this.newFertilizerTimes.Fertilizer.forEach(fertilizer => {
+               //           if (element.Fertilizer_name == fertilizer.Fertilizer_name) {
+               //               check = 1;
+               //           }
+               //      });
+               //      if(check==0){
+               //           this.fertilizerlist.push(element)
+                         
+               //      }
+
+               // });
           }
 
-     }
+     },
+
 };
 </script>
  
 <style>
 @import url(../../assets/fertilizerTimeStyle.css);
-
+@import url(../../assets/mainStyle.css);
 .dp__theme_light {
      --dp-background-color: #FAFAFC;
      --dp-border-radius: 10px;
@@ -313,6 +307,7 @@ export default {
      color: var(--dp-text-color);
      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
      box-sizing: border-box;
+     height: 35px !important;
 }
 
 .inputAmount {
@@ -326,4 +321,6 @@ export default {
      font-style: normal;
      font-weight: 500;
 }
+
+
 </style>

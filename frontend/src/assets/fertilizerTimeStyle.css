@@ -1,4 +1,4 @@
-.createFertilizerTimesForm, .updateFertilizerTimesForm{
+.createFertilizerTimesForm{
     background-color: #dbdbdb;
     border: 0.5px solid #b8b5b5;
      font-family: Inter;
@@ -9,13 +9,19 @@
      width: 80% !important;
 }
 
-
-
-.createFertilizerTimesForm .messege{
-    background-color: #6cc38c;
+.updateFertilizerTimesForm{
+    background-color: #dbdbdb;
+    border: 0.5px solid #b8b5b5;
+     font-family: Inter;
+     border-radius: 10px;
+     position: absolute;
+     top: calc(14%);
+     left:21%;
+     width: 80% !important;
 }
+
 .createFertilizerTimesForm .content .error-feedback,
-.updateFertilizerTimesForm .content .error-feedback{
+.updateFertilizerTimesForm.content .error-feedback{
      color: red;
      float: right;
 }
@@ -45,7 +51,16 @@
 
 .createFertilizerTimesForm .content .form-group .form-control,
 .updateFertilizerTimesForm .content .form-group .form-control{
-     background-color: #f0f0f0;
+    background-color: #FAFAFC;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: 17px;
+    border-radius: 15px;
+    color: #2F3033;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    height: 35px;
+    vertical-align:middle;
 }
 
 .createFertilizerTimesForm .functionName,
@@ -72,223 +87,53 @@
 }
 
 
-.arablelandManagement .arablelandManagementFrame .rightArableLandManagement   .confirmationDialog{
-     background-color: rgb(5, 207, 137);
-     border: 1px solid rgb(62, 77, 77);
-     border-radius: 10px;
-     position:absolute;
-     top: calc(38%);
-     transform: translateX(80%);
-     border-radius: 16px;
-     display: block;
-     width: 404px;
-     height: 187px;
-     border-radius: 15px; 
-     text-align: center;
+.fertilizerUsed{
+    background-color: #FAFAFC;
+    border-radius: 5px;
+    height: 230px;
 }
 
-.arablelandManagement .arablelandManagementFrame .rightArableLandManagement .confirmationDialog .btnYes{
-     background-color: rgb(244, 61, 61);
-     color: white;
-     font-family: Inter;
-     font-size: 16px;
+.fertilizerlist {
+    overflow: auto;
+    max-height: 180px;
+    min-height: 180px;
+    white-space: nowrap;
+    width: 98%;
+    border-radius: 5px;
+    margin-top: 4%;
 }
 
-.arablelandManagement .arablelandManagementFrame .rightArableLandManagement .confirmationDialog .btnNo{
-     background-color: rgb(196, 191, 191);
-     color: rgb(33, 33, 33);
-     font-family: Inter;
-     font-size: 16px;
+.createFertilizerTimesForm .fertilizerlist table thead {
+    position: sticky;
+    top: 0;
+    z-index: 0;
+    border-bottom: 0.5px solid #b5b5b7;
+    padding-left: 10px !important;
+    vertical-align: middle !important;
 }
 
-.arablelandManagement .arablelandManagementFrame .rightArableLandManagement .messageDialog .btnOK{
-     background-color: rgb(196, 191, 191);
-     color: rgb(33, 33, 33);
-     font-family: Inter;
-     font-size: 16px;
-}
-.arablelandManagement .arablelandManagementFrame .rightArableLandManagement .messageDialog{
-     background-color: rgb(5, 207, 137);
-     border: 1px solid rgb(62, 77, 77);
-     border-radius: 10px;
-     position:absolute;
-     top: calc(38%);
-     transform: translateX(80%);
-     border-radius: 16px;
-     display: block;
-     width: 404px;
-     height: 187px;
-     border-radius: 15px; 
-     text-align: center;
-}
-.btnChoosePage {
-
- }
- 
- /* Dropup Button */
- .dropbtn {
-     color: black;
-     font-size: 16px;
-     border: none;
-     width: 80px;
-     height: 35px;
-     background-color: none;
-     border-radius: 10px;
- }
- 
- /* The container <div> - needed to position the dropup content */
- .dropdown {
-     position: relative;
-     display: inline-block;
-     border-radius: 1px;
- }
- 
- /* Dropup content (Hidden by Default) */
- .dropdown-content {
-     display: none;
-     position: absolute;
-     bottom: 50px;
-     min-width: 80px;
-     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-     /* z-index: 1; */
-     font-family: Inter;
-     font-size: 17px;
-     border-radius: 15px;
- }
- 
- /* Links inside the dropup */
- .dropdown-content a {
-     color: black;
-     padding: 12px 16px;
-     text-decoration: none;
-     display: block;
-     font-family: Inter;
-     font-size: 17px;
- }
- 
- /* Change color of dropup links on hover */
- .dropdown-content a:hover {
-     border: #00BA13 1px solid;
-     background-color: #3c8456;
-     border-radius: 1px;
-     font-size: 18px;
-     font-family: Inter;
- }
- 
- .dropdown-content a.active {
-     background-color: #47de7e;
- }
- 
- /* Show the dropup menu on hover */
- .dropdown:hover .dropdown-content {
-     display: block;
-     border: #00BA13 1px solid;
-     background-color: #3b9c5f;
-
-     font-size: 18px;
-     font-family: Inter;
-     right: 1%;
-     top:calc(98%)
- }
- 
- /* Change the background color of the dropup button when the dropup content is shown */
- .dropdown:hover .dropbtn {
-     border-radius: 1px;
-     font-size: 18px;
-     font-family: Inter;
-     border-radius: 10px;
- }
- 
- .btnCreate{
-     border: #00BA13 1px solid;
-     border-radius: 5px;
-     font-size: 18px;
-     font-family: Inter;
-     width: max-content;
- }
-
- .btnCreate:hover{
-     border: #00BA13 1px solid;
-     background-color: #6cc38c;
-     border-radius: 5px;
-     font-size: 18px;
-     font-family: Inter;
- }
-
- .numberPage {
-     display: inline-block;
-     margin-top: 2px;
-     border-radius: 5px;
-     border: 1px solid #00BA13;
- }
-
- .numberPage:hover {
-     display: inline-block;
-     margin-top: 2px;
-     border-radius: 5px;
-     border: 1px solid #00BA13;
- }
-
- .fertilizerManagement{
-    position: relative;
- }
-.arablelandManagement .arablelandManagementFrame .rightArableLandManagement{
-    border-left: #bdf487 0.5px solid;
-}
- .arablelandManagement .arablelandManagementFrame .rightArableLandManagement table tr{
-     /* background-color: #ced4da; */
-     border-top: 1px solid #515151;
- }
-
- .arablelandManagement .arablelandManagementFrame .rightArableLandManagement .actions{
-     border: none;
-     color: black;
- }
- .arablelandManagement .arablelandManagementFrame .rightArableLandManagement tr{
-    width: max-content; 
- }
- .arablelandManagement .arablelandManagementFrame .rightArableLandManagement .actions .action{
-     text-align: center;
-     display: inline;
- }
- .arablelandManagement .arablelandManagementFrame .rightArableLandManagement .actions .action .actionIcon{
-     border: none;
-     color: black;
- }
-
- .arablelandManagement .arablelandManagementFrame .rightArableLandManagement .arablelandList .table .td{
-     font-size: 14px;
-     text-align: justify;
-     vertical-align:top;
- }
-
- .arablelandManagement .arablelandManagementFrame .rightArableLandManagement .arablelandList .table{
-     height: max-content;
- }
-
- .arablelandManagement .arablelandManagementFrame .rightArableLandManagement .arablelandList .table a{
-    text-decoration: none;
-    color: black;
- }
-
- .arablelandManagement .arablelandManagementFrame .rightArableLandManagement .arablelandList .table a:hover{
-    text-decoration:underline;
-    color: black;
- }
-
-.arablelandManagement .arablelandManagementFrame .rightArableLandManagement .btnTimKiem:hover{
-    background-color: none;
-    color:#515151;
+.createFertilizerTimesForm .fertilizerlist table thead tr th {
+    /* background-color: #008B8E; */
 }
 
-.arablelandManagement .arablelandManagementFrame .rightArableLandManagement .btnTimKiem{
-    background-color: none;
-    color:darkgray
+.createFertilizerTimesForm .btnAddFertilizer {
+    border-radius: 5px;
+    background: #008B8E;
+    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
+    font-size: 17px;
+    font-family: 'Roboto';
+    border: none;
+    color: #FFFED8;
+    z-index: 1;
+    float: right;
+    width: 60px;
+    height: 30px;
+    position: absolute;
+    right: 4.5%;
 }
 
-.fertilizerlist{
-    border: 1px solid #c9c8c8;
-    width: 99.5%;
-    margin-left: 10px;
-    background-color: white;
+.selectionFertilizer{
+    width: 90% !important;
+    height: 30px;
+    margin-right: 5%;
 }

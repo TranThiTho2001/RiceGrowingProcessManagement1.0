@@ -1,7 +1,8 @@
 <template>
      <div class="container-fluid riceCropDetail">
           <div class="row riceCropDetailFrame" style="height: 100vmin;">
-               <div class="col-md-2" style="background: linear-gradient(180deg, rgba(128, 255, 0, 0.15) 0%, rgba(250, 255, 0, 0.15) 100%);">
+               <div class="col-md-2"
+                    style="background: linear-gradient(180deg, rgba(128, 255, 0, 0.15) 0%, rgba(250, 255, 0, 0.15) 100%);">
                     <div class="row">
                          <Catalog />
                     </div>
@@ -230,8 +231,8 @@
                                    </div>
                                    <button class="btn mt-1 btnAdd"
                                         @click="isOpenCreateEpidemicTimesForm = !isOpenCreateEpidemicTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
-                                        <p v-for="(treatment,i) in getTreatment('EC00000001')" :key="i">{{ i }}</p>
-                                        <div class="tableFixHead">
+                                   <p v-for="(treatment, i) in getTreatment('EC00000001')" :key="i">{{ i }}</p>
+                                   <div class="tableFixHead">
                                         <table class="table">
                                              <thead>
                                                   <tr>
@@ -245,7 +246,7 @@
                                                   </tr>
                                              </thead>
                                              <tbody>
-                                                  
+
                                                   <tr v-for="(epidemic, i ) in (epidemicTimesList)" :key="i">
                                                        <td class="text-center ">{{ epidemic.EpidemicTimes_times }}</td>
                                                        <td class="">{{ epidemic.Epidemic_name }}</td>
@@ -257,7 +258,9 @@
                                                        </td>
                                                        <td class="">{{ epidemic.Employee_name }}</td>
                                                        <td>
-                                                            <p v-for="(treatment,i) in epidemic.Treatment" :key="i" style="display: inline;">{{ treatment.Pesticide_name }}, </p>
+                                                            <p v-for="(treatment, i) in epidemic.Treatment" :key="i"
+                                                                 style="display: inline;">{{ treatment.Pesticide_name }},
+                                                            </p>
                                                        </td>
                                                        <td class="">
                                                             <button type="button" class="btn btn-sm" data-toggle="dropdown"
@@ -778,7 +781,7 @@ export default {
                               this.treatmentList.forEach(t => {
                                    element.Treatment.push(t);
                               });
-                              
+
                          });
                     }
                     else {
@@ -901,6 +904,11 @@ export default {
                          this.SprayingTimesList = respone.data;
                          this.cloneSprayingTimesList = respone.data;
                          this.newSprayingTimes.SprayingTimes_times = this.SprayingTimesList[this.SprayingTimesList.length - 1].SprayingTimes_times + 1;
+                         var temp = {};
+                         this.newSprayingTimes.Pesticide = [];
+                         temp.Pesticide_name = "";
+                         temp.Pesticide_amount = '0';
+                         this.newSprayingTimes.Pesticide.push(temp);
                     }
                     else {
                          this.newSprayingTimes.SprayingTimes_times = 1;
@@ -1061,6 +1069,11 @@ export default {
                     this.newFertilizerTimes.FertilizerTimes_times = this.fertilizerTimesList[this.fertilizerTimesList.length - 1].FertilizerTimes_times + 1;
                     this.stylebac.none = false;
                     this.stylebac.active = true;
+                    this.newFertilizerTimes.Fertilizer = [];
+                    var fertilizerInfor = {};
+                    fertilizerInfor.Fertilizer_name = "";
+                    fertilizerInfor.FertilizerTimes_amount = 0;
+                    this.newFertilizerTimes.Fertilizer.push(fertilizerInfor)
                }
                else {
                     this.message1 = " ";
@@ -1097,11 +1110,14 @@ export default {
                          data.FertilizerTimes_endDate = null;
                     }
                     data.Fertilizer.forEach(element => {
-                         var fertilisertimes = {};
+                         if(element.Fertilizer_id != null){
+                              var fertilisertimes = {};
                          fertilisertimes = data;
                          fertilisertimes.Fertilizer_id = element.Fertilizer_id;
                          fertilisertimes.FertilizerTimes_amount = element.FertilizerTimes_amount;
                          this.createNewFertilizerTimes(fertilisertimes);
+                         }
+                         
                     });
 
                }
@@ -1120,7 +1136,6 @@ export default {
                } else {
                     this.message2 = "Thêm thành công.";
                     this.retrieveFertilizerTimesList();
-
                }
           },
 
@@ -1134,6 +1149,11 @@ export default {
                     this.newFertilizerTimes.FertilizerTimes_times = this.fertilizerTimesList[this.fertilizerTimesList.length - 1].FertilizerTimes_times + 1;
                     this.stylebac.none = false;
                     this.stylebac.active = true;
+                    this.newFertilizerTimes.Fertilizer = [];
+                         var fertilizerInfor = {};
+                         fertilizerInfor.Fertilizer_name = "";
+                         fertilizerInfor.FertilizerTimes_amount = 0;
+                         this.newFertilizerTimes.Fertilizer.push(fertilizerInfor)
                }
                else {
                     this.message1 = " ";
@@ -1243,6 +1263,10 @@ export default {
                     else {
                          this.newSprayingTimes.SprayingTimes_times = 1;
                     }
+                    var temp = {};
+                         temp.Pesticide_name = "";
+                         temp.Pesticide_id = 0;
+                         this.newSprayingTimes.Pesticide.push(temp);
                }
                else {
                     this.message1 = " ";
@@ -1276,8 +1300,26 @@ export default {
                     else {
                          data.SprayingTimes_endDate = null;
                     }
+                    data.Pesticide.forEach(pesticide => {
+                         if(pesticide.Pesticide_name != null){
+                              this.pesticideList.forEach(element => {
+                                   if(element.Pesticide_name == pesticide.Pesticide_name){
+                                        pesticide.Pesticide_id = element.Pesticide_id;
+                                   }
+                              });
+                              var newsprayingtimes = {};
+                              newsprayingtimes = data;
+                              newsprayingtimes.Pesticide_id = pesticide.Pesticide_id;
+                              newsprayingtimes.SprayingTimes_amount = pesticide.Pesticide_amount;
+                              this.createSprayingTimes(newsprayingtimes);
+                         }
+                    });
+               }
 
-                    const [error, respone] = await this.handle(
+          },
+
+          async createSprayingTimes(data){
+               const [error, respone] = await this.handle(
                          SprayingTimesService.create(data)
                     );
                     if (error) {
@@ -1289,9 +1331,6 @@ export default {
                          this.message2 = "Thêm thành công.";
                          this.retrieveSprayingTimesList();
                     }
-
-               }
-
           },
 
           async updateSprayingTimes(data) {
@@ -1350,7 +1389,6 @@ export default {
                          this.message2 = "Cập nhật thành công.";
                          this.retrieveSprayingTimesList();
                     }
-
                }
 
           },
@@ -1711,7 +1749,7 @@ export default {
                this.message1 = "";
                this.message2 = "";
                if (!data.close) {
-                    this.isOpenUpdateActivitiesDetail = false;
+                    this.isOpenCreateActivitiesDetail = false;
                     this.stylebac.none = false;
                     this.stylebac.active = true;
                     this.newActivityDetail = {};
@@ -1854,8 +1892,8 @@ export default {
                }
           },
 
-         async getTreatment(epidemicid){
-          const [error, response] = await this.handle(
+          async getTreatment(epidemicid) {
+               const [error, response] = await this.handle(
                     TreatmentService.findByEpidemicId(epidemicid)
                );
                if (error) {
@@ -1868,7 +1906,7 @@ export default {
                          this.treatmentList = response.data;
                     }
                }
-         },
+          },
 
           // Search
           async searchNameEpidemic(data) {

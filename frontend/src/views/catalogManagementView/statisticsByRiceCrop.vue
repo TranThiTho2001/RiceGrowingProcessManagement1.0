@@ -724,7 +724,6 @@ export default {
                               if(ricecrop.RiceCropInformation_id == sprayingtimes.RiceCropInformation_id && sprayingtimes.Pesticide_name == data){
                                    ricecrop.name = sprayingtimes.Pesticide_name;
                                    ricecrop.times = sprayingtimes.SprayingTimes_times;
-                                   
                                    ricecrop.startDate = sprayingtimes.SprayingTimes_startDate;
                                    ricecrop.endDdate = sprayingtimes.SprayingTimes_endDdate;
                                    ricecrop.amount =sprayingtimes.SprayingTimes_amount;
