@@ -22,23 +22,30 @@
                     </div>
 
                     <div class="form-group">
-                         <label for="name" class="mt-3">Tên thuốc <span style="color: red">*</span></label>
+                         <label for="supplier" class="mt-3">Nhà cung cấp <span style="color: red">*</span></label>
+                         <Field name="supplier" class="form-control" v-model="newpesticide.Pesticide_supplier"
+                              placeholder="Nhà cung cấp thuốc..." />
+                         <ErrorMessage name="supplier" class="error-feedback" />
+                    </div>
+
+                    <div class="form-group">
+                         <label for="description" class="mt-3">Thông tin <span style="color: red">*</span></label>
+                         <Field name="description" class="form-control" v-model="newpesticide.Pesticide_description" as="textarea" style="height: 218px;"
+                              placeholder="Thông tin thuốc..." />
+                         <ErrorMessage name="description" class="error-feedback" />
+                    </div>
+
+               </div>
+               <div class="col-sm-7">
+                    <div class="form-group">
+                         <label for="name" class="mt-2">Tên thuốc <span style="color: red">*</span></label>
                          <Field name="name" class="form-control" v-model="newpesticide.Pesticide_name"
                               placeholder="Nhập tên thuốc..." />
                          <ErrorMessage name="name" class="error-feedback" />
                     </div>
-
                     <div class="form-group">
-                         <label for="supplier" class="mt-3">Nhà cung cấp <span style="color: red">*</span></label>
-                         <Field name="supplier" class="form-control" v-model="newpesticide.Pesticide_supplier"
-                              placeholder="Nhà cung cấp thuốc..."  />
-                         <ErrorMessage name="supplier" class="error-feedback" />
-                    </div>
-               </div>
-               <div class="col-sm-7">
-                    <div class="form-group">
-                         <div class="row ml-3 mt-2">
-                              <label for="" class="row">Điều trị bệnh dịch gây hại<span
+                         <div class="ml-3 mt-3">
+                              <label for="" class="mt-3">Điều trị bệnh dịch gây hại<span
                                         style="color: red">*</span></label><br>
                          </div>
                          <!-- <div class="row mt-2">
@@ -56,13 +63,15 @@
                                         {{ epidemic.Epidemic_name }}</p>
                               </div>
                          </div> -->
-                         <div class="row epidemicSelect mr-2" style="overflow-y: scroll;">
+                         <div class="epidemicSelect" style="overflow-y: scroll;">
                               <div class="col-sm-12 mt-1">
-                         <div class="row ml-2" v-for="epidemic in epidemiclist" :key="epidemic.Epidemic_id">
-                              <input type="checkbox" v-model="treatment" @change="show" :value="epidemic.Epidemic_id">
-                              <label style="">{{ epidemic.Epidemic_name }}</label>
-                         </div></div>
-                    </div>
+                                   <div class="row ml-2" v-for="epidemic in epidemiclist" :key="epidemic.Epidemic_id">
+                                        <input type="checkbox" v-model="treatment" @change="show" name="epidemic"
+                                             :value="epidemic.Epidemic_id">
+                                        <label style="" for="epidemic" class="labelEpidemic">&nbsp; {{ epidemic.Epidemic_name }}</label><br>
+                                   </div>
+                              </div>
+                         </div>
                     </div>
 
                </div>
@@ -118,6 +127,10 @@ export default {
                supplier: yup
                     .string()
                     .required("Nhà cung cấp thuốc trị bệnh dịch phải có giá trị"),
+               description: yup
+                    .string()
+                    .required("Thông tin thuốc phải có giá trị")
+
           });
           return {
                newpesticide: this.newPesticide,
@@ -179,78 +192,78 @@ export default {
  
 <style>
 @import url(../../assets/pesticideStyle.css);
+
 .pesticideManagement .inputSearch3 {
-    background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
-    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 15px;
-    width: 95%;
-    height: 35px;
+     background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
+     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+     border-radius: 15px;
+     width: 95%;
+     height: 35px;
 }
 
-.pesticideManagement .topRight .form-control:focus{
-    border-color: #E4E5EB !important;
+.pesticideManagement .topRight .form-control:focus {
+     border-color: #E4E5EB !important;
 }
 
 .pesticideManagement .btnSearch3 {
-    position: absolute;
-    left: 84%;
-    top: 17%;
-    border-radius: 10px;
-    border: none;
-    background: none;
+     position: absolute;
+     left: 84%;
+     top: 17%;
+     border-radius: 10px;
+     border: none;
+     background: none;
 }
 
 .pesticideManagement .closeSearch1 {
-    display: none;
-    width: 110%;
-    margin: 0 auto 10px auto;
-    padding: 10px 20px;
-    color: white;
-    border-radius: 5px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
-      rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-  }
-
-  .pesticideManagement .openSearch1 {
-    display:inline-block;
-    position:absolute;
-    top: 27%;
-    width: 95%;
-    background-color: #FAFAFC;
-    border-radius: 5px;
-    z-index: 5;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
-      rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+     display: none;
+     width: 110%;
+     margin: 0 auto 10px auto;
+     padding: 10px 20px;
+     color: white;
+     border-radius: 5px;
+     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+          rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
 
-.pesticideManagement  .item {
-    background-color: none;
-    cursor: pointer;
-    bottom: 0.1px;
-    color: #1C1C1F;
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    padding: 0.1px;
-    margin: 0.2px;
+.pesticideManagement .openSearch1 {
+     display: inline-block;
+     position: absolute;
+     top: 27%;
+     width: 95%;
+     background-color: #FAFAFC;
+     border-radius: 5px;
+     z-index: 5;
+     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+          rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+.pesticideManagement .item {
+     background-color: none;
+     cursor: pointer;
+     bottom: 0.1px;
+     color: #1C1C1F;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 500;
+     font-size: 16px;
+     padding: 0.1px;
+     margin: 0.2px;
 }
 
 .pesticideManagement .item:hover {
-    background-color: none;
-    cursor: pointer;
-    bottom: 0.1px;
-    background-color: #EAEAEA;
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
+     background-color: none;
+     cursor: pointer;
+     bottom: 0.1px;
+     background-color: #EAEAEA;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 500;
+     font-size: 16px;
 }
 
-.epidemicSelect{
+.epidemicSelect {
      background-color: #f7f7f7;
      border-radius: 3px;
      max-height: 250px !important;
-     min-height: 220px;
-}
-</style>
+     min-height: 305px;
+}</style>

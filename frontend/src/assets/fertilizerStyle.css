@@ -4,9 +4,9 @@
      font-family: Inter;
      border-radius: 10px;
      position: absolute;
-     top: calc(24%);
-     left: 22%;
-     width: 60%;
+     top: calc(16%);
+     left: 10%;
+     width: 80% !important;
      z-index: 2;
 }
 
@@ -46,4 +46,15 @@
     position: fixed;
     top: 0px;
     left: 0px;
+}
+
+.hiddentext{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fertilizerManagement table tbody tr td{
+    text-align: justify;
+    vertical-align: top !important;
 }

@@ -5,9 +5,9 @@
      font-family: Inter;
      border-radius: 10px;
      position: absolute;
-     top: calc(24%);
-     left: 10%;
-     width: 80%;
+     top: calc(15%);
+     left: 5%;
+     width: 90% !important;
 }
 
 
@@ -47,4 +47,25 @@
     border: none;
     font-family: Inter;
     border-radius: 14px;
+}
+
+.labelEpidemic{
+    background-color: none;
+    cursor: pointer;
+    bottom: 0.1px;
+    color: black;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-size:20px;
+    padding: 0.1px;
+    margin: 0.2px;
+    font-weight: 400 !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pesticideManagement table tbody tr td{
+    text-align: justify;
+    vertical-align: top !important;
 }

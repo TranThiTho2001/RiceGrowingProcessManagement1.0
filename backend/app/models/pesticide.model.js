@@ -4,6 +4,7 @@ const Pesticide = function(pesticide){
     this.Pesticide_id = pesticide.Pesticide_id;
     this.Pesticide_name = pesticide.Pesticide_name;
     this.Pesticide_supplier = pesticide.Pesticide_supplier;
+    this.Pesticide_description = pesticide.Pesticide_description;
 };
 
 Pesticide.create = (newPesticide, result) => {
@@ -51,8 +52,8 @@ Pesticide.getAll = (name, result) => {
 
 Pesticide.updateById = (id, pesticide, result) => {
     sql.query(
-        "UPDATE Pesticide SET Pesticide_name = ?, Pesticide_supplier = ? WHERE Pesticide_id = ?",
-        [pesticide.Pesticide_name, pesticide.Pesticide_supplier, id],
+        "UPDATE Pesticide SET Pesticide_name = ?, Pesticide_supplier = ?, Pesticide_description = ? WHERE Pesticide_id = ?",
+        [pesticide.Pesticide_name, pesticide.Pesticide_supplier, pesticide.Pesticide_description, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);

@@ -56,20 +56,24 @@
                                              <th>Mã</th>
                                              <th>Tên</th>
                                              <th>Nhà cung cấp</th>
+                                             <th>Thông tin thành phần</th>
+                                             <th>Công dụng</th>
                                              <th></th>
                                         </tr>
                                    </thead>
                                    <tbody>
-                                        <tr v-for="(fertilizer, i ) in get_rows(fertilizerList)" :key="i"
-                                             class="align-self-center">
-                                             <td v-if="currentPage > 1" class="text-center">{{ i + ((currentPage - 1) * 6 +
+                                        <tr v-for="(fertilizer, i ) in fertilizerList" :key="i"
+                                             class="">
+                                             <td v-if="currentPage > 1" class="text-center" style="vertical-align: top !important; ">{{ i + ((currentPage - 1) * 6 +
                                                   1) }}
                                              </td>
                                              <td v-else class="text-center">{{ i + 1 }}</td>
                                              <td>{{ fertilizer.Fertilizer_id }}</td>
                                              <td>{{ fertilizer.Fertilizer_name }}</td>
                                              <td>{{ fertilizer.Fertilizer_supplier }}</td>
-                                             <td class="">
+                                             <td  style="max-width: 650px;">{{ fertilizer.Fertilizer_description }}</td>
+                                             <td style="max-width: 650px;">{{ fertilizer.Fertilizer_uses }}</td>
+                                             <td style="text-align: center; vertical-align: middle !important; ">
                                                   <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
                                                        aria-haspopup="true" aria-expanded="false">
                                                        <i class="fas fa-ellipsis-v"></i>
@@ -246,6 +250,7 @@ export default {
                     else {
                          this.newFertilizer.Fertilizer_id = "FR00" + String(Number(id) + 1);
                     }
+                    console.log(this.fertilizerList)
                }
           },
 

@@ -23,28 +23,33 @@
                     </div>
 
                     <div class="form-group">
-                         <label for="name" class="mt-3">Tên thuốc <span style="color: red">*</span></label>
-                         <Field name="name" class="form-control" v-model="newpesticide.Pesticide_name"
-                              placeholder="Nhập tên thuốc..." />
-                         <ErrorMessage name="name" class="error-feedback" />
-                    </div>
-
-                    <div class="form-group">
                          <label for="supplier" class="mt-3">Nhà cung cấp <span style="color: red">*</span></label>
                          <Field name="supplier" class="form-control" v-model="newpesticide.Pesticide_supplier"
                               placeholder="Nhà cung cấp thuốc..." />
                          <ErrorMessage name="supplier" class="error-feedback" />
                     </div>
 
-               </div>
+                    <div class="form-group">
+                         <label for="description" class="mt-3">Thông tin <span style="color: red">*</span></label>
+                         <Field name="description" class="form-control" v-model="newpesticide.Pesticide_description" as="textarea" style="height: 218px;"
+                              placeholder="Thông tin thuốc..." />
+                         <ErrorMessage name="description" class="error-feedback" />
+                    </div>
 
+               </div>
                <div class="col-sm-7">
                     <div class="form-group">
-                         <div class="row">
-                              <label for="" class="row">Điều trị bệnh dịch gây hại<span
+                         <label for="name" class="mt-2">Tên thuốc <span style="color: red">*</span></label>
+                         <Field name="name" class="form-control" v-model="newpesticide.Pesticide_name"
+                              placeholder="Nhập tên thuốc..." />
+                         <ErrorMessage name="name" class="error-feedback" />
+                    </div>
+                    <div class="form-group">
+                         <div class="ml-3 mt-3">
+                              <label for="" class="mt-3">Điều trị bệnh dịch gây hại<span
                                         style="color: red">*</span></label><br>
                          </div>
-                         <div class="row mt-2">
+                         <!-- <div class="row mt-2">
                               <input type="text" class="form-control inputSearch3" placeholder="Tìm" v-model="nameToSearch"
                                    @click="retrieveEpidemicList()" @keyup.enter="searchName(nameToSearch)"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
@@ -52,20 +57,22 @@
                                    v-if="nameToSearch == '' && !isOpenSearch.open">
                                    <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
-                              <!-- :class="{ openSearch:isOpenSearch.open, closeSearch:isOpenSearch.close }"  -->
+                               :class="{ openSearch:isOpenSearch.open, closeSearch:isOpenSearch.close }" 
                               <div :class="{ openSearch1: isOpenSearch.open, closeSearch1: isOpenSearch.close }">
                                    <p class="item" v-for="epidemic in filteredList()" :key="epidemic.Epidemic_name"
                                         @click="searchName(epidemic.Epidemic_name)">
                                         {{ epidemic.Epidemic_name }}</p>
                               </div>
+                         </div> -->
+                         <div class="epidemicSelect" style="overflow-y: scroll;">
+                              <div class="col-sm-12 mt-1">
+                                   <div class="row ml-2" v-for="epidemic in epidemiclist" :key="epidemic.Epidemic_id">
+                                        <input type="checkbox" v-model="treatment"  name="epidemic" @change="show"
+                                             :value="epidemic.Epidemic_id">
+                                        <label style="" for="epidemic" class="labelEpidemic">&nbsp; {{ epidemic.Epidemic_name }}</label><br>
+                                   </div>
+                              </div>
                          </div>
-                         <div class="scrollList">
-                         <div class="row mt-1 selectItem" v-for="epidemic in epidemiclist" :key="epidemic.Epidemic_id">
-                              <input v-bind:checked="check(epidemic.Epidemic_id)" type="checkbox" v-model="treatment"
-                                   @change="show" :value="epidemic.Epidemic_id">
-                              <label class="selectItem">{{ epidemic.Epidemic_name }}</label>
-                         </div>
-                    </div>
                     </div>
 
                </div>
@@ -122,6 +129,9 @@ export default {
                supplier: yup
                     .string()
                     .required("Nhà cung cấp thuốc trị bệnh dịch phải có giá trị"),
+               description: yup
+                    .string()
+                    .required("Thông tin thuốc phải có giá trị")
           });
           return {
                newpesticide: this.newPesticide,

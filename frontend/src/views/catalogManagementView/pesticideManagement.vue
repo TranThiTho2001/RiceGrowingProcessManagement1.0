@@ -58,16 +58,20 @@
                                         <th>Mã</th>
                                         <th>Tên</th>
                                         <th>Nhà cung cấp</th>
+                                        <th>Thông tin</th>
+                                        <th>Trị bệnh</th>
                                         <th></th>
                                    </tr>
                               </thead>
                               <tbody>
-                                   <tr v-for="(pesticide, i ) in get_rows(pesticideList)" :key="i" class="align-self-center">
+                                   <tr v-for="(pesticide, i ) in pesticideList" :key="i" class="align-self-center">
                                         <td v-if="currentPage > 1"  class="text-center">{{ i+ ((currentPage - 1) * 6)}}</td>
                                         <td v-else  class="text-center">{{ i }}</td>
                                         <td>{{ pesticide.Pesticide_id }}</td>
                                         <td>{{ pesticide.Pesticide_name }}</td>
                                         <td>{{ pesticide.Pesticide_supplier }}</td>
+                                        <td style="max-width: 250px;"> {{ pesticide.Pesticide_description }}</td>
+                                        <td style="min-width: 250px;"><p v-for="treatment in pesticide.Treatment" :key="treatment.Epidemic_id" style="margin-bottom: 0.2px !important;">{{ treatment.Epidemic_name }}</p></td>
                                         <td class="">
                                              <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown" 
                                                   aria-haspopup="true" aria-expanded="false">
@@ -134,6 +138,7 @@ import EpidemicService from '@/services/epidemic.service';
 import TreatmentService from '@/services/treatment.service';
 import CreatePesticideForm from '@/components/catalogManagementComponents/createNewPesticideForm.vue';
 import UpdatePesticideForm from '@/components/catalogManagementComponents/updatePesticideForm.vue';
+
 
 class Pesticide {
      constructor(pesticide) {
@@ -222,8 +227,11 @@ export default {
                else {
                     this.pesticideList = respone.data;
                     this.clonePesticideList = respone.data;
+                    var i =0;
                     this.pesticideList.forEach(element => {
-                         new Pesticide(element);
+                         new Pesticide(element);  
+                         this.findTreatmentByPesticideId(element.Pesticide_id, i);
+                         i++;
                     });
                     var temp = (String(this.pesticideList[this.pesticideList.length - 1].Pesticide_id)).split("");
                     var id = "";
@@ -311,15 +319,18 @@ export default {
                     }
           },
 
-          async findTreatmentByPesticideId() {
+          async findTreatmentByPesticideId(data, i) {
+               this.treatmentList = [];
                     const [error, respone] = await this.handle(
-                         TreatmentService.findByPesticideId(this.pesticideChoosen.Pesticide_id)
+                         TreatmentService.findByPesticideId(data)
                     );
                     if (error) {
                          console.log(error);                       
                     } else if(respone.data != "Không tìm thấy."){
-                         this.treatmentList = respone.data;
-                         console.log(this.treatmentList)
+                         this.treatmentList = respone.data;this.pesticideList[i].Treatment = [];
+                         this.treatmentList.forEach(element => {
+                              this.pesticideList[i].Treatment.push(element);
+                         });
                     }
           },
 
@@ -340,7 +351,6 @@ export default {
                          this.message1 = "Cập nhật không thành công."
                     } else {
                          this.message2 = "Cập nhật thành công.";
-                         console.log(this.message2)
                          this.findTreatmentByPesticideId(data.Pesticide_id)
                          var temp = 0;
                          data.Treatment.forEach(EpidemicID => {
@@ -419,7 +429,7 @@ export default {
 
           async setPesticideChoosen(pesticide) {
                this.pesticideChoosen = pesticide;
-               this.findTreatmentByPesticideId();
+               this.findTreatmentByPesticideId(pesticide.Pesticide_id);
           },
 
           //  so hang của danh sach danh muc
