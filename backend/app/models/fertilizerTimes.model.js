@@ -55,7 +55,7 @@ FertilizerTimes.getAll = (Fertilizer_id, result) => {
      if (Fertilizer_id) {
           query += ` WHERE Fertilizer_id LIKE '%${Fertilizer_id}%'`;
      }
-     query += + ` ORDER BY  FertilizerTimes.FertilizerTimes_times`;
+     query +=  ` ORDER BY  FertilizerTimes.FertilizerTimes_times`;
      sql.query(query, (err, res) => {
           if (err) {
                console.log("error: ", err);

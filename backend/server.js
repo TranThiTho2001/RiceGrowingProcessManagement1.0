@@ -76,6 +76,50 @@ app.get("/", (req, res) => {
     res.json({ message: "welcome to rice growing process management!!!" });
 });
 
+
+// backup and restore
+const cron = require('node-cron')
+const moment = require('moment')
+const fs = require('fs')
+const spawn = require('child_process').spawn
+const  mysqldump =require('mysqldump');
+cron.schedule('0 15 10 * * MON', () => {
+    const fileName = "ricegrowingprocessmanagementdatabase"+`${moment().format('YYYY_MM_DD')}.sql`
+mysqldump({
+    connection: {
+        host: 'localhost',
+        user: 'root',
+        password: '12345678',
+        database: 'ricegrowingprocessmanagementdatabase',
+    },
+    dumpToFile: `../backup/${fileName}`,
+});
+});
+// You can adjust the backup frequency as you like, this case will run once a day
+// cron.schedule('0 5 10 * * *', () => {
+//     const fs = require('fs')
+//     const spawn = require('child_process').spawn
+//     const dumpFileName = `${Math.round(Date.now() / 1000)}.dump.sql`
+    
+//     const writeStream = fs.createWriteStream(dumpFileName)
+    
+//     const dump = spawn('mysqldump', [
+//         '-u',
+//         'root',
+//         '-p12345678',
+//         'ricegrowingprocessmanagementdatabase',
+//     ])
+    
+//     dump
+//         .stdout
+//         .pipe(writeStream)
+//         .on('finish', function () {
+//             console.log('Completed')
+//         })
+//         .on('error', function (err) {
+//             console.log(err)
+//         })
+// })
 const PORT = config.app.port;
 app.listen(PORT, () => {
     console.log(`server is running on port ${PORT}.`);
