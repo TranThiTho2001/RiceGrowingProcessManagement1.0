@@ -83,7 +83,9 @@ export default {
      margin-left: 0px;
      border-radius: 10px;
      height: 10px;
-     position: relative;
+     position: absolute;
+     left: -1%;
+    z-index: 2;
 }
 
 .topHeader .iconUser {
@@ -164,5 +166,11 @@ export default {
      left: -2%;
      background-color: #EEEA41;
      background: #EEEA41;
+}
+
+@media only screen and (max-width: 1200px) {
+  .username {
+     display: none !important;
+  }
 }
 </style>

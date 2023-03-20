@@ -1,6 +1,6 @@
 <template>
-     <div class="container-fluid riceCropManagement" style="background-color:  #EAEAEA;">
-          <div class="row riceCropManagemenFrame" style="height: 100vmin;">
+     <div class="container-fluid riceCropManagement" style="background-color:  #EAEAEA; height: max-content;">
+          <div class="row riceCropManagemenFrame" style="min-height: 100vmin;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -17,10 +17,10 @@
                </div>
                <div class="right rightRiceCropManagement" :class="{ leftNoneActive: active.leftnNoneActive }">
                     <div class="row ml-4 pt-3 mb-5 pb-1 mr-2 topRight">
-                         <div class="col-md-3">
+                         <div class="">
                               <h3 class="name">Theo dõi mùa vụ</h3>
                          </div>
-                         <div class="col-sm-7">
+                         <div class="">
                               <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
                                    @click="retrieveRiceCropList" @keyup.enter="searchName(nameToSearch)"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
@@ -36,20 +36,20 @@
                                         {{ riceCrop.RiceCropInformation_name }}</p>
                               </div>
                          </div>
-                         <div class="col-md-2 text-right">
+                         <div class="text-right">
                               <div class="row">
                                    <TopHeader />
                               </div>
                          </div>
                     </div>
-                    <div class="row ml-4 mr-2 mt-3  pt-2">
+                    <div class="row ml-4 mr-2 mt-5  pt-4">
                          <div class="col-sm-10"></div>
                          <div class="col-sm-2 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
                                         style="font-size: 15px;"></i> Thêm Mùa Vụ</button>
                          </div>
                     </div>
-                    <div class=" row riceCropList ml-4 mr-2 text-left" v-if="riceCropListByMonitoring.length > 0">
+                    <div class=" row riceCropList ml-4 mr-3 mt-1 text-left" v-if="riceCropListByMonitoring.length > 0">
                          <carousel :settings="settings" :breakpoints="breakpoints" style="width:100%">
                               <slide v-for="(riceCrop, i) in riceCropListByMonitoring" :key="i">
                                    <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
@@ -283,26 +283,32 @@ export default {
 
           getWidth() {
                var width = document.body.clientWidth;
-               if (width > 500 && width < 800) {
+               if (width > 300 && width < 4500) {
+                    return 1.5
+               }
+               else if (width >= 450 && width < 600) {
                     return 2
                }
-               else if (width >= 800 && width < 1000) {
+               else if (width >= 600 && width < 800) {
+                    return 2.5
+               }
+               else if (width >= 800 && width < 900) {
                     return 3;
                }
-               else if (width >= 100 && width < 1200) {
+               else if (width >= 900 && width < 1000) {
+                    return 3.5;
+               }
+               else if (width >= 1000 && width < 1200) {
+                    return 4;
+               }
+               else if (width >= 1200 & width < 1400) {
                     return 4.5;
                }
-               else if (width >= 1200 && width < 1400) {
-                    return 5;
-               }
-               else if (width >= 1400 & width < 1500) {
+               else if (width >= 1400 && width < 1500) {
                     return 5.5;
                }
-               else if (width >= 1500 && width < 1600) {
-                    return 6;
-               }
-               else if (width >= 1600) {
-                    return 8;
+               else if (width >= 1500) {
+                    return 7.5;
                }
           },
 

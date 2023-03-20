@@ -17,10 +17,10 @@
                </div>
                <div class="right rightPesticideManagement" :class="{ leftNoneActive: active.leftnNoneActive }">
                     <div class="row ml-4 pt-3 mb-5 pb-1 mr-2 topRight">
-                         <div class="col-md-3">
+                         <div class="">
                               <h3 class="name">Thuốc trị bệnh dịch</h3>
                          </div>
-                              <div class="col-md-7">
+                              <div class="">
                               <input type="text" class="form-control inputSearch1"  placeholder="Tìm" v-model="nameToSearch" 
                                    @click="retrievePesticideList()"
                                    @keyup.enter="searchName(nameToSearch)"
@@ -37,7 +37,7 @@
                               </div>
                          </div>
 
-                         <div class="col-md-2 text-right">
+                         <div class="text-right">
                               <div class="row">
                                    <TopHeader />
                               </div>

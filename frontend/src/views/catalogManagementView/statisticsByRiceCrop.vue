@@ -40,30 +40,33 @@
                                         <input type="radio" id="arableLand" name="all" value="all"
                                              v-model="chooseSatisticsBy" checked="true"
                                              @click="retrieveCropList, nameToSearch = ''">
-                                        <label for="all">Tất cả</label><br>
+                                        <label for="all">&nbsp; Tất cả</label><br>
                                         <input type="radio" id="arableLand" name="statisticsby" value="arableLand"
                                              v-model="chooseSatisticsBy" @click="retrieveArableLandList()">
-                                        <label for="arableLand">Mẫu ruộng</label><br>
+                                        <label for="arableLand">&nbsp; Mẫu ruộng</label><br>
                                         <input type="radio" id="crop" name="statisticsby" value="crop"
                                              v-model="chooseSatisticsBy" @click="deleteRiceCropList(), retrieveCropList()">
-                                        <label for="crop">Vụ mùa</label><br>
+                                        <label for="crop">&nbsp; Vụ mùa</label><br>
                                         <input type="radio" id="seed" name="statisticsby" value="seed"
                                              v-model="chooseSatisticsBy" @click="deleteRiceCropList(), retrieveSeedList()">
-                                        <label for="seed">Giống lúa</label><br>
+                                        <label for="seed"> &nbsp; Giống lúa</label><br>
                                    </div>
                                    <div class="col-lg-6">
                                         <input type="radio" id="epidemic" name="statisticsby" value="epidemic"
                                              @click="retrieveEpidemicTimesList(), retrieveEpidemicList(), deleteRiceCropList()"
                                              v-model="chooseSatisticsBy">
-                                        <label for="epidemic">Dịch bệnh gây hại</label><br>
+                                        <label for="epidemic">&nbsp; Dịch bệnh gây hại</label><br>
                                         <input type="radio" id="fertilizer" name="statisticsby" value="fertilizer"
                                              @click="retrieveFertilizerList(), retrieveFertilizerTimesList(), deleteRiceCropList()"
                                              v-model="chooseSatisticsBy">
-                                        <label for="fertilizer">Phân bón</label><br>
+                                        <label for="fertilizer">&nbsp; Phân bón</label><br>
                                         <input type="radio" id="pesticide" name="statisticsby" value="pesticide"
                                              @click="deleteRiceCropList(), retrievePesticideList(), retrievePrayingTimesList()"
                                              v-model="chooseSatisticsBy">
-                                        <label for="pesticide">Thuốc trị bệnh dịch</label>
+                                        <label for="pesticide">&nbsp; Thuốc trị bệnh dịch</label><br>
+                                        <input type="radio" id="seed" name="statisticsby" value="activity"
+                                             v-model="chooseSatisticsBy" @click="deleteRiceCropList(), retrieveActivitiesList(), retrieveActivityDetailList()">
+                                        <label for="seed">&nbsp; Hoạt động</label><br>
                                    </div>
                               </div>
                          </div>
@@ -190,20 +193,51 @@
                                              {{ pesticide.Pesticide_name }}</p>
                                    </div>
                               </div>
+
+                              <div class="statisticsByActivity" v-if="chooseSatisticsBy == 'activity'">
+                                   <input type="text" class="form-control inputSearch4" placeholder="Tìm"
+                                        v-model="nameToSearch" @click="retrieveActivitiesList()"
+                                        @keyup.enter="searchByActivity(nameToSearch)"
+                                        @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                                   <button class="btnSearch4" @click="searchByActivity(nameToSearch)"
+                                        v-if="nameToSearch == '' && !isOpenSearch.open">
+                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                                   </button>
+                                   <div :class="{ openSearch4: isOpenSearch.open, closeSearch4: isOpenSearch.close }">
+                                        <p class="item" v-for="activity in filteredActivityList()"
+                                             :key="activity.OtherActivities_name"
+                                             @click="searchByActivity(activity.OtherActivities_name), isOpenSearch.open = false, isOpenSearch.close = true">
+                                             {{ activity.OtherActivities_name }}</p>
+                                   </div>
+                                   <div class="arablelandScroll">
+                                        <p class="arablename" v-for="activity in otherActivitiesList"
+                                             :key="activity.OtherActivities_name" :id="activity.OtherActivities_name"
+                                             @click="searchByActivity(activity.OtherActivities_name), isOpenSearch.open = false, isOpenSearch.close = true">
+                                             {{ activity.OtherActivities_name }}</p>
+                                   </div>
+                              </div>
                          </div>
                     </div>
                     <div class="scroll" style="">
                          <div class="row scrollStatisticalTable">
-                              <div class="col-sm-12"><button @click="generateReport()" class="btn btnDowload">Tải
+                              <div class="col-sm-12"><button @click="generateReport(), isOPenrepost = true"
+                                        class="btn btnDowload">Tải
                                         xuống</button></div>
                               <div>
-                                   <vue3html2pdf :show-layout="false" :float-layout="true" :enable-download="false"
-                                        :preview-modal="true" :paginate-elements-by-height="1400"
-                                        filename="nightprogrammerpdf" :pdf-quality="2" :manual-pagination="false"
-                                        pdf-format="a4" :pdf-margin="10" pdf-orientation="portrait"
-                                        pdf-content-width="1000px" ref="html2Pdf">
+                                   <vue3html2pdf      :show-layout="false"
+        :float-layout="true"
+        :enable-download="true"
+        :preview-modal="true"
+        :paginate-elements-by-height="1123"
+        filename="hee hee"
+        :pdf-quality="4"
+        :manual-pagination="true"
+        pdf-format="a4"
+        pdf-orientation="portrait"
+        pdf-content-width="794px"
+                                        ref="html2Pdf">
                                         <template v-slot:pdf-content>
-                                             <riceCropReport :riceCropList="riceCropList" />
+                                             <riceCropReport :riceCropList="riceCropList" v-if="isOPenrepost" />
                                         </template>
                                    </vue3html2pdf>
                               </div>
@@ -297,6 +331,8 @@ import EpidemicService from '@/services/epidemic.service';
 import FertilizerService from '@/services/fertilizer.service';
 import FertilizerTimesService from '@/services/fertilizerTimes.service';
 import PesticideService from '@/services/pesticide.service';
+import ActivityDetailsService from '@/services/activityDetails.service';
+import OtherActivitiesService from '@/services/otherActivities.service';
 import SprayingTimesService from '@/services/sprayingTimes.service';
 import moment from 'moment';
 import VueApexCharts from "vue3-apexcharts";
@@ -317,6 +353,30 @@ export default {
 
      data() {
           return {
+               htmlToPdfOptions: {
+                    margin: 10,
+
+                    filename: `hehehe.pdf`,
+
+                    image: {
+                         type: 'jpeg',
+                         quality: 0.98
+                    },
+
+                    enableLinks: false,
+
+                    html2canvas: {
+                         scale: 1,
+                         useCORS: true
+                    },
+
+                    jsPDF: {
+                         unit: 'in',
+                         format: 'a4',
+                         orientation: 'portrait'
+                    }
+               },
+               isOPenrepost: false,
                riceCropList: [],
                cloneRiceCropList: [],
                riceCropListByMonitoring: [],
@@ -333,6 +393,8 @@ export default {
                fertilizerTimesList: [],
                pesticideList: [],
                sprayingTimesList: [],
+               otherActivitiesList: [],
+               ActivitityDetailList: [],
                chooseSatisticsBy: "",
                isOpenSearch: {
                     open: false,
@@ -452,6 +514,12 @@ export default {
           filteredFertilizerList() {
                return this.fertilizerList.filter(fertilizer => {
                     return fertilizer.Fertilizer_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
+               })
+          },
+
+          filteredActivityList() {
+               return this.otherActivitiesList.filter(activity => {
+                    return activity.OtherActivities_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
                })
           },
 
@@ -605,7 +673,6 @@ export default {
                }
           },
 
-
           async retrievePrayingTimesList() {
                const [err, respone] = await this.handle(
                     SprayingTimesService.getAll()
@@ -615,6 +682,30 @@ export default {
                }
                else {
                     this.sprayingTimesList = respone.data;
+               }
+          },
+
+          async retrieveActivitiesList() {
+               const [err, respone] = await this.handle(
+                    OtherActivitiesService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.otherActivitiesList = respone.data;
+               }
+          },
+
+          async retrieveActivityDetailList() {
+               const [err, respone] = await this.handle(
+                    ActivityDetailsService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.ActivitityDetailList = respone.data;
                }
           },
 
@@ -642,7 +733,7 @@ export default {
                          }
                     });
                }
-               else{
+               else {
                     this.retrieveCropList()
                }
                this.bubbleSort();
@@ -657,7 +748,7 @@ export default {
                          }
                     });
                });
-              this.bubbleSort()
+               this.bubbleSort()
           },
 
           async searchBySeed(data) {
@@ -720,12 +811,12 @@ export default {
                     this.cloneRiceCropList.forEach(ricecrop => {
                          this.fertilizerTimesList.forEach(fertilizertimes => {
                               if (ricecrop.RiceCropInformation_id == fertilizertimes.RiceCropInformation_id && fertilizertimes.Fertilizer_name == data) {
-                                  var newricecrop= Object.assign({}, ricecrop);
-                                  newricecrop.name = fertilizertimes.Fertilizer_name;
-                                  newricecrop.times = fertilizertimes.FertilizerTimes_times;
-                                  newricecrop.startDate = fertilizertimes.FertilizerTimes_startDate;
-                                  newricecrop.endDdate = fertilizertimes.FertilizerTimes_endDdate;
-                                  newricecrop.amount = fertilizertimes.FertilizerTimes_amount;
+                                   var newricecrop = Object.assign({}, ricecrop);
+                                   newricecrop.name = fertilizertimes.Fertilizer_name;
+                                   newricecrop.times = fertilizertimes.FertilizerTimes_times;
+                                   newricecrop.startDate = fertilizertimes.FertilizerTimes_startDate;
+                                   newricecrop.endDdate = fertilizertimes.FertilizerTimes_endDdate;
+                                   newricecrop.amount = fertilizertimes.FertilizerTimes_amount;
                                    console.log()
                                    this.riceCropList.push(newricecrop);
                               }
@@ -771,6 +862,37 @@ export default {
                this.bubbleSort();
           },
 
+          async searchByActivity(data) {
+               this.nameToSearch = data;
+               var list = document.getElementsByClassName("arablename");
+               Array.from(list).forEach(element => {
+                    element.style.backgroundColor = '#FFFFFF'
+               });
+               document.getElementById(data).style.backgroundColor = '#cbcccf';
+               this.riceCropList = [];
+               if (data != '') {
+                    this.cloneRiceCropList.forEach(riceCrop => {
+                         var i = 0;
+                         this.ActivitityDetailList.forEach(activity => {
+                              const ricecrop = Object.assign({}, riceCrop);
+                              riceCrop.id = i;
+                              if (ricecrop.RiceCropInformation_id == activity.RiceCropInformation_id && activity.OtherActivities_name == data) {
+                                   ricecrop.name = activity.OtherActivities_name;
+                                   ricecrop.times = activity.ActivityDetails_times;
+                                   ricecrop.startDate = activity.ActivityDetails_startDate;
+                                   ricecrop.endDdate = activity.ActivityDetails_endDate;
+                                   this.riceCropList.push(ricecrop);
+                                   i++;
+                              }
+                         });
+                    });
+               }
+               else {
+                    this.retrieveCropList();
+               }
+               this.bubbleSort();
+          },
+
           formatDate(data) {
                if (data != null)
                     return (moment(String(data)).format("DD-MM-YYYY")).slice(0, 10);
@@ -794,6 +916,17 @@ export default {
                          }
                     }
                }
+          },
+          async beforeDownload({ html2pdf, options, pdfContent }) {
+               await html2pdf().set(options).from(pdfContent).toPdf().get('pdf').then((pdf) => {
+                    const totalPages = pdf.internal.getNumberOfPages()
+                    for (let i = 1; i <= totalPages; i++) {
+                         pdf.setPage(i)
+                         pdf.setFontSize(10)
+                         pdf.setTextColor(150)
+                         pdf.text('Page ' + i + ' of ' + totalPages, (pdf.internal.pageSize.getWidth() * 0.88), (pdf.internal.pageSize.getHeight() - 0.3))
+                    }
+               }).save()
           }
      },
 
@@ -837,4 +970,5 @@ export default {
 
 .arablename:hover {
      background: #cbcccf;
-}</style>
+}
+</style>

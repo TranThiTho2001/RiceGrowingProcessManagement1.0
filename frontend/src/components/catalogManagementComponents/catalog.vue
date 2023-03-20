@@ -32,13 +32,9 @@
                               <i class="fas fa-users">&nbsp;</i>Quản Lý Nhân Viên</button>
                     </div>
                     <div class="row mt-1 pt-2 ml-2" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
-                         <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnStatistical" @click="gotoStatistical()">
+                         <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnStatistical"
+                              @click="gotoStatistical()">
                               <i class="fas fa-chart-pie" style="font-size: 20px;">&nbsp;</i> Thống Kê
-                         </button>
-                    </div>
-                    <div class="row mt-1 pt-2 ml-2" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
-                         <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnOtherActivities"
-                              @click="goToOtherActivities"> <i class="far fa-list-alt">&nbsp;</i>Các Hoạt Động
                          </button>
                     </div>
                     <div class="row mt-1 ml-2" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
@@ -52,22 +48,32 @@
                               <button class="btn  pl-4 pr-5 btn-sm btn-outline-secondary btnSeed" @click="goToSeed"><i
                                         class="fas fa-seedling">&nbsp;</i>Giống Lúa</button>
                          </div>
+
                          <div class="row mt-3 ml-1" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
                               <button class="btn  pl-4 pr-5 btn-sm btn-outline-secondary btnFertilizer"
                                    @click="goToFertilizer">
                                    <i class="fas fa-fill-drip">&nbsp;</i>Phân Bón </button>
                          </div>
+
                          <div class="row mt-3 ml-1" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
                               <button class="btn pl-4 pr-5 btn-sm btn-outline-secondary btnEpidemic" @click="goToEpidemic"><i
                                         class="fas fa-spider">&nbsp;</i>Dịch Bệnh </button>
                          </div>
+
                          <div class="row mt-3 ml-1" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
                               <button class="btn pl-4 pr-5 btn-sm btn-outline-secondary btnArableland"
                                    @click="goToArableLand"><i class="fas fa-square">&nbsp;</i>Mẫu Ruộng</button>
                          </div>
+
                          <div class="row mt-3 ml-1" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
                               <button class="btn pl-4 pr-2 btn-sm btn-outline-secondary btnPesticide"
                                    @click="goToPesticide"><i class="fas fa-flask">&nbsp;</i>Thuốc Trị Bệnh Dịch </button>
+                         </div>
+
+                         <div class="row mt-1 pt-2 ml-2" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
+                              <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnOtherActivities"
+                                   @click="goToOtherActivities"> <i class="far fa-list-alt">&nbsp;</i>Các Hoạt Động
+                              </button>
                          </div>
                     </div>
                </div>

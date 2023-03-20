@@ -17,10 +17,10 @@
                </div>
                <div class="rightSeedManagement right" :class="{ leftNoneActive: active.leftnNoneActive }">
                     <div class="row ml-4 pt-3 mb-5 pb-1 mr-2 topRight">
-                         <div class="col-md-2">
+                         <div class="">
                               <h3 class="name">Giống lúa</h3>
                          </div>
-                         <div class="col-md-8">
+                         <div class="">
                               <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
                                    @click="retrieveSeedList()" @keyup.enter="searchName(nameToSearch)"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
@@ -36,7 +36,7 @@
                               </div>
                          </div>
 
-                         <div class="col-md-2 text-right">
+                         <div class="text-right">
                               <div class="row">
                                    <TopHeader />
                               </div>

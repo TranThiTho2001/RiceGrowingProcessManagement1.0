@@ -1,16 +1,20 @@
-<template>
-     <div class="reportPDF continer text-center">
-          <div class="row">
-               <div class="col-sm-3">
-                    <h4>Cộng hòa xs hội </h4>
+<template >
+     <div class="reportPDF  text-center">
+          <div style="">
+          <div class="row topHeader" style="">
+               <div class="center">
+                    <p>BỘ GIÁO DỤC VÀ ĐÀO TẠO</p>
+                    <P>TRƯỜNG ĐẠI HỌC CẦN THƠ</P>
+                    <hr>
                </div>
-               <div class="col-sm-1"></div>
-               <div class="col-sm-3">
-                    <img src="../../assets/logo.png">
+               <div class=" text-center ml-3">
+                    <p>CỘNG HÒA XÃ HỌI CHỦ NGHĨA VIỆT NAM</p>
+                    <p>Độc lập - Tự do - Hạnh phúc</p>
+                    <p>Cần Thơ, ngày {{ getDate() }} tháng {{ getMonth() }} năm {{ getYear() }}</p>
                </div>
           </div>
-          <div class="ml-2 mr-2" style="width: 80%;">
-               <table class="table tabelreport">
+          <div class="row" style="">
+               <table class="table tabelreport" style="page-break-inside: avoid; ">
                     <thead>
                          <tr>
                               <th class="text-center">STT</th>
@@ -42,6 +46,7 @@
 
           </div>
      </div>
+     </div>
 </template>
    
 <script>
@@ -68,29 +73,57 @@ export default {
                     return data;
                }
                return "...";
+          },
+
+          getDate(){
+               const date = new Date();
+               console.log("alo")
+               console.log(this.riceCropList)
+               return date.getDate();
+          },
+
+          getMonth(){
+               const date = new Date();
+               return date.getMonth();
+          },
+
+          getYear(){
+               const date = new Date();
+               return date.getYear();
           }
+
      }
 };
 </script>
    
 <style>
-@page {
-     size: 21cm 29.7cm;
-     margin: 30mm 45mm 30mm 45mm;
-     /* change the margins as you want them to be. */
+@page wide {
+  size: a4 portrait;
 }
+
+@page{
+     table-layout: auto;
+}
+/* Targets all odd-numbered pages */
+
 .tabelreport{
-     width: 80%;
-     margin-left: 4%;
-     margin-right: 5%;
+     width: 100% !important;
+     page-break-inside: avoid; 
+
 }
 .tabelreport tbody tr td{
      font-size: 10px;
 
 }    
-.reportPDF{
-     width: 90%;
+.reportPDF{ 
+     /* width: 90%; */
+     margin-left: 3cm;
+     margin-right: 2cm;
+     margin-top: 2cm;
+     margin-bottom: 2cm;
      background-color: aqua;
+     page-break-inside: avoid; 
+     /* padding-left: 3cm; padding-right: 2cm; padding-top: 2cm; padding-bottom: 2cm; */
 }
 
 

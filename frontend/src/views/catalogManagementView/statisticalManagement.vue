@@ -31,7 +31,8 @@
                          </div>
                     </div>
                     <div class="row mr-2 ml-2">
-                         <div class="statisticalComponent text-center" @click="goToStatiticsByriceCrop()">
+                         <div class="statisticalComponent text-center" @click="goToStatiticsByriceCrop()"
+                              id="statisticalRice1">
                               <div class="nameComponent">
                                    <h2>Mùa Vụ</h2>
                               </div>
@@ -42,7 +43,7 @@
 
                          <div class="statisticalComponent text-center">
                               <div class="nameComponent">
-                                   <h2>Mẫu ruộng</h2>
+                                   <h2>Mẫu Ruộng</h2>
                               </div>
                               <apexchart width="100%" type="pie" :options="chartDataForArableLand.chartOptions"
                                    :series="chartDataForArableLand.series">
@@ -50,44 +51,49 @@
 
                          </div>
 
-                         <div class="statisticalComponent text-center">
+                         <div class="statisticalComponent text-center" >
                               <div class="nameComponent">
-                                   <h2>Phân bón</h2>
+                                   <h2>Các Hoạt Động</h2>
                               </div>
-                              <apexchart width="100%" type="pie" :options="chartDataForRiceCrop.chartOptions"
-                                   :series="chartDataForRiceCrop.series">
-                              </apexchart>
-
+                              <div class="cicle text-center">
+                                   <h2 class="amountFertilizer">{{ otherActivitiesList.length }}</h2>
+                              </div>
                          </div>
 
-
-                         <div class="statisticalComponent text-center">
+                         <div class="statisticalComponent text-center" >
                               <div class="nameComponent">
-                                   <h2>Mùa Vụ</h2>
+                                   <h2>Phân Bón</h2>
                               </div>
-                              <apexchart width="100%" type="pie" :options="chartDataForRiceCrop.chartOptions"
-                                   :series="chartDataForRiceCrop.series">
-                              </apexchart>
-                         </div>
-
-                         <div class="statisticalComponent text-center">
-                              <div class="nameComponent">
-                                   <h2>Mùa Vụ</h2>
+                              <div class="cicle text-center">
+                                   <h2 class="amountFertilizer">{{ fertilizerList.length }}</h2>
                               </div>
-                              <apexchart width="100%" type="pie" :options="chartDataForRiceCrop.chartOptions"
-                                   :series="chartDataForRiceCrop.series">
-                              </apexchart>
-
                          </div>
 
                          <div class="statisticalComponent text-center">
                               <div class="nameComponent">
-                                   <h2>Mùa Vụ</h2>
+                                   <h2>Giống Lúa</h2>
                               </div>
-                              <apexchart width="100%" type="pie" :options="chartDataForRiceCrop.chartOptions"
-                                   :series="chartDataForRiceCrop.series">
-                              </apexchart>
+                              <div class="cicle text-center">
+                                   <h2 class="amountFertilizer">{{ seedList.length }}</h2>
+                              </div>
+                         </div>
 
+                         <div class="statisticalComponent text-center">
+                              <div class="nameComponent">
+                                   <h2>Dịch Bệnh</h2>
+                              </div>
+                              <div class="cicle text-center">
+                                   <h2 class="amountFertilizer">{{ epidemicList.length }}</h2>
+                              </div>
+                         </div>
+
+                         <div class="statisticalComponent text-center">
+                              <div class="nameComponent">
+                                   <h2>Thuốc Trị Dịch Bệnh</h2>
+                              </div>
+                              <div class="cicle text-center">
+                                   <h2 class="amountFertilizer">{{ pesticideList.length }}</h2>
+                              </div>
                          </div>
                     </div>
                </div>
@@ -96,7 +102,7 @@
      <div v-if="isOpenSearch.open" class="outside" @click.passive="away()"></div>
 </template>
 
-<script>
+<script type=”text/javascript”>
 
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import { mapGetters, mapMutations } from "vuex";
@@ -104,6 +110,11 @@ import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import RiceCropInformationService from '@/services/riceCropInformation.service';
 import VueApexCharts from "vue3-apexcharts";
 import ArableLandService from '@/services/arableLand.service';
+import FertilizerService from '@/services/fertilizer.service';
+import PesticideService from '@/services/pesticide.service';
+import EpidemicService from '@/services/epidemic.service';
+import SeedService from '@/services/seed.service';
+import OtherActivitiesService from '@/services/otherActivities.service';
 export default {
      name: "ArableLandManagement",
      components: {
@@ -120,6 +131,11 @@ export default {
                riceCropListByMonitoring: [],
                riceCropListByFinish: [],
                arableLandList: [],
+               fertilizerList: [],
+               pesticideList: [],
+               epidemicList: [],
+               seedList: [],
+               otherActivitiesList: [],
                isOpenSearch: {
                     open: false,
                     close: true,
@@ -158,7 +174,7 @@ export default {
                },
 
                chartDataForArableLand: {
-                    series: [0,0],
+                    series: [0, 0],
                     chartOptions: {
                          chart: {
                               width: 500,
@@ -183,8 +199,14 @@ export default {
                options: {
                     responsive: true,
                     maintainAspectRatio: false
+               },
+               styleComponent: {
+                    width: 0,
+                    height:0,
                }
           }
+
+
      },
 
      computed: {
@@ -264,17 +286,89 @@ export default {
                                    check = 1;
                               }
                          });
-                         if(!check){
-                              this.chartDataForArableLand.series[1] += 1; 
+                         if (!check) {
+                              this.chartDataForArableLand.series[1] += 1;
                          }
                     });
                     console.log(this.chartDataForArableLand.series)
                }
           },
 
-          goToStatiticsByriceCrop(){
+          async retrieveFertilizerList() {
+               const [err, respone] = await this.handle(
+                    FertilizerService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.fertilizerList = respone.data;
+                    this.getwidth()
+               }
+          },
+
+          async retrieveEpidemicList() {
+               const [err, respone] = await this.handle(
+                    EpidemicService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.epidemicList = respone.data;
+               }
+          },
+
+          async retrievePesticideList() {
+               const [err, respone] = await this.handle(
+                    PesticideService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.pesticideList = respone.data;
+               }
+          },
+
+          
+          async retrieveSeedList() {
+               const [err, respone] = await this.handle(
+                    SeedService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.seedList = respone.data;
+               }
+          },
+
+          async retrieveotherActivitisList() {
+               const [err, respone] = await this.handle(
+                    OtherActivitiesService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.otherActivitiesList = respone.data;
+               }
+          },
+
+          goToStatiticsByriceCrop() {
                this.$router.push("/Statistical/StatisticsByRiceCrop");
           },
+
+          getwidth() {
+               var width = document.getElementById("statisticalRice1").offsetWidth;
+               var height = document.getElementById("statisticalRice1").offsetHeight;
+               var list = document.getElementsByClassName("statisticalComponent");
+               Array.from(list).forEach(element => {
+                    element.style.width = width+"px";
+                    element.style.height = height+"px";
+               });
+          }
 
      },
 
@@ -282,6 +376,11 @@ export default {
           this.retrieveRiceCropList();
           this.retrieveArableLandList();
           this.initEmployeeState();
+          this.retrieveFertilizerList();
+          this.retrieveEpidemicList();
+          this.retrievePesticideList();
+          this.retrieveSeedList();
+          this.retrieveotherActivitisList();
      },
 
 }
@@ -320,4 +419,5 @@ nav .pagination .page-item .page-link {
      font-size: 20px;
 }
 
-@import url(../../assets/mainStyle.css);</style>
+@import url(../../assets/mainStyle.css);
+</style>

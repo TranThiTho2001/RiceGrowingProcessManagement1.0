@@ -77,8 +77,11 @@
    }
    </script> 
    
-   
-   <style>
+
+   <style> 
+     #app{
+    max-width:100%;
+   }
    /* #app {
      font-family: Helvetica, Arial, sans-serif;
      -webkit-font-smoothing: antialiased;
