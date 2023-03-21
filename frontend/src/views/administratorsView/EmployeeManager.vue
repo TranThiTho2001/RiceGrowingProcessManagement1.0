@@ -1,23 +1,41 @@
 <template>
-     <div class="EmployeeManagerFrame container-fluid">
-          <div class="row EmployeeManager">
-               <div class="col-sm-2">
+     <div class="EmployeeManagerFrame container-fluid pr-4" style="background-color: #EAEAEA;height: max-content;">
+          <div class="row EmployeeManager" style="height: 100vmin;">
+               <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
+                    @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
+               <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
+                    @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true, active.leftnNoneActive = false"></button>
+               <div class="" :class="{ menubar: openMenu.openMenu }" v-if="openMenu.openMenu">
+                    <div class="row">
+                         <Catalog />
+                    </div>
+               </div>
+               <div class="left">
                     <div class="row">
                          <Catalog />
                     </div>
                </div>
 
-               <div class="col-sm-10 rightEmployeeManager">
-                    <div class="row ml-2 pt-3 mb-5 pb-1 mr-2 topRight">
-                         <div class="col-md-2">
-                              <h3 class="name">Nhân viên</h3>
+               <div class="rightEmployeeManager right">
+                    <div class="row ml-4 pt-3 mb-5 pb-1 mr-2 topRight">
+                         <div class="nameclass" style="min-height:60px; width: max-content;">
+                              <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Nhân viên</h3>
                          </div>
-                         <div class="col-md-8">
+
+                         <div class="">
                               <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
-                                   @click="retrieveEmployeeList()" @keyup.enter="searchName(nameToSearch)"
+                                   @click="retrieveEmployeeList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch)"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                              <button class="btnSearch1" @click="searchName(nameToSearch)"
+                              <button class="btnSearch1" @click="searchName(nameToSearch), away()"
                                    v-if="nameToSearch == '' && !isOpenSearch.open">
+                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                              </button>
+
+                              <input v-if="isOpenInput2 || (isOpenSearch.open)" autofocus type="text" class="form-control inputSearch2" placeholder="Tìm" style="width: 2%;"
+                                   v-model="nameToSearch" @click="retrieveEmployeeList" 
+                                   @keyup.enter="searchName(nameToSearch), away()"
+                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                              <button class="btnSearch2" @click="isOpenInput2 = !isOpenInput2">
                                    <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
                               <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
@@ -27,7 +45,7 @@
                               </div>
                          </div>
 
-                         <div class="col-md-2 text-right">
+                         <div class="text-right">
                               <div class="row">
                                    <TopHeader />
                               </div>
@@ -42,8 +60,9 @@
                          </div>
                     </div>
 
-                    <div class="row employeeList  ml-2 mr-2 justify-content-center">
-                         <table class="table mt-4 ml-2 mr-2">
+                    <div class=" row scrollTable">
+                         <div class="col-sm-12 justify-content-center">
+                         <table class="table employeeList">
                               <thead>
                                    <tr>
                                         <th class="text-center">STT</th>
@@ -56,7 +75,7 @@
                                    </tr>
                               </thead>
                               <tbody>
-                                   <tr v-for="(employee, i ) in get_rows(employeeList)" :key="i">
+                                   <tr v-for="(employee, i ) in (employeeList)" :key="i">
                                         <td class="text-center" v-if="currentPage > 1">{{ i + ((currentPage - 1) *
                                              elementsPerPage) + 1 }}
                                         </td>
@@ -86,41 +105,6 @@
                               </tbody>
                          </table>
                     </div>
-                    <div class="row mt-2 ml-2 mr-2" style="display: flex; justify-content: center;">
-
-                         <nav aria-label="...">
-                              <ul class="pagination " aria-controls="my-table">
-                                   <li class="page-item disabled" v-if="currentPage == 1">
-                                        <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
-                                   </li>
-                                   <li class="page-item " v-if="currentPage > 1">
-                                        <a class="page-link" href="#" @click="change_page('-', employeeList)"
-                                             aria-controls="my-table">{{
-                                                  previous }}</a>
-                                   </li>
-                                   <li class="page-item"><a class="page-link" href="#"
-                                             @click="change_page(currentPage - 1, employeeList)" v-if="currentPage > 1">{{
-                                                  currentPage - 1 }}</a></li>
-                                   <li class="page-item active">
-                                        <a class="page-link" style="background-color: #EEEA41; border-color: #EEEA41;"
-                                             href="#">{{
-                                                  currentPage }} <span class="sr-only">(current)</span></a>
-                                   </li>
-                                   <li class="page-item"><a class="page-link" href="#"
-                                             v-if="currentPage < num_pages(employeeList)"
-                                             @click="change_page(currentPage + 1, employeeList)">{{ currentPage + 1 }}</a>
-                                   </li>
-                                   <li class="page-item">
-                                        <a class="page-link" href="#" @click="change_page('+', employeeList)"
-                                             v-if="currentPage < num_pages(employeeList)">{{
-                                                  next }}</a>
-                                   </li>
-                                   <li class="page-item disabled">
-                                        <a class="page-link" href="#" v-if="currentPage >= num_pages(employeeList)">{{
-                                             next }}</a>
-                                   </li>
-                              </ul>
-                         </nav>
                     </div>
 
                     <CreateNewEmployeeForm v-if="isOpenCreateEmployeeForm" :newEmployee="newEmployee"
@@ -130,8 +114,6 @@
                </div>
 
           </div>
-
-          <!-- danh sach so trang hien thi -->
 
           <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
 
@@ -153,7 +135,7 @@
                     @click="isOpenThongBao = !isOpenThongBao">OK</button>
           </div>
      </div>
-     <div v-if="isOpenSearch.open" class="outside" @click.passive="away()"></div>
+     <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click.passive="away()"></div>
 </template>
    
 <script>
@@ -197,6 +179,17 @@ export default {
                     open: false,
                     close: true,
                },
+               isOpenInput2: false,
+               isOpenInput1: false,
+               active: {
+                    rightActive: false,
+                    leftnNoneActive: false,
+               },
+               openMenu: {
+                    openMenu: false,
+                    isOpenMenuIcon: true,
+                    isCloseMenu: false,
+               },
           }
      },
 
@@ -225,6 +218,8 @@ export default {
           away() {
                this.isOpenSearch.open = false;
                this.isOpenSearch.close = true;
+               this.isOpenInput1 = false;
+               this.isOpenInput2 = false;
           },
 
           async retrieveEmployeeList() {
@@ -441,6 +436,7 @@ export default {
    
 <style>
 @import url(../../assets/employeeStyle.css);
+@import url(../../assets/mainStyle.css);
 
 nav {
      position: absolute;

@@ -132,9 +132,93 @@
      border: none;
      border-radius: 10px;
 }
+
 .form-control:focus {
      border-color: #E4E5EB !important;
 }
+
+.table {
+     height: min-content !important;
+     width: 100%;
+     background: #FAFAFC !important;
+     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.scrollTable {
+     overflow: auto !important;
+     height: 540px !important;
+     width: 99% !important;
+     margin-left: 1% !important;
+}
+
+.scrollTable thead th,
+.scrollStatisticalTable thead th {
+     position: sticky;
+     top: 0;
+     z-index: 0;
+     background: #FAFAFC;
+     border-bottom: 0.5px solid #b5b5b7;
+     padding-left: 10px !important;
+     background-color: #008B8E;
+     vertical-align: middle !important;
+     /* border-radius: 15px; */
+}
+
+.table tbody tr:hover {
+     color: #1C1C1F;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 400;
+     font-size: 16px;
+     background-color: #EAEAEA;
+}
+
+.table thead tr th {
+     vertical-align: middle !important;
+}
+
+.table tbody tr {
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 400;
+     font-size: 16px;
+     line-height: 19px;
+     border-bottom: 0.1px solid #f4f5f6 !important;
+     height: 20px !important;
+}
+
+table tbody tr td {
+     vertical-align: middle;
+     border-bottom: 0.5px solid #cbcccf !important;
+     padding-left: 5px !important;
+     vertical-align: middle !important;
+     height: 20px !important;
+     height: 10px;
+}
+
+
+.outside {
+     width: 100vw;
+     height: 100vh;
+     position: fixed;
+     top: 0px;
+     left: 0px;
+}
+
+
+.left {
+     position: relative;
+     display: inline;
+     width: 15%;
+     background: white;
+     background: linear-gradient(180deg, rgba(128, 255, 0, 0.15) 0%, rgba(250, 255, 0, 0.15) 100%);
+}
+
+.right {
+     width: 85%;
+     position: relative;
+}
+
 
 .inputSearch1 {
      background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
@@ -146,18 +230,6 @@
      left: 47%;
      top: 2.8%;
 }
-@media only screen and (max-width: 1000px) {
-.inputSearch1 {
-     background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
-     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-     border-radius: 15px !important;
-     width: 40% !important;
-     height: 35px;
-     position: absolute;
-     right: -6%;
-     top: 3%;
-}
-   }
 
 
 .btnSearch1 {
@@ -183,14 +255,17 @@
 .openSearch {
      display: inline-block;
      position: absolute;
-     left: 66%;
-     top: 70%;
+     right: 165px;
+     top: 8%;
      width: 40%;
+     max-height: 200px;
      background-color: #FAFAFC;
      border-radius: 5px;
      z-index: 1;
      box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
           rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+     overflow: hidden;
+     white-space:nowrap;
 }
 
 .item {
@@ -237,141 +312,189 @@
      top: -8%
 }
 
-
-.table {
-     height: min-content !important;
-     width: 100%;
-     background: #FAFAFC !important;
-     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-.scrollTable {
-     overflow: auto !important;
-     height: 540px !important;
-     width: 99% !important;
-     margin-left: 1% !important;
-}
-
-.scrollTable thead th,
-.scrollStatisticalTable thead th {
-     position: sticky;
-     top: 0;
-     z-index: 0;
-     background: #FAFAFC;
-     border-bottom: 0.5px solid #b5b5b7;
-     padding-left: 10px !important;
-     background-color: #008B8E;
-     vertical-align: middle !important;
-     /* border-radius: 15px; */
-}
-
-.table tbody tr:hover {
-     color: #1C1C1F;
-     font-family: 'Roboto';
-     font-style: normal;
-     font-weight: 400;
-     font-size: 16px;
-     background-color: #EAEAEA;
-}
-
-.table thead tr th{
-     vertical-align: middle !important;
-}
-.table tbody tr {
-     font-family: 'Roboto';
-     font-style: normal;
-     font-weight: 400;
-     font-size: 16px;
-     line-height: 19px;
-     border-bottom: 0.1px solid #f4f5f6 !important;
-     height: 20px !important;
-}
-
-table tbody tr td {
-     vertical-align: middle;
-     border-bottom: 0.5px solid #cbcccf !important;
-     padding-left: 5px !important;
-     vertical-align: middle !important;
-     height: 20px !important;
-     height: 10px;
-}
-
-
-.outside {
-     width: 100vw;
-     height: 100vh;
-     position: fixed;
-     top: 0px;
-     left: 0px;
-}
-
-
-.left {
-     position: relative;
-     display: inline;
-     width: 15%;
-     background: white;
-     background: linear-gradient(180deg, rgba(128, 255, 0, 0.15) 0%, rgba(250, 255, 0, 0.15) 100%);
- }
-
- .right {
-      width: 85%;
-      position: relative;
- }
-
 @media only screen and (max-width: 1430px) {
      .left {
-         position: absolute;
-         width: max-content;
-         z-index: 1;
-         width: 230px;
-         height: 100vmin;
-         display: none;
+          position: absolute;
+          width: max-content;
+          z-index: 1;
+          width: 230px;
+          height: 100vmin;
+          display: none;
      }
 
      .right {
           width: 100%;
+          position: relative !important;
      }
 
-     .iconmenu1{
+     .iconmenu1 {
           display: inline !important;
           width: 40px;
           height: 40px;
           position: absolute;
+          left: 40px;
           z-index: 2;
           color: lightblue;
+          top:2%;
      }
 
-     .iconmenu2{
+     .nameclass{
+          padding-left: 60px;
+          z-index:0;
+     }
+
+     .name {
+          font-family: 'Roboto';
+          font-style: normal;
+          font-weight: 600;
+          font-size: 30px;
+          line-height: 46px;
+          font-size: 25px !important;
+          color: #B3B4BA;
+          position: relative;
+          /* top:0%; */
+     }
+     .name2 {
+          display: none !important;
+     }
+     .iconmenu2 {
           display: inline !important;
           width: 40px;
           height: 40px;
           position: absolute;
-          z-index: 2;
+          z-index: 1;
+          left: 40px;
+          top:2%;
+          color:#4a4a4b;
+          border: none;
      }
+
      .menubar {
           position: absolute !important;
           width: max-content;
           z-index: 1;
           width: 230px;
           height: 100vmin;
-          display: inline  !important;
-          background:linear-gradient(180deg, rgba(128, 255, 0, 0.15) 0%, rgba(250, 255, 0, 0.15) 100%);
+          display: inline !important;
+          background: linear-gradient(180deg, rgba(128, 255, 0, 0.15) 0%, rgba(250, 255, 0, 0.15) 100%);
 
-      }
-      .inputSearch1{
-          top:10%;
-          width: 80% !important;
+     }
+
+     .inputSearch1 {
+          top: 10%;
+          display: none !important;
+          width: 10% !important;
           left: 10%;
-      }
+     }
+
+     .btnSearch1 {
+          position: absolute;
+          left: 80%;
+          top: 3.5%;
+          border-radius: 10px;
+          border: none;
+          display: none;
+          background: none;
+     }
+     .inputSearch2 {
+          background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
+          box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+          border-radius: 15px !important;
+          width: 60% !important;
+          height: 35px;
+          position: absolute;
+          right: 90px !important;
+          top: 2.8%;
+          z-index: 2 ;
+          display: inline !important;
+     }
+
+     .btnSearch2 {
+          position: absolute;
+          right: 90px;
+          top: 3.5%;
+          border-radius: 10px;
+          border: none;
+          background: none;
+          display: inline !important;
+          z-index: 3;
+     }
+
+     .closeSearch {
+          display: none;
+          width: 110%;
+          margin: 0 auto 10px auto;
+          padding: 10px 20px;
+          color: white;
+          border-radius: 5px;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+               rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+     }
+     
+     .openSearch {
+          display: inline-block;
+          position: absolute;
+          right: 90px !important;
+          top: 8%;
+          width: 60%;
+          max-height: 200px;
+          background-color: #FAFAFC;
+          border-radius: 5px;
+          z-index: 1;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+               rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+          overflow: hidden;
+          white-space:nowrap;
+     }
+     
+     .item {
+          background-color: none;
+          cursor: pointer;
+          bottom: 0.1px;
+          color: #1C1C1F;
+          font-family: 'Roboto';
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          padding: 0.1px;
+          margin: 0.2px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+     }
+     
+     .item:hover {
+          background-color: none;
+          cursor: pointer;
+          bottom: 0.1px;
+          background-color: #EAEAEA;
+          font-family: 'Roboto';
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+     }
+}
+.carousel__prev, .carousel__prev{
+     z-index: 4 !important;
+}
+.btnSearch2 {
+display: none;
+}
+
+.inputSearch2 {
+     display: none;
+     right: 90px !important;
+     position: absolute;
+     width: 40% ;
 }
 
 
-.iconmenu1{
+.iconmenu1 {
      font-size: 20px;
      display: none;
 }
-.iconmenu2{
+
+.iconmenu2 {
      font-size: 20px;
      display: none;
 }
@@ -384,9 +507,9 @@ table tbody tr td {
      width: 230px;
      height: 100vmin;
      display: none;
- }
+}
 
- .leftNoneActive{
+.leftNoneActive {
      filter: blur(0.5px) !important;
      box-shadow: inset 7px 7px 7px rgba(0, 0, 0, 0.25) !important;
- }
+}

@@ -17,22 +17,30 @@
                </div>
                <div class="right rightRiceCropManagement" :class="{ leftNoneActive: active.leftnNoneActive }">
                     <div class="row ml-4 pt-3 mb-5 pb-1 mr-2 topRight">
-                         <div class="">
-                              <h3 class="name">Theo dõi mùa vụ</h3>
+                         <div class="nameclass" style="min-height:60px; width: max-content;">
+                              <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Theo dõi mùa vụ</h3>
                          </div>
                          <div class="">
                               <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
-                                   @click="retrieveRiceCropList" @keyup.enter="searchName(nameToSearch)"
+                                   @click="retrieveRiceCropList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch)"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                              <button class="btnSearch1" @click="searchName(nameToSearch)"
+                              <button class="btnSearch1" @click="searchName(nameToSearch), away()"
                                    v-if="nameToSearch == '' && !isOpenSearch.open">
                                    <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
-                              <!-- :class="{ openSearch:isOpenSearch.open, closeSearch:isOpenSearch.close }"  -->
+
+                              <input v-if="isOpenInput2 || (isOpenSearch.open)" autofocus type="text" class="form-control inputSearch2" placeholder="Tìm" style="width: 2%;"
+                                   v-model="nameToSearch" @click="retrieveRiceCropList" 
+                                   @keyup.enter="searchName(nameToSearch), away()"
+                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                              <button class="btnSearch2" @click="isOpenInput2 = !isOpenInput2">
+                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                              </button>
+                              
                               <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
                                    <p class="item" v-for="riceCrop in filteredList()"
                                         :key="riceCrop.RiceCropInformation_name"
-                                        @click="searchName(riceCrop.RiceCropInformation_name)">
+                                        @click="searchName(riceCrop.RiceCropInformation_name), away()">
                                         {{ riceCrop.RiceCropInformation_name }}</p>
                               </div>
                          </div>
@@ -50,25 +58,48 @@
                          </div>
                     </div>
                     <div class=" row riceCropList ml-4 mr-3 mt-1 text-left" v-if="riceCropListByMonitoring.length > 0">
-                         <carousel :settings="settings" :breakpoints="breakpoints" style="width:100%">
+                         <carousel v-if="riceCropListByMonitoring.length > getWidth()" :settings="settings"
+                              :breakpoints="breakpoints" style="width:100%" :autoplay="2000" :wrap-around="true">
                               <slide v-for="(riceCrop, i) in riceCropListByMonitoring" :key="i">
-                                   <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
+                                   <div class="carousel__item">
+                                        <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
+                                   </div>
                               </slide>
                               <template #addons>
-                                   <navigation v-if="riceCropListByMonitoring.length > getWidth()" />
-                                   <!-- <pagination style="color: #00BA13;" /> -->
+                                   <navigation  />
+                              </template>
+                         </carousel>
+                         <carousel v-if="riceCropListByMonitoring.length <= getWidth()" :settings="settings"
+                              :breakpoints="breakpoints" style="width:100%">
+                              <slide v-for="(riceCrop, i) in riceCropListByMonitoring" :key="i">
+                                   <div class="carousel__item">
+                                        <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
+                                   </div>
+                              </slide>
+                              <template #addons>
+                                   <!-- <navigation v-if="riceCropListByMonitoring.length > getWidth()" /> -->
                               </template>
                          </carousel>
                     </div>
                     <div class="row riceCropList pt-1 ml-4 mr-2 text-left">
-                         <carousel :settings="settings" :breakpoints="breakpoints" style="width:100%">
+                         <carousel v-if="riceCropListByFinish.length > getWidth" :settings="settings"
+                              :breakpoints="breakpoints" style="width:100%" :autoplay="2000" :wrap-around="true">
+                              <div class="carousel__item">
+                              <slide v-for="(riceCrop, i) in riceCropListByFinish" :key="i">
+                                   <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
+
+                              </slide></div>
+                              <template #addons>
+                                   <navigation v-if="riceCropListByFinish.length > getWidth" />
+                              </template>
+                         </carousel>
+                         <carousel v-else :settings="settings" :breakpoints="breakpoints" style="width:100%">
                               <slide v-for="(riceCrop, i) in riceCropListByFinish" :key="i">
                                    <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
 
                               </slide>
                               <template #addons>
                                    <navigation v-if="riceCropListByFinish.length > getWidth" />
-                                   <!-- <pagination v-if="riceCropListByFinish.length > 4" style="color: #00BA13;" /> -->
                               </template>
                          </carousel>
                     </div>
@@ -112,7 +143,7 @@
                </div>
           </div>
      </div>
-     <div v-if="isOpenSearch.open" class="outside" @click.passive="away()"></div>
+     <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click="away()"></div>
 </template>
 
 <script type=”text/javascript”>
@@ -173,6 +204,7 @@ export default {
                     rightActive: false,
                     leftnNoneActive: false,
                },
+
                number: 0,
                riceCropList: [],
                cropList: [],
@@ -206,40 +238,42 @@ export default {
                     snapAlign: 'center',
 
                },
+               isOpenInput2: false,
+               isOpenInput1: true,
                isOpenSearch: {
                     open: false,
                     close: true,
                },
                cloneRiceCropList: [],
                breakpoints: {
-                    300:{
+                    300: {
                          itemsToShow: 1.5,
-                         snapAlign: 'left',
+                         snapAlign: 'start',
                     },
                     450: {
                          itemsToShow: 2,
-                         snapAlign: 'left',
+                         snapAlign: 'start',
                     },
                     600: {
                          itemsToShow: 2.5,
-                         snapAlign: 'left',
+                         snapAlign: 'start',
                     },
                     800: {
                          itemsToShow: 3,
-                         snapAlign: 'left',
+                         snapAlign: 'start',
                     },
                     900: {
                          itemsToShow: 3.5,
-                         snapAlign: 'left',
+                         snapAlign: 'start',
                     },
                     // 700px and up
                     1000: {
                          itemsToShow: 4,
-                         snapAlign: 'left',
+                         snapAlign: 'start',
                     },
                     1200: {
                          itemsToShow: 4.5,
-                         snapAlign: 'left',
+                         snapAlign: 'start',
                     },
                     // 1024 and up
                     1400: {
@@ -279,11 +313,14 @@ export default {
           away() {
                this.isOpenSearch.open = false;
                this.isOpenSearch.close = true;
+               this.isOpenInput2 = false;
+               console.log(this.isOpenInput2)
+               this.isOpenInput1 = false;
           },
 
           getWidth() {
                var width = document.body.clientWidth;
-               if (width > 300 && width < 4500) {
+               if (width > 300 && width < 450) {
                     return 1.5
                }
                else if (width >= 450 && width < 600) {
@@ -305,10 +342,10 @@ export default {
                     return 4.5;
                }
                else if (width >= 1400 && width < 1500) {
-                    return 5.5;
+                    return 5;
                }
                else if (width >= 1500) {
-                    return 7.5;
+                    return 5.5;
                }
           },
 
@@ -786,6 +823,7 @@ export default {
 
           async searchName(data) {
                this.nameToSearch = data;
+               
                if (this.nameToSearch == "") {
                     this.retrieveRiceCropList();
                }
@@ -822,9 +860,13 @@ export default {
 
           },
 
+          getResponsive(){
+               var width = document.body.clientWidth;
+               return width;
+          },
 
           formatDate(data) {
-               
+
                return (moment(String(data)).format("YYYY-MM-DD")).slice(0, 10);
           },
           get_rows(list) {
@@ -889,5 +931,4 @@ export default {
 
 .riceCropManagement {
      height: 100vmin;
-}
-</style>
+}</style>

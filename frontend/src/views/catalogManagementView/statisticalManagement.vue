@@ -17,14 +17,11 @@
                </div>
                <div class="rightStatisticalManagementManagement right" :class="{ leftNoneActive: active.leftnNoneActive }">
                     <div class="row ml-4 pt-3 mb-5 pb-1 mr-2 topRight">
-                         <div class="col-md-2">
-                              <h3 class="name">Mẫu ruộng</h3>
-                         </div>
-                         <div class="col-md-8">
-
+                         <div class="nameclass" style="min-height:60px; width: max-content;">
+                              <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Thống kê</h3>
                          </div>
 
-                         <div class="col-md-2 text-right">
+                         <div class="text-right">
                               <div class="row">
                                    <TopHeader />
                               </div>

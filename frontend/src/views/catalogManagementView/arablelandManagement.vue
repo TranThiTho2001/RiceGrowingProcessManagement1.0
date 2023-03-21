@@ -1,5 +1,5 @@
 <template>
-     <div class="container-fluid arablelandManagement pr-4" style="background-color: #EAEAEA;">
+     <div class="container-fluid arablelandManagement pr-4" style="background-color: #EAEAEA;height: max-content;">
           <div class="row arablelandManagementFrame" style="height: 100vmin;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
@@ -17,20 +17,29 @@
                </div>
                <div class="rightArableLandManagement right" :class="{ leftNoneActive: active.leftnNoneActive }">
                     <div class="row ml-4 pt-3 mb-5 pb-1 mr-2 topRight">
-                         <div class="">
-                              <h3 class="name">Mẫu ruộng</h3>
+                         <div class="nameclass" style="min-height:60px; width: max-content;">
+                              <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Mẫu ruộng</h3>
                          </div>
                          <div class="">
                               <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
-                                   @click="retrieveArableLandList()" @keyup.enter="searchName(nameToSearch)"
+                                   @click="retrieveArableLandList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch)"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                              <button class="btnSearch1" @click="searchName(nameToSearch)"
+                              <button class="btnSearch1" @click="searchName(nameToSearch), away()"
                                    v-if="nameToSearch == '' && !isOpenSearch.open">
                                    <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
+                              
+                              <input v-if="isOpenInput2 || (isOpenSearch.open)" autofocus type="text" class="form-control inputSearch2" placeholder="Tìm" style="width: 2%;"
+                                   v-model="nameToSearch" @click="retrieveArableLandList" 
+                                   @keyup.enter="searchName(nameToSearch), away()"
+                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                              <button class="btnSearch2" @click="isOpenInput2 = !isOpenInput2">
+                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                              </button>
+
                               <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
                                    <p class="item" v-for="arableLand in filteredList()" :key="arableLand.ArableLand_id"
-                                        @click="searchName(arableLand.ArableLand_owner)">
+                                        @click="searchName(arableLand.ArableLand_owner), away()">
                                         {{ arableLand.ArableLand_owner }}</p>
                               </div>
                          </div>
@@ -131,7 +140,7 @@
                </div>
           </div>
      </div>
-     <div v-if="isOpenSearch.open" class="outside" @click.passive="away()"></div>
+     <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click.passive="away()"></div>
 </template>
 
 <script>
@@ -177,6 +186,8 @@ export default {
                isOpenUpdateArableLand: false,
                nameToSearch: "",
                message: "",
+               isOpenInput2: false,
+               isOpenInput1: false,
                isOpenSearch: {
                     open: false,
                     close: true,
@@ -215,6 +226,8 @@ export default {
           away() {
                this.isOpenSearch.open = false;
                this.isOpenSearch.close = true;
+               this.isOpenInput1 = false;
+               this.isOpenInput2 = false;
           },
 
           getWidth() {

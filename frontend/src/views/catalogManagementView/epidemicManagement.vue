@@ -1,5 +1,5 @@
 <template>
-     <div class="container-fluid epidemicManagement pr-4" style="background-color: #EAEAEA;">
+     <div class="container-fluid epidemicManagement pr-4" style="background-color: #EAEAEA; height: max-content;">
           <div class="row epidemicManagementFrame" style="height: 100vmin;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
@@ -14,17 +14,26 @@
                </div>
                <div class="rightEpidemicManagement right">
                     <div class="row ml-4 pt-3 mb-5 pb-1 mr-2 topRight">
-                         <div class="">
-                              <h3 class="name">Dịch bệnh</h3>
+                         <div class="nameclass" style="min-height:60px; width: max-content;">
+                              <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Dịch bệnh</h3>
                          </div>
                          <div class="">
                               <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
-                                   @click="retrieveEpidemicList()" @keyup.enter="searchName(nameToSearch)"
+                                   @click="retrieveEpidemicList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch)"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                              <button class="btnSearch1" @click="searchName(nameToSearch)"
+                              <button class="btnSearch1" @click="searchName(nameToSearch), away()"
                                    v-if="nameToSearch == '' && !isOpenSearch.open">
                                    <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
+                              
+                              <input v-if="isOpenInput2 || (isOpenSearch.open)" autofocus type="text" class="form-control inputSearch2" placeholder="Tìm" style="width: 2%;"
+                                   v-model="nameToSearch" @click="retrieveEpidemicList" 
+                                   @keyup.enter="searchName(nameToSearch), away()"
+                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                              <button class="btnSearch2" @click="isOpenInput2 = !isOpenInput2">
+                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                              </button>
+
                               <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
                                    <p class="item" v-for="epidemic in filteredList()" :key="epidemic.Epidemic_id"
                                         @click="searchName(epidemic.Epidemic_name)">
@@ -128,7 +137,7 @@
                </div>
           </div>
      </div>
-     <div v-if="isOpenSearch.open" class="outside" @click.passive="away()"></div>
+     <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click.passive="away()"></div>
 </template>
 
 <script>
@@ -176,6 +185,8 @@ export default {
                nameToSearch: "",
                message: "",
                epidemicsClassificationList: [],
+               isOpenInput1:false,
+               isOpenInput2: false,
                isOpenSearch: {
                     open: false,
                     close: true,
@@ -209,6 +220,8 @@ export default {
           away() {
                this.isOpenSearch.open = false;
                this.isOpenSearch.close = true;
+               this.isOpenInput1 = false;
+               this.isOpenInput2 = false;
           },
 
           async retrieveEpidemicList() {

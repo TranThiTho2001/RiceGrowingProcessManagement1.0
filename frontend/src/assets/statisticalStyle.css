@@ -1,127 +1,125 @@
-
-
-.StatisticalManagement .navigationBar .btnStatistical  {
-     display: block;
-     width: 88%;
-     font-size: 17px;
-     background-color: #FFFA37;
-     color: #5C5D22;
-     border: none;
-     font-family: Inter;
-     border-radius: 14px;
- }
+.StatisticalManagement .navigationBar .btnStatistical {
+    display: block;
+    width: 88%;
+    font-size: 17px;
+    background-color: #FFFA37;
+    color: #5C5D22;
+    border: none;
+    font-family: Inter;
+    border-radius: 14px;
+}
 
 .outside {
-     width: 100vw;
-     height: 100vh;
-     position: fixed;
-     top: 0px;
-     left: 0px;
- }
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+}
 
- .statisticalComponent{
-     background-color: azure;
-     border-radius: 8px;
-     margin-left: 16px;
-     padding-bottom: 5px;
-     margin-bottom: 20px;
- }
+.statisticalComponent {
+    background-color: azure;
+    border-radius: 8px;
+    margin-left: 16px;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+}
 
- .amount{
-     border-radius: 50%;
-     background-color: #FFFA37;
- }
+.amount {
+    border-radius: 50%;
+    background-color: #FFFA37;
+}
 
- .nameComponent{
-     background-color:#c8cecb;
-     border-top-left-radius: 8px;
-     border-top-right-radius: 8px;
- }
+.nameComponent {
+    background-color: #c8cecb;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
 
- .inputSearch4 {
-     background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
-     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-     border-radius: 15px !important;
-     width: 50% !important;
-     height: 35px;
+.inputSearch4 {
+    background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px !important;
+    width: 50% !important;
+    height: 35px;
 }
 
 .btnSearch4 {
-     position: absolute;
-     border-radius: 10px;
-     border: none;
-     background: none;
-     right: 33%;
-     top:14%;
+    position: absolute;
+    border-radius: 10px;
+    border: none;
+    background: none;
+    right: 33%;
+    top: 14%;
 }
 
 .closeSearch4 {
-     display: none;
-     width: 110%;
-     margin: 0 auto 10px auto;
-     padding: 10px 20px;
-     color: white;
-     border-radius: 5px;
-     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
-          rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    display: none;
+    width: 110%;
+    margin: 0 auto 10px auto;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+        rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
 
 .openSearch4 {
-     display: inline-block;
-     position: absolute;
-     left: 35%;
-     top: 20%;
-     width: 33%;
-     max-height: 200px;
-     overflow: hidden;
-     background-color: #FAFAFC;
-     border-radius: 5px;
-     z-index: 1;
-     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
-          rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    display: inline-block;
+    position: absolute;
+    left: 35%;
+    top: 18%;
+    width: 33%;
+    max-height: 150px;
+    overflow: hidden;
+    background-color: #FAFAFC;
+    border-radius: 5px;
+    z-index: 1;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+        rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
 
-.statisticsByRiceCrop .leftStatistical{
-     width: 30%;
-     border-right: 3px solid #c8cecb;
- }
+.statisticsByRiceCrop .leftStatistical {
+    width: 30%;
+    border-right: 3px solid #c8cecb;
+}
 
- .statisticsByRiceCrop .rightStatistical{
-     width: 70%;
-     padding-left: 5%;
- }
+.statisticsByRiceCrop .rightStatistical {
+    width: 70%;
+    padding-left: 5%;
+}
 
- .scrollStatisticalTable{
-     overflow: auto !important;
-     max-height: 400px !important;
-     width: 99% !important;
-     margin-left: 0.01% !important;
+.scrollStatisticalTable {
+    overflow: auto !important;
+    max-height: 400px !important;
+    width: 99% !important;
+    margin-left: 0.01% !important;
     margin-top: 10px !important;
- }
+}
 
- .scroll{
-     overflow: auto !important;
-    height: 480px;
-     position: relative;
-     margin-left: 0.01% !important;
-     background-color: #FFFFFF;
- }
+.scroll {
+    overflow: auto !important;
+    height: 460px;
+    position: relative;
+    margin-left: 0.01% !important;
+    background-color: #FFFFFF;
+}
 
- .btnDowload{
-    float:right;
+.btnDowload {
+    float: right;
     background-color: #c8cecb;
     position: sticky;
- }
+}
 
- .scrollChoose{
+.scrollChoose {
     height: 128px;
     overflow: auto;
-    word-wrap:none;
+    white-space: nowrap;
     margin-left: 5%;
     margin-right: 5%;
- }
+}
 
-.cicle{
+.cicle {
     width: 170px;
     background-color: #EAEAEA;
     height: 170px;
@@ -130,11 +128,32 @@
     margin-top: 6%;
     vertical-align: middle;
     position: relative;
-        justify-content: center;
+    justify-content: center;
     align-items: center;
     display: flex;
 }
 
-.amountFertilizer{
+.amountFertilizer {
     font-size: 50px;
+}
+
+@media only screen and (max-width: 670px) {
+    .statisticalComponent {
+        width: 100% !important;
+        height: 100% !important;
+        vertical-align: middle;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+    }
+    .cicle{
+        width: 70%;
+        background-color: #EAEAEA;
+        height: 70%;
+        margin-left: 15%;
+        
+    }
+    .inputSearch4 {
+        width: 80% !important;
+    }
 }

@@ -9,122 +9,6 @@
      width: 70% !important;
 }
 
-.createEmployeeForm .content .error-feedback,
-.updateEmployeeForm .content .error-feedback{
-     color: red;
-     float: right;
-}
-
-
-.createEmployeeForm .content .form-group label,
-.updateEmployeeForm .content .form-group label{
-     float: left;
-     font-family: 'Roboto';
-     font-style: normal;
-     font-weight: 500;
-     font-size: 18px;
-}
-
-.createEmployeeForm .content .form-group .selectBox,
-.updateEmployeeForm .content .form-group .selectBox{
-     width: 100%;
-     height: 38px;
-     border: 1px solid #ced4da;
-     border-radius: 4px;;
-}
-
-.createEmployeeForm .content .form-group input,
-.updateEmployeeForm .content .form-group input{
-     float: left;
-}
-
-.createEmployeeForm .content .form-group .form-control,
-.updateEmployeeForm .content .form-group .form-control{
-     background-color: #FAFAFC;
-     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-     font-size: 17px;
-     border-radius: 15px;
-     color: #2F3033;
-     font-family: 'Roboto';
-     font-style: normal;
-     font-weight: 500;
-}
-
-.createEmployeeForm .functionName,
-.updateEmployeeForm .functionName{
-     font-family: Inter;
-     font-size: 22px;
-}
-.createEmployeeForm .form-group .textMessage2,
-.createEmployeeForm .form-group .textMessage1,
-.updateEmployeeForm .form-group .textMessage1,
-.updateEmployeeForm .form-group .textMessage2{
-     text-align: center; 
-     display: inline;
-     font-size: 18px;
-     font-family: Inter;
-}
-
-.createEmployeeForm .btnLuu, 
-.updateEmployeeForm .btnLuu{
-     background-color: rgb(4, 105, 4);
-     color: #f0f0f0;
-     font-size: 20px;
-     text-align: center;
-}
-
-
-.EmployeeManagerFrame   .confirmationDialog{
-     background-color: #dbdbdb;
-     border: 0.5px solid #b8b5b5;
-     border-radius: 10px;
-     position: absolute;
-     top: calc(38%);
-     transform: translateX(96%);
-     border-radius: 16px;
-     display: block;
-     width: 404px;
-     height: 187px;
-     border-radius: 15px;
-     text-align: center;
-}
-
-.EmployeeManagerFrame .confirmationDialog .btnYes{
-     background-color: rgb(244, 61, 61);
-     color: white;
-     font-family: Inter;
-     font-size: 16px;
-}
-
-.EmployeeManagerFrame .confirmationDialog .btnNo{
-     background-color: rgb(196, 191, 191);
-     color: rgb(33, 33, 33);
-     font-family: Inter;
-     font-size: 16px;
-}
-
-.EmployeeManagerFrame .messageDialog .btnOK{
-     background-color: rgb(196, 191, 191);
-     color: rgb(33, 33, 33);
-     font-family: Inter;
-     font-size: 16px;
-}
-
-.EmployeeManagerFrame .messageDialog{
-     background-color: #dbdbdb;
-     border: 0.5px solid #b8b5b5;
-     border-radius: 10px;
-     position: absolute;
-     top: calc(38%);
-     transform: translateX(96%);
-     border-radius: 16px;
-     display: block;
-     width: 404px;
-     height: 187px;
-     border-radius: 15px;
-     text-align: center;
-}
-
 .EmployeeManagerFrame .btnCreate {
      border-radius: 15px;
      background: #008B8E;
@@ -156,94 +40,14 @@
      border-radius: 14px;
  }
 
- .EmployeeManagerFrame .inputSearch1 {
-     background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
-     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-     border-radius: 15px;
-     width: 40%;
-     height: 35px;
-     position: absolute;
-     left: 66%;
-     top: 3%;
- }
+
 
  .EmployeeManagerFrame .topRight .form-control:focus{
      border-color: #E4E5EB !important;
  }
  
- .EmployeeManagerFrame .btnSearch1 {
-     position: absolute;
-     left: 102%;
-     top: 13%;
-     border-radius: 10px;
-     border: none;
-     background: none;
- }
 
- .closeSearch {
-     display: none;
-     width: 110%;
-     margin: 0 auto 10px auto;
-     padding: 10px 20px;
-     color: white;
-     border-radius: 5px;
-     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
-       rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-}
 
-.openSearch {
-     display:inline-block;
-     position:absolute;
-     left: 66%;
-     top: 70%;
-     width: 40%;
-     background-color: #FAFAFC;
-     border-radius: 5px;
-     z-index: 1;
-     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
-       rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-}
-
-.item {
-     background-color: none;
-     cursor: pointer;
-     bottom: 0.1px;
-     color: #1C1C1F;
-     font-family: 'Roboto';
-     font-style: normal;
-     font-weight: 500;
-     font-size: 16px;
-     padding: 0.1px;
-     margin: 0.2px;
-}
-
-.item:hover {
-     background-color: none;
-     cursor: pointer;
-     bottom: 0.1px;
-     background-color: #EAEAEA;
-     font-family: 'Roboto';
-     font-style: normal;
-     font-weight: 500;
-     font-size: 16px;
-}
-   
-.EmployeeManagerFrame .topRight {
-     background: #E4E5EB;
-     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-     border-radius: 0px 0px 15px 15px;
-}
-
-.EmployeeManagerFrame .name {
-     font-family: 'Roboto';
-     font-style: normal;
-     font-weight: 700;
-     font-size: 30px;
-     line-height: 46px;
-     color: #B3B4BA;
-     position: relative;
-     top:-8%
-}
 
 .EmployeeManagerFrame {
      position: relative;
@@ -253,47 +57,6 @@
      border-left: #bdf487 0.5px solid;
 }
 
-.EmployeeManagerFrame .table {
-     height: min-content;
- }
- 
-.EmployeeManagerFrame .employeeList{
-     background: #FAFAFC;
-     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-     border-radius: 15px;
-     height: 480px;
- }
- 
-
- .EmployeeManagerFrame .table tbody tr:hover {
-     color: #1C1C1F;
-     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-     font-family: 'Roboto';
-     font-style: normal;
-     font-weight: 500;
-     font-size: 16px;
-     background-color: #EAEAEA;
- }
-
-.EmployeeManagerFrame .table tbody tr {
-     font-family: 'Roboto';
-     font-style: normal;
-     font-size: 16px;
-     border-bottom:  0.1px solid #f4f5f6 !important;
- }
- 
- .EmployeeManagerFrame table tbody tr td{
-     padding: 4px !important;
-     vertical-align: middle;
-     border-bottom:  0.5px solid #cbcccf !important;
-     padding-left: 10px !important;
- }
-
- .EmployeeManagerFrame table thead tr th{
-     border-top: 0.5px solid #b5b5b7;
-     border-bottom: 0.5px solid #b5b5b7;
-     padding-left: 10px !important;
- }
 
  .outside {
      width: 100vw;
