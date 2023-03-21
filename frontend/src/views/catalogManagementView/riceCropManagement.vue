@@ -1,16 +1,11 @@
 <template>
      <div class="container-fluid riceCropManagement" style="background-color:  #EAEAEA; height: max-content;">
           <div class="row riceCropManagemenFrame" style="min-height: 100vmin;">
-               <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
-                    @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
+               <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2" 
+                    @click="openMenu.openMenu = true,openOrcloseMenu(), openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
-                    @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true, active.leftnNoneActive = false"></button>
-               <div class="" :class="{ menubar: openMenu.openMenu }" v-if="openMenu.openMenu">
-                    <div class="row">
-                         <Catalog />
-                    </div>
-               </div>
-               <div class="left">
+                    @click="openMenu.openMenu = false, openOrcloseMenu(), openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true, active.leftnNoneActive = false"></button>
+               <div id="menubar"  class="left">
                     <div class="row">
                          <Catalog />
                     </div>
@@ -869,32 +864,31 @@ export default {
 
                return (moment(String(data)).format("YYYY-MM-DD")).slice(0, 10);
           },
-          get_rows(list) {
-               var start = (this.currentPage - 1) * this.elementsPerPage;
-               var end = start + this.elementsPerPage;
-               return list.slice(start, end);
 
-          },
+          openOrcloseMenu(){
+               console.log(this.openMenu.openMenu)
+               
+               if(this.openMenu.openMenu){
+                    document.getElementById("menubar").style.position = "absolute";
+               document.getElementById("menubar").style.width = "230";
+               document.getElementById("menubar").style.zIndex = "1";
+               document.getElementById("menubar").style.height = "100vmin";
+               document.getElementById("menubar").style.display = "inline";
+               document.getElementById("menubar").style.width = "max-content";
+               }
+               else{
+                    document.getElementById("menubar").style.display = "none";
+                    document.getElementById("menubar").style.position = "absolute";
+               document.getElementById("menubar").style.width = "230";
+               document.getElementById("menubar").style.zIndex = "1";
+               document.getElementById("menubar").style.height = "100vmin";
+               document.getElementById("menubar").style.display = "inline";
+               document.getElementById("menubar").style.width = "max-content";
+               }
+               console.log(document.getElementById("menubar"))
 
-          // So trang cua danh sach danh muc
-          num_pages(list) {
-               return Math.ceil(list.length / this.elementsPerPage);
-          },
 
-          async change_page(page, list) {
-               if (page == '-' && this.currentPage > 1) {
-                    this.currentPage -= 1;
-                    this.get_rows(list);
-               }
-               else if (page == '+' && this.currentPage < this.num_pages(list)) {
-                    this.currentPage += 1;
-                    this.get_rows(list);
-               }
-               else {
-                    this.currentPage = page;
-                    this.get_rows(list);
-               }
-          },
+          }
      },
 
      created() {

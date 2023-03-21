@@ -40,26 +40,42 @@ exports.findbyIdRiceCropInformation = async (req, res) => {
      ActivityDetails.findByIdRiceCropInformation(id,OtherActivities_id, (err, data) => {
           if (err) {
                if (err.kind === "not_found") {
-                    res.send("Không tìm thấy chi tiết hoạt động.")
+                    res.send("Không tìm thấy chi tiết hoạt động1.")
                } else {
                     res.send("Lỗi trong quá trình tìm kiếm. Vui lòng thử lại sau!!!!")
                }
           } else res.send(data)
      })
 };
+
 exports.findbyName = async (req, res) => {
      const  name = req.query.name;
      const  id = req.params.RiceCropInformation_id;
      ActivityDetails.findByName(name,id, (err, data) => {
           if (err) {
                if (err.kind === "not_found") {
-                    res.send("Không tìm thấy chi tiết hoạt động.")
+                    res.send("Không tìm thấy chi tiết hoạt động2.")
                } else {
                     res.send("Lỗi trong quá trình tìm kiếm. Vui lòng thử lại sau!!!!")
                }
           } else res.send(data)
      })
 };
+
+exports.findbyId = async (req, res) => {
+     console.log(req.params.OtherActivities_id)
+     const  id = req.params.OtherActivities_id;
+     ActivityDetails.findById(id, (err, data) => {
+          if (err) {
+               if (err.kind === "not_found") {
+                    res.send("Không tìm thấy chi tiết hoạt động3.")
+               } else {
+                    res.send("Lỗi trong quá trình tìm kiếm. Vui lòng thử lại sau!!!!")
+               }
+          } else res.send(data)
+     })
+};
+
 // Update a ActivityDetails identified by the id in the request
 exports.update = async (req, res) => {
      ActivityDetails.updateById(

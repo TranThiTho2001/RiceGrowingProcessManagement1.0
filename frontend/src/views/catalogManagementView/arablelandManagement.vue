@@ -10,11 +10,6 @@
                          <Catalog />
                     </div>
                </div>
-               <div class="left" >
-                    <div class="row">
-                         <Catalog />
-                    </div>
-               </div>
                <div class="rightArableLandManagement right" :class="{ leftNoneActive: active.leftnNoneActive }">
                     <div class="row ml-4 pt-3 mb-5 pb-1 mr-2 topRight">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
@@ -65,7 +60,7 @@
                                              <th class="text-center" style=" padding-right: 2px;">STT</th>
                                              <th class="text-center">Mã</th>
                                              <th>Diện tích</th>
-                                             <th>Chủ sỡ hưu</th>
+                                             <th>Chủ sở hữu</th>
                                              <th>Loại đất</th>
                                              <th>Vị trí</th>
                                              <th></th>

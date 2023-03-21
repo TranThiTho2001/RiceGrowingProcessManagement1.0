@@ -48,10 +48,9 @@
 <script>
 
 import { Form } from "vee-validate";
-// import ImageService from '../../services/image'
 
 export default {
-    name: "SanPhamFormThem",
+    name: "CreateImageForm",
     components: {
         Form,
     },
@@ -68,10 +67,6 @@ export default {
     },
     methods: {
 
-        goToQLDanhMuc() {
-            this.$router.push("/QLDanhMuc");
-        },
-
         async selectFile(event) {
             this.fileImage = event.target.files[0];
             this.newimage.SP_HinhAnh = this.newriceCrop.RiceCropInformation_id + this.fileImage.name;
@@ -85,7 +80,6 @@ export default {
 </script>
 
 <style>
-/* @import '../../assets/QLSanPhamStyle.css' */
 .createImageForm {
     position: absolute;
     width: 50%;

@@ -122,6 +122,13 @@ const routes = [
         component: () => import("../views/catalogManagementView/riceCropDetail.vue"),  
     },  
 
+    {
+        path: "/Activity",
+        alias: "/Activity",
+        name: "Activity",
+        component: () => import("../views/catalogManagementView/activitiesManagement.vue"),
+        
+    },
 ];
 
 const router = createRouter({

@@ -61,11 +61,12 @@ ActivityDetails.getAll = (riceCropInformation_id, result) => {
           result(null, res);
      });
 };
+
 ActivityDetails.findByName = (name, riceCropInformation_id, result) => {
      let query = "SELECT * FROM ActivityDetails JOIN otheractivities on otheractivities.OtherActivities_id=ActivityDetails.OtherActivities_id"
-     + " JOIN Employee on Employee.Employee_id = ActivityDetails.Employee_id"+
-     + ` JOIN DevelopmentStage on DevelopmentStage.DevelopmentStage_id = ActivityDetails.DevelopmentStage_id `
-  ` WHERE RiceCropInformation_id LIKE '%${riceCropInformation_id}%' AND otheractivities.OtherActivities_name like'%${name}%' ORDER BY ActivityDetails_times`;
+     + " JOIN Employee on Employee.Employee_id = ActivityDetails.Employee_id"
+     + ` JOIN DevelopmentStage on DevelopmentStage.DevelopmentStage_id = ActivityDetails.DevelopmentStage_id ` 
+     +` WHERE RiceCropInformation_id LIKE '%${riceCropInformation_id}%' AND otheractivities.OtherActivities_name like'%${name}%' ORDER BY ActivityDetails_times`;
 
      sql.query(query, (err, res) => {
           if (err) {
@@ -76,6 +77,23 @@ ActivityDetails.findByName = (name, riceCropInformation_id, result) => {
           result(null, res);
      });
 };
+
+ActivityDetails.findById= (id, result) => {
+     let query = "SELECT * FROM ActivityDetails JOIN otheractivities on otheractivities.OtherActivities_id=ActivityDetails.OtherActivities_id"
+     + " JOIN Employee on Employee.Employee_id = ActivityDetails.Employee_id"
+     + ` JOIN DevelopmentStage on DevelopmentStage.DevelopmentStage_id = ActivityDetails.DevelopmentStage_id ` 
+     + ` WHERE otheractivities.OtherActivities_id like'${id}' ORDER BY ActivityDetails_times`;
+
+     sql.query(query, (err, res) => {
+          if (err) {
+               console.log("error: ", err);
+               result(null, err);
+               return;
+          }
+          result(null, res);
+     });
+};
+
 ActivityDetails.updateById = (riceCropInformation_id, otherActivities_id, times, activityDetails, result) => {
      sql.query(
           "UPDATE ActivityDetails SET Employee_id = ?, ActivityDetails_startDate = ?, ActivityDetails_endDate = ?, ActivityDetails_temperature = ?, ActivityDetails_humidity = ?, ActivityDetails_precipitation = ?, DevelopmentStage_id = ? WHERE (RiceCropInformation_id = ? And OtherActivities_id= ? and ActivityDetails_times = ?)",

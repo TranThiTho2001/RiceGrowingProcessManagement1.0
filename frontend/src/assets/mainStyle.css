@@ -206,12 +206,16 @@ table tbody tr td {
 }
 
 
-.left {
-     position: relative;
-     display: inline;
-     width: 15%;
+/* .left {
+     position: relative !important;
+     display: inline !important;
+     width: 15% ;
      background: white;
-     background: linear-gradient(180deg, rgba(128, 255, 0, 0.15) 0%, rgba(250, 255, 0, 0.15) 100%);
+     background:  linear-gradient(180deg, rgba(231, 237, 199) 0%, rgba(219, 237, 199) 100%);;
+} */
+
+.menubar {
+     display: flex;
 }
 
 .right {
@@ -311,16 +315,8 @@ table tbody tr td {
      position: relative;
      top: -8%
 }
-
 @media only screen and (max-width: 1430px) {
-     .left {
-          position: absolute;
-          width: max-content;
-          z-index: 1;
-          width: 230px;
-          height: 100vmin;
-          display: none;
-     }
+
 
      .right {
           width: 100%;
@@ -369,16 +365,19 @@ table tbody tr td {
           border: none;
      }
 
-     .menubar {
+     .left{
+          display: none;
+     }
+
+     /* .menubar {
           position: absolute !important;
-          width: max-content;
           z-index: 1;
           width: 230px;
           height: 100vmin;
           display: inline !important;
-          background: linear-gradient(180deg, rgba(128, 255, 0, 0.15) 0%, rgba(250, 255, 0, 0.15) 100%);
-
-     }
+          background: linear-gradient(180deg, rgba(231, 237, 199) 0%, rgba(219, 237, 199) 100%);
+          box-shadow: none !important;
+     } */
 
      .inputSearch1 {
           top: 10%;
@@ -499,15 +498,6 @@ display: none;
      display: none;
 }
 
-
-.menubar {
-     position: absolute !important;
-     width: max-content;
-     z-index: 1;
-     width: 230px;
-     height: 100vmin;
-     display: none;
-}
 
 .leftNoneActive {
      filter: blur(0.5px) !important;

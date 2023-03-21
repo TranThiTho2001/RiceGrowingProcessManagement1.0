@@ -1,5 +1,5 @@
 <template>
-     <div class="navigationBar container-fluid ">
+     <div class="navigationBar">
           <div class="row topRow  mt-2">
                <div class="col-sm-12 ">
                     <div class="row">
@@ -106,7 +106,7 @@ export default {
                this.$router.push("/Monitor");
           },
           goToOtherActivities() {
-               this.$router.push("/OtherActivities");
+               this.$router.push("/Activity");
           },
           goToSeed() {
                this.$router.push("/Seed");
@@ -163,9 +163,10 @@ export default {
        background-color: inherit;
        /* height: 100vmin; */
        font-size: 18px;
+       margin-left: 22px;
        display: inline-block;
        justify-content: start !important;
-
+     background-color: rebeccapurple;
   }
 
 
@@ -186,6 +187,7 @@ export default {
        font-family: Inter;
        text-align: left;
        width: 88% !important;
+       margin-left: 20px;
        display: block;
        background-color: none;
        color: #737374;

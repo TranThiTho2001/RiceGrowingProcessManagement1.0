@@ -510,7 +510,7 @@ import UpdateEpidemicTimesForm from '@/components/catalogManagementComponents/up
 import EmployeeService from '@/services/employee.service';
 import CreateMonitorForm from '@/components/catalogManagementComponents/createNewMonitorForm.vue';
 // import CreateImageForm from '@/components/catalogManagementComponents/createNewImageForm.vue';
-import CreateImageForm from '@/components/catalogManagementComponents/SanPhamFormThem.vue';
+import CreateImageForm from '@/components/catalogManagementComponents/createImageForm.vue';
 import ImagesService from '@/services/images.service';
 import ImageComponent from '@/components/catalogManagementComponents/imageComponent.vue';
 import 'vue3-carousel/dist/carousel.css'

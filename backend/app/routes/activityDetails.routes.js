@@ -5,10 +5,15 @@ module.exports = (app) => {
      var router = express.Router();
 
      // Retrieve all 
-     router.get("/", activityDetails.findAll);
+     router.get("/", activityDetails.findAll); 
+         //find by  OtherActivities_id
+     router.get("/findbyId/:OtherActivities_id", activityDetails.findbyId);
      router.get("/findbyname/:RiceCropInformation_id", activityDetails.findbyName);
-     //find by id
-     router.get("/:RiceCropInformation_id/:OtherActivities_id", activityDetails.findbyIdRiceCropInformation)
+
+     //find by RiceCropInformationid and OtherActivities_id
+     router.get("/:RiceCropInformation_id/:OtherActivities_id", activityDetails.findbyIdRiceCropInformation);
+
+
 
      // Store 
      router.post("/", activityDetails.store);

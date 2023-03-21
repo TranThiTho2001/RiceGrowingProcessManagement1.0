@@ -5,7 +5,7 @@ const Images = function(newImage){
     this.Image_link = newImage.Image_link;
     this.Image_date = newImage.Image_date;
     this.RiceCropInformation_id = newImage.RiceCropInformation_id;
-
+    this.Image_location = newImage.Image_location;
 };
 
 Images.create = (newImage, result) => {
@@ -52,8 +52,8 @@ Images.getAll = (name, result) => {
 };
 Images.updateById = (id, image, result) => {
      sql.query(
-         "UPDATE Images SET Image_date = ?, Image_link = ?, RiceCropInformation_id= ? WHERE Image_id = ?",
-         [image.Image_date, image.Image_link, image.RiceCropInformation_id, id],
+         "UPDATE Images SET Image_date = ?, Image_link = ?, Image_location = ?,RiceCropInformation_id = ?  WHERE Image_id = ?",
+         [image.Image_date, image.Image_link, image.Image_location, image.RiceCropInformation_id, id],
          (err, res) => {
              if (err) {
                  console.log("error: ", err);
