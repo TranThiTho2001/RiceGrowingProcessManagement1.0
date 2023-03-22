@@ -1,18 +1,19 @@
 <template>
      <div class="container-fluid riceCropDetail">
           <div class="row riceCropDetailFrame" style="height: 100vmin;">
-               <div class="col-md-2"
-                    style="background: linear-gradient(180deg, rgba(128, 255, 0, 0.15) 0%, rgba(250, 255, 0, 0.15) 100%);">
-                    <div class="row">
+               <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2" 
+                    @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
+               <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
+                    @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true, active.leftnNoneActive = false"></button>
+               <div  class="left" :class=" {navbarresponsive: openMenu.openMenu }" >
                          <Catalog />
-                    </div>
                </div>
-               <div class="col-md-10 rightRiceCropDetail" :class="{ active: stylebac.active, noneactive: stylebac.none }">
+               <div class="rightRiceCropDetail right" :class="{ active: stylebac.active, noneactive: stylebac.none }">
                     <div class="row ml-2 pt-3 mb-5 pb-1 mr-2 topRight">
-                         <div class="col-md-10">
-                              <h3 class="name">Theo dõi mùa vụ</h3>
+                         <div class="nameclass" style="min-height:60px; width: max-content;">
+                              <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Theo dõi mùa vụ</h3>
                          </div>
-                         <div class="col-md-2 text-right">
+                         <div class="text-right">
                               <div class="row">
                                    <TopHeader />
                               </div>

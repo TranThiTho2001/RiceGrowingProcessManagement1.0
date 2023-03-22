@@ -20,7 +20,7 @@
 
 .fertilizerManagement  .navigationBar .btnFertilizer {
     display: block;
-    width: 94%;
+    width: 88%;
     font-size: 17px;
     background-color: #faf567;
     color: #5C5D22;
@@ -31,7 +31,7 @@
 
 .fertilizerManagement .navigationBar .btnCatalog  {
     display: block;
-    width: 94%;
+    width: 88%;
     font-size: 17px;
     background-color: #FFFA37;
     color: #5C5D22;

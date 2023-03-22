@@ -1,9 +1,9 @@
 <template>
-     <Form @submit="newotherActivities.close = true, $emit('addOtherActivities-submit', newotherActivities)" :validation-schema="schema"
-          class="container createOtherActiviesForm" style="width: 50%;">
+     <Form @submit="newotherActivities.close = true, $emit('updateOtherActivities-submit', newotherActivities)" :validation-schema="schema"
+          class="container updateOtherActiviesForm" style="width: 50%;">
           <div class="row">
                <div class="col-sm-12 text-right">
-                    <i class="fas fa-times" @click="newotherActivities.close = false, $emit('addOtherActivities-submit', newotherActivities)"
+                    <i class="fas fa-times" @click="newotherActivities.close = false, $emit('updateOtherActivities-submit', newotherActivities)"
                          style="font-size: 25px; "></i>
                </div>
           </div>
@@ -33,13 +33,13 @@
           <div class="row ">
                <div class="col-sm-2"></div>
                <div class="col-sm-8 mt-2 mb-3 text-center">
-                    <span v-if="message2 == 'Thêm thành công.'" class="fas fa-check-circle"
+                    <span v-if="message2 == 'Cập nhật thành công.'" class="fas fa-check-circle"
                          style="color:#00BA13; text-align: center; display: inline;"></span>
-                    <span v-if="message1 == 'Thêm không thành công.'" class="fas fa-times-circle"
+                    <span v-if="message1 == 'Cập nhật không thành công.'" class="fas fa-times-circle"
                          style="color:red; text-align: center; display: inline;"></span>
-                    <span v-if="message2 == 'Thêm thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;"> 
+                    <span v-if="message2 == 'Cập nhật thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;"> 
                          {{ message2 }}</span>
-                    <span v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2"> {{ message1 }} </span>
+                    <span v-if="message1 == 'Cập nhật không thành công.'" class="textMessage1 pt-2 pb-2"> {{ message1 }} </span>
                </div>
                <div class="col-sm-2"></div>
           </div>
@@ -58,13 +58,13 @@ import * as yup from "yup";
 import { Form, Field, ErrorMessage } from "vee-validate";
 
 export default {
-     name: "createOtherActivitiesForm",
+     name: "updateOtherActivitiesForm",
      components: {
           Form,
           Field,
           ErrorMessage,
      },
-     emits: ["addOtherActivities-submit"],
+     emits: ["updateOtherActivities-submit"],
      props: ["newOtherActivities", "message1", "message2"],
      data() {
 

@@ -1,21 +1,15 @@
 <template>
      <div class="container-fluid fertilizerManagement pr-4 " style="background-color: #EAEAEA; height: max-content;">
           <div class="row fertilizerManagementFrame" style="height: 100vmin;">
-               <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
+               <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2" 
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
                     @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true, active.leftnNoneActive = false"></button>
-               <div class="" :class="{ menubar: openMenu.openMenu }" v-if="openMenu.openMenu">
-                    <div class="row">
+               <div  class="left" :class=" {navbarresponsive: openMenu.openMenu }" >
                          <Catalog />
-                    </div>
                </div>
-               <div class="left">
-                    <div class="row">
-                         <Catalog />
-                    </div>
-               </div>
-               <div class="rightFertilizerManagement right" :class="{ leftNoneActive: active.leftnNoneActive }">
+
+               <div class="right rightFertilizerManagement " :class="{ leftNoneActive: active.leftnNoneActive }">
                     <div class="row ml-4 pt-3 mb-5 pb-1 mr-2 topRight">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Phân bón</h3>
@@ -73,10 +67,8 @@
                                    <tbody>
                                         <tr v-for="(fertilizer, i ) in fertilizerList" :key="i"
                                              class="">
-                                             <td v-if="currentPage > 1" class="text-center" style="vertical-align: top !important; ">{{ i + ((currentPage - 1) * 6 +
-                                                  1) }}
-                                             </td>
-                                             <td v-else class="text-center">{{ i + 1 }}</td>
+
+                                             <td class="text-center">{{ i + 1 }}</td>
                                              <td>{{ fertilizer.Fertilizer_id }}</td>
                                              <td>{{ fertilizer.Fertilizer_name }}</td>
                                              <td>{{ fertilizer.Fertilizer_supplier }}</td>
@@ -350,32 +342,7 @@ export default {
                this.fertilizerChoosen = fertilizer;
           },
 
-          get_rows(list) {
-               var start = (this.currentPage - 1) * this.elementsPerPage;
-               var end = start + this.elementsPerPage;
-               return list.slice(start, end);
-
-          },
-
-          // So trang cua danh sach danh muc
-          num_pages(list) {
-               return Math.ceil(list.length / this.elementsPerPage);
-          },
-
-          async change_page(page, list) {
-               if (page == '-' && this.currentPage > 1) {
-                    this.currentPage -= 1;
-                    this.get_rows(list);
-               }
-               else if (page == '+' && this.currentPage < this.num_pages(list)) {
-                    this.currentPage += 1;
-                    this.get_rows(list);
-               }
-               else {
-                    this.currentPage = page;
-                    this.get_rows(list);
-               }
-          },
+          
      },
 
      created() {
@@ -390,35 +357,5 @@ export default {
 
 <style>
 @import url(../../assets/fertilizerStyle.css);
-
-nav {
-     position: absolute;
-     display: inline !important;
-
-}
-
-nav .pagination .active .page-link {
-     background: #ABD2C8 !important;
-     border: 1px solid #FAFAFC !important;
-     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
-     border-radius: 15px !important;
-     margin-left: 10px !important;
-     margin-right: 10px !important;
-     color: #FFFED8 !important;
-     z-index: 0;
-     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-     /* width: 40px !important; */
-}
-
-nav .pagination .page-item .page-link {
-     color: #6D6E73;
-     border: none;
-     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-     font-family: 'Roboto';
-     font-style: normal;
-     font-weight: 700;
-     background-color: #EAEAEA;
-     font-size: 20px;
-}
 
 @import url(../../assets/mainStyle.css);</style>

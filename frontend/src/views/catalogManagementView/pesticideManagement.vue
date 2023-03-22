@@ -5,16 +5,10 @@
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
                     @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true, active.leftnNoneActive = false"></button>
-               <div class="" :class="{ menubar: openMenu.openMenu }" v-if="openMenu.openMenu">
-                    <div class="row">
+                    <div  class="left" :class=" {navbarresponsive: openMenu.openMenu }" >
                          <Catalog />
-                    </div>
                </div>
-               <div class="left" >
-                    <div class="row">
-                         <Catalog />
-                    </div>
-               </div>
+
                <div class="right rightPesticideManagement" :class="{ leftNoneActive: active.leftnNoneActive }">
                     <div class="row ml-4 pt-3 mb-5 pb-1 mr-2 topRight">
                          <div class="nameclass" style="min-height:60px; width: max-content;">

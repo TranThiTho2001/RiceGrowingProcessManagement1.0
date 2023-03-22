@@ -63,7 +63,6 @@ exports.findbyName = async (req, res) => {
 };
 
 exports.findbyId = async (req, res) => {
-     console.log(req.params.OtherActivities_id)
      const  id = req.params.OtherActivities_id;
      ActivityDetails.findById(id, (err, data) => {
           if (err) {

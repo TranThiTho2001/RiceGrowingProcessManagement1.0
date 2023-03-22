@@ -5,15 +5,8 @@
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
                     @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true, active.leftnNoneActive = false"></button>
-               <div class="" :class="{ menubar: openMenu.openMenu }" v-if="openMenu.openMenu">
-                    <div class="row">
-                         <Catalog />
-                    </div>
-               </div>
-               <div class="left">
-                    <div class="row">
-                         <Catalog />
-                    </div>
+               <div class="left" :class="{ navbarresponsive: openMenu.openMenu }">
+                    <Catalog />
                </div>
                <div class="rightActivitiesManagement right" :class="{ leftNoneActive: active.leftnNoneActive }">
                     <div class="row ml-4 pt-3 mb-5 pb-1 mr-2 topRight">
@@ -55,13 +48,14 @@
 
                     <div class="row ml-4 mr-2 mt-3 pb-4 pt-2">
                          <div class="col-sm-12 text-right">
-                              <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
-                                        style="font-size: 15px;"></i> Thêm hoạt động</button>
+                              <button class="btn btnCreate"
+                                   @click="isOpenCreateOtherActivities = !isOpenCreateOtherActivities"><i
+                                        class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm hoạt động</button>
                          </div>
                     </div>
                     <div class=" row scrollTable">
                          <div class="col-sm-12 justify-content-center">
-                              <table class="table activitiesList">
+                              <table class="table activitiesList" v-if="loaded">
                                    <thead>
                                         <tr>
                                              <th class="text-center" style=" padding-right: 2px;">STT</th>
@@ -71,19 +65,13 @@
                                              <th></th>
                                         </tr>
                                    </thead>
-                                   <!-- <tbody>
+                                   <tbody>
                                         <tr v-for="(activity, i ) in activitiesList" :key="i">
                                              <td class="text-center">{{ i + 1 }}</td>
                                              <td class="text-center">{{ activity.OtherActivities_id }}</td>
                                              <td>{{ activity.OtherActivities_name }}</td>
-                                             <td>{{ activity. }}</td>
-                                             <td>{{ activity.Soil_name }}</td>
-                                             <td>
-                                                  <i class="fas fa-map-marker-alt"></i>
-                                                  <a
-                                                       :href="`https://www.google.com/maps/place/` + arableland.ArableLand_location">{{
-                                                            arableland.ArableLand_location }}</a>
-                                             </td>
+                                             <td>{{ activity.Times.length }}</td>
+
                                              <td class="">
                                                   <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
                                                        aria-haspopup="true" aria-expanded="false">
@@ -91,17 +79,17 @@
                                                   </button>
                                                   <div class="dropdown-menu">
                                                        <a class="dropdown-item action"
-                                                            @click="setArableLandChoosen(arableland), isOpenUpdateArableLand = !isOpenUpdateArableLand">
+                                                            @click="setActivityChoosen(activity), isOpenUpdateActivities = !isOpenUpdateActivities">
                                                             <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                                        </a>
                                                        <a class="dropdown-item" href="#"
-                                                            @click="setArableLandChoosen(arableland), isOpenConfirm = !isOpenConfirm">
+                                                            @click="setActivityChoosen(activity), isOpenConfirm = !isOpenConfirm">
                                                             <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                        </a>
                                                   </div>
                                              </td>
                                         </tr>
-                                   </tbody> -->
+                                   </tbody>
                               </table>
                          </div>
                     </div>
@@ -114,7 +102,7 @@
                               <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
                          </p>
                          <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteArableLand(arablelandChoosen.ArableLand_id)">Xóa</button>
+                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteOtherActivity(activityChoosen)">Xóa</button>
                          <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
                               @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
                     </div>
@@ -130,11 +118,11 @@
                               @click="isOpenMessage = !isOpenMessage">OK</button>
                     </div>
 
-                    <CreateOtherActivityForm v-if="openCreate" :newOtherActivities="newOtherActivities"
-                         @addArableLand-submit="createOtherActivity" :message1="message1" :message2="message2" />
+                    <CreateOtherActivityForm v-if="isOpenCreateOtherActivities" :newOtherActivities="newOtherActivities"
+                         @addOtherActivities-submit="createOtherActivity" :message1="message1" :message2="message2" />
 
-                    <UpdateArableLandForm v-if="isOpenUpdateArableLand" :newArableLand="arablelandChoosen"
-                         @updateArableLand-submit="updateArableLand" :message1="message1" :message2="message2" />
+                    <UpdateOtherActivityForm v-if="isOpenUpdateActivities" :newOtherActivities="activityChoosen"
+                         @updateOtherActivities-submit="updateOtherActivity" :message1="message1" :message2="message2" />
                </div>
           </div>
      </div>
@@ -148,8 +136,8 @@ import { mapGetters, mapMutations } from "vuex";
 import OtherActivitiesService from '@/services/otherActivities.service';
 import ActivityDetailsService from '@/services/activityDetails.service';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
+import UpdateOtherActivityForm from '@/components/catalogManagementComponents/updateOtherActvitiesForm.vue'
 import CreateOtherActivityForm from '@/components/catalogManagementComponents/createNewOtherActivities.vue';
-import UpdateArableLandForm from '@/components/catalogManagementComponents/updateArableLandForm.vue';
 
 export default {
      name: "ArableLandManagement",
@@ -157,19 +145,19 @@ export default {
           Catalog,
           TopHeader,
           CreateOtherActivityForm,
-          UpdateArableLandForm,
+          UpdateOtherActivityForm,
      },
 
      data() {
           return {
                activitiesList: [],
-               openCreate: false,
+               isOpenCreateOtherActivities: false,
                newOtherActivities: {},
                message1: " ",
                message2: " ",
                isOpenMessage: false,
                isOpenConfirm: false,
-               ActivityChoosen: {},
+               activityChoosen: {},
                isOpenUpdateActivities: false,
                nameToSearch: "",
                message: "",
@@ -189,7 +177,9 @@ export default {
                active: {
                     rightActive: false,
                     leftnNoneActive: false,
-               }
+               },
+
+               loaded: false,
           }
      },
 
@@ -229,6 +219,7 @@ export default {
           },
 
           async retrieveOtherActivities() {
+               this.loaded = false;
                const [err, respone] = await this.handle(
                     OtherActivitiesService.getAll()
                );
@@ -240,6 +231,7 @@ export default {
                     this.cloneActivitiesList = respone.data;
                     var i = 0;
                     this.cloneActivitiesList.forEach(activity => {
+                         this.activitiesList[i].Times = new Array();
                          this.findActivityTimes(activity.OtherActivities_id, i)
                          i++;
                     });
@@ -256,9 +248,10 @@ export default {
                     this.newOtherActivities.OtherActivities_id = "OA" + String(Number(id) + 1);
 
                }
+               this.loaded = true;
           },
 
-          async findActivityTimes(activityId, position){
+          async findActivityTimes(activityId, position) {
                console.log(activityId)
                const [err, respone] = await this.handle(
                     ActivityDetailsService.findById(activityId)
@@ -267,57 +260,73 @@ export default {
                     console.log(err)
                }
                else {
-                    this.activitiesList[position].Times = [];
-                    var temp = [];
-                    temp = respone.data.slice();
-                    console.log(temp)
-                    temp.forEach(times => {
+                    respone.data.forEach(times => {
                          this.activitiesList[position].Times.push(times);
                     });
-                    console.log(respone.data);
                }
           },
 
           async createOtherActivity(data) {
-               this.message3 = "";
-               this.message4 = "";
+               this.message1 = "";
+               this.message2 = "";
                if (!data.close) {
                     this.isOpenCreateOtherActivities = false;
+
                }
                else {
                     const [error, response] = await this.handle(
                          OtherActivitiesService.create(data)
                     );
                     if (response.data == error) {
-                         this.message3 = "Thêm không thành công.";
+                         this.message1 = "Thêm không thành công.";
                     }
                     else if (response.data == "Không thể tạo chi tiết hoạt động mới.") {
-                         this.message3 = "Thêm không thành công.";
+                         this.message1 = "Thêm không thành công.";
                     }
                     else {
-                         this.message4 = "Thêm thành công.";
+                         this.message2 = "Thêm thành công.";
                          this.retrieveOtherActivities();
                     }
                }
 
           },
 
-          // async updateOtherActivity(data) {
+          async updateOtherActivity(data) {
 
-          // },
+               if (!data.close) {
+                    this.isOpenUpdateActivities = false;
+                    this.message1 = "";
+                    this.message2 = "";
+               }
+               else {
+                    const [error, response] = await this.handle(
+                         OtherActivitiesService.update(this.activityChoosen.OtherActivities_id, data)
+                    );
+                    if (response.data == error) {
+                         this.message1 = "Cập nhật không thành công.";
+                    }
+                    else if (response.data == "Đã xảy ra lỗi trong quá trình cập nhật thông tin!") {
+                         this.message1 = "Cập nhật không thành công.";
+                    }
+                    else {
+                         this.message2 = "Cập nhật thành công.";
+                         this.retrieveOtherActivities();
+                    }
+               }
+          },
 
-          // async deleteOtherActivity(activity) {
-          //      // const [error, response] = await this.handle(
-          //      //      ArableLandService.delete(activity)
-          //      // );
-          //      // if (error) {
-          //      //      console.log(error);
-          //      // } else {
-          //      //      this.retrieveOtherActivities()
-          //      //      console.log(response.data);
-          //      //      this.message = "Xóa hoạt động thành công"
-          //      // }
-          // },
+          async deleteOtherActivity(activity) {
+               const [error, response] = await this.handle(
+                    OtherActivitiesService.delete(activity.OtherActivities_id)
+               );
+               if (error) {
+                    console.log(error);
+               } else {
+                    this.message = "Xóa hoạt động thành công"
+                    this.retrieveOtherActivities()
+                    console.log(response.data);
+               }
+          },
 
 
           async searchName(data) {
@@ -336,7 +345,7 @@ export default {
           },
 
           async setActivityChoosen(activity) {
-               this.ActivityChoosen = activity;
+               this.activityChoosen = activity;
           },
      },
 
@@ -352,49 +361,5 @@ export default {
 
 <style>
 @import url(../../assets/mainStyle.css);
-.activitiesManagement .createArableLandForm,
-.activitiesManagement .updateArableLandForm {
-    background-color: #dbdbdb;
-    border: 0.5px solid #b8b5b5;
-    font-family: Inter;
-    border-radius: 10px;
-    position: absolute;
-    top: calc(24%);
-    left: 12%;
-    width: 75%;
-}
-
-.outside {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 0px;
-    left: 0px;
-}
-
-.activitiesManagement .rightArableLandManagement {
-    border-left: #bdf487 0.5px solid;
-}
-
-.activitiesManagement .navigationBar .btnCatalog {
-    display: block;
-    width: 94%;
-    font-size: 17px;
-    background-color: #FFFA37;
-    color: #5C5D22;
-    border: none;
-    font-family: Inter;
-    border-radius: 14px;
-}
-
-.activitiesManagement .navigationBar .btnArableland {
-    display: block;
-    width: 94%;
-    font-size: 17px;
-    background-color: #faf567;
-    color: #5C5D22;
-    border: none;
-    font-family: Inter;
-    border-radius: 14px;
-}
+@import url(../../assets/activitiesDetailStyle.css);
 </style>

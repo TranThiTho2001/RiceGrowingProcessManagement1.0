@@ -1,17 +1,14 @@
 <template>
-     <div class="container-fluid epidemicManagement pr-4" style="background-color: #EAEAEA; height: max-content;">
+     <div class="container-fluid epidemicManagement" style="background-color: #EAEAEA; min-height: max-content;">
           <div class="row epidemicManagementFrame" style="height: 100vmin;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
                     @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true"></button>
-               <div class="left" :class="{ menubar: openMenu.openMenu }"
-                    style="background: linear-gradient(180deg, rgba(128, 255, 0, 0.15) 0%, rgba(250, 255, 0, 0.15) 100%);">
-
-                    <div class="row">
+               <div  class="left" :class=" {navbarresponsive: openMenu.openMenu }">
                          <Catalog />
-                    </div>
                </div>
+
                <div class="rightEpidemicManagement right">
                     <div class="row ml-4 pt-3 mb-5 pb-1 mr-2 topRight">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
@@ -70,10 +67,9 @@
                                         </tr>
                                    </thead>
                                    <tbody>
-                                        <tr v-for="(epidemic, i ) in get_rows(epidemicList)" :key="i">
-                                             <td class="text-center" v-if="currentPage > 1">{{ i + ((currentPage - 1) *
-                                                  elementsPerPage) + 1 }}</td>
-                                             <td class="text-center" v-else>{{ i + 1 }}</td>
+                                        <tr v-for="(epidemic, i ) in epidemicList" :key="i">
+
+                                             <td class="text-center">{{ i + 1 }}</td>
                                              <td>{{ epidemic.Epidemic_id }}</td>
                                              <td style="width: 15%;">{{ epidemic.Epidemic_name }}</td>
                                              <td style="width: 10%;">{{ epidemic.Epidemic_timeOfDevelopment }}</td>
@@ -168,11 +164,6 @@ export default {
 
      data() {
           return {
-               currentPage: 1,
-               elementsPerPage: 6,
-               ascending: false,
-               previous: '<<',
-               next: '>>',
                epidemicList: [],
                openCreate: false,
                newEpidemic: {},
@@ -410,36 +401,8 @@ export default {
 </script>
 
 <style>
+@import url(../../assets/mainStyle.css);
 @import url(../../assets/epidemicStyle.css);
 
 
-nav {
-     position: relative;
-     display: inline !important;
-}
-
-nav .pagination .active .page-link {
-     background: #ABD2C8 !important;
-     border: 1px solid #FAFAFC !important;
-     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
-     border-radius: 15px !important;
-     margin-left: 10px !important;
-     margin-right: 10px !important;
-     color: #FFFED8 !important;
-
-     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-     /* width: 40px !important; */
-}
-
-nav .pagination .page-item .page-link {
-     color: #6D6E73;
-     border: none;
-     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-     font-family: 'Roboto';
-     font-style: normal;
-     font-weight: 700;
-     background-color: #EAEAEA;
-     font-size: 20px;
-}
-
-@import url(../../assets/mainStyle.css);</style>
+</style>

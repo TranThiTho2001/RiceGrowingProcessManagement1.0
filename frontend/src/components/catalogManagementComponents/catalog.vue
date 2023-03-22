@@ -43,35 +43,35 @@
                                    style="font-size: 24px;">&nbsp;</i> Danh
                               Mục</button>
                     </div>
-                    <div class="catalog ml-2" v-if="isOpenCatalog">
-                         <div class="row mt-3 ml-1" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
+                    <div class="catalog" v-if="isOpenCatalog">
+                         <div class="row mt-3" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
                               <button class="btn  pl-4 pr-5 btn-sm btn-outline-secondary btnSeed" @click="goToSeed"><i
                                         class="fas fa-seedling">&nbsp;</i>Giống Lúa</button>
                          </div>
 
-                         <div class="row mt-3 ml-1" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
+                         <div class="row mt-3" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
                               <button class="btn  pl-4 pr-5 btn-sm btn-outline-secondary btnFertilizer"
                                    @click="goToFertilizer">
                                    <i class="fas fa-fill-drip">&nbsp;</i>Phân Bón </button>
                          </div>
 
-                         <div class="row mt-3 ml-1" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
+                         <div class="row mt-3" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
                               <button class="btn pl-4 pr-5 btn-sm btn-outline-secondary btnEpidemic" @click="goToEpidemic"><i
                                         class="fas fa-spider">&nbsp;</i>Dịch Bệnh </button>
                          </div>
 
-                         <div class="row mt-3 ml-1" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
+                         <div class="row mt-3" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
                               <button class="btn pl-4 pr-5 btn-sm btn-outline-secondary btnArableland"
                                    @click="goToArableLand"><i class="fas fa-square">&nbsp;</i>Mẫu Ruộng</button>
                          </div>
 
-                         <div class="row mt-3 ml-1" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
+                         <div class="row mt-3" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
                               <button class="btn pl-4 pr-2 btn-sm btn-outline-secondary btnPesticide"
                                    @click="goToPesticide"><i class="fas fa-flask">&nbsp;</i>Thuốc Trị Bệnh Dịch </button>
                          </div>
 
-                         <div class="row mt-1 pt-2 ml-2" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
-                              <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnOtherActivities"
+                         <div class="row mt-1 pt-2" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
+                              <button class="btn pl-4 pr-5 btn-sm btn-outline-secondary btnOtherActivities"
                                    @click="goToOtherActivities"> <i class="far fa-list-alt">&nbsp;</i>Các Hoạt Động
                               </button>
                          </div>
@@ -158,15 +158,12 @@ export default {
 </script>
 
 <style>  .navigationBar {
-
+ background:  linear-gradient(180deg, rgba(231, 237, 199) 0%, rgba(219, 237, 199) 100%);
        font-family: Inter;
        background-color: inherit;
-       /* height: 100vmin; */
+       /* height: 100%; */
        font-size: 18px;
-       margin-left: 22px;
-       display: inline-block;
        justify-content: start !important;
-     background-color: rebeccapurple;
   }
 
 
@@ -174,7 +171,7 @@ export default {
        font-size: 17px;
        font-family: Inter;
        text-align: left;
-       width: 80%;
+       width: 88%;
        display: block;
        background-color: none;
        color: #737374;
@@ -186,7 +183,7 @@ export default {
        font-size: 17px;
        font-family: Inter;
        text-align: left;
-       width: 88% !important;
+       width: 84% !important;
        margin-left: 20px;
        display: block;
        background-color: none;
@@ -194,10 +191,21 @@ export default {
        border: none;
        border-radius: 14px;
   }
-
+  .navigationBar .categoryList .catalog .btn-outline-secondary:hover {
+       font-size: 17px;
+       font-family: Inter;
+       text-align: left;
+       width: 84% !important;
+       margin-left: 20px;
+       display: block;
+       background-color: none;
+       color: #737374;
+       border: none;
+       border-radius: 14px;
+  }
   .navigationBar .categoryList .btn-outline-secondary:hover {
        display: block;
-       width: 85%;
+       width: 88%;
        font-size: 17px;
        background-color: #FFFA37;
        color: #5C5D22;

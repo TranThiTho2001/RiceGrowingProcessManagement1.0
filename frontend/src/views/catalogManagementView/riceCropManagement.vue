@@ -1,14 +1,12 @@
 <template>
-     <div class="container-fluid riceCropManagement" style="background-color:  #EAEAEA; height: max-content;">
+     <div class="container-fluid riceCropManagement" style="background-color:  #EAEAEA; height: 100vmin;">
           <div class="row riceCropManagemenFrame" style="min-height: 100vmin;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2" 
-                    @click="openMenu.openMenu = true,openOrcloseMenu(), openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
+                    @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
-                    @click="openMenu.openMenu = false, openOrcloseMenu(), openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true, active.leftnNoneActive = false"></button>
-               <div id="menubar"  class="left">
-                    <div class="row">
+                    @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true, active.leftnNoneActive = false"></button>
+               <div  class="left" :class=" {navbarresponsive: openMenu.openMenu }" >
                          <Catalog />
-                    </div>
                </div>
                <div class="right rightRiceCropManagement" :class="{ leftNoneActive: active.leftnNoneActive }">
                     <div class="row ml-4 pt-3 mb-5 pb-1 mr-2 topRight">
@@ -45,7 +43,7 @@
                               </div>
                          </div>
                     </div>
-                    <div class="row ml-4 mr-2 mt-5  pt-4">
+                    <div class="row ml-4 mr-2 mt-5  pt-2">
                          <div class="col-sm-10"></div>
                          <div class="col-sm-2 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
@@ -865,30 +863,6 @@ export default {
                return (moment(String(data)).format("YYYY-MM-DD")).slice(0, 10);
           },
 
-          openOrcloseMenu(){
-               console.log(this.openMenu.openMenu)
-               
-               if(this.openMenu.openMenu){
-                    document.getElementById("menubar").style.position = "absolute";
-               document.getElementById("menubar").style.width = "230";
-               document.getElementById("menubar").style.zIndex = "1";
-               document.getElementById("menubar").style.height = "100vmin";
-               document.getElementById("menubar").style.display = "inline";
-               document.getElementById("menubar").style.width = "max-content";
-               }
-               else{
-                    document.getElementById("menubar").style.display = "none";
-                    document.getElementById("menubar").style.position = "absolute";
-               document.getElementById("menubar").style.width = "230";
-               document.getElementById("menubar").style.zIndex = "1";
-               document.getElementById("menubar").style.height = "100vmin";
-               document.getElementById("menubar").style.display = "inline";
-               document.getElementById("menubar").style.width = "max-content";
-               }
-               console.log(document.getElementById("menubar"))
-
-
-          }
      },
 
      created() {

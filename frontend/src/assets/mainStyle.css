@@ -30,8 +30,8 @@
      float: left;
 }
 
-.content .form-group .form-control,
-.content .form-group .form-control {
+.form-control,
+.form-control {
      background-color: #f0f0f0;
 }
 
@@ -41,10 +41,10 @@
      font-size: 24px;
 }
 
-.form-group .textMessage2,
-.form-group .textMessage1,
-.form-group .textMessage1,
-.form-group .textMessage2 {
+.textMessage2,
+.textMessage1,
+.textMessage1,
+.textMessage2 {
      text-align: center;
      display: inline;
      font-size: 18px;
@@ -110,8 +110,6 @@
      border-radius: 15px;
      text-align: center;
 }
-
-
 
 .btnCreate {
      border-radius: 15px;
@@ -196,7 +194,6 @@ table tbody tr td {
      height: 10px;
 }
 
-
 .outside {
      width: 100vw;
      height: 100vh;
@@ -205,14 +202,18 @@ table tbody tr td {
      left: 0px;
 }
 
+#menubar {}
 
-/* .left {
+.navbar {
      position: relative !important;
-     display: inline !important;
-     width: 15% ;
+     display: inline;
+     width: 15%;
+     visibility: visible !important;
+     ;
      background: white;
-     background:  linear-gradient(180deg, rgba(231, 237, 199) 0%, rgba(219, 237, 199) 100%);;
-} */
+     background: linear-gradient(180deg, rgba(231, 237, 199) 0%, rgba(219, 237, 199) 100%);
+     ;
+}
 
 .menubar {
      display: flex;
@@ -269,7 +270,7 @@ table tbody tr td {
      box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
           rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
      overflow: hidden;
-     white-space:nowrap;
+     white-space: nowrap;
 }
 
 .item {
@@ -315,6 +316,7 @@ table tbody tr td {
      position: relative;
      top: -8%
 }
+
 @media only screen and (max-width: 1430px) {
 
 
@@ -331,12 +333,12 @@ table tbody tr td {
           left: 40px;
           z-index: 2;
           color: lightblue;
-          top:2%;
+          top: 2%;
      }
 
-     .nameclass{
+     .nameclass {
           padding-left: 60px;
-          z-index:0;
+          z-index: 0;
      }
 
      .name {
@@ -350,34 +352,42 @@ table tbody tr td {
           position: relative;
           /* top:0%; */
      }
+
      .name2 {
           display: none !important;
      }
+
      .iconmenu2 {
           display: inline !important;
           width: 40px;
           height: 40px;
           position: absolute;
-          z-index: 1;
+          z-index: 2;
           left: 40px;
-          top:2%;
-          color:#4a4a4b;
+          top: 2%;
+          color: #4a4a4b;
           border: none;
      }
 
-     .left{
-          display: none;
+     .left {
+          display: none !important;
+
+          /* visibility: visible; */
      }
 
-     /* .menubar {
+     .navbarresponsive {
           position: absolute !important;
           z-index: 1;
-          width: 230px;
-          height: 100vmin;
+          width: 230px !important;
+          height: 100%;
           display: inline !important;
           background: linear-gradient(180deg, rgba(231, 237, 199) 0%, rgba(219, 237, 199) 100%);
           box-shadow: none !important;
-     } */
+     }
+
+     .leftNoneActive {
+          filter: blur(0.5px) !important
+     }
 
      .inputSearch1 {
           top: 10%;
@@ -395,6 +405,7 @@ table tbody tr td {
           display: none;
           background: none;
      }
+
      .inputSearch2 {
           background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
           box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -404,7 +415,7 @@ table tbody tr td {
           position: absolute;
           right: 90px !important;
           top: 2.8%;
-          z-index: 2 ;
+          z-index: 2;
           display: inline !important;
      }
 
@@ -429,7 +440,7 @@ table tbody tr td {
           box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
                rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
      }
-     
+
      .openSearch {
           display: inline-block;
           position: absolute;
@@ -443,9 +454,9 @@ table tbody tr td {
           box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
                rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
           overflow: hidden;
-          white-space:nowrap;
+          white-space: nowrap;
      }
-     
+
      .item {
           background-color: none;
           cursor: pointer;
@@ -461,7 +472,7 @@ table tbody tr td {
           overflow: hidden;
           text-overflow: ellipsis;
      }
-     
+
      .item:hover {
           background-color: none;
           cursor: pointer;
@@ -473,20 +484,27 @@ table tbody tr td {
           font-size: 16px;
      }
 }
-.carousel__prev, .carousel__prev{
-     z-index: 4 !important;
+
+.left {
+     position: relative;
+     display: inline;
+     width: 15%;
+     background: white;
+     height: 100% !important;
+     background: linear-gradient(180deg, rgba(231, 237, 199) 0%, rgba(219, 237, 199) 100%);
+     ;
 }
+
 .btnSearch2 {
-display: none;
+     display: none;
 }
 
 .inputSearch2 {
      display: none;
      right: 90px !important;
      position: absolute;
-     width: 40% ;
+     width: 40%;
 }
-
 
 .iconmenu1 {
      font-size: 20px;
@@ -500,6 +518,5 @@ display: none;
 
 
 .leftNoneActive {
-     filter: blur(0.5px) !important;
-     box-shadow: inset 7px 7px 7px rgba(0, 0, 0, 0.25) !important;
+     filter: none;
 }
