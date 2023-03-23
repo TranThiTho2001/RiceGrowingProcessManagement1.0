@@ -1,6 +1,6 @@
 <template>
-     <div class="container-fluid seedManagement pr-4 " style="background-color: #EAEAEA; height: max-content;">
-          <div class="row seedManagementFrame" style="height: 100vmin;">
+     <div class="container-fluid seedManagement pr-4 " style="background-color: #EAEAEA; height: 100%;">
+          <div class="row seedManagementFrame" style="height: 100%;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -48,12 +48,12 @@
                                         class="fas fa-plus-circle"></i> Thêm giống lúa</button>
                          </div>
                     </div>
-                    <div class=" row scrollTable">
-                         <div class="col-sm-12 justify-content-center">
+                    <div class="row scrollTable">
+                         <div class="col-sm-12 justify-content-center" style="padding-right: 1px !important;">
                          <table class="table seedList">
                               <thead>
                                    <tr>
-                                        <th class="text-center">STT</th>
+                                        <th class="centerclass">STT</th>
                                         <th>Mã</th>
                                         <th>Tên</th>
                                         <th>Nhà cung cấp</th>
@@ -62,16 +62,14 @@
                                    </tr>
                               </thead>
                               <tbody>
-                                   <tr v-for="(seed, i ) in get_rows(seedList)" :key="i">
-                                        <td class="text-center" v-if="currentPage > 1">{{ i + ((currentPage - 1) *
-                                             elementsPerPage) + 1 }}</td>
-                                        <td class="text-center" v-else>{{ i + 1 }}</td>
-                                        <td>{{ seed.Seed_id }}</td>
-                                        <td>{{ seed.Seed_name }}</td>
-                                        <td style="width: max-content;">{{ seed.Seed_supplier }}</td>
-                                        <td class="text-truncate" style="max-width: 520px;">{{ seed.Seed_characteristic }}
+                                   <tr v-for="(seed, i ) in seedList" :key="i">
+                                        <td class="centerclass" data-label="STT">{{ i + 1 }}</td>
+                                        <td data-label="Mã">{{ seed.Seed_id }}</td>
+                                        <td data-label="Tên">{{ seed.Seed_name }}</td>
+                                        <td data-label="Nhà cung cấp">{{ seed.Seed_supplier }}</td>
+                                        <td data-label="Đặc tính">{{ seed.Seed_characteristic }}
                                         </td>
-                                        <td class="">
+                                        <td class="" data-label="Tùy chọn">
                                              <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
                                                   aria-haspopup="true" aria-expanded="false">
                                                   <i class="fas fa-ellipsis-v"></i>

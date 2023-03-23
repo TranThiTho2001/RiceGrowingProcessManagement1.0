@@ -39,7 +39,7 @@ ArableLand.findById = (id, result) => {
 ArableLand.getAll = (name, result) => {
     let query = "SELECT * FROM ArableLand JOIN Soil on Soil.Soil_id = ArableLand.Soil_id";
     if (name) {
-        query += ` WHERE ArableLand_location LIKE '%${name}%'`;
+        query += ` WHERE ArableLand_owner LIKE '%${name}%'`;
     }
     query += " ORDER BY ArableLand.ArableLand_id"
     // query += " (JOIN Soil one Soil.Soil_id = ArableLand.Soil_id)"

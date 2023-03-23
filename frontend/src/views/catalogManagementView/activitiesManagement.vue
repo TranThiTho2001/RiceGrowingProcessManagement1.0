@@ -58,8 +58,8 @@
                               <table class="table activitiesList" v-if="loaded">
                                    <thead>
                                         <tr>
-                                             <th class="text-center" style=" padding-right: 2px;">STT</th>
-                                             <th class="text-center">Mã</th>
+                                             <th class="centerclass" style=" padding-right: 2px;">STT</th>
+                                             <th class="centerclass">Mã</th>
                                              <th>Tên hoạt động</th>
                                              <th>Số lần được thực hiện</th>
                                              <th></th>
@@ -67,12 +67,12 @@
                                    </thead>
                                    <tbody>
                                         <tr v-for="(activity, i ) in activitiesList" :key="i">
-                                             <td class="text-center">{{ i + 1 }}</td>
-                                             <td class="text-center">{{ activity.OtherActivities_id }}</td>
-                                             <td>{{ activity.OtherActivities_name }}</td>
-                                             <td>{{ activity.Times.length }}</td>
+                                             <td class="centerclass" data-label="STT">{{ i + 1 }}</td>
+                                             <td class="centerclass"  data-label="Mã">{{ activity.OtherActivities_id }}</td>
+                                             <td  data-label="Tên hoạt động">{{ activity.OtherActivities_name }}</td>
+                                             <td  data-label="Số lần được thực hiệnSTT">{{ activity.Times.length }}</td>
 
-                                             <td class="">
+                                             <td  data-label="Tùy chọn">
                                                   <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
                                                        aria-haspopup="true" aria-expanded="false">
                                                        <i class="fas fa-ellipsis-v"></i>

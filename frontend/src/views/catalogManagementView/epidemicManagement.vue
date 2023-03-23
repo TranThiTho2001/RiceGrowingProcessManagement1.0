@@ -1,5 +1,5 @@
 <template>
-     <div class="container-fluid epidemicManagement" style="background-color: #EAEAEA; min-height: max-content;">
+     <div class="container-fluid epidemicManagement" style="background-color: #EAEAEA;height:100vmin;">
           <div class="row epidemicManagementFrame" style="height: 100vmin;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
@@ -56,7 +56,7 @@
                               <table class="table epidemicList">
                                    <thead>
                                         <tr>
-                                             <th class="text-center" style=" padding-right: 2px;">STT</th>
+                                             <th class="centerclass" style=" padding-right: 2px;">STT</th>
                                              <th>Mã</th>
                                              <th>Tên</th>
                                              <th>Thời điểm</th>
@@ -68,17 +68,16 @@
                                    </thead>
                                    <tbody>
                                         <tr v-for="(epidemic, i ) in epidemicList" :key="i">
-
-                                             <td class="text-center">{{ i + 1 }}</td>
-                                             <td>{{ epidemic.Epidemic_id }}</td>
-                                             <td style="width: 15%;">{{ epidemic.Epidemic_name }}</td>
-                                             <td style="width: 10%;">{{ epidemic.Epidemic_timeOfDevelopment }}</td>
-                                             <td class="text-truncate" style="max-width: 250px;">{{
+                                             <td class="centerclass"  data-label="STT">{{ i + 1 }}</td>
+                                             <td data-label="Mã">{{ epidemic.Epidemic_id }}</td>
+                                             <td data-label="Tên">{{ epidemic.Epidemic_name }}</td>
+                                             <td data-label="Thời điểm">{{ epidemic.Epidemic_timeOfDevelopment }}</td>
+                                             <td data-label="Môi trường phát triển">{{
                                                   epidemic.Epidemic_developmentEnvironment }}</td>
-                                             <td class="text-truncate" style="max-width: 250px;">{{ epidemic.Epidemic_Harm }}
+                                             <td data-label="Tác hại">{{ epidemic.Epidemic_Harm }}
                                              </td>
-                                             <td style="width: 10%;">{{ epidemic.EpidemicsClassification_name }}</td>
-                                             <td class="">
+                                             <td data-label="Phân loại">{{ epidemic.EpidemicsClassification_name }}</td>
+                                             <td  data-label="Tùy chọn" class="">
                                                   <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
                                                        aria-haspopup="true" aria-expanded="false">
                                                        <i class="fas fa-ellipsis-v"></i>

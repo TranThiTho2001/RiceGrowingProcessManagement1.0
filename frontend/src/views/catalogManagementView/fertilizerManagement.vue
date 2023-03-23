@@ -51,7 +51,7 @@
                          </div>
                     </div>
                     <div class="row scrollTable">
-                         <div class="col-sm-12 justify-content-center">
+                         <div class="col-sm-12 justify-content-center ">
                               <table class="table fertilizerList">
                                    <thead>
                                         <tr>
@@ -68,13 +68,13 @@
                                         <tr v-for="(fertilizer, i ) in fertilizerList" :key="i"
                                              class="">
 
-                                             <td class="text-center">{{ i + 1 }}</td>
-                                             <td>{{ fertilizer.Fertilizer_id }}</td>
-                                             <td>{{ fertilizer.Fertilizer_name }}</td>
-                                             <td>{{ fertilizer.Fertilizer_supplier }}</td>
-                                             <td  style="max-width: 650px;">{{ fertilizer.Fertilizer_description }}</td>
-                                             <td style="max-width: 650px;">{{ fertilizer.Fertilizer_uses }}</td>
-                                             <td style="text-align: center; vertical-align: middle !important; ">
+                                             <td data-label="STT" class="centerclass">{{ i + 1 }}</td>
+                                             <td data-label="Mã">{{ fertilizer.Fertilizer_id }}</td>
+                                             <td data-label="Tên">{{ fertilizer.Fertilizer_name }}</td>
+                                             <td data-label="Nhà cung cấp">{{ fertilizer.Fertilizer_supplier }}</td>
+                                             <td data-label="Thông tin thành phần" >{{ fertilizer.Fertilizer_description }}</td>
+                                             <td data-label="Công dụng" >{{ fertilizer.Fertilizer_uses }}</td>
+                                             <td data-label="M" class="centerclass">
                                                   <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
                                                        aria-haspopup="true" aria-expanded="false">
                                                        <i class="fas fa-ellipsis-v"></i>

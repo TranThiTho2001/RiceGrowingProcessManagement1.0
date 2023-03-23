@@ -56,8 +56,8 @@
                               <table class="table arablelandList">
                                    <thead>
                                         <tr>
-                                             <th class="text-center" style=" padding-right: 2px;">STT</th>
-                                             <th class="text-center">Mã</th>
+                                             <th class="centerclass" style=" padding-right: 2px;">STT</th>
+                                             <th class="centerclass">Mã</th>
                                              <th>Diện tích</th>
                                              <th>Chủ sở hữu</th>
                                              <th>Loại đất</th>
@@ -66,21 +66,19 @@
                                         </tr>
                                    </thead>
                                    <tbody>
-                                        <tr v-for="(arableland, i ) in get_rows(arablelandList)" :key="i">
-                                             <td class="" v-if="currentPage > 1">{{ i + ((currentPage - 1) *
-                                                  elementsPerPage) + 1 }}</td>
-                                             <td class="text-center" v-else>{{ i + 1 }}</td>
-                                             <td class="text-center">{{ arableland.ArableLand_id }}</td>
-                                             <td>{{ arableland.ArableLand_area }}</td>
-                                             <td>{{ arableland.ArableLand_owner }}</td>
-                                             <td>{{ arableland.Soil_name }}</td>
-                                             <td>
+                                        <tr v-for="(arableland, i ) in arablelandList" :key="i">
+                                             <td class="centerclass"  data-label="STT">{{ i + 1 }}</td>
+                                             <td class="centerclass"  data-label="Mã">{{ arableland.ArableLand_id }}</td>
+                                             <td  data-label="Diện tích">{{ arableland.ArableLand_area }}</td>
+                                             <td  data-label="Chủ sở hữu">{{ arableland.ArableLand_owner }}</td>
+                                             <td  data-label="Loại đất">{{ arableland.Soil_name }}</td>
+                                             <td  data-label="Vị trí">
                                                   <i class="fas fa-map-marker-alt"></i>
                                                   <a
                                                        :href="`https://www.google.com/maps/place/` + arableland.ArableLand_location">{{
                                                             arableland.ArableLand_location }}</a>
                                              </td>
-                                             <td class="">
+                                             <td class="Tùy chọn">
                                                   <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
                                                        aria-haspopup="true" aria-expanded="false">
                                                        <i class="fas fa-ellipsis-v"></i>
@@ -368,6 +366,7 @@ export default {
 
           async searchName(data) {
                this.nameToSearch = data;
+               console.log(data)
                const [error, response] = await this.handle(ArableLandService.findByName(this.nameToSearch));
                if (error) {
                     console.log(error);
@@ -377,7 +376,6 @@ export default {
                          console.log(response.data)
                     }
                     else {
-                         // this.message = "Không tìm thấy phân bón!";
                          this.isOpenMessage = !this.isOpenMessage;
                     }
 
@@ -389,33 +387,6 @@ export default {
                console.log(this.arablelandChoosen)
           },
 
-
-          get_rows(list) {
-               var start = (this.currentPage - 1) * this.elementsPerPage;
-               var end = start + this.elementsPerPage;
-               return list.slice(start, end);
-
-          },
-
-          // So trang cua danh sach danh muc
-          num_pages(list) {
-               return Math.ceil(list.length / this.elementsPerPage);
-          },
-
-          async change_page(page, list) {
-               if (page == '-' && this.currentPage > 1) {
-                    this.currentPage -= 1;
-                    this.get_rows(list);
-               }
-               else if (page == '+' && this.currentPage < this.num_pages(list)) {
-                    this.currentPage += 1;
-                    this.get_rows(list);
-               }
-               else {
-                    this.currentPage = page;
-                    this.get_rows(list);
-               }
-          },
      },
 
      created() {

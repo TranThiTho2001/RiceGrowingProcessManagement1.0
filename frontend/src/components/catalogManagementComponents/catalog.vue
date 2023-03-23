@@ -1,6 +1,6 @@
 <template>
      <div class="navigationBar">
-          <div class="row topRow  mt-2">
+          <div class="row topRow pt-3">
                <div class="col-sm-12 ">
                     <div class="row">
                          <div class="col-sm-3"></div>
@@ -157,11 +157,12 @@ export default {
 };
 </script>
 
-<style>  .navigationBar {
+<style>  
+.navigationBar {
  background:  linear-gradient(180deg, rgba(231, 237, 199) 0%, rgba(219, 237, 199) 100%);
        font-family: Inter;
        background-color: inherit;
-       /* height: 100%; */
+       height: 100vh;
        font-size: 18px;
        justify-content: start !important;
   }

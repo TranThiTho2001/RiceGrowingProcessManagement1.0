@@ -1,6 +1,6 @@
 <template>
-     <div class="container-fluid pesticideManagement pr-4" style="background-color: #EAEAEA; height: max-content;">
-          <div class="row pesticideManagementFrame" style="height: 100vmin;">
+     <div class="container-fluid pesticideManagement pr-4" style="background-color: #EAEAEA; height: 100%;">
+          <div class="row pesticideManagementFrame" style="min-height: 100%;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -55,7 +55,7 @@
                          <table class="table pesticideList">
                               <thead>
                                    <tr>
-                                        <th class="text-center">STT</th>
+                                        <th class="centerclass">STT</th>
                                         <th>Mã</th>
                                         <th>Tên</th>
                                         <th>Nhà cung cấp</th>
@@ -66,14 +66,13 @@
                               </thead>
                               <tbody>
                                    <tr v-for="(pesticide, i ) in pesticideList" :key="i" class="align-self-center">
-                                        <td v-if="currentPage > 1"  class="text-center">{{ i+ ((currentPage - 1) * 6)}}</td>
-                                        <td v-else  class="text-center">{{ i }}</td>
-                                        <td>{{ pesticide.Pesticide_id }}</td>
-                                        <td>{{ pesticide.Pesticide_name }}</td>
-                                        <td>{{ pesticide.Pesticide_supplier }}</td>
-                                        <td style="max-width: 250px;"> {{ pesticide.Pesticide_description }}</td>
-                                        <td style="min-width: 250px;"><p v-for="treatment in pesticide.Treatment" :key="treatment.Epidemic_id" style="margin-bottom: 0.2px !important;">{{ treatment.Epidemic_name }}</p></td>
-                                        <td class="">
+                                        <td class="centerclass" data-label="STT">{{ i }}</td>
+                                        <td data-label="Mã">{{ pesticide.Pesticide_id }}</td>
+                                        <td data-label="Tên" >{{ pesticide.Pesticide_name }}</td>
+                                        <td data-label="Nhà cung cấp">{{ pesticide.Pesticide_supplier }}</td>
+                                        <td data-label="Thông tin" style="width: 20%;"> {{ pesticide.Pesticide_description }}</td>
+                                        <td data-label="Trị bệnh"><div style="display: inline-block;"><p v-for="treatment in pesticide.Treatment" :key="treatment.Epidemic_id" style="margin-bottom: 0.2px !important;">{{ treatment.Epidemic_name }}</p></div></td>
+                                        <td data-label="Tùy chọn">
                                              <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown" 
                                                   aria-haspopup="true" aria-expanded="false">
                                                   <i class="fas fa-ellipsis-v"></i>

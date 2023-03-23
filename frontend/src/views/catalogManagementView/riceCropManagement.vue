@@ -1,6 +1,6 @@
 <template>
      <div class="container-fluid riceCropManagement" style="background-color:  #EAEAEA; height: 100vmin;">
-          <div class="row riceCropManagemenFrame" style="min-height: 100vmin;">
+          <div class="row riceCropManagemenFrame" style="height: 100vmin;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2" 
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
