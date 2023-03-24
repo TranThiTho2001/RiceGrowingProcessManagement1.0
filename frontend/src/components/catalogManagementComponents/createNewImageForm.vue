@@ -1,6 +1,6 @@
 <template>
      <Form @submit="newimage.close = true, $emit('addImage-submit', newimage)" enctype="multipart/form-data"
-          class="container createImageForm">
+          class="container createImageForm form">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times" @click="newimage.close = false, $emit('addImage-submit', newricecrop)"
@@ -8,7 +8,7 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Thêm Ảnh Cho Mùa Vụ
+               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> Thêm Ảnh Cho Mùa Vụ
                </p>
           </div>
 

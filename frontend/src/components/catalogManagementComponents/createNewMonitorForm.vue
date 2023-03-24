@@ -1,6 +1,6 @@
 <template>
      <div @submit="newmonitor.close = true, $emit('addMonitor-submit', newmonitor)" :validation-schema="schema"
-          class="container createMonitorForm">
+          class="container createMonitorForm form">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times" @click="newmonitor.close = false, $emit('addMonitor-submit', newmonitor)"
@@ -9,7 +9,7 @@
           </div>
           <div class="row">
                <p class="col-sm-12 text-center functionName">
-                    <span class="fas fa-edit actionIcon"></span>Thêm Nhân Viên Theo Dõi Ruộng Lúa
+                    <i class="fas fa-plus-circle"></i>Thêm Nhân Viên Theo Dõi Ruộng Lúa
                </p>
 
           </div>

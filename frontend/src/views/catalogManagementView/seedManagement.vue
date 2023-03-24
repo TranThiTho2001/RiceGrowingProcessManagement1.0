@@ -42,14 +42,14 @@
                               </div>
                          </div>
                     </div>
-                    <div class="row ml-4 mr-2 pt-2 mt-5 pb-4">
+                    <div class="row ml-4 mr-1 pt-2 mt-5 pb-4">
                          <div class="col-sm-12 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate" style="border-radius: 12px;"><i
                                         class="fas fa-plus-circle"></i> Thêm giống lúa</button>
                          </div>
                     </div>
                     <div class="row scrollTable">
-                         <div class="col-sm-12 justify-content-center" style="padding-right: 1px !important;">
+                         <div class="col-sm-12 justify-content-center">
                          <table class="table seedList">
                               <thead>
                                    <tr>
@@ -70,11 +70,11 @@
                                         <td data-label="Đặc tính">{{ seed.Seed_characteristic }}
                                         </td>
                                         <td class="" data-label="Tùy chọn">
-                                             <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
+                                             <button type="button" class="btn btn-sm btnMore option1" data-toggle="dropdown"
                                                   aria-haspopup="true" aria-expanded="false">
                                                   <i class="fas fa-ellipsis-v"></i>
                                              </button>
-                                             <div class="dropdown-menu">
+                                             <div class="dropdown-menu option1">
                                                   <a class="dropdown-item action"
                                                        @click="setSeedChoosen(seed), isOpenUpdateSeed = !isOpenUpdateSeed">
                                                        <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
@@ -83,6 +83,10 @@
                                                        @click="setSeedChoosen(seed), isOpenConfirm = !isOpenConfirm">
                                                        <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                   </a>
+                                             </div>
+                                             <div class="option2">
+                                                 <button class="btn btnMore" @click="setSeedChoosen(seed), isOpenUpdateSeed = !isOpenUpdateSeed"> <span class="fas fa-edit actionIcon"></span> Chỉnh sửa</button>
+                                                 <button class="btn btnMore" @click="setSeedChoosen(seed), isOpenConfirm = !isOpenConfirm"> <span class="fas fa-trash-alt actionIcon"></span> Xóa</button>
                                              </div>
                                         </td>
                                    </tr>
@@ -260,6 +264,8 @@ export default {
                     this.openCreate = false;
                     this.message1 = " ";
                     this.message2 = " ";
+                    this.newSeed = {};
+                    this.retrieveSeedList();
                }
                else {
                     this.message1 = "";
@@ -284,6 +290,8 @@ export default {
                     this.isOpenUpdateSeed = false;
                     this.message1 = " ";
                     this.message2 = " ";
+                    this.newSeed = {};
+                    this.retrieveSeedList();
                }
                else {
                     this.message1 = "";

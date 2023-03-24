@@ -1,6 +1,6 @@
 <template>
      <Form @submit="newactivitiesDetail.close = true, $emit('addOtherActivityTimes-submit', newactivitiesDetail)"
-          :validation-schema="schema" class="container createActivityDetailForm">
+          :validation-schema="schema" class="container createActivityDetailForm form">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times"
@@ -9,7 +9,7 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Thêm lần thực hiện
+               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> Thêm lần thực hiện
                     hoạt động</p>
           </div>
           <div class="row content">

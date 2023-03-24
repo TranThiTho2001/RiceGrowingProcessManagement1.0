@@ -44,7 +44,7 @@
                               </div>
                          </div>
                     </div>
-                    <div class="row ml-4 mr-2 mt-3 pb-4 pt-2">
+                    <div class="row ml-4 mr-1 mt-3 pb-4 pt-2">
                          <div class="col-sm-12 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i
                                         class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm loại thuốc mới</button>

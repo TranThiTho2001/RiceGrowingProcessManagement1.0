@@ -1,6 +1,6 @@
 <template>
      <Form @submit="newfertilizertimes.close = true, $emit('addFertilizerTimes-submit', newfertilizertimes)"
-          :validation-schema="schema" class="container-fluid createFertilizerTimesForm">
+          :validation-schema="schema" class="container-fluid createFertilizerTimesForm form">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times"

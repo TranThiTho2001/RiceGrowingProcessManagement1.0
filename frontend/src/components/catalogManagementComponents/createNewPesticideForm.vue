@@ -1,6 +1,6 @@
 <template>
      <Form @submit="newpesticide.close = true, $emit('addPesticide-submit', newpesticide)" :validation-schema="schema"
-          class="container createPesticideForm">
+          class="container createPesticideForm form">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times" @click="newpesticide.close = false, $emit('addPesticide-submit', newpesticide)"
@@ -8,7 +8,7 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Tạo thuốc trị bệnh
+               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> Tạo thuốc trị bệnh
                     dịch mới
                </p>
           </div>

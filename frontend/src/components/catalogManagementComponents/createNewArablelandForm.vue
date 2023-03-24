@@ -1,6 +1,6 @@
 <template>
      <Form @submit="newarableLand.close = true, $emit('addArableLand-submit', newarableLand)" :validation-schema="schema"
-          class="container createArableLandForm">
+          class="container createArableLandForm form">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times"
@@ -9,7 +9,7 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Tạo mẫu ruộng
+               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> Tạo mẫu ruộng
                     mới
                </p>
           </div>
@@ -132,5 +132,7 @@ export default {
 };
 </script>
  
-<style>@import url(../../assets/arablelandStyle.css);
+<style>
+@import url(../../assets/arablelandStyle.css);
+@import url(../../assets/mainStyle.css);
 </style>

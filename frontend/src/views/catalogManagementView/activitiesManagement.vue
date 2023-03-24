@@ -1,5 +1,5 @@
 <template>
-     <div class="container-fluid activitiesManagement pr-4" style="background-color: #EAEAEA;height: max-content;">
+     <div class="container-fluid activitiesManagement pr-4" style="background-color: #EAEAEA;height:100%;">
           <div class="row activitiesManagementFrame" style="height: 100vmin;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
@@ -46,7 +46,7 @@
                          </div>
                     </div>
 
-                    <div class="row ml-4 mr-2 mt-3 pb-4 pt-2">
+                    <div class="row ml-4 mr-1 mt-3 pb-4 pt-2">
                          <div class="col-sm-12 text-right">
                               <button class="btn btnCreate"
                                    @click="isOpenCreateOtherActivities = !isOpenCreateOtherActivities"><i

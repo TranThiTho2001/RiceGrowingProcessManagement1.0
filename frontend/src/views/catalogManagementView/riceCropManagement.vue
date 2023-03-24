@@ -43,14 +43,14 @@
                               </div>
                          </div>
                     </div>
-                    <div class="row ml-4 mr-2 mt-5  pt-2">
+                    <div class="row mr-1 ml-4 mt-5  pt-2">
                          <div class="col-sm-10"></div>
                          <div class="col-sm-2 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
                                         style="font-size: 15px;"></i> Thêm Mùa Vụ</button>
                          </div>
                     </div>
-                    <div class=" row riceCropList ml-4 mr-3 mt-1 text-left" v-if="riceCropListByMonitoring.length > 0">
+                    <div class=" row riceCropList ml-4 mr-4 pr-2 mt-1 text-left" v-if="riceCropListByMonitoring.length > 0">
                          <carousel v-if="riceCropListByMonitoring.length > getWidth()" :settings="settings"
                               :breakpoints="breakpoints" style="width:100%" :autoplay="2000" :wrap-around="true">
                               <slide v-for="(riceCrop, i) in riceCropListByMonitoring" :key="i">
@@ -74,7 +74,7 @@
                               </template>
                          </carousel>
                     </div>
-                    <div class="row riceCropList pt-1 ml-4 mr-2 text-left">
+                    <div class="row riceCropList pt-1 ml-4 mr-4 pr-1 text-left">
                          <carousel v-if="riceCropListByFinish.length > getWidth" :settings="settings"
                               :breakpoints="breakpoints" style="width:100%" :autoplay="2000" :wrap-around="true">
                               <div class="carousel__item">

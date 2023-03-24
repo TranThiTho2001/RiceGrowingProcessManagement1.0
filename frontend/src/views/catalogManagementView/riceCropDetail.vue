@@ -101,7 +101,7 @@
                                    <button class="btn mt-1 btnAdd "
                                         @click="isOpenCreateFertilizerTimesForm = !isOpenCreateFertilizerTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
                                    <div class="tableFixHead">
-                                        <table class="table">
+                                        <table class="">
                                              <thead>
                                                   <tr>
                                                        <th class="text-center ">Lần</th>
@@ -665,6 +665,11 @@ export default {
                cloneActivityDetailList: [],
                cloneImageList: [],
                treatmentList: [],
+               openMenu: {
+                    openMenu: false,
+                    isOpenMenuIcon: true,
+                    isCloseMenu: false,
+               }
           }
      },
 

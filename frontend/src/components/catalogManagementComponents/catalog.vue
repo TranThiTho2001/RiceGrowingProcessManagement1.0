@@ -34,7 +34,7 @@
                     <div class="row mt-1 pt-2 ml-2" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
                          <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnStatistical"
                               @click="gotoStatistical()">
-                              <i class="fas fa-chart-pie" style="font-size: 20px;">&nbsp;</i> Thống Kê
+                              <i class="fas fa-chart-pie" style="font-size: 19px;">&nbsp;</i> Thống Kê
                          </button>
                     </div>
                     <div class="row mt-1 ml-2" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">

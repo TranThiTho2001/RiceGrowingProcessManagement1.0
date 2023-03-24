@@ -1,6 +1,6 @@
 <template>
      <Form @submit="newfertilixer.close = true, $emit('addFertilizer-submit', newfertilixer)" :validation-schema="schema"
-          class="container createFertilizerForm" style="width: 50%;">
+          class="container createFertilizerForm form">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times"
@@ -9,7 +9,7 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Cập nhật thông tin
+               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> Cập nhật thông tin
                     phân bón
                </p>
           </div>

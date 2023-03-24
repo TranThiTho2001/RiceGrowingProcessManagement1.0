@@ -31,10 +31,10 @@
     display: block;
     width: 88%;
     font-size: 18px;
-    background-color: #FFFA37;
+    background-color: #fff945;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
     color: #5C5D22;
     border: none;
-    font-family: Inter;
     border-radius: 14px;
 }
 
@@ -42,7 +42,9 @@
     display: block;
     width: 88%;
     font-size: 17px;
-    background-color: #faf567;
+    background: #FFFA37;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
     color: #5C5D22;
     border: none;
     font-family: Inter;

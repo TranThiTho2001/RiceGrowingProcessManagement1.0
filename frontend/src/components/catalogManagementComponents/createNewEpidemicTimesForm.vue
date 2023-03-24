@@ -1,6 +1,6 @@
 <template>
      <Form @submit="newepidemictimes.close = true, $emit('addEpidemicTimes-submit', newepidemictimes)"
-          :validation-schema="schema" class="container createEpidemicTimesForm">
+          :validation-schema="schema" class="container createEpidemicTimesForm form">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times"
@@ -10,7 +10,7 @@
           </div>
 
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Thêm Lần Bị Bệnh Dịch</p>
+               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> Thêm Lần Bị Bệnh Dịch</p>
           </div>
 
           <div class="row content">

@@ -1,5 +1,5 @@
 <template>
-     <div class="container-fluid arablelandManagement pr-4" style="background-color: #EAEAEA;height: max-content;">
+     <div class="container-fluid arablelandManagement pr-4" style="background-color: #EAEAEA;height: 100%;">
           <div class="row arablelandManagementFrame" style="height: 100vmin;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
@@ -38,14 +38,14 @@
                               </div>
                          </div>
 
-                         <div class="text-right">
+                         <div class="text-right pr-3">
                               <div class="row">
                                    <TopHeader />
                               </div>
                          </div>
                     </div>
 
-                    <div class="row ml-4 mr-2 mt-3 pb-4 pt-2">
+                    <div class="row ml-4 mr-1 mt-3 pb-4 pt-2">
                          <div class="col-sm-12 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
                                         style="font-size: 15px;"></i> Thêm mẫu ruộng</button>

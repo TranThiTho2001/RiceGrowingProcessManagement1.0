@@ -1,6 +1,6 @@
 <template>
      <Form @submit="newotherActivities.close = true, $emit('addOtherActivities-submit', newotherActivities)" :validation-schema="schema"
-          class="container createOtherActiviesForm" style="width: 50%;">
+          class="container createOtherActiviesForm form">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times" @click="newotherActivities.close = false, $emit('addOtherActivities-submit', newotherActivities)"
@@ -8,7 +8,7 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Cập nhật thông tin phân bón
+               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> Cập nhật thông tin phân bón
                </p>
           </div>
           <div class="row content">

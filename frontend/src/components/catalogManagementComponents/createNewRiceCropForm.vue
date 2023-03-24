@@ -1,6 +1,6 @@
 <template>
      <Form @submit="newricecrop.close = true, $emit('addRiceCrop-submit', newricecrop)" :validation-schema="schema"
-          class="container createRiceCropForm">
+          class="container createRiceCropForm form" >
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times" @click="newricecrop.close = false, $emit('addRiceCrop-submit', newricecrop)"
@@ -8,7 +8,7 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Mùa vụ
+               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> Mùa vụ
                </p>
           </div>
           <div class="row content">

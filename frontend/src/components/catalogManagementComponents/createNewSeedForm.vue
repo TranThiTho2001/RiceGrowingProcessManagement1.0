@@ -1,7 +1,7 @@
 <template>
 
      <Form @submit="newseed.close = true, $emit('addSeed-submit', newseed)" :validation-schema="schema"
-          class="container createSeedForm">
+          class="container createSeedForm form">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times" @click="newseed.close = false, $emit('addSeed-submit', newseed)"
@@ -113,4 +113,5 @@ export default {
  
 <style>
 @import url(../../assets/seedStyle.css);
+@import url(../../assets/mainStyle.css);
 </style>

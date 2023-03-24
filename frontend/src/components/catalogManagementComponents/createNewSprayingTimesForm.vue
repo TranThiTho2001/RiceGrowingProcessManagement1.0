@@ -1,6 +1,6 @@
 <template>
      <Form @submit="newsprayingtimes.close = true, $emit('addSprayingTimes-submit', newsprayingtimes)"
-          :validation-schema="schema" class="container createSprayingTimesForm">
+          :validation-schema="schema" class="container createSprayingTimesForm form">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times"
@@ -9,7 +9,7 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Thêm Lần Phun Thuốc
+               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> Thêm Lần Phun Thuốc
                </p>
           </div>
           <div class="row content">
