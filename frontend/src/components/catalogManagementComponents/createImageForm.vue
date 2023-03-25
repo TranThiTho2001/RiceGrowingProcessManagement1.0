@@ -1,6 +1,6 @@
 <template>
     <Form @submit="newimage.close = true, $emit('addImage-submit', newimage)" enctype="multipart/form-data"
-        class="createImageForm container" style="width: 60%;">
+        class="form createImageForm container">
         <div class="row">
             <div class="col-sm-12 text-right">
                 <i class="fas fa-times" @click="newimage.close = false, $emit('addImage-submit', newimage)"

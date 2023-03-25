@@ -10,7 +10,7 @@
                </div>
 
                <div class="rightArableLandManagement right" :class="{ leftNoneActive: active.leftnNoneActive }">
-                    <div class="row ml-4 pt-3 mb-5 pb-1 mr-2 topRight">
+                    <div class="row pt-3 mb-5 pb-1 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Mẫu ruộng</h3>
                          </div>
@@ -38,7 +38,7 @@
                               </div>
                          </div>
 
-                         <div class="text-right pr-3">
+                         <div class="text-right">
                               <div class="row">
                                    <TopHeader />
                               </div>

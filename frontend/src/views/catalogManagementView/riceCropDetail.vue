@@ -9,7 +9,7 @@
                          <Catalog />
                </div>
                <div class="rightRiceCropDetail right" :class="{ active: stylebac.active, noneactive: stylebac.none }">
-                    <div class="row ml-2 pt-3 mb-5 pb-1 mr-2 topRight">
+                    <div class="row pt-3 mb-5 pb-1 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Theo dõi mùa vụ</h3>
                          </div>
@@ -20,8 +20,26 @@
                          </div>
                     </div>
                     <div class="row updateRiceCrop mr-2 ml-2 mb-1" style="width: 100%;">
-                         <UpdateRiceCropForm :seedList="seedList" :newRiceCrop="newRiceCrop" :arableLandList="arableLandList"
+                         <UpdateRiceCropForm v-if="isOpenConfirm" :seedList="seedList" :newRiceCrop="newRiceCrop" :arableLandList="arableLandList"
                               @updateRiceCrop-submit="updateRiceCrop" :message1="message1" :message2="message2" />
+                    </div>
+                    <div>
+                         <table class="table">
+                              <tbody>
+                                   <tr>
+                                        <td>Mã {{ newRiceCrop.RiceCropInformation_id }}</td>
+                                        <td>Giống lúa: {{ newRiceCrop.Seed_name }}</td>
+                                        <td>Vụ mùa: {{ newRiceCrop.Crop_name }}</td>
+                                        <td>Mẫu ruộng: {{ newRiceCrop.ArableLand_owner }}</td>
+                                   </tr>
+                                   <tr>
+                                        <td>Tên: {{ newRiceCrop.RiceCropInformation_name }}</td>
+                                        <td>Ngày gieo xạ: {{ formatDate(newRiceCrop.RiceCropInformation_sowingDate) }}</td>
+                                        <td>Ngày thu hoạch: {{ formatDate(newRiceCrop.RiceCropInformation_harvestDate) }}</td>
+                                        <td>Năng suất: {{ newRiceCrop.RiceCropInformation_yield }}</td>
+                                   </tr>
+                              </tbody>
+                         </table>
                     </div>
                     <div class="row bottomrow ml-2 mr-2 pt-1">
                          <div class="col-sm-12">
@@ -1600,7 +1618,8 @@ export default {
           },
 
           formatDate(data) {
-               if (data == null) return "";
+               console.log(data)
+               if (data == null || data == "Invalid da") return "";
                return (moment(String(data)).format("DD-MM-YYYY")).slice(0, 10);
           },
 

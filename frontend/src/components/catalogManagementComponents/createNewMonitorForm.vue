@@ -1,6 +1,6 @@
 <template>
      <div @submit="newmonitor.close = true, $emit('addMonitor-submit', newmonitor)" :validation-schema="schema"
-          class="container createMonitorForm form">
+          class="form container createMonitorForm">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times" @click="newmonitor.close = false, $emit('addMonitor-submit', newmonitor)"

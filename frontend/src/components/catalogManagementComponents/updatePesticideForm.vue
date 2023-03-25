@@ -1,6 +1,6 @@
 <template>
      <Form @submit="newpesticide.close = true, $emit('updatePesticide-submit', newpesticide)" :validation-schema="schema"
-          class="container updatePesticideForm">
+          class="form container updatePesticideForm">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times"

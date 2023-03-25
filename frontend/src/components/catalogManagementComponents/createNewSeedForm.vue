@@ -1,7 +1,7 @@
 <template>
 
      <Form @submit="newseed.close = true, $emit('addSeed-submit', newseed)" :validation-schema="schema"
-          class="container createSeedForm form">
+          class="form container createSeedForm">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times" @click="newseed.close = false, $emit('addSeed-submit', newseed)"

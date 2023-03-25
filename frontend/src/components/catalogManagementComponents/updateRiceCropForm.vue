@@ -1,6 +1,6 @@
 <template>
      <Form @submit="$emit('updateRiceCrop-submit', newricecrop)" :validation-schema="schema"
-          class="container-fluid updateRiceCropForm">
+          class="form container-fluid updateRiceCropForm">
           <div class="row content">
                <div class="col-sm-3">
                     <div class="form-group">

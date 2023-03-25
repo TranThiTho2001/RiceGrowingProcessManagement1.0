@@ -9,7 +9,7 @@
                          <Catalog />
                </div>
                <div class="right statisticsByRiceCropscroll">
-                    <div class="row ml-4 pt-3 mb-4 pb-1 mr-2 topRight">
+                    <div class="row pt-3 mb-4 pb-1 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name"   style="font">Thống kê mùa vụ</h3>
                          </div>

@@ -10,7 +10,7 @@
                </div>
 
                <div class="rightStatisticalManagementManagement right" :class="{ leftNoneActive: active.leftnNoneActive }">
-                    <div class="row ml-4 pt-3 mb-5 pb-1 mr-2 topRight">
+                    <div class="row pt-3 mb-5 pb-1 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Thống kê</h3>
                          </div>
@@ -378,37 +378,8 @@ export default {
 </script>
 
 <style>
+@import url(../../assets/mainStyle.css);
 @import url(../../assets/statisticalStyle.css);
 
 
-nav {
-     position: absolute;
-     display: inline !important;
-}
-
-nav .pagination .active .page-link {
-     background: #ABD2C8 !important;
-     border: 1px solid #FAFAFC !important;
-     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
-     border-radius: 15px !important;
-     margin-left: 10px !important;
-     margin-right: 10px !important;
-     color: #FFFED8 !important;
-
-     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-     /* width: 40px !important; */
-}
-
-nav .pagination .page-item .page-link {
-     color: #6D6E73;
-     border: none;
-     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-     font-family: 'Roboto';
-     font-style: normal;
-     font-weight: 700;
-     background-color: #EAEAEA;
-     font-size: 20px;
-}
-
-@import url(../../assets/mainStyle.css);
 </style>

@@ -1,15 +1,15 @@
-.createFertilizerTimesForm{
+ .createFertilizerTimesForm{
     background-color: #dbdbdb;
     border: 0.5px solid #b8b5b5;
      font-family: Inter;
      border-radius: 10px;
      position: absolute;
-     top: calc(12%);
+     top: calc(8%);
      left:18%;
-     width: 80% !important;
+     width: 50%;
 }
 
-.updateFertilizerTimesForm{
+ .updateFertilizerTimesForm{
     background-color: #dbdbdb;
     border: 0.5px solid #b8b5b5;
      font-family: Inter;
@@ -17,7 +17,7 @@
      position: absolute;
      top: calc(14%);
      left:21%;
-     width: 80% !important;
+     width: 80%;
 }
 
 .createFertilizerTimesForm .content .error-feedback,

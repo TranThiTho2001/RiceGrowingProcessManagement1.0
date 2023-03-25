@@ -147,8 +147,9 @@
 .scrollTable {
      overflow: auto;
      height: 540px;
-     max-width: 99%;
-     margin-left: 1% !important;
+     max-width: 100%;
+     margin-left: 4px !important;
+     margin-right: 0.05px !important;
 }
 
 .scrollTable thead th,
@@ -181,9 +182,8 @@
      font-style: normal;
      font-weight: 400;
      font-size: 16px;
-     line-height: 19px;
+     line-height: 15px;
      border-bottom: 0.1px solid #f4f5f6 !important;
-     height: 20px;
 }
 
 .table tbody tr td {
@@ -193,9 +193,9 @@
      border-bottom: 0.5px solid #cbcccf !important;
      padding-left: 5px !important;
      vertical-align: middle !important;
-     height: 20px;
      font-size: 14px;
      text-align: justify;
+     padding: 10px;
 }
 .option2{
      display: none;
@@ -203,18 +203,41 @@
 .table .centerclass {
      text-align: center !important;
 }
-
+html{
+     width: 100%;
+}
 @media only screen and (max-width: 760px) {
 
-     .form{
-          width: 200% !important;
+     .topRight{
+          margin-left:1px !important;
+          margin-right: 10px !important;
      }
+
+     .topHeader{
+          right: -20px !important;
+     }
+
+     .form{
+          width: 93.5% !important;
+          top: 120px !important;
+          left: 10px !important;
+     }
+     .form .btnLuu{
+          width: 80px;
+          background-color: #008B8E;
+          font-family: 'Roboto';
+          font-style: normal;
+          color: white;
+     }
+
      .option1{
           display: none !important;
      }
+
      .option2{
           display: inline;
      }
+
      .scrollTable {
           height: max-content !important;
      }
@@ -279,17 +302,42 @@
           background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
           box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
           border-radius: 15px !important;
-          width: 50% !important;
+          width: 40% !important;
           height: 35px;
           position: absolute;
-          right: 90px !important;
+          margin-right: -20px !important;
           top: 20px;
           z-index: 2;
           display: inline !important;
      }
+     .btnSearch2{
+          right: 75px !important;
+     }
+
+     .iconmenu2{
+          left: 20px !important;
+     }
+     .name{
+          left: -25px !important;
+     }
 
      .btnCreate {
           margin-right: -12px;
+     }
+     .openSearch {
+          display: inline-block;
+          position: absolute;
+          right: 70px  !important;
+          top: 8%;
+          width: 40%;
+          max-height: 200px;
+          background-color: #FAFAFC;
+          border-radius: 5px;
+          z-index: 1;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+               rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+          overflow: hidden;
+          white-space: nowrap;
      }
 
 }
@@ -402,6 +450,8 @@
      background: #E4E5EB;
      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
      border-radius: 0px 0px 15px 15px;
+     margin-left: 50px;
+     margin-right: 50px;
 }
 
 .name {
@@ -416,9 +466,12 @@
      margin-left: 18px;
 }
 
-@media only screen and (max-width: 1430px) {
+@media  screen and (max-width: 1430px)  {
 
-
+     .topRight{
+          margin-left:10px !important;
+          margin-right: 5px !important;
+     }
      .right {
           width: 100%;
           position: relative !important;
@@ -544,7 +597,7 @@
      .openSearch {
           display: inline-block;
           position: absolute;
-          right: 90px !important;
+          right: 90px;
           top: 60px;
           width: 60%;
           max-height: 200px;

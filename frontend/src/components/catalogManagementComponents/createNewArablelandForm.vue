@@ -1,6 +1,6 @@
 <template>
      <Form @submit="newarableLand.close = true, $emit('addArableLand-submit', newarableLand)" :validation-schema="schema"
-          class="container createArableLandForm form">
+          class="form container createArableLandForm ">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times"
@@ -31,13 +31,17 @@
 
                     <div class="form-group">
                          <label for="soil" class="mt-3">Phân loại <span style="color: red">*</span></label>
-                         <Field name="soil" v-model="newarableLand.Soil_id">
-                              <select class="form-control" v-model="newarableLand.Soil_id" name="soil" for="soil">
-                                   <option>Đất phù sa ven sông</option>
+                         <Field name="soil" v-model="newarableLand.Soil_id" style="width: 100%; position: relative;">
+                              <select class="form-control" v-model="newarableLand.Soil_id" name="soil" for="soil"
+                                   style=" width: 100%;">
+
+                                   <option style="width: 50px !important;">Đất phù sa ven sông</option>
                                    <option>Đất phù sa xa xông</option>
                                    <option>Đất nhiễm phèn</option>
                                    <option>Đất nhiễm mặn</option>
                                    <option>Đất nhiễm mặn + phèn</option>
+
+
                               </select>
                          </Field>
                          <ErrorMessage name="soil" class="error-feedback" />
@@ -54,8 +58,8 @@
 
                     <div class="form-group">
                          <label for="location" class="mt-3">Vị trí mẫu ruộng <span style="color: red">*</span></label>
-                         <Field name="location"  class="form-control" v-model="newarableLand.ArableLand_location"
-                              placeholder="Nhập vị trí mẫu ruộng..." as="textarea" style="height: 126px;"/>
+                         <Field name="location" class="form-control" v-model="newarableLand.ArableLand_location"
+                              placeholder="Nhập vị trí mẫu ruộng..." as="textarea" style="height: 126px;" />
                          <ErrorMessage name="location" class="error-feedback" />
                     </div>
                </div>
@@ -76,12 +80,12 @@
                <div class="col-sm-2"></div>
           </div>
           <div class="row mb-4">
-               <div class="col-sm-5"></div>
-               <button class="btn btn-outline-secondary btnLuu col-sm-2">Lưu</button>
-               <div class="col-sm-5"></div>
+               <div class="col-sm-12 text-center">
+                    <button class="btn btn-outline-secondary btnLuu col-sm-2">Lưu</button>
+               </div>
           </div>
 
-</form>
+     </form>
 </template>
  
 <script>

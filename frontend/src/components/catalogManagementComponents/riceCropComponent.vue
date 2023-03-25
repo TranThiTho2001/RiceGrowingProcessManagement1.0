@@ -2,7 +2,7 @@
      <div style="height: 260px; min-width: 203px;">
           <router-link class="linktoRiceCropInfor container-fuild"
                :to="{ name: 'RiceCropDetail', params: { id: riceCrop.RiceCropInformation_id } }">
-               <div class="riceCropComponent text-dark border ">
+               <div class="riceCropComponent text-dark border">
                     <div class="img mt-2 ml-2 mr-2 text-center"><img :src="riceCrop.Images_link" class="img-fluid" alt=""
                               style="max-height: 127px; min-height: 127px;">
                     </div>

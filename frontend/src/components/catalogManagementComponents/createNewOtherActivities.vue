@@ -1,6 +1,6 @@
 <template>
      <Form @submit="newotherActivities.close = true, $emit('addOtherActivities-submit', newotherActivities)" :validation-schema="schema"
-          class="container createOtherActiviesForm form">
+          class="form container createOtherActiviesForm">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times" @click="newotherActivities.close = false, $emit('addOtherActivities-submit', newotherActivities)"
