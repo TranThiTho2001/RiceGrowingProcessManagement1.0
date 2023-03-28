@@ -8,7 +8,7 @@
                     <div  class="left" :class=" {navbarresponsive: openMenu.openMenu }" >
                          <Catalog />
                </div>
-               <div class="rightSeedManagement right" :class="{ leftNoneActive: active.leftnNoneActive }">
+               <div class="right rightSeedManagement " :class="{ leftNoneActive: active.leftnNoneActive }">
                     <div class="row pt-3 mb-5 pb-1 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Giống lúa</h3>

@@ -72,9 +72,19 @@ app.use((err, req, res, next) => {
     });
 });
 
-app.get("/", (req, res) => {
-    res.json({ message: "welcome to rice growing process management!!!" });
-});
+app.get('/', (req, res) => {
+   
+        const { spawn } = require('child_process');
+        const pyProg = spawn('python', ['./predictionModel/LinearRegression.py']);
+    
+        pyProg.stdout.on('data', function(data) {
+    
+            console.log(data.toString());
+            res.write(data);
+            res.end('end');
+        });
+   
+})
 
 
 // backup and restore
@@ -95,7 +105,7 @@ mysqldump({
     dumpToFile: `../backup/${fileName}`,
 });
 });
-// You can adjust the backup frequency as you like, this case will run once a day
+// Lap lich sao luu du lieu
 // cron.schedule('0 5 10 * * *', () => {
 //     const fs = require('fs')
 //     const spawn = require('child_process').spawn
@@ -120,6 +130,8 @@ mysqldump({
 //             console.log(err)
 //         })
 // })
+
+
 const PORT = config.app.port;
 app.listen(PORT, () => {
     console.log(`server is running on port ${PORT}.`);

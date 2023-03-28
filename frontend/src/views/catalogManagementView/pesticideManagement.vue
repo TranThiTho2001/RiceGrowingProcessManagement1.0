@@ -51,7 +51,7 @@
                          </div>
                     </div>
                     <div class=" row scrollTable">
-                         <div class="col-sm-12 justify-content-center">
+                         <div class="col-sm-12 justify-content-center" style="width: ;: 100%;">
                          <table class="table pesticideList">
                               <thead>
                                    <tr>

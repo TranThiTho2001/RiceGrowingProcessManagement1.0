@@ -23,8 +23,8 @@
                          <UpdateRiceCropForm v-if="isOpenConfirm" :seedList="seedList" :newRiceCrop="newRiceCrop" :arableLandList="arableLandList"
                               @updateRiceCrop-submit="updateRiceCrop" :message1="message1" :message2="message2" />
                     </div>
-                    <div>
-                         <table class="table">
+                    <div class="">
+                         <table class="ricecropTable" style="margin-left: 10px; margin-right: 10px;">
                               <tbody>
                                    <tr>
                                         <td>Mã {{ newRiceCrop.RiceCropInformation_id }}</td>
@@ -43,39 +43,39 @@
                     </div>
                     <div class="row bottomrow ml-2 mr-2 pt-1">
                          <div class="col-sm-12">
-                              <div class="row functionName mt-1 ml-2">
-                                   <div class=" btn btn-midle text-center btnFertilizerTimes btnName"
+                              <div class="functionName mt-1 ml-2">
+                                   <button class=" btn btn-midle text-center btnFertilizerTimes btnName"
                                         v-if="!isOpenTableFertilizerTimes" @click="setTable('btnFertilizerTimes')">Bón phân
-                                   </div>
-                                   <div class=" btn btn-midle text-center btnFertilizerTimes btnNameActive"
-                                        v-if="isOpenTableFertilizerTimes">Bón phân</div>
-                                   <div class=" btn btn-midle text-center btnSprayingTimes btnNameActive"
-                                        v-if="isOpenTableSprayingTimes">Phun thuốc</div>
-                                   <div class=" btn btn-midle text-center btnSprayingTimes btnName"
+                                   </button>
+                                   <button class=" btn btn-midle text-center btnFertilizerTimes btnNameActive"
+                                        v-if="isOpenTableFertilizerTimes">Bón phân</button>
+                                   <button class=" btn btn-midle text-center btnSprayingTimes btnNameActive"
+                                        v-if="isOpenTableSprayingTimes">Phun thuốc</button>
+                                   <button class=" btn btn-midle text-center btnSprayingTimes btnName"
                                         v-if="!isOpenTableSprayingTimes" @click="setTable('btnSprayingTimes')">Phun thuốc
-                                   </div>
-                                   <div class=" btn btn-midle text-center btnActivities btnNameActive"
-                                        v-if="isOpenTableOtherActivitiesTimes">Hoạt động khác</div>
-                                   <div class=" btn btn-midle text-center btnActivities btnName"
+                                   </button>
+                                   <button class=" btn btn-midle text-center btnActivities btnNameActive"
+                                        v-if="isOpenTableOtherActivitiesTimes">Hoạt động khác</button>
+                                   <button class=" btn btn-midle text-center btnActivities btnName"
                                         @click="setTable('btnActivities')" v-if="!isOpenTableOtherActivitiesTimes">Hoạt động
-                                        khác</div>
-                                   <div class=" btn btn-midle text-center btnEpidemic btnNameActive"
-                                        v-if="isOpenTableEpidemicTimes">Tình bệnh dịch</div>
-                                   <div class=" btn btn-midle text-center btnEpidemic btnName"
+                                        khác</button>
+                                   <button class=" btn btn-midle text-center btnEpidemic btnNameActive"
+                                        v-if="isOpenTableEpidemicTimes">Tình bệnh dịch</button>
+                                   <button class=" btn btn-midle text-center btnEpidemic btnName"
                                         v-if="!isOpenTableEpidemicTimes" @click="setTable('btnEpidemic')">Tình bệnh dịch
-                                   </div>
-                                   <div class="btn btn-midle text-center btnImage btnNameActive" v-if="isOpenImage">
+                                   </button>
+                                   <button class="btn btn-midle text-center btnImage btnNameActive" v-if="isOpenImage">
                                         Hình ảnh
-                                   </div>
-                                   <div class="btn btn-midle text-center btnImage btnName" v-if="!isOpenImage"
+                                   </button>
+                                   <button class="btn btn-midle text-center btnImage btnName" v-if="!isOpenImage"
                                         @click="setTable('btnImage')">
                                         Hình ảnh
-                                   </div>
-                                   <div class=" btn btn-midle text-center btnAttendee btnNameActive"
-                                        v-if="isOpenTableMonitor && currentUser.Role_id == '02'">Người theo dõi</div>
-                                   <div class=" btn btn-midle text-center btnAttendee btnName"
+                                   </button>
+                                   <button class=" btn btn-midle text-center btnAttendee btnNameActive"
+                                        v-if="isOpenTableMonitor && currentUser.Role_id == '02'">Người theo dõi</button>
+                                   <button class=" btn btn-midle text-center btnAttendee btnName"
                                         v-if="!isOpenTableMonitor && currentUser.Role_id == '02'"
-                                        @click="setTable('btnAttendee')">Người theo dõi</div>
+                                        @click="setTable('btnAttendee')">Người theo dõi</button>
 
                               </div>
                               <div class="row activitiesList ml-2 mr-2 pb-5" v-if="isOpenImage">
@@ -101,7 +101,7 @@
                                    </div>
                               </div>
                               <!-- ----------------------FertilizerTimes Tab-------------- -->
-                              <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableFertilizerTimes">
+                              <div class="row activitiesList ml-2 mr-2 mt-4" v-if="isOpenTableFertilizerTimes">
                                    <input type="text" class="form-control inputSearch5" placeholder="Tìm"
                                         v-model="nameToSearch" @click="retrieveFertilizerTimesList()"
                                         @keyup.enter="searchNameFertilizer(nameToSearch)"

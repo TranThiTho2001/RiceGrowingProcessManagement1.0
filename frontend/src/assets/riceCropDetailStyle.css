@@ -17,6 +17,7 @@
      font-style: normal;
      font-size: 17px;
      font-weight: 700;
+     display: inline-block;
 }
 
 .riceCropDetail .btnName {
@@ -27,6 +28,10 @@
      font-style: normal;
      font-weight: 700;
      font-size: 17px;
+     display: inline-block;
+     text-align: center;
+     padding: 14px;
+     text-decoration: none;
 }
 
 .riceCropDetail .btnName:hover {
@@ -38,6 +43,16 @@
      font-style: normal;
      font-size: 17px;
      font-weight: 700;
+     display: inline-block;
+     text-decoration: none;
+     width: max-content;
+     padding: 7px 14px 7px 14px;
+     height: max-content;
+}
+
+.riceCropDetail  .functionName{
+     overflow: auto;
+     white-space: nowrap;
 }
 
 
@@ -70,9 +85,6 @@
      width: 100%;
 }
 
-
-
-
 .riceCropDetail .btnAdd {
      background: #008B8E;
      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -84,10 +96,9 @@
      text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
      color: #FFFED8;
      position: absolute;
-     left: 90%;
-     top: 0.7%;
+     right: 20px;
+     top:60px;
 }
-
 
 .riceCropDetail  .inputSearch5 {
      font-size: 17px;
@@ -98,21 +109,50 @@
      background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
      border-radius: 12px;
-     width: 26%;
+     min-width: 50px;
+     max-width: 290px;
      position: absolute;
-     right: 12%;
-     top: 2%;
+     right: 150px;
+     top: 65px;
      border: none !important;
  }
  
+ @media only screen and (max-width: 500px) {
+     .riceCropDetail  .inputSearch5 {
+          font-size: 17px;
+          color: #84858A;
+          font-family: 'Roboto';
+          font-style: normal;
+          font-weight: 400;
+          background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
+          box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+          border-radius: 12px;
+          width: 50%;
+          position: absolute;
+          right: 150px;
+          top: 65px;
+          border: none !important;
+      }
+      .riceCropDetail .functionName::-webkit-scrollbar { 
+          width: 0 !important
+      }
+      .riceCropDetail .functionName::-webkit-scrollbar { width: 0 !important }
+      .functionName{
+          /* -ms-overflow-style: none; 
+          scrollbar-width: none;
+          overflow: -moz-scrollbars-none;
+          scrollbar-width: none; */
+         
+      }
+ }
  .riceCropDetail  .topRight .form-control:focus{
      border-color: #E4E5EB !important;
  }
  
  .riceCropDetail  .btnSearch5 {
      position: absolute;
-     left: 85.5%;
-     top: 3%;
+     right: 156px;
+     top: 70px;
      border-radius: 10px;
      font-size: 18px;
      border: none;
@@ -130,7 +170,7 @@
        rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
    }
  
-   .riceCropDetail  .openSearch5 {
+.riceCropDetail  .openSearch5 {
      display:inline-block;
      position:absolute;
      left: 62%;
@@ -249,6 +289,93 @@
      background-color: none !important;
 }
 
+
+.riceCropDetail .ricecropTable{
+          height: min-content;
+          width: 98.5% !important;
+          background: #FAFAFC !important;
+          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.riceCropDetail .ricecropTable tbody tr:hover {
+     color: #1C1C1F;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 400;
+     font-size: 16px;
+     background-color: #8e0f0f;
+}
+
+.riceCropDetail .ricecropTable thead tr th {
+     vertical-align: middle;
+}
+
+.riceCropDetail .ricecropTable tbody tr {
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 400;
+     font-size: 16px;
+     line-height: 15px;
+     border-bottom: 0.1px solid #f4f5f6 !important;
+}
+
+.riceCropDetail .ricecropTable tbody tr td {
+     font-family: 'Roboto' !important;
+     font-style: normal;
+     vertical-align: middle;
+     border-bottom: 0.5px solid #cbcccf !important;
+     padding-left: 5px !important;
+     vertical-align: middle !important;
+     font-size: 14px;
+     text-align: justify;
+     padding: 10px;
+}
+
+@media only screen and (max-width: 760px) {
+     .riceCropDetail .ricecropTable {
+          border: none !important;
+          width: 97% !important;
+          margin-left: 8px !important;
+     }
+
+     .riceCropDetail .ricecropTable,
+     .riceCropDetail .ricecropTable thead,
+     .riceCropDetail .ricecropTable tbody,
+     .riceCropDetail .ricecropTable th,
+     .riceCropDetail .ricecropTable td,
+     .riceCropDetail .ricecropTable tr {
+          display: block;
+     }
+
+     .riceCropDetail .ricecropTable thead tr {
+          position: absolute;
+          top: -9999px;
+          left: -9999px;
+     }
+
+     .riceCropDetail .ricecropTable tr {
+          border: 1px solid #ccc;
+          height: min-content !important;
+          margin-bottom: 20px;
+     }
+
+     .riceCropDetail .ricecropTable td {
+          border: none;
+          border-bottom: 1px solid #eee;
+          position: relative;
+          height: max-content !important;
+          width: 100% !important;
+          padding-bottom: 10px;
+          font-family: 'Roboto';
+          font-style: normal;
+          text-align: justify;
+     }
+
+     .riceCropDetail .ricecropTable td:before {
+          white-space: nowrap;
+     }
+
+}
 .riceCropDetail .navigationBar .btnMonitor {
      display: block;
      font-size: 16px;

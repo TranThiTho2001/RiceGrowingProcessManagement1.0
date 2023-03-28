@@ -9,8 +9,8 @@
                          <Catalog />
                </div>
 
-               <div class="rightEpidemicManagement right">
-                    <div class="row pt-3 mb-5 pb-1 topRight" style="margin-left: 20px; margin-right: 10px;">
+               <div class="right rightEpidemicManagement ">
+                    <div class="row pt-3 mb-5 pb-1 topRight" style="margin-left: 20px; margin-right: 15px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Dịch bệnh</h3>
                          </div>
