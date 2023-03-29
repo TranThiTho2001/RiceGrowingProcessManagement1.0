@@ -16,7 +16,7 @@
                          </div>
                          <div class="">
                               <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
-                                   @click="retrieveEpidemicList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch)"
+                                   @click="retrieveEpidemicList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch), away()"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
                               <button class="btnSearch1" @click="searchName(nameToSearch), away()"
                                    v-if="nameToSearch == '' && !isOpenSearch.open">
@@ -84,11 +84,11 @@
                                                   </button>
                                                   <div class="dropdown-menu">
                                                        <a class="dropdown-item action"
-                                                            @click="setEpidemicChoosen(epidemic), isOpenUpdateEpidemic = !isOpenUpdateEpidemic">
+                                                            @click="setEpidemicChosen(epidemic), isOpenUpdateEpidemic = !isOpenUpdateEpidemic">
                                                             <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                                        </a>
                                                        <a class="dropdown-item" href="#"
-                                                            @click="setEpidemicChoosen(epidemic), isOpenConfirm = !isOpenConfirm">
+                                                            @click="setEpidemicChosen(epidemic), isOpenConfirm = !isOpenConfirm">
                                                             <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                        </a>
                                                   </div>
@@ -107,7 +107,7 @@
                               <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
                          </p>
                          <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteEpidemic(epidemicChoosen.Epidemic_id)">Xóa</button>
+                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteEpidemic(epidemicChosen.Epidemic_id)">Xóa</button>
                          <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
                               @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
                     </div>
@@ -126,7 +126,7 @@
                     <CreateEpidemicForm v-if="openCreate" :newEpidemic="newEpidemic" @addEpidemic-submit="createEpidemic"
                          :message1="message1" :message2="message2" />
 
-                    <UpdateEpidemicForm v-if="isOpenUpdateEpidemic" :newEpidemic="epidemicChoosen"
+                    <UpdateEpidemicForm v-if="isOpenUpdateEpidemic" :newEpidemic="epidemicChosen"
                          :epidemicsClassificationList="epidemicsClassificationList" @updateEpidemic-submit="updateEpidemic"
                          :message1="message1" :message2="message2" />
                </div>
@@ -170,7 +170,7 @@ export default {
                message2: " ",
                isOpenMessage: false,
                isOpenConfirm: false,
-               epidemicChoosen: {},
+               epidemicChosen: {},
                isOpenUpdateEpidemic: false,
                nameToSearch: "",
                message: "",
@@ -354,10 +354,10 @@ export default {
                }
           },
 
-          async setEpidemicChoosen(epidemic) {
-               this.epidemicChoosen = epidemic;
-               this.epidemicChoosen.EpidemicsClassification_id = epidemic.EpidemicsClassification_id;
-               console.log(this.epidemicChoosen)
+          async setEpidemicChosen(epidemic) {
+               this.epidemicChosen = epidemic;
+               this.epidemicChosen.EpidemicsClassification_id = epidemic.EpidemicsClassification_id;
+               console.log(this.epidemicChosen)
           },
 
           get_rows(list) {

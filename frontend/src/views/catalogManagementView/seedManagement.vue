@@ -15,7 +15,7 @@
                          </div>
                          <div class="">
                               <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
-                                   @click="retrieveSeedList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch)"
+                                   @click="retrieveSeedList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch), away()"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
                               <button class="btnSearch1" @click="searchName(nameToSearch), away()"
                                    v-if="nameToSearch == '' && !isOpenSearch.open">
@@ -76,17 +76,17 @@
                                              </button>
                                              <div class="dropdown-menu option1">
                                                   <a class="dropdown-item action"
-                                                       @click="setSeedChoosen(seed), isOpenUpdateSeed = !isOpenUpdateSeed">
+                                                       @click="setSeedChosen(seed), isOpenUpdateSeed = !isOpenUpdateSeed">
                                                        <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                                   </a>
                                                   <a class="dropdown-item" href="#"
-                                                       @click="setSeedChoosen(seed), isOpenConfirm = !isOpenConfirm">
+                                                       @click="setSeedChosen(seed), isOpenConfirm = !isOpenConfirm">
                                                        <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                   </a>
                                              </div>
                                              <div class="option2">
-                                                 <button class="btn btnMore" @click="setSeedChoosen(seed), isOpenUpdateSeed = !isOpenUpdateSeed"> <span class="fas fa-edit actionIcon"></span> Chỉnh sửa</button>
-                                                 <button class="btn btnMore" @click="setSeedChoosen(seed), isOpenConfirm = !isOpenConfirm"> <span class="fas fa-trash-alt actionIcon"></span> Xóa</button>
+                                                 <button class="btn btnMore" @click="setSeedChosen(seed), isOpenUpdateSeed = !isOpenUpdateSeed"> <span class="fas fa-edit actionIcon"></span> Chỉnh sửa</button>
+                                                 <button class="btn btnMore" @click="setSeedChosen(seed), isOpenConfirm = !isOpenConfirm"> <span class="fas fa-trash-alt actionIcon"></span> Xóa</button>
                                              </div>
                                         </td>
                                    </tr>
@@ -102,7 +102,7 @@
                               <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
                          </p>
                          <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteSeed(seedChoosen.Seed_id)">Xóa</button>
+                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteSeed(seedChosen.Seed_id)">Xóa</button>
                          <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
                               @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
                     </div>
@@ -121,7 +121,7 @@
                     <createSeedForm v-if="openCreate" :newSeed="newSeed" @addSeed-submit="createSeed" :message1="message1"
                          :message2="message2" />
 
-                    <updateSeedForm v-if="isOpenUpdateSeed" :newSeed="seedChoosen" @updateSeed-submit="updateSeed"
+                    <updateSeedForm v-if="isOpenUpdateSeed" :newSeed="seedChosen" @updateSeed-submit="updateSeed"
                          :message1="message1" :message2="message2" />
                </div>
           </div>
@@ -171,7 +171,7 @@ export default {
                message2: " ",
                isOpenMessage: false,
                isOpenConfirm: false,
-               seedChoosen: {},
+               seedChosen: {},
                isOpenUpdateSeed: false,
                nameToSearch: "",
                message: "",
@@ -343,9 +343,9 @@ export default {
                }
           },
 
-          async setSeedChoosen(seed) {
-               this.seedChoosen = seed;
-               console.log(this.seedChoosen)
+          async setSeedChosen(seed) {
+               this.seedChosen = seed;
+               console.log(this.seedChosen)
           },
 
           async gotoCreateNewSeed() {

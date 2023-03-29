@@ -15,7 +15,7 @@
                          </div>
                          <div class="">
                               <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
-                                   @click="retrieveRiceCropList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch)"
+                                   @click="retrieveRiceCropList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch), away()"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
                               <button class="btnSearch1" @click="searchName(nameToSearch), away()"
                                    v-if="nameToSearch == '' && !isOpenSearch.open">
@@ -103,7 +103,7 @@
                               <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
                          </p>
                          <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteRiceCrop(riceCropChoosen.RiceCropInformation_id)">Xóa</button>
+                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteRiceCrop(riceCropChosen.RiceCropInformation_id)">Xóa</button>
                          <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
                               @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
                     </div>
@@ -122,16 +122,16 @@
                     <CreateRiceCropForm v-if="openCreate" :newRiceCrop="newRiceCrop" :seedList="seedList"
                          :arableLandList="arableLandList" @addRiceCrop-submit="createRiceCrop" :message1="message1"
                          :message2="message2" />
-                    <UpdateRiceCropForm v-if="isOpenUpdateRiceCrop" :seedList="seedList" :newRiceCrop="riceCropChoosen"
+                    <UpdateRiceCropForm v-if="isOpenUpdateRiceCrop" :seedList="seedList" :newRiceCrop="riceCropChosen"
                          :arableLandList="arableLandList" @updateRiceCrop-submit="updateRiceCrop" :message1="message1"
                          :message2="message2" />
                     <CreateFertilizerTimesForm v-if="isOpenCreateFertilizerTimes" :newFertilizerTimes="newFertilizerTimes"
                          :fertilizerList="fertilizerList" :developmentStageList="developmentStageList"
-                         :currentUser="currentUser" :riceCropChoosen="riceCropChoosen" :arableLandList="arableLandList"
+                         :currentUser="currentUser" :riceCropChosen="riceCropChosen" :arableLandList="arableLandList"
                          @addFertilizerTimes-submit="createFertilizerTimes" :message1="message1" :message2="message2" />
                     <CreateSprayingTimesForm v-if="isOpenCreateSprayingTimes" :newSprayingTimes="newSprayingTimes"
                          :pesticideList="pesticideList" :developmentStageList="developmentStageList"
-                         :currentUser="currentUser" :riceCropChoosen="riceCropChoosen" :arableLandList="arableLandList"
+                         :currentUser="currentUser" :riceCropChosen="riceCropChosen" :arableLandList="arableLandList"
                          @addSprayingTimes-submit="createSprayingTimes" :message1="message1" :message2="message2" />
                </div>
           </div>
@@ -217,7 +217,7 @@ export default {
                isOpenMessage: false,
                isOpenConfirm: false,
                isOpenCreateSprayingTimes: false,
-               riceCropChoosen: {},
+               riceCropChosen: {},
                isOpenUpdateRiceCrop: false,
                isOpenCreateFertilizerTimes: false,
                nameToSearch: "",
@@ -510,8 +510,8 @@ export default {
                }
           },
 
-          async setRiceCropChoosen(data) {
-               this.riceCropChoosen = data;
+          async setRiceCropChosen(data) {
+               this.riceCropChosen = data;
                this.seedList.forEach(element => {
                     if (data.Seed_id == element.Seed_id) {
                          data.Seed_id = element.Seed_name;
@@ -722,7 +722,7 @@ export default {
                          }
                     });
 
-                    data.RiceCropInformation_id = this.riceCropChoosen.RiceCropInformation_id;
+                    data.RiceCropInformation_id = this.riceCropChosen.RiceCropInformation_id;
                     data.Employee_id = this.currentUser.Employee_id;
 
 
@@ -780,7 +780,7 @@ export default {
                          }
                     });
 
-                    data.RiceCropInformation_id = this.riceCropChoosen.RiceCropInformation_id;
+                    data.RiceCropInformation_id = this.riceCropChosen.RiceCropInformation_id;
                     data.Employee_id = this.currentUser.Employee_id;
 
 
@@ -859,7 +859,6 @@ export default {
           },
 
           formatDate(data) {
-
                return (moment(String(data)).format("YYYY-MM-DD")).slice(0, 10);
           },
 

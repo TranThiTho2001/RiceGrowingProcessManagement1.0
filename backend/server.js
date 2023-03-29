@@ -17,6 +17,7 @@ const setupEmployeeRoutes = require("./app/routes/employee.routes");
 const setupPesticideRoutes = require("./app/routes/pesticide.routes");
 const setupFertilizerRoutes = require("./app/routes/fertilizer.routes");
 const setupArableLandRoutes = require("./app/routes/arableLand.routes");
+const setupPedictionRoutes = require("./app/routes/prediction.routes");
 const setupEpidemicTimesRoutes = require("./app/routes/epidemicTimes.routes");
 const setupSprayingTimesRoutes = require("./app/routes/sprayingTimes.routes");
 const setupFertilizerTimesRoutes = require("./app/routes/fertilizerTimes.routes");
@@ -49,6 +50,7 @@ setUpImagesRoutes(app);
 setupMonitorRoutes(app);
 setupTreatmentRoutes(app);
 setupEpidemicRoutes(app);
+setupPedictionRoutes(app);
 setupEmployeeRoutes(app);
 setupPesticideRoutes(app);
 setupFertilizerRoutes(app);
@@ -72,19 +74,18 @@ app.use((err, req, res, next) => {
     });
 });
 
-app.get('/', (req, res) => {
+// app.get('/', (req, res) => {
    
-        const { spawn } = require('child_process');
-        const pyProg = spawn('python', ['./predictionModel/LinearRegression.py']);
+//         const { spawn } = require('child_process');
+//         const pyProg = spawn('python', ['./predictionModel/LinearRegression.py']);
     
-        pyProg.stdout.on('data', function(data) {
+//         pyProg.stdout.on('data', function(data) {
     
-            console.log(data.toString());
-            res.write(data);
-            res.end('end');
-        });
-   
-})
+//             console.log(data.toString());
+//             res.write(data);
+//             res.end('end');
+//         });
+// })
 
 
 // backup and restore

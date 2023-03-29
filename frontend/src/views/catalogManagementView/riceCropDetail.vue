@@ -149,11 +149,11 @@
                                                             </button>
                                                             <div class="dropdown-menu">
                                                                  <a class="dropdown-item action"
-                                                                      @click="setFertilizerChoosen(fertilizer), isOpenUpdateFertilizerTimesForm = !isOpenUpdateFertilizerTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
+                                                                      @click="setFertilizerChosen(fertilizer), isOpenUpdateFertilizerTimesForm = !isOpenUpdateFertilizerTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
                                                                       <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                                                  </a>
                                                                  <a class="dropdown-item" href="#"
-                                                                      @click="setFertilizerChoosen(fertilizer), setDelete('FertilizerTimes'), isOpenConfirm = !isOpenConfirm">
+                                                                      @click="setFertilizerChosen(fertilizer), setDelete('FertilizerTimes'), isOpenConfirm = !isOpenConfirm">
                                                                       <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                                  </a>
 
@@ -288,11 +288,11 @@
                                                             </button>
                                                             <div class="dropdown-menu">
                                                                  <a class="dropdown-item action"
-                                                                      @click="setEpidemicChoosen(epidemic), isOpenUpdateEpidemicTimesForm = !isOpenUpdateEpidemicTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
+                                                                      @click="setEpidemicChosen(epidemic), isOpenUpdateEpidemicTimesForm = !isOpenUpdateEpidemicTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
                                                                       <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                                                  </a>
                                                                  <a class="dropdown-item" href="#"
-                                                                      @click="setEpidemicChoosen(epidemic), isOpenConfirm = !isOpenConfirm, setDelete('EpidemicTimes')">
+                                                                      @click="setEpidemicChosen(epidemic), isOpenConfirm = !isOpenConfirm, setDelete('EpidemicTimes')">
                                                                       <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                                  </a>
                                                             </div>
@@ -351,7 +351,7 @@
                                                             </button>
                                                             <div class="dropdown-menu">
                                                                  <a class="dropdown-item" href="#"
-                                                                      @click="setMonitorChoosen(monitor), isOpenConfirm = !isOpenConfirm, setDelete('Monitor')">
+                                                                      @click="setMonitorChosen(monitor), isOpenConfirm = !isOpenConfirm, setDelete('Monitor')">
                                                                       <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                                  </a>
                                                             </div>
@@ -414,11 +414,11 @@
                                                             </button>
                                                             <div class="dropdown-menu">
                                                                  <a class="dropdown-item action"
-                                                                      @click="setActivityChoosen(activity), isOpenUpdateActivitiesDetail = !isOpenUpdateActivitiesDetail, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
+                                                                      @click="setActivityChosen(activity), isOpenUpdateActivitiesDetail = !isOpenUpdateActivitiesDetail, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
                                                                       <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                                                  </a>
                                                                  <a class="dropdown-item" href="#"
-                                                                      @click="setActivityChoosen(activity), isOpenConfirm = !isOpenConfirm, setDelete('ActivitiseDetail')">
+                                                                      @click="setActivityChosen(activity), isOpenConfirm = !isOpenConfirm, setDelete('ActivitiseDetail')">
                                                                       <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                                  </a>
 
@@ -460,30 +460,30 @@
           </div>
           <CreateFertilizerTimesForm v-if="isOpenCreateFertilizerTimesForm" :newFertilizerTimes="newFertilizerTimes"
                :fertilizerList="fertilizerList" :developmentStageList="developmentStageList" :currentUser="currentUser"
-               :riceCropChoosen="newRiceCrop" :arableLandList="arableLandList"
+               :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
                @addFertilizerTimes-submit="createFertilizerTimes" :message1="message1" :message2="message2" />
-          <UpdateFertilizerTimesForm v-if="isOpenUpdateFertilizerTimesForm" :newFertilizerTimes="fertilizerTimesChoosen"
+          <UpdateFertilizerTimesForm v-if="isOpenUpdateFertilizerTimesForm" :newFertilizerTimes="fertilizerTimesChosen"
                :fertilizerList="fertilizerList" :developmentStageList="developmentStageList" :currentUser="currentUser"
-               :riceCropChoosen="newRiceCrop" :arableLandList="arableLandList"
+               :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
                @updateFertilizerTimes-submit="updateFertilizerTimes" :message1="message1" :message2="message2" />
 
           <CreateSprayingTimesForm v-if="isOpenCreateSprayingTimesForm" :newSprayingTimes="newSprayingTimes"
                :pesticideList="pesticideList" :developmentStageList="developmentStageList" :currentUser="currentUser"
-               :riceCropChoosen="newRiceCrop" :arableLandList="arableLandList"
+               :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
                @addSprayingTimes-submit="createNewSprayingTimes" :message1="message1" :message2="message2" />
 
-          <UpdateSprayingTimesForm v-if="isOpenUpdateSprayingTimesForm" :newSprayingTimes="sprayingTimesChoosen"
+          <UpdateSprayingTimesForm v-if="isOpenUpdateSprayingTimesForm" :newSprayingTimes="sprayingTimesChosen"
                :pesticideList="pesticideList" :developmentStageList="developmentStageList" :currentUser="currentUser"
-               :riceCropChoosen="newRiceCrop" :arableLandList="arableLandList"
+               :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
                @updateSprayingTimes-submit="updateSprayingTimes" :message1="message1" :message2="message2" />
           <CreateEpidemicTimesForm v-if="isOpenCreateEpidemicTimesForm" :newEpidemicTimes="newEpidemicTimes"
                :epidemicList="epidemicList" :developmentStageList="developmentStageList" :currentUser="currentUser"
-               :riceCropChoosen="newRiceCrop" :arableLandList="arableLandList" @addEpidemicTimes-submit="createEpidemicTimes"
+               :riceCropChosen="newRiceCrop" :arableLandList="arableLandList" @addEpidemicTimes-submit="createEpidemicTimes"
                :message1="message1" :message2="message2" />
 
-          <UpdateEpidemicTimesForm v-if="isOpenUpdateEpidemicTimesForm" :newEpidemicTimes="epidemicTimesChoosen"
+          <UpdateEpidemicTimesForm v-if="isOpenUpdateEpidemicTimesForm" :newEpidemicTimes="epidemicTimesChosen"
                :epidemicList="epidemicList" :developmentStageList="developmentStageList" :currentUser="currentUser"
-               :riceCropChoosen="newRiceCrop" :arableLandList="arableLandList"
+               :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
                @updateEpidemicTimes-submit="updateEpidemicTimes" :message1="message1" :message2="message2" />
           <CreateMonitorForm v-if="isOpenCreateMonitorForm" :newMonitor="newMonitor" :employeeList="employeeList"
                :newRiceCrop="newRiceCrop" @addMonitor-submit="createNewMonitor" :message1="message1" :message2="message2" />
@@ -492,10 +492,10 @@
                :newRiceCrop="newRiceCrop" @addImage-submit=createNewImage />
 
           <CreateActivitiiesDetailForm v-if="isOpenCreateActivitiesDetail" :newActivityDetail="newActivityDetail"
-               :currentUser="currentUser" :developmentStageList="developmentStageList" :riceCropChoosen="newRiceCrop"
+               :currentUser="currentUser" :developmentStageList="developmentStageList" :riceCropChosen="newRiceCrop"
                @addOtherActivityTimes-submit="createNewActivitiesDetail" :message1="message1" :message2="message2" />
-          <UpadteActivitiiesDetailForm v-if="isOpenUpdateActivitiesDetail" :newActivityDetail="activitiesDetailChoosen"
-               :currentUser="currentUser" :developmentStageList="developmentStageList" :riceCropChoosen="newRiceCrop"
+          <UpadteActivitiiesDetailForm v-if="isOpenUpdateActivitiesDetail" :newActivityDetail="activitiesDetailChosen"
+               :currentUser="currentUser" :developmentStageList="developmentStageList" :riceCropChosen="newRiceCrop"
                @updateActivitiesDetail-submit="updateNewActivitiesDetail" :message1="message1" :message2="message2" />
      </div>
      <div v-if="isOpenSearch.open" class="outside" @click.passive="away()"></div>
@@ -603,18 +603,18 @@ export default {
                newImage: {},
                isOpenCreateFertilizerTimesForm: false,
                isOpenUpdateFertilizerTimesForm: false,
-               fertilizerTimesChoosen: {},
+               fertilizerTimesChosen: {},
                isOpenCreateSprayingTimesForm: false,
                isOpenUpdateSprayingTimesForm: false,
-               sprayingTimesChoosen: {},
+               sprayingTimesChosen: {},
                isOpenCreateEpidemicTimesForm: false,
                isOpenUpdateEpidemicTimesForm: false,
-               epidemicTimesChoosen: {},
+               epidemicTimesChosen: {},
                isOpenCreateMonitorForm: false,
                newActivityDetail: {},
                isOpenCreateActivitiesDetail: false,
                isOpenUpdateActivitiesDetail: false,
-               activitiesDetailChoosen: {},
+               activitiesDetailChosen: {},
                currentPage: 1,
                elementsPerPage: 4,
                ascending: false,
@@ -624,7 +624,7 @@ export default {
                isOpenConfirm: false,
                isOpenMessage: false,
                message: "",
-               monitorChoosen: {},
+               monitorChosen: {},
                idImage: 0,
                settings: {
                     itemsToShow: 1,
@@ -1073,9 +1073,9 @@ export default {
                }
           },
 
-          async setFertilizerChoosen(data) {
-               this.fertilizerTimesChoosen = data;
-               this.fertilizerTimesChoosen.Fertilizer_id = data.Fertilizer_id;
+          async setFertilizerChosen(data) {
+               this.fertilizerTimesChosen = data;
+               this.fertilizerTimesChosen.Fertilizer_id = data.Fertilizer_id;
                this.developmentStageList.forEach(element => {
                     if (data.DevelopmentStage_id == element.DevelopmentStage_id) {
                          data.DevelopmentStage_name = element.DevelopmentStage_name;
@@ -1252,7 +1252,7 @@ export default {
 
           async deleteFertilizerTimes() {
                const [error, respone] = await this.handle(
-                    FertilizerTimesService.delete(this.newRiceCrop.RiceCropInformation_id, this.fertilizerTimesChoosen.Fertilizer_id, this.fertilizerTimesChoosen.FertilizerTimes_times)
+                    FertilizerTimesService.delete(this.newRiceCrop.RiceCropInformation_id, this.fertilizerTimesChosen.Fertilizer_id, this.fertilizerTimesChosen.FertilizerTimes_times)
                );
                if (error) {
                     console.log(error);
@@ -1269,7 +1269,7 @@ export default {
 
           // SprayingTimes
           async setSprayingTimes(data) {
-               this.sprayingTimesChoosen = data;
+               this.sprayingTimesChosen = data;
           },
 
           async createNewSprayingTimes(data) {
@@ -1419,7 +1419,7 @@ export default {
 
           async deleteSprayingTimes() {
                const [error, respone] = await this.handle(
-                    SprayingTimesService.delete(this.newRiceCrop.RiceCropInformation_id, this.sprayingTimesChoosen.Pesticide_id, this.sprayingTimesChoosen.SprayingTimes_times)
+                    SprayingTimesService.delete(this.newRiceCrop.RiceCropInformation_id, this.sprayingTimesChosen.Pesticide_id, this.sprayingTimesChosen.SprayingTimes_times)
                );
                if (error) {
                     console.log(error);
@@ -1434,8 +1434,8 @@ export default {
           },
 
           // EidemicTimes
-          async setEpidemicChoosen(data) {
-               this.epidemicTimesChoosen = data;
+          async setEpidemicChosen(data) {
+               this.epidemicTimesChosen = data;
           },
 
           async createEpidemicTimes(data) {
@@ -1567,7 +1567,7 @@ export default {
 
           async deleteEpidemicTimes() {
                const [error, respone] = await this.handle(
-                    EpidemicTimesService.delete(this.newRiceCrop.RiceCropInformation_id, this.epidemicTimesChoosen.Epidemic_id, this.epidemicTimesChoosen.EpidemicTimes_times)
+                    EpidemicTimesService.delete(this.newRiceCrop.RiceCropInformation_id, this.epidemicTimesChosen.Epidemic_id, this.epidemicTimesChosen.EpidemicTimes_times)
                );
                if (error) {
                     console.log(error);
@@ -1583,8 +1583,8 @@ export default {
           },
 
           // Monitor
-          async setMonitorChoosen(data) {
-               this.monitorChoosen = data;
+          async setMonitorChosen(data) {
+               this.monitorChosen = data;
           },
 
           async createNewMonitor(data) {
@@ -1598,7 +1598,7 @@ export default {
 
           async deleteMonitor() {
                const [error, response] = await this.handle(
-                    MonitorService.delete(this.newRiceCrop.RiceCropInformation_id, this.monitorChoosen.Employee_id)
+                    MonitorService.delete(this.newRiceCrop.RiceCropInformation_id, this.monitorChosen.Employee_id)
                );
                if (error) {
                     console.log(error);
@@ -1618,7 +1618,6 @@ export default {
           },
 
           formatDate(data) {
-               console.log(data)
                if (data == null || data == "Invalid da") return "";
                return (moment(String(data)).format("DD-MM-YYYY")).slice(0, 10);
           },
@@ -1766,8 +1765,8 @@ export default {
           },
 
           // ActivityDetail
-          async setActivityChoosen(data) {
-               this.activitiesDetailChoosen = data;
+          async setActivityChosen(data) {
+               this.activitiesDetailChosen = data;
           },
 
           async createNewActivitiesDetail(data) {
@@ -1878,7 +1877,7 @@ export default {
 
           async deleteActivitiesDetail() {
                const [error, respone] = await this.handle(
-                    ActivityDetailsService.delete(this.newRiceCrop.RiceCropInformation_id, this.activitiesDetailChoosen.OtherActivities_id, this.activitiesDetailChoosen.ActivityDetails_times)
+                    ActivityDetailsService.delete(this.newRiceCrop.RiceCropInformation_id, this.activitiesDetailChosen.OtherActivities_id, this.activitiesDetailChosen.ActivityDetails_times)
                );
                if (error) {
                     console.log(error);

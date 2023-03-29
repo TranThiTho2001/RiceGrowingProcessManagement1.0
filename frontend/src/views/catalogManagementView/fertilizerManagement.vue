@@ -16,7 +16,7 @@
                          </div>
                          <div class="">
                               <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
-                                   @click="retrieveFertilizerList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch)"
+                                   @click="retrieveFertilizerList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch), away()"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
                               <button class="btnSearch1" @click="searchName(nameToSearch), away()"
                                    v-if="nameToSearch == '' && !isOpenSearch.open">
@@ -81,11 +81,11 @@
                                                   </button>
                                                   <div class="dropdown-menu">
                                                        <a class="dropdown-item action"
-                                                            @click="setFertilizerChoosen(fertilizer), isOpenUpdateFertilizer = !isOpenUpdateFertilizer">
+                                                            @click="setFertilizerChosen(fertilizer), isOpenUpdateFertilizer = !isOpenUpdateFertilizer">
                                                             <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                                        </a>
                                                        <a class="dropdown-item" href="#"
-                                                            @click="setFertilizerChoosen(fertilizer), isOpenConfirm = !isOpenConfirm">
+                                                            @click="setFertilizerChosen(fertilizer), isOpenConfirm = !isOpenConfirm">
                                                             <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                        </a>
                                                   </div>
@@ -103,7 +103,7 @@
                               <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
                          </p>
                          <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteFertilizer(fertilizerChoosen.Fertilizer_id)">Xóa</button>
+                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteFertilizer(fertilizerChosen.Fertilizer_id)">Xóa</button>
                          <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
                               @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
                     </div>
@@ -122,7 +122,7 @@
                     <CreateFertilizerForm v-if="openCreate" :newFertilizer="newFertilizer"
                          @addFertilizer-submit="createFertilizer" :message1="message1" :message2="message2" />
 
-                    <UpdateFertilizerForm v-if="isOpenUpdateFertilizer" :newFertilizer="fertilizerChoosen"
+                    <UpdateFertilizerForm v-if="isOpenUpdateFertilizer" :newFertilizer="fertilizerChosen"
                          @updateFertilizer-submit="updateFertilizer" :message1="message1" :message2="message2" />
                </div>
           </div>
@@ -169,7 +169,7 @@ export default {
                message2: " ",
                isOpenMessage: false,
                isOpenConfirm: false,
-               fertilizerChoosen: {},
+               fertilizerChosen: {},
                isOpenUpdateFertilizer: false,
                nameToSearch: "",
                message: "",
@@ -338,8 +338,8 @@ export default {
                }
           },
 
-          async setFertilizerChoosen(fertilizer) {
-               this.fertilizerChoosen = fertilizer;
+          async setFertilizerChosen(fertilizer) {
+               this.fertilizerChosen = fertilizer;
           },
 
           

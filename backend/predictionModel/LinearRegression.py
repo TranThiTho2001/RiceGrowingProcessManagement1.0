@@ -16,7 +16,6 @@ dataset.head()
 
 X= dataset.iloc[:, :-1].values  
 y= dataset.iloc[:, 5].values 
-print(y)
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder  
 from sklearn.compose import ColumnTransformer
 labelencoder_x= LabelEncoder()  
@@ -33,36 +32,33 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_
 #   y_train, y_test = y[train_index], y[test_index]
 
 
-X, y = make_regression(noise=4, random_state=0)
-reg = OrthogonalMatchingPursuit().fit(X_train, y_train)
-reg.score(X_train, y_train)
-predictions = reg.predict(X_test)
-# lm = LinearRegression()
-# lm.fit(X_train,y_train)
-# predictions = lm.predict(X_test)
-print(metrics.explained_variance_score(y_test, predictions))
-print(metrics.mean_squared_error(y_test, predictions))
-print('MAE:', metrics.mean_absolute_error(y_test, predictions))
-print('MSE:', metrics.mean_squared_error(y_test, predictions))
-print('RMSE:', np.sqrt(metrics.mean_squared_error(y_test, predictions)))
-data = pd.DataFrame({"ThucTe(kg)":y_test,  "DuDoan(kg)": predictions, "ThucTe - DuDoan" :(y_test- predictions)})
-print(data)
+# X, y = make_regression(noise=4, random_state=0)
+# reg = OrthogonalMatchingPursuit().fit(X_train, y_train)
+# reg.score(X_train, y_train)
+# predictions = reg.predict(X_test)
+# print(metrics.explained_variance_score(y_test, predictions))
+# print(metrics.mean_squared_error(y_test, predictions))
+# print('MAE:', metrics.mean_absolute_error(y_test, predictions))
+# print('MSE:', metrics.mean_squared_error(y_test, predictions))
+# print('RMSE:', np.sqrt(metrics.mean_squared_error(y_test, predictions)))
+# data = pd.DataFrame({"ThucTe(kg)":y_test,  "DuDoan(kg)": predictions, "ThucTe - DuDoan" :(y_test- predictions)})
+# print(data)
 
 
 lm = LinearRegression()
 lm.fit(X_train,y_train)
 predictions = lm.predict(X_test)
-print(metrics.explained_variance_score(y_test, predictions))
-print(metrics.mean_squared_error(y_test, predictions))
-print('MAE:', metrics.mean_absolute_error(y_test, predictions))
-print('MSE:', metrics.mean_squared_error(y_test, predictions))
-print('RMSE:', np.sqrt(metrics.mean_squared_error(y_test, predictions)))
-data = pd.DataFrame({"ThucTe(kg)":y_test,  "DuDoan(kg)": predictions, "ThucTe - DuDoan" :(y_test- predictions)})
-print(data)
+# print(metrics.explained_variance_score(y_test, predictions))
+# print(metrics.mean_squared_error(y_test, predictions))
+# print('MAE:', metrics.mean_absolute_error(y_test, predictions))
+# print('MSE:', metrics.mean_squared_error(y_test, predictions))
+# print('RMSE:', np.sqrt(metrics.mean_squared_error(y_test, predictions)))
+# data = pd.DataFrame({"ThucTe(kg)":y_test,  "DuDoan(kg)": predictions, "ThucTe - DuDoan" :(y_test- predictions)})
 
 # import pickle
 # # save the model to disk
 # filename = 'backend/predictionModel/ModelTrained/predictionByLinearRegression.sav'
 # # pickle.dump(lm, open(filename, 'wb')) 
 # loaded_model = pickle.load(open(filename, 'rb'))
-print(lm.predict([[1,0,0, 21.3, 26.45, 75.58,2]]))
+yield_pr = lm.predict([[1,0,0, 21.3, 26.45, 75.58,2]])
+print(yield_pr[0])

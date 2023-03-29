@@ -40,7 +40,7 @@ exports.findbyIdRiceCropInformation = async (req, res) => {
      ActivityDetails.findByIdRiceCropInformation(id,OtherActivities_id, (err, data) => {
           if (err) {
                if (err.kind === "not_found") {
-                    res.send("Không tìm thấy chi tiết hoạt động1.")
+                    res.send("Không tìm thấy chi tiết hoạt động.")
                } else {
                     res.send("Lỗi trong quá trình tìm kiếm. Vui lòng thử lại sau!!!!")
                }
@@ -54,7 +54,7 @@ exports.findbyName = async (req, res) => {
      ActivityDetails.findByName(name,id, (err, data) => {
           if (err) {
                if (err.kind === "not_found") {
-                    res.send("Không tìm thấy chi tiết hoạt động2.")
+                    res.send("Không tìm thấy chi tiết hoạt động.")
                } else {
                     res.send("Lỗi trong quá trình tìm kiếm. Vui lòng thử lại sau!!!!")
                }
@@ -67,7 +67,7 @@ exports.findbyId = async (req, res) => {
      ActivityDetails.findById(id, (err, data) => {
           if (err) {
                if (err.kind === "not_found") {
-                    res.send("Không tìm thấy chi tiết hoạt động3.")
+                    res.send("Không tìm thấy chi tiết hoạt động.")
                } else {
                     res.send("Lỗi trong quá trình tìm kiếm. Vui lòng thử lại sau!!!!")
                }

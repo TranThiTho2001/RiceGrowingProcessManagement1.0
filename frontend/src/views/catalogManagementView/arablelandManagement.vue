@@ -16,7 +16,7 @@
                          </div>
                          <div class="">
                               <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
-                                   @click="retrieveArableLandList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch)"
+                                   @click="retrieveArableLandList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch), away()"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
                               <button class="btnSearch1" @click="searchName(nameToSearch), away()"
                                    v-if="nameToSearch == '' && !isOpenSearch.open">
@@ -85,11 +85,11 @@
                                                   </button>
                                                   <div class="dropdown-menu">
                                                        <a class="dropdown-item action"
-                                                            @click="setArableLandChoosen(arableland), isOpenUpdateArableLand = !isOpenUpdateArableLand">
+                                                            @click="setArableLandChosen(arableland), isOpenUpdateArableLand = !isOpenUpdateArableLand">
                                                             <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                                        </a>
                                                        <a class="dropdown-item" href="#"
-                                                            @click="setArableLandChoosen(arableland), isOpenConfirm = !isOpenConfirm">
+                                                            @click="setArableLandChosen(arableland), isOpenConfirm = !isOpenConfirm">
                                                             <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                        </a>
                                                   </div>
@@ -108,7 +108,7 @@
                               <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
                          </p>
                          <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteArableLand(arablelandChoosen.ArableLand_id)">Xóa</button>
+                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteArableLand(arablelandChosen.ArableLand_id)">Xóa</button>
                          <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
                               @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
                     </div>
@@ -127,7 +127,7 @@
                     <CreateArableLandForm v-if="openCreate" :newArableLand="newArableLand"
                          @addArableLand-submit="createArableLand" :message1="message1" :message2="message2" />
 
-                    <UpdateArableLandForm v-if="isOpenUpdateArableLand" :newArableLand="arablelandChoosen"
+                    <UpdateArableLandForm v-if="isOpenUpdateArableLand" :newArableLand="arablelandChosen"
                          @updateArableLand-submit="updateArableLand" :message1="message1" :message2="message2" />
                </div>
           </div>
@@ -174,7 +174,7 @@ export default {
                message2: " ",
                isOpenMessage: false,
                isOpenConfirm: false,
-               arablelandChoosen: {},
+               arablelandChosen: {},
                isOpenUpdateArableLand: false,
                nameToSearch: "",
                message: "",
@@ -382,9 +382,9 @@ export default {
                }
           },
 
-          async setArableLandChoosen(arableland) {
-               this.arablelandChoosen = arableland;
-               console.log(this.arablelandChoosen)
+          async setArableLandChosen(arableland) {
+               this.arablelandChosen = arableland;
+               console.log(this.arablelandChosen)
           },
 
      },

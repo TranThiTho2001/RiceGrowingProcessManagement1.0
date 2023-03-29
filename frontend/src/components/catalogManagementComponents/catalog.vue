@@ -37,6 +37,12 @@
                               <i class="fas fa-chart-pie" style="font-size: 19px;">&nbsp;</i> Thống Kê
                          </button>
                     </div>
+                    <div class="row mt-1 pt-2 ml-2" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
+                         <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnPrediction"
+                              @click="gotoPrediction()">
+                              <i class="fas fa-lightbulb" style="font-size: 19px;">&nbsp;</i> Dự Đoán Năng Suất
+                         </button>
+                    </div>
                     <div class="row mt-1 ml-2" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
                          <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnCatalog"
                               @click="isOpenCatalog = !isOpenCatalog"><i class="fas fa-caret-down"
@@ -105,27 +111,38 @@ export default {
           goToQLMonitor() {
                this.$router.push("/Monitor");
           },
+
           goToOtherActivities() {
                this.$router.push("/Activity");
           },
+
           goToSeed() {
                this.$router.push("/Seed");
           },
+
           goToFertilizer() {
                this.$router.push("/Fertilizer");
           },
+
           goToEpidemic() {
                this.$router.push("/Epidemic");
           },
+
           goToArableLand() {
                this.$router.push("/ArableLand");
           },
           goToPesticide() {
                this.$router.push("/Pesticide");
           },
+
           gotoStatistical() {
                this.$router.push("/Statistical");
           },
+
+          gotoPrediction(){
+               this.$router.push("/Predition");
+          },
+
           async PhanQuyenNhanVien() {
                const [err, respone] = await this.handle(
                     EmployeeService.get(this.currentUser.Employee_id)
@@ -134,7 +151,6 @@ export default {
                     console.log(err)
                }
                else {
-                    // this.employee = respone.data;
                     this.currentuser = respone.data;
                     if (this.currentuser.Role_id == "01") {
                          this.currentuser.Role_name = "Quản trị viên";

@@ -16,7 +16,7 @@
                          <div class="">
                               <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
                                    @click="retrieveOtherActivities, isOpenInput1 = true"
-                                   @keyup.enter="searchName(nameToSearch)"
+                                   @keyup.enter="searchName(nameToSearch), away()"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
                               <button class="btnSearch1" @click="searchName(nameToSearch), away()"
                                    v-if="nameToSearch == '' && !isOpenSearch.open">
@@ -102,7 +102,7 @@
                               <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
                          </p>
                          <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteOtherActivity(activityChoosen)">Xóa</button>
+                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteOtherActivity(activityChosen)">Xóa</button>
                          <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
                               @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
                     </div>
@@ -121,7 +121,7 @@
                     <CreateOtherActivityForm v-if="isOpenCreateOtherActivities" :newOtherActivities="newOtherActivities"
                          @addOtherActivities-submit="createOtherActivity" :message1="message1" :message2="message2" />
 
-                    <UpdateOtherActivityForm v-if="isOpenUpdateActivities" :newOtherActivities="activityChoosen"
+                    <UpdateOtherActivityForm v-if="isOpenUpdateActivities" :newOtherActivities="activityChosen"
                          @updateOtherActivities-submit="updateOtherActivity" :message1="message1" :message2="message2" />
                </div>
           </div>
@@ -157,7 +157,7 @@ export default {
                message2: " ",
                isOpenMessage: false,
                isOpenConfirm: false,
-               activityChoosen: {},
+               activityChosen: {},
                isOpenUpdateActivities: false,
                nameToSearch: "",
                message: "",
@@ -300,7 +300,7 @@ export default {
                }
                else {
                     const [error, response] = await this.handle(
-                         OtherActivitiesService.update(this.activityChoosen.OtherActivities_id, data)
+                         OtherActivitiesService.update(this.activityChosen.OtherActivities_id, data)
                     );
                     if (response.data == error) {
                          this.message1 = "Cập nhật không thành công.";
@@ -345,7 +345,7 @@ export default {
           },
 
           async setActivityChoosen(activity) {
-               this.activityChoosen = activity;
+               this.activityChosen = activity;
           },
      },
 

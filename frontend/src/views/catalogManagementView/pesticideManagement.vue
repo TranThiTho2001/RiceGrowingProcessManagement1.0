@@ -1,4 +1,4 @@
-<template>
+<template>isOpenMenuIcon
      <div class="container-fluid pesticideManagement pr-4" style="background-color: #EAEAEA; height: 100%;">
           <div class="row pesticideManagementFrame" style="min-height: 100%;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
@@ -16,7 +16,7 @@
                          </div>
                               <div class="">
                                    <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
-                                   @click="retrievePesticideList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch)"
+                                   @click="retrievePesticideList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch), away()"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
                               <button class="btnSearch1" @click="searchName(nameToSearch), away()"
                                    v-if="nameToSearch == '' && !isOpenSearch.open">
@@ -79,11 +79,11 @@
                                              </button>
                                              <div class="dropdown-menu">
                                                   <a class="dropdown-item action"
-                                                  @click="setPesticideChoosen(pesticide), isOpenUpdatePesticide = !isOpenUpdatePesticide">
+                                                  @click="setPesticideChosen(pesticide), isOpenUpdatePesticide = !isOpenUpdatePesticide">
                                                        <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                                   </a>
                                                   <a class="dropdown-item" href="#"
-                                                  @click="setPesticideChoosen(pesticide), isOpenConfirm = !isOpenConfirm">
+                                                  @click="setPesticideChosen(pesticide), isOpenConfirm = !isOpenConfirm">
                                                        <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                   </a>
                                              </div>
@@ -101,7 +101,7 @@
                               <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
                          </p>
                          <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deletePesticide(pesticideChoosen.Pesticide_id)">Xóa</button>
+                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deletePesticide(pesticideChosen.Pesticide_id)">Xóa</button>
                          <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
                               @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
                     </div>
@@ -120,7 +120,7 @@
                     <CreatePesticideForm v-if="openCreate" :newPesticide="newPesticide" :epidemicList="epidemicList"
                          @addPesticide-submit="createPesticide" :message1="message1" :message2="message2" />
 
-                    <UpdatePesticideForm v-if="isOpenUpdatePesticide" :newPesticide="pesticideChoosen" :epidemicList="epidemicList" :treatmentList="treatmentList"
+                    <UpdatePesticideForm v-if="isOpenUpdatePesticide" :newPesticide="pesticideChosen" :epidemicList="epidemicList" :treatmentList="treatmentList"
                          @updatePesticide-submit="updatePesticide" :message1="message1" :message2="message2" />
                </div>
           </div>
@@ -170,7 +170,7 @@ export default {
                message2: " ",
                isOpenMessage: false,
                isOpenConfirm: false,
-               pesticideChoosen: {},
+               pesticideChosen: {},
                isOpenUpdatePesticide: false,
                nameToSearch: "",
                message: "",
@@ -431,8 +431,8 @@ export default {
                }
           },
 
-          async setPesticideChoosen(pesticide) {
-               this.pesticideChoosen = pesticide;
+          async setPesticideChosen(pesticide) {
+               this.pesticideChosen = pesticide;
                this.findTreatmentByPesticideId(pesticide.Pesticide_id);
           },
 

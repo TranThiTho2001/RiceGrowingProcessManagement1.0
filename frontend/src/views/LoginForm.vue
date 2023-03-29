@@ -70,7 +70,7 @@
 <script>
 
 import EmployeeService from '../services/employee.service';
-
+import predictionService from '@/services/prediction.service';
 import * as yup from "yup";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { mapGetters, mapMutations } from "vuex";
@@ -114,7 +114,6 @@ export default {
     ]),
 
     async retrieveEmployee() {
-      console.log(this.employee)
       const [err, respone] = await this.handle(
         EmployeeService.getAll()
       );
@@ -122,14 +121,23 @@ export default {
         console.log(err)
       }
       else {
-        // this.employee = respone.data;
         console.log(respone.data);
         console.log(this.currentUser.Employee_id);
-
-
       }
     },
 
+    async prediction(){
+
+      const [err, respone] = await this.handle(
+        predictionService.create("RCI0000001")
+      );
+      if (err) {
+        console.log(err)
+      }
+      else {
+        console.log(respone.data);
+      }
+    },
     async signin() {
       const [error, data] = await this.handle(
         this.$store.dispatch("login", this.employee)

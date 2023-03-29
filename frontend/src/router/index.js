@@ -41,11 +41,10 @@ const routes = [
     },
 
     {
-        path: "/HomePage",
-        alias: "/HomePage",
-        name: "HomePage",
-        component: () => import("../views/catalogManagementView/HomePage.vue"),
-        
+        path: "/Predition",
+        alias: "/Predition",
+        name: "Predition",
+        component: () => import("../views/catalogManagementView/riceYieldPrediction.vue"),
     },
 
     {

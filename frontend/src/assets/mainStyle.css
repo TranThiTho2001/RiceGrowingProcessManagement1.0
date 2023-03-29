@@ -140,14 +140,14 @@
 .table {
      height: min-content;
      width: 100% !important;
+     height: fit-content !important;
      background: #FAFAFC !important;
-     
      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .scrollTable {
      overflow: auto;
-     height: 540px;
+     max-height: 540px;
      max-width: 100%;
      margin-left: 4px !important;
      margin-right: 0.05px !important;
@@ -160,9 +160,10 @@
      z-index: 0;
      background: #FAFAFC;
      border-bottom: 0.5px solid #b5b5b7;
-     padding-left: 10px !important;
+     padding-left: 2px !important;
      background-color: #008B8E;
      vertical-align: middle;
+     font-size: 17px;
 }
 
 .table tbody tr:hover {
@@ -176,6 +177,7 @@
 
 .table thead tr th {
      vertical-align: middle;
+
 }
 
 .table tbody tr {
@@ -184,6 +186,7 @@
      font-weight: 400;
      font-size: 16px;
      line-height: 15px;
+     height: fit-content !important;
      border-bottom: 0.1px solid #f4f5f6 !important;
 }
 
