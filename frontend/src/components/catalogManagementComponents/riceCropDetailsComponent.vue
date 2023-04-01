@@ -1,16 +1,16 @@
 <template>
      <div class="container-fluid riceCropDetailComponent">
           <div class="row">
-               <h2>Thông tin mùa vụ</h2>
+               <h4>Thông tin mùa vụ</h4>
                <table class="table">
                     <thead>
                          <tr>
-                              <th class="centerclass">Mã mùa vụ</th>
-                              <th>Tên mùa vụ</th>
-                              <th>Vụ mùa</th>
-                              <th>Giống lúa</th>
-                              <th>Mẫu ruộng</th>
-                              <th class="centerclass">Ngày gieo xạ</th>
+                              <th class="centerclass th_pre">Mã mùa vụ</th>
+                              <th class="th_pre">Tên mùa vụ</th>
+                              <th class="th_pre">Vụ mùa</th>
+                              <th class="th_pre">Giống lúa</th>
+                              <th class="th_pre">Mẫu ruộng</th>
+                              <th class="centerclass th_pre">Ngày gieo xạ</th>
                          </tr>
                     </thead>
                     <tbody>
@@ -29,19 +29,22 @@
           </div>
 
           <div class="row">
-               <h2>Hoạt động bón phân</h2>
+               <h4>Hoạt động bón phân</h4>
                <table class="table">
                     <thead>
                          <tr>
-                              <th class="text-center ">Lần</th>
-                              <th>Tên phân bón</th>
-                              <th class="text-center ">Số lượng (kg/ha)</th>
-                              <th class="text-center ">Ngày bất đầu</th>
-                              <th class="text-center ">Ngày kết thúc</th>
-                              <th class="">Nhân viên</th>
+                              <th class="text-center th_pre">Lần</th>
+                              <th class="th_pre">Tên phân bón</th>
+                              <th class="text-center th_pre">Số lượng (kg/ha)</th>
+                              <th class="text-center th_pre">Ngày bất đầu</th>
+                              <th class="text-center th_pre">Ngày kết thúc</th>
+                              <th class="th_pre">Nhân viên</th>
                          </tr>
                     </thead>
                     <tbody>
+                         <tr v-if="fertilizerTimesList.length < 1">
+                              <td colspan="6" class="centerclass">Chưa có lần bón phân nào được thực hiện</td>
+                         </tr>
                          <tr v-for="(fertilizer, i) in (fertilizerTimesList)" :key="i">
                               <td class="text-center ">{{ fertilizer.FertilizerTimes_times }}</td>
                               <td class="">{{ fertilizer.Fertilizer_name }}</td>
@@ -58,19 +61,21 @@
           </div>
 
           <div class="row">
-               <h2>Các lần bị bệnh dịch</h2>
+               <h4>Các lần bị bệnh dịch</h4>
                <table class="table">
                     <thead>
                          <tr>
-                              <th class="text-center ">Lần</th>
-                              <th>Tên bệnh dịch</th>
-                              <th class="text-center ">Ngày bất đầu</th>
-                              <th class="text-center ">Ngày kết thúc</th>
-                              <th class="">Nhân viên</th>
+                              <th class="text-center th_pre">Lần</th>
+                              <th class="th_pre">Tên bệnh dịch</th>
+                              <th class="text-center th_pre">Ngày bất đầu</th>
+                              <th class="text-center th_pre">Ngày kết thúc</th>
+                              <th class="th_pre">Nhân viên</th>
                          </tr>
                     </thead>
                     <tbody>
-
+                         <tr v-if="epidemicTimesList.length < 1">
+                              <td colspan="5" class="centerclass">Mùa vụ không trải qua lần bị bệnh dịch nào.</td>
+                         </tr>
                          <tr v-for="(epidemic, i ) in (epidemicTimesList)" :key="i">
                               <td class="text-center ">{{ epidemic.EpidemicTimes_times }}</td>
                               <td class="">{{ epidemic.Epidemic_name }}</td>
@@ -87,19 +92,22 @@
           </div>
 
           <div class="row">
-               <h2>Hoạt động phun thuốc</h2>
+               <h4>Hoạt động phun thuốc</h4>
                <table class="table">
                     <thead>
                          <tr>
-                              <th class="text-center ">Mã</th>
-                              <th>Tên thuốc</th>
-                              <th class="text-center ">Liều lượng (lít/ha)</th>
-                              <th class="text-center ">Ngày bất đầu</th>
-                              <th class="text-center ">Ngày kết thúc</th>
-                              <th class="">Nhân viên</th>
+                              <th class="text-center th_pre">Mã</th>
+                              <th class="th_pre">Tên thuốc</th>
+                              <th class="text-center th_pre">Liều lượng (lít/ha)</th>
+                              <th class="text-center th_pre">Ngày bất đầu</th>
+                              <th class="text-center th_pre">Ngày kết thúc</th>
+                              <th class="th_pre">Nhân viên</th>
                          </tr>
                     </thead>
                     <tbody>
+                         <tr v-if="sprayingTimesList.length < 1">
+                              <td colspan="6" class="centerclass">Chưa có làn phun thuốc nào được thực hiện trên ruộng lúa</td>
+                         </tr>
                          <tr v-for="(sprayingTimes, i ) in (sprayingTimesList)" :key="i">
                               <td class="text-center ">{{ sprayingTimes.SprayingTimes_times }}</td>
                               <td class="">{{ sprayingTimes.Pesticide_name }}</td>
@@ -118,20 +126,23 @@
           </div>
 
           <div class="row">
-               <h2>Các hoạt động khác</h2>
+               <h4>Các hoạt động khác</h4>
                <table class="table">
                     <thead>
                          <tr>
-                              <th class="text-center ">STT</th>
-                              <th class="text-center ">Mã</th>
-                              <th>Tên hoạt động</th>
-                              <th>Lần</th>
-                              <th class="">Ngày bắt đầu</th>
-                              <th class="">Ngày kết thúc</th>
-                              <th class="">Nhân viên</th>
+                              <th class="centerclass th_pre">STT</th>
+                              <th class="centerclass th_pre">Mã</th>
+                              <th class="th_pre">Tên hoạt động</th>
+                              <th class="th_pre">Lần</th>
+                              <th class="th_pre">Ngày bắt đầu</th>
+                              <th class="th_pre">Ngày kết thúc</th>
+                              <th class="th_pre">Nhân viên</th>
                          </tr>
                     </thead>
                     <tbody>
+                         <tr v-if="activitiesDetailList.length < 1">
+                              <td colspan="7" class="centerclass">Chưa có hoạt động nào được thực hiện cho mùa vụ </td>
+                         </tr>
                          <tr v-for="(activity, i ) in (activitiesDetailList)" :key="i">
                               <td class="text-center">{{ i }}</td>
                               <td class="text-center">{{ activity.OtherActivities_id }}</td>
@@ -260,4 +271,5 @@ export default {
 
 <style>
 @import url(../../assets/mainStyle.css);
+@import url(../../assets/predictionStyle.css);
 </style>

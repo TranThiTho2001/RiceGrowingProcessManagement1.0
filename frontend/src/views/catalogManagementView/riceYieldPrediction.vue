@@ -49,14 +49,17 @@
 
                     <div class="row ml-4 mr-1 mt-3 pb-4 pt-2">
                          <div class="col-sm-12 text-right">
-                              <button class="btn btnCreate"
-                                   @click="isOpenPrediction = !isOpenPrediction, retrieveRiceCropList()"> Dự đoán</button>
+                              <button class="btn btnCreate" v-if="!isOpenRiceCropDetail && !isOpenRiceCropList"
+                                   @click="isOpenRiceCropList = !isOpenRiceCropList, retrieveRiceCropList()"> Dự
+                                   đoán</button>
+                              <button class="btn btnCreate" v-if="isOpenRiceCropDetail" @click="predict()"> Dự đoán</button>
                          </div>
                     </div>
 
                     <div class=" row scrollTable">
                          <div class="col-sm-12 justify-content-center">
-                              <table class="table predictiveList" v-if="loaded && !isOpenPrediction && !isOpenRiceCropDetail">
+                              <table class="table predictiveList"
+                                   v-if="loaded && !isOpenRiceCropList && !isOpenRiceCropDetail">
                                    <thead>
                                         <tr>
                                              <th class="centerclass" style="">STT</th>
@@ -98,7 +101,7 @@
                                    </tbody>
                               </table>
 
-                              <table class="table riceCropList" v-if="loaded && isOpenPrediction && !isOpenRiceCropDetail">
+                              <table class="table riceCropList" v-if="loaded && isOpenRiceCropList && !isOpenRiceCropDetail">
                                    <thead>
                                         <tr>
                                              <th class="centerclass" style="">STT</th>
@@ -112,14 +115,17 @@
                                         </tr>
                                    </thead>
                                    <tbody>
-                                        <tr v-for="(ricecrop, i ) in riceCropList" :key="i" @click="setRiceCropChosen(ricecrop), isOpenRiceCropDetail = true">
+                                        <tr v-for="(ricecrop, i ) in riceCropList" :key="i"
+                                             @click="setRiceCropChosen(ricecrop), isOpenRiceCropDetail = true">
                                              <td class="centerclass" data-label="STT">{{ i + 1 }}</td>
-                                             <td class="centerclass" data-label="Mã mùa vụ">{{ricecrop.RiceCropInformation_id }}</td>
+                                             <td class="centerclass" data-label="Mã mùa vụ">{{
+                                                  ricecrop.RiceCropInformation_id
+                                             }}</td>
                                              <td data-label="Tên mùa vụ">{{
                                                   ricecrop.RiceCropInformation_name }}</td>
-                                                  <td data-label="Vụ mùa">{{ ricecrop.Crop_name }}</td>
-                                                  <td data-label="Giống lúa">{{ ricecrop.Seed_name }}</td>
-                                                  <td data-label="Mẫu ruộng">{{ ricecrop.ArableLand_owner }}</td>
+                                             <td data-label="Vụ mùa">{{ ricecrop.Crop_name }}</td>
+                                             <td data-label="Giống lúa">{{ ricecrop.Seed_name }}</td>
+                                             <td data-label="Mẫu ruộng">{{ ricecrop.ArableLand_owner }}</td>
                                              <td class="centerclass" data-label="Ngày gieo xạ">{{
                                                   formatDate(ricecrop.RiceCropInformation_sowingDate) }}</td>
                                              <!-- <td class="centerclass" data-label="Năng suất(kg/ha)">{{
@@ -128,7 +134,7 @@
                                    </tbody>
                               </table>
 
-                              <RiceCropDetailsComponent v-if="isOpenRiceCropDetail"  :riceCropChosen="riceCropChosen" />
+                              <RiceCropDetailsComponent v-if="isOpenRiceCropDetail" :riceCropChosen="riceCropChosen" />
                          </div>
                     </div>
 
@@ -155,6 +161,22 @@
                          <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
                               @click="isOpenMessage = !isOpenMessage">OK</button>
                     </div>
+
+                    <div class="confirmationDialog" v-if="predicting">
+                         <div>
+                              <p class="labelConfirm mt-4 pt-4">Đang xử lý....</p>
+                         </div>
+                         <span v-show="predicting" class="spinner-border spinner-border-sm"></span>
+                    </div>
+                    <div class="confirmationDialog" v-if="result">
+                         <p style="color:#515151; text-align:center; margin-top: 30px; font-size: 20px;"
+                              class="labelConfirm">
+                              <span class="fas fa-trash-alt" style="color:red"></span> Năng suất dự đoán cho mùa vụ {{
+                                   this.riceCropChosen.RiceCropInformation_name }}<br> {{ this.riceCropChosen.Prediction_yield }}
+                              kg/ha
+                         </p>
+                         <button class="btnNo btn btn-sm btn-outline-secondary mb-3" @click="result = !result">OK</button>
+                    </div>
                </div>
           </div>
      </div>
@@ -165,11 +187,12 @@
 
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import { mapGetters, mapMutations } from "vuex";
-import PredictionService from '@/services/prediction.service';
-import RiceCropInformationService from '@/services/riceCropInformation.service';
+import PredictionService from '../../services/prediction.service';
+import RiceCropInformationService from '../../services/riceCropInformation.service';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import RiceCropDetailsComponent from '@/components/catalogManagementComponents/riceCropDetailsComponent.vue';
 import moment from 'moment';
+// import axios from 'axios';
 
 export default {
      name: "predictiveManagement",
@@ -187,7 +210,7 @@ export default {
                message2: " ",
                isOpenMessage: false,
                isOpenConfirm: false,
-               isOpenPrediction: false,
+               isOpenRiceCropList: false,
                isOpenRiceCropDetail: false,
                riceCropChosen: {},
                predictionChosen: {},
@@ -213,6 +236,8 @@ export default {
                },
 
                loaded: false,
+               result: false,
+               predicting: false,
           }
      },
 
@@ -228,9 +253,17 @@ export default {
           ]),
 
           filteredList() {
-               return this.clonePredictionList.filter(prediction => {
-                    return prediction.RiceCropInformation_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
-               })
+               if (!this.isOpenRiceCropList) {
+                    return this.clonePredictionList.filter(prediction => {
+                         return prediction.RiceCropInformation_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
+                    })
+               }
+               else {
+                    return this.cloneRiceCropList.filter(ricecrop => {
+                         return ricecrop.RiceCropInformation_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
+                    })
+               }
+
           },
 
           away() {
@@ -270,14 +303,14 @@ export default {
                this.loaded = true;
           },
 
-          async setRiceCropChosen(data){
+          async setRiceCropChosen(data) {
                this.riceCropChosen = data;
           },
 
 
 
           async searchName(data) {
-               if (!this.isOpenPrediction) {
+               if (!this.isOpenRiceCropList) {
                     this.searchPrediction(data);
                }
                else {
@@ -347,6 +380,90 @@ export default {
                }
           },
 
+          async predict() {
+               this.predicting = true;
+               this.result = false;
+               const infor = {};
+              infor.pre = 20;
+                infor.temp = 30;
+               const [err, respone] = await this.handle(
+                    PredictionService.create(this.riceCropChosen.RiceCropInformation_id, infor)
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    console.log(respone.data);
+                    this.riceCropChosen.Prediction_yield = respone.data.Prediction_yield;
+                    this.predicting = false;
+                    this.result = true;
+               }
+               this.getWeather();
+          },
+
+          async getWeather() {
+               var lat = "9.6680828";
+               var lon = "106.0131733";
+               const start_date = moment(this.riceCropChosen.RiceCropInformation_sowingDate).format("YYYY-MM-DD");
+               const end_date = moment(new Date()).format("YYYY-MM-DD");
+
+               let urlAPI1 = `https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${start_date}&end_date=${end_date}&timezone=GMT&hourly=relativehumidity_2m&daily=temperature_2m_mean,precipitation_sum`;
+               let data = await fetch(urlAPI1).then(res => res.json())
+               console.log(data);
+               const precipitationList = data.daily.precipitation_sum;
+               const temperatureList = data.daily.temperature_2m_mean;
+               const humitidityList = [];
+               const date = data.daily.time;
+               var totalPrecipitation = 0;
+               var totalTemperature = 0;
+               var totalHumitidity = 0;
+               var valueNull = [];
+               var i = 0;
+               precipitationList.forEach(precipitation => {
+                    if (precipitation == null) {
+                         valueNull.push(date[i]);
+                    }
+                    console.lo
+                    totalPrecipitation += precipitation;
+                    totalTemperature += temperatureList[i];
+                    i++;
+               });
+               console.log("Tong luong mua: " + totalPrecipitation+ "Tong nhiet do: " + totalTemperature/(data.daily.temperature_2m_mean.length - valueNull.length) );
+               console.log(valueNull, totalHumitidity)
+               i = 0;
+               date.forEach(date => {
+                    var humitidityDaily = 0;
+                    for (let index = i * 24; index < (i + 1) * 24; index++) {
+                         if (moment(data.hourly.time[index]).format("YYYY-MM-DD") == date)
+                              humitidityDaily += data.hourly.relativehumidity_2m[index];
+                    }
+                    humitidityList.push(humitidityDaily / 24);
+                    totalHumitidity += humitidityDaily/24;
+                    i++;
+               });
+               
+               // valueNull.forEach(element => {
+               //      console.log(element)
+               //           const Timestamp = Math.floor(((new Date("2023-03-30")).getTime()) / 1000);
+               //           console.log(Timestamp)
+               //           let t = this.getMoreWeather(lat, lon, Timestamp);
+               //           console.log(t)
+               //           temperatureList.push(t.data.temp);
+               // });
+          //     const datetemp = new Date(valueNull[0]);
+          //     const Timestamp = Math.floor(datetemp.getTime() / 1000);
+               
+          //      let t = this.getMoreWeather(lat, lon, Timestamp);
+          //      console.log(t)
+          //      this.result = false
+          },
+
+          async getMoreWeather(lat, lon, Timestamp) {
+               let urlAPI2 = `https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=${lat}&lon=${lon}&dt=${Timestamp}&appid=062d92a2646152d39eb7845a608226cb`;
+               let data = await fetch(urlAPI2).then(res => res.json())
+               return data;
+          },
+
           formatDateTime(data) {
                if (data == null || data == "Invalid da") return "";
                return (moment(String(data)).format("DD-MM-YYYY hh:mm:ss A"));
@@ -372,5 +489,7 @@ export default {
 }
 </script>
 
-<style>@import url(../../assets/predictionStyle.css);
-@import url(../../assets/mainStyle.css);</style>
+<style>
+@import url(../../assets/predictionStyle.css);
+@import url(../../assets/mainStyle.css);
+</style>

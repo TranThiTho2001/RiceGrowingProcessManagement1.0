@@ -46,3 +46,10 @@
     text-align: justify;
     vertical-align: top !important;
 }
+
+.predictiveManagement .th_pre{
+    position:  relative !important;
+    background-color: #bab9b9;
+    line-height: 10px;
+}
+

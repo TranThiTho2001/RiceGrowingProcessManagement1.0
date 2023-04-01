@@ -4,9 +4,10 @@ const moment = require('moment');
 const file = "D:/HOC/HK2_2022_2023/Luan_Van_Tot_Nghiep/Project/RiceGrowingProcessManagement1.0/backend/predictionModel/LinearRegression.py";
 // Create and Save 
 exports.store = async (req, res) => {
+     console.log(req.body.pre);
      var yield = 0;
      const { spawn } = require('child_process');
-     const pyProg = spawn('python', [`${file}`]);
+     const pyProg = spawn('python', [`${file}`, req.body.pre, req.body.temp, req.body.humi, req.body.wind, req.body.solar]);
      pyProg.stdout.on('data', function (data) {
           yield = String(data.toString()).slice(0, String(data.toString()).indexOf("\r\n"))
           // create new prediction
@@ -16,13 +17,13 @@ exports.store = async (req, res) => {
                Prediction_yield: yield,
                RiceCropInformation_id: req.params.RiceCropInformation_id
           });
-
+console.log(yield)
           //save prediciton
-         Prediction.create(prediciton, (err, data) => {
-             if (err)
-                 res.send("Lỗi trong quá trình dự đoán năng suất lúa.")
-             else res.send(data);
-         });
+     //     Prediction.create(prediciton, (err, data) => {
+     //         if (err)
+     //             res.send("Lỗi trong quá trình dự đoán năng suất lúa.")
+     //         else res.send(data);
+     //     });
      });
 
 };
