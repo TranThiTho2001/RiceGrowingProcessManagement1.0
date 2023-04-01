@@ -29,7 +29,7 @@ const setupEpidemicsClassificationRoutes = require("./app/routes/epidemicsClassi
 
 const app = express();
 const bodyParser= require('body-parser')
-app.use(cors({ origin: config.app.origins }));
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({

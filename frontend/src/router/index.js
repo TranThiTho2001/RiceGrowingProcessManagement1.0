@@ -1,11 +1,12 @@
 import { createWebHistory, createRouter } from "vue-router";
+import store from "../store";
 const routes = [
     {
         path: "/",
         alias: "/loginform",
-        name: "LoginForm",meta: { title: 'Skills - MyApp' },
+        name: "LoginForm", meta: { title: 'Skills - MyApp' },
         component: () => import("../views/LoginForm.vue"),
-        
+
     },
 
     {
@@ -13,7 +14,7 @@ const routes = [
         alias: "/SystemManagement",
         name: "SystemManagement",
         component: () => import("../views/administratorsView/SystemManagement.vue"),
-        
+
     },
 
     {
@@ -21,7 +22,7 @@ const routes = [
         alias: "/EmployeeManager",
         name: "EmployeeManager",
         component: () => import("../views/administratorsView/EmployeeManager.vue"),
-        
+
     },
 
     {
@@ -29,7 +30,7 @@ const routes = [
         alias: "/createNewEmployee",
         name: "createNewEmployee",
         component: () => import("../views/administratorsView/createNewEmployee.vue"),
-        
+
     },
 
     {
@@ -37,7 +38,7 @@ const routes = [
         alias: "/UpdateEmployee",
         name: "UpdateEmployee",
         component: () => import("../views/administratorsView/updateEmployee.vue"),
-        
+
     },
 
     {
@@ -52,7 +53,7 @@ const routes = [
         alias: "/Statistical",
         name: "Statistical",
         component: () => import("../views/catalogManagementView/statisticalManagement.vue"),
-        
+
     },
 
     {
@@ -60,7 +61,7 @@ const routes = [
         alias: "/StatisticsByRiceCrop",
         name: "StatisticsByRiceCrop",
         component: () => import("../views/catalogManagementView/statisticsByRiceCrop.vue"),
-        
+
     },
 
     {
@@ -68,7 +69,7 @@ const routes = [
         alias: "/Monitor",
         name: "Monitor",
         component: () => import("../views/catalogManagementView/riceCropManagement.vue"),
-        
+
     },
 
     {
@@ -77,7 +78,7 @@ const routes = [
         name: "OtherActivities",
         component: () => import("../views/MainForm.vue"),
     },
-    
+
     {
         path: "/Seed",
         alias: "/Seed",
@@ -90,49 +91,60 @@ const routes = [
         path: "/Fertilizer",
         alias: "/Fertilizer",
         name: "Fertilizer",
-        component: () => import("../views/catalogManagementView/fertilizerManagement.vue"),        
+        component: () => import("../views/catalogManagementView/fertilizerManagement.vue"),
     },
 
     {
         path: "/Epidemic",
         alias: "/Epidemic",
         name: "Epidemic",
-        component: () => import("../views/catalogManagementView/epidemicManagement.vue"),       
+        component: () => import("../views/catalogManagementView/epidemicManagement.vue"),
     },
 
     {
         path: "/ArableLand",
         alias: "/ArableLand",
         name: "ArableLand",
-        component: () => import("../views/catalogManagementView/arablelandManagement.vue"),       
-    }, 
-      
+        component: () => import("../views/catalogManagementView/arablelandManagement.vue"),
+    },
+
     {
         path: "/Pesticide",
         alias: "/Pesticide",
         name: "Pesticide",
-        component: () => import("../views/catalogManagementView/pesticideManagement.vue"),  
-    }, 
+        component: () => import("../views/catalogManagementView/pesticideManagement.vue"),
+    },
 
     {
         path: "/RiceCropDetail/:id",
         alias: "/RiceCropDetail",
         name: "RiceCropDetail",
-        component: () => import("../views/catalogManagementView/riceCropDetail.vue"),  
-    },  
+        component: () => import("../views/catalogManagementView/riceCropDetail.vue"),
+    },
 
     {
         path: "/Activity",
         alias: "/Activity",
         name: "Activity",
         component: () => import("../views/catalogManagementView/activitiesManagement.vue"),
-        
+
     },
 ];
 
 const router = createRouter({
     history: createWebHistory(),
     routes,
+});
+
+router.beforeEach((to, from, next) => {
+    const publicPages = ["/"];
+    const authRequired = !publicPages.includes(to.path);
+    const loggedIn = store.getters.employeeLoggedIn;
+    if (authRequired && !loggedIn) {
+        next("/");
+    } else {
+        next();
+    }
 });
 
 export default router;

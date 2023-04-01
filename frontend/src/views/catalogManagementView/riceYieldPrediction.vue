@@ -383,21 +383,21 @@ export default {
           async predict() {
                this.predicting = true;
                this.result = false;
-               const infor = {};
-              infor.pre = 20;
-                infor.temp = 30;
-               const [err, respone] = await this.handle(
-                    PredictionService.create(this.riceCropChosen.RiceCropInformation_id, infor)
-               );
-               if (err) {
-                    console.log(err)
-               }
-               else {
-                    console.log(respone.data);
-                    this.riceCropChosen.Prediction_yield = respone.data.Prediction_yield;
-                    this.predicting = false;
-                    this.result = true;
-               }
+               // const infor = {};
+               // infor.pre = 20;
+               // infor.temp = 30;
+               // const [err, respone] = await this.handle(
+               //      PredictionService.create(this.riceCropChosen.RiceCropInformation_id, infor)
+               // );
+               // if (err) {
+               //      console.log(err)
+               // }
+               // else {
+               //      console.log(respone.data);
+               //      this.riceCropChosen.Prediction_yield = respone.data.Prediction_yield;
+               //      this.predicting = false;
+               //      this.result = true;
+               // }
                this.getWeather();
           },
 
@@ -428,7 +428,7 @@ export default {
                     totalTemperature += temperatureList[i];
                     i++;
                });
-               console.log("Tong luong mua: " + totalPrecipitation+ "Tong nhiet do: " + totalTemperature/(data.daily.temperature_2m_mean.length - valueNull.length) );
+               console.log("Tong luong mua: " + totalPrecipitation + "Tong nhiet do: " + totalTemperature / (data.daily.temperature_2m_mean.length - valueNull.length));
                console.log(valueNull, totalHumitidity)
                i = 0;
                date.forEach(date => {
@@ -438,30 +438,45 @@ export default {
                               humitidityDaily += data.hourly.relativehumidity_2m[index];
                     }
                     humitidityList.push(humitidityDaily / 24);
-                    totalHumitidity += humitidityDaily/24;
+                    totalHumitidity += humitidityDaily / 24;
                     i++;
                });
-               
-               // valueNull.forEach(element => {
-               //      console.log(element)
-               //           const Timestamp = Math.floor(((new Date("2023-03-30")).getTime()) / 1000);
-               //           console.log(Timestamp)
-               //           let t = this.getMoreWeather(lat, lon, Timestamp);
-               //           console.log(t)
-               //           temperatureList.push(t.data.temp);
-               // });
-          //     const datetemp = new Date(valueNull[0]);
-          //     const Timestamp = Math.floor(datetemp.getTime() / 1000);
-               
-          //      let t = this.getMoreWeather(lat, lon, Timestamp);
-          //      console.log(t)
-          //      this.result = false
+
+               valueNull.forEach(element => {
+                    // const Timestamp = Math.floor(((new Date("2023-03-30")).getTime()) / 1000);
+                    console.log(element)
+                    this.getMoreWeather(lat, lon, element);
+
+               });
+               console.log(temperatureList)
+               this.result = false
           },
 
           async getMoreWeather(lat, lon, Timestamp) {
-               let urlAPI2 = `https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=${lat}&lon=${lon}&dt=${Timestamp}&appid=062d92a2646152d39eb7845a608226cb`;
-               let data = await fetch(urlAPI2).then(res => res.json())
-               return data;
+               // let urlAPI2 = `https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=${lat}&lon=${lon}&dt=${Timestamp}&appid=062d92a2646152d39eb7845a608226cb`;
+               // let data = await fetch(urlAPI2).then(res => res.json())
+               // return data;
+
+               let t;
+               const options = {
+                    method: 'GET',
+                    headers: {
+                         'X-RapidAPI-Key': 'b059eff2d8msh0a3e5c7029b2dcfp1116ddjsn5f9d12cd2b06',
+                         'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
+                    }
+               };
+               console.log(`https://weatherapi-com.p.rapidapi.com/history.json?q=${lat},${lon}&dt=${Timestamp}&lang=en`)
+               fetch(`https://weatherapi-com.p.rapidapi.com/history.json?q=${lat},${lon}&dt=${Timestamp}&lang=en`, options)
+                    .then((response) => {
+                         return response.json().then((data) => {
+                              console.log(data)
+                              return data;
+                         }).catch((err) => {
+                              console.log(err);
+                         })
+                    })
+                    .catch(err => console.error(err));
+               
           },
 
           formatDateTime(data) {
