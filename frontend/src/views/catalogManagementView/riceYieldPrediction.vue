@@ -453,9 +453,7 @@ export default {
           },
 
           async getMoreWeather(lat, lon, Timestamp) {
-               // let urlAPI2 = `https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=${lat}&lon=${lon}&dt=${Timestamp}&appid=062d92a2646152d39eb7845a608226cb`;
-               // let data = await fetch(urlAPI2).then(res => res.json())
-               // return data;
+     
 
                let t;
                const options = {
@@ -465,17 +463,7 @@ export default {
                          'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
                     }
                };
-               console.log(`https://weatherapi-com.p.rapidapi.com/history.json?q=${lat},${lon}&dt=${Timestamp}&lang=en`)
-               fetch(`https://weatherapi-com.p.rapidapi.com/history.json?q=${lat},${lon}&dt=${Timestamp}&lang=en`, options)
-                    .then((response) => {
-                         return response.json().then((data) => {
-                              console.log(data)
-                              return data;
-                         }).catch((err) => {
-                              console.log(err);
-                         })
-                    })
-                    .catch(err => console.error(err));
+
                
           },
 
