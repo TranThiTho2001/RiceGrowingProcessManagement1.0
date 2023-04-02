@@ -52,7 +52,7 @@
                               <button class="btn btnCreate" v-if="!isOpenRiceCropDetail && !isOpenRiceCropList"
                                    @click="isOpenRiceCropList = !isOpenRiceCropList, retrieveRiceCropList()"> Dự
                                    đoán</button>
-                              <button class="btn btnCreate" v-if="isOpenRiceCropDetail" @click="predict()"> Dự đoán</button>
+                              <button class="btn btnCreate" v-if="isOpenRiceCropDetail" @click="getWeather()"> Dự đoán</button>
                          </div>
                     </div>
 
@@ -192,6 +192,7 @@ import RiceCropInformationService from '../../services/riceCropInformation.servi
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import RiceCropDetailsComponent from '@/components/catalogManagementComponents/riceCropDetailsComponent.vue';
 import moment from 'moment';
+
 // import axios from 'axios';
 
 export default {
@@ -238,6 +239,8 @@ export default {
                loaded: false,
                result: false,
                predicting: false,
+               weatherInfor: [],
+
           }
      },
 
@@ -381,91 +384,149 @@ export default {
           },
 
           async predict() {
-               this.predicting = true;
-               this.result = false;
-               // const infor = {};
-               // infor.pre = 20;
-               // infor.temp = 30;
-               // const [err, respone] = await this.handle(
-               //      PredictionService.create(this.riceCropChosen.RiceCropInformation_id, infor)
-               // );
-               // if (err) {
-               //      console.log(err)
-               // }
-               // else {
-               //      console.log(respone.data);
-               //      this.riceCropChosen.Prediction_yield = respone.data.Prediction_yield;
-               //      this.predicting = false;
-               //      this.result = true;
-               // }
-               this.getWeather();
+               if (this.weatherInfor.loadding) {
+                    var infor = {};
+                    infor.precipitation = this.weatherInfor.Precipitation;
+                    infor.temperature = this.weatherInfor.Temperature;
+                    infor.humitidity = this.weatherInfor.Humitidity;
+                    infor.solarRadiation = this.weatherInfor.SolarRadiation;
+                    infor.windSpeed =  this.weatherInfor.WinSpeed;
+                    if(this.riceCropChosen.Crop_id == 'C00001'){
+                         infor.crop = '1';
+                    }
+                    else if(this.riceCropChosen.Crop_id == 'C00002'){
+                         infor.crop = '2';
+                    }
+                    else{
+                         infor.crop = '3';
+                    }
+                    infor.area = this.riceCropChosen.ArableLand_areaId;
+                    console.log(infor)
+                    const [err, respone] = await this.handle(
+                         PredictionService.create(this.riceCropChosen.RiceCropInformation_id, infor)
+                    );
+                    if (err) {
+                         console.log(err)
+                    }
+                    else {
+                         console.log(respone.data);
+                         console.log(infor)
+                         this.riceCropChosen.Prediction_yield = respone.data.Prediction_yield;
+                         this.predicting = false;
+                         this.result = true;
+                    }
+               }
+
+
           },
 
           async getWeather() {
-               var lat = "9.6680828";
-               var lon = "106.0131733";
+               this.predicting = true;
+               this.result = false;
+               this.weatherInfor.loadding = false;
+               this.weatherInfor.loadding = false;
+               var lat = this.riceCropChosen.ArableLand_latitude;
+               var lon = this.riceCropChosen.ArableLand_longitude;
                const start_date = moment(this.riceCropChosen.RiceCropInformation_sowingDate).format("YYYY-MM-DD");
                const end_date = moment(new Date()).format("YYYY-MM-DD");
 
-               let urlAPI1 = `https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${start_date}&end_date=${end_date}&timezone=GMT&hourly=relativehumidity_2m&daily=temperature_2m_mean,precipitation_sum`;
+               let urlAPI1 = `https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${start_date}&end_date=${end_date}&timezone=GMT&hourly=relativehumidity_2m&daily=temperature_2m_mean&daily=precipitation_sum&daily=windspeed_10m_max&daily=shortwave_radiation_sum`;
                let data = await fetch(urlAPI1).then(res => res.json())
-               console.log(data);
-               const precipitationList = data.daily.precipitation_sum;
-               const temperatureList = data.daily.temperature_2m_mean;
-               const humitidityList = [];
-               const date = data.daily.time;
-               var totalPrecipitation = 0;
-               var totalTemperature = 0;
-               var totalHumitidity = 0;
+
+               this.weatherInfor.precipitationList = data.daily.precipitation_sum;
+               this.weatherInfor.temperatureList = data.daily.temperature_2m_mean;
+               this.weatherInfor.humitidityList = data.hourly.relativehumidity_2m;
+               this.weatherInfor.solarRadiation = data.daily.shortwave_radiation_sum;
+               this.weatherInfor.windSpeed = data.daily.windspeed_10m_max;
+               this.weatherInfor.dateList = data.daily.time;
                var valueNull = [];
-               var i = 0;
-               precipitationList.forEach(precipitation => {
-                    if (precipitation == null) {
-                         valueNull.push(date[i]);
+               for (let index = this.weatherInfor.precipitationList.length - 1; index > 0; index--) {
+                    if (this.weatherInfor.precipitationList[index] == null) {
+                         const datenull = {};
+                         datenull.index = index;
+                         datenull.date = this.weatherInfor.dateList[index];
+                         valueNull.push(datenull);
                     }
-                    console.lo
-                    totalPrecipitation += precipitation;
-                    totalTemperature += temperatureList[i];
-                    i++;
+                    else {
+                         break;
+                    }
+               }
+
+               let urlAPI2 = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&start_date=${valueNull[valueNull.length - 1].date}&end_date=${valueNull[0].date}&timezone=GMT&hourly=relativehumidity_2m&daily=temperature_2m_mean&daily=precipitation_sum&daily=windspeed_10m_max&daily=shortwave_radiation_sum`;
+               let data2 = await fetch(urlAPI2).then(res => res.json())
+               var i = data2.daily.precipitation_sum.length - 1;
+               valueNull.forEach(valuenull => {
+                    this.weatherInfor.precipitationList[valuenull.index] = data2.daily.precipitation_sum[i];
+                    this.weatherInfor.temperatureList[valuenull.index] = data2.daily.temperature_2m_mean[i];
+                    this.weatherInfor.windSpeed[valuenull.index] = data2.daily.windspeed_10m_max[i];
+                    this.weatherInfor.solarRadiation[valuenull.index] = data2.daily.shortwave_radiation_sum[i];
+                    i--;
                });
-               console.log("Tong luong mua: " + totalPrecipitation + "Tong nhiet do: " + totalTemperature / (data.daily.temperature_2m_mean.length - valueNull.length));
-               console.log(valueNull, totalHumitidity)
+
+               i = data2.hourly.relativehumidity_2m.length - 1;
+               for (let index = this.weatherInfor.humitidityList.length - 1; index > 0; index--) {
+                    if (this.weatherInfor.humitidityList[index] == null) {
+                         this.weatherInfor.humitidityList[index] = data2.hourly.relativehumidity_2m[i];
+                         i--;
+                    }
+                    else {
+                         break;
+                    }
+               }
+               this.weatherInfor.Precipitation = 0;
+               this.weatherInfor.totalTemperature = 0;
+               this.weatherInfor.totalHumitidity = 0;
+               this.weatherInfor.totalWindSpeed = 0;
+               this.weatherInfor.totalSolarRadiation = 0;
                i = 0;
-               date.forEach(date => {
-                    var humitidityDaily = 0;
-                    for (let index = i * 24; index < (i + 1) * 24; index++) {
-                         if (moment(data.hourly.time[index]).format("YYYY-MM-DD") == date)
-                              humitidityDaily += data.hourly.relativehumidity_2m[index];
-                    }
-                    humitidityList.push(humitidityDaily / 24);
-                    totalHumitidity += humitidityDaily / 24;
+               this.weatherInfor.precipitationList.forEach(pre => {
+                    this.weatherInfor.Precipitation += pre;
+                    this.weatherInfor.totalTemperature += this.weatherInfor.temperatureList[i];
+                    this.weatherInfor.totalWindSpeed += this.weatherInfor.windSpeed[i];
+                    this.weatherInfor.totalSolarRadiation += this.weatherInfor.solarRadiation[i];
                     i++;
                });
-
-               valueNull.forEach(element => {
-                    // const Timestamp = Math.floor(((new Date("2023-03-30")).getTime()) / 1000);
-                    console.log(element)
-                    this.getMoreWeather(lat, lon, element);
-
+               this.weatherInfor.humitidityList.forEach(humitidity => {
+                    this.weatherInfor.totalHumitidity += humitidity;
                });
-               console.log(temperatureList)
-               this.result = false
+
+               this.weatherInfor.Temperature = this.weatherInfor.totalTemperature / this.weatherInfor.temperatureList.length;
+               this.weatherInfor.Humitidity = this.weatherInfor.totalHumitidity / this.weatherInfor.humitidityList.length;
+               this.weatherInfor.WinSpeed = this.weatherInfor.totalWindSpeed / this.weatherInfor.windSpeed.length;
+               this.weatherInfor.SolarRadiation = this.weatherInfor.totalSolarRadiation / this.weatherInfor.solarRadiation.length;
+               console.log("Tong luong Mua: " + this.weatherInfor.Precipitation + " Nhiet do trung binh: " + this.weatherInfor.Temperature + " Do am: " + this.weatherInfor.Humitidity + " Tocs do gia: " + this.weatherInfor.WinSpeed + " Buc xa: " + this.weatherInfor.SolarRadiation);
+               this.weatherInfor.loadding = true;
+               console.log(this.weatherInfor.loadding)
+               this.predict()
           },
 
-          async getMoreWeather(lat, lon, Timestamp) {
-     
 
-               let t;
-               const options = {
-                    method: 'GET',
-                    headers: {
-                         'X-RapidAPI-Key': 'b059eff2d8msh0a3e5c7029b2dcfp1116ddjsn5f9d12cd2b06',
-                         'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
-                    }
-               };
+          // async getMoreWeather(lat, lon, Timestamp) {
+          // var t;
+          // const options = {
+          //      method: 'GET',
+          //      headers: {
+          //           'X-RapidAPI-Key': 'b059eff2d8msh0a3e5c7029b2dcfp1116ddjsn5f9d12cd2b06',
+          //           'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
+          //      }
+          // };
+          // console.log(`https://weatherapi-com.p.rapidapi.com/history.json?q=${lat},${lon}&dt=${Timestamp}&lang=en`)
+          // fetch(`https://weatherapi-com.p.rapidapi.com/history.json?q=${lat},${lon}&dt=${Timestamp}&lang=en`, options)
+          //      .then((response) => {
+          //           return response.json().then((data) => {
+          //               console.log(data.forecast.forecastday[0].day)
+          //               this.weatherInfor.humitidityList.push(data.forecast.forecastday[0].day.avghumidity);
+          //               this.weatherInfor.temperatureList.push(data.forecast.forecastday[0].day.avgtemp_c)
+          //                return data;
+          //           }).catch((err) => {
+          //                console.log(err);
+          //           })
+          //      })
+          //      .catch(err => console.error(err));
+          // console.log(t)
 
-               
-          },
+
+          // },
 
           formatDateTime(data) {
                if (data == null || data == "Invalid da") return "";

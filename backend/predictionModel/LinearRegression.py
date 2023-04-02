@@ -46,9 +46,18 @@ for train_index, test_index in kf.split(X):
 lm = LinearRegression()
 lm.fit(X_train,y_train)
 predictions = lm.predict(X_test)
-# print(predictions)
-print(sys.argv[1])
-print(sys.argv[1])
+
+if sys.argv[1] == '1':
+  yield_pr = lm.predict([[ 1,0,0, float(sys.argv[2]), float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5]), float(sys.argv[6]), float(sys.argv[7]) ]])
+  print(yield_pr)
+elif sys.argv[1] == '2':
+  yield_pr = lm.predict([[ 0,1,0, float(sys.argv[2]), float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5]), float(sys.argv[6]), float(sys.argv[7])  ]])
+  print(yield_pr)
+else:
+  yield_pr = lm.predict([[ 0,0,1, float(sys.argv[2]), float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5]), float(sys.argv[6]), float(sys.argv[7]) ]])
+  print(yield_pr)
+
+# print(yield_pr)
 sys.stdout.flush()
 # yield_pr = lm.predict([[1,0,0, 21.3, 26.45, 75.58,2]])
 # print('MAE:', metrics.mean_absolute_error(y_test, predictions))
@@ -101,6 +110,13 @@ sys.stdout.flush()
 # # save the model to disk
 # filename = 'backend/predictionModel/ModelTrained/predictionByLinearRegression.sav'
 # # pickle.dump(lm, open(filename, 'wb')) 
-# loaded_model = pickle.load(open(filename, 'rb'))
-# yield_pr = lm.predict([[1,0,0, 21.3, 26.45, 75.58,2]])
-# print(yield_pr[0])
+# lm = pickle.load(open(filename, 'rb'))
+# # if sys.argv[1] == '1':
+# #   yield_pr = lm.predict([[ 1,0,0, sys.argv[2],sys.argv[3],sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7] ]])
+# # elif sys.argv[1] == '2':
+# #   yield_pr = lm.predict([[ 0,1,0, sys.argv[2],sys.argv[3],sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7]  ]])
+# # else:
+# #   yield_pr = lm.predict([[ 0,0,1, sys.argv[2],sys.argv[3],sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7]  ]])
+
+# print(sys.argv[2],sys.argv[3],sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7])
+# sys.stdout.flush()
