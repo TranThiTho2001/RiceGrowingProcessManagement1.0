@@ -61,8 +61,8 @@
                     <span v-if="message1 == 'Thêm không thành công.'" class="fas fa-times-circle"
                          style="color:red; text-align: center; display: inline;"></span>
                     <span v-if="message2 == 'Thêm thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;">
-                         {{ message2 }}</span>
-                    <span v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2"> {{ message1 }} </span>
+                         Thêm phân bón thành công</span>
+                    <span v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2">Thêm phân bón không thành công </span>
                </div>
                <div class="col-sm-2"></div>
           </div>

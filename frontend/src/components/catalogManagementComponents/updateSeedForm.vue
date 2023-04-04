@@ -51,14 +51,14 @@
                     <span v-if="message1 == 'Cập nhật không thành công.'" class="fas fa-times-circle"
                          style="color:red; text-align: center; display: inline;"></span>
                     <span v-if="message2 == 'Cập nhật thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;"> 
-                         {{ message2 }}</span>
+                         Cập nhật thông tin giống lúa thành công</span>
                     <span v-if="message1 == 'Cập nhật không thành công.'" class="textMessage1 pt-2 pb-2"> {{ message1 }} </span>
                </div>
                <div class="col-sm-2"></div>
           </div>
           <div class="row mb-4">
                <div class="col-sm-5"></div>
-               <button class="btn btn-outline-secondary btnLuu col-sm-2">Lưu</button>
+               <button class="btn btn-outline-secondary btnLuu col-sm-2">Cập Nhật</button>
                <div class="col-sm-5"></div>
           </div>
 

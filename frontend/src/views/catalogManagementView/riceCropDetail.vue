@@ -1,17 +1,17 @@
 <template>
      <div class="container-fluid riceCropDetail">
           <div class="row riceCropDetailFrame" style="height: 100vmin;">
-               <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2" 
+               <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
                     @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true, active.leftnNoneActive = false"></button>
-               <div  class="left" :class=" {navbarresponsive: openMenu.openMenu }" >
-                         <Catalog />
+               <div class="left" :class="{ navbarresponsive: openMenu.openMenu }">
+                    <Catalog />
                </div>
                <div class="rightRiceCropDetail right" :class="{ active: stylebac.active, noneactive: stylebac.none }">
                     <div class="row pt-3 mb-5 pb-1 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
-                              <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Theo dõi mùa vụ</h3>
+                              <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Theo dõi mùa vụ</h3>
                          </div>
                          <div class="text-right">
                               <div class="row">
@@ -20,44 +20,84 @@
                          </div>
                     </div>
                     <div class="row updateRiceCrop mr-2 ml-2 mb-1" style="width: 100%;">
-                         <UpdateRiceCropForm v-if="isOpenConfirm" :seedList="seedList" :newRiceCrop="newRiceCrop" :arableLandList="arableLandList"
-                              @updateRiceCrop-submit="updateRiceCrop" :message1="message1" :message2="message2" />
+                         <UpdateRiceCropForm v-if="isOpenConfirm" :seedList="seedList" :newRiceCrop="newRiceCrop"
+                              :arableLandList="arableLandList" @updateRiceCrop-submit="updateRiceCrop" :message1="message1"
+                              :message2="message2" />
                     </div>
-                    <div class="">
-                         <table class="ricecropTable" style="margin-left: 10px; margin-right: 10px;">
-                              <tbody>
-                                   <tr>
-                                        <td>Mã {{ newRiceCrop.RiceCropInformation_id }}</td>
-                                        <td>Giống lúa: {{ newRiceCrop.Seed_name }}</td>
-                                        <td>Vụ mùa: {{ newRiceCrop.Crop_name }}</td>
-                                        <td>Mẫu ruộng: {{ newRiceCrop.ArableLand_owner }}</td>
-                                   </tr>
-                                   <tr>
-                                        <td>Tên: {{ newRiceCrop.RiceCropInformation_name }}</td>
-                                        <td>Ngày gieo xạ: {{ formatDate(newRiceCrop.RiceCropInformation_sowingDate) }}</td>
-                                        <td>Ngày thu hoạch: {{ formatDate(newRiceCrop.RiceCropInformation_harvestDate) }}</td>
-                                        <td>Năng suất: {{ newRiceCrop.RiceCropInformation_yield }}</td>
-                                   </tr>
-                              </tbody>
-                         </table>
+                    <div class="row ml-2 mr-3">
+                         <div class="riceCropInfor" style="width: 50%;">
+                              <div class="row">
+                                   <div class="col-md-6 title">Mã: <span class="infor"> {{ newRiceCrop.RiceCropInformation_id
+                                   }}</span></div>
+                                   <div class="col-md-6 title">Giống lúa: <span class="infor">{{ newRiceCrop.Seed_name
+                                   }}</span></div>
+                              </div>
+                              <div class="row">
+                                   <div class="col-md-6 title">Tên: <span class="infor">{{
+                                        newRiceCrop.RiceCropInformation_name }}</span></div>
+                                   <div class="col-md-6 title">Ngày gieo xạ: <span class="infor">{{
+                                        formatDate(newRiceCrop.RiceCropInformation_sowingDate) }}</span></div>
+
+                              </div>
+                              <div class="row">
+                                   <div class="col-md-6 title">Vụ mùa: <span class="infor">{{ newRiceCrop.Crop_name }}</span>
+                                   </div>
+                                   <div class="col-md-6 title">Ngày thu hoạch: <span class="infor">{{
+                                        formatDate(newRiceCrop.RiceCropInformation_harvestDate) }}</span>
+                                   </div>
+                              </div>
+                              <div class="row">
+                                   <div class="col-md-6 title">Mẫu ruộng: <span class="infor">{{ newRiceCrop.ArableLand_owner
+                                   }}</span></div>
+                                   <div class="col-md-6 title">Năng suất: <span class="infor">{{
+                                        newRiceCrop.RiceCropInformation_yield }}</span></div>
+                              </div>
+                         </div>
+                         <div class="" style="width: 50%;">
+                              <div class="row">
+                                   <div class="col-md-6">Nhiet do {{ weatherInfor.temperature }}</div>
+                                   <div class="col-md-6">Gio {{ weatherInfor.windSpeed }}</div>
+                              </div>
+                              <div class="row">
+
+                                   <div class="col-md-6">mua:{{ weatherInfor.precipitation }}</div>
+                                   <div class="col-md-6">buc xa: {{ weatherInfor.solarRadiation }}</div>
+                              </div>
+                              <div class="row">
+                                   <div class="col-md-6">Tên: {{ newRiceCrop.RiceCropInformation_name }}</div>
+                                   <div class="col-md-6">Ngày gieo xạ: {{
+                                        formatDate(newRiceCrop.RiceCropInformation_sowingDate) }}</div>
+
+                              </div>
+                              <div class="row">
+                                   <div class="col-md-6">Ngày thu hoạch: {{
+                                        formatDate(newRiceCrop.RiceCropInformation_harvestDate) }}
+                                   </div>
+                                   <div class="col-md-6">Năng suất: {{ newRiceCrop.RiceCropInformation_yield }}</div>
+                              </div>
+                         </div>
                     </div>
+
                     <div class="row bottomrow ml-2 mr-2 pt-1">
                          <div class="col-sm-12">
                               <div class="functionName mt-1 ml-2">
                                    <button class=" btn btn-midle text-center btnFertilizerTimes btnName"
-                                        v-if="!isOpenTableFertilizerTimes" @click="setTable('btnFertilizerTimes')">Bón phân
+                                        v-if="!isOpenTableFertilizerTimes" @click="setTable('btnFertilizerTimes')">Bón
+                                        phân
                                    </button>
                                    <button class=" btn btn-midle text-center btnFertilizerTimes btnNameActive"
                                         v-if="isOpenTableFertilizerTimes">Bón phân</button>
                                    <button class=" btn btn-midle text-center btnSprayingTimes btnNameActive"
                                         v-if="isOpenTableSprayingTimes">Phun thuốc</button>
                                    <button class=" btn btn-midle text-center btnSprayingTimes btnName"
-                                        v-if="!isOpenTableSprayingTimes" @click="setTable('btnSprayingTimes')">Phun thuốc
+                                        v-if="!isOpenTableSprayingTimes" @click="setTable('btnSprayingTimes')">Phun
+                                        thuốc
                                    </button>
                                    <button class=" btn btn-midle text-center btnActivities btnNameActive"
                                         v-if="isOpenTableOtherActivitiesTimes">Hoạt động khác</button>
                                    <button class=" btn btn-midle text-center btnActivities btnName"
-                                        @click="setTable('btnActivities')" v-if="!isOpenTableOtherActivitiesTimes">Hoạt động
+                                        @click="setTable('btnActivities')" v-if="!isOpenTableOtherActivitiesTimes">Hoạt
+                                        động
                                         khác</button>
                                    <button class=" btn btn-midle text-center btnEpidemic btnNameActive"
                                         v-if="isOpenTableEpidemicTimes">Tình bệnh dịch</button>
@@ -133,9 +173,11 @@
                                              </thead>
                                              <tbody>
                                                   <tr v-for="(fertilizer, i) in (fertilizerTimesList)" :key="i">
-                                                       <td class="text-center ">{{ fertilizer.FertilizerTimes_times }}</td>
+                                                       <td class="text-center ">{{ fertilizer.FertilizerTimes_times }}
+                                                       </td>
                                                        <td class="">{{ fertilizer.Fertilizer_name }}</td>
-                                                       <td class="text-center ">{{ fertilizer.FertilizerTimes_amount }}</td>
+                                                       <td class="text-center ">{{ fertilizer.FertilizerTimes_amount }}
+                                                       </td>
                                                        <td class="text-center ">{{
                                                             formatDate(fertilizer.FertilizerTimes_startDate) }}</td>
                                                        <td class="text-center ">{{
@@ -150,11 +192,13 @@
                                                             <div class="dropdown-menu">
                                                                  <a class="dropdown-item action"
                                                                       @click="setFertilizerChosen(fertilizer), isOpenUpdateFertilizerTimesForm = !isOpenUpdateFertilizerTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
-                                                                      <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
+                                                                      <span class="fas fa-edit actionIcon"></span> Chỉnh
+                                                                      sửa
                                                                  </a>
                                                                  <a class="dropdown-item" href="#"
                                                                       @click="setFertilizerChosen(fertilizer), setDelete('FertilizerTimes'), isOpenConfirm = !isOpenConfirm">
-                                                                      <span class="fas fa-trash-alt actionIcon"></span> Xóa
+                                                                      <span class="fas fa-trash-alt actionIcon"></span>
+                                                                      Xóa
                                                                  </a>
 
                                                             </div>
@@ -199,9 +243,11 @@
                                              </thead>
                                              <tbody>
                                                   <tr v-for="(sprayingTimes, i ) in (SprayingTimesList)" :key="i">
-                                                       <td class="text-center ">{{ sprayingTimes.SprayingTimes_times }}</td>
+                                                       <td class="text-center ">{{ sprayingTimes.SprayingTimes_times }}
+                                                       </td>
                                                        <td class="">{{ sprayingTimes.Pesticide_name }}</td>
-                                                       <td class="text-center ">{{ sprayingTimes.SprayingTimes_amount }}</td>
+                                                       <td class="text-center ">{{ sprayingTimes.SprayingTimes_amount }}
+                                                       </td>
                                                        <td class="text-center ">{{
                                                             formatDate(sprayingTimes.SprayingTimes_startDate)
                                                        }}</td>
@@ -218,11 +264,13 @@
                                                             <div class="dropdown-menu">
                                                                  <a class="dropdown-item action"
                                                                       @click="setSprayingTimes(sprayingTimes), isOpenUpdateSprayingTimesForm = !isOpenUpdateSprayingTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
-                                                                      <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
+                                                                      <span class="fas fa-edit actionIcon"></span> Chỉnh
+                                                                      sửa
                                                                  </a>
                                                                  <a class="dropdown-item" href="#"
                                                                       @click="setSprayingTimes(sprayingTimes), isOpenConfirm = !isOpenConfirm, setDelete('SprayingTimes')">
-                                                                      <span class="fas fa-trash-alt actionIcon"></span> Xóa
+                                                                      <span class="fas fa-trash-alt actionIcon"></span>
+                                                                      Xóa
                                                                  </a>
 
                                                             </div>
@@ -272,13 +320,15 @@
                                                        <td class="text-center ">{{
                                                             formatDate(epidemic.EpidemicTimes_startDate)
                                                        }}</td>
-                                                       <td class="text-center ">{{ formatDate(epidemic.EpidemicTimes_endDate)
+                                                       <td class="text-center ">{{
+                                                            formatDate(epidemic.EpidemicTimes_endDate)
                                                        }}
                                                        </td>
                                                        <td class="">{{ epidemic.Employee_name }}</td>
                                                        <td>
                                                             <p v-for="(treatment, i) in epidemic.Treatment" :key="i"
-                                                                 style="display: inline;">{{ treatment.Pesticide_name }},
+                                                                 style="display: inline;">{{ treatment.Pesticide_name
+                                                                 }},
                                                             </p>
                                                        </td>
                                                        <td class="">
@@ -289,11 +339,13 @@
                                                             <div class="dropdown-menu">
                                                                  <a class="dropdown-item action"
                                                                       @click="setEpidemicChosen(epidemic), isOpenUpdateEpidemicTimesForm = !isOpenUpdateEpidemicTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
-                                                                      <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
+                                                                      <span class="fas fa-edit actionIcon"></span> Chỉnh
+                                                                      sửa
                                                                  </a>
                                                                  <a class="dropdown-item" href="#"
                                                                       @click="setEpidemicChosen(epidemic), isOpenConfirm = !isOpenConfirm, setDelete('EpidemicTimes')">
-                                                                      <span class="fas fa-trash-alt actionIcon"></span> Xóa
+                                                                      <span class="fas fa-trash-alt actionIcon"></span>
+                                                                      Xóa
                                                                  </a>
                                                             </div>
                                                        </td>
@@ -334,9 +386,10 @@
                                              </thead>
                                              <tbody>
                                                   <tr v-for="(monitor, i ) in (monitorList)" :key="i">
-                                                       <td class="text-center" v-if="currentPage > 1">{{ i + ((currentPage -
-                                                            1) *
-                                                            elementsPerPage) + 1 }}
+                                                       <td class="text-center" v-if="currentPage > 1">{{ i +
+                                                            ((currentPage -
+                                                                 1) *
+                                                                 elementsPerPage) + 1 }}
                                                        </td>
                                                        <td class="text-center" v-else>{{ i + 1 }}</td>
                                                        <td class="text-center">{{ monitor.Employee_id }}</td>
@@ -352,7 +405,8 @@
                                                             <div class="dropdown-menu">
                                                                  <a class="dropdown-item" href="#"
                                                                       @click="setMonitorChosen(monitor), isOpenConfirm = !isOpenConfirm, setDelete('Monitor')">
-                                                                      <span class="fas fa-trash-alt actionIcon"></span> Xóa
+                                                                      <span class="fas fa-trash-alt actionIcon"></span>
+                                                                      Xóa
                                                                  </a>
                                                             </div>
                                                        </td>
@@ -395,9 +449,10 @@
                                              </thead>
                                              <tbody>
                                                   <tr v-for="(activity, i ) in (activitiesDetailList)" :key="i">
-                                                       <td class="text-center" v-if="currentPage > 1">{{ i + ((currentPage -
-                                                            1) *
-                                                            elementsPerPage) }}
+                                                       <td class="text-center" v-if="currentPage > 1">{{ i +
+                                                            ((currentPage -
+                                                                 1) *
+                                                                 elementsPerPage) }}
                                                        </td>
                                                        <td class="text-center" v-else>{{ i }}</td>
                                                        <td class="text-center">{{ activity.OtherActivities_id }}</td>
@@ -415,11 +470,13 @@
                                                             <div class="dropdown-menu">
                                                                  <a class="dropdown-item action"
                                                                       @click="setActivityChosen(activity), isOpenUpdateActivitiesDetail = !isOpenUpdateActivitiesDetail, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
-                                                                      <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
+                                                                      <span class="fas fa-edit actionIcon"></span> Chỉnh
+                                                                      sửa
                                                                  </a>
                                                                  <a class="dropdown-item" href="#"
                                                                       @click="setActivityChosen(activity), isOpenConfirm = !isOpenConfirm, setDelete('ActivitiseDetail')">
-                                                                      <span class="fas fa-trash-alt actionIcon"></span> Xóa
+                                                                      <span class="fas fa-trash-alt actionIcon"></span>
+                                                                      Xóa
                                                                  </a>
 
                                                             </div>
@@ -687,7 +744,8 @@ export default {
                     openMenu: false,
                     isOpenMenuIcon: true,
                     isCloseMenu: false,
-               }
+               },
+               weatherInfor: {},
           }
      },
 
@@ -1011,8 +1069,10 @@ export default {
                     this.newRiceCrop.Crop_name = respone.data.Crop_name;
                     this.newRiceCrop.ArableLand_id = respone.data.ArableLand_id;
                     this.newRiceCrop.ArableLand_location = respone.data.ArableLand_location;
-                    console.log(respone.data.ArableLand_location)
-                    this.getAPI()
+                    this.newRiceCrop.ArableLand_owner = respone.data.ArableLand_owner;
+                    this.newRiceCrop.ArableLand_latitude = respone.data.ArableLand_latitude;
+                    this.newRiceCrop.ArableLand_longitude = respone.data.ArableLand_longitude;
+                    this.getWeather();
                }
           },
 
@@ -1134,14 +1194,14 @@ export default {
                          data.FertilizerTimes_endDate = null;
                     }
                     data.Fertilizer.forEach(element => {
-                         if(element.Fertilizer_id != null){
+                         if (element.Fertilizer_id != null) {
                               var fertilisertimes = {};
-                         fertilisertimes = data;
-                         fertilisertimes.Fertilizer_id = element.Fertilizer_id;
-                         fertilisertimes.FertilizerTimes_amount = element.FertilizerTimes_amount;
-                         this.createNewFertilizerTimes(fertilisertimes);
+                              fertilisertimes = data;
+                              fertilisertimes.Fertilizer_id = element.Fertilizer_id;
+                              fertilisertimes.FertilizerTimes_amount = element.FertilizerTimes_amount;
+                              this.createNewFertilizerTimes(fertilisertimes);
                          }
-                         
+
                     });
 
                }
@@ -1174,10 +1234,10 @@ export default {
                     this.stylebac.none = false;
                     this.stylebac.active = true;
                     this.newFertilizerTimes.Fertilizer = [];
-                         var fertilizerInfor = {};
-                         fertilizerInfor.Fertilizer_name = "";
-                         fertilizerInfor.FertilizerTimes_amount = 0;
-                         this.newFertilizerTimes.Fertilizer.push(fertilizerInfor)
+                    var fertilizerInfor = {};
+                    fertilizerInfor.Fertilizer_name = "";
+                    fertilizerInfor.FertilizerTimes_amount = 0;
+                    this.newFertilizerTimes.Fertilizer.push(fertilizerInfor)
                }
                else {
                     this.message1 = " ";
@@ -1288,9 +1348,9 @@ export default {
                          this.newSprayingTimes.SprayingTimes_times = 1;
                     }
                     var temp = {};
-                         temp.Pesticide_name = "";
-                         temp.Pesticide_id = 0;
-                         this.newSprayingTimes.Pesticide.push(temp);
+                    temp.Pesticide_name = "";
+                    temp.Pesticide_id = 0;
+                    this.newSprayingTimes.Pesticide.push(temp);
                }
                else {
                     this.message1 = " ";
@@ -1325,9 +1385,9 @@ export default {
                          data.SprayingTimes_endDate = null;
                     }
                     data.Pesticide.forEach(pesticide => {
-                         if(pesticide.Pesticide_name != null){
+                         if (pesticide.Pesticide_name != null) {
                               this.pesticideList.forEach(element => {
-                                   if(element.Pesticide_name == pesticide.Pesticide_name){
+                                   if (element.Pesticide_name == pesticide.Pesticide_name) {
                                         pesticide.Pesticide_id = element.Pesticide_id;
                                    }
                               });
@@ -1342,19 +1402,19 @@ export default {
 
           },
 
-          async createSprayingTimes(data){
+          async createSprayingTimes(data) {
                const [error, respone] = await this.handle(
-                         SprayingTimesService.create(data)
-                    );
-                    if (error) {
-                         console.log(error);
-                         this.message1 = "Thêm không thành công.";
-                    } else if (respone.data == "Không thể tạo lần phun thuốc mới.") {
-                         this.message1 = "Thêm không thành công.";
-                    } else {
-                         this.message2 = "Thêm thành công.";
-                         this.retrieveSprayingTimesList();
-                    }
+                    SprayingTimesService.create(data)
+               );
+               if (error) {
+                    console.log(error);
+                    this.message1 = "Thêm không thành công.";
+               } else if (respone.data == "Không thể tạo lần phun thuốc mới.") {
+                    this.message1 = "Thêm không thành công.";
+               } else {
+                    this.message2 = "Thêm thành công.";
+                    this.retrieveSprayingTimesList();
+               }
           },
 
           async updateSprayingTimes(data) {
@@ -2070,20 +2130,6 @@ export default {
                     this.retrieveMonitorList()
                }
           },
-          async getAPI() {
-               //      console.log(this.newRiceCrop.ArableLand_location)
-               //      var weather = {};
-               //      let urlAPI = `https://api.openweathermap.org/data/2.5/weather?q=${this.newRiceCrop.ArableLand_location}&appid=9aed1da02f473617712a9955f04e0d01`
-               //      let data = await fetch(urlAPI).then(res => res.json())
-               //      weather.temp = (data.main.temp - 273.15).toFixed(0);
-               //     weather.rain = data.weather[0].main;
-               //      weather.humidity = data.main.humidity;
-               //      weather.icon = "https://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png";
-               //      weather.description= data.weather[0].description;
-               //      if (weather.temp > 20) {
-               //           alert("Chu y nhiet do tren 20 do c la moi trường cho rầy nâu phát triên")
-               //      }
-          }
      },
 
      mounted() {

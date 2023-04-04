@@ -1,5 +1,5 @@
 <template>
-     <div class="container-fluid activitiesManagement pr-4" style="background-color: #EAEAEA;height:100%;">
+     <div class="container-fluid activitiesManagement pr-4" style="background-color: #EAEAEA;height: max-content;">
           <div class="row activitiesManagementFrame" style="height: 100vmin;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>

@@ -12,14 +12,18 @@ exports.store = async (req, res) => {
           yield = (String(yield).slice(1,));
           yield = (String(yield).slice(0,(String(yield).length-1)));
           // create new prediction
-
           const prediciton = new Prediction({
                Prediction_id: null,
                Prediction_date: moment().format('YYYY-MM-DD HH:mm:ss'),
                Prediction_yield: yield,
-               RiceCropInformation_id: req.params.RiceCropInformation_id
+               RiceCropInformation_id: req.params.RiceCropInformation_id,
+               Prediction_precipitation: req.body.precipitation,
+               Prediction_temperature: req.body.temperature,
+               Prediction_humitidity: req.body.humitidity,
+               Prediction_windSpeed: req.body.windSpeed,
+               Prediction_solarRadiation: req.body.solarRadiation
           });
-
+console.log(prediciton)
           // save prediciton
           Prediction.create(prediciton, (err, data) => {
                if (err)

@@ -83,7 +83,7 @@
           </div>
           <div class="row mb-4">
                <div class="col-sm-5"></div>
-               <button class="btn btn-outline-secondary btnLuu col-sm-2">Lưu</button>
+               <button class="btn btn-outline-secondary btnLuu col-sm-2">Cập Nhật</button>
                <div class="col-sm-5"></div>
           </div>
 

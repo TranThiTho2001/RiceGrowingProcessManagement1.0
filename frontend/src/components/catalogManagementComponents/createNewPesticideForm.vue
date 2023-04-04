@@ -1,6 +1,6 @@
 <template>
      <Form @submit="newpesticide.close = true, $emit('addPesticide-submit', newpesticide)" :validation-schema="schema"
-          class="form container createPesticideForm">
+          class="form container-fluid createPesticideForm">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times" @click="newpesticide.close = false, $emit('addPesticide-submit', newpesticide)"
@@ -8,7 +8,7 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> Tạo thuốc trị bệnh
+               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> Thêm loại thuốc trị bệnh
                     dịch mới
                </p>
           </div>
@@ -30,7 +30,7 @@
 
                     <div class="form-group">
                          <label for="description" class="mt-3">Thông tin <span style="color: red">*</span></label>
-                         <Field name="description" class="form-control" v-model="newpesticide.Pesticide_description" as="textarea" style="height: 218px;"
+                         <Field name="description" class="form-control" v-model="newpesticide.Pesticide_description" as="textarea" style="height: 206px;"
                               placeholder="Thông tin thuốc..." />
                          <ErrorMessage name="description" class="error-feedback" />
                     </div>
@@ -78,17 +78,15 @@
           </div>
 
           <div class="row ">
-               <div class="col-sm-2"></div>
-               <div class="col-sm-8 mt-2 mb-3 text-center">
+               <div class="col-sm-12 mt-2 mb-3 text-center">
                     <span v-if="message2 == 'Thêm thành công.'" class="fas fa-check-circle"
                          style="color:#00BA13; text-align: center; display: inline;"></span>
                     <span v-if="message1 == 'Thêm không thành công.'" class="fas fa-times-circle"
                          style="color:red; text-align: center; display: inline;"></span>
                     <span v-if="message2 == 'Thêm thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;">
-                         {{ message2 }}</span>
-                    <span v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2"> {{ message1 }} </span>
+                         Thêm thông tin một loại thuốc mới thành công</span>
+                    <span v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2"> Thêm thông tin một loại thuốc mới không thành công </span>
                </div>
-               <div class="col-sm-2"></div>
           </div>
           <div class="row mb-4">
                <div class="col-sm-5"></div>
@@ -264,6 +262,6 @@ export default {
 .epidemicSelect {
      background-color: #f7f7f7;
      border-radius: 3px;
-     max-height: 250px !important;
-     min-height: 305px;
+     max-height: 240px !important;
+     min-height: 295px;
 }</style>

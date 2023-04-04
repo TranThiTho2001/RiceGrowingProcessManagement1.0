@@ -1,10 +1,15 @@
 const sql = require("./db");
 
 const Prediction = function (prediction) {
-     this.Prediction_id = prediction.Prediction_id
-     this.Prediction_date = prediction.Prediction_date,
-     this.Prediction_yield = prediction.Prediction_yield,
-     this.RiceCropInformation_id = prediction.RiceCropInformation_id
+     this.Prediction_id = prediction.Prediction_id;
+     this.Prediction_date = prediction.Prediction_date;
+     this.Prediction_yield = prediction.Prediction_yield;
+     this.RiceCropInformation_id = prediction.RiceCropInformation_id;
+     this.Prediction_precipitation = prediction.Prediction_precipitation;
+     this.Prediction_temperature = prediction.Prediction_temperature;
+     this.Prediction_humitidity = prediction.Prediction_humitidity;
+     this.Prediction_windSpeed = prediction.Prediction_windSpeed;
+     this.Prediction_solarRadiation = prediction.Prediction_solarRadiation
 }
 
 Prediction.create = (newPrediction, result) => {
@@ -20,26 +25,26 @@ Prediction.create = (newPrediction, result) => {
 };
 
 Prediction.findById = (id, result) => {
-     sql.query(`SELECT * FROM Prediction` + 
-     ` JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = Prediction.RiceCropInformation_id` +
-     ` WHERE Prediction.Prediction_id like '${id}'`, (err, res) => {
-          if (err) {
-               console.log("error: ", err);
-               result(err, null);
-               return;
-          }
-          if (res.length) {
-               result(null, res[0]);
-               return;
-          }
-          // not found Prediction with the id
-          result({ kind: "not_found" }, null);
-     });
+     sql.query(`SELECT * FROM Prediction` +
+          ` JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = Prediction.RiceCropInformation_id` +
+          ` WHERE Prediction.Prediction_id like '${id}'`, (err, res) => {
+               if (err) {
+                    console.log("error: ", err);
+                    result(err, null);
+                    return;
+               }
+               if (res.length) {
+                    result(null, res[0]);
+                    return;
+               }
+               // not found Prediction with the id
+               result({ kind: "not_found" }, null);
+          });
 };
 
 Prediction.getAll = (name, result) => {
-     let query = `SELECT * FROM  Prediction` + 
-     ` JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = Prediction.RiceCropInformation_id`;
+     let query = `SELECT * FROM  Prediction` +
+          ` JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = Prediction.RiceCropInformation_id`;
      if (name) {
           query += ` WHERE RiceCropInformation.RiceCropInformation_name LIKE '%${name}%'`;
      }
@@ -54,9 +59,9 @@ Prediction.getAll = (name, result) => {
 };
 
 Prediction.findByRiceCropInformationid = (id, result) => {
-     let query = `SELECT * FROM RSELECT * FROM Prediction` + 
-     ` JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = Prediction.RiceCropInformation_id`
-     + `where Prediction.RiceCropInformation_id LIKE '%${id}%'`;
+     let query = `SELECT * FROM RSELECT * FROM Prediction` +
+          ` JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = Prediction.RiceCropInformation_id`
+          + `where Prediction.RiceCropInformation_id LIKE '%${id}%'`;
      sql.query(query, (err, res) => {
           if (err) {
                console.log("error: ", err);
@@ -67,11 +72,11 @@ Prediction.findByRiceCropInformationid = (id, result) => {
      });
 };
 
-Prediction.findByArableLand = (name,id, result) => {
-     let query = "SELECT * FROM RiceCropInformation JOIN Monitor on Monitor.RiceCropInformation_id = RiceCropInformation.RiceCropInformation_id"+
-     ` JOIN Seed on Seed.Seed_id = RiceCropInformation.Seed_id` +
-     ` JOIN ArableLand on ArableLand.ArableLand_id= RiceCropInformation.ArableLand_id` +
-     ` JOIN Crop on Crop.Crop_id = RiceCropInformation.Crop_id`
+Prediction.findByArableLand = (name, id, result) => {
+     let query = "SELECT * FROM RiceCropInformation JOIN Monitor on Monitor.RiceCropInformation_id = RiceCropInformation.RiceCropInformation_id" +
+          ` JOIN Seed on Seed.Seed_id = RiceCropInformation.Seed_id` +
+          ` JOIN ArableLand on ArableLand.ArableLand_id= RiceCropInformation.ArableLand_id` +
+          ` JOIN Crop on Crop.Crop_id = RiceCropInformation.Crop_id`
      if (name) {
           query += ` WHERE  LIKE ArableLand.ArableLand_name '%${name}%' or ArableLand.ArableLand_id LIKE '%${name}%'`;
      }

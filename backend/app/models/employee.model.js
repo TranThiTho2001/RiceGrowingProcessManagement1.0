@@ -11,10 +11,9 @@ const Employee = function(employee){
     this.Employee_address = employee.Employee_address;
     this.Employee_email = employee.Employee_email;
     this.Employee_birthDate = employee.Employee_birthDate;
-    this.Employee_identityCardNumber = employee.Employee_identityCardNumber
-
-};
-
+    this.Employee_identityCardNumber = employee.Employee_identityCardNumber;
+    this. Employee_lockAccount = employee. Employee_lockAccount;
+}
 Employee.create = (newEmployee, result) => {
     sql.query("INSERT INTO Employee SET ?", newEmployee, (err, res) => {
         if (err) {
@@ -46,6 +45,7 @@ Employee.getAll = (name, result) => {
     if(name) {
         query += ` WHERE Employee_name LIKE '%${name}%'`;
     }
+    query += " Order By Employee.Employee_id";
     sql.query(query, (err, res) => {
         if (err) {
             console.log("error: ", err);

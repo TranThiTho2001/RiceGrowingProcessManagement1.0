@@ -52,7 +52,8 @@
                               <button class="btn btnCreate" v-if="!isOpenRiceCropDetail && !isOpenRiceCropList"
                                    @click="isOpenRiceCropList = !isOpenRiceCropList, retrieveRiceCropList()"> Dự
                                    đoán</button>
-                              <button class="btn btnCreate" v-if="isOpenRiceCropDetail" @click="getWeather()"> Dự đoán</button>
+                              <button class="btn btnCreate" v-if="isOpenRiceCropDetail" @click="getWeather()"> Dự
+                                   đoán</button>
                          </div>
                     </div>
 
@@ -71,7 +72,8 @@
                                         </tr>
                                    </thead>
                                    <tbody>
-                                        <tr v-for="(prediction, i ) in predictionList" :key="i">
+                                        <tr v-for="(prediction, i ) in predictionList" :key="i"
+                                             @click="setRiceCropChosen(prediction, '1')">
                                              <td class="centerclass" data-label="STT">{{ i + 1 }}</td>
                                              <td class="centerclass" data-label="Mã mùa vụ">
                                                   {{ prediction.RiceCropInformation_id }}</td>
@@ -111,12 +113,13 @@
                                              <th>Giống lúa</th>
                                              <th>Mẫu ruộng</th>
                                              <th class="centerclass">Ngày gieo xạ</th>
+                                             <th></th>
                                              <!-- <th class="centerclass">Năng suất(kg/ha)</th> -->
                                         </tr>
                                    </thead>
                                    <tbody>
                                         <tr v-for="(ricecrop, i ) in riceCropList" :key="i"
-                                             @click="setRiceCropChosen(ricecrop), isOpenRiceCropDetail = true">
+                                             @click="setRiceCropChosen(ricecrop, '2'), isOpenRiceCropDetail = true">
                                              <td class="centerclass" data-label="STT">{{ i + 1 }}</td>
                                              <td class="centerclass" data-label="Mã mùa vụ">{{
                                                   ricecrop.RiceCropInformation_id
@@ -128,8 +131,9 @@
                                              <td data-label="Mẫu ruộng">{{ ricecrop.ArableLand_owner }}</td>
                                              <td class="centerclass" data-label="Ngày gieo xạ">{{
                                                   formatDate(ricecrop.RiceCropInformation_sowingDate) }}</td>
-                                             <!-- <td class="centerclass" data-label="Năng suất(kg/ha)">{{
-                                                  prediction.Prediction_yield }}</td> -->
+                                             <td class="centerclass" data-label="Dự đoán">
+                                                  <button class="btn btnCreate" @click="getWeather()"> Dự đoán</button>
+                                             </td>
                                         </tr>
                                    </tbody>
                               </table>
@@ -300,14 +304,35 @@ export default {
                     console.log(err)
                }
                else {
-                    this.riceCropList = respone.data;
-                    this.cloneRiceCropList = respone.data;
+                    // var temp = respone.data;
+                    respone.data.forEach(ricecrop => {
+                         if (ricecrop.RiceCropInformation_sowingDate != null && ricecrop.RiceCropInformation_harvestDate == null) {
+                              this.riceCropList.push(ricecrop);
+                              this.clonePredictionList.push(ricecrop)
+                         }
+                    });
+                    console.log(this.riceCropList)
+                    // this.cloneRiceCropList = this;
                }
                this.loaded = true;
           },
 
-          async setRiceCropChosen(data) {
-               this.riceCropChosen = data;
+          async setRiceCropChosen(data, id) {
+               if (id == "1") {
+                    const [err, respone] = await this.handle(
+                         RiceCropInformationService.get(data.RiceCropInformation_id)
+                    );
+                    if (err) {
+                         console.log(err)
+                    }
+                    else {
+                         this.riceCropChosen = respone.data;
+                         this.isOpenRiceCropDetail = true;
+                    }
+               }
+               else {
+                    this.riceCropChosen = data;
+               }
           },
 
 
@@ -390,31 +415,19 @@ export default {
                     infor.temperature = this.weatherInfor.Temperature;
                     infor.humitidity = this.weatherInfor.Humitidity;
                     infor.solarRadiation = this.weatherInfor.SolarRadiation;
-                    infor.windSpeed =  this.weatherInfor.WinSpeed;
-                    if(this.riceCropChosen.Crop_id == 'C00001'){
+                    infor.windSpeed = this.weatherInfor.WinSpeed;
+                    if (this.riceCropChosen.Crop_id == 'C00001') {
                          infor.crop = '1';
                     }
-                    else if(this.riceCropChosen.Crop_id == 'C00002'){
+                    else if (this.riceCropChosen.Crop_id == 'C00002') {
                          infor.crop = '2';
                     }
-                    else{
+                    else {
                          infor.crop = '3';
                     }
                     infor.area = this.riceCropChosen.ArableLand_areaId;
                     console.log(infor)
-                    const [err, respone] = await this.handle(
-                         PredictionService.create(this.riceCropChosen.RiceCropInformation_id, infor)
-                    );
-                    if (err) {
-                         console.log(err)
-                    }
-                    else {
-                         console.log(respone.data);
-                         console.log(infor)
-                         this.riceCropChosen.Prediction_yield = respone.data.Prediction_yield;
-                         this.predicting = false;
-                         this.result = true;
-                    }
+                    
                }
 
 
@@ -462,7 +475,7 @@ export default {
                     this.weatherInfor.solarRadiation[valuenull.index] = data2.daily.shortwave_radiation_sum[i];
                     i--;
                });
-
+               console.log(data2)
                i = data2.hourly.relativehumidity_2m.length - 1;
                for (let index = this.weatherInfor.humitidityList.length - 1; index > 0; index--) {
                     if (this.weatherInfor.humitidityList[index] == null) {
@@ -496,13 +509,25 @@ export default {
                this.weatherInfor.SolarRadiation = this.weatherInfor.totalSolarRadiation / this.weatherInfor.solarRadiation.length;
                console.log("Tong luong Mua: " + this.weatherInfor.Precipitation + " Nhiet do trung binh: " + this.weatherInfor.Temperature + " Do am: " + this.weatherInfor.Humitidity + " Tocs do gia: " + this.weatherInfor.WinSpeed + " Buc xa: " + this.weatherInfor.SolarRadiation);
                this.weatherInfor.loadding = true;
-               console.log(this.weatherInfor.loadding)
-               this.predict()
+               this.predict();
           },
 
 
-          // async getMoreWeather(lat, lon, Timestamp) {
-          // var t;
+          // async getMoreWeather(lat, lon) {
+          // console.log(lat, lon)
+          //                const options = {
+          //                     method: 'GET',
+          //                     headers: {
+          //                          'X-RapidAPI-Key': 'b059eff2d8msh0a3e5c7029b2dcfp1116ddjsn5f9d12cd2b06',
+          //                          'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
+          //                     }
+          //                };
+          // console.log(`https://weatherapi-com.p.rapidapi.com/history.json?q=${lat},${lon}&dt=2023-03-30&end_dt=2023-04-02`)
+          //                fetch(`https://weatherapi-com.p.rapidapi.com/history.json?q=${lat},${lon}&dt=2023-03-30&end_dt=2023-04-02`, options)
+          //                     .then(response => response.json())
+          //                     .then(response => console.log(response))
+          //                     .catch(err => console.error(err));
+
           // const options = {
           //      method: 'GET',
           //      headers: {
@@ -510,22 +535,11 @@ export default {
           //           'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
           //      }
           // };
-          // console.log(`https://weatherapi-com.p.rapidapi.com/history.json?q=${lat},${lon}&dt=${Timestamp}&lang=en`)
-          // fetch(`https://weatherapi-com.p.rapidapi.com/history.json?q=${lat},${lon}&dt=${Timestamp}&lang=en`, options)
-          //      .then((response) => {
-          //           return response.json().then((data) => {
-          //               console.log(data.forecast.forecastday[0].day)
-          //               this.weatherInfor.humitidityList.push(data.forecast.forecastday[0].day.avghumidity);
-          //               this.weatherInfor.temperatureList.push(data.forecast.forecastday[0].day.avgtemp_c)
-          //                return data;
-          //           }).catch((err) => {
-          //                console.log(err);
-          //           })
-          //      })
+
+          // fetch(`https://weatherapi-com.p.rapidapi.com/current.json?q=Can Tho`, options)
+          //      .then(response => response.json())
+          //      .then(response => console.log(response))
           //      .catch(err => console.error(err));
-          // console.log(t)
-
-
           // },
 
           formatDateTime(data) {

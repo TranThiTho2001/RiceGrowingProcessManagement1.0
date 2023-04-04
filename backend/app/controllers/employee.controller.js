@@ -17,6 +17,7 @@ exports.store = async (req, res) => {
         Employee_email: req.body.Employee_email,
         Employee_birthDate: req.body.Employee_birthDate,
         Employee_password: bcrypt.hashSync(req.body.Employee_password, 8),
+        Employee_lockAccount: req.body.Employee_lockAccount,
     });
     // Save Employeein the database
     Employee.create(employee, (err, data) => {

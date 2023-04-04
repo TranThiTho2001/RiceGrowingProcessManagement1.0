@@ -320,10 +320,11 @@ export default {
                );
                if (error) {
                     console.log(error);
+                    this.message = "Xóa bệnh dịch không thành công";
                } else {
                     this.retrieveEpidemicList()
                     console.log(response.data);
-                    this.message = "Xóa bệnh dịch thành công"
+                    this.message = "Xóa bệnh dịch thành công";
                }
           },
 

@@ -376,6 +376,30 @@
      }
 
 }
+
+.riceCropDetail .riceCropInfor{
+     background-color: #FFFED8;
+     border-radius: 8px;
+     padding-left: 3px;
+}
+
+.riceCropDetail .riceCropInfor .infor{
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 500;
+     font-size: 17px;
+     line-height: 23px;
+     color: #2F3033;
+}
+
+.riceCropDetail .riceCropInfor .title{
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 400;
+     font-size: 16px;
+     line-height: 23px;
+     color: #2F3033;
+}
 .riceCropDetail .navigationBar .btnMonitor {
      display: block;
      font-size: 16px;

@@ -314,10 +314,11 @@ export default {
                );
                if (error) {
                     console.log(error);
+                    this.message = "Xóa phân bón không thành công";
                } else {
                     this.retrieveFertilizerList()
                     console.log(response.data);
-                    this.message = "Xóa phân bón thành công"
+                    this.message = "Xóa phân bón thành công";
                }
           },
 

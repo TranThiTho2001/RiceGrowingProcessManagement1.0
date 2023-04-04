@@ -1,6 +1,6 @@
 <template>
      <Form @submit="newpesticide.close = true, $emit('updatePesticide-submit', newpesticide)" :validation-schema="schema"
-          class="form container updatePesticideForm">
+          class="form container-fluid updatePesticideForm">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times"
@@ -9,7 +9,7 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Tạo thuốc trị bệnh
+               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Cập nhật thông tin thuốc trị bệnh
                     dịch mới
                </p>
           </div>
@@ -31,7 +31,7 @@
 
                     <div class="form-group">
                          <label for="description" class="mt-3">Thông tin <span style="color: red">*</span></label>
-                         <Field name="description" class="form-control" v-model="newpesticide.Pesticide_description" as="textarea" style="height: 218px;"
+                         <Field name="description" class="form-control" v-model="newpesticide.Pesticide_description" as="textarea" style="height: 194px;"
                               placeholder="Thông tin thuốc..." />
                          <ErrorMessage name="description" class="error-feedback" />
                     </div>
@@ -85,8 +85,8 @@
                     <span v-if="message1 == 'Cập nhật không thành công.'" class="fas fa-times-circle"
                          style="color:red; text-align: center; display: inline;"></span>
                     <span v-if="message2 == 'Cập nhật thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;">
-                         {{ message2 }}</span>
-                    <span v-if="message1 == 'Cập nhật không thành công.'" class="textMessage1 pt-2 pb-2"> {{ message1 }}
+                         Cập nhật thông tin loại thuốc thành công</span>
+                    <span v-if="message1 == 'Cập nhật không thành công.'" class="textMessage1 pt-2 pb-2"> Cập nhật thông tin loại thuốc không thành công
                     </span>
                </div>
                <div class="col-sm-2"></div>
@@ -114,7 +114,7 @@ export default {
           ErrorMessage,
      },
      emits: ["updatePesticide-submit"],
-     props: ["newPesticide", "message1", "epidemicList", "treatmentList"],
+     props: ["newPesticide", "message1","message2", "epidemicList", "treatmentList"],
      data() {
 
           const schema = yup.object().shape({
@@ -151,8 +151,8 @@ export default {
 
      methods: {
           show() {
-               console.log(this.treatment)
-               this.newpesticide.Treatment = this.treatment;
+               this.newpesticide.NewTreatment = this.treatment;
+               console.log(this.newpesticide.NewTreatment)
           },
 
           filteredList() {
@@ -320,5 +320,12 @@ export default {
 .selectItem{
      white-space: nowrap;
 overflow: hidden;
+}
+
+.epidemicSelect {
+     background-color: #f7f7f7;
+     border-radius: 3px;
+     max-height: 240px !important;
+     min-height: 280px;
 }
 </style>

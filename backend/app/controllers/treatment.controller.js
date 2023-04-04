@@ -28,7 +28,6 @@ exports.findAll = async (req, res) => {
 
 exports.findbyEidemicid = async (req, res) => {
      const id = req.params.Epidemic_id;
-     console.log(id +"1")
      Treatment.findEpidemicId(id, (err, data) => {
           if (err) {
                if (err.kind === "not_found") {
@@ -42,7 +41,6 @@ exports.findbyEidemicid = async (req, res) => {
 
 exports.findbyEidemicName = async (req, res) => {
      const  name = req.query.name;
-     console.log(name+"2")
      Treatment.findByEpidemicName(name, (err, data) => {
           if (err) {
                if (err.kind === "not_found") {
@@ -56,7 +54,6 @@ exports.findbyEidemicName = async (req, res) => {
 
 exports.findbyPesticideid = async (req, res) => {
      const  id = req.params.Pesticide_id;
-     console.log(id+"3")
      Treatment.findByPesticideid(id, (err, data) => {
           if (err) {
                if (err.kind === "not_found") {
@@ -70,7 +67,6 @@ exports.findbyPesticideid = async (req, res) => {
 
 exports.findbyPesticideName = async (req, res) => {
      const  name = req.query.name;
-     console.log(name+"4")
      Treatment.findByPesticideName(name, (err, data) => {
           if (err) {
                if (err.kind === "not_found") {

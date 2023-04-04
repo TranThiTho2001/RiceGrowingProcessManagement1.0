@@ -1,36 +1,38 @@
-<template>isOpenMenuIcon
+<template>
      <div class="container-fluid pesticideManagement pr-4" style="background-color: #EAEAEA; height: 100%;">
           <div class="row pesticideManagementFrame" style="min-height: 100%;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
                     @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true, active.leftnNoneActive = false"></button>
-                    <div  class="left" :class=" {navbarresponsive: openMenu.openMenu }" >
-                         <Catalog />
+               <div class="left" :class="{ navbarresponsive: openMenu.openMenu }">
+                    <Catalog />
                </div>
 
                <div class="right rightPesticideManagement" :class="{ leftNoneActive: active.leftnNoneActive }">
                     <div class="row pt-3 mb-5 pb-1 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
-                              <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Thuốc trị bệnh dịch</h3>
+                              <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Thuốc trị bệnh dịch</h3>
                          </div>
-                              <div class="">
-                                   <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
-                                   @click="retrievePesticideList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch), away()"
+                         <div class="">
+                              <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
+                                   @click="retrievePesticideList, isOpenInput1 = true"
+                                   @keyup.enter="searchName(nameToSearch), away()"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
                               <button class="btnSearch1" @click="searchName(nameToSearch), away()"
                                    v-if="nameToSearch == '' && !isOpenSearch.open">
                                    <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
 
-                              <input v-if="isOpenInput2 || (isOpenSearch.open)" autofocus type="text" class="form-control inputSearch2" placeholder="Tìm" style="width: 2%;"
-                                   v-model="nameToSearch" @click="retrievePesticideList" 
+                              <input v-if="isOpenInput2 || (isOpenSearch.open)" autofocus type="text"
+                                   class="form-control inputSearch2" placeholder="Tìm" style="width: 2%;"
+                                   v-model="nameToSearch" @click="retrievePesticideList"
                                    @keyup.enter="searchName(nameToSearch), away()"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
                               <button class="btnSearch2" @click="isOpenInput2 = !isOpenInput2">
                                    <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
-                              
+
                               <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
                                    <p class="item" v-for="pesticide in filteredList()" :key="pesticide.Pesticide_id"
                                         @click="searchName(pesticide.Pesticide_name), away()">
@@ -46,52 +48,60 @@
                     </div>
                     <div class="row ml-4 mr-1 mt-3 pb-4 pt-2">
                          <div class="col-sm-12 text-right">
-                              <button class="btn btnCreate" @click="openCreate = !openCreate"><i
-                                        class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm loại thuốc mới</button>
+                              <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
+                                        style="font-size: 15px;"></i> Thêm loại thuốc mới</button>
                          </div>
                     </div>
-                    <div class=" row scrollTable">
+                    <div class=" row scrollTable" v-if="!openCreate && !isOpenUpdatePesticide">
                          <div class="col-sm-12 justify-content-center" style="width: ;: 100%;">
-                         <table class="table pesticideList">
-                              <thead>
-                                   <tr>
-                                        <th class="centerclass">STT</th>
-                                        <th>Mã</th>
-                                        <th>Tên</th>
-                                        <th>Nhà cung cấp</th>
-                                        <th>Thông tin</th>
-                                        <th>Trị bệnh</th>
-                                        <th></th>
-                                   </tr>
-                              </thead>
-                              <tbody>
-                                   <tr v-for="(pesticide, i ) in pesticideList" :key="i" class="align-self-center">
-                                        <td class="centerclass" data-label="STT">{{ i }}</td>
-                                        <td data-label="Mã">{{ pesticide.Pesticide_id }}</td>
-                                        <td data-label="Tên" >{{ pesticide.Pesticide_name }}</td>
-                                        <td data-label="Nhà cung cấp">{{ pesticide.Pesticide_supplier }}</td>
-                                        <td data-label="Thông tin" style="width: 20%;"> {{ pesticide.Pesticide_description }}</td>
-                                        <td data-label="Trị bệnh"><div style="display: inline-block;"><p v-for="treatment in pesticide.Treatment" :key="treatment.Epidemic_id" style="margin-bottom: 0.2px !important;">{{ treatment.Epidemic_name }}</p></div></td>
-                                        <td data-label="Tùy chọn">
-                                             <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown" 
-                                                  aria-haspopup="true" aria-expanded="false">
-                                                  <i class="fas fa-ellipsis-v"></i>
-                                             </button>
-                                             <div class="dropdown-menu">
-                                                  <a class="dropdown-item action"
-                                                  @click="setPesticideChosen(pesticide), isOpenUpdatePesticide = !isOpenUpdatePesticide">
-                                                       <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
-                                                  </a>
-                                                  <a class="dropdown-item" href="#"
-                                                  @click="setPesticideChosen(pesticide), isOpenConfirm = !isOpenConfirm">
-                                                       <span class="fas fa-trash-alt actionIcon"></span> Xóa
-                                                  </a>
-                                             </div>
-                                        </td>
-                                   </tr>
-                              </tbody>
-                         </table>
-                    </div>
+                              <table class="table pesticideList">
+                                   <thead>
+                                        <tr>
+                                             <th class="centerclass">STT</th>
+                                             <th>Mã</th>
+                                             <th>Tên</th>
+                                             <th>Nhà cung cấp</th>
+                                             <th>Thông tin</th>
+                                             <th>Trị bệnh</th>
+                                             <th></th>
+                                        </tr>
+                                   </thead>
+                                   <tbody>
+                                        <tr v-for="(pesticide, i ) in pesticideList" :key="i" class="align-self-center">
+                                             <td class="centerclass" data-label="STT">{{ i }}</td>
+                                             <td data-label="Mã">{{ pesticide.Pesticide_id }}</td>
+                                             <td data-label="Tên">{{ pesticide.Pesticide_name }}</td>
+                                             <td data-label="Nhà cung cấp">{{ pesticide.Pesticide_supplier }}</td>
+                                             <td data-label="Thông tin" style="width: 20%;"> {{
+                                                  pesticide.Pesticide_description }}</td>
+                                             <td data-label="Trị bệnh">
+                                                  <div style="display: inline-block;">
+                                                       <p v-for="treatment in pesticide.Treatment"
+                                                            :key="treatment.Epidemic_id"
+                                                            style="margin-bottom: 0.2px !important;">{{
+                                                                 treatment.Epidemic_name }}</p>
+                                                  </div>
+                                             </td>
+                                             <td data-label="Tùy chọn">
+                                                  <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
+                                                       aria-haspopup="true" aria-expanded="false">
+                                                       <i class="fas fa-ellipsis-v"></i>
+                                                  </button>
+                                                  <div class="dropdown-menu">
+                                                       <a class="dropdown-item action"
+                                                            @click="setPesticideChosen(pesticide, i), isOpenUpdatePesticide = !isOpenUpdatePesticide">
+                                                            <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
+                                                       </a>
+                                                       <a class="dropdown-item" href="#"
+                                                            @click="setPesticideChosen(pesticide, i), isOpenConfirm = !isOpenConfirm">
+                                                            <span class="fas fa-trash-alt actionIcon"></span> Xóa
+                                                       </a>
+                                                  </div>
+                                             </td>
+                                        </tr>
+                                   </tbody>
+                              </table>
+                         </div>
                     </div>
                     <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
 
@@ -101,7 +111,7 @@
                               <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
                          </p>
                          <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deletePesticide(pesticideChosen.Pesticide_id)">Xóa</button>
+                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteTreatments()">Xóa</button>
                          <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
                               @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
                     </div>
@@ -120,7 +130,8 @@
                     <CreatePesticideForm v-if="openCreate" :newPesticide="newPesticide" :epidemicList="epidemicList"
                          @addPesticide-submit="createPesticide" :message1="message1" :message2="message2" />
 
-                    <UpdatePesticideForm v-if="isOpenUpdatePesticide" :newPesticide="pesticideChosen" :epidemicList="epidemicList" :treatmentList="treatmentList"
+                    <UpdatePesticideForm v-if="isOpenUpdatePesticide" :newPesticide="pesticideChosen"
+                         :epidemicList="epidemicList" :treatmentList="treatmentList"
                          @updatePesticide-submit="updatePesticide" :message1="message1" :message2="message2" />
                </div>
           </div>
@@ -158,11 +169,6 @@ export default {
 
      data() {
           return {
-               currentPage: 1,
-               elementsPerPage: 6,
-               ascending: false,
-               previous: '<<',
-               next: '>>',
                pesticideList: [],
                openCreate: false,
                newPesticide: {},
@@ -184,6 +190,7 @@ export default {
                treatment: [],
                epidemicList: [],
                treatmentList: [],
+               cloneTreatmentList: [],
                openMenu: {
                     openMenu: false,
                     isOpenMenuIcon: true,
@@ -193,7 +200,8 @@ export default {
                active: {
                     rightActive: false,
                     leftnNoneActive: false,
-               }
+               },
+               searching: false,
           }
      },
 
@@ -230,25 +238,25 @@ export default {
                }
                else {
                     this.pesticideList = respone.data;
-                    this.clonePesticideList = respone.data;
-                    var i =0;
+                    var i = 0;
                     this.pesticideList.forEach(element => {
-                         new Pesticide(element);  
+                         new Pesticide(element);
                          this.findTreatmentByPesticideId(element.Pesticide_id, i);
                          i++;
                     });
+                    this.clonePesticideList = Array.from(this.pesticideList)
                     var temp = (String(this.pesticideList[this.pesticideList.length - 1].Pesticide_id)).split("");
                     var id = "";
                     for (let index = 0; index < temp.length; index++) {
                          const element = temp[index];
                          if (element != "P" && element != "E" & element != "0") {
                               for (let i = index; i < temp.length; i++) {
-                                   id = id.concat(temp[i]);                               
+                                   id = id.concat(temp[i]);
                               }
                               break;
                          }
                     }
-
+                    console.log(this.pesticideList)
                     if (id < 9) {
                          this.newPesticide.Pesticide_id = "PE0000000" + String(Number(id) + 1);
                     }
@@ -283,8 +291,6 @@ export default {
                     this.message2 = " ";
                }
                else {
-                    this.message1 = "";
-                    this.message2 = "";
                     const [error, respone] = await this.handle(
                          PesticideService.create(data)
                     );
@@ -295,7 +301,7 @@ export default {
                          this.message1 = "Thêm không thành công."
                     } else {
                          this.message2 = "Thêm thành công.";
-                         
+
                          var temp = data.Treatment;
                          temp.forEach(element => {
                               var treatment = {};
@@ -309,33 +315,36 @@ export default {
           },
 
           async createTreatment(data) {
-                    const [error, respone] = await this.handle(
-                         TreatmentService.create(data)
-                    );
-                    if (error) {
-                         console.log(error);
-                         console.log("Thêm không thành công.");
-                    } else if (respone.data == "Lỗi trong quá trình xử lý.") {
-                         console.log("Thêm không thành công.");
-                    } else {
-                         console.log("Thêm thành công.");
-                         this.findTreatmentByPesticideId(data.Pesticide_id)
-                    }
+               const [error, respone] = await this.handle(
+                    TreatmentService.create(data)
+               );
+               if (error) {
+                    console.log(error);
+                    console.log("Thêm không thành công.");
+               } else if (respone.data == "Lỗi trong quá trình xử lý.") {
+                    console.log("Thêm không thành công.");
+               } else {
+                    console.log("Thêm thành công.");
+
+               }
           },
 
           async findTreatmentByPesticideId(data, i) {
+
                this.treatmentList = [];
-                    const [error, respone] = await this.handle(
-                         TreatmentService.findByPesticideId(data)
-                    );
-                    if (error) {
-                         console.log(error);                       
-                    } else if(respone.data != "Không tìm thấy."){
-                         this.treatmentList = respone.data;this.pesticideList[i].Treatment = [];
-                         this.treatmentList.forEach(element => {
-                              this.pesticideList[i].Treatment.push(element);
-                         });
-                    }
+               const [error, respone] = await this.handle(
+                    TreatmentService.findByPesticideId(data)
+               );
+               if (error) {
+                    console.log(error);
+               } else if (respone.data != "Không tìm thấy.") {
+                    this.treatmentList = respone.data;
+                    this.pesticideList[i].Treatment = [];
+                    this.treatmentList.forEach(element => {
+                         this.pesticideList[i].Treatment.push(element);
+                    });
+               }
+
           },
 
           async updatePesticide(data) {
@@ -354,44 +363,60 @@ export default {
                     } else if (respone.data == "Đã xảy ra lỗi trong quá trình cập nhật thông tin!") {
                          this.message1 = "Cập nhật không thành công."
                     } else {
-                         this.message2 = "Cập nhật thành công.";
-                         this.findTreatmentByPesticideId(data.Pesticide_id)
+                         var templist = data.NewTreatment;
                          var temp = 0;
-                         data.Treatment.forEach(EpidemicID => {
-                              this.treatmentList.forEach(element => {
-                                   if(element.Epidemic_id == EpidemicID){
-                                        temp= 1;
+                         if (templist != null) {
+                              templist.forEach(EpidemicID => {
+                                   if (this.pesticideList[this.pesticideChosen.position].Treatment != null) {
+                                        this.pesticideList[this.pesticideChosen.position].Treatment.forEach(element => {
+
+                                             if (element.Epidemic_id == EpidemicID) {
+                                                  temp = 1;
+                                             }
+                                        });
                                    }
+                                   if (temp == 0) {
+                                        var treatment = {};
+                                        treatment.Epidemic_id = EpidemicID;
+                                        treatment.Pesticide_id = data.Pesticide_id;
+                                        this.createTreatment(treatment);
+                                   }
+                                   temp = 0;
                               });
-                              if(temp == 0){
-                                   var treatment = {};
-                                   treatment.Epidemic_id = EpidemicID;
-                                   treatment.Pesticide_id = data.Pesticide_id;
-                                   this.createTreatment(treatment);
-                              }
-                              temp = 0;
-                         });
+                         }
+
                          temp = 0;
-                         this.treatmentList.forEach(element => {
-                              data.Treatment.forEach(EpidemicID  => {
-                                   if(element.Epidemic_id == EpidemicID){
-                                        temp= 1;
+                         if (this.pesticideList[this.pesticideChosen.position].Treatment != null) {
+                              this.pesticideList[this.pesticideChosen.position].Treatment.forEach(element => {
+                                   if (data.NewTreatment != null) {
+                                        data.NewTreatment.forEach(EpidemicID => {
+                                             if (element.Epidemic_id == EpidemicID) {
+                                                  temp = 1;
+                                             }
+                                        });
+                                         if (temp == 0) {
+                                        this.deleteTreatment(data.Pesticide_id, element.Epidemic_id);
                                    }
+                                   temp = 0;
+                                   }
+                                   else{
+                                        this.deleteTreatment(element.Pesticide_id, element.Epidemic_id);
+                                   }
+
+                                  
                               });
-                              if(temp == 0){
-                                   this.deleteTreatment(data.Pesticide_id, element.Epidemic_id);
-                              }
-                              temp = 0;
-                         });
+                         }
+                         this.message2 = "Cập nhật thành công.";
                          this.retrievePesticideList();
+
                     }
                }
           },
 
           async deleteTreatment(pesticideid, epidemicid) {
-               console.log(pesticideid,epidemicid)
+               console.log(pesticideid, epidemicid)
                const [error, response] = await this.handle(
-                    TreatmentService.delete(pesticideid,epidemicid)
+                    TreatmentService.delete(pesticideid, epidemicid)
                );
                if (error) {
                     console.log(error);
@@ -401,7 +426,19 @@ export default {
                }
           },
 
-          async deletePesticide(pesticideid) {
+          async deleteTreatments() {
+               this.message = '';
+               if(this.pesticideChosen.Treatment != null){
+                    this.pesticideChosen.Treatment.forEach(element => {
+                         this.deleteTreatment(this.pesticideChosen.Pesticide_id, element.Epidemic_id);
+                    });
+               }
+               this.deletePesticide(this.pesticideChosen.Pesticide_id);
+          },
+
+
+          async deletePesticide(pesticideid){
+               this.message = '';
                const [error, response] = await this.handle(
                     PesticideService.delete(pesticideid)
                );
@@ -410,10 +447,9 @@ export default {
                } else {
                     this.retrievePesticideList()
                     console.log(response.data);
-                    this.message = "Xóa thuốc trị bệnh dịch thành công"
+                    this.message = "Xóa thông tin loại thuốc trị bệnh dịch thành công"
                }
           },
-
 
           async searchName(data) {
                this.nameToSearch = data;
@@ -431,37 +467,9 @@ export default {
                }
           },
 
-          async setPesticideChosen(pesticide) {
+          async setPesticideChosen(pesticide, i) {
                this.pesticideChosen = pesticide;
-               this.findTreatmentByPesticideId(pesticide.Pesticide_id);
-          },
-
-          //  so hang của danh sach danh muc
-          get_rows(list) {
-               var start = (this.currentPage - 1) * this.elementsPerPage;
-               var end = start + this.elementsPerPage;
-               return list.slice(start, end);
-
-          },
-
-          // So trang cua danh sach danh muc
-          num_pages(list) {
-               return Math.ceil(list.length / this.elementsPerPage);
-          },
-
-          async change_page(page, list) {
-               if (page == '-' && this.currentPage > 1) {
-                    this.currentPage -= 1;
-                    this.get_rows(list);
-               }
-               else if (page == '+' && this.currentPage < this.num_pages(list)) {
-                    this.currentPage += 1;
-                    this.get_rows(list);
-               }
-               else {
-                    this.currentPage = page;
-                    this.get_rows(list);
-               }
+               this.pesticideChosen.position = i;
           },
      },
 
@@ -478,6 +486,7 @@ export default {
 
 <style>
 @import url(../../assets/pesticideStyle.css);
+
 nav {
      position: absolute;
      display: inline !important;
@@ -503,8 +512,9 @@ nav .pagination .page-item .page-link {
      font-family: 'Roboto';
      font-style: normal;
      font-weight: 700;
-     background-color:  #EAEAEA;
+     background-color: #EAEAEA;
      font-size: 20px;
-}   
+}
+
 @import url(../../assets/mainStyle.css);
 </style>

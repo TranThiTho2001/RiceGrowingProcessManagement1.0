@@ -28,8 +28,8 @@
                               <i class="fas fa-chart-line">&nbsp;</i>Theo Dõi Mùa Vụ</button>
                     </div>
                     <div class="row ml-2" v-if="currentuser.Role_id == '01'">
-                         <button class="btn  pl-3  pr-2 mr-2 btn-sm btnEmployee">
-                              <i class="fas fa-users">&nbsp;</i>Quản Lý Nhân Viên</button>
+                         <button class="btn pl-2 pr-5 btn-sm btn-outline-secondary btnEmployee">
+                              <i class="fas fa-users">&nbsp;</i>Quản Lý Người Dùng</button>
                     </div>
                     <div class="row mt-1 pt-2 ml-2" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
                          <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnStatistical"

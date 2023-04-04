@@ -159,11 +159,6 @@ export default {
 
      data() {
           return {
-               currentPage: 1,
-               elementsPerPage: 6,
-               ascending: false,
-               previous: '<<',
-               next: '>>',
                seedList: [],
                openCreate: false,
                newSeed: {},
@@ -317,6 +312,7 @@ export default {
                );
                if (error) {
                     console.log(error);
+                    this.message = "Xóa giống lúa không thành công"
                } else {
                     this.retrieveSeedList()
                     console.log(response.data);
