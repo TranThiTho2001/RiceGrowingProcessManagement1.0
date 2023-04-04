@@ -6,6 +6,9 @@ const ArableLand = function(arableLand){
     this.Soil_id = arableLand.Soil_id;
     this.ArableLand_area = arableLand.ArableLand_area;
     this.ArableLand_owner = arableLand.ArableLand_owner;
+    this.ArableLand_latitude = arableLand.ArableLand_latitude;
+    this.ArableLand_longitude = arableLand.ArableLand_longitude;
+    this.Province_id = arableLand.Province_id;
 };
 
 ArableLand.create = (newArableLand, result) => {
@@ -21,7 +24,7 @@ ArableLand.create = (newArableLand, result) => {
 };
 
 ArableLand.findById = (id, result) => {
-    sql.query(`(SELECT * FROM ArableLand WHERE ArableLand_id like '${id}') JOIN Soil where Soil.Soil_id = ArableLand.Soil_id`, (err, res) => {
+    sql.query(`(SELECT * FROM ArableLand WHERE ArableLand_id like '${id}') JOIN Soil where Soil.Soil_id = ArableLand.Soil_id `, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -37,9 +40,9 @@ ArableLand.findById = (id, result) => {
 };
 
 ArableLand.getAll = (name, result) => {
-    let query = "SELECT * FROM ArableLand JOIN Soil on Soil.Soil_id = ArableLand.Soil_id";
+    let query = "SELECT * FROM ArableLand JOIN Soil on Soil.Soil_id = ArableLand.Soil_id Join Province on Province.Province_id = ArableLand.Province_id";
     if (name) {
-        query += ` WHERE ArableLand_owner LIKE '%${name}%'`;
+        query += ` WHERE ArableLand_owner LIKE '%${name}%'`; 
     }
     query += " ORDER BY ArableLand.ArableLand_id"
     // query += " (JOIN Soil one Soil.Soil_id = ArableLand.Soil_id)"
@@ -55,8 +58,8 @@ ArableLand.getAll = (name, result) => {
 
 ArableLand.updateById = (id, arableLand, result) => {
     sql.query(
-        "UPDATE ArableLand SET ArableLand_location = ?, Soil_id = ?, ArableLand_area = ?, ArableLand_owner = ? WHERE ArableLand_id = ?",
-        [arableLand.ArableLand_location, arableLand.Soil_id, arableLand.ArableLand_area, arableLand.ArableLand_owner, id],
+        "UPDATE ArableLand SET ArableLand_location = ?, Soil_id = ?, ArableLand_area = ?, ArableLand_owner = ?, ArableLand_latitude = ?, ArableLand_longitude = ?, Province_id = ? WHERE ArableLand_id = ?",
+        [arableLand.ArableLand_location, arableLand.Soil_id, arableLand.ArableLand_area, arableLand.ArableLand_owner,arableLand.ArableLand_latitude, arableLand.ArableLand_longitude, arableLand.Province_id, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);

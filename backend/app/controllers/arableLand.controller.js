@@ -10,6 +10,9 @@ exports.store = async (req, res) => {
         Soil_id: req.body.Soil_id,
         ArableLand_area: req.body.ArableLand_area,
         ArableLand_owner: req.body.ArableLand_owner,
+        ArableLand_latitude: req.body.ArableLand_latitude,
+        ArableLand_longitude: req.body.ArableLand_longitude,
+        Province_id: req.body.Province_id,
     });
     // Save ArableLand in the database
     ArableLand.create(arableLand, (err, data) => {

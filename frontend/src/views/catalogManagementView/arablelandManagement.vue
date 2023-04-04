@@ -5,26 +5,28 @@
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
                     @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true, active.leftnNoneActive = false"></button>
-                    <div  class="left" :class=" {navbarresponsive: openMenu.openMenu }" >
-                         <Catalog />
+               <div class="left" :class="{ navbarresponsive: openMenu.openMenu }">
+                    <Catalog />
                </div>
 
                <div class="right rightArableLandManagement" :class="{ leftNoneActive: active.leftnNoneActive }">
                     <div class="row pt-3 mb-5 pb-1 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
-                              <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Mẫu ruộng</h3>
+                              <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Mẫu ruộng</h3>
                          </div>
                          <div class="">
                               <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
-                                   @click="retrieveArableLandList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch), away()"
+                                   @click="retrieveArableLandList, isOpenInput1 = true"
+                                   @keyup.enter="searchName(nameToSearch), away()"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
                               <button class="btnSearch1" @click="searchName(nameToSearch), away()"
                                    v-if="nameToSearch == '' && !isOpenSearch.open">
                                    <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
-                              
-                              <input v-if="isOpenInput2 || (isOpenSearch.open)" autofocus type="text" class="form-control inputSearch2" placeholder="Tìm" style="width: 2%;"
-                                   v-model="nameToSearch" @click="retrieveArableLandList" 
+
+                              <input v-if="isOpenInput2 || (isOpenSearch.open)" autofocus type="text"
+                                   class="form-control inputSearch2" placeholder="Tìm" style="width: 2%;"
+                                   v-model="nameToSearch" @click="retrieveArableLandList"
                                    @keyup.enter="searchName(nameToSearch), away()"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
                               <button class="btnSearch2" @click="isOpenInput2 = !isOpenInput2">
@@ -47,8 +49,9 @@
 
                     <div class="row ml-4 mr-1 mt-3 pb-4 pt-2">
                          <div class="col-sm-12 text-right">
-                              <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
-                                        style="font-size: 15px;"></i> Thêm mẫu ruộng</button>
+                              <button class="btn btnCreate"
+                                   @click="retrieveProvinceList(), retrieveSoilList(), openCreate = !openCreate"><i
+                                        class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm mẫu ruộng</button>
                          </div>
                     </div>
                     <div class=" row scrollTable">
@@ -67,12 +70,12 @@
                                    </thead>
                                    <tbody>
                                         <tr v-for="(arableland, i ) in arablelandList" :key="i">
-                                             <td class="centerclass"  data-label="STT">{{ i + 1 }}</td>
-                                             <td class="centerclass"  data-label="Mã">{{ arableland.ArableLand_id }}</td>
-                                             <td  data-label="Diện tích">{{ arableland.ArableLand_area }}</td>
-                                             <td  data-label="Chủ sở hữu">{{ arableland.ArableLand_owner }}</td>
-                                             <td  data-label="Loại đất">{{ arableland.Soil_name }}</td>
-                                             <td  data-label="Vị trí">
+                                             <td class="centerclass" data-label="STT">{{ i + 1 }}</td>
+                                             <td class="centerclass" data-label="Mã">{{ arableland.ArableLand_id }}</td>
+                                             <td data-label="Diện tích">{{ arableland.ArableLand_area }}</td>
+                                             <td data-label="Chủ sở hữu">{{ arableland.ArableLand_owner }}</td>
+                                             <td data-label="Loại đất">{{ arableland.Soil_name }}</td>
+                                             <td data-label="Vị trí">
                                                   <i class="fas fa-map-marker-alt"></i>
                                                   <a
                                                        :href="`https://www.google.com/maps/place/` + arableland.ArableLand_location">{{
@@ -124,11 +127,13 @@
                               @click="isOpenMessage = !isOpenMessage">OK</button>
                     </div>
 
-                    <CreateArableLandForm v-if="openCreate" :newArableLand="newArableLand"
-                         @addArableLand-submit="createArableLand" :message1="message1" :message2="message2" />
+                    <CreateArableLandForm v-if="openCreate" :newArableLand="newArableLand" :soilList="soilList"
+                         @addArableLand-submit="createArableLand" :message1="message1" :message2="message2"
+                         :provinceList="provinceList" />
 
-                    <UpdateArableLandForm v-if="isOpenUpdateArableLand" :newArableLand="arablelandChosen"
-                         @updateArableLand-submit="updateArableLand" :message1="message1" :message2="message2" />
+                    <UpdateArableLandForm v-if="isOpenUpdateArableLand" :newArableLand="arablelandChosen" :soilList="soilList"
+                         @updateArableLand-submit="updateArableLand" :message1="message1" :message2="message2"
+                         :provinceList="provinceList" />
                </div>
           </div>
      </div>
@@ -139,7 +144,9 @@
 
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import { mapGetters, mapMutations } from "vuex";
+import SoilService from '../../services/soil.service'
 import ArableLandService from '../../services/arableLand.service';
+import ProvinceService from '../../services/province.service';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import CreateArableLandForm from '@/components/catalogManagementComponents/createNewArableLandForm.vue';
 import UpdateArableLandForm from '@/components/catalogManagementComponents/updateArableLandForm.vue';
@@ -162,11 +169,6 @@ export default {
 
      data() {
           return {
-               currentPage: 1,
-               elementsPerPage: 9,
-               ascending: false,
-               previous: '<<',
-               next: '>>',
                arablelandList: [],
                openCreate: false,
                newArableLand: {},
@@ -194,7 +196,9 @@ export default {
                active: {
                     rightActive: false,
                     leftnNoneActive: false,
-               }
+               },
+               provinceList: [],
+               soilList: [],
           }
      },
 
@@ -232,6 +236,33 @@ export default {
                     return false;
                }
           },
+
+          async retrieveProvinceList() {
+               const [err, respone] = await this.handle(
+                    ProvinceService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+
+                    this.provinceList = respone.data; console.log(this.provinceList)
+               }
+          },
+
+          async retrieveSoilList() {
+               const [err, respone] = await this.handle(
+                    SoilService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.soilList = respone.data;
+                    console.log(this.soilList);
+               }
+          },
+
           async retrieveArableLandList() {
                const [err, respone] = await this.handle(
                     ArableLandService.getAll()
@@ -279,23 +310,16 @@ export default {
                     this.message2 = " ";
                }
                else {
-                    this.message1 = "";
-                    this.message2 = "";
-                    if (data.Soil_id == "Đất phù sa ven sông") {
-                         data.Soil_id = "AL00000001";
-                    }
-                    else if (data.Soil_id == "Đất phù sa xa xông") {
-                         data.Soil_id = "SL00000002";
-                    }
-                    else if (data.Soil_id == "Đất nhiễm phèn") {
-                         data.Soil_id = "SL00000003";
-                    }
-                    else if (data.Soil_id == "Đất nhiễm mặn") {
-                         data.Soil_id = "SL00000004";
-                    }
-                    else {
-                         data.Soil_id = "SL00000005";
-                    }
+                    this.soilList.forEach(soil => {
+                         if (soil.Soil_name == data.Soil_name) {
+                              data.Soil_id = soil.Soil_id;
+                         }
+                    });
+                    this.provinceList.forEach(province => {
+                         if (province.Province_name == data.Province_name) {
+                              data.Province_id = province.Province_id;
+                         }
+                    });
                     const [error, respone] = await this.handle(
                          ArableLandService.create(data)
                     );
@@ -318,23 +342,16 @@ export default {
                     this.message2 = " ";
                }
                else {
-                    this.message1 = "";
-                    this.message2 = "";
-                    if (data.Soil_id == "Đất phù sa ven sông" || data.Soil_id == "AL00000001") {
-                         data.Soil_id = "SL00000001";
-                    }
-                    else if (data.Soil_id == "Đất phù sa xa xông" || data.Soil_id == "AL00000002") {
-                         data.Soil_id = "SL00000002";
-                    }
-                    else if (data.Soil_id == "Đất nhiễm phèn" || data.Soil_id == "AL00000003") {
-                         data.Soil_id = "SL00000003";
-                    }
-                    else if (data.Soil_id == "Đất nhiễm mặn" || data.Soil_id == "AL00000004") {
-                         data.Soil_id = "SL00000004";
-                    }
-                    else {
-                         data.Soil_id = "SL00000005";
-                    }
+                    this.soilList.forEach(soil => {
+                         if (soil.Soil_name == data.Soil_name) {
+                              data.Soil_id = soil.Soil_id;
+                         }
+                    });
+                    this.provinceList.forEach(province => {
+                         if (province.Province_name == data.ProvinceService) {
+                              data.Province_id = province.Province_id;
+                         }
+                    });
                     const [error, respone] = await this.handle(
                          ArableLandService.update(data.ArableLand_id, data)
                     );
@@ -384,7 +401,6 @@ export default {
 
           async setArableLandChosen(arableland) {
                this.arablelandChosen = arableland;
-               console.log(this.arablelandChosen)
           },
 
      },
@@ -395,7 +411,9 @@ export default {
 
      mounted() {
           this.retrieveArableLandList();
-          this.getWidth()
+          this.getWidth();
+          this.retrieveProvinceList();
+          this.retrieveSoilList();
      }
 }
 </script>

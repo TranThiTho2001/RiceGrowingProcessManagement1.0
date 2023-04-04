@@ -425,9 +425,21 @@ export default {
                     else {
                          infor.crop = '3';
                     }
-                    infor.area = this.riceCropChosen.ArableLand_areaId;
+                    infor.area = this.riceCropChosen.Province_id;
                     console.log(infor)
-                    
+                    const [err, respone] = await this.handle(
+                         PredictionService.create(this.riceCropChosen.RiceCropInformation_id, infor)
+                    );
+                    if (err) {
+                         console.log(err)
+                    }
+                    else {
+                         console.log(respone.data);
+                         console.log(infor)
+                         this.riceCropChosen.Prediction_yield = respone.data.Prediction_yield;
+                         this.predicting = false;
+                         this.result = true;
+                    }
                }
 
 
