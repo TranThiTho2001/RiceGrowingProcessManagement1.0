@@ -1,23 +1,23 @@
- .createFertilizerTimesForm{
+ .riceCropDetail .createFertilizerTimesForm{
     background-color: #dbdbdb;
     border: 0.5px solid #b8b5b5;
      font-family: Inter;
      border-radius: 10px;
      position: absolute;
-     top: calc(8%);
-     left:18%;
-     width: 50%;
+     top: calc(90px);
+     left: 18px;
+     width: 98%;
 }
 
- .updateFertilizerTimesForm{
+ .riceCropDetail .updateFertilizerTimesForm{
     background-color: #dbdbdb;
     border: 0.5px solid #b8b5b5;
      font-family: Inter;
      border-radius: 10px;
      position: absolute;
-     top: calc(14%);
-     left:21%;
-     width: 80%;
+     top: calc(90px);
+     left: 18px;
+     width: 98%;
 }
 
 .createFertilizerTimesForm .content .error-feedback,
@@ -90,13 +90,13 @@
 .fertilizerUsed{
     background-color: #FAFAFC;
     border-radius: 5px;
-    height: 230px;
+    height: 210px;
 }
 
 .fertilizerlist {
     overflow: auto;
-    max-height: 180px;
-    min-height: 180px;
+    max-height: 160px;
+    min-height: 160px;
     white-space: nowrap;
     width: 98%;
     border-radius: 5px;

@@ -54,7 +54,7 @@
                          </div>
                     </div>
                     <div class=" row scrollTable">
-                         <div class="col-sm-12 justify-content-center">
+                         <div class="col-sm-12 " style="width: 100%; background-color: #515151;">
                               <table class="table activitiesList" v-if="loaded">
                                    <thead>
                                         <tr>
@@ -292,7 +292,6 @@ export default {
           },
 
           async updateOtherActivity(data) {
-
                if (!data.close) {
                     this.isOpenUpdateActivities = false;
                     this.message1 = "";
@@ -321,13 +320,13 @@ export default {
                );
                if (error) {
                     console.log(error);
+                    this.message = "Xóa hoạt động không thành công";
                } else {
-                    this.message = "Xóa hoạt động thành công"
-                    this.retrieveOtherActivities()
+                    this.message = "Xóa hoạt động thành công";
+                    this.retrieveOtherActivities();
                     console.log(response.data);
                }
           },
-
 
           async searchName(data) {
                this.nameToSearch = data;

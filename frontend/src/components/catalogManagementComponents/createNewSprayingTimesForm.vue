@@ -17,7 +17,7 @@
                     <div class="form-group">
                          <label for="ricecropid" class="mt-2">Mã mẫu ruộng <span style="color:red">*</span></label>
                          <Field name="ricecropid" type="name" class="form-control"
-                              v-model="ricecropchoosen.RiceCropInformation_id" :disabled="true" />
+                              v-model="ricecropchosen.RiceCropInformation_id" :disabled="true" />
                          <ErrorMessage name="ricecropid" class="error-feedback" />
                     </div>
 
@@ -194,7 +194,7 @@ export default {
           Datepicker,
      },
      emits: ["addSprayingTimes-submit"],
-     props: ["newSprayingTimes", "message1", "message2", "pesticideList", "developmentStageList", "currentUser", "riceCropChoosen"],
+     props: ["newSprayingTimes", "message1", "message2", "pesticideList", "developmentStageList", "currentUser", "riceCropChosen"],
      data() {
 
           const schema = yup.object().shape({
@@ -228,7 +228,7 @@ export default {
                newsprayingtimes: this.newSprayingTimes,
                currentuser: this.currentUser,
                development: this.developmentStageList,
-               ricecropchoosen: this.riceCropChoosen,
+               ricecropchosen: this.riceCropChosen,
                schema,
           };
      },

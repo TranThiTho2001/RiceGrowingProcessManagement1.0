@@ -63,7 +63,7 @@
 
                          <div class="row mt-3" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
                               <button class="btn pl-4 pr-5 btn-sm btn-outline-secondary btnEpidemic" @click="goToEpidemic"><i
-                                        class="fas fa-spider">&nbsp;</i>Dịch Bệnh </button>
+                                        class="fas fa-spider">&nbsp;</i>Bệnh Dịch </button>
                          </div>
 
                          <div class="row mt-3" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
@@ -178,11 +178,10 @@ export default {
  background:  linear-gradient(180deg, rgba(231, 237, 199) 0%, rgba(219, 237, 199) 100%);
        font-family: Inter;
        background-color: inherit;
-       height: 100vh;
+       min-height: 100vh;
        font-size: 18px;
        justify-content: start !important;
   }
-
 
   .navigationBar .categoryList .btn-outline-secondary {
        font-size: 17px;

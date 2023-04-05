@@ -36,7 +36,7 @@
 
 .functionName,
 .functionName {
-     font-family: Inter;
+     font-family: 'Roboto';
      font-size: 24px;
 }
 
@@ -47,7 +47,7 @@
      text-align: center;
      display: inline;
      font-size: 18px;
-     font-family: Inter;
+     font-family: 'Roboto';
 }
 
 .btnLuu,
@@ -56,6 +56,7 @@
      color: #f0f0f0;
      font-size: 20px;
      text-align: center;
+     width: 100px;
 }
 
 
@@ -77,21 +78,21 @@
 .confirmationDialog .btnYes {
      background-color: rgb(244, 61, 61);
      color: white;
-     font-family: Inter;
+     font-family: 'Roboto';
      font-size: 16px;
 }
 
 .confirmationDialog .btnNo {
      background-color: rgb(196, 191, 191);
      color: rgb(33, 33, 33);
-     font-family: Inter;
+     font-family: 'Roboto';
      font-size: 16px;
 }
 
 .messageDialog .btnOK {
      background-color: rgb(196, 191, 191);
      color: rgb(33, 33, 33);
-     font-family: Inter;
+     font-family: 'Roboto';
      font-size: 16px;
 }
 
@@ -240,11 +241,16 @@ html{
           width: 100% !important;
           height: max-content !important;
           margin-left: 2px !important;
+          margin-right: -20px;
+          background-color: #6cc38c;
      }
 
      .table {
           border: none !important;
-          width: 100%;
+          width: 100% !important;
+          background-color: #eef56f !important;
+
+display: inline-block;
      }
 
      .table,
@@ -254,10 +260,6 @@ html{
      .table td,
      .table tr {
           display: block;
-     }
-
-     .table{
-          width: 100%;
      }
      .table thead tr {
           position: absolute;
@@ -357,10 +359,10 @@ html{
      display: inline;
      width: 15%;
      visibility: visible !important;
-     ;
+     overflow: scroll !important;
      background: white;
      background: linear-gradient(180deg, rgba(231, 237, 199) 0%, rgba(219, 237, 199) 100%);
-     ;
+
 }
 
 .menubar {
@@ -532,7 +534,7 @@ html{
           position: absolute !important;
           z-index: 1;
           width: 230px !important;
-          height: 100%;
+          min-height: 100%;
           display: inline !important;
           background: linear-gradient(180deg, rgba(231, 237, 199) 0%, rgba(219, 237, 199) 100%);
           box-shadow: none !important;

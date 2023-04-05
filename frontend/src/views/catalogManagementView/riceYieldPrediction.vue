@@ -455,7 +455,7 @@ export default {
                const start_date = moment(this.riceCropChosen.RiceCropInformation_sowingDate).format("YYYY-MM-DD");
                const end_date = moment(new Date()).format("YYYY-MM-DD");
 
-               let urlAPI1 = `https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${start_date}&end_date=${end_date}&timezone=GMT&hourly=relativehumidity_2m&daily=temperature_2m_mean&daily=precipitation_sum&daily=windspeed_10m_max&daily=shortwave_radiation_sum`;
+               let urlAPI1 = `https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${start_date}&end_date=${end_date}&timezone=auto&hourly=relativehumidity_2m&daily=temperature_2m_mean&daily=precipitation_sum&daily=windspeed_10m_max&daily=shortwave_radiation_sum`;
                let data = await fetch(urlAPI1).then(res => res.json())
 
                this.weatherInfor.precipitationList = data.daily.precipitation_sum;

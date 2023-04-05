@@ -8,7 +8,8 @@
                <div class="left" :class="{ navbarresponsive: openMenu.openMenu }">
                     <Catalog />
                </div>
-               <div class="rightRiceCropDetail right" :class="{ active: stylebac.active, noneactive: stylebac.none }">
+               <div class="rightRiceCropDetail right">
+                    <!-- :class="{ active: stylebac.active, noneactive: stylebac.none }" -->
                     <div class="row pt-3 mb-5 pb-1 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Theo dõi mùa vụ</h3>
@@ -55,25 +56,17 @@
                          </div>
                          <div class="" style="width: 50%;">
                               <div class="row">
-                                   <div class="col-md-6">Nhiet do {{ weatherInfor.temperature }}</div>
-                                   <div class="col-md-6">Gio {{ weatherInfor.windSpeed }}</div>
+                                   <div class="col-md-6">Nhiệt độ: {{ weatherInfor.temperature }}°C</div>
+                                   <div class="col-md-6">Tốc độ gió: {{ weatherInfor.windspeed }}km/h</div>
                               </div>
                               <div class="row">
 
-                                   <div class="col-md-6">mua:{{ weatherInfor.precipitation }}</div>
-                                   <div class="col-md-6">buc xa: {{ weatherInfor.solarRadiation }}</div>
+                                   <div class="col-md-6">Lượng mưa:{{ weatherInfor.precipitation }}mm</div>
+                                   <div class="col-md-6">Bức xạ mặt trời: {{ weatherInfor.solarradiation }}MJ/m²</div>
                               </div>
                               <div class="row">
-                                   <div class="col-md-6">Tên: {{ newRiceCrop.RiceCropInformation_name }}</div>
-                                   <div class="col-md-6">Ngày gieo xạ: {{
-                                        formatDate(newRiceCrop.RiceCropInformation_sowingDate) }}</div>
+                                   <div class="col-md-6">Độ ẩm: {{ weatherInfor.humidity }}%</div>
 
-                              </div>
-                              <div class="row">
-                                   <div class="col-md-6">Ngày thu hoạch: {{
-                                        formatDate(newRiceCrop.RiceCropInformation_harvestDate) }}
-                                   </div>
-                                   <div class="col-md-6">Năng suất: {{ newRiceCrop.RiceCropInformation_yield }}</div>
                               </div>
                          </div>
                     </div>
@@ -513,47 +506,53 @@
 
                          </div>
                     </div>
+                    <CreateFertilizerTimesForm v-if="isOpenCreateFertilizerTimesForm" :weather="weatherInfor"
+                         :newFertilizerTimes="newFertilizerTimes" :fertilizerList="fertilizerList"
+                         :developmentStageList="developmentStageList" :currentUser="currentUser"
+                         :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
+                         @addFertilizerTimes-submit="createFertilizerTimes" :message1="message1" :message2="message2" />
+                    <UpdateFertilizerTimesForm v-if="isOpenUpdateFertilizerTimesForm"
+                         :newFertilizerTimes="fertilizerTimesChosen" :fertilizerList="fertilizerList"
+                         :developmentStageList="developmentStageList" :currentUser="currentUser"
+                         :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
+                         @updateFertilizerTimes-submit="updateFertilizerTimes" :message1="message1" :message2="message2" />
+
+                    <CreateSprayingTimesForm v-if="isOpenCreateSprayingTimesForm" :newSprayingTimes="newSprayingTimes"
+                         :pesticideList="pesticideList" :developmentStageList="developmentStageList"
+                         :currentUser="currentUser" :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
+                         @addSprayingTimes-submit="createNewSprayingTimes" :message1="message1" :message2="message2" />
+
+                    <UpdateSprayingTimesForm v-if="isOpenUpdateSprayingTimesForm" :newSprayingTimes="sprayingTimesChosen"
+                         :pesticideList="pesticideList" :developmentStageList="developmentStageList"
+                         :currentUser="currentUser" :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
+                         @updateSprayingTimes-submit="updateSprayingTimes" :message1="message1" :message2="message2" />
+                    <CreateEpidemicTimesForm v-if="isOpenCreateEpidemicTimesForm" :newEpidemicTimes="newEpidemicTimes"
+                         :epidemicList="epidemicList" :developmentStageList="developmentStageList" :currentUser="currentUser"
+                         :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
+                         @addEpidemicTimes-submit="createEpidemicTimes" :message1="message1" :message2="message2" />
+
+                    <UpdateEpidemicTimesForm v-if="isOpenUpdateEpidemicTimesForm" :newEpidemicTimes="epidemicTimesChosen"
+                         :epidemicList="epidemicList" :developmentStageList="developmentStageList" :currentUser="currentUser"
+                         :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
+                         @updateEpidemicTimes-submit="updateEpidemicTimes" :message1="message1" :message2="message2" />
+                    <CreateMonitorForm v-if="isOpenCreateMonitorForm" :newMonitor="newMonitor" :employeeList="employeeList"
+                         :newRiceCrop="newRiceCrop" @addMonitor-submit="createNewMonitor" :message1="message1"
+                         :message2="message2" />
+
+                    <CreateImageForm v-if="isOpenCreateImage" :newImage="newImage" :message1="message1" :message2="message2"
+                         :newRiceCrop="newRiceCrop" @addImage-submit=createNewImage />
+
+                    <CreateActivitiiesDetailForm v-if="isOpenCreateActivitiesDetail" :newActivityDetail="newActivityDetail"
+                         :currentUser="currentUser" :developmentStageList="developmentStageList"
+                         :riceCropChosen="newRiceCrop" @addOtherActivityTimes-submit="createNewActivitiesDetail"
+                         :message1="message1" :message2="message2" />
+                    <UpadteActivitiiesDetailForm v-if="isOpenUpdateActivitiesDetail"
+                         :newActivityDetail="activitiesDetailChosen" :currentUser="currentUser"
+                         :developmentStageList="developmentStageList" :riceCropChosen="newRiceCrop"
+                         @updateActivitiesDetail-submit="updateNewActivitiesDetail" :message1="message1"
+                         :message2="message2" />
                </div>
           </div>
-          <CreateFertilizerTimesForm v-if="isOpenCreateFertilizerTimesForm" :newFertilizerTimes="newFertilizerTimes"
-               :fertilizerList="fertilizerList" :developmentStageList="developmentStageList" :currentUser="currentUser"
-               :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
-               @addFertilizerTimes-submit="createFertilizerTimes" :message1="message1" :message2="message2" />
-          <UpdateFertilizerTimesForm v-if="isOpenUpdateFertilizerTimesForm" :newFertilizerTimes="fertilizerTimesChosen"
-               :fertilizerList="fertilizerList" :developmentStageList="developmentStageList" :currentUser="currentUser"
-               :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
-               @updateFertilizerTimes-submit="updateFertilizerTimes" :message1="message1" :message2="message2" />
-
-          <CreateSprayingTimesForm v-if="isOpenCreateSprayingTimesForm" :newSprayingTimes="newSprayingTimes"
-               :pesticideList="pesticideList" :developmentStageList="developmentStageList" :currentUser="currentUser"
-               :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
-               @addSprayingTimes-submit="createNewSprayingTimes" :message1="message1" :message2="message2" />
-
-          <UpdateSprayingTimesForm v-if="isOpenUpdateSprayingTimesForm" :newSprayingTimes="sprayingTimesChosen"
-               :pesticideList="pesticideList" :developmentStageList="developmentStageList" :currentUser="currentUser"
-               :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
-               @updateSprayingTimes-submit="updateSprayingTimes" :message1="message1" :message2="message2" />
-          <CreateEpidemicTimesForm v-if="isOpenCreateEpidemicTimesForm" :newEpidemicTimes="newEpidemicTimes"
-               :epidemicList="epidemicList" :developmentStageList="developmentStageList" :currentUser="currentUser"
-               :riceCropChosen="newRiceCrop" :arableLandList="arableLandList" @addEpidemicTimes-submit="createEpidemicTimes"
-               :message1="message1" :message2="message2" />
-
-          <UpdateEpidemicTimesForm v-if="isOpenUpdateEpidemicTimesForm" :newEpidemicTimes="epidemicTimesChosen"
-               :epidemicList="epidemicList" :developmentStageList="developmentStageList" :currentUser="currentUser"
-               :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
-               @updateEpidemicTimes-submit="updateEpidemicTimes" :message1="message1" :message2="message2" />
-          <CreateMonitorForm v-if="isOpenCreateMonitorForm" :newMonitor="newMonitor" :employeeList="employeeList"
-               :newRiceCrop="newRiceCrop" @addMonitor-submit="createNewMonitor" :message1="message1" :message2="message2" />
-
-          <CreateImageForm v-if="isOpenCreateImage" :newImage="newImage" :message1="message1" :message2="message2"
-               :newRiceCrop="newRiceCrop" @addImage-submit=createNewImage />
-
-          <CreateActivitiiesDetailForm v-if="isOpenCreateActivitiesDetail" :newActivityDetail="newActivityDetail"
-               :currentUser="currentUser" :developmentStageList="developmentStageList" :riceCropChosen="newRiceCrop"
-               @addOtherActivityTimes-submit="createNewActivitiesDetail" :message1="message1" :message2="message2" />
-          <UpadteActivitiiesDetailForm v-if="isOpenUpdateActivitiesDetail" :newActivityDetail="activitiesDetailChosen"
-               :currentUser="currentUser" :developmentStageList="developmentStageList" :riceCropChosen="newRiceCrop"
-               @updateActivitiesDetail-submit="updateNewActivitiesDetail" :message1="message1" :message2="message2" />
      </div>
      <div v-if="isOpenSearch.open" class="outside" @click.passive="away()"></div>
 </template>
@@ -672,11 +671,6 @@ export default {
                isOpenCreateActivitiesDetail: false,
                isOpenUpdateActivitiesDetail: false,
                activitiesDetailChosen: {},
-               currentPage: 1,
-               elementsPerPage: 4,
-               ascending: false,
-               previous: '<<',
-               next: '>>',
                delete: "",
                isOpenConfirm: false,
                isOpenMessage: false,
@@ -2130,10 +2124,35 @@ export default {
                     this.retrieveMonitorList()
                }
           },
+          async getWeather() {
+               let urlAPI = `https://api.open-meteo.com/v1/forecast?latitude=${this.newRiceCrop.ArableLand_latitude}&longitude=${this.newRiceCrop.ArableLand_longitude}&current_weather=true&forecast_days=1&daily=shortwave_radiation_sum&timezone=auto&daily=precipitation_sum&hourly=relativehumidity_2m`;
+               let data = await fetch(urlAPI).then(res => res.json())
+               if (data.error != true) {
+                    this.weatherInfor.temperature = data.current_weather.temperature;
+                    this.weatherInfor.windspeed = data.current_weather.windspeed;
+                    this.weatherInfor.precipitation = data.daily.precipitation_sum[0];
+                    this.weatherInfor.solarradiation = data.daily.shortwave_radiation_sum[0];
+                    let date = new Date();
+                    date = moment(date).format("YYYY-MM-DDTHH:00")
+                    var i = 0;
+                    data.hourly.time.forEach(element => {
+                         if (element == date) {
+                              this.weatherInfor.humidity = data.hourly.relativehumidity_2m[i]
+                         }
+                         i++;
+                    });
+               }
+               else {
+                    this.weatherInfor.temperature = "";
+                    this.weatherInfor.windspeed = "";
+                    this.weatherInfor.precipitation = "";
+                    this.weatherInfor.solarradiation = "";
+                    this.weatherInfor.humidity = "";
+               }
+          }
      },
 
      mounted() {
-
           this.initEmployeeState();
           this.retrieveArableLandList();
           this.retrieveCropList();

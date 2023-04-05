@@ -17,7 +17,7 @@
                     <div class="form-group">
                          <label for="ricecropid" class="mt-2 lable">Mã mẫu ruộng <span style="color:red">*</span></label>
                          <Field name="ricecropid" type="name" class="form-control"
-                              v-model="ricecropchoosen.RiceCropInformation_id" :disabled="true" />
+                              v-model="ricecropchosen.RiceCropInformation_id" :disabled="true" />
                          <ErrorMessage name="ricecropid" class="error-feedback" />
                     </div>
 
@@ -156,7 +156,7 @@ export default {
           CreateNewOtherActiviesForm,
      },
      emits: ["updateActivitiesDetail-submit"],
-     props: ["newActivityDetail", "message1", "message2", "developmentStageList", "currentUser", "riceCropChoosen"],
+     props: ["newActivityDetail", "message1", "message2", "developmentStageList", "currentUser", "riceCropChosen"],
      data() {
 
           const schema = yup.object().shape({
@@ -193,7 +193,7 @@ export default {
           });
           return {
                newactivitiesDetail: this.newActivityDetail,
-               ricecropchoosen: this.riceCropChoosen,
+               ricecropchosen: this.riceCropChosen,
                currentuser: this.currentUser,
                development: this.developmentStageList,
                isOpenCreateOtherActivities: false,

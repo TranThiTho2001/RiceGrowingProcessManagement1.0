@@ -1,5 +1,5 @@
-.createActivityDetailForm,
-.updateActivityDetailForm{
+.activitiesManagement .createActivityDetailForm,
+.activitiesManagement.updateActivityDetailForm{
     background-color: #dbdbdb;
     border: 0.5px solid #b8b5b5;
      font-family: Inter;

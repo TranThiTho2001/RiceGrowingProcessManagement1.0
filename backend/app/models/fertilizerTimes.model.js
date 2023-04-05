@@ -11,7 +11,8 @@ const FertilizerTimes = function (fertilizerTimes) {
      this.FertilizerTimes_endDate = fertilizerTimes.FertilizerTimes_endDate;
      this.FertilizerTimes_temperature = fertilizerTimes.FertilizerTimes_temperature;
      this.FertilizerTimes_humidity = fertilizerTimes.FertilizerTimes_humidity;
-     this.FertilizerTimes_precipitation = fertilizerTimes.FertilizerTimes_precipitation
+     this.FertilizerTimes_precipitation = fertilizerTimes.FertilizerTimes_precipitation;
+     this.FertilizerTimes_windSpeed = fertilizerTimes.FertilizerTimes_windSpeed;
 }
 
 FertilizerTimes.create = (newFertilizerTimes, result) => {
@@ -22,7 +23,6 @@ FertilizerTimes.create = (newFertilizerTimes, result) => {
                result(err, null);
                return;
           }
-          console.log("create FertilizerTimes: ", { id: res.insertId, ...newFertilizerTimes });
           result(null, { id: res.insertId, ...newFertilizerTimes });
      });
 };
@@ -86,8 +86,8 @@ FertilizerTimes.findByName = (name,id, result) => {
 };
 FertilizerTimes.updateById = (riceCropInformation_id, Fertilizer_id, times, fertilizerTimes, result) => {
      sql.query(
-          "UPDATE FertilizerTimes SET Employee_id = ?, DevelopmentStage_id = ?, FertilizerTimes_amount = ?, FertilizerTimes_startDate = ?, FertilizerTimes_endDate = ?, FertilizerTimes_temperature = ?, FertilizerTimes_humidity = ?, FertilizerTimes_precipitation = ? WHERE (RiceCropInformation_id = ? And Fertilizer_id = ? and FertilizerTimes_times = ?)",
-          [fertilizerTimes.Employee_id, fertilizerTimes.DevelopmentStage_id, fertilizerTimes.FertilizerTimes_amount, fertilizerTimes.FertilizerTimes_startDate, fertilizerTimes.FertilizerTimes_endDate, fertilizerTimes.FertilizerTimes_temperature, fertilizerTimes.FertilizerTimes_humidity, fertilizerTimes.FertilizerTimes_precipitation, riceCropInformation_id, Fertilizer_id, times],
+          "UPDATE FertilizerTimes SET Employee_id = ?, DevelopmentStage_id = ?, FertilizerTimes_amount = ?, FertilizerTimes_startDate = ?, FertilizerTimes_endDate = ?, FertilizerTimes_temperature = ?, FertilizerTimes_humidity = ?, FertilizerTimes_windSpeed = ?, FertilizerTimes_precipitation = ?, FertilizerTimes_solarRadiation = ? WHERE (RiceCropInformation_id = ? And Fertilizer_id = ? and FertilizerTimes_times = ?)",
+          [fertilizerTimes.Employee_id, fertilizerTimes.DevelopmentStage_id, fertilizerTimes.FertilizerTimes_amount, fertilizerTimes.FertilizerTimes_startDate, fertilizerTimes.FertilizerTimes_endDate, fertilizerTimes.FertilizerTimes_temperature, fertilizerTimes.FertilizerTimes_humidity, fertilizerTimes.FertilizerTimes_windSpeed, fertilizerTimes.FertilizerTimes_precipitation, fertilizerTimes.FertilizerTimes_solarRadiation, riceCropInformation_id, Fertilizer_id, times],
           (err, res) => {
                if (err) {
                     console.log("error: ", err);

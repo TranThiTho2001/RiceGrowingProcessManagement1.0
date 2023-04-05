@@ -103,7 +103,7 @@
                     <span v-if="message1 == 'Thêm không thành công.'" class="fas fa-times-circle"
                          style="color:red; text-align: center; display: inline;"></span>
                     <span v-if="message2 == 'Thêm thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;">
-                         {{ message2 }}</span>
+                        Thêm mùa vụ thành công</span>
                     <span v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2"> {{ message1 }} Một mùa vụ đang được theo dõi hoặc vừa được khởi tạo trên mẫu ruộng.
                     </span>
                </div>
