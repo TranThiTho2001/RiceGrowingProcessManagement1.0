@@ -14,7 +14,10 @@ exports.store = async (req, res) => {
           ActivityDetails_precipitation: req.body.ActivityDetails_precipitation,
           Employee_id: req.body.Employee_id,
           ActivityDetails_times: req.body.ActivityDetails_times,
-          DevelopmentStage_id: req.body.DevelopmentStage_id
+          DevelopmentStage_id: req.body.DevelopmentStage_id,
+          ActivityDetails_solarRadiation: req.body.ActivityDetails_solarRadiation,
+          ActivityDetails_windSpeed: req.body.ActivityDetails_windSpeed,
+          
      });
      // Save ActivityDetails in the database
      ActivityDetails.create(activityDetails, (err, data) => {

@@ -9,10 +9,11 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Thêm lần bón phân</p>
+               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Cập nhật lần bón phân
+               </p>
           </div>
           <div class="row content">
-               <div class="col-sm-4 mt-2">
+               <div class="col-sm-4">
                     <div class="form-group">
                          <label for="ricecropid" class="mt-2">Mã mẫu ruộng <span style="color:red">*</span></label>
                          <Field name="ricecropid" type="name" class="form-control"
@@ -33,24 +34,38 @@
                          <Field name="start" class="form-control" v-model="newfertilizertimes.FertilizerTimes_startDate"
                               placeholder="Ngày bắt đầu">
                               <datepicker :enable-time-picker="false" :value="newfertilizertimes.FertilizerTimes_startDate"
-                                   :hide-input-icon="true" v-model="newfertilizertimes.FertilizerTimes_startDate" @closed="getWeather"
-                                   placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false" >
+                                   :hide-input-icon="true" v-model="newfertilizertimes.FertilizerTimes_startDate"
+                                   @closed="getWeather" placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false">
                               </datepicker>
                          </Field>
                          <ErrorMessage name="start" class="error-feedback" />
                     </div>
 
                     <div class="form-group ">
-                         <label for="temperature" class="mt-3 pt-1">Nhiệt độ</label>
-                         <Field name="temperature" class="form-control"
-                              v-model="newfertilizertimes.FertilizerTimes_temperature" placeholder="Nhập nhiệt độ..." />
-                         <ErrorMessage name="temperature" class="error-feedback" />
+                         <label for="fertilizer" class="mt-3 pt-1">Loại phân<span style="color:red">*</span></label>
+                         <Field name="fertilizer" v-model="newfertilizertimes.Fertilizer_name">
+                              <select class="form-control" v-model="newfertilizertimes.Fertilizer_name" name="classtify"
+                                   for="classtify">
+                                   <option v-for="(fertilizer, i) in fertilizerList" :key="i">{{ fertilizer.Fertilizer_name
+                                   }}
+                                   </option>
+
+                              </select>
+                         </Field>
+                         <ErrorMessage name="fertilizer" class="error-feedback" />
+                    </div>
+
+                    <div class="form-group">
+                         <label for="amount" class="mt-1">Số lượng(kg/ha)<span style="color:red">*</span></label>
+                         <Field name="amount" class="form-control" v-model="newfertilizertimes.FertilizerTimes_amount"
+                              placeholder="Nhập số lượng phân đã bón..." />
+                         <ErrorMessage name="amount" class="error-feedback" />
                     </div>
 
                </div>
                <div class="col-sm-4">
                     <div class="form-group ">
-                         <label for="times" class="mt-3 pt-1">Lần<span style="color:red">*</span></label>
+                         <label for="times" class="mt-1 pt-1">Lần<span style="color:red">*</span></label>
                          <Field name="times" class="form-control" v-model="newfertilizertimes.FertilizerTimes_times"
                               placeholder="Nhập lần thực hiện..." />
                          <ErrorMessage name="times" class="error-feedback" />
@@ -73,12 +88,13 @@
                          <Field name="harvendestDate" class="form-control"
                               v-model="newfertilizertimes.FertilizerTimes_endDate" placeholder="Ngày sinh">
                               <datepicker :enable-time-picker="false" :value="newfertilizertimes.FertilizerTimes_endDate"
-                                   :hide-input-icon="true" v-model="newfertilizertimes.FertilizerTimes_endDate" @closed="getWeather()"
-                                   placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false" >
+                                   :hide-input-icon="true" v-model="newfertilizertimes.FertilizerTimes_endDate"
+                                   @closed="getWeather()" placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false">
                               </datepicker>
                          </Field>
+                         <ErrorMessage name="end" class="error-feedback" />
                     </div>
-                    <ErrorMessage name="end" class="error-feedback" />
+
                     <div class="form-group ">
                          <label for="humidity" class="mt-3 pt-1">Độ ẩm</label>
                          <Field name="humidity" class="form-control" v-model="newfertilizertimes.FertilizerTimes_humidity"
@@ -87,32 +103,12 @@
                     </div>
                </div>
 
-
-
                <div class="col-sm-4 ">
                     <div class="form-group ">
-                         <label for="fertilizer" class="mt-3 pt-1">Loại phân<span style="color:red">*</span></label>
-                         <Field name="fertilizer" v-model="newfertilizertimes.Fertilizer_name">
-                              <select class="form-control" v-model="newfertilizertimes.Fertilizer_name" name="classtify"
-                                   for="classtify">
-                                   <option v-for="(fertilizer, i) in fertilizerList" :key="i">{{ fertilizer.Fertilizer_name
-                                   }}
-                                   </option>
-
-                              </select>
-                         </Field>
-                         <ErrorMessage name="fertilizer" class="error-feedback" />
-                    </div>
-
-                    <div class="form-group">
-                         <label for="amount" class="mt-1">Số lượng(kg/ha)<span style="color:red">*</span></label>
-                         <Field name="amount" class="form-control" v-model="newfertilizertimes.FertilizerTimes_amount"
-                              placeholder="Nhập số lượng phân đã bón..." />
-                         <ErrorMessage name="amount" class="error-feedback" />
-                    </div>
-
-                    <div class="form-group">
-
+                         <label for="temperature" class="mt-1 pt-1">Nhiệt độ</label>
+                         <Field name="temperature" class="form-control"
+                              v-model="newfertilizertimes.FertilizerTimes_temperature" placeholder="Nhập nhiệt độ..." />
+                         <ErrorMessage name="temperature" class="error-feedback" />
                     </div>
                     <div class="form-group">
                          <label for="precipitation" class="mt-2 pt-1">Lượng mưa</label>
@@ -121,6 +117,20 @@
                          <ErrorMessage name="precipitation" class="error-feedback" />
                     </div>
 
+                    <div class="form-group ">
+                         <label for="windspeed" class="mt-3 pt-1">Tốc độ gió(km/h)</label>
+                         <Field name="windspeed" class="form-control" v-model="newfertilizertimes.FertilizerTimes_windSpeed"
+                              placeholder="Nhập tốc độ gió..." />
+                         <ErrorMessage name="windspeed" class="error-feedback" />
+                    </div>
+
+                    <div class="form-group ">
+                         <label for="solarradiation" class="mt-3 pt-1">Bức xạ mặt trời(MJ/m²)</label>
+                         <Field name="solarradiation" class="form-control"
+                              v-model="newfertilizertimes.FertilizerTimes_solarRadiation"
+                              placeholder="Nhập bức xạ mặt trời..." />
+                         <ErrorMessage name="solarradiation" class="error-feedback" />
+                    </div>
                </div>
           </div>
 
@@ -186,25 +196,26 @@ export default {
                     .required("Số lượng phải có giá trị"),
                start: yup
                     .string(),
-               // .required("Phân loại bệnh dịch phải có giá trị"),
                end: yup
                     .string(),
-               // .required("Tác hại bệnh dịch phải có giá trị"),
                fertilizer: yup
                     .string()
                     .required("Loại phân phải có giá trị"),
                temperature: yup
                     .string()
                     .nullable(),
-               // .required("Loại phân phải có giá trị"),
                humidity: yup
                     .string()
                     .nullable(),
-               // .required("Loại phân phải có giá trị"),
                precipitation: yup
                     .string()
                     .nullable(),
-               // .required("Loại phân phải có giá trị"),
+               windspeed: yup
+                    .string()
+                    .nullable(),
+               solarradiation: yup
+                    .string()
+                    .nullable(),
           });
           return {
                newfertilizertimes: this.newFertilizerTimes,
@@ -279,11 +290,11 @@ export default {
                          this.weatherInfor.totalHumitidity += humitidity;
                     });
 
-                    this.newfertilizertimes.FertilizerTimes_precipitation = this.weatherInfor.Precipitation;
-                    this.newfertilizertimes.FertilizerTimes_temperature = this.weatherInfor.totalTemperature / this.weatherInfor.temperatureList.length;
-                    this.newfertilizertimes.FertilizerTimes_humidity = this.weatherInfor.totalHumitidity / this.weatherInfor.humitidityList.length;
-                    this.newfertilizertimes.FertilizerTimes_windSpeed = this.weatherInfor.totalWindSpeed / this.weatherInfor.windSpeed.length;
-                    this.newfertilizertimes.FertilizerTimes_solarRadiation = this.weatherInfor.totalSolarRadiation / this.weatherInfor.solarRadiation.length;
+                    this.newfertilizertimes.FertilizerTimes_precipitation = (this.weatherInfor.Precipitation).toFixed(2);
+                    this.newfertilizertimes.FertilizerTimes_temperature = (this.weatherInfor.totalTemperature / this.weatherInfor.temperatureList.length).toFixed(2);
+                    this.newfertilizertimes.FertilizerTimes_humidity = (this.weatherInfor.totalHumitidity / this.weatherInfor.humitidityList.length).toFixed(2);
+                    this.newfertilizertimes.FertilizerTimes_windSpeed = (this.weatherInfor.totalWindSpeed / this.weatherInfor.windSpeed.length).toFixed(2);
+                    this.newfertilizertimes.FertilizerTimes_solarRadiation = (this.weatherInfor.totalSolarRadiation / this.weatherInfor.solarRadiation.length).toFixed(2);
                     console.log("Tong luong Mua: " + this.weatherInfor.Precipitation + " Nhiet do trung binh: " + this.weatherInfor.Temperature + " Do am: " + this.weatherInfor.Humitidity + " Tocs do gia: " + this.weatherInfor.WinSpeed + " Buc xa: " + this.weatherInfor.SolarRadiation);
                }
                else if (((end.getTime() - start.getTime()) / (24 * 3600 * 1000)) + 1 >= 7 && this.newfertilizertimes.FertilizerTimes_endDate != '' && this.newfertilizertimes.FertilizerTimes_endDate <= date) {
@@ -345,12 +356,11 @@ export default {
                     this.weatherInfor.humitidityList.forEach(humitidity => {
                          this.weatherInfor.totalHumitidity += humitidity;
                     });
-                    this.newfertilizertimes.FertilizerTimes_precipitation = this.weatherInfor.Precipitation;
-                    this.newfertilizertimes.FertilizerTimes_temperature = this.weatherInfor.totalTemperature / this.weatherInfor.temperatureList.length;
-                    this.newfertilizertimes.FertilizerTimes_humidity = this.weatherInfor.totalHumitidity / this.weatherInfor.humitidityList.length;
-                    this.newfertilizertimes.FertilizerTimes_windSpeed = this.weatherInfor.totalWindSpeed / this.weatherInfor.windSpeed.length;
-                    this.newfertilizertimes.FertilizerTimes_solarRadiation = this.weatherInfor.totalSolarRadiation / this.weatherInfor.solarRadiation.length;
-                    console.log("Tong luong Mua: " + this.weatherInfor.Precipitation + " Nhiet do trung binh: " + this.weatherInfor.Temperature + " Do am: " + this.weatherInfor.Humitidity + " Tocs do gia: " + this.weatherInfor.WinSpeed + " Buc xa: " + this.weatherInfor.SolarRadiation);
+                    this.newfertilizertimes.FertilizerTimes_precipitation = (this.weatherInfor.Precipitation).toFixed(2);
+                    this.newfertilizertimes.FertilizerTimes_temperature = (this.weatherInfor.totalTemperature / this.weatherInfor.temperatureList.length).toFixed(2);
+                    this.newfertilizertimes.FertilizerTimes_humidity = (this.weatherInfor.totalHumitidity / this.weatherInfor.humitidityList.length).toFixed(2);
+                    this.newfertilizertimes.FertilizerTimes_windSpeed = (this.weatherInfor.totalWindSpeed / this.weatherInfor.windSpeed.length).toFixed(2);
+                    this.newfertilizertimes.FertilizerTimes_solarRadiation = (this.weatherInfor.totalSolarRadiation / this.weatherInfor.solarRadiation.length).toFixed(2);
                }
 
           }
@@ -360,45 +370,48 @@ export default {
  
 <style>
 @import url(../../assets/fertilizerTimeStyle.css);
+
 .dp__theme_light {
-    --dp-background-color:  #FAFAFC;
-    --dp-border-radius: 10px;
-    --dp-text-color: #212121;
-    --dp-hover-color: #f3f3f3;
-    --dp-hover-text-color: #212121;
-    --dp-hover-icon-color: #959595;
-    --dp-primary-color: #1976d2;
-    --dp-primary-disabled-color: #6bacea;
-    --dp-primary-text-color: #f8f5f5;
-    --dp-secondary-color: #c0c4cc;
-    --dp-border-color: #ddd;
-    --dp-menu-border-color: #ddd;
-    --dp-border-color-hover: #aaaeb7;
-    --dp-disabled-color: #f6f6f6;
-    --dp-scroll-bar-background: #f3f3f3;
-    --dp-scroll-bar-color: #959595;
-    --dp-success-color: #76d275;
-    --dp-success-color-disabled: #a3d9b1;
-    --dp-icon-color: #959595;
-    --dp-danger-color: #ff6f60;
-    --dp-marker-color: #ff6f60;
-    --dp-tooltip-color: #fafafa;
-    --dp-disabled-color-text: #8e8e8e;
-    --dp-highlight-color: rgb(25 118 210 / 10%);
-    
+     --dp-background-color: #FAFAFC;
+     --dp-border-radius: 10px;
+     --dp-text-color: #212121;
+     --dp-hover-color: #f3f3f3;
+     --dp-hover-text-color: #212121;
+     --dp-hover-icon-color: #959595;
+     --dp-primary-color: #1976d2;
+     --dp-primary-disabled-color: #6bacea;
+     --dp-primary-text-color: #f8f5f5;
+     --dp-secondary-color: #c0c4cc;
+     --dp-border-color: #ddd;
+     --dp-menu-border-color: #ddd;
+     --dp-border-color-hover: #aaaeb7;
+     --dp-disabled-color: #f6f6f6;
+     --dp-scroll-bar-background: #f3f3f3;
+     --dp-scroll-bar-color: #959595;
+     --dp-success-color: #76d275;
+     --dp-success-color-disabled: #a3d9b1;
+     --dp-icon-color: #959595;
+     --dp-danger-color: #ff6f60;
+     --dp-marker-color: #ff6f60;
+     --dp-tooltip-color: #fafafa;
+     --dp-disabled-color-text: #8e8e8e;
+     --dp-highlight-color: rgb(25 118 210 / 10%);
+
 }
+
 .dp__input {
-    background-color: var(--dp-background-color);
-    border-radius: 12px;
-    font-family: -apple-system,blinkmacsystemfont,"Segoe UI",roboto,oxygen,ubuntu,cantarell,"Open Sans","Helvetica Neue",sans-serif;
-    border: 1px solid var(--dp-border-color);
-    outline: none;
-    transition: border-color .2s cubic-bezier(0.645, 0.045, 0.355, 1);
-    width: 100%;
-    font-size: 1rem;
-    line-height: 1.5rem;
-    padding: 6px 12px;
-    color: var(--dp-text-color);box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-    box-sizing: border-box;
+     background-color: var(--dp-background-color);
+     border-radius: 12px;
+     font-family: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen, ubuntu, cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+     border: 1px solid var(--dp-border-color);
+     outline: none;
+     transition: border-color .2s cubic-bezier(0.645, 0.045, 0.355, 1);
+     width: 100%;
+     font-size: 1rem;
+     line-height: 1.5rem;
+     padding: 6px 12px;
+     color: var(--dp-text-color);
+     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+     box-sizing: border-box;
 }
 </style>

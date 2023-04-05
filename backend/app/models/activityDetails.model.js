@@ -11,6 +11,8 @@ const ActivityDetails = function (activityDetails) {
      this.Employee_id = activityDetails.Employee_id;
      this.ActivityDetails_times = activityDetails.ActivityDetails_times;
      this.DevelopmentStage_id = activityDetails.DevelopmentStage_id;
+     this.ActivityDetails_solarRadiation = activityDetails.ActivityDetails_solarRadiation;
+     this.ActivityDetails_windSpeed = activityDetails.ActivityDetails_windSpeed;
 }
 
 ActivityDetails.create = (newActivityDetails, result) => {
@@ -96,8 +98,8 @@ ActivityDetails.findById= (id, result) => {
 
 ActivityDetails.updateById = (riceCropInformation_id, otherActivities_id, times, activityDetails, result) => {
      sql.query(
-          "UPDATE ActivityDetails SET Employee_id = ?, ActivityDetails_startDate = ?, ActivityDetails_endDate = ?, ActivityDetails_temperature = ?, ActivityDetails_humidity = ?, ActivityDetails_precipitation = ?, DevelopmentStage_id = ? WHERE (RiceCropInformation_id = ? And OtherActivities_id= ? and ActivityDetails_times = ?)",
-          [activityDetails.Employee_id, activityDetails.ActivityDetails_startDate, activityDetails.ActivityDetails_endDate, activityDetails.ActivityDetails_temperature, activityDetails.ActivityDetails_humidity, activityDetails.ActivityDetails_precipitation, activityDetails.DevelopmentStage_id, riceCropInformation_id, otherActivities_id, times],
+          "UPDATE ActivityDetails SET Employee_id = ?, ActivityDetails_startDate = ?, ActivityDetails_endDate = ?, ActivityDetails_temperature = ?, ActivityDetails_humidity = ?, ActivityDetails_precipitation = ?, DevelopmentStage_id = ?, ActivityDetails_solarRadiation = ?, ActivityDetails_windSpeed = ? WHERE (RiceCropInformation_id = ? And OtherActivities_id= ? and ActivityDetails_times = ?)",
+          [activityDetails.Employee_id, activityDetails.ActivityDetails_startDate, activityDetails.ActivityDetails_endDate, activityDetails.ActivityDetails_temperature, activityDetails.ActivityDetails_humidity, activityDetails.ActivityDetails_precipitation, activityDetails.DevelopmentStage_id, activityDetails.ActivityDetails_solarRadiation, activityDetails.ActivityDetails_windSpeed, riceCropInformation_id, otherActivities_id, times],
           (err, res) => {
                if (err) {
                     console.log("error: ", err);

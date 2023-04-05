@@ -1,139 +1,140 @@
- .riceCropDetail .createFertilizerTimesForm{
-    background-color: #dbdbdb;
-    border: 0.5px solid #b8b5b5;
-     font-family: Inter;
-     border-radius: 10px;
-     position: absolute;
-     top: calc(90px);
-     left: 18px;
-     width: 98%;
-}
+ .riceCropDetail .createFertilizerTimesForm {
+      background-color: #dbdbdb;
+      border: 0.5px solid #b8b5b5;
+      font-family: 'Roboto';
+      border-radius: 10px;
+      position: absolute;
+      top: calc(90px);
+      left: 18px;
+      width: 98%;
+ }
 
- .riceCropDetail .updateFertilizerTimesForm{
-    background-color: #dbdbdb;
-    border: 0.5px solid #b8b5b5;
-     font-family: Inter;
-     border-radius: 10px;
-     position: absolute;
-     top: calc(90px);
-     left: 18px;
-     width: 98%;
-}
+ .riceCropDetail .updateFertilizerTimesForm {
+      background-color: #dbdbdb;
+      border: 0.5px solid #b8b5b5;
+      font-family: 'Roboto';
+      border-radius: 10px;
+      position: absolute;
+      top: calc(90px);
+      left: 18px;
+      width: 98%;
+ }
 
-.createFertilizerTimesForm .content .error-feedback,
-.updateFertilizerTimesForm.content .error-feedback{
-     color: red;
-     float: right;
-}
-
-
-.createFertilizerTimesForm .content .form-group label,
-.updateFertilizerTimesForm .content .form-group label{
-     float: left;
-     font-family: 'Roboto';
-     font-style: normal;
-     font-weight: 500;
-     font-size: 18px;
-}
-
-.createFertilizerTimesForm .content .form-group .selectBox,
-.updateFertilizerTimesForm .content .form-group .selectBox{
-     width: 100%;
-     height: 38px;
-     border: 1px solid #ced4da;
-     border-radius: 4px;
-}
-
-.createFertilizerTimesForm .content .form-group input,
-.updateFertilizerTimesForm .content .form-group input{
-     float: left;
-}
-
-.createFertilizerTimesForm .content .form-group .form-control,
-.updateFertilizerTimesForm .content .form-group .form-control{
-    background-color: #FAFAFC;
-    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-    font-size: 17px;
-    border-radius: 15px;
-    color: #2F3033;
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 500;
-    height: 35px;
-    vertical-align:middle;
-}
-
-.createFertilizerTimesForm .functionName,
-.updateFertilizerTimesForm .functionName{
-     font-family: Inter;
-     font-size: 24px;
-}
-.createFertilizerTimesForm .form-group .textMessage2,
-.createFertilizerTimesForm .form-group .textMessage1,
-.updateFertilizerTimesForm .form-group .textMessage1,
-.updateFertilizerTimesForm .form-group .textMessage2{
-     text-align: center; 
-     display: inline;
-     font-size: 18px;
-     font-family: Inter;
-}
-
-.createFertilizerTimesForm .btnLuu, 
-.updateFertilizerTimesForm .btnLuu{
-     background-color: rgb(4, 105, 4);
-     color: #f0f0f0;
-     font-size: 20px;
-     text-align: center;
-}
+ .createFertilizerTimesForm .content .error-feedback,
+ .updateFertilizerTimesForm .content .error-feedback {
+      color: red;
+      float: right;
+ }
 
 
-.fertilizerUsed{
-    background-color: #FAFAFC;
-    border-radius: 5px;
-    height: 210px;
-}
+ .createFertilizerTimesForm .content .form-group label,
+ .updateFertilizerTimesForm .content .form-group label {
+      float: left;
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 18px;
+ }
 
-.fertilizerlist {
-    overflow: auto;
-    max-height: 160px;
-    min-height: 160px;
-    white-space: nowrap;
-    width: 98%;
-    border-radius: 5px;
-    margin-top: 4%;
-}
+ .createFertilizerTimesForm .content .form-group .selectBox,
+ .updateFertilizerTimesForm .content .form-group .selectBox {
+      width: 100%;
+      height: 38px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+ }
 
-.createFertilizerTimesForm .fertilizerlist table thead {
-    position: sticky;
-    top: 0;
-    z-index: 0;
-    border-bottom: 0.5px solid #b5b5b7;
-    padding-left: 10px !important;
-    vertical-align: middle !important;
-}
+ .createFertilizerTimesForm .content .form-group input,
+ .updateFertilizerTimesForm .content .form-group input {
+      float: left;
+ }
 
-.createFertilizerTimesForm .fertilizerlist table thead tr th {
-    /* background-color: #008B8E; */
-}
+ .createFertilizerTimesForm .content .form-group .form-control,
+ .updateFertilizerTimesForm .content .form-group .form-control {
+      background-color: #FAFAFC;
+      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+      font-size: 17px;
+      border-radius: 10px;
+      color: #2F3033;
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 500;
+      height: 35px;
+      vertical-align: middle;
+ }
 
-.createFertilizerTimesForm .btnAddFertilizer {
-    border-radius: 5px;
-    background: #008B8E;
-    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
-    font-size: 17px;
-    font-family: 'Roboto';
-    border: none;
-    color: #FFFED8;
-    z-index: 1;
-    float: right;
-    width: 60px;
-    height: 30px;
-    position: absolute;
-    right: 4.5%;
-}
+ .createFertilizerTimesForm .functionName,
+ .updateFertilizerTimesForm .functionName {
+      font-family: 'Roboto';
+      font-size: 24px;
+ }
 
-.selectionFertilizer{
-    width: 90% !important;
-    height: 30px;
-    margin-right: 5%;
-}
+ .createFertilizerTimesForm .form-group .textMessage2,
+ .createFertilizerTimesForm .form-group .textMessage1,
+ .updateFertilizerTimesForm .form-group .textMessage1,
+ .updateFertilizerTimesForm .form-group .textMessage2 {
+      text-align: center;
+      display: inline;
+      font-size: 18px;
+      font-family: 'Roboto';
+ }
+
+ .createFertilizerTimesForm .btnLuu,
+ .updateFertilizerTimesForm .btnLuu {
+      background-color: rgb(4, 105, 4);
+      color: #f0f0f0;
+      font-size: 20px;
+      text-align: center;
+ }
+
+
+ .fertilizerUsed {
+      background-color: #FAFAFC;
+      border-radius: 5px;
+      height: 210px;
+ }
+
+ .fertilizerlist {
+      overflow: auto;
+      max-height: 160px;
+      min-height: 160px;
+      white-space: nowrap;
+      width: 98%;
+      border-radius: 5px;
+      margin-top: 4%;
+ }
+
+ .createFertilizerTimesForm .fertilizerlist table thead {
+      position: sticky;
+      top: 0;
+      z-index: 0;
+      border-bottom: 0.5px solid #b5b5b7;
+      padding-left: 10px !important;
+      vertical-align: middle !important;
+ }
+
+ .createFertilizerTimesForm .fertilizerlist table thead tr th {
+      /* background-color: #008B8E; */
+ }
+
+ .createFertilizerTimesForm .btnAddFertilizer {
+      border-radius: 5px;
+      background: #008B8E;
+      box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
+      font-size: 17px;
+      font-family: 'Roboto';
+      border: none;
+      color: #FFFED8;
+      z-index: 1;
+      float: right;
+      width: 60px;
+      height: 30px;
+      position: absolute;
+      right: 4.5%;
+ }
+
+ .selectionFertilizer {
+      width: 90% !important;
+      height: 30px;
+      margin-right: 5%;
+ }

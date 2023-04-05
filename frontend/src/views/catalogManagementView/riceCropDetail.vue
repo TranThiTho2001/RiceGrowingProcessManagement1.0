@@ -1,4 +1,5 @@
 <template>
+     riceCropDetailFramePesticide
      <div class="container-fluid riceCropDetail">
           <div class="row riceCropDetailFrame" style="height: 100vmin;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
@@ -1026,8 +1027,12 @@ export default {
                     console.log(err)
                }
                else {
-                    this.activitiesDetailList = respone.data;
-                    this.retrieveOtherActivities();
+                    if (respone.data != "Không tìm thấy chi tiết hoạt động.") {
+                         this.activitiesDetailList = respone.data;
+                    }
+                    else{
+                         this.newActivityDetail.ActivityDetails_times = 1;
+                    }
                }
           },
 
@@ -1334,7 +1339,7 @@ export default {
                     this.stylebac.none = false;
                     this.stylebac.active = true;
                     this.newSprayingTimes = {};
-                    if (this.sprayingTimes.length > 0) {
+                    if (this.SprayingTimesList.length > 0) {
                          this.newSprayingTimes.SprayingTimes_times = this.SprayingTimesList[this.SprayingTimesList.length - 1].SprayingTimes_times + 1;
 
                     }
@@ -1342,9 +1347,11 @@ export default {
                          this.newSprayingTimes.SprayingTimes_times = 1;
                     }
                     var temp = {};
+                    this.newSprayingTimes.Pesticide = [];
                     temp.Pesticide_name = "";
                     temp.Pesticide_id = 0;
                     this.newSprayingTimes.Pesticide.push(temp);
+                    console.log(this.newSprayingTimes.Pesticide)
                }
                else {
                     this.message1 = " ";
@@ -1831,6 +1838,7 @@ export default {
                     this.stylebac.none = false;
                     this.stylebac.active = true;
                     this.newActivityDetail = {};
+                    this.retrieveActivitiesDetail();
                }
                else {
                     data.RiceCropInformation_id = this.newRiceCrop.RiceCropInformation_id;
@@ -1876,7 +1884,6 @@ export default {
           },
 
           async updateNewActivitiesDetail(data) {
-               console.log("hsjkcdsqa")
                this.message1 = "";
                this.message2 = "";
                if (!data.close) {
@@ -1884,6 +1891,7 @@ export default {
                     this.stylebac.none = false;
                     this.stylebac.active = true;
                     this.newActivityDetail = {};
+                    this.retrieveActivitiesDetail();
                }
                else {
                     data.RiceCropInformation_id = this.newRiceCrop.RiceCropInformation_id;

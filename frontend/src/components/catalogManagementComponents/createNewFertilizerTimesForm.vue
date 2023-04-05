@@ -116,7 +116,6 @@
                               placeholder="Nhập bức xạ mặt trời..." />
                          <ErrorMessage name="solarradiation" class="error-feedback" />
                     </div>
-
                </div>
 
           </div>
@@ -166,8 +165,8 @@
                     <span v-if="message1 == 'Thêm không thành công.'" class="fas fa-times-circle"
                          style="color:red; text-align: center; display: inline;"></span>
                     <span v-if="message2 == 'Thêm thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;">
-                         {{ message2 }}</span>
-                    <span v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2"> {{ message1 }}
+                         Thêm lần bón phân thành công</span>
+                    <span v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2"> Thêm lần bón phân không thành công
                     </span>
                </div>
           </div>
@@ -326,13 +325,11 @@ export default {
                          this.weatherInfor.totalHumitidity += humitidity;
                     });
 
-                    this.newfertilizertimes.FertilizerTimes_precipitation = this.weatherInfor.Precipitation;
-                    this.newfertilizertimes.FertilizerTimes_temperature = this.weatherInfor.totalTemperature / this.weatherInfor.temperatureList.length;
-                    this.newfertilizertimes.FertilizerTimes_humidity = this.weatherInfor.totalHumitidity / this.weatherInfor.humitidityList.length;
-                    this.newfertilizertimes.FertilizerTimes_windSpeed = this.weatherInfor.totalWindSpeed / this.weatherInfor.windSpeed.length;
-                    this.newfertilizertimes.FertilizerTimes_solarRadiation = this.weatherInfor.totalSolarRadiation / this.weatherInfor.solarRadiation.length;
-                    console.log("Tong luong Mua: " + this.weatherInfor.Precipitation + " Nhiet do trung binh: " + this.weatherInfor.Temperature + " Do am: " + this.weatherInfor.Humitidity + " Tocs do gia: " + this.weatherInfor.WinSpeed + " Buc xa: " + this.weatherInfor.SolarRadiation);
-               }
+                    this.newfertilizertimes.FertilizerTimes_precipitation = (this.weatherInfor.Precipitation).toFixed(2);
+                    this.newfertilizertimes.FertilizerTimes_temperature = (this.weatherInfor.totalTemperature / this.weatherInfor.temperatureList.length).toFixed(2);
+                    this.newfertilizertimes.FertilizerTimes_humidity = (this.weatherInfor.totalHumitidity / this.weatherInfor.humitidityList.length).toFixed(2);
+                    this.newfertilizertimes.FertilizerTimes_windSpeed = (this.weatherInfor.totalWindSpeed / this.weatherInfor.windSpeed.length).toFixed(2);
+                    this.newfertilizertimes.FertilizerTimes_solarRadiation = (this.weatherInfor.totalSolarRadiation / this.weatherInfor.solarRadiation.length).toFixed(2);               }
                else if (((end.getTime() - start.getTime()) / (24 * 3600 * 1000)) + 1 >= 7 && this.newfertilizertimes.FertilizerTimes_endDate != '' && this.newfertilizertimes.FertilizerTimes_endDate <= date) {
                     let urlAPI = `https://archive-api.open-meteo.com/v1/archive?latitude=${this.riceCropChosen.ArableLand_latitude}&longitude=${this.riceCropChosen.ArableLand_longitude}&start_date=${moment(this.newfertilizertimes.FertilizerTimes_startDate).format("YYYY-MM-DD")}&end_date=${moment(this.newfertilizertimes.FertilizerTimes_endDate).format("YYYY-MM-DD")}&timezone=auto&hourly=relativehumidity_2m&daily=temperature_2m_mean&daily=precipitation_sum&daily=windspeed_10m_max&daily=shortwave_radiation_sum`;
                     let data = await fetch(urlAPI).then(res => res.json())
@@ -392,13 +389,11 @@ export default {
                     this.weatherInfor.humitidityList.forEach(humitidity => {
                          this.weatherInfor.totalHumitidity += humitidity;
                     });
-                    this.newfertilizertimes.FertilizerTimes_precipitation = this.weatherInfor.Precipitation;
-                    this.newfertilizertimes.FertilizerTimes_temperature = this.weatherInfor.totalTemperature / this.weatherInfor.temperatureList.length;
-                    this.newfertilizertimes.FertilizerTimes_humidity = this.weatherInfor.totalHumitidity / this.weatherInfor.humitidityList.length;
-                    this.newfertilizertimes.FertilizerTimes_windSpeed = this.weatherInfor.totalWindSpeed / this.weatherInfor.windSpeed.length;
-                    this.newfertilizertimes.FertilizerTimes_solarRadiation = this.weatherInfor.totalSolarRadiation / this.weatherInfor.solarRadiation.length;
-                    console.log("Tong luong Mua: " + this.weatherInfor.Precipitation + " Nhiet do trung binh: " + this.weatherInfor.Temperature + " Do am: " + this.weatherInfor.Humitidity + " Tocs do gia: " + this.weatherInfor.WinSpeed + " Buc xa: " + this.weatherInfor.SolarRadiation);
-               }
+                    this.newfertilizertimes.FertilizerTimes_precipitation = (this.weatherInfor.Precipitation).toFixed(2);
+                    this.newfertilizertimes.FertilizerTimes_temperature = (this.weatherInfor.totalTemperature / this.weatherInfor.temperatureList.length).toFixed(2);
+                    this.newfertilizertimes.FertilizerTimes_humidity = (this.weatherInfor.totalHumitidity / this.weatherInfor.humitidityList.length).toFixed(2);
+                    this.newfertilizertimes.FertilizerTimes_windSpeed = (this.weatherInfor.totalWindSpeed / this.weatherInfor.windSpeed.length).toFixed(2);
+                    this.newfertilizertimes.FertilizerTimes_solarRadiation = (this.weatherInfor.totalSolarRadiation / this.weatherInfor.solarRadiation.length).toFixed(2);               }
 
           }
 
