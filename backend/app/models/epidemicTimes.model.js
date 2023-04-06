@@ -87,8 +87,8 @@ EpidemicTimes.findByName= (name,id, result) => {
 
 EpidemicTimes.updateById = (riceCropInformation_id, Epidemic_id, times, epidemicTimes, result) => {
      sql.query(
-          "UPDATE EpidemicTimes SET Employee_id = ?, DevelopmentStage_id = ?, EpidemicTimes_startDate = ?, EpidemicTimes_endDate = ?, EpidemicTimes_temperature = ?, EpidemicTimes_humidity = ?, EpidemicTimes_precipitation = ? WHERE (RiceCropInformation_id = ? And Epidemic_id = ? and EpidemicTimes_times = ?)",
-          [epidemicTimes.Employee_id, epidemicTimes.DevelopmentStage_id, epidemicTimes.EpidemicTimes_startDate, epidemicTimes.EpidemicTimes_endDate, epidemicTimes.EpidemicTimes_temperature, epidemicTimes.EpidemicTimes_humidity, epidemicTimes.EpidemicTimes_precipitation, riceCropInformation_id, Epidemic_id, times],
+          "UPDATE EpidemicTimes SET Employee_id = ?, DevelopmentStage_id = ?, EpidemicTimes_startDate = ?, EpidemicTimes_endDate = ?, EpidemicTimes_temperature = ?, EpidemicTimes_humidity = ?, EpidemicTimes_precipitation = ?, Epidemic_id = ?  WHERE (RiceCropInformation_id = ? and EpidemicTimes_times = ?)",
+          [epidemicTimes.Employee_id, epidemicTimes.DevelopmentStage_id, epidemicTimes.EpidemicTimes_startDate, epidemicTimes.EpidemicTimes_endDate, epidemicTimes.EpidemicTimes_temperature, epidemicTimes.EpidemicTimes_humidity, epidemicTimes.EpidemicTimes_precipitation, Epidemic_id, riceCropInformation_id, times],
           (err, res) => {
                if (err) {
                     console.log("error: ", err);

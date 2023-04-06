@@ -327,5 +327,7 @@ overflow: hidden;
      border-radius: 3px;
      max-height: 240px !important;
      min-height: 280px;
+     width: 100%;
+     position: relative;
 }
 </style>

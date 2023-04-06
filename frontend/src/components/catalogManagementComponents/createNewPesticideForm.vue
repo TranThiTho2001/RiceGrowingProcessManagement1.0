@@ -43,7 +43,7 @@
                               placeholder="Nhập tên thuốc..." />
                          <ErrorMessage name="name" class="error-feedback" />
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="height: 295px !important;">
                          <div class="ml-3 mt-3">
                               <label for="" class="mt-3">Điều trị bệnh dịch gây hại<span
                                         style="color: red">*</span></label><br>
@@ -264,4 +264,7 @@ export default {
      border-radius: 3px;
      max-height: 240px !important;
      min-height: 295px;
+     z-index: 3 !important;
+     width: 100%;
+     position: relative;
 }</style>

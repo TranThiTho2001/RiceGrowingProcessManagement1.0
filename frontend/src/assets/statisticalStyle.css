@@ -49,8 +49,8 @@
     border-radius: 10px;
     border: none;
     background: none;
-    right: 33%;
-    top: 14%;
+    right: 28%;
+    top: 15%;
 }
 
 .closeSearch4 {
@@ -67,9 +67,9 @@
 .openSearch4 {
     display: inline-block;
     position: absolute;
-    left: 35%;
-    top: 18%;
-    width: 33%;
+    left: 45%;
+    top: 19%;
+    width: 27%;
     max-height: 150px;
     overflow: hidden;
     background-color: #FAFAFC;
@@ -80,12 +80,12 @@
 }
 
 .statisticsByRiceCrop .leftStatistical {
-    width: 30%;
+    width: 40%;
     border-right: 3px solid #c8cecb;
 }
 
 .statisticsByRiceCrop .rightStatistical {
-    width: 70%;
+    width: 60%;
     padding-left: 5%;
 }
 
@@ -158,6 +158,83 @@
     .inputSearch4 {
         width: 80% !important;
     }
+
+    .statisticsByRiceCrop .leftStatistical {
+        width: 45%;
+        display: inline-block;
+        border-right: 3px solid #c8cecb;
+        padding-right: 10px;
+    }
+
+    .statisticsByRiceCrop .rightStatistical {
+        width: 55%;
+        display: inline-block;
+        padding-left: 10px;
+    }
+
+    .arablelandScroll {
+        height: 128px;
+        overflow: auto;
+        margin-top: 2px;
+        word-wrap: none;
+        width: 100% !important;
+        margin-left: 0.5%;
+        background-color: #FFFFFF;
+    }
+
+    .inputSearch4 {
+        background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
+        box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 15px !important;
+        width: 99% !important;
+        height: 35px;
+    }
+
+    .btnSearch4 {
+        position: absolute;
+        border-radius: 10px;
+        border: none;
+        background: none;
+        right: 2%;
+        top: 15%;
+    }
+
+    .closeSearch4 {
+        display: none;
+        width: 110%;
+        margin: 0 auto 10px auto;
+        padding: 10px 20px;
+        color: white;
+        border-radius: 5px;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+            rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    }
+
+    .openSearch4 {
+        display: inline-block;
+        position: absolute;
+       left:47% !important;
+        top: 19%;
+        width: 52%;
+        max-height: 140px;
+        overflow: hidden;
+        background-color: #FAFAFC;
+        border-radius: 5px;
+        z-index: 1;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+            rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    }
+
+}
+
+.arablelandScroll {
+    height: 128px;
+    overflow: auto;
+    margin-top: 2px;
+    word-wrap: none;
+    width: 50%;
+    margin-left: 0.5%;
+    background-color: #FFFFFF;
 }
 
 .StatisticalManagement .navigationBar .btnStatistical {

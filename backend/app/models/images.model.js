@@ -73,7 +73,7 @@ Images.updateById = (id, image, result) => {
  };
 
 Images.remove = (id, result) => {
-    sql.query("DELETE FROM Image WHERE Image_id = ?", id, (err, res) => {
+    sql.query("DELETE FROM Images WHERE Image_id = ?", id, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err,null);
@@ -84,7 +84,7 @@ Images.remove = (id, result) => {
             result({ kind: "not_found" }, null);
             return;
         }
-        console.log("deleted Employee with id: ", id);
+        console.log("deleted Image with id: ", id);
         result(null, res);
     });
 };

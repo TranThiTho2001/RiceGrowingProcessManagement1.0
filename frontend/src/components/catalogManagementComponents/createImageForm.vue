@@ -1,6 +1,6 @@
 <template>
     <Form @submit="newimage.close = true, $emit('addImage-submit', newimage)" enctype="multipart/form-data"
-        class="form createImageForm container">
+        class="form createImageForm containe-fluid">
         <div class="row">
             <div class="col-sm-12 text-right">
                 <i class="fas fa-times" @click="newimage.close = false, $emit('addImage-submit', newimage)"
@@ -39,10 +39,14 @@
                 <p v-if="message2 == 'Thêm không thành công'" class="textMessage1">{{ message1 }}</p>
                 <p v-if="message1 == 'Vui lòng chọn hình ảnh!!'">{{ message1 }}
                 </p>
-                <button class="btn btn-outline-secondary btnLuu">Lưu</button>
             </div>
         </div>
-    </form>
+        <div class="row mb-4">
+               <div class="col-sm-12 text-center">
+                    <button class="btn btn-outline-secondary btnLuu col-sm-2">Lưu</button>
+               </div>
+          </div>
+    </Form>
 </template>
 
 <script>
@@ -86,7 +90,7 @@ export default {
     height: 520px;
     background-color: aquamarine;
     top: 18%;
-    left: 28%;
+    left: 22%;
     border-radius: 10px;
 }
 

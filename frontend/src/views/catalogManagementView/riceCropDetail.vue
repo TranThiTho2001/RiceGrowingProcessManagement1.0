@@ -1,5 +1,4 @@
 <template>
-     riceCropDetailFramePesticide
      <div class="container-fluid riceCropDetail">
           <div class="row riceCropDetailFrame" style="height: 100vmin;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
@@ -94,9 +93,9 @@
                                         động
                                         khác</button>
                                    <button class=" btn btn-midle text-center btnEpidemic btnNameActive"
-                                        v-if="isOpenTableEpidemicTimes">Tình bệnh dịch</button>
+                                        v-if="isOpenTableEpidemicTimes">Bệnh dịch</button>
                                    <button class=" btn btn-midle text-center btnEpidemic btnName"
-                                        v-if="!isOpenTableEpidemicTimes" @click="setTable('btnEpidemic')">Tình bệnh dịch
+                                        v-if="!isOpenTableEpidemicTimes" @click="setTable('btnEpidemic')">Bệnh dịch
                                    </button>
                                    <button class="btn btn-midle text-center btnImage btnNameActive" v-if="isOpenImage">
                                         Hình ảnh
@@ -112,27 +111,31 @@
                                         @click="setTable('btnAttendee')">Người theo dõi</button>
 
                               </div>
+                              <!-- Image -->
                               <div class="row activitiesList ml-2 mr-2 pb-5" v-if="isOpenImage">
-                                   <div class="col-sm-12">
                                         <div class="row">
                                              <button class="btnAddimage"
                                                   @click="isOpenCreateImage = !isOpenCreateImage, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
                                                   Thêm
                                              </button>
                                         </div>
-                                        <div class="row mt-2">
-                                             <carousel :settings="settings" :breakpoints="breakpoints"
+                                        <div class="tableFixHead">
+                                             <div class="row" style="width: 98%;">
+                                                  <!-- <carousel :settings="settings" :breakpoints="breakpoints"
                                                   style="width:100%; height: 195px;">
                                                   <slide v-for="(image, i) in imagesList" :key="i">
                                                        <ImageComponent :images="image" />
                                                   </slide>
                                                   <template #addons>
                                                        <navigation v-if="imagesList.length > getWidth()" />
-                                                       <!-- <pagination style="color: #00BA13;" />  -->
+                                                      <pagination style="color: #00BA13;" /> 
                                                   </template>
-                                             </carousel>
+                                             </carousel> -->
+                                                  <div v-for="(image, i) in imagesList" :key="i">
+                                                       <ImageComponent :images="image" @clicked-something="handleClickInParent"/>
+                                                  </div>
+                                             </div>
                                         </div>
-                                   </div>
                               </div>
                               <!-- ----------------------FertilizerTimes Tab-------------- -->
                               <div class="row activitiesList ml-2 mr-2 mt-4" v-if="isOpenTableFertilizerTimes">
@@ -292,7 +295,7 @@
                                    </div>
                                    <button class="btn mt-1 btnAdd"
                                         @click="isOpenCreateEpidemicTimesForm = !isOpenCreateEpidemicTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
-                                   <p v-for="(treatment, i) in getTreatment('EC00000001')" :key="i">{{ i }}</p>
+
                                    <div class="tableFixHead">
                                         <table class="table">
                                              <thead>
@@ -321,7 +324,7 @@
                                                        <td class="">{{ epidemic.Employee_name }}</td>
                                                        <td>
                                                             <p v-for="(treatment, i) in epidemic.Treatment" :key="i"
-                                                                 style="display: inline;">{{ treatment.Pesticide_name
+                                                                 style="display: inline;">{{ treatment
                                                                  }},
                                                             </p>
                                                        </td>
@@ -550,8 +553,7 @@
                     <UpadteActivitiiesDetailForm v-if="isOpenUpdateActivitiesDetail"
                          :newActivityDetail="activitiesDetailChosen" :currentUser="currentUser"
                          :developmentStageList="developmentStageList" :riceCropChosen="newRiceCrop"
-                         @updateActivitiesDetail-submit="updateNewActivitiesDetail" :message1="message1"
-                         :message2="message2" />
+                         @updateActivitiesDetail-submit="updateActivitiesDetail" :message1="message1" :message2="message2" />
                </div>
           </div>
      </div>
@@ -590,7 +592,7 @@ import CreateImageForm from '@/components/catalogManagementComponents/createImag
 import ImagesService from '@/services/images.service';
 import ImageComponent from '@/components/catalogManagementComponents/imageComponent.vue';
 import 'vue3-carousel/dist/carousel.css'
-import { Carousel, Slide, Navigation } from 'vue3-carousel';
+// import { Carousel, Slide, Navigation } from 'vue3-carousel';
 import ActivityDetailsService from '@/services/activityDetails.service';
 import UpadteActivitiiesDetailForm from '@/components/catalogManagementComponents/updateActivitiesDetailForm.vue'
 import CreateActivitiiesDetailForm from '@/components/catalogManagementComponents/createNewOtherActivityTimesForm.vue';
@@ -617,9 +619,9 @@ export default {
           CreateActivitiiesDetailForm,
           UpadteActivitiiesDetailForm,
           TopHeader,
-          Carousel,
-          Slide,
-          Navigation,
+          // Carousel,
+          // Slide,
+          // Navigation,
      },
 
      data() {
@@ -852,12 +854,11 @@ export default {
                          this.epidemicTimesList = respone.data;
                          this.cloneEpidemicTimesList = respone.data;
                          this.newEpidemicTimes.EpidemicTimes_times = this.epidemicTimesList[this.epidemicTimesList.length - 1].EpidemicTimes_times + 1;
+                         var i = 0;
                          this.epidemicTimesList.forEach(element => {
                               element.Treatment = [];
-                              this.getTreatment(element.Epidemic_id);
-                              this.treatmentList.forEach(t => {
-                                   element.Treatment.push(t);
-                              });
+                              this.getTreatment(element.Epidemic_id, i);
+                              i++
 
                          });
                     }
@@ -877,7 +878,6 @@ export default {
                }
                else {
                     this.seedList = respone.data;
-                    console.log(respone.data);
                }
           },
 
@@ -891,7 +891,6 @@ export default {
                }
                else {
                     this.arableLandList = respone.data;
-                    console.log(respone.data);
                }
           },
           async retrieveRiceCropList() {
@@ -903,7 +902,6 @@ export default {
                }
                else {
                     this.riceCropList = respone.data;
-                    console.log(respone.data);
                }
           },
           async retrieveFertilizerList() {
@@ -915,7 +913,6 @@ export default {
                }
                else {
                     this.fertilizerList = respone.data;
-                    console.log(respone.data);
                }
           },
 
@@ -928,7 +925,6 @@ export default {
                }
                else {
                     this.developmentStageList = respone.data;
-                    console.log(respone.data);
                }
           },
 
@@ -941,7 +937,6 @@ export default {
                }
                else {
                     this.pesticideList = respone.data;
-                    console.log(respone.data);
                }
           },
 
@@ -1030,7 +1025,7 @@ export default {
                     if (respone.data != "Không tìm thấy chi tiết hoạt động.") {
                          this.activitiesDetailList = respone.data;
                     }
-                    else{
+                    else {
                          this.newActivityDetail.ActivityDetails_times = 1;
                     }
                }
@@ -1109,7 +1104,6 @@ export default {
                     if (element.ArableLand_id == data.ArableLand_id) {
                          if (element.RiceCropInformation_harvestDate == null) {
                               check = false;
-                              console.log("alo" + check);
                          }
                     }
                });
@@ -1161,7 +1155,6 @@ export default {
                else {
                     this.message1 = " ";
                     this.message2 = " ";
-                    // console.log("development "+data.DevelopmentStage_id);
                     this.developmentStageList.forEach(element => {
                          if (element.DevelopmentStage_name == data.DevelopmentStage_name) {
                               data.DevelopmentStage_id = element.DevelopmentStage_id;
@@ -1241,7 +1234,6 @@ export default {
                else {
                     this.message1 = " ";
                     this.message2 = " ";
-                    // console.log("development "+data.DevelopmentStage_id);
                     this.developmentStageList.forEach(element => {
                          if (element.DevelopmentStage_name == data.DevelopmentStage_name) {
                               data.DevelopmentStage_id = element.DevelopmentStage_id;
@@ -1356,7 +1348,6 @@ export default {
                else {
                     this.message1 = " ";
                     this.message2 = " ";
-                    // console.log("development "+data.DevelopmentStage_id);
                     this.developmentStageList.forEach(element => {
                          if (element.DevelopmentStage_name == data.DevelopmentStage_name) {
                               data.DevelopmentStage_id = element.DevelopmentStage_id;
@@ -1432,7 +1423,6 @@ export default {
                else {
                     this.message1 = " ";
                     this.message2 = " ";
-                    // console.log("development "+data.DevelopmentStage_id);
                     this.developmentStageList.forEach(element => {
                          if (element.DevelopmentStage_name == data.DevelopmentStage_name) {
                               data.DevelopmentStage_id = element.DevelopmentStage_id;
@@ -1518,7 +1508,6 @@ export default {
                else {
                     this.message1 = " ";
                     this.message2 = " ";
-                    // console.log("development "+data.DevelopmentStage_id);
                     this.developmentStageList.forEach(element => {
                          if (element.DevelopmentStage_name == data.DevelopmentStage_name) {
                               data.DevelopmentStage_id = element.DevelopmentStage_id;
@@ -1580,7 +1569,6 @@ export default {
                else {
                     this.message1 = " ";
                     this.message2 = " ";
-                    // console.log("development "+data.DevelopmentStage_id);
                     this.developmentStageList.forEach(element => {
                          if (element.DevelopmentStage_name == data.DevelopmentStage_name) {
                               data.DevelopmentStage_id = element.DevelopmentStage_id;
@@ -1763,9 +1751,8 @@ export default {
                data.Employee_id = this.currentUser.Employee_id;
                data.Image_link = link;
                const day = new Date();
-               data.Image_id = this.idImage; console.log(this.idImage)
-               data.Image_date = (day.getFullYear()) + "-" + (day.getMonth()) + "-" + (day.getDate()) + " " + (day.getHours()) + ":" + day.getMinutes() + ":" + day.getSeconds();
-               console.log((day.getFullYear()) + "-" + (day.getMonth()) + "-" + (day.getDate()) + " " + (day.getHours()) + ":" + day.getMinutes() + ":" + day.getSeconds())
+               data.Image_id = this.idImage;
+               data.Image_date = moment(day).format("YYYY-MM-DD hh:mm:ss");
                data.RiceCropInformation_id = this.newRiceCrop.RiceCropInformation_id;
                const [error, response] = await this.handle(
                     ImagesService.create(data)
@@ -1774,7 +1761,7 @@ export default {
                     console.log(error);
                } else {
                     if (response.data == error) {
-                         this.message = "Them không thành công.";
+                         this.message = "Thêm không thành công.";
                     }
                     else if (response.data == "Không thể lưu hình ảnh.") {
                          this.message = "Xóa không thành công";
@@ -1783,7 +1770,6 @@ export default {
                          this.message = "Xóa thành công.";
                     }
                }
-               console.log(data);
           },
 
           async createNewImage(data) {
@@ -1797,7 +1783,6 @@ export default {
                          const formdata = require('form-data');
                          const formData = new formdata();
                          formData.append("image", data.Image);
-                         console.log("HFWBEFE   `    ");
                          axios.post('http://localhost:8080/api/image', formData, {
                               headers: {
                                    'Content-Type': `multipart/form-data;`,
@@ -1811,7 +1796,7 @@ export default {
 
                          const fnSuccess = (response) => {
                               this.retrieveImageID(response.data.Image_link);
-                              this.message2 = "Thêmthành công";
+                              this.message2 = "Thêm thành công";
                          };
 
                          const fnFail = (error) => {
@@ -1853,7 +1838,6 @@ export default {
                               data.DevelopmentStage_id = element.DevelopmentStage_id;
                          }
                     });
-                    console.log(data.ActivityDetails_startDate)
                     if (data.ActivityDetails_endDate != null) {
                          data.ActivityDetails_endDate = (moment(String(data.ActivityDetails_endDate)).format("YYYY-MM-DD")).slice(0, 10);
                     }
@@ -1883,7 +1867,7 @@ export default {
                }
           },
 
-          async updateNewActivitiesDetail(data) {
+          async updateActivitiesDetail(data) {
                this.message1 = "";
                this.message2 = "";
                if (!data.close) {
@@ -1978,7 +1962,7 @@ export default {
                }
           },
 
-          async getTreatment(epidemicid) {
+          async getTreatment(epidemicid, i) {
                const [error, response] = await this.handle(
                     TreatmentService.findByEpidemicId(epidemicid)
                );
@@ -1989,7 +1973,14 @@ export default {
                          console.log(error)
                     }
                     else {
-                         this.treatmentList = response.data;
+                         var temp = [];
+                         temp = response.data;
+                         if (temp.length > 0) {
+                              this.epidemicTimesList[i].Treatment = [];
+                              temp.forEach(element => {
+                                   this.epidemicTimesList[i].Treatment.push(element.Pesticide_name);
+                              });
+                         }
                     }
                }
           },
@@ -2028,7 +2019,6 @@ export default {
           async searchNameFertilizer(data) {
                this.nameToSearch = data;
                this.fertilizerTimesList = [];
-               console.log(data)
                if (this.nameToSearch != "") {
                     this.cloneFertilizerTimesList.forEach(element => {
                          if (this.nameToSearch == element.Fertilizer_name) {
@@ -2043,12 +2033,10 @@ export default {
                               console.log(err)
                          }
                          else {
-                              console.log(respone.data)
                               if (respone.data != "Không tìm thấy lần bón phân.") {
                                    this.fertilizerTimesList = respone.data;
                               }
                               else this.fertilizerTimesList = [];
-                              console.log(this.fertilizerTimesList)
                          }
                     }
 
@@ -2132,6 +2120,10 @@ export default {
                     this.retrieveMonitorList()
                }
           },
+
+          handleClickInParent: function() {
+                this.retrieveImagesList();
+            },
           async getWeather() {
                let urlAPI = `https://api.open-meteo.com/v1/forecast?latitude=${this.newRiceCrop.ArableLand_latitude}&longitude=${this.newRiceCrop.ArableLand_longitude}&current_weather=true&forecast_days=1&daily=shortwave_radiation_sum&timezone=auto&daily=precipitation_sum&hourly=relativehumidity_2m`;
                let data = await fetch(urlAPI).then(res => res.json())
@@ -2189,17 +2181,6 @@ export default {
 .btnAddimage {
      background-color: rgb(241, 248, 164);
      border-radius: 5px;
-}
-
-.riceCropDetail .categoryList .btnMonitor {
-     display: block;
-     width: 94%;
-     font-size: 18px;
-     background-color: #FFFA37;
-     color: #5C5D22;
-     border: none;
-     font-family: Inter;
-     border-radius: 14px;
 }
 </style>
 

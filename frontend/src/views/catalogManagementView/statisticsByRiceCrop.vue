@@ -5,13 +5,13 @@
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
                     @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true"></button>
-                    <div  class="left" :class=" {navbarresponsive: openMenu.openMenu }" >
-                         <Catalog />
+               <div class="left" :class="{ navbarresponsive: openMenu.openMenu }">
+                    <Catalog />
                </div>
                <div class="right statisticsByRiceCropscroll">
                     <div class="row pt-3 mb-4 pb-1 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
-                              <h3 class="name"   style="font">Thống kê mùa vụ</h3>
+                              <h3 class="name" style="font">Thống kê mùa vụ</h3>
                          </div>
 
                          <div class="text-right">
@@ -29,33 +29,34 @@
                                    <div class="col-lg-6">
                                         <input type="radio" id="arableLand" name="all" value="all"
                                              v-model="chooseSatisticsBy" checked="true"
-                                             @click="retrieveCropList, nameToSearch = ''">
+                                             @click="retrieveRiceCropList(), nameToSearch = ''">
                                         <label for="all">&nbsp; Tất cả</label><br>
                                         <input type="radio" id="arableLand" name="statisticsby" value="arableLand"
-                                             v-model="chooseSatisticsBy" @click="retrieveArableLandList()">
+                                             v-model="chooseSatisticsBy" @click="retrieveArableLandList(), deleteRiceCropList(), nameToSearch = ''">
                                         <label for="arableLand">&nbsp; Mẫu ruộng</label><br>
                                         <input type="radio" id="crop" name="statisticsby" value="crop"
-                                             v-model="chooseSatisticsBy" @click="deleteRiceCropList(), retrieveCropList()">
+                                             v-model="chooseSatisticsBy" @click="deleteRiceCropList(), retrieveCropList(), nameToSearch = ''">
                                         <label for="crop">&nbsp; Vụ mùa</label><br>
                                         <input type="radio" id="seed" name="statisticsby" value="seed"
-                                             v-model="chooseSatisticsBy" @click="deleteRiceCropList(), retrieveSeedList()">
+                                             v-model="chooseSatisticsBy" @click="deleteRiceCropList(), retrieveSeedList(), nameToSearch = ''">
                                         <label for="seed"> &nbsp; Giống lúa</label><br>
                                    </div>
                                    <div class="col-lg-6">
                                         <input type="radio" id="epidemic" name="statisticsby" value="epidemic"
-                                             @click="retrieveEpidemicTimesList(), retrieveEpidemicList(), deleteRiceCropList()"
+                                             @click="retrieveEpidemicTimesList(), retrieveEpidemicList(), deleteRiceCropList(), nameToSearch = ''"
                                              v-model="chooseSatisticsBy">
                                         <label for="epidemic">&nbsp; Dịch bệnh gây hại</label><br>
                                         <input type="radio" id="fertilizer" name="statisticsby" value="fertilizer"
-                                             @click="retrieveFertilizerList(), retrieveFertilizerTimesList(), deleteRiceCropList()"
+                                             @click="retrieveFertilizerList(), retrieveFertilizerTimesList(), deleteRiceCropList(), nameToSearch = ''"
                                              v-model="chooseSatisticsBy">
                                         <label for="fertilizer">&nbsp; Phân bón</label><br>
                                         <input type="radio" id="pesticide" name="statisticsby" value="pesticide"
-                                             @click="deleteRiceCropList(), retrievePesticideList(), retrievePrayingTimesList()"
+                                             @click="deleteRiceCropList(), retrievePesticideList(), retrievePrayingTimesList(), nameToSearch = ''"
                                              v-model="chooseSatisticsBy">
                                         <label for="pesticide">&nbsp; Thuốc trị bệnh dịch</label><br>
                                         <input type="radio" id="seed" name="statisticsby" value="activity"
-                                             v-model="chooseSatisticsBy" @click="deleteRiceCropList(), retrieveActivitiesList(), retrieveActivityDetailList()">
+                                             v-model="chooseSatisticsBy"
+                                             @click="deleteRiceCropList(), retrieveActivitiesList(), retrieveActivityDetailList(), nameToSearch = ''">
                                         <label for="seed">&nbsp; Hoạt động</label><br>
                                    </div>
                               </div>
@@ -214,18 +215,10 @@
                                         class="btn btnDowload">Tải
                                         xuống</button></div>
                               <div>
-                                   <vue3html2pdf      :show-layout="false"
-        :float-layout="true"
-        :enable-download="true"
-        :preview-modal="true"
-        :paginate-elements-by-height="1123"
-        filename="hee hee"
-        :pdf-quality="4"
-        :manual-pagination="true"
-        pdf-format="a4"
-        pdf-orientation="portrait"
-        pdf-content-width="794px"
-                                        ref="html2Pdf">
+                                   <vue3html2pdf :show-layout="false" :float-layout="true" :enable-download="true"
+                                        :preview-modal="true" :paginate-elements-by-height="1123" filename="hee hee"
+                                        :pdf-quality="4" :manual-pagination="true" pdf-format="a4" pdf-orientation="portrait"
+                                        pdf-content-width="794px" ref="html2Pdf">
                                         <template v-slot:pdf-content>
                                              <riceCropReport :riceCropList="riceCropList" v-if="isOPenrepost" />
                                         </template>
@@ -244,17 +237,17 @@
                                                   <th>Ngày gieo xạ</th>
                                                   <th>Ngày thu hoạch</th>
                                                   <th>Năng suất</th>
-                                                  <th v-if="chooseSatisticsBy == 'epidemic'">Dịch bệnh</th>
+                                                  <!-- <th v-if="chooseSatisticsBy == 'epidemic'">Dịch bệnh</th>
                                                   <th v-if="chooseSatisticsBy == 'fertilizer'">Phân bón</th>
-                                                  <th v-if="chooseSatisticsBy == 'pesticide'">Thuốc trị bệnh dịch</th>
+                                                  <th v-if="chooseSatisticsBy == 'pesticide'">Thuốc trị bệnh dịch</th> -->
                                                   <th
                                                        v-if="chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide'">
                                                        Lần</th>
                                                   <th
-                                                       v-if="chooseSatisticsBy == 'epidemic' || chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide'">
+                                                       v-if="chooseSatisticsBy == 'epidemic' || chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide' || chooseSatisticsBy == 'activity'">
                                                        Ngày bắt đầu</th>
                                                   <th
-                                                       v-if="chooseSatisticsBy == 'epidemic' || chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide'">
+                                                       v-if="chooseSatisticsBy == 'epidemic' || chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide' || chooseSatisticsBy == 'activity'">
                                                        Ngày kết thúc</th>
                                                   <th v-if="chooseSatisticsBy == 'fertilizer'">Số lượng (Kg/ha)</th>
                                                   <th v-if="chooseSatisticsBy == 'pesticide'">Liều lượng (ml/ha)</th>
@@ -267,21 +260,21 @@
                                                   <td>{{ riceCrop.RiceCropInformation_name }}</td>
                                                   <td>{{ riceCrop.Seed_name }}</td>
                                                   <td>{{ riceCrop.Crop_name }}</td>
-                                                  <td>{{ riceCrop.ArableLand_owner }}</td>
+                                                  <td>{{ riceCrop.ArableLand_id }} - {{ riceCrop.ArableLand_owner }}</td>
                                                   <td>{{ formatDate(riceCrop.RiceCropInformation_sowingDate) }}</td>
                                                   <td>{{ formatDate(riceCrop.RiceCropInformation_harvestDate) }}</td>
                                                   <td>{{ formatYield(riceCrop.RiceCropInformation_yield) }}</td>
-                                                  <td
+                                                  <!-- <td
                                                        v-if="chooseSatisticsBy == 'epidemic' || chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide'">
-                                                       {{ riceCrop.name }}</td>
+                                                       {{ riceCrop.name }}</td>-->
                                                   <td
                                                        v-if="chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide'">
                                                        {{ riceCrop.times }}</td>
                                                   <td
-                                                       v-if="chooseSatisticsBy == 'epidemic' || chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide'">
+                                                       v-if="chooseSatisticsBy == 'epidemic' || chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide' || chooseSatisticsBy == 'activity'">
                                                        {{ formatDate(riceCrop.startDate) }}</td>
                                                   <td
-                                                       v-if="chooseSatisticsBy == 'epidemic' || chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide'">
+                                                       v-if="chooseSatisticsBy == 'epidemic' || chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide' || chooseSatisticsBy == 'activity'">
                                                        {{ formatDate(riceCrop.endDate) }}</td>
                                                   <td
                                                        v-if="chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide'">
@@ -564,6 +557,7 @@ export default {
                }
                else {
                     this.cropList = respone.data;
+                    this.idToSearchByCrop = [];
                }
           },
 
@@ -805,7 +799,7 @@ export default {
                                    newricecrop.name = fertilizertimes.Fertilizer_name;
                                    newricecrop.times = fertilizertimes.FertilizerTimes_times;
                                    newricecrop.startDate = fertilizertimes.FertilizerTimes_startDate;
-                                   newricecrop.endDdate = fertilizertimes.FertilizerTimes_endDdate;
+                                   newricecrop.endDate = fertilizertimes.FertilizerTimes_endDdate;
                                    newricecrop.amount = fertilizertimes.FertilizerTimes_amount;
                                    console.log()
                                    this.riceCropList.push(newricecrop);
@@ -837,7 +831,7 @@ export default {
                                    ricecrop.name = sprayingtimes.Pesticide_name;
                                    ricecrop.times = sprayingtimes.SprayingTimes_times;
                                    ricecrop.startDate = sprayingtimes.SprayingTimes_startDate;
-                                   ricecrop.endDdate = sprayingtimes.SprayingTimes_endDdate;
+                                   ricecrop.endDate = sprayingtimes.SprayingTimes_endDdate;
                                    ricecrop.amount = sprayingtimes.SprayingTimes_amount;
                                    ricecrop.times = sprayingtimes.SprayingTimes_times;
                                    this.riceCropList.push(ricecrop);
@@ -870,7 +864,7 @@ export default {
                                    ricecrop.name = activity.OtherActivities_name;
                                    ricecrop.times = activity.ActivityDetails_times;
                                    ricecrop.startDate = activity.ActivityDetails_startDate;
-                                   ricecrop.endDdate = activity.ActivityDetails_endDate;
+                                   ricecrop.endDate = activity.ActivityDetails_endDate;
                                    this.riceCropList.push(ricecrop);
                                    i++;
                               }
@@ -934,15 +928,6 @@ export default {
 
 .statisticsByArabeLand {}
 
-.arablelandScroll {
-     height: 128px;
-     overflow: auto;
-     margin-top: 2px;
-     word-wrap: none;
-     width: 50%;
-     margin-left: 0.5%;
-     background-color: #FFFFFF;
-}
 
 .arablename {
      background-color: none;

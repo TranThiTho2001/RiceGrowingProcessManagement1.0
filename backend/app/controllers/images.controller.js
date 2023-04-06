@@ -15,7 +15,7 @@ exports.store = async (req, res) => {
    // Save Monitor in the database
    Images.create(image, (err, data) => {
         if (err)
-             res.send("Không thể lưu hình ảnh.")
+             res.send(err)
         else res.send(data);
    });
 

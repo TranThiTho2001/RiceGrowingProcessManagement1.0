@@ -1,11 +1,12 @@
-.updateEpidemicTimesForm, .createEpidemicTimesForm{
+.riceCropDetail .updateEpidemicTimesForm,
+.riceCropDetail .createEpidemicTimesForm{
      background-color: #dbdbdb;
      border: 0.5px solid #b8b5b5;
      font-family: Inter;
      border-radius: 10px;
      position: absolute;
-     top: calc(12%);
-     left: 21%;
-     width: 70%;
+     top: calc(100px);
+     left: 20px;
+     width: 97.5%;
 }
 
