@@ -21,11 +21,12 @@
                          </div>
                     </div>
 
-                    <div class="row mr-2 ml-2  statisticalBy" style=" background-color: beige; height: 165px;">
-                         <div class="leftStatistical ">
-                              <label style="overflow: hidden; white-space: nowrap;text-overflow: ellipsis;  ">Thống kê
-                                   mùa vụ theo: </label><br>
-                              <div class="scrollChoose row">
+                    <div class="row statisticalBy" style="height: 168px;">
+                         <div class="leftStatistical pl-1">
+                              <div class="label_statictical">
+                              <label class="label_statictical_content">Thống kê
+                                   mùa vụ theo: </label><br></div>
+                              <div class="scrollChoose row mr-1">
                                    <div class="col-lg-6">
                                         <input type="radio" id="arableLand" name="all" value="all"
                                              v-model="chooseSatisticsBy" checked="true"
@@ -73,7 +74,7 @@
                                         <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                                    </button>
                                    <div :class="{ openSearch4: isOpenSearch.open, closeSearch4: isOpenSearch.close }">
-                                        <p class="item" v-for="arableLand in filteredArableLandList()"
+                                        <p class="arablename" v-for="arableLand in filteredArableLandList()"
                                              :key="arableLand.ArableLand_id"
                                              @click="searchByArableLand(arableLand.id_owner), isOpenSearch.open = false, isOpenSearch.close = true">
                                              {{ arableLand.id_owner }}</p>
@@ -105,7 +106,7 @@
                                         <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                                    </button>
                                    <div :class="{ openSearch4: isOpenSearch.open, closeSearch4: isOpenSearch.close }">
-                                        <p class="item" v-for="seed in filteredSeedList()" :key="seed.Seed_id"
+                                        <p class="arablename" v-for="seed in filteredSeedList()" :key="seed.Seed_id"
                                              @click="searchBySeed(seed.Seed_id), isOpenSearch.open = false, isOpenSearch.close = true">
                                              {{ seed.Seed_id_name }}</p>
                                    </div>
@@ -126,7 +127,7 @@
                                         <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                                    </button>
                                    <div :class="{ openSearch4: isOpenSearch.open, closeSearch4: isOpenSearch.close }">
-                                        <p class="item" v-for="epidemic in filteredEpidemicList()"
+                                        <p class="arablename" v-for="epidemic in filteredEpidemicList()"
                                              :key="epidemic.Epidemic_name"
                                              @click="searchByEpidemic(epidemic.Epidemic_name), isOpenSearch.open = false, isOpenSearch.close = true">
                                              {{ epidemic.Epidemic_name }}</p>
@@ -149,7 +150,7 @@
                                         <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                                    </button>
                                    <div :class="{ openSearch4: isOpenSearch.open, closeSearch4: isOpenSearch.close }">
-                                        <p class="item" v-for="fertilizer in filteredFertilizerList()"
+                                        <p class="arablename" v-for="fertilizer in filteredFertilizerList()"
                                              :key="fertilizer.Fertilizer_name"
                                              @click="searchByFertilizer(fertilizer.Fertilizer_name), isOpenSearch.open = false, isOpenSearch.close = true">
                                              {{ fertilizer.Fertilizer_name }}</p>
@@ -172,7 +173,7 @@
                                         <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                                    </button>
                                    <div :class="{ openSearch4: isOpenSearch.open, closeSearch4: isOpenSearch.close }">
-                                        <p class="item" v-for="pesticide in filteredPesticideList()"
+                                        <p class="arablename" v-for="pesticide in filteredPesticideList()"
                                              :key="pesticide.Pesticide_name"
                                              @click="searchByPesticide(pesticide.Pesticide_name), isOpenSearch.open = false, isOpenSearch.close = true">
                                              {{ pesticide.Pesticide_name }}</p>
@@ -195,7 +196,7 @@
                                         <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                                    </button>
                                    <div :class="{ openSearch4: isOpenSearch.open, closeSearch4: isOpenSearch.close }">
-                                        <p class="item" v-for="activity in filteredActivityList()"
+                                        <p class="arablename" v-for="activity in filteredActivityList()"
                                              :key="activity.OtherActivities_name"
                                              @click="searchByActivity(activity.OtherActivities_name), isOpenSearch.open = false, isOpenSearch.close = true">
                                              {{ activity.OtherActivities_name }}</p>
@@ -210,8 +211,8 @@
                          </div>
                     </div>
                     <div class="scroll" style="">
-                         <div class="row scrollStatisticalTable">
-                              <div class="col-sm-12"><button @click="generateReport(), isOPenrepost = true"
+                         <div class="scrollStatisticalTable">
+                              <!-- <div class="col-sm-12"><button @click="generateReport(), isOPenrepost = true"
                                         class="btn btnDowload">Tải
                                         xuống</button></div>
                               <div>
@@ -223,9 +224,9 @@
                                              <riceCropReport :riceCropList="riceCropList" v-if="isOPenrepost" />
                                         </template>
                                    </vue3html2pdf>
-                              </div>
-                              <div class="col-sm-12 justify-content-center">
-                                   <table class="table">
+                              </div> -->
+                              <div class="justify-content-center">
+                                   <table class="statisticTable">
                                         <thead>
                                              <tr>
                                                   <th class="text-center" style=" padding-right: 2px;">STT</th>
@@ -260,7 +261,7 @@
                                                   <td>{{ riceCrop.RiceCropInformation_name }}</td>
                                                   <td>{{ riceCrop.Seed_name }}</td>
                                                   <td>{{ riceCrop.Crop_name }}</td>
-                                                  <td>{{ riceCrop.ArableLand_id }} - {{ riceCrop.ArableLand_owner }}</td>
+                                                  <td>{{ riceCrop.ArableLand_id }}</td>
                                                   <td>{{ formatDate(riceCrop.RiceCropInformation_sowingDate) }}</td>
                                                   <td>{{ formatDate(riceCrop.RiceCropInformation_harvestDate) }}</td>
                                                   <td>{{ formatYield(riceCrop.RiceCropInformation_yield) }}</td>
@@ -319,8 +320,8 @@ import OtherActivitiesService from '@/services/otherActivities.service';
 import SprayingTimesService from '@/services/sprayingTimes.service';
 import moment from 'moment';
 import VueApexCharts from "vue3-apexcharts";
-import vue3html2pdf from 'vue3-html2pdf'
-import riceCropReport from '@/components/report/RiceCropReport.vue'
+// import vue3html2pdf from 'vue3-html2pdf'
+// import riceCropReport from '@/components/report/RiceCropReport.vue'
 
 export default {
      name: "ArableLandManagement",
@@ -328,8 +329,8 @@ export default {
           Catalog,
           TopHeader,
           apexchart: VueApexCharts,
-          vue3html2pdf,
-          riceCropReport,
+          // vue3html2pdf,
+          // riceCropReport,
      },
 
 
@@ -541,6 +542,7 @@ export default {
                               this.riceCropListByFinish.push(element);
                          }
                     });
+                    this.bubbleSort();
                }
           },
 
@@ -863,7 +865,7 @@ export default {
                               if (ricecrop.RiceCropInformation_id == activity.RiceCropInformation_id && activity.OtherActivities_name == data) {
                                    ricecrop.name = activity.OtherActivities_name;
                                    ricecrop.times = activity.ActivityDetails_times;
-                                   ricecrop.startDate = activity.ActivityDetails_startDate;
+                                   ricecrop.startDate = activity.ActivityDetailbubbleSortretris_startDate;
                                    ricecrop.endDate = activity.ActivityDetails_endDate;
                                    this.riceCropList.push(ricecrop);
                                    i++;

@@ -242,13 +242,11 @@ html{
           height: max-content !important;
           margin-left: 2px !important;
           margin-right: -20px;
-          background-color: #6cc38c;
      }
 
      .table {
           border: none !important;
           width: 100% !important;
-          background-color: #eef56f !important;
 
 display: inline-block;
      }
@@ -301,6 +299,7 @@ display: inline-block;
      .table .centerclass {
           text-align: left !important;
      }
+     .table tr:nth-child(even) {background-color: #cc9b9b;}
 
      .inputSearch2 {
           background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
