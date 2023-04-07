@@ -140,7 +140,6 @@
                          bệnh dịch thành công
                     </span>
                </div>
-               <div class="col-sm-2"></div>
           </div>
           <div class="row mb-4">
                <div class="col-sm-12 text-center">

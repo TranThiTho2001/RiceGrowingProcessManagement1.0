@@ -30,8 +30,8 @@
 
                     <div class="form-group">
                          <label for="description" class="mt-3">Thông tin <span style="color: red">*</span></label>
-                         <Field name="description" class="form-control" v-model="newpesticide.Pesticide_description" as="textarea" style="height: 206px;"
-                              placeholder="Thông tin thuốc..." />
+                         <Field name="description" class="form-control" v-model="newpesticide.Pesticide_description"
+                              as="textarea" style="height: 206px;" placeholder="Thông tin thuốc..." />
                          <ErrorMessage name="description" class="error-feedback" />
                     </div>
 
@@ -68,7 +68,8 @@
                                    <div class="row ml-2" v-for="epidemic in epidemiclist" :key="epidemic.Epidemic_id">
                                         <input type="checkbox" v-model="treatment" @change="show" name="epidemic"
                                              :value="epidemic.Epidemic_id">
-                                        <label style="" for="epidemic" class="labelEpidemic">&nbsp; {{ epidemic.Epidemic_name }}</label><br>
+                                        <label style="" for="epidemic" class="labelEpidemic">&nbsp; {{ epidemic.Epidemic_name
+                                        }}</label><br>
                                    </div>
                               </div>
                          </div>
@@ -85,13 +86,14 @@
                          style="color:red; text-align: center; display: inline;"></span>
                     <span v-if="message2 == 'Thêm thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;">
                          Thêm thông tin một loại thuốc mới thành công</span>
-                    <span v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2"> Thêm thông tin một loại thuốc mới không thành công </span>
+                    <span v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2"> Thêm thông tin một loại
+                         thuốc mới không thành công </span>
                </div>
           </div>
           <div class="row mb-4">
-               <div class="col-sm-5"></div>
-               <button class="btn btn-outline-secondary btnLuu col-sm-2">Lưu</button>
-               <div class="col-sm-5"></div>
+               <div class="col-sm-12 text-center">
+                    <button class="btn btn-outline-secondary btnLuu col-sm-2">Lưu</button>
+               </div>
           </div>
           <div v-if="isOpenSearch.open" class="outside" @click.passive="away()"></div>
      </form>

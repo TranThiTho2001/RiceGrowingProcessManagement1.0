@@ -9,110 +9,127 @@
                     <Catalog />
                </div>
                <div class="rightRiceCropDetail right">
-                    <!-- :class="{ active: stylebac.active, noneactive: stylebac.none }" -->
-                    <div class="row pt-3 mb-5 pb-1 topRight" style="margin-left: 20px; margin-right: 10px;">
-                         <div class="nameclass" style="min-height:60px; width: max-content;">
-                              <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Theo dõi mùa vụ</h3>
-                         </div>
-                         <div class="text-right">
-                              <div class="row">
-                                   <TopHeader />
+                    <div class="" :class="{ active: stylebac.active, noneactive: stylebac.none }">
+                         <div class="row pt-3 mb-5 pb-1 topRight" style="margin-left: 20px; margin-right: 18px;">
+                              <div class="nameclass" style="min-height:60px; width: max-content;">
+                                   <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Theo dõi mùa vụ</h3>
+                              </div>
+                              <div class="text-right">
+                                   <div class="row">
+                                        <TopHeader />
+                                   </div>
                               </div>
                          </div>
-                    </div>
-                    <div class="row updateRiceCrop mr-2 ml-2 mb-1" style="width: 100%;">
-                         <UpdateRiceCropForm v-if="isOpenConfirm" :seedList="seedList" :newRiceCrop="newRiceCrop"
+                         <!-- <div class="row updateRiceCrop mr-2 ml-2 mb-1" style="width: 100%;">
+                         <UpdateRiceCropForm v-if="isOpenUpdateRiceCrop" :seedList="seedList" :newRiceCrop="newRiceCrop"
                               :arableLandList="arableLandList" @updateRiceCrop-submit="updateRiceCrop" :message1="message1"
                               :message2="message2" />
-                    </div>
-                    <div class="row ml-2 mr-3">
-                         <div class="riceCropInfor" style="width: 50%;">
-                              <div class="row">
-                                   <div class="col-md-6 title">Mã: <span class="infor"> {{ newRiceCrop.RiceCropInformation_id
-                                   }}</span></div>
-                                   <div class="col-md-6 title">Giống lúa: <span class="infor">{{ newRiceCrop.Seed_name
-                                   }}</span></div>
-                              </div>
-                              <div class="row">
-                                   <div class="col-md-6 title">Tên: <span class="infor">{{
-                                        newRiceCrop.RiceCropInformation_name }}</span></div>
-                                   <div class="col-md-6 title">Ngày gieo xạ: <span class="infor">{{
-                                        formatDate(newRiceCrop.RiceCropInformation_sowingDate) }}</span></div>
+                    </div> -->
+                         <div class="row ml-2 mr-1">
+                              <div class="riceCropInfor">
+                                   <div class="row row-riceCropInfor ml-1 mr-2">
+                                        <div class="col-md-6 title">Mã: <span class="infor"> {{
+                                             newRiceCrop.RiceCropInformation_id
+                                        }}</span></div>
+                                        <div class="col-md-6 title">Giống lúa: <span class="infor">{{ newRiceCrop.Seed_name
+                                        }}</span></div>
+                                   </div>
+                                   <div class="row row-riceCropInfor ml-1 mr-2">
+                                        <div class="col-md-6 title">Tên: <span class="infor">{{
+                                             newRiceCrop.RiceCropInformation_name }}</span></div>
+                                        <div class="col-md-6 title">Ngày gieo xạ: <span class="infor">{{
+                                             formatDate(newRiceCrop.RiceCropInformation_sowingDate) }}</span></div>
 
-                              </div>
-                              <div class="row">
-                                   <div class="col-md-6 title">Vụ mùa: <span class="infor">{{ newRiceCrop.Crop_name }}</span>
                                    </div>
-                                   <div class="col-md-6 title">Ngày thu hoạch: <span class="infor">{{
-                                        formatDate(newRiceCrop.RiceCropInformation_harvestDate) }}</span>
+                                   <div class="row row-riceCropInfor ml-1 mr-2">
+                                        <div class="col-md-6 title">Vụ mùa: <span class="infor">{{ newRiceCrop.Crop_name
+                                        }}</span>
+                                        </div>
+                                        <div class="col-md-6 title">Ngày thu hoạch: <span class="infor">{{
+                                             formatDate(newRiceCrop.RiceCropInformation_harvestDate) }}</span>
+                                        </div>
+                                   </div>
+                                   <div class="row ml-1 mr-2">
+                                        <div class="col-md-6 title">Mẫu ruộng: <span class="infor">{{
+                                             newRiceCrop.ArableLand_owner
+                                        }}</span></div>
+                                        <div class="col-md-6 title">Năng suất: <span class="infor">{{
+                                             newRiceCrop.RiceCropInformation_yield }}</span></div>
+                                   </div>
+                                   <div class="row ml-1 mr-1 mb-1">
+                                        <div class="col-sm-12 text-right">
+                                             <button class="btnUpdate"
+                                                  @click="isOpenUpdateRiceCrop = !isOpenUpdateRiceCrop, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Cập
+                                                  Nhật</button>
+                                        </div>
                                    </div>
                               </div>
-                              <div class="row">
-                                   <div class="col-md-6 title">Mẫu ruộng: <span class="infor">{{ newRiceCrop.ArableLand_owner
-                                   }}</span></div>
-                                   <div class="col-md-6 title">Năng suất: <span class="infor">{{
-                                        newRiceCrop.RiceCropInformation_yield }}</span></div>
+                              <div class="weatherInfor">
+                                   <div class="row row-riceCropInfor ml-1 mr-2">
+                                        <div class="col-md-6 title">Nhiệt độ: <span class="infor">{{ weatherInfor.temperature
+                                        }}°C</span></div>
+                                        <div class="col-md-6 title">Tốc độ gió: <span class="infor">{{ weatherInfor.windspeed
+                                        }}km/h</span></div>
+                                   </div>
+                                   <div class="row row-riceCropInfor ml-1 mr-2">
+                                        <div class="col-md-6 title">Lượng mưa: <span class="infor">{{
+                                             weatherInfor.precipitation
+                                        }}mm</span></div>
+                                        <div class="col-md-6">Bức xạ mặt trời: <span class="infor">{{
+                                             weatherInfor.solarradiation
+                                        }}MJ/m²</span></div>
+                                   </div>
+                                   <div class="row  ml-1 mr-2">
+                                        <div class="col-md-6 title">Độ ẩm: <span class="infor">{{ weatherInfor.humidity
+                                        }}%</span>
+                                        </div>
+
+                                   </div>
                               </div>
                          </div>
-                         <div class="" style="width: 50%;">
-                              <div class="row">
-                                   <div class="col-md-6">Nhiệt độ: {{ weatherInfor.temperature }}°C</div>
-                                   <div class="col-md-6">Tốc độ gió: {{ weatherInfor.windspeed }}km/h</div>
-                              </div>
-                              <div class="row">
 
-                                   <div class="col-md-6">Lượng mưa:{{ weatherInfor.precipitation }}mm</div>
-                                   <div class="col-md-6">Bức xạ mặt trời: {{ weatherInfor.solarradiation }}MJ/m²</div>
-                              </div>
-                              <div class="row">
-                                   <div class="col-md-6">Độ ẩm: {{ weatherInfor.humidity }}%</div>
+                         <div class="row bottomrow pt-1">
+                              <div class="col-sm-12">
+                                   <div class="functionName mt-1 ml-2">
+                                        <button class=" btn btn-midle text-center btnFertilizerTimes btnName"
+                                             v-if="!isOpenTableFertilizerTimes" @click="setTable('btnFertilizerTimes')">Bón
+                                             phân
+                                        </button>
+                                        <button class=" btn btn-midle text-center btnFertilizerTimes btnNameActive"
+                                             v-if="isOpenTableFertilizerTimes">Bón phân</button>
+                                        <button class=" btn btn-midle text-center btnSprayingTimes btnNameActive"
+                                             v-if="isOpenTableSprayingTimes">Phun thuốc</button>
+                                        <button class=" btn btn-midle text-center btnSprayingTimes btnName"
+                                             v-if="!isOpenTableSprayingTimes" @click="setTable('btnSprayingTimes')">Phun
+                                             thuốc
+                                        </button>
+                                        <button class=" btn btn-midle text-center btnActivities btnNameActive"
+                                             v-if="isOpenTableOtherActivitiesTimes">Hoạt động khác</button>
+                                        <button class=" btn btn-midle text-center btnActivities btnName"
+                                             @click="setTable('btnActivities')" v-if="!isOpenTableOtherActivitiesTimes">Hoạt
+                                             động
+                                             khác</button>
+                                        <button class=" btn btn-midle text-center btnEpidemic btnNameActive"
+                                             v-if="isOpenTableEpidemicTimes">Bệnh dịch</button>
+                                        <button class=" btn btn-midle text-center btnEpidemic btnName"
+                                             v-if="!isOpenTableEpidemicTimes" @click="setTable('btnEpidemic')">Bệnh dịch
+                                        </button>
+                                        <button class="btn btn-midle text-center btnImage btnNameActive" v-if="isOpenImage">
+                                             Hình ảnh
+                                        </button>
+                                        <button class="btn btn-midle text-center btnImage btnName" v-if="!isOpenImage"
+                                             @click="setTable('btnImage')">
+                                             Hình ảnh
+                                        </button>
+                                        <button class=" btn btn-midle text-center btnAttendee btnNameActive"
+                                             v-if="isOpenTableMonitor && currentUser.Role_id == '02'">Người theo dõi</button>
+                                        <button class=" btn btn-midle text-center btnAttendee btnName"
+                                             v-if="!isOpenTableMonitor && currentUser.Role_id == '02'"
+                                             @click="setTable('btnAttendee')">Người theo dõi</button>
 
-                              </div>
-                         </div>
-                    </div>
-
-                    <div class="row bottomrow ml-2 mr-2 pt-1">
-                         <div class="col-sm-12">
-                              <div class="functionName mt-1 ml-2">
-                                   <button class=" btn btn-midle text-center btnFertilizerTimes btnName"
-                                        v-if="!isOpenTableFertilizerTimes" @click="setTable('btnFertilizerTimes')">Bón
-                                        phân
-                                   </button>
-                                   <button class=" btn btn-midle text-center btnFertilizerTimes btnNameActive"
-                                        v-if="isOpenTableFertilizerTimes">Bón phân</button>
-                                   <button class=" btn btn-midle text-center btnSprayingTimes btnNameActive"
-                                        v-if="isOpenTableSprayingTimes">Phun thuốc</button>
-                                   <button class=" btn btn-midle text-center btnSprayingTimes btnName"
-                                        v-if="!isOpenTableSprayingTimes" @click="setTable('btnSprayingTimes')">Phun
-                                        thuốc
-                                   </button>
-                                   <button class=" btn btn-midle text-center btnActivities btnNameActive"
-                                        v-if="isOpenTableOtherActivitiesTimes">Hoạt động khác</button>
-                                   <button class=" btn btn-midle text-center btnActivities btnName"
-                                        @click="setTable('btnActivities')" v-if="!isOpenTableOtherActivitiesTimes">Hoạt
-                                        động
-                                        khác</button>
-                                   <button class=" btn btn-midle text-center btnEpidemic btnNameActive"
-                                        v-if="isOpenTableEpidemicTimes">Bệnh dịch</button>
-                                   <button class=" btn btn-midle text-center btnEpidemic btnName"
-                                        v-if="!isOpenTableEpidemicTimes" @click="setTable('btnEpidemic')">Bệnh dịch
-                                   </button>
-                                   <button class="btn btn-midle text-center btnImage btnNameActive" v-if="isOpenImage">
-                                        Hình ảnh
-                                   </button>
-                                   <button class="btn btn-midle text-center btnImage btnName" v-if="!isOpenImage"
-                                        @click="setTable('btnImage')">
-                                        Hình ảnh
-                                   </button>
-                                   <button class=" btn btn-midle text-center btnAttendee btnNameActive"
-                                        v-if="isOpenTableMonitor && currentUser.Role_id == '02'">Người theo dõi</button>
-                                   <button class=" btn btn-midle text-center btnAttendee btnName"
-                                        v-if="!isOpenTableMonitor && currentUser.Role_id == '02'"
-                                        @click="setTable('btnAttendee')">Người theo dõi</button>
-
-                              </div>
-                              <!-- Image -->
-                              <div class="row activitiesList ml-2 mr-2 pb-5" v-if="isOpenImage">
+                                   </div>
+                                   <!-- Image -->
+                                   <div class="row activitiesList ml-2 mr-2 pb-5" v-if="isOpenImage">
                                         <div class="row">
                                              <button class="btnAddimage"
                                                   @click="isOpenCreateImage = !isOpenCreateImage, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
@@ -132,384 +149,398 @@
                                                   </template>
                                              </carousel> -->
                                                   <div v-for="(image, i) in imagesList" :key="i">
-                                                       <ImageComponent :images="image" @clicked-something="handleClickInParent"/>
+                                                       <ImageComponent :images="image"
+                                                            @clicked-something="handleClickInParent" />
                                                   </div>
                                              </div>
                                         </div>
+                                   </div>
+                                   <!-- ----------------------FertilizerTimes Tab-------------- -->
+                                   <div class="row activitiesList ml-2 mr-2 mt-4" v-if="isOpenTableFertilizerTimes">
+                                        <input type="text" class="form-control inputSearch5" placeholder="Tìm"
+                                             v-model="nameToSearch" @click="retrieveFertilizerTimesList()"
+                                             @keyup.enter="searchNameFertilizer(nameToSearch)"
+                                             @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                                        <button class="btnSearch5" @click="searchNameFertilizer(nameToSearch)"
+                                             v-if="nameToSearch == '' && !isOpenSearch.open">
+                                             <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                                        </button>
+                                        <div :class="{ openSearch5: isOpenSearch.open, closeSearch5: isOpenSearch.close }">
+                                             <p class="item" v-for="fertilizerTimes in filteredFerilizerTimesList()"
+                                                  :key="fertilizerTimes.Fertilizer_id"
+                                                  @click="searchNameFertilizer(fertilizerTimes.Fertilizer_name)">
+                                                  {{ fertilizerTimes.Fertilizer_name }}</p>
+                                        </div>
+                                        <button class="btn mt-1 btnAdd "
+                                             @click="isOpenCreateFertilizerTimesForm = !isOpenCreateFertilizerTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
+                                        <div class="tableFixHead">
+                                             <table class="">
+                                                  <thead>
+                                                       <tr>
+                                                            <th class="text-center ">Lần</th>
+                                                            <th>Tên phân bón</th>
+                                                            <th class="text-center ">Số lượng (kg/ha)</th>
+                                                            <th class="text-center ">Ngày bất đầu</th>
+                                                            <th class="text-center ">Ngày kết thúc</th>
+                                                            <th class="">Nhân viên</th>
+                                                            <th style="width: 2%;"></th>
+                                                       </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                       <tr v-for="(fertilizer, i) in (fertilizerTimesList)" :key="i">
+                                                            <td class="text-center ">{{ fertilizer.FertilizerTimes_times }}
+                                                            </td>
+                                                            <td class="">{{ fertilizer.Fertilizer_name }}</td>
+                                                            <td class="text-center ">{{ fertilizer.FertilizerTimes_amount }}
+                                                            </td>
+                                                            <td class="text-center ">{{
+                                                                 formatDate(fertilizer.FertilizerTimes_startDate) }}</td>
+                                                            <td class="text-center ">{{
+                                                                 formatDate(fertilizer.FertilizerTimes_endDate)
+                                                            }}</td>
+                                                            <td class="">{{ fertilizer.Employee_name }}</td>
+                                                            <td class="">
+                                                                 <button type="button" class="btn btn-sm"
+                                                                      data-toggle="dropdown" aria-haspopup="true"
+                                                                      aria-expanded="false">
+                                                                      <i class="fas fa-ellipsis-v"></i>
+                                                                 </button>
+                                                                 <div class="dropdown-menu">
+                                                                      <a class="dropdown-item action"
+                                                                           @click="setFertilizerChosen(fertilizer), isOpenUpdateFertilizerTimesForm = !isOpenUpdateFertilizerTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
+                                                                           <span class="fas fa-edit actionIcon"></span> Chỉnh
+                                                                           sửa
+                                                                      </a>
+                                                                      <a class="dropdown-item" href="#"
+                                                                           @click="setFertilizerChosen(fertilizer), setDelete('FertilizerTimes'), isOpenConfirm = !isOpenConfirm">
+                                                                           <span class="fas fa-trash-alt actionIcon"></span>
+                                                                           Xóa
+                                                                      </a>
+
+                                                                 </div>
+                                                            </td>
+                                                       </tr>
+                                                  </tbody>
+                                             </table>
+                                        </div>
+
+                                   </div>
+
+                                   <!-- ----------------------SprayingTimes Tab-------------- -->
+                                   <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableSprayingTimes">
+                                        <input type="text" class="form-control inputSearch5" placeholder="Tìm"
+                                             v-model="nameToSearch" @click="retrieveSprayingTimesList()"
+                                             @keyup.enter="searchNamePesticide(nameToSearch)"
+                                             @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                                        <button class="btnSearch5" @click="searchNamePesticide(nameToSearch)"
+                                             v-if="nameToSearch == '' && !isOpenSearch.open">
+                                             <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                                        </button>
+                                        <!-- :class="{ openSearch:isOpenSearch.open, closeSearch:isOpenSearch.close }"  -->
+                                        <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                                             <p class="item" v-for="(sprayingTimes, i) in filteredSprayingTimesList()"
+                                                  :key="i" @click="searchNamePesticide(sprayingTimes.Pesticide_name)">
+                                                  {{ sprayingTimes.Pesticide_name }}</p>
+                                        </div>
+                                        <button class="btn mt-1 btnAdd"
+                                             @click="isOpenCreateSprayingTimesForm = !isOpenCreateSprayingTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
+                                        <div class="tableFixHead">
+                                             <table class="table">
+                                                  <thead>
+                                                       <tr>
+                                                            <th class="text-center ">Mã</th>
+                                                            <th>Tên thuốc</th>
+                                                            <th class="text-center ">Liều lượng (lít/ha)</th>
+                                                            <th class="text-center ">Ngày bất đầu</th>
+                                                            <th class="text-center ">Ngày kết thúc</th>
+                                                            <th class="">Nhân viên</th>
+                                                            <th class=""></th>
+                                                       </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                       <tr v-for="(sprayingTimes, i ) in (SprayingTimesList)" :key="i">
+                                                            <td class="text-center ">{{ sprayingTimes.SprayingTimes_times }}
+                                                            </td>
+                                                            <td class="">{{ sprayingTimes.Pesticide_name }}</td>
+                                                            <td class="text-center ">{{ sprayingTimes.SprayingTimes_amount }}
+                                                            </td>
+                                                            <td class="text-center ">{{
+                                                                 formatDate(sprayingTimes.SprayingTimes_startDate)
+                                                            }}</td>
+                                                            <td class="text-center ">{{
+                                                                 formatDate(sprayingTimes.SprayingTimes_endDate)
+                                                            }}
+                                                            </td>
+                                                            <td class="">{{ sprayingTimes.Employee_name }}</td>
+                                                            <td class="">
+                                                                 <button type="button" class="btn btn-sm"
+                                                                      data-toggle="dropdown" aria-haspopup="true"
+                                                                      aria-expanded="false">
+                                                                      <i class="fas fa-ellipsis-v"></i>
+                                                                 </button>
+                                                                 <div class="dropdown-menu">
+                                                                      <a class="dropdown-item action"
+                                                                           @click="setSprayingTimes(sprayingTimes), isOpenUpdateSprayingTimesForm = !isOpenUpdateSprayingTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
+                                                                           <span class="fas fa-edit actionIcon"></span> Chỉnh
+                                                                           sửa
+                                                                      </a>
+                                                                      <a class="dropdown-item" href="#"
+                                                                           @click="setSprayingTimes(sprayingTimes), isOpenConfirm = !isOpenConfirm, setDelete('SprayingTimes')">
+                                                                           <span class="fas fa-trash-alt actionIcon"></span>
+                                                                           Xóa
+                                                                      </a>
+
+                                                                 </div>
+                                                            </td>
+                                                       </tr>
+                                                  </tbody>
+                                             </table>
+                                        </div>
+                                   </div>
+
+                                   <!-- ----------------------EpidemicTimes Tab-------------- -->
+                                   <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableEpidemicTimes">
+                                        <input type="text" class="form-control inputSearch5" placeholder="Tìm"
+                                             v-model="nameToSearch" @click="retrieveEpidemicTimesList()"
+                                             @keyup.enter="searchNameEpidemic(nameToSearch)"
+                                             @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                                        <button class="btnSearch5" @click="searchNameEpidemic(nameToSearch)"
+                                             v-if="nameToSearch == '' && !isOpenSearch.open">
+                                             <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                                        </button>
+                                        <div :class="{ openSearch5: isOpenSearch.open, closeSearch5: isOpenSearch.close }">
+                                             <p class="item" v-for="(epidemicTimes, i) in filteredEpidemicTimesList()"
+                                                  :key="i" @click="searchNameEpidemic(epidemicTimes.Epidemic_name)">
+                                                  {{ epidemicTimes.Epidemic_name }}</p>
+                                        </div>
+                                        <button class="btn mt-1 btnAdd"
+                                             @click="isOpenCreateEpidemicTimesForm = !isOpenCreateEpidemicTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
+
+                                        <div class="tableFixHead">
+                                             <table class="table">
+                                                  <thead>
+                                                       <tr>
+                                                            <th class="text-center ">Lần</th>
+                                                            <th>Tên bệnh dịch</th>
+                                                            <th class="text-center ">Ngày bất đầu</th>
+                                                            <th class="text-center ">Ngày kết thúc</th>
+                                                            <th class="">Nhân viên</th>
+                                                            <th>Gợi ý thuốc</th>
+                                                            <th class=""></th>
+                                                       </tr>
+                                                  </thead>
+                                                  <tbody>
+
+                                                       <tr v-for="(epidemic, i ) in (epidemicTimesList)" :key="i">
+                                                            <td class="text-center ">{{ epidemic.EpidemicTimes_times }}</td>
+                                                            <td class="">{{ epidemic.Epidemic_name }}</td>
+                                                            <td class="text-center ">{{
+                                                                 formatDate(epidemic.EpidemicTimes_startDate)
+                                                            }}</td>
+                                                            <td class="text-center ">{{
+                                                                 formatDate(epidemic.EpidemicTimes_endDate)
+                                                            }}
+                                                            </td>
+                                                            <td class="">{{ epidemic.Employee_name }}</td>
+                                                            <td>
+                                                                 <p v-for="(treatment, i) in epidemic.Treatment" :key="i"
+                                                                      style="display: inline;">{{ treatment
+                                                                      }},
+                                                                 </p>
+                                                            </td>
+                                                            <td class="">
+                                                                 <button type="button" class="btn btn-sm"
+                                                                      data-toggle="dropdown" aria-haspopup="true"
+                                                                      aria-expanded="false">
+                                                                      <i class="fas fa-ellipsis-v"></i>
+                                                                 </button>
+                                                                 <div class="dropdown-menu">
+                                                                      <a class="dropdown-item action"
+                                                                           @click="setEpidemicChosen(epidemic), isOpenUpdateEpidemicTimesForm = !isOpenUpdateEpidemicTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
+                                                                           <span class="fas fa-edit actionIcon"></span> Chỉnh
+                                                                           sửa
+                                                                      </a>
+                                                                      <a class="dropdown-item" href="#"
+                                                                           @click="setEpidemicChosen(epidemic), isOpenConfirm = !isOpenConfirm, setDelete('EpidemicTimes')">
+                                                                           <span class="fas fa-trash-alt actionIcon"></span>
+                                                                           Xóa
+                                                                      </a>
+                                                                 </div>
+                                                            </td>
+                                                       </tr>
+                                                  </tbody>
+                                             </table>
+                                        </div>
+                                   </div>
+
+                                   <!-- ----------------------Monitor Tab-------------- -->
+                                   <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableMonitor">
+                                        <input type="text" class="form-control inputSearch5" placeholder="Tìm"
+                                             v-model="nameToSearch" @click="retrieveMonitorList()"
+                                             @keyup.enter="searchNameMonitor(nameToSearch)"
+                                             @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                                        <button class="btnSearch5" @click="searchNameMonitor(nameToSearch)"
+                                             v-if="nameToSearch == '' && !isOpenSearch.open">
+                                             <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                                        </button>
+                                        <div :class="{ openSearch5: isOpenSearch.open, closeSearch5: isOpenSearch.close }">
+                                             <p class="item" v-for="(monitor, i) in filteredMonitorList()" :key="i"
+                                                  @click="searchNameMonitor(monitor.Employee_name)">
+                                                  {{ monitor.Employee_name }}</p>
+                                        </div>
+                                        <button class="btn mt-1 btnAdd"
+                                             @click="isOpenCreateMonitorForm = !isOpenCreateMonitorForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
+                                        <div class="tableFixHead">
+                                             <table class="table">
+                                                  <thead>
+                                                       <tr>
+                                                            <th class="text-center ">STT</th>
+                                                            <th class="text-center ">Mã</th>
+                                                            <th>Họ và Tên</th>
+                                                            <th>Chuyên môn</th>
+                                                            <th class="">Vai trò</th>
+                                                            <th class=""></th>
+                                                       </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                       <tr v-for="(monitor, i ) in (monitorList)" :key="i">
+                                                            <td class="text-center" v-if="currentPage > 1">{{ i +
+                                                                 ((currentPage -
+                                                                      1) *
+                                                                      elementsPerPage) + 1 }}
+                                                            </td>
+                                                            <td class="text-center" v-else>{{ i + 1 }}</td>
+                                                            <td class="text-center">{{ monitor.Employee_id }}</td>
+                                                            <td>{{ monitor.Employee_name }}</td>
+                                                            <td>{{ monitor.Employee_major }}
+                                                            </td>
+                                                            <td class="">{{ monitor.Role_name }}</td>
+                                                            <td class="">
+                                                                 <button type="button" class="btn btn-sm"
+                                                                      data-toggle="dropdown" aria-haspopup="true"
+                                                                      aria-expanded="false">
+                                                                      <i class="fas fa-ellipsis-v"></i>
+                                                                 </button>
+                                                                 <div class="dropdown-menu">
+                                                                      <a class="dropdown-item" href="#"
+                                                                           @click="setMonitorChosen(monitor), isOpenConfirm = !isOpenConfirm, setDelete('Monitor')">
+                                                                           <span class="fas fa-trash-alt actionIcon"></span>
+                                                                           Xóa
+                                                                      </a>
+                                                                 </div>
+                                                            </td>
+                                                       </tr>
+                                                  </tbody>
+                                             </table>
+                                        </div>
+                                   </div>
+
+                                   <!-- ----------------------OtherActivity Tab-------------- -->
+                                   <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableOtherActivitiesTimes">
+                                        <input type="text" class="form-control inputSearch5" placeholder="Tìm"
+                                             v-model="nameToSearch" @click="retrieveActivitiesDetail()"
+                                             @keyup.enter="searchNameOtherActivity(nameToSearch)"
+                                             @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                                        <button class="btnSearch5" @click="searchNameOtherActivity(nameToSearch)"
+                                             v-if="nameToSearch == '' && !isOpenSearch.open">
+                                             <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                                        </button>
+                                        <div :class="{ openSearch5: isOpenSearch.open, closeSearch5: isOpenSearch.close }">
+                                             <p class="item" v-for="(activityDetail, i) in filteredActivityDetailTimesList()"
+                                                  :key="i"
+                                                  @click="searchNameOtherActivity(activityDetail.OtherActivities_name)">
+                                                  {{ activityDetail.OtherActivities_name }}</p>
+                                        </div>
+                                        <button class="btn mt-1 btnAdd"
+                                             @click="isOpenCreateActivitiesDetail = !isOpenCreateActivitiesDetail, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
+                                        <div class="tableFixHead">
+                                             <table class="table">
+                                                  <thead>
+                                                       <tr>
+                                                            <th class="text-center ">STT</th>
+                                                            <th class="text-center ">Mã</th>
+                                                            <th>Tên hoạt động</th>
+                                                            <th>Lần</th>
+                                                            <th class="">Ngày bắt đầu</th>
+                                                            <th class="">Ngày kết thúc</th>
+                                                            <th class="">Nhân viên</th>
+                                                            <th class=""></th>
+                                                       </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                       <tr v-for="(activity, i ) in (activitiesDetailList)" :key="i">
+                                                            <td class="text-center" v-if="currentPage > 1">{{ i +
+                                                                 ((currentPage -
+                                                                      1) *
+                                                                      elementsPerPage) }}
+                                                            </td>
+                                                            <td class="text-center" v-else>{{ i }}</td>
+                                                            <td class="text-center">{{ activity.OtherActivities_id }}</td>
+
+                                                            <td>{{ activity.OtherActivities_name }}</td>
+                                                            <td>{{ activity.ActivityDetails_times }}</td>
+                                                            <td>{{ formatDate(activity.ActivityDetails_startDate) }}</td>
+                                                            <td>{{ formatDate(activity.ActivityDetails_endDate) }}</td>
+                                                            <td class="">{{ activity.Employee_name }}</td>
+                                                            <td class="">
+                                                                 <button type="button" class="btn btn-sm"
+                                                                      data-toggle="dropdown" aria-haspopup="true"
+                                                                      aria-expanded="false">
+                                                                      <i class="fas fa-ellipsis-v"></i>
+                                                                 </button>
+                                                                 <div class="dropdown-menu">
+                                                                      <a class="dropdown-item action"
+                                                                           @click="setActivityChosen(activity), isOpenUpdateActivitiesDetail = !isOpenUpdateActivitiesDetail, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
+                                                                           <span class="fas fa-edit actionIcon"></span> Chỉnh
+                                                                           sửa
+                                                                      </a>
+                                                                      <a class="dropdown-item" href="#"
+                                                                           @click="setActivityChosen(activity), isOpenConfirm = !isOpenConfirm, setDelete('ActivitiseDetail')">
+                                                                           <span class="fas fa-trash-alt actionIcon"></span>
+                                                                           Xóa
+                                                                      </a>
+
+                                                                 </div>
+                                                            </td>
+                                                       </tr>
+                                                  </tbody>
+                                             </table>
+                                        </div>
+                                   </div>
+                                   <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
+
+                                   <div class="confirmationDialog" v-if="isOpenConfirm">
+                                        <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
+                                             class="labelConfirm">
+                                             <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
+                                        </p>
+                                        <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
+                                             @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, choosenDelete()">Xóa</button>
+                                        <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                                             @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
+                                   </div>
+
+                                   <div class="messageDialog" v-if="isOpenMessage">
+                                        <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
+                                             class="labelThongBao">
+                                             <span class="fas fa-check-circle"
+                                                  style="color:#00BA13; text-align: center;"></span>
+                                             {{
+                                                  message
+                                             }}
+                                        </p>
+                                        <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                                             @click="isOpenMessage = !isOpenMessage">OK</button>
+                                   </div>
+
                               </div>
-                              <!-- ----------------------FertilizerTimes Tab-------------- -->
-                              <div class="row activitiesList ml-2 mr-2 mt-4" v-if="isOpenTableFertilizerTimes">
-                                   <input type="text" class="form-control inputSearch5" placeholder="Tìm"
-                                        v-model="nameToSearch" @click="retrieveFertilizerTimesList()"
-                                        @keyup.enter="searchNameFertilizer(nameToSearch)"
-                                        @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                                   <button class="btnSearch5" @click="searchNameFertilizer(nameToSearch)"
-                                        v-if="nameToSearch == '' && !isOpenSearch.open">
-                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                                   </button>
-                                   <div :class="{ openSearch5: isOpenSearch.open, closeSearch5: isOpenSearch.close }">
-                                        <p class="item" v-for="fertilizerTimes in filteredFerilizerTimesList()"
-                                             :key="fertilizerTimes.Fertilizer_id"
-                                             @click="searchNameFertilizer(fertilizerTimes.Fertilizer_name)">
-                                             {{ fertilizerTimes.Fertilizer_name }}</p>
-                                   </div>
-                                   <button class="btn mt-1 btnAdd "
-                                        @click="isOpenCreateFertilizerTimesForm = !isOpenCreateFertilizerTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
-                                   <div class="tableFixHead">
-                                        <table class="">
-                                             <thead>
-                                                  <tr>
-                                                       <th class="text-center ">Lần</th>
-                                                       <th>Tên phân bón</th>
-                                                       <th class="text-center ">Số lượng (kg/ha)</th>
-                                                       <th class="text-center ">Ngày bất đầu</th>
-                                                       <th class="text-center ">Ngày kết thúc</th>
-                                                       <th class="">Nhân viên</th>
-                                                       <th style="width: 2%;"></th>
-                                                  </tr>
-                                             </thead>
-                                             <tbody>
-                                                  <tr v-for="(fertilizer, i) in (fertilizerTimesList)" :key="i">
-                                                       <td class="text-center ">{{ fertilizer.FertilizerTimes_times }}
-                                                       </td>
-                                                       <td class="">{{ fertilizer.Fertilizer_name }}</td>
-                                                       <td class="text-center ">{{ fertilizer.FertilizerTimes_amount }}
-                                                       </td>
-                                                       <td class="text-center ">{{
-                                                            formatDate(fertilizer.FertilizerTimes_startDate) }}</td>
-                                                       <td class="text-center ">{{
-                                                            formatDate(fertilizer.FertilizerTimes_endDate)
-                                                       }}</td>
-                                                       <td class="">{{ fertilizer.Employee_name }}</td>
-                                                       <td class="">
-                                                            <button type="button" class="btn btn-sm" data-toggle="dropdown"
-                                                                 aria-haspopup="true" aria-expanded="false">
-                                                                 <i class="fas fa-ellipsis-v"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu">
-                                                                 <a class="dropdown-item action"
-                                                                      @click="setFertilizerChosen(fertilizer), isOpenUpdateFertilizerTimesForm = !isOpenUpdateFertilizerTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
-                                                                      <span class="fas fa-edit actionIcon"></span> Chỉnh
-                                                                      sửa
-                                                                 </a>
-                                                                 <a class="dropdown-item" href="#"
-                                                                      @click="setFertilizerChosen(fertilizer), setDelete('FertilizerTimes'), isOpenConfirm = !isOpenConfirm">
-                                                                      <span class="fas fa-trash-alt actionIcon"></span>
-                                                                      Xóa
-                                                                 </a>
-
-                                                            </div>
-                                                       </td>
-                                                  </tr>
-                                             </tbody>
-                                        </table>
-                                   </div>
-
-                              </div>
-
-                              <!-- ----------------------SprayingTimes Tab-------------- -->
-                              <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableSprayingTimes">
-                                   <input type="text" class="form-control inputSearch5" placeholder="Tìm"
-                                        v-model="nameToSearch" @click="retrieveSprayingTimesList()"
-                                        @keyup.enter="searchNamePesticide(nameToSearch)"
-                                        @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                                   <button class="btnSearch5" @click="searchNamePesticide(nameToSearch)"
-                                        v-if="nameToSearch == '' && !isOpenSearch.open">
-                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                                   </button>
-                                   <!-- :class="{ openSearch:isOpenSearch.open, closeSearch:isOpenSearch.close }"  -->
-                                   <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
-                                        <p class="item" v-for="(sprayingTimes, i) in filteredSprayingTimesList()" :key="i"
-                                             @click="searchNamePesticide(sprayingTimes.Pesticide_name)">
-                                             {{ sprayingTimes.Pesticide_name }}</p>
-                                   </div>
-                                   <button class="btn mt-1 btnAdd"
-                                        @click="isOpenCreateSprayingTimesForm = !isOpenCreateSprayingTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
-                                   <div class="tableFixHead">
-                                        <table class="table">
-                                             <thead>
-                                                  <tr>
-                                                       <th class="text-center ">Mã</th>
-                                                       <th>Tên thuốc</th>
-                                                       <th class="text-center ">Liều lượng (lít/ha)</th>
-                                                       <th class="text-center ">Ngày bất đầu</th>
-                                                       <th class="text-center ">Ngày kết thúc</th>
-                                                       <th class="">Nhân viên</th>
-                                                       <th class=""></th>
-                                                  </tr>
-                                             </thead>
-                                             <tbody>
-                                                  <tr v-for="(sprayingTimes, i ) in (SprayingTimesList)" :key="i">
-                                                       <td class="text-center ">{{ sprayingTimes.SprayingTimes_times }}
-                                                       </td>
-                                                       <td class="">{{ sprayingTimes.Pesticide_name }}</td>
-                                                       <td class="text-center ">{{ sprayingTimes.SprayingTimes_amount }}
-                                                       </td>
-                                                       <td class="text-center ">{{
-                                                            formatDate(sprayingTimes.SprayingTimes_startDate)
-                                                       }}</td>
-                                                       <td class="text-center ">{{
-                                                            formatDate(sprayingTimes.SprayingTimes_endDate)
-                                                       }}
-                                                       </td>
-                                                       <td class="">{{ sprayingTimes.Employee_name }}</td>
-                                                       <td class="">
-                                                            <button type="button" class="btn btn-sm" data-toggle="dropdown"
-                                                                 aria-haspopup="true" aria-expanded="false">
-                                                                 <i class="fas fa-ellipsis-v"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu">
-                                                                 <a class="dropdown-item action"
-                                                                      @click="setSprayingTimes(sprayingTimes), isOpenUpdateSprayingTimesForm = !isOpenUpdateSprayingTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
-                                                                      <span class="fas fa-edit actionIcon"></span> Chỉnh
-                                                                      sửa
-                                                                 </a>
-                                                                 <a class="dropdown-item" href="#"
-                                                                      @click="setSprayingTimes(sprayingTimes), isOpenConfirm = !isOpenConfirm, setDelete('SprayingTimes')">
-                                                                      <span class="fas fa-trash-alt actionIcon"></span>
-                                                                      Xóa
-                                                                 </a>
-
-                                                            </div>
-                                                       </td>
-                                                  </tr>
-                                             </tbody>
-                                        </table>
-                                   </div>
-                              </div>
-
-                              <!-- ----------------------EpidemicTimes Tab-------------- -->
-                              <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableEpidemicTimes">
-                                   <input type="text" class="form-control inputSearch5" placeholder="Tìm"
-                                        v-model="nameToSearch" @click="retrieveEpidemicTimesList()"
-                                        @keyup.enter="searchNameEpidemic(nameToSearch)"
-                                        @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                                   <button class="btnSearch5" @click="searchNameEpidemic(nameToSearch)"
-                                        v-if="nameToSearch == '' && !isOpenSearch.open">
-                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                                   </button>
-                                   <div :class="{ openSearch5: isOpenSearch.open, closeSearch5: isOpenSearch.close }">
-                                        <p class="item" v-for="(epidemicTimes, i) in filteredEpidemicTimesList()" :key="i"
-                                             @click="searchNameEpidemic(epidemicTimes.Epidemic_name)">
-                                             {{ epidemicTimes.Epidemic_name }}</p>
-                                   </div>
-                                   <button class="btn mt-1 btnAdd"
-                                        @click="isOpenCreateEpidemicTimesForm = !isOpenCreateEpidemicTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
-
-                                   <div class="tableFixHead">
-                                        <table class="table">
-                                             <thead>
-                                                  <tr>
-                                                       <th class="text-center ">Lần</th>
-                                                       <th>Tên bệnh dịch</th>
-                                                       <th class="text-center ">Ngày bất đầu</th>
-                                                       <th class="text-center ">Ngày kết thúc</th>
-                                                       <th class="">Nhân viên</th>
-                                                       <th>Gợi ý thuốc</th>
-                                                       <th class=""></th>
-                                                  </tr>
-                                             </thead>
-                                             <tbody>
-
-                                                  <tr v-for="(epidemic, i ) in (epidemicTimesList)" :key="i">
-                                                       <td class="text-center ">{{ epidemic.EpidemicTimes_times }}</td>
-                                                       <td class="">{{ epidemic.Epidemic_name }}</td>
-                                                       <td class="text-center ">{{
-                                                            formatDate(epidemic.EpidemicTimes_startDate)
-                                                       }}</td>
-                                                       <td class="text-center ">{{
-                                                            formatDate(epidemic.EpidemicTimes_endDate)
-                                                       }}
-                                                       </td>
-                                                       <td class="">{{ epidemic.Employee_name }}</td>
-                                                       <td>
-                                                            <p v-for="(treatment, i) in epidemic.Treatment" :key="i"
-                                                                 style="display: inline;">{{ treatment
-                                                                 }},
-                                                            </p>
-                                                       </td>
-                                                       <td class="">
-                                                            <button type="button" class="btn btn-sm" data-toggle="dropdown"
-                                                                 aria-haspopup="true" aria-expanded="false">
-                                                                 <i class="fas fa-ellipsis-v"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu">
-                                                                 <a class="dropdown-item action"
-                                                                      @click="setEpidemicChosen(epidemic), isOpenUpdateEpidemicTimesForm = !isOpenUpdateEpidemicTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
-                                                                      <span class="fas fa-edit actionIcon"></span> Chỉnh
-                                                                      sửa
-                                                                 </a>
-                                                                 <a class="dropdown-item" href="#"
-                                                                      @click="setEpidemicChosen(epidemic), isOpenConfirm = !isOpenConfirm, setDelete('EpidemicTimes')">
-                                                                      <span class="fas fa-trash-alt actionIcon"></span>
-                                                                      Xóa
-                                                                 </a>
-                                                            </div>
-                                                       </td>
-                                                  </tr>
-                                             </tbody>
-                                        </table>
-                                   </div>
-                              </div>
-
-                              <!-- ----------------------Monitor Tab-------------- -->
-                              <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableMonitor">
-                                   <input type="text" class="form-control inputSearch5" placeholder="Tìm"
-                                        v-model="nameToSearch" @click="retrieveMonitorList()"
-                                        @keyup.enter="searchNameMonitor(nameToSearch)"
-                                        @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                                   <button class="btnSearch5" @click="searchNameMonitor(nameToSearch)"
-                                        v-if="nameToSearch == '' && !isOpenSearch.open">
-                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                                   </button>
-                                   <div :class="{ openSearch5: isOpenSearch.open, closeSearch5: isOpenSearch.close }">
-                                        <p class="item" v-for="(monitor, i) in filteredMonitorList()" :key="i"
-                                             @click="searchNameMonitor(monitor.Employee_name)">
-                                             {{ monitor.Employee_name }}</p>
-                                   </div>
-                                   <button class="btn mt-1 btnAdd"
-                                        @click="isOpenCreateMonitorForm = !isOpenCreateMonitorForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
-                                   <div class="tableFixHead">
-                                        <table class="table">
-                                             <thead>
-                                                  <tr>
-                                                       <th class="text-center ">STT</th>
-                                                       <th class="text-center ">Mã</th>
-                                                       <th>Họ và Tên</th>
-                                                       <th>Chuyên môn</th>
-                                                       <th class="">Vai trò</th>
-                                                       <th class=""></th>
-                                                  </tr>
-                                             </thead>
-                                             <tbody>
-                                                  <tr v-for="(monitor, i ) in (monitorList)" :key="i">
-                                                       <td class="text-center" v-if="currentPage > 1">{{ i +
-                                                            ((currentPage -
-                                                                 1) *
-                                                                 elementsPerPage) + 1 }}
-                                                       </td>
-                                                       <td class="text-center" v-else>{{ i + 1 }}</td>
-                                                       <td class="text-center">{{ monitor.Employee_id }}</td>
-                                                       <td>{{ monitor.Employee_name }}</td>
-                                                       <td>{{ monitor.Employee_major }}
-                                                       </td>
-                                                       <td class="">{{ monitor.Role_name }}</td>
-                                                       <td class="">
-                                                            <button type="button" class="btn btn-sm" data-toggle="dropdown"
-                                                                 aria-haspopup="true" aria-expanded="false">
-                                                                 <i class="fas fa-ellipsis-v"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu">
-                                                                 <a class="dropdown-item" href="#"
-                                                                      @click="setMonitorChosen(monitor), isOpenConfirm = !isOpenConfirm, setDelete('Monitor')">
-                                                                      <span class="fas fa-trash-alt actionIcon"></span>
-                                                                      Xóa
-                                                                 </a>
-                                                            </div>
-                                                       </td>
-                                                  </tr>
-                                             </tbody>
-                                        </table>
-                                   </div>
-                              </div>
-
-                              <!-- ----------------------OtherActivity Tab-------------- -->
-                              <div class="row activitiesList ml-2 mr-2 mt-2" v-if="isOpenTableOtherActivitiesTimes">
-                                   <input type="text" class="form-control inputSearch5" placeholder="Tìm"
-                                        v-model="nameToSearch" @click="retrieveActivitiesDetail()"
-                                        @keyup.enter="searchNameOtherActivity(nameToSearch)"
-                                        @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                                   <button class="btnSearch5" @click="searchNameOtherActivity(nameToSearch)"
-                                        v-if="nameToSearch == '' && !isOpenSearch.open">
-                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                                   </button>
-                                   <div :class="{ openSearch5: isOpenSearch.open, closeSearch5: isOpenSearch.close }">
-                                        <p class="item" v-for="(activityDetail, i) in filteredActivityDetailTimesList()"
-                                             :key="i" @click="searchNameOtherActivity(activityDetail.OtherActivities_name)">
-                                             {{ activityDetail.OtherActivities_name }}</p>
-                                   </div>
-                                   <button class="btn mt-1 btnAdd"
-                                        @click="isOpenCreateActivitiesDetail = !isOpenCreateActivitiesDetail, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Thêm</button>
-                                   <div class="tableFixHead">
-                                        <table class="table">
-                                             <thead>
-                                                  <tr>
-                                                       <th class="text-center ">STT</th>
-                                                       <th class="text-center ">Mã</th>
-                                                       <th>Tên hoạt động</th>
-                                                       <th>Lần</th>
-                                                       <th class="">Ngày bắt đầu</th>
-                                                       <th class="">Ngày kết thúc</th>
-                                                       <th class="">Nhân viên</th>
-                                                       <th class=""></th>
-                                                  </tr>
-                                             </thead>
-                                             <tbody>
-                                                  <tr v-for="(activity, i ) in (activitiesDetailList)" :key="i">
-                                                       <td class="text-center" v-if="currentPage > 1">{{ i +
-                                                            ((currentPage -
-                                                                 1) *
-                                                                 elementsPerPage) }}
-                                                       </td>
-                                                       <td class="text-center" v-else>{{ i }}</td>
-                                                       <td class="text-center">{{ activity.OtherActivities_id }}</td>
-
-                                                       <td>{{ activity.OtherActivities_name }}</td>
-                                                       <td>{{ activity.ActivityDetails_times }}</td>
-                                                       <td>{{ formatDate(activity.ActivityDetails_startDate) }}</td>
-                                                       <td>{{ formatDate(activity.ActivityDetails_endDate) }}</td>
-                                                       <td class="">{{ activity.Employee_name }}</td>
-                                                       <td class="">
-                                                            <button type="button" class="btn btn-sm" data-toggle="dropdown"
-                                                                 aria-haspopup="true" aria-expanded="false">
-                                                                 <i class="fas fa-ellipsis-v"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu">
-                                                                 <a class="dropdown-item action"
-                                                                      @click="setActivityChosen(activity), isOpenUpdateActivitiesDetail = !isOpenUpdateActivitiesDetail, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
-                                                                      <span class="fas fa-edit actionIcon"></span> Chỉnh
-                                                                      sửa
-                                                                 </a>
-                                                                 <a class="dropdown-item" href="#"
-                                                                      @click="setActivityChosen(activity), isOpenConfirm = !isOpenConfirm, setDelete('ActivitiseDetail')">
-                                                                      <span class="fas fa-trash-alt actionIcon"></span>
-                                                                      Xóa
-                                                                 </a>
-
-                                                            </div>
-                                                       </td>
-                                                  </tr>
-                                             </tbody>
-                                        </table>
-                                   </div>
-                              </div>
-                              <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
-
-                              <div class="confirmationDialog" v-if="isOpenConfirm">
-                                   <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                                        class="labelConfirm">
-                                        <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
-                                   </p>
-                                   <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                                        @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, choosenDelete()">Xóa</button>
-                                   <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                                        @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
-                              </div>
-
-                              <div class="messageDialog" v-if="isOpenMessage">
-                                   <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                                        class="labelThongBao">
-                                        <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span>
-                                        {{
-                                             message
-                                        }}
-                                   </p>
-                                   <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                                        @click="isOpenMessage = !isOpenMessage">OK</button>
-                              </div>
-
                          </div>
                     </div>
+
+                    <UpdateRiceCropForm v-if="isOpenUpdateRiceCrop" :seedList="seedList" :newRiceCrop="newRiceCrop"
+                         :arableLandList="arableLandList" @updateRiceCrop-submit="updateRiceCrop" :message1="message1"
+                         :message2="message2" />
+
                     <CreateFertilizerTimesForm v-if="isOpenCreateFertilizerTimesForm" :weather="weatherInfor"
                          :newFertilizerTimes="newFertilizerTimes" :fertilizerList="fertilizerList"
                          :developmentStageList="developmentStageList" :currentUser="currentUser"
@@ -677,6 +708,7 @@ export default {
                delete: "",
                isOpenConfirm: false,
                isOpenMessage: false,
+               isOpenUpdateRiceCrop: false,
                message: "",
                monitorChosen: {},
                idImage: 0,
@@ -1073,6 +1105,12 @@ export default {
           async updateRiceCrop(data) {
                this.message1 = " ";
                this.message2 = " ";
+               if (!data.close) {
+                    this.isOpenUpdateRiceCrop = false;
+                    this.stylebac.none = false;
+                    this.stylebac.active = true;
+               }
+
                this.seedList.forEach(element => {
                     if (data.Seed_name == element.Seed_name) {
                          data.Seed_id = element.Seed_id;
@@ -2121,9 +2159,9 @@ export default {
                }
           },
 
-          handleClickInParent: function() {
-                this.retrieveImagesList();
-            },
+          handleClickInParent: function () {
+               this.retrieveImagesList();
+          },
           async getWeather() {
                let urlAPI = `https://api.open-meteo.com/v1/forecast?latitude=${this.newRiceCrop.ArableLand_latitude}&longitude=${this.newRiceCrop.ArableLand_longitude}&current_weather=true&forecast_days=1&daily=shortwave_radiation_sum&timezone=auto&daily=precipitation_sum&hourly=relativehumidity_2m`;
                let data = await fetch(urlAPI).then(res => res.json())

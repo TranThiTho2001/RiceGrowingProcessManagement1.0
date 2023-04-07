@@ -1,6 +1,7 @@
-.loginFrame{
+.loginFrame {
      position: relative;
 }
+
 .background {
      background-color: aquamarine;
      height: 100vh;
@@ -12,17 +13,18 @@
 }
 
 .background .leftForm,
-.background .rightForm{
+.background .rightForm {
      position: relative;
+     width: 50%;
 }
+
 .background .rightForm {
      background-image: url(../images/Rice2.png);
 }
 
 .form-center .form-login .famerImage {
      position: absolute;
-     width: 510px;
-     height: 510px;
+     width: 60%;
      z-index: 1000;
      left: -55px;
      bottom: -40px;
@@ -32,38 +34,43 @@
      background: rgba(255, 255, 255, 0.3);
      border: 4px solid #FFFFFF;
      border-right: none;
-     box-shadow: inset 7px 7px 7px rgba(0, 0, 0, 0.25); 
+     box-shadow: inset 7px 7px 7px rgba(0, 0, 0, 0.25);
      backdrop-filter: blur(3.5px);
      border-bottom-left-radius: 10px;
      border-top-left-radius: 10px;
+     width: 50%;
 }
 
-.form-center .form-login .content {
+.form-center .form-login .content_loginForm {
      background: #FAFAFC;
      border-radius: 0px 10px 10px 0px;
      backdrop-filter: blur(3.5px);
      position: relative;
+     width: 50%;
 }
-.form-center .form-login .content .title {
+
+.form-center .form-login .content_loginForm .title {
      font-style: normal;
      font-weight: 650;
      font-size: 35px;
      line-height: 45px;
      color: #5C5D22;
+     font-family: 'Roboto';
 }
 
 .form-center .form-login .form-control {
-     background: #FFFFED;
-     box-shadow: inset 1px 7px 7px rgba(0, 0, 0, 0.25);
+     background: #FFFFED !important;
+     box-shadow: inset 1px 7px 7px rgba(0, 0, 0, 0.25) !important;
      border-radius: 20px !important;
      border: none;
      font-family: 'Roboto';
      font-style: normal;
-     font-weight: 400;
+     font-weight: 400 !important;
      font-size: 17px;
      line-height: 0px;
-     color: #D0D1D6;
+     color: #D0D1D6 !important;
 }
+
 .form-center .form-login .form-control:hover {
      background: #FFFFED;
      box-shadow: inset 1px 7px 7px rgba(0, 0, 0, 0.25);
@@ -98,29 +105,31 @@
 .form-center .form-login .btnAnMatKhau {
      background: none;
      position: absolute;
-     left: 76%;
+     left: 80%;
      color: #84858A;
      font-size: 20px;
      margin-top: -2px;
+     margin-bottom: 20px !important;
 }
 
 .form-center .form-login .text-left {
      background: none;
      border-radius: 20px;
-     font-family: Roboto;
+     font-family: 'Roboto';
      font-style: normal;
      font-weight: 400;
      font-size: 16px;
      line-height: 23px;
 }
 
-.form-center .form-login .content .error-feedback {
+.form-center .form-login .content_loginForm .error-feedback {
      float: right;
      color: #D30000;
      font-weight: 500;
+     font-family: 'Roboto';
 }
 
-.form-center .form-login .content .labelTitle {
+.form-center .form-login .content_loginForm .labelTitle {
      font-family: Inter;
      font-size: 18px;
      color: #919302;
@@ -135,12 +144,9 @@
      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
      border-radius: 10px;
      border: none;
-     position: absolute;
      width: 130px !important;
      font-family: 'Roboto';
      text-align: center;
-     top: 62%;
-     left:35%;
      color: #5C5D22;
      font-size: 19px;
      font-weight: 700;
@@ -148,21 +154,71 @@
 
 .form-login .studentImage {
      position: absolute;
-     width: 220px;
-     height: 220x;
+     width: 50%;
      left: 66%;
      top: 72%;
 }
 
-.form-login{
+.form-login {
      position: relative;
      width: 800px;
      height: 610px;
 }
-.form-center{
+
+.form-center {
      display: flex;
      align-items: center;
      justify-content: center;
      width: 100%;
      height: 100vh;
+}
+
+@media only screen and (max-width: 1000px) {
+     .form-login .studentImage {
+          position: absolute;
+          width: 50%;
+          left: 50%;
+          top: 70%;
+     }
+
+     .form-center .form-login .famerImage {
+          position: absolute;
+          width: 60%;
+          z-index: 1000;
+          left: -55px;
+          bottom: -10px;
+     }
+}
+@media only screen and (max-width: 500px) {
+     .form-center .form-login .famerImage {
+          display: none;
+     }
+
+     .form-center .form-login .iconFamer {
+          display: none;
+     }
+
+     .form-center .form-login .content_loginForm {
+          background: #FAFAFC;
+          border-radius: 10px;
+          backdrop-filter: blur(3.5px);
+          position: relative;
+          width: 100%;
+          margin-left: 20px;
+          margin-right: 20px;
+          height: max-content;
+          margin-top: 20%;
+     }
+
+     .form-login .studentImage {
+          display: none;
+     }
+
+     .background .leftForm{
+          display: none;
+     }
+     .background .rightForm {
+          position: relative;
+          width: 100%;
+     }
 }

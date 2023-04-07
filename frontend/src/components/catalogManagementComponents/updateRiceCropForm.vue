@@ -1,66 +1,70 @@
 <template>
-     <Form @submit="$emit('updateRiceCrop-submit', newricecrop)" :validation-schema="schema"
-          class="form container-fluid updateRiceCropForm">
+     <Form @submit="newricecrop.close = true, $emit('updateRiceCrop-submit', newricecrop)" :validation-schema="schema"
+          class="form updateRiceCropForm container-fluid">
+          <div class="row">
+               <div class="col-sm-12 text-right">
+                    <i class="fas fa-times" @click="newricecrop.close = false, $emit('updateRiceCrop-submit', newricecrop)"
+                         style="font-size: 25px; "></i>
+               </div>
+          </div>
+          <div class="row">
+               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> Mùa vụ
+               </p>
+          </div>
           <div class="row content">
-               <div class="col-sm-3">
+               <div class="col-sm-6 mt-2">
                     <div class="form-group">
-                         <label for="id" class="pt-1">Mã mùa vụ <span style="color:red; display: ;">*</span></label>
+                         <label for="id" class="mt-2">Mã mùa vụ <span style="color: red">*</span></label>
                          <Field name="id" type="name" class="form-control" v-model="newricecrop.RiceCropInformation_id"
-                              placeholder="Nhập mã mùa vụ..." :disabled="true" />
+                              placeholder="Nhập mã mùa vụ..." />
                          <ErrorMessage name="id" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
-                         <label for="seed" class="pt-3">Giống lúa <span style="color:red">*</span></label>
+                         <label for="seed" class="mt-3">Giống lúa <span style="color: red">*</span></label>
                          <Field name="seed" v-model="newricecrop.Seed_name">
                               <select class="form-control" v-model="newricecrop.Seed_name" name="seed" for="seed">
-                                   <option v-for="(seed, i) in seedList" :key="i">{{ seed.Seed_name }}</option>
+                                   <option v-for="(seed, i) in seedlist" :key="i">{{ seed.Seed_name }}</option>
                               </select>
                          </Field>
                          <ErrorMessage name="seed" class="error-feedback" />
                     </div>
-               </div>
-               <div class="col-sm-3">
                     <div class="form-group">
-                         <label for="name" class="pt-1">Tên mùa vụ <span style="color:red">*</span></label>
+                         <label for="arableLand" class="mt-1">Mẫu ruộng <span style="color: red">*</span></label>
+                         <Field name="arableLand" class="form-control" v-model="newricecrop.ArableLand_id"
+                              placeholder="Nhập vị trí mẫu ruộng...">
+                              <select class="form-control" v-model="newricecrop.ArableLand_id" name="arableLand"
+                                   for="arableLand">
+                                   <option v-for="(arableLand, i) in arableLandlist" :key="i">{{ arableLand.ArableLand_id }}
+                                   </option>
+                              </select>
+                         </Field>
+                         <ErrorMessage name="arableLand" class="error-feedback" />
+                    </div>
+
+                    <div class="form-group">
+                         <label for="sowingDate" class="">Ngày gieo xạ </label>
+                         <Field name="sowingDate" class="form-control" v-model="newricecrop.RiceCropInformation_sowingDate"
+                              placeholder="">
+                              <datepicker :enable-time-picker="false" :value="newricecrop.RiceCropInformation_sowingDate"
+                                   :hide-input-icon="true" v-model="newricecrop.RiceCropInformation_sowingDate" :clearable="false" 
+                                   placeholder="DD-MM-YYYY" format="dd-MM-yyyy">
+                              </datepicker>
+                         </Field>
+                         <ErrorMessage name="sowingDate" class="error-feedback" />
+                    </div>
+
+               </div>
+               <div class="col-sm-6">
+                    <div class="form-group">
+                         <label for="name" class="mt-3">Tên mùa vụ <span style="color: red">*</span></label>
                          <Field name="name" class="form-control" v-model="newricecrop.RiceCropInformation_name"
                               placeholder="Tên mùa vụ..." />
                          <ErrorMessage name="name" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
-                         <label for="arableLand" class="pt-3">Mẫu ruộng <span style="color:red">*</span></label>
-                         <Field name="arableLand" class="form-control" v-model="newricecrop.ArableLand_id"
-                              placeholder="Nhập vị trí mẫu ruộng...">
-                              <select class="form-control" v-model="newricecrop.ArableLand_id" name="arableLand"
-                                   for="arableLand" >
-                                   <option v-for="(arableLand, i) in arableLandList" :key="i">{{ arableLand.ArableLand_id }}
-                                   </option>
-                              </select>
-                         </Field>
-                         <ErrorMessage name="arableLand" class="error-feedback" />
-                    </div>
-               </div>
-
-               <div class="col-sm-3">
-                    <div class="form-group">
-                         <label for="sowingDate" class="pt-1">Ngày gieo xạ</label><br>
-                         <Field name="sowingDate" class="form-control " v-if="!selectdate"
-                              v-model="newricecrop.RiceCropInformation_sowingDate" placeholder="Ngày sinh"
-                              @click="selectdate = !selectdate">
-                              <datepicker :enable-time-picker="false"
-                                   :value="newricecrop.RiceCropInformation_sowingDate" :hide-input-icon="true"
-                                   :hide-navigation="true" placeholder=""
-                                   v-model="newricecrop.RiceCropInformation_sowingDate" :clearable="false" >
-                              </datepicker>
-                         </Field>
-
-
-                         <ErrorMessage name="sowingDate" class="error-feedback" />
-                    </div>
-
-                    <div class="form-group">
-                         <label for="crop" class="pt-3">Vụ mùa <span style="color:red">*</span></label>
+                         <label for="crop" class="mt-3">Vụ mùa <span style="color: red">*</span></label>
                          <Field name="crop" class="form-control" v-model="newricecrop.Crop_name" placeholder="Vụ mùa">
                               <select class="form-control" v-model="newricecrop.Crop_name" name="soil" for="soil">
                                    <option>Đông Xuân</option>
@@ -70,45 +74,45 @@
                          </Field>
                          <ErrorMessage name="crop" class="error-feedback" />
                     </div>
-               </div>
-
-               <div class="col-sm-3">
-                    <div class="form-group">
-                         <label for="harvestDate" class="pt-1">Ngày thu hoạch</label>
-                         <Field name="harvestDate" class="form-control" v-model="newricecrop.RiceCropInformation_harvestDate"
-                              placeholder="Ngày sinh">
-                              <datepicker :enable-time-picker="false" :value="newricecrop.RiceCropInformation_harvestDate"
-                                   :hide-input-icon="true" v-model="newricecrop.RiceCropInformation_harvestDate"
-                                   placeholder="DD-MM-YYYY" :clearable="false" format="dd-MM-yyyy" >
-                              </datepicker>
-                         </Field>
-                         <ErrorMessage name="harvestDate" class="error-feedback" />
-                    </div>
 
                     <div class="form-group">
-                         <label for="yield" class="pt-3">Năng suất</label>
+                         <label for="yield" class="mt-1">Năng suất</label>
                          <Field name="yield" class="form-control" v-model="newricecrop.RiceCropInformation_yield"
                               placeholder="Năng suất..." />
                          <ErrorMessage name="yield" class="error-feedback" />
                     </div>
+
+                    <div class="form-group">
+                         <label for="harvestDate" class="mt-3">Ngày thu hoạch</label>
+                         <Field name="harvestDate" class="form-control" v-model="newricecrop.RiceCropInformation_harvestDate"
+                              placeholder="">
+                              <datepicker :enable-time-picker="false" :value="newricecrop.RiceCropInformation_harvestDate"
+                                   :input-class-name="myclass" :hide-input-icon="true"
+                                   v-model="newricecrop.RiceCropInformation_harvestDate" placeholder="DD-MM-YYYY" :clearable="false" 
+                                   format="dd-MM-yyyy" style="background-color: red !important; ">
+                              </datepicker>
+                         </Field>
+                         <ErrorMessage name="harvestDate" class="error-feedback" />
+                    </div>
                </div>
           </div>
 
-          <div class="row">
-               <div class="col-sm-10 text-center">
+          <div class="row ">
+               <div class="col-sm-12 mt-2 mb-3 text-center">
                     <span v-if="message2 == 'Cập nhật thành công.'" class="fas fa-check-circle"
                          style="color:#00BA13; text-align: center; display: inline;"></span>
                     <span v-if="message1 == 'Cập nhật không thành công.'" class="fas fa-times-circle"
                          style="color:red; text-align: center; display: inline;"></span>
-                    <span v-if="message2 == 'Cập nhật thành công.'" class="textMessage2" style="color:black;">
-                         {{ message2 }}</span>
-                    <span v-if="message1 == 'Cập nhật không thành công.'" class="textMessage1 "> {{ message1 }} Một
-                         mùa vụ đang được theo dõi hoặc vừa được khởi tạo trên mẫu ruộng.
+                    <span v-if="message2 == 'Cập nhật thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;">
+                         Cập nhật mùa vụ thành công</span>
+                    <span v-if="message1 == 'Cập nhật không thành công.'" class="textMessage1 pt-2 pb-2">Cập nhật mùa vụ không thành công. Một mùa
+                         vụ đang được theo dõi hoặc vừa được khởi tạo trên mẫu ruộng.
                     </span>
                </div>
-
-               <div class="col-sm-2 text-right">
-                    <button class="btn btn-outline-secondary btnLuu">Cập nhật</button>
+          </div>
+          <div class="row mb-4">
+               <div class="col-sm-12 text-center">
+                    <button class="btn btn-outline-secondary btnLuu">Lưu</button>
                </div>
           </div>
 

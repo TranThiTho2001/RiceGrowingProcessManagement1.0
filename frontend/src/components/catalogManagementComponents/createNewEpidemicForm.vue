@@ -30,10 +30,10 @@
                     </div>
 
                     <div class="form-group ">
-                         <label for="environment" class="mt-4 pt-2">Môi trường phát triển <span style="color: red">*</span></label>
-                         <Field name="environment" class="form-control"
-                              v-model="newepidemic.Epidemic_developmentEnvironment" as="textarea" style="height: 120px;"
-                              placeholder="Nhập môi trường phát triển..." />
+                         <label for="environment" class="mt-4 pt-2">Môi trường phát triển <span
+                                   style="color: red">*</span></label>
+                         <Field name="environment" class="form-control" v-model="newepidemic.Epidemic_developmentEnvironment"
+                              as="textarea" style="height: 120px;" placeholder="Nhập môi trường phát triển..." />
                          <ErrorMessage name="environment" class="error-feedback" />
                     </div>
                </div>
@@ -49,13 +49,14 @@
                     <div class="form-group">
                          <label for="classtify" class="mt-3">Phân loại <span style="color: red">*</span></label>
                          <Field name="classtify" v-model="newepidemic.EpidemicsClassification_name">
-                              <select class="form-control" v-model="newepidemic.EpidemicsClassification_name" name="classtify" for="classtify">
-                                   <option  for="classtify">Côn trùng</option>
+                              <select class="form-control" v-model="newepidemic.EpidemicsClassification_name"
+                                   name="classtify" for="classtify">
+                                   <option for="classtify">Côn trùng</option>
                                    <option>Dịch bệnh</option>
-                                   <option >Nấm hại</option>
-                                   <option >Sâu bệnh</option>
+                                   <option>Nấm hại</option>
+                                   <option>Sâu bệnh</option>
                               </select>
-                        </Field>
+                         </Field>
                          <ErrorMessage name="classtify" class="error-feedback" />
                     </div>
 
@@ -77,18 +78,18 @@
                          style="color:red; text-align: center; display: inline;"></span>
                     <span v-if="message2 == 'Thêm thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;">
                          Thêm dịch bệnh mới thành công</span>
-                    <span v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2"> Thêm dịch bệnh mới không thành công
+                    <span v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2"> Thêm dịch bệnh mới
+                         không thành công
                     </span>
                </div>
           </div>
           <div class="row mb-4">
-               <div class="col-sm-5"></div>
-               <button class="btn btn-outline-secondary btnLuu col-sm-2">Lưu</button>
-               <div class="col-sm-5"></div>
+               <div class="col-sm-12 text-center">
+                    <button class="btn btn-outline-secondary btnLuu">Lưu</button>
+               </div>
           </div>
 
      </form>
-
 </template>
  
 <script>
@@ -135,7 +136,7 @@ export default {
      },
 
      methods: {
-     
+
      }
 };
 </script>

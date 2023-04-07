@@ -3,18 +3,18 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
   <div class="container-fluid loginFrame">
     <div class="row background" style="position: fixed; width: 100%; z-index: -10;"> <!-- background-->
-      <div class="col-sm-6 leftForm">
+      <div class="leftForm">
       </div>
-      <div class="col-sm-6 rightForm">
+      <div class="rightForm">
       </div>
     </div>
     <div class="form-center">
       <div class="form-login">
-        <img src="../images/Rice3.png" class="famerImage">
+        <img src="../images/Rice3.png" class="img-fluid famerImage ">
         <div class="row" style="height: 100%;">
-          <div class="col-sm-6 iconFamer"> </div>
-          <div class="col-sm-6 content ">
-            <Form @submit="signin()" :validation-schema="schema" v-slot="{ isSubmitting }" class="form container-fluid mt-5">
+          <div class="iconFamer"> </div>
+          <div class="content_loginForm ">
+            <Form @submit="signin()" :validation-schema="schema" v-slot="{ isSubmitting }" class="container-fluid mt-5">
               <h1 class="title" style="text-align: center; margin-bottom: 10%;">ĐĂNG NHẬP</h1>
               <div class="form-group text-left ml-2" style="width: 97%;">
                 <label for="username" class="labelTitle">Tên tài khoản</label>
@@ -24,10 +24,10 @@
 
               </div>
 
-              <div class="form-group text-left ml-4 pr-3" style="margin-top:10%">
+              <div class="form-group text-left ml-4 pr-2" style="margin-top:10%">
                 <label for="password" class="labelTitle" style="margin-left: -10px;">Mật khẩu</label>
                 <div class="row passField">
-                  <Field v-if="!isOpenPassword" name="password" type="password" class=" form-control "
+                  <Field v-if="!isOpenPassword" name="password" type="password" class="form-control "
                     placeholder="Nhập mật khẩu" v-model="employee.Employee_password" />
                   <Field v-if="employee.Employee_password == '' & isOpenPassword" name="password" type="text"
                     class="form-control " placeholder="Nhập mật khẩu" v-model="employee.Employee_password" />
@@ -36,7 +36,7 @@
                     class="form-control " placeholder="{{employee.Employee_password}}"
                     v-model="employee.Employee_password" />
 
-                  <span v-if="!isOpenPassword" class="btn far fa-eye btnHienMatKhau "
+                  <span v-if="!isOpenPassword" class="btn far fa-eye btnHienMatKhau"
                     @click="isOpenPassword = !isOpenPassword"></span>
                   <span v-else class="btn far fa-eye-slash btnAnMatKhau "
                     @click="isOpenPassword = !isOpenPassword"></span>
@@ -46,19 +46,22 @@
               </div>
 
 
-              <div class="row text-center ml-3" v-if="message" style=" color: red; text-align: center; font-size: 17px; margin-top: 4%;">
+              <div class="row text-center ml-3" v-if="message"
+                style=" color: red; text-align: center; font-size: 17px; margin-top: 4%;">
                 {{ message }}
               </div>
 
-              <div class="form-group mt-2 btn-login ">
-                <button class="btn btnDangNhap" :disabled="isSubmitting"
-                  :class="{ 'submitting': isSubmitting }">
-                  <span v-show="loading" class="spinner-border spinner-border-sm"></span>
-                  <span>Đăng Nhập</span>
-                </button>
+              <div class="row ml-2 mb-5" style="width: 100%;">
+                <div class="col-lg-12 text-center mt-4">
+                  <button class="btn btnDangNhap" :disabled="isSubmitting" :class="{ 'submitting': isSubmitting }">
+                    <span v-show="loading" class="spinner-border spinner-border-sm"></span>
+                    <span>Đăng Nhập</span>
+                  </button>
+                </div>
+
               </div>
             </Form>
-            <img src="../images/Rice4.png" class="studentImage">
+            <img src="../images/Rice4.png" class="img-fluid studentImage">
           </div>
         </div>
       </div>
@@ -126,7 +129,7 @@ export default {
       }
     },
 
-    async prediction(){
+    async prediction() {
 
       const [err, respone] = await this.handle(
         predictionService.create("RCI0000001")
@@ -157,7 +160,7 @@ export default {
       }
     },
 
-    
+
 
 
   },

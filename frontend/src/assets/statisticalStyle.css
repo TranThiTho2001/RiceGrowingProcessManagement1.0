@@ -126,7 +126,7 @@
 
 .scrollChoose {
     height: 128px;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

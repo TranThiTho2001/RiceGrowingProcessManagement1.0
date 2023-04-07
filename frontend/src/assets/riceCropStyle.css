@@ -10,11 +10,17 @@
     height: max-content;
 }
 
-.updateRiceCropForm {
+.riceCropDetail .updateRiceCropForm {
+    background-color: #dbdbdb;
+    border: 0.5px solid #b8b5b5;
     font-family: Inter;
     border-radius: 10px;
-    left: 10%;
-    width: 100%;
+    position: absolute;
+    top: calc(25%);
+    left: 8%;
+    width: 80%;
+    height: max-content;
+    z-index: 4;
 }
 
 .calendaer {
@@ -34,8 +40,12 @@
 
 
 .riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .riceCropList {
-    height: 270px;
+    height: 540px;
     margin-bottom: 2px;
+    overflow: auto;
+    max-width: 100%;
+    margin-left: 20px;
+    margin-right: 2px;
 }
 
 

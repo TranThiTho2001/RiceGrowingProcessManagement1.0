@@ -38,8 +38,7 @@
 
           </div>
           <div class="row">
-               <div class="col-sm-2"></div>
-               <div class="col-sm-8 mt-2 mb-3 text-center">
+               <div class="col-sm-12 mt-2 mb-3 text-center">
                     <span v-if="message2 == 'Thêm thành công.'" class="fas fa-check-circle"
                          style="color:#00BA13; text-align: center; display: inline;"></span>
                     <span v-if="message1 == 'Thêm không thành công.'" class="fas fa-times-circle"
@@ -50,7 +49,6 @@
                          vụ đang được theo dõi hoặc vừa được khởi tạo trên mẫu ruộng.
                     </span>
                </div>
-               <div class="col-sm-2"></div>
           </div>
           <div class="row mb-4" v-if="url!=''">
                <div class="col-sm-5"></div>

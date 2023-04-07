@@ -1,5 +1,5 @@
 <template>
-     <div style="height: 260px; min-width: 203px;">
+     <div style="height: 260px; min-width: 197px;">
           <router-link class="linktoRiceCropInfor container-fuild"
                :to="{ name: 'RiceCropDetail', params: { id: riceCrop.RiceCropInformation_id } }">
                <div class="riceCropComponent text-dark border">
@@ -78,19 +78,18 @@ export default {
 
 
 .riceCropComponent {
-     margin-right: 10%;
+     /* margin-right: 10%; */
      margin-top: 2%;
      -moz-border-radius: 2px;
      -webkit-border-radius: 2px;
      -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
      -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
      border-radius: 10px;
-     width: 203px;
+     width: 197px;
      text-align: left;
      background-color: #FAFAFC;
      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
-
-
+     position: relative;
 }
 
 .riceCropComponent:hover {

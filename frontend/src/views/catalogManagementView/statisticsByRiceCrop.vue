@@ -928,9 +928,6 @@ export default {
 @import url(../../assets/statisticalStyle.css);
 @import url(../../assets/mainStyle.css);
 
-.statisticsByArabeLand {}
-
-
 .arablename {
      background-color: none;
      cursor: pointer;

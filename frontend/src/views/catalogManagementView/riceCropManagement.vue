@@ -43,15 +43,15 @@
                               </div>
                          </div>
                     </div>
-                    <div class="row mr-1 ml-4 mt-5  pt-2">
+                    <div class="row mr-1 ml-4 mt-5 mb-4 pt-2">
                          <div class="col-sm-10"></div>
                          <div class="col-sm-2 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
                                         style="font-size: 15px;"></i> Thêm Mùa Vụ</button>
                          </div>
                     </div>
-                    <div class=" row riceCropList ml-4 mr-4 pr-2 mt-1 text-left" v-if="riceCropListByMonitoring.length > 0">
-                         <carousel v-if="riceCropListByMonitoring.length > getWidth()" :settings="settings"
+                    <!-- <div class=" row riceCropList ml-4 mr-4 pr-2 mt-1 text-left" v-if="riceCropListByMonitoring.length > 0"> -->
+                         <!-- <carousel v-if="riceCropListByMonitoring.length > getWidth()" :settings="settings"
                               :breakpoints="breakpoints" style="width:100%" :autoplay="2000" :wrap-around="true">
                               <slide v-for="(riceCrop, i) in riceCropListByMonitoring" :key="i">
                                    <div class="carousel__item">
@@ -70,12 +70,15 @@
                                    </div>
                               </slide>
                               <template #addons>
-                                   <!-- <navigation v-if="riceCropListByMonitoring.length > getWidth()" /> -->
+                                   <navigation v-if="riceCropListByMonitoring.length > getWidth()" /> 
                               </template>
-                         </carousel>
-                    </div>
-                    <div class="row riceCropList pt-1 ml-4 mr-4 pr-1 text-left">
-                         <carousel v-if="riceCropListByFinish.length > getWidth" :settings="settings"
+                         </carousel> -->
+                    <!-- </div> -->
+                    <div class="row riceCropList text-left">
+                         <div v-for="(riceCrop, i) in riceCropList" :key="i" style="display: inline-block; margin-right: 13px; margin-bottom: 7px;">
+                              <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
+                         </div>
+                         <!-- <carousel v-if="riceCropListByFinish.length > getWidth" :settings="settings"
                               :breakpoints="breakpoints" style="width:100%" :autoplay="2000" :wrap-around="true">
                               <div class="carousel__item">
                               <slide v-for="(riceCrop, i) in riceCropListByFinish" :key="i">
@@ -94,7 +97,7 @@
                               <template #addons>
                                    <navigation v-if="riceCropListByFinish.length > getWidth" />
                               </template>
-                         </carousel>
+                         </carousel> -->
                     </div>
 
                     <div class="confirmationDialog" v-if="isOpenConfirm">
@@ -161,7 +164,7 @@ import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import RiceCropComponent from '@/components/catalogManagementComponents/riceCropComponent.vue';
 import ImagesService from '@/services/images.service';
 import 'vue3-carousel/dist/carousel.css'
-import { Carousel, Slide, Navigation } from 'vue3-carousel';
+// import { Carousel, Slide, Navigation } from 'vue3-carousel';
 // import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
 
 class RiceCrop {
@@ -180,9 +183,9 @@ export default {
           CreateSprayingTimesForm,
           TopHeader,
           RiceCropComponent,
-          Carousel,
-          Slide,
-          Navigation,
+          // Carousel,
+          // Slide,
+          // Navigation,
      },
 
      data() {

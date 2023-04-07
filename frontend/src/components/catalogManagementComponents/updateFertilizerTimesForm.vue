@@ -9,7 +9,8 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Cập nhật lần bón phân
+               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Cập nhật lần bón
+                    phân
                </p>
           </div>
           <div class="row content">
@@ -135,8 +136,7 @@
           </div>
 
           <div class="row ">
-               <div class="col-sm-2"></div>
-               <div class="col-sm-8 mt-2 mb-3 text-center">
+               <div class="col-sm-12 mt-2 mb-3 text-center">
                     <span v-if="message2 == 'Cập nhật thành công.'" class="fas fa-check-circle"
                          style="color:#00BA13; text-align: center; display: inline;"></span>
                     <span v-if="message1 == 'Cập nhật không thành công.'" class="fas fa-times-circle"
@@ -146,12 +146,11 @@
                     <span v-if="message1 == 'Cập nhật không thành công.'" class="textMessage1 pt-2 pb-2"> {{ message1 }}
                     </span>
                </div>
-               <div class="col-sm-2"></div>
           </div>
           <div class="row mb-4">
-               <div class="col-sm-5"></div>
-               <button class="btn btn-outline-secondary btnLuu col-sm-2">Lưu</button>
-               <div class="col-sm-5"></div>
+               <div class="col-sm-12 text-center">
+                    <button class="btn btn-outline-secondary btnLuu col-sm-2">Lưu</button>
+               </div>
           </div>
 
      </form>

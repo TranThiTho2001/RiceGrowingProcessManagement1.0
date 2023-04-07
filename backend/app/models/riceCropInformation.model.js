@@ -99,8 +99,8 @@ RiceCropInformation.findByArableLand = (name,id, result) => {
 
 RiceCropInformation.updateById = (id, riceCropInformation, result) => {
      sql.query(
-          "UPDATE RiceCropInformation SET Seed_id = ?, RiceCropInformation_name = ?, RiceCropInformation_sowingDate = ?, RiceCropInformation_harvestDate = ?, RiceCropInformation_yield = ?, ArableLand_id = ? WHERE RiceCropInformation_id = ?",
-          [riceCropInformation.Seed_id, riceCropInformation.RiceCropInformation_name, riceCropInformation.RiceCropInformation_sowingDate, riceCropInformation.RiceCropInformation_harvestDate, riceCropInformation.RiceCropInformation_yield, riceCropInformation.ArableLand_id, id],
+          "UPDATE RiceCropInformation SET Seed_id = ?, RiceCropInformation_name = ?, RiceCropInformation_sowingDate = ?, RiceCropInformation_harvestDate = ?, RiceCropInformation_yield = ?, ArableLand_id = ?, Crop_id = ? WHERE RiceCropInformation_id = ?",
+          [riceCropInformation.Seed_id, riceCropInformation.RiceCropInformation_name, riceCropInformation.RiceCropInformation_sowingDate, riceCropInformation.RiceCropInformation_harvestDate, riceCropInformation.RiceCropInformation_yield, riceCropInformation.ArableLand_id, riceCropInformation.Crop_id, id],
           (err, res) => {
                if (err) {
                     console.log("error: ", err);

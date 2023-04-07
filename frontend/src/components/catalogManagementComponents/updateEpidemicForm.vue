@@ -30,10 +30,10 @@
                     </div>
 
                     <div class="form-group ">
-                         <label for="environment" class="mt-4 pt-2">Môi trường phát triển <span style="color: red">*</span></label>
-                         <Field name="environment" class="form-control"
-                              v-model="newepidemic.Epidemic_developmentEnvironment" as="textarea" style="height: 120px;"
-                              placeholder="Nhập môi trường phát triển..." />
+                         <label for="environment" class="mt-4 pt-2">Môi trường phát triển <span
+                                   style="color: red">*</span></label>
+                         <Field name="environment" class="form-control" v-model="newepidemic.Epidemic_developmentEnvironment"
+                              as="textarea" style="height: 120px;" placeholder="Nhập môi trường phát triển..." />
                          <ErrorMessage name="environment" class="error-feedback" />
                     </div>
                </div>
@@ -49,11 +49,13 @@
                     <div class="form-group">
                          <label for="classtify" class="mt-3">Phân loại <span style="color: red">*</span></label>
                          <Field name="classtify" v-model="newepidemic.EpidemicsClassification_name">
-                              <select class="form-control" v-model="newepidemic.EpidemicsClassification_name" name="classtify" for="classtify">
-                                   <option for="classtify" v-for="(epidemicClasss,i) in (epidemicsClassificationList)" :key="i">{{ epidemicClasss.EpidemicsClassification_name }}</option>
+                              <select class="form-control" v-model="newepidemic.EpidemicsClassification_name"
+                                   name="classtify" for="classtify">
+                                   <option for="classtify" v-for="(epidemicClasss, i) in (epidemicsClassificationList)"
+                                        :key="i">{{ epidemicClasss.EpidemicsClassification_name }}</option>
 
                               </select>
-                        </Field>
+                         </Field>
                          <ErrorMessage name="classtify" class="error-feedback" />
                     </div>
 
@@ -68,8 +70,7 @@
           </div>
 
           <div class="row ">
-               <div class="col-sm-2"></div>
-               <div class="col-sm-8 mt-2 mb-3 text-center">
+               <div class="col-sm-12 mt-2 mb-3 text-center">
                     <span v-if="message2 == 'Cập nhật thành công.'" class="fas fa-check-circle"
                          style="color:#00BA13; text-align: center; display: inline;"></span>
                     <span v-if="message1 == 'Cập nhật không thành công.'" class="fas fa-times-circle"
@@ -79,16 +80,14 @@
                     <span v-if="message1 == 'Cập nhật không thành công.'" class="textMessage1 pt-2 pb-2"> {{ message1 }}
                     </span>
                </div>
-               <div class="col-sm-2"></div>
           </div>
           <div class="row mb-4">
-               <div class="col-sm-5"></div>
-               <button class="btn btn-outline-secondary btnLuu col-sm-2">Cập Nhật</button>
-               <div class="col-sm-5"></div>
+               <div class="col-sm-12 text-center">
+                    <button class="btn btn-outline-secondary btnLuu col-sm-2">Cập Nhật</button>
+               </div>
           </div>
 
      </form>
-
 </template>
  
 <script>
@@ -135,7 +134,7 @@ export default {
      },
 
      methods: {
-     
+
      }
 };
 </script>
