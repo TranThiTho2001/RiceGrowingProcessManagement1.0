@@ -64,7 +64,7 @@ ActivityDetails.getAll = (riceCropInformation_id, result) => {
      });
 };
 
-ActivityDetails.findByName = (name, riceCropInformation_id, result) => {
+ActivityDetails.findbyIdRiceCropInformation = (name, riceCropInformation_id, result) => {
      let query = "SELECT * FROM ActivityDetails JOIN otheractivities on otheractivities.OtherActivities_id=ActivityDetails.OtherActivities_id"
      + " JOIN Employee on Employee.Employee_id = ActivityDetails.Employee_id"
      + ` JOIN DevelopmentStage on DevelopmentStage.DevelopmentStage_id = ActivityDetails.DevelopmentStage_id ` 
@@ -80,6 +80,8 @@ ActivityDetails.findByName = (name, riceCropInformation_id, result) => {
      });
 };
 
+
+
 ActivityDetails.findById= (id, result) => {
      let query = "SELECT * FROM ActivityDetails JOIN otheractivities on otheractivities.OtherActivities_id=ActivityDetails.OtherActivities_id"
      + " JOIN Employee on Employee.Employee_id = ActivityDetails.Employee_id"
@@ -92,6 +94,23 @@ ActivityDetails.findById= (id, result) => {
                result(null, err);
                return;
           }
+          result(null, res);
+     });
+};
+
+ActivityDetails.findByName= (name, result) => {
+     let query = "SELECT * FROM ActivityDetails JOIN otheractivities on otheractivities.OtherActivities_id=ActivityDetails.OtherActivities_id"
+     + " JOIN Employee on Employee.Employee_id = ActivityDetails.Employee_id"
+     + ` JOIN DevelopmentStage on DevelopmentStage.DevelopmentStage_id = ActivityDetails.DevelopmentStage_id ` 
+     + ` WHERE otheractivities.OtherActivities_name like'%${name}%' ORDER BY ActivityDetails_times`;
+
+     sql.query(query, (err, res) => {
+          if (err) {
+               console.log("error: ", err);
+               result(null, err);
+               return;
+          }
+          console.log(res)
           result(null, res);
      });
 };

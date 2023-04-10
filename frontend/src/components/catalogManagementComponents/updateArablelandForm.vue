@@ -140,7 +140,7 @@ export default {
                     .required("Chủ sở hữu mẫu ruộng phải có giá trị"),
                soil: yup
                     .string()
-                    .required("Loại đát phải có giá trị"),
+                    .required("Loại đất phải có giá trị"),
                latitude: yup
                     .string()
                     .required("Vĩ độ của mẫu ruộng phải có giá trị"),

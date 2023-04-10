@@ -14,9 +14,6 @@
     position: relative;
  }
 
-.fertilizerManagement .fertilizerManagementFrame .rightFertilizerManagement{
-    border-left: #bdf487 0.5px solid;
-}
 
 .fertilizerManagement  .navigationBar .btnFertilizer {
     display: block;
@@ -56,9 +53,4 @@ font-style: normal;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-.fertilizerManagement table tbody tr td{
-    text-align: justify;
-    vertical-align: top !important;
 }

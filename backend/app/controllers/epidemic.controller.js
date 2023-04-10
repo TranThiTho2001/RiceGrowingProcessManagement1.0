@@ -11,7 +11,7 @@ exports.store = async (req, res) => {
         Epidemic_timeOfDevelopment: req.body.Epidemic_timeOfDevelopment,
         Epidemic_developmentEnvironment: req.body.Epidemic_developmentEnvironment,
         Epidemic_Harm: req.body.Epidemic_Harm,
-        EpidemicsClassification_id: req.body.EpidemicsClassification_id
+        EpidemicClassification_id: req.body.EpidemicClassification_id
      });
     // Save Epidemic in the database
     Epidemic.create(epidemic, (err, data) => {

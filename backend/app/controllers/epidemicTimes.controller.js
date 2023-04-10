@@ -14,7 +14,9 @@ exports.store = async (req, res) => {
           EpidemicTimes_endDate: req.body.EpidemicTimes_endDate,
           EpidemicTimes_temperature: req.body.EpidemicTimes_temperature,
           EpidemicTimes_humidity: req.body.EpidemicTimes_humidity,
-          EpidemicTimes_precipitation: req.body.EpidemicTimes_precipitation
+          EpidemicTimes_precipitation: req.body.EpidemicTimes_precipitation,
+          EpidemicTimes_solarRadiation: req.body.EpidemicTimes_solarRadiation,
+          EpidemicTimes_windSpeed: req.body.EpidemicTimes_windSpeed
      });
      // Save EpidemicTimes in the database
      EpidemicTimes .create(epidemicTimes, (err, data) => {

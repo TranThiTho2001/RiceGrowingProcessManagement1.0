@@ -56,9 +56,9 @@ export default {
                );
                if (error) {
                     console.log(error);
-                    this.message = "Xóa hoạt động không thành công";
+                    this.message = "Xóa hình ảnh không thành công";
                } else {
-                    this.message = "Xóa hoạt động thành công";
+                    this.message = "Xóa hình ảnh thành công";
                     console.log(response.data)
                     this.$emit('clicked-something')
                }

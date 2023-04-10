@@ -1,25 +1,25 @@
-const EpidemicsClassification = require("../models/epidemicsClassification.model");
+const EpidemicClassification = require("../models/epidemicClassification.model");
 const config = require("../config");
 
 // Create and Save 
 exports.store = async (req, res) => {
     // Create 
-    const epidemicsClassification = new EpidemicsClassification({
-        EpidemicsClassification_id: req.body.EpidemicsClassification_id,
-        EpidemicsClassification_name: req.body.EpidemicsClassification_name,
+    const epidemicsClassification = new EpidemicClassification({
+        EpidemicClassification_id: req.body.EpidemicClassification_id,
+        EpidemicClassification_name: req.body.EpidemicClassification_name,
     });
-    // Save EpidemicsClassification in the database
-    EpidemicsClassification.create(epidemicsClassification, (err, data) => {
+    // Save EpidemicClassification in the database
+    EpidemicClassification.create(epidemicsClassification, (err, data) => {
         if (err)
             res.send("Không thể tạo một loại dịch bệnh mới")
         else res.send(data);
     });
 };
 
-// Retrieve all EpidemicsClassification from the database (with condition).
+// Retrieve all EpidemicClassification from the database (with condition).
 exports.findAll = async (req, res) => {
     const name = req.query.name;
-    EpidemicsClassification.getAll(name, (err, data) => {
+    EpidemicClassification.getAll(name, (err, data) => {
         if (err)
             res.send("Lỗi trong quá trình tìm kiếm")
         else res.send(data);
@@ -28,7 +28,7 @@ exports.findAll = async (req, res) => {
 
 exports.find = async (req, res) => {
     const id = req.params.id;
-    EpidemicsClassification.findById(id, (err, data) => {
+    EpidemicClassification.findById(id, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
                 res.send("Không tìm thấy loại dịch bệnh")

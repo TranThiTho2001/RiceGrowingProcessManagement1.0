@@ -52,9 +52,8 @@ exports.findbyIdRiceCropInformation = async (req, res) => {
 };
 
 exports.findbyName = async (req, res) => {
-     const  name = req.query.name;
-     const  id = req.params.RiceCropInformation_id;
-     ActivityDetails.findByName(name,id, (err, data) => {
+     const OtherActivities_name = req.params.OtherActivities_name;
+     ActivityDetails.findByName(OtherActivities_name, (err, data) => {
           if (err) {
                if (err.kind === "not_found") {
                     res.send("Không tìm thấy chi tiết hoạt động.")
@@ -64,6 +63,35 @@ exports.findbyName = async (req, res) => {
           } else res.send(data)
      })
 };
+
+
+exports.findbyNameAndIdRiceCrop = async (req, res) => {
+     const  name = req.query.name;
+     const  id = req.params.RiceCropInformation_id;
+     ActivityDetails.findbyNameAndIdRiceCrop(name,id, (err, data) => {
+          if (err) {
+               if (err.kind === "not_found") {
+                    res.send("Không tìm thấy chi tiết hoạt động.")
+               } else {
+                    res.send("Lỗi trong quá trình tìm kiếm. Vui lòng thử lại sau!!!!")
+               }
+          } else res.send(data)
+     })
+};
+
+// exports.findbyName = async (req, res) => {
+//      const  name = req.query.name;
+//      const  id = req.params.RiceCropInformation_id;
+//      ActivityDetails.findByName(name,id, (err, data) => {
+//           if (err) {
+//                if (err.kind === "not_found") {
+//                     res.send("Không tìm thấy chi tiết hoạt động.")
+//                } else {
+//                     res.send("Lỗi trong quá trình tìm kiếm. Vui lòng thử lại sau!!!!")
+//                }
+//           } else res.send(data)
+//      })
+// };
 
 exports.findbyId = async (req, res) => {
      const  id = req.params.OtherActivities_id;

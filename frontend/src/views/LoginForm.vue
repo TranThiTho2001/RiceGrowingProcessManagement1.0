@@ -18,14 +18,14 @@
               <h1 class="title" style="text-align: center; margin-bottom: 10%;">ĐĂNG NHẬP</h1>
               <div class="form-group text-left ml-2" style="width: 97%;">
                 <label for="username" class="labelTitle">Tên tài khoản</label>
-                <Field name="username" type="text" class="form-control" placeholder="Nhập tên tài khoản đăng nhập"
+                <Field name="username" type="text" class="form-control" placeholder="Nhập tên tài khoản"
                   v-model="employee.Employee_id" />
                 <ErrorMessage name="username" class="error-feedback" />
 
               </div>
 
               <div class="form-group text-left ml-4 pr-2" style="margin-top:10%">
-                <label for="password" class="labelTitle" style="margin-left: -10px;">Mật khẩu</label>
+                <label for="password" class="labelTitle" style="margin-left: 7%;">Mật khẩu</label>
                 <div class="row passField">
                   <Field v-if="!isOpenPassword" name="password" type="password" class="form-control "
                     placeholder="Nhập mật khẩu" v-model="employee.Employee_password" />
@@ -36,12 +36,12 @@
                     class="form-control " placeholder="{{employee.Employee_password}}"
                     v-model="employee.Employee_password" />
 
-                  <span v-if="!isOpenPassword" class="btn far fa-eye btnHienMatKhau"
+                  <span v-if="!isOpenPassword" class="btn far fa-eye btnShowPassword"
                     @click="isOpenPassword = !isOpenPassword"></span>
-                  <span v-else class="btn far fa-eye-slash btnAnMatKhau "
+                  <span v-else class="btn far fa-eye-slash btnHidePassword "
                     @click="isOpenPassword = !isOpenPassword"></span>
+                    
                 </div>
-
                 <ErrorMessage name="password" class="error-feedback mt-1 mb-2" />
               </div>
 
@@ -53,7 +53,7 @@
 
               <div class="row ml-2 mb-5" style="width: 100%;">
                 <div class="col-lg-12 text-center mt-4">
-                  <button class="btn btnDangNhap" :disabled="isSubmitting" :class="{ 'submitting': isSubmitting }">
+                  <button class="btn btnLogin" :disabled="isSubmitting" :class="{ 'submitting': isSubmitting }">
                     <span v-show="loading" class="spinner-border spinner-border-sm"></span>
                     <span>Đăng Nhập</span>
                   </button>
@@ -87,7 +87,7 @@ export default {
   data() {
     const schema = yup.object().shape({
       username: yup.string().required("Tên tài khoản phải có giá trị."),
-      password: yup.string().required("Mật khẩu phải có giá trị."),
+      // password: yup.string().required("Mật khẩu phải có giá trị."),
     });
     return {
       employee: {},
@@ -167,8 +167,6 @@ export default {
   mounted() {
     this.employee.Employee_password = '';
     this.initEmployeeState();
-    // this.retrieveEmployee();
-    // this.getAPI();
   },
 }
 </script>

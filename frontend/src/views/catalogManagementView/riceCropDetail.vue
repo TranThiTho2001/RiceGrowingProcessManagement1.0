@@ -8,9 +8,9 @@
                <div class="left" :class="{ navbarresponsive: openMenu.openMenu }">
                     <Catalog />
                </div>
-               <div class="rightRiceCropDetail right">
+               <div class=" right rightRiceCropDetail">
                     <div class="" :class="{ active: stylebac.active, noneactive: stylebac.none }">
-                         <div class="row pt-3 mb-5 pb-1 topRight" style="margin-left: 20px; margin-right: 18px;">
+                         <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 30px; margin-right: 10px;">
                               <div class="nameclass" style="min-height:60px; width: max-content;">
                                    <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Theo dõi mùa vụ</h3>
                               </div>
@@ -25,7 +25,7 @@
                               :arableLandList="arableLandList" @updateRiceCrop-submit="updateRiceCrop" :message1="message1"
                               :message2="message2" />
                     </div> -->
-                         <div class="row ml-2 mr-1">
+                         <div class="row" style=" z-index: 4; margin-top:100px; margin-left :20px; width: 98%;">
                               <div class="riceCropInfor">
                                    <div class="row row-riceCropInfor ml-1 mr-2">
                                         <div class="col-md-6 title">Mã: <span class="infor"> {{
@@ -1048,7 +1048,7 @@ export default {
 
           async retrieveActivitiesDetail() {
                const [err, respone] = await this.handle(
-                    ActivityDetailsService.findByName(this.newRiceCrop.RiceCropInformation_id)
+                    ActivityDetailsService.findByIdRiceCrop(this.newRiceCrop.RiceCropInformation_id)
                );
                if (err) {
                     console.log(err)
@@ -1345,11 +1345,11 @@ export default {
                );
                if (error) {
                     console.log(error);
-                    this.message = "Xóa không thành công."
+                    this.message = "Xóa lần bón phân không thành công"
                } else if (respone.data == "Lỗi trong quá trình lần bón phân!!") {
-                    this.message = "Xóa không thành công."
+                    this.message = "Xóa lần bón phân không thành công"
                } else {
-                    this.message = "Đã xóa thành công.";
+                    this.message = "Xóa lần bón phân thành công";
 
                }
                this.delete = "";
@@ -1512,11 +1512,11 @@ export default {
                );
                if (error) {
                     console.log(error);
-                    this.message = "Xóa không thành công."
+                    this.message = "Xóa lần phun thuốc không thành công."
                } else if (respone.data == "Lỗi trong quá trình xóa lần phun thuốc!!") {
-                    this.message = "Xóa không thành công."
+                    this.message = "Xóa lần phun thuốc không thành công."
                } else {
-                    this.message = "Xóa thành công.";
+                    this.message = "Xóa lần phun thuốc thành công.";
                     this.retrieveSprayingTimesList();
                }
                this.delete = "";
@@ -1658,11 +1658,11 @@ export default {
                );
                if (error) {
                     console.log(error);
-                    this.message = "Xóa không thành công."
+                    this.message = "Xóa lần bị bệnh dịch không thành công"
                } else if (respone.data == "Lỗi trong quá trình xóa lần bị dịch bệnh!!") {
-                    this.message = "Xóa không thành công."
+                    this.message = "Xóa lần bị bệnh dịch không không thành công"
                } else {
-                    this.message = "Xóa thành công.";
+                    this.message = "Xóa lần bị bệnh dịch không thành công";
                     console.log(respone.data);
                     this.retrieveEpidemicTimesList();
                }
@@ -1802,10 +1802,10 @@ export default {
                          this.message = "Thêm không thành công.";
                     }
                     else if (response.data == "Không thể lưu hình ảnh.") {
-                         this.message = "Xóa không thành công";
+                         this.message = "Thêm không thành công";
                     }
                     else {
-                         this.message = "Xóa thành công.";
+                         this.message = "Thêm thành công.";
                     }
                }
           },
@@ -1965,11 +1965,11 @@ export default {
                );
                if (error) {
                     console.log(error);
-                    this.message = "Xóa không thành công."
+                    this.message = "Xóa lần thực hiện hoạt động không thành công"
                } else if (respone.data == "Lỗi trong quá trình lần bón phân!!") {
-                    this.message = "Xóa không thành công."
+                    this.message = "Xóa lần thực hiện hoạt động không thành công"
                } else {
-                    this.message = "Đã xóa thành công.";
+                    this.message = "Xóa lần thực hiện hoạt động thành công";
                     this.retrieveActivitiesDetail()
                }
                this.delete = "";

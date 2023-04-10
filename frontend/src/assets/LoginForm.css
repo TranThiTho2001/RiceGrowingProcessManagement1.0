@@ -24,10 +24,11 @@
 
 .form-center .form-login .famerImage {
      position: absolute;
-     width: 60%;
+     width: 65%;
      z-index: 1000;
      left: -55px;
      bottom: -40px;
+     background: none;
 }
 
 .form-center .form-login .iconFamer {
@@ -69,9 +70,11 @@
      font-size: 17px;
      line-height: 0px;
      color: #D0D1D6 !important;
+     width: 80%;
+     margin-left: 10%;
 }
 
-.form-center .form-login .form-control:hover {
+.form-center .form-login .form-control::content{
      background: #FFFFED;
      box-shadow: inset 1px 7px 7px rgba(0, 0, 0, 0.25);
      border-radius: 20px;
@@ -80,7 +83,7 @@
      font-weight: 400;
      font-size: 17px;
      line-height: 0px;
-     color: #D0D1D6;
+     color: #272f5a;
 }
 
 .form-center .form-login .form-control:focus {
@@ -93,7 +96,7 @@
      font-weight: 400;
      font-size: 17px;
      line-height: 0px;
-     color: #D0D1D6;
+     /* color: #D0D1D6; */
 }
 
 .form-center .form-login .form-group {
@@ -101,11 +104,11 @@
 
 }
 
-.form-center .form-login .btnHienMatKhau,
-.form-center .form-login .btnAnMatKhau {
+.form-center .form-login .btnShowPassword,
+.form-center .form-login .btnHidePassword {
      background: none;
      position: absolute;
-     left: 80%;
+     left: 75%;
      color: #84858A;
      font-size: 20px;
      margin-top: -2px;
@@ -127,19 +130,21 @@
      color: #D30000;
      font-weight: 500;
      font-family: 'Roboto';
+     padding-right: 8%;
+     font-size: 14px;
 }
 
 .form-center .form-login .content_loginForm .labelTitle {
-     font-family: Inter;
-     font-size: 18px;
+     font-size: 19px;
      color: #919302;
      font-family: 'Roboto';
      font-style: normal;
      font-weight: 700;
      line-height: 29px;
+     margin-left: 10%;
 }
 
-.form-login .btnDangNhap {
+.form-login .btnLogin {
      background: #FFFA37;
      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
      border-radius: 10px;
@@ -154,9 +159,9 @@
 
 .form-login .studentImage {
      position: absolute;
-     width: 50%;
+     width: 60%;
      left: 66%;
-     top: 72%;
+     top: 68%;
 }
 
 .form-login {

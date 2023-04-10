@@ -1,17 +1,17 @@
 <template>
      <div class="container-fluid activitiesManagement pr-4" style="background-color: #EAEAEA;height: max-content;">
-          <div class="row activitiesManagementFrame" style="height: 100vmin;">
+          <div class="row activitiesManagementFrame">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
                     @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true, active.leftnNoneActive = false"></button>
-               <div class="left" :class="{ navbarresponsive: openMenu.openMenu }">
+               <div class="left" :class="{ navbarresponsive: openMenu.openMenu }" style="position: fixed;">
                     <Catalog />
                </div>
                <div class="right rightActivitiesManagement " :class="{ leftNoneActive: active.leftnNoneActive }">
-                    <div class="row pt-3 mb-5 pb-1 topRight" style="margin-left: 20px; margin-right: 10px;">
+                    <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 30px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
-                              <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Mẫu ruộng</h3>
+                              <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Hoạt động</h3>
                          </div>
                          <div class="">
                               <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
@@ -39,40 +39,40 @@
                               </div>
                          </div>
 
-                         <div class="text-right">
+                         <div class="text-right mt-3">
                               <div class="row">
                                    <TopHeader />
                               </div>
                          </div>
                     </div>
 
-                    <div class="row ml-4 mr-1 mt-3 pb-4 pt-2">
+                    <div class="" style="margin-top: 145px; z-index: 4; width: 99%;">
                          <div class="col-sm-12 text-right">
                               <button class="btn btnCreate"
                                    @click="isOpenCreateOtherActivities = !isOpenCreateOtherActivities"><i
                                         class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm hoạt động</button>
                          </div>
                     </div>
-                    <div class=" row scrollTable">
-                         <div class="col-sm-12 " style="width: 100%; background-color: #515151;">
+                    <div class="scrollTable">
+                         <div class="scrollTable-content">
                               <table class="table activitiesList" v-if="loaded">
                                    <thead>
                                         <tr>
                                              <th class="centerclass" style=" padding-right: 2px;">STT</th>
                                              <th class="centerclass">Mã</th>
                                              <th>Tên hoạt động</th>
-                                             <th>Số lần được thực hiện</th>
+                                             <th class="">Số lần được thực hiện</th>
                                              <th></th>
                                         </tr>
                                    </thead>
                                    <tbody>
                                         <tr v-for="(activity, i ) in activitiesList" :key="i">
                                              <td class="centerclass" data-label="STT">{{ i + 1 }}</td>
-                                             <td class="centerclass"  data-label="Mã">{{ activity.OtherActivities_id }}</td>
-                                             <td  data-label="Tên hoạt động">{{ activity.OtherActivities_name }}</td>
-                                             <td  data-label="Số lần được thực hiệnSTT">{{ activity.Times.length }}</td>
+                                             <td class="centerclass" data-label="Mã">{{ activity.OtherActivities_id }}</td>
+                                             <td data-label="Tên hoạt động">{{ activity.OtherActivities_name }}</td>
+                                             <td data-label="Số lần được thực hiệnSTT">{{ activity.Times.length }}</td>
 
-                                             <td  data-label="Tùy chọn">
+                                             <td data-label="Tùy chọn">
                                                   <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
                                                        aria-haspopup="true" aria-expanded="false">
                                                        <i class="fas fa-ellipsis-v"></i>
@@ -330,17 +330,41 @@ export default {
 
           async searchName(data) {
                this.nameToSearch = data;
-               const [error, response] = await this.handle(OtherActivitiesService.findByName(this.nameToSearch));
-               if (error) {
-                    console.log(error);
-               } else {
-                    if (response.data != null) {
-                         this.activitiesList = response.data;
+               if (data != "") {
+                    this.activitiesList = [];
+                    this.cloneActivitiesList.forEach(element => {
+                         if (element.OtherActivities_name == data) {
+                              this.activitiesList.push(element);
+                         }
+                    });
+                    if (this.activitiesList.length == 0) {
+                         const [errors, responses] = await this.handle(OtherActivitiesService.findByName(this.nameToSearch));
+                         if (errors) {
+                              console.log(errors);
+                         } else {
+                              if (responses.data.length > 0) {
+                                   this.activitiesList = responses.data;
+                                   
+                              }
+                              else {
+                                   this.isOpenMessage = !this.isOpenMessage;
+                              }
+                         }
+                         if(this.activitiesList.length>0){
+                              var i = 0;
+                              this.activitiesList.forEach(element => {
+                                   this.activitiesList[i].Times = new Array();
+                                   this.findActivityTimes(element.OtherActivities_id, i);
+                                   i++;
+                              });
+                         }
                     }
-                    else {
-                         this.isOpenMessage = !this.isOpenMessage;
-                    }
+
                }
+               else{
+                    this.retrieveOtherActivities();
+               }
+
           },
 
           async setActivityChoosen(activity) {
@@ -359,6 +383,6 @@ export default {
 </script>
 
 <style>
-@import url(../../assets/mainStyle.css);
 @import url(../../assets/activitiesDetailStyle.css);
+@import url(../../assets/mainStyle.css);
 </style>

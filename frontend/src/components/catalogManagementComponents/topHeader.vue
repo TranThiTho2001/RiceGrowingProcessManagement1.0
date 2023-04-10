@@ -76,16 +76,15 @@ export default {
 
 <style>
 .topHeader {
-     /* background-color: #b7f8d0; */
-     font-family: Inter;
      font-size: 18px;
-     display: inline-block;
+
      margin-left: 0px;
      border-radius: 10px;
      height: 10px;
      position: absolute;
      left: -16px;
-    z-index: 2;
+     top:18px !important;
+    z-index: 4;
 }
 
 .topHeader .iconUser {

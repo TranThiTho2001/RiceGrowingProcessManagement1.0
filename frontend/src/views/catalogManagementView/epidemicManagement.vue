@@ -10,7 +10,7 @@
                </div>
 
                <div class="right rightEpidemicManagement ">
-                    <div class="row pt-3 mb-5 pb-1 topRight" style="margin-left: 20px; margin-right: 15px;">
+                    <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 30px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Dịch bệnh</h3>
                          </div>
@@ -45,14 +45,14 @@
                          </div>
                     </div>
 
-                    <div class="row ml-4 mr-1 pt-2 mt-2 pb-4">
+                    <div class="" style="margin-top: 145px; z-index: 4; width: 99%;">
                          <div class="col-sm-12 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i
                                         class="fas fa-plus-circle pt-1" style="font-size: 20px;"></i> Thêm bệnh dịch</button>
                          </div>
                     </div>
-                    <div class=" row scrollTable">
-                         <div class="col-sm-12 justify-content-center">
+                    <div class="scrollTable">
+                         <div class="scrollTable-content">
                               <table class="table epidemicList">
                                    <thead>
                                         <tr>
@@ -76,7 +76,7 @@
                                                   epidemic.Epidemic_developmentEnvironment }}</td>
                                              <td data-label="Tác hại">{{ epidemic.Epidemic_Harm }}
                                              </td>
-                                             <td data-label="Phân loại" class="centerclass">{{ epidemic.EpidemicsClassification_name }}</td>
+                                             <td data-label="Phân loại" class="centerclass">{{ epidemic.EpidemicClassification_name }}</td>
                                              <td  data-label="Tùy chọn" class="">
                                                   <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
                                                        aria-haspopup="true" aria-expanded="false">
@@ -127,7 +127,7 @@
                          :message1="message1" :message2="message2" />
 
                     <UpdateEpidemicForm v-if="isOpenUpdateEpidemic" :newEpidemic="epidemicChosen"
-                         :epidemicsClassificationList="epidemicsClassificationList" @updateEpidemic-submit="updateEpidemic"
+                         :epidemicClassificationList="epidemicClassificationList" @updateEpidemic-submit="updateEpidemic"
                          :message1="message1" :message2="message2" />
                </div>
           </div>
@@ -143,7 +143,7 @@ import EpidemicService from '../../services/epidemic.service';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import CreateEpidemicForm from '@/components/catalogManagementComponents/createNewEpidemicForm.vue';
 import UpdateEpidemicForm from '@/components/catalogManagementComponents/updateEpidemicForm.vue';
-import EpidemicsClassificationService from '@/services/epidemicsClassification.service';
+import EpidemicClassificationService from '@/services/epidemicClassification.service';
 
 class Epidemic {
      constructor(epidemic) {
@@ -174,7 +174,7 @@ export default {
                isOpenUpdateEpidemic: false,
                nameToSearch: "",
                message: "",
-               epidemicsClassificationList: [],
+               epidemicClassificationList: [],
                isOpenInput1:false,
                isOpenInput2: false,
                isOpenSearch: {
@@ -254,9 +254,10 @@ export default {
           },
 
           async createEpidemic(data) {
-               this.epidemicsClassificationList.forEach(element => {
-                    if (data.EpidemicsClassification_name == element.EpidemicsClassification_name) {
-                         data.EpidemicsClassification_id = element.EpidemicsClassification_id;
+               console.log(data.EpidemicClassification_id+" "+ data.EpidemicClassification_name)
+               this.epidemicClassificationList.forEach(element => {
+                    if (data.EpidemicClassification_name == element.EpidemicClassification_name) {
+                         data.EpidemicClassification_id = element.EpidemicClassification_id;
                     }
                });
 
@@ -286,9 +287,9 @@ export default {
 
           async updateEpidemic(data) {
 
-               this.epidemicsClassificationList.forEach(element => {
-                    if (data.EpidemicsClassification_name == element.EpidemicsClassification_name) {
-                         data.EpidemicsClassification_id = element.EpidemicsClassification_id;
+               this.epidemicClassificationList.forEach(element => {
+                    if (data.EpidemicClassification_name == element.EpidemicClassification_name) {
+                         data.EpidemicClassification_id = element.EpidemicClassification_id;
                     }
                });
                if (data.close == false) {
@@ -328,14 +329,14 @@ export default {
                }
           },
 
-          async retrieveEpidemicsClassification() {
+          async retrieveEpidemicClassification() {
                const [error, response] = await this.handle(
-                    EpidemicsClassificationService.getAll()
+                    EpidemicClassificationService.getAll()
                );
                if (error) {
                     console.log(error);
                } else {
-                    this.epidemicsClassificationList = response.data;
+                    this.epidemicClassificationList = response.data;
                }
           },
 
@@ -357,7 +358,7 @@ export default {
 
           async setEpidemicChosen(epidemic) {
                this.epidemicChosen = epidemic;
-               this.epidemicChosen.EpidemicsClassification_id = epidemic.EpidemicsClassification_id;
+               this.epidemicChosen.EpidemicClassification_id = epidemic.EpidemicClassification_id;
                console.log(this.epidemicChosen)
           },
 
@@ -394,7 +395,7 @@ export default {
      },
 
      mounted() {
-          this.retrieveEpidemicsClassification();
+          this.retrieveEpidemicClassification();
           this.retrieveEpidemicList();
      }
 }

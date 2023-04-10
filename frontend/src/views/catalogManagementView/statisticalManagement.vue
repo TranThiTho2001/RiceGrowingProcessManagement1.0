@@ -10,7 +10,7 @@
                </div>
 
                <div class="right rightStatisticalManagementManagement" :class="{ leftNoneActive: active.leftnNoneActive }">
-                    <div class="row pt-3 mb-5 pb-1 topRight" style="margin-left: 20px; margin-right: 10px;">
+                    <div class="mb-5 pb-2 pt-2 topRight" style="margin-left: 30px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Thống kê</h3>
                          </div>
@@ -21,7 +21,7 @@
                               </div>
                          </div>
                     </div>
-                    <div class="row mr-2 ml-2">
+                    <div class="row mr-2 ml-2" style="margin-top: 145px; z-index: 4; width: 99%;">
                          <div class="statisticalComponent text-center" @click="goToStatiticsByriceCrop()"
                               id="statisticalRice1">
                               <div class="nameComponent">

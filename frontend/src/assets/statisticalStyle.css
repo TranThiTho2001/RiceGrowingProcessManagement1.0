@@ -41,12 +41,12 @@
 .inputSearch4 {
     background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 10px !important;
-    width: 80% !important;
+    width: 92% !important;
     height: 35px;
     margin-left: 20px;
     margin-top: 5px;
     font-family: 'Roboto';
+    border-radius: 12px !important;
 }
 
 .btnSearch4 {
@@ -54,8 +54,8 @@
     border-radius: 10px;
     border: none;
     background: none;
-    right: 9%;
-    top: 15.5%;
+    right: 4%;
+    top: 16%;
     font-family: 'Roboto';
 }
 
@@ -80,10 +80,48 @@
 
 .statisticsByRiceCrop .leftStatistical {
     width: 49%;
-    border: 3px solid #c8cecb;
-    background-color: #FFFFFF;
-    border-radius: 10px;
+    background: #FAFAFC;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    padding-left: 20px !important;
 }
+
+.statisticsByRiceCrop .leftStatistical .nonecheckedCrop {
+    appearance: none;
+    pointer-events: none;
+    background: #E4E5EB;
+    border: 1px solid #FAFAFC;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    width: 16px;
+    height: 16px;
+    filter: drop-shadow(0px 4px 5px rgba(0, 0, 0, 0.25));
+    transition: 0.2s all linear;
+    margin-right: 5px;
+    position: relative;
+    top: 4px;
+}
+
+.statisticsByRiceCrop .leftStatistical .checkedCrop{
+    /* appearance:unset; */
+    background: #E4E5EB !important;
+    border: 1px solid #FAFAFC;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    width: 16px;
+    height: 16px;
+    filter: drop-shadow(0px 4px 5px rgba(0, 0, 0, 0.25));
+    transition: 0.2s all linear;
+    margin-right: 5px;
+    position: relative;
+    top: 4px;
+}
+
+.statisticsByRiceCrop .leftStatistical .checkedCrop:checked{
+    accent-color: #FFFA37 !important;
+    flood-color: #5C5D22;
+box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.25);
+color: #1111a1;
+}
+
 
 .statisticsByRiceCrop .statisticalBy label {
     margin-bottom: 1px !important;
@@ -98,16 +136,17 @@
 .statisticsByRiceCrop .rightStatistical {
     width: 49%;
     margin-left: 2%;
-    border: 3px solid #c8cecb;
-    background-color: #FFFFFF;
+    background: #FAFAFC;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
 }
 
 .scrollStatisticalTable {
     overflow: auto !important;
     max-height: 400px !important;
-    width: 100% !important;
-    margin-top: 10px !important;
+    width: 97% !important;
+    margin-top: 15px !important;
+    margin-left: 1.7%;
 }
 
 .scroll {
@@ -116,6 +155,9 @@
     position: relative;
     background-color: #FFFFFF;
     margin-left: 20px;
+    background: #FAFAFC;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
 }
 
 .btnDowload {
@@ -138,11 +180,16 @@
 }
 
 .statisticTable tr td {
-    word-wrap: normal;
-    padding: 2px 8px 2px 8px;
-    border-top: solid 0.1px #c8cecb;
-    font-size: 14px;
-    font-family: 'Roboto';
+    font-family: 'Roboto' !important;
+    font-style: normal;
+    vertical-align: middle;
+    border-bottom: 0.1px solid #B3B4BA;
+    padding-left: 5px !important;
+    vertical-align: middle !important;
+    font-size: 14px !important;
+    text-align: justify;
+    padding: 6px;
+    color: #1C1C1F;
 }
 
 .statisticTable tr th {
@@ -205,7 +252,7 @@
     font-weight: 500;
 }
 
-.label_statictical_content{
+.label_statictical_content {
     font-family: 'Roboto';
     font-size: 16px !important;
     font-weight: 500;
@@ -249,7 +296,7 @@
         text-overflow: ellipsis;
     }
 
-    .label_statictical_content{
+    .label_statictical_content {
         font-family: 'Roboto';
         font-size: 14px !important;
         font-weight: 500;
@@ -265,14 +312,16 @@
     .statisticTable {
         width: max-content !important;
     }
+
     .statisticTable tr td {
         font-size: 13px !important;
     }
-    
+
     .statisticTable tr th {
         padding: 8px 8px 8px 10px;
         font-size: 14px !important;
     }
+
     .statisticsByRiceCrop .leftStatistical {
         width: 45%;
         display: inline-block;
@@ -351,6 +400,20 @@
 
 
 .StatisticalManagement .navigationBar .btnStatistical {
+    display: block;
+    width: 88%;
+    font-size: 17px;
+    background: #FFFA37;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    color: #5C5D22;
+    border: none;
+    font-family: 'Roboto';
+    font-style: normal;
+    border-radius: 14px;
+}
+
+.statisticsByRiceCrop .navigationBar .btnStatistical {
     display: block;
     width: 88%;
     font-size: 17px;

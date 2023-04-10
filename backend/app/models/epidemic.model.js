@@ -7,7 +7,7 @@ const Epidemic = function(epidemic){
     this.Epidemic_timeOfDevelopment = epidemic.Epidemic_timeOfDevelopment;
     this.Epidemic_developmentEnvironment = epidemic.Epidemic_developmentEnvironment;
     this.Epidemic_Harm = epidemic.Epidemic_Harm;
-    this.EpidemicsClassification_id = epidemic.EpidemicsClassification_id;
+    this.EpidemicClassification_id = epidemic.EpidemicClassification_id;
 };
 
 Epidemic.create = (newEpidemic, result) => {
@@ -23,7 +23,7 @@ Epidemic.create = (newEpidemic, result) => {
 };
 
 Epidemic.findById = (id, result) => {
-    sql.query(`SELECT * FROM Epidemic JOIN Epidemicsclassification on Epidemic.EpidemicsClassification_id = Epidemicsclassification.EpidemicsClassification_id WHERE Epidemic_id like '${id}' `, (err, res) => {
+    sql.query(`SELECT * FROM Epidemic JOIN Epidemicclassification on Epidemic.EpidemicClassification_id = Epidemicsclassification.EpidemicClassification_id WHERE Epidemic_id like '${id}' `, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -39,7 +39,7 @@ Epidemic.findById = (id, result) => {
 };
 
 Epidemic.getAll = (name, result) => {
-    let query = "SELECT * FROM Epidemic JOIN Epidemicsclassification on Epidemic.EpidemicsClassification_id = Epidemicsclassification.EpidemicsClassification_id";
+    let query = "SELECT * FROM Epidemic JOIN Epidemicclassification on Epidemic.EpidemicClassification_id = EpidemicClassification.EpidemicClassification_id";
     if (name) {
         query += ` WHERE Epidemic_name LIKE '%${name}%'`;
     }
@@ -55,8 +55,8 @@ Epidemic.getAll = (name, result) => {
 
 Epidemic.updateById = (id, epidemic, result) => {
     sql.query(
-        "UPDATE Epidemic SET Epidemic_name = ?, Epidemic_indication = ?, Epidemic_timeOfDevelopment = ?, Epidemic_developmentEnvironment = ?, Epidemic_Harm = ?, EpidemicsClassification_id = ?  WHERE Epidemic_id = ?",
-        [epidemic.Epidemic_name, epidemic.Epidemic_indication, epidemic.Epidemic_timeOfDevelopment, epidemic.Epidemic_developmentEnvironment,epidemic.Epidemic_Harm, epidemic.EpidemicsClassification_id, id],
+        "UPDATE Epidemic SET Epidemic_name = ?, Epidemic_indication = ?, Epidemic_timeOfDevelopment = ?, Epidemic_developmentEnvironment = ?, Epidemic_Harm = ?, EpidemicClassification_id = ?  WHERE Epidemic_id = ?",
+        [epidemic.Epidemic_name, epidemic.Epidemic_indication, epidemic.Epidemic_timeOfDevelopment, epidemic.Epidemic_developmentEnvironment,epidemic.Epidemic_Harm, epidemic.EpidemicClassification_id, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);

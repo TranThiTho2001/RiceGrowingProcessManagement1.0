@@ -48,11 +48,11 @@
 
                     <div class="form-group">
                          <label for="classtify" class="mt-3">Phân loại <span style="color: red">*</span></label>
-                         <Field name="classtify" v-model="newepidemic.EpidemicsClassification_name">
-                              <select class="form-control" v-model="newepidemic.EpidemicsClassification_name"
+                         <Field name="classtify" v-model="newepidemic.EpidemicClassification_name">
+                              <select class="form-control" v-model="newepidemic.EpidemicClassification_name"
                                    name="classtify" for="classtify">
-                                   <option for="classtify" v-for="(epidemicClasss, i) in (epidemicsClassificationList)"
-                                        :key="i">{{ epidemicClasss.EpidemicsClassification_name }}</option>
+                                   <option for="classtify" v-for="(epidemicClasss, i) in (epidemicClassificationList)"
+                                        :key="i">{{ epidemicClasss.EpidemicClassification_name }}</option>
 
                               </select>
                          </Field>
@@ -76,8 +76,8 @@
                     <span v-if="message1 == 'Cập nhật không thành công.'" class="fas fa-times-circle"
                          style="color:red; text-align: center; display: inline;"></span>
                     <span v-if="message2 == 'Cập nhật thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;">
-                         {{ message2 }}</span>
-                    <span v-if="message1 == 'Cập nhật không thành công.'" class="textMessage1 pt-2 pb-2"> {{ message1 }}
+                         Cập nhật thông tin bệnh dịch thành công</span>
+                    <span v-if="message1 == 'Cập nhật không thành công.'" class="textMessage1 pt-2 pb-2"> Cập nhật thông tin bệnh dịch không thành công
                     </span>
                </div>
           </div>
@@ -102,7 +102,7 @@ export default {
           ErrorMessage,
      },
      emits: ["updateEpidemic-submit"],
-     props: ["newEpidemic", "message1", "message2", "epidemicsClassificationList"],
+     props: ["newEpidemic", "message1", "message2", "epidemicClassificationList"],
      data() {
 
           const schema = yup.object().shape({
@@ -116,10 +116,10 @@ export default {
                     .required("Tên bệnh dịch phải có giá trị"),
                environment: yup
                     .string()
-                    .required("Đặc tính của bệnh dịch phải có giá trị"),
+                    .required("Môi trường phát triển của bệnh dịch phải có giá trị"),
                time: yup
                     .string()
-                    .required("Nhà cung cấp bệnh dịch phải có giá trị"),
+                    .required("Thời điểm thường xuất hiện bệnh dịch phải có giá trị"),
                harm: yup
                     .string()
                     .required("Tác hại bệnh dịch phải có giá trị"),

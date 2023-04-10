@@ -1,8 +1,7 @@
 .riceCropDetail .createActivityDetailForm,
-.riceCropDetail .updateActivityDetailForm{
-    background-color: #dbdbdb;
-    border: 0.5px solid #b8b5b5;
-     font-family: Inter;
+.riceCropDetail .updateActivityDetailForm {
+     background-color: #dbdbdb;
+     border: 0.5px solid #b8b5b5;
      border-radius: 10px;
      position: absolute;
      top: calc(100px);
@@ -10,20 +9,19 @@
      width: 97.5% !important;
 }
 
-
-
-.createActivityDetailForm .messege{
-    background-color: #6cc38c;
+.createActivityDetailForm .messege {
+     background-color: #6cc38c;
 }
+
 .createActivityDetailForm .content .error-feedback,
-.updateActivityDetailForm .content .error-feedback{
+.updateActivityDetailForm .content .error-feedback {
      color: red;
      float: right;
 }
 
 
 .createActivityDetailForm.content .form-group label,
-.updateActivityDetailForm .content .form-group label{
+.updateActivityDetailForm .content .form-group label {
      float: left;
      font-family: 'Roboto';
      font-style: normal;
@@ -32,7 +30,7 @@
 }
 
 .createActivityDetailForm .content .form-group .selectBox,
-.updateActivityDetailForm .content .form-group .selectBox{
+.updateActivityDetailForm .content .form-group .selectBox {
      width: 100%;
      height: 38px;
      border: 1px solid #ced4da;
@@ -40,40 +38,41 @@
 }
 
 .createActivityDetailForm .content .form-group input,
-.updateActivityDetailForm .content .form-group input{
+.updateActivityDetailForm .content .form-group input {
      float: left;
 }
 
 .createActivityDetailForm .content .form-group .form-control,
-.updateActivityDetailForm .content .form-group .form-control{
-    background-color: #FAFAFC;
-    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-    font-size: 17px;
-    border-radius: 15px;
-    color: #2F3033;
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 500;
-    height: 35px;
+.updateActivityDetailForm .content .form-group .form-control {
+     background-color: #FAFAFC;
+     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+     font-size: 17px;
+     border-radius: 15px;
+     color: #2F3033;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 500;
+     height: 35px;
 }
 
 .createActivityDetailForm .functionName,
-.updateActivityDetailForm .functionName{
+.updateActivityDetailForm .functionName {
      font-family: Inter;
      font-size: 24px;
 }
+
 .createActivityDetailForm .form-group .textMessage2,
 .createOtherActiviesForm .form-group .textMessage1,
 .updateActivityDetailForm .form-group .textMessage1,
-.updateActivityDetailForm .form-group .textMessage2{
-     text-align: center; 
+.updateActivityDetailForm .form-group .textMessage2 {
+     text-align: center;
      display: inline;
      font-size: 18px;
      font-family: Inter;
 }
 
-.createActivityDetailForm .btnLuu, 
-.updateActivityDetailForm .btnLuu{
+.createActivityDetailForm .btnLuu,
+.updateActivityDetailForm .btnLuu {
      background-color: rgb(4, 105, 4);
      color: #f0f0f0;
      font-size: 20px;

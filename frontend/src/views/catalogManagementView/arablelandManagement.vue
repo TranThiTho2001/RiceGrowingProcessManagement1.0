@@ -10,7 +10,7 @@
                </div>
 
                <div class="right rightArableLandManagement" :class="{ leftNoneActive: active.leftnNoneActive }">
-                    <div class="row pt-3 mb-5 pb-1 topRight" style="margin-left: 20px; margin-right: 10px;">
+                    <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 30px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Mẫu ruộng</h3>
                          </div>
@@ -47,15 +47,15 @@
                          </div>
                     </div>
 
-                    <div class="row ml-4 mr-1 mt-3 pb-4 pt-2">
+                    <div class="" style="margin-top: 145px; z-index: 4; width: 99%;">
                          <div class="col-sm-12 text-right">
                               <button class="btn btnCreate"
                                    @click="retrieveProvinceList(), retrieveSoilList(), openCreate = !openCreate"><i
                                         class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm mẫu ruộng</button>
                          </div>
                     </div>
-                    <div class=" row scrollTable">
-                         <div class="col-sm-12 justify-content-center">
+                    <div class="scrollTable">
+                         <div class="scrollTable-content">
                               <table class="table arablelandList">
                                    <thead>
                                         <tr>

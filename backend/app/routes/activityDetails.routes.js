@@ -8,12 +8,13 @@ module.exports = (app) => {
      router.get("/", activityDetails.findAll); 
          //find by  OtherActivities_id
      router.get("/findbyId/:OtherActivities_id", activityDetails.findbyId);
-     router.get("/findbyname/:RiceCropInformation_id", activityDetails.findbyName);
+     router.get("/findbyName/:OtherActivities_name", activityDetails.findbyName);
+     router.get("/findbynameandidricecrop/:RiceCropInformation_id", activityDetails.findbyNameAndIdRiceCrop);
 
      //find by RiceCropInformationid and OtherActivities_id
      router.get("/:RiceCropInformation_id/:OtherActivities_id", activityDetails.findbyIdRiceCropInformation);
 
-
+     router.get("/:RiceCropInformation_id/:OtherActivities_id", activityDetails.findbyIdRiceCropInformation);
 
      // Store 
      router.post("/", activityDetails.store);

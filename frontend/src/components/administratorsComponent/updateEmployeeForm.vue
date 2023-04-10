@@ -132,9 +132,8 @@
                               style="color:#00BA13; text-align: center;"></span>
                          <span v-if="message1 == 'Cập nhật không thành công.'" class="fas fa-times-circle "
                               style="color:red; text-align: center;"></span>
-                         <p v-if="message2 == 'Cập nhật thành công.'" class="textMessage2" style="color:#00BA13;">{{ message2
-                         }}</p>
-                         <p v-if="message2 == 'Cập nhật không thành công.'" class="textMessage1">{{ message1 }}</p>
+                         <p v-if="message2 == 'Cập nhật thành công.'" class="textMessage2" style="color:#00BA13;">Cập nhật thông tin người dùng thành công</p>
+                         <p v-if="message2 == 'Cập nhật không thành công.'" class="textMessage1">Cập nhật thông tin người dùng không thành công</p>
                     </div>
                </div>
                <div class="row">

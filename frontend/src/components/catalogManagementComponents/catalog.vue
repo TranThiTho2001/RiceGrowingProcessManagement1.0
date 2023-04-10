@@ -1,6 +1,6 @@
 <template>
      <div class="navigationBar">
-          <div class="row topRow pt-3">
+          <div class="row topRow pt-3" style=" position: sticky;">
                <div class="col-sm-12 ">
                     <div class="row">
                          <div class="col-sm-3"></div>

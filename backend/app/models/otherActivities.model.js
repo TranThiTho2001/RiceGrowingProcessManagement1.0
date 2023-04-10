@@ -44,6 +44,7 @@ OtherActivities.getAll = (name, result) => {
             result(null, err);
             return;
         }
+        console.log(res)
         result(null, res);
     });
 };

@@ -48,8 +48,8 @@
 
                     <div class="form-group">
                          <label for="classtify" class="mt-3">Phân loại <span style="color: red">*</span></label>
-                         <Field name="classtify" v-model="newepidemic.EpidemicsClassification_name">
-                              <select class="form-control" v-model="newepidemic.EpidemicsClassification_name"
+                         <Field name="classtify" v-model="newepidemic.EpidemicClassification_name">
+                              <select class="form-control" v-model="newepidemic.EpidemicClassification_name"
                                    name="classtify" for="classtify">
                                    <option for="classtify">Côn trùng</option>
                                    <option>Dịch bệnh</option>
@@ -118,10 +118,10 @@ export default {
                     .required("Tên bệnh dịch phải có giá trị"),
                environment: yup
                     .string()
-                    .required("Đặc tính của bệnh dịch phải có giá trị"),
+                    .required("Môi trường phát triển của bệnh dịch phải có giá trị"),
                time: yup
                     .string()
-                    .required("Nhà cung cấp bệnh dịch phải có giá trị"),
+                    .required("Thời điểm thường xuất hiện bệnh dịch phải có giá trị"),
                harm: yup
                     .string()
                     .required("Tác hại bệnh dịch phải có giá trị"),

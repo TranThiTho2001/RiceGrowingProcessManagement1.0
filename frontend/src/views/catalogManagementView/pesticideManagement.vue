@@ -10,7 +10,7 @@
                </div>
 
                <div class="right rightPesticideManagement" :class="{ leftNoneActive: active.leftnNoneActive }">
-                    <div class="row pt-3 mb-5 pb-1 topRight" style="margin-left: 20px; margin-right: 10px;">
+                    <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 30px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Thuốc trị bệnh dịch</h3>
                          </div>
@@ -46,14 +46,14 @@
                               </div>
                          </div>
                     </div>
-                    <div class="row ml-4 mr-1 mt-3 pb-4 pt-2">
+                    <div class="" style="margin-top: 145px; z-index: 4; width: 99%;">
                          <div class="col-sm-12 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
                                         style="font-size: 15px;"></i> Thêm loại thuốc mới</button>
                          </div>
                     </div>
-                    <div class=" row scrollTable" v-if="!openCreate && !isOpenUpdatePesticide">
-                         <div class="col-sm-12 justify-content-center" style="width: ;: 100%;">
+                    <div class="scrollTable" v-if="!openCreate && !isOpenUpdatePesticide">
+                         <div class="scrollTable-content">
                               <table class="table pesticideList">
                                    <thead>
                                         <tr>
@@ -67,12 +67,12 @@
                                         </tr>
                                    </thead>
                                    <tbody>
-                                        <tr v-for="(pesticide, i ) in pesticideList" :key="i" class="align-self-center">
+                                        <tr v-for="(pesticide, i ) in pesticideList" :key="i">
                                              <td class="centerclass" data-label="STT">{{ i }}</td>
                                              <td data-label="Mã">{{ pesticide.Pesticide_id }}</td>
                                              <td data-label="Tên">{{ pesticide.Pesticide_name }}</td>
                                              <td data-label="Nhà cung cấp">{{ pesticide.Pesticide_supplier }}</td>
-                                             <td data-label="Thông tin" style="width: 20%;"> {{
+                                             <td data-label="Thông tin"> {{
                                                   pesticide.Pesticide_description }}</td>
                                              <td data-label="Trị bệnh">
                                                   <div style="display: inline-block;">
@@ -444,10 +444,11 @@ export default {
                );
                if (error) {
                     console.log(error);
+                    this.message = "Xóa thông tin loại thuốc trị bệnh dịch không thành công";
                } else {
                     this.retrievePesticideList()
                     console.log(response.data);
-                    this.message = "Xóa thông tin loại thuốc trị bệnh dịch thành công"
+                    this.message = "Xóa thông tin loại thuốc trị bệnh dịch thành công";
                }
           },
 

@@ -146,11 +146,25 @@
 }
 
 .scrollTable {
-     overflow: auto;
-     max-height: 540px;
-     max-width: 100%;
-     margin-left: 4px !important;
-     margin-right: 0.05px !important;
+     overflow: auto !important;
+     margin-top: 20px;
+     height: 525px;
+     position: relative;
+     background-color: #FFFFFF;
+     margin-left: 30px;
+     background: #FAFAFC;
+     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     border-radius: 15px;
+     width: 96.9%;
+}
+
+
+.scrollTable-content {
+     overflow: auto !important;
+     max-height: 500px !important;
+     width: 97.5% !important;
+     margin-top: 15px !important;
+     margin-left: 1.4%;
 }
 
 .scrollTable thead th,
@@ -158,10 +172,10 @@
      position: sticky;
      top: 0;
      z-index: 0;
-     background: #FAFAFC;
-     border-bottom: 0.5px solid #b5b5b7;
+     color: #1C1C1F;
      padding-left: 2px !important;
-     background-color: #008B8E;
+     background: #ABD2C8;
+     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
      vertical-align: middle;
      font-size: 17px;
 }
@@ -194,34 +208,40 @@
      font-family: 'Roboto' !important;
      font-style: normal;
      vertical-align: middle;
-     border-bottom: 0.5px solid #cbcccf !important;
+     border-bottom: 0.1px solid #B3B4BA;
      padding-left: 5px !important;
      vertical-align: middle !important;
-     font-size: 14px;
+     font-size: 13.5px !important;
      text-align: justify;
-     padding: 10px;
+     padding: 6px;
+     color: #1C1C1F;
 }
-.option2{
+
+.option2 {
      display: none;
 }
+
 .table .centerclass {
      text-align: center !important;
 }
-html{
+
+html {
      width: 100%;
 }
-@media only screen and (max-width: 760px) {
 
-     .topHeader{
-          right: -22px !important;
+@media only screen and (max-width: 990px) {
+
+     .topHeader {
+          right: -0px !important;
      }
 
-     .form{
+     .form {
           width: 93.5% !important;
           top: 120px !important;
           left: 10px !important;
      }
-     .form .btnLuu{
+
+     .form .btnLuu {
           width: 80px;
           background-color: #008B8E;
           font-family: 'Roboto';
@@ -229,11 +249,11 @@ html{
           color: white;
      }
 
-     .option1{
+     .option1 {
           display: none !important;
      }
 
-     .option2{
+     .option2 {
           display: inline;
      }
 
@@ -242,13 +262,14 @@ html{
           height: max-content !important;
           margin-left: 2px !important;
           margin-right: -20px;
+          z-index: 2;
      }
 
      .table {
           border: none !important;
           width: 100% !important;
 
-display: inline-block;
+          display: inline-block;
      }
 
      .table,
@@ -259,6 +280,7 @@ display: inline-block;
      .table tr {
           display: block;
      }
+
      .table thead tr {
           position: absolute;
           top: -9999px;
@@ -299,38 +321,54 @@ display: inline-block;
      .table .centerclass {
           text-align: left !important;
      }
-     .table tr:nth-child(even) {background-color: #cc9b9b;}
 
+     .table tr:nth-child(even) {
+          background-color: #cc9b9b;
+     }
+     .name2{
+          display: none;
+     }
      .inputSearch2 {
-          background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
+          /* background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
           box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
           border-radius: 15px !important;
           width: 40% !important;
           height: 35px;
           position: absolute;
-          margin-right: -20px !important;
-          top: 20px;
-          z-index: 2;
-          display: inline !important;
-     }
-     .btnSearch2{
-          right: 75px !important;
+          /* margin-right: -20px !important; */
+          background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
+          box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+          border-radius: 15px !important;
+          width: 90% !important;
+          height: 37px;
+          position: absolute;
+          right: 100px;
+          top: 18px;
+
      }
 
-     .iconmenu2{
+     .btnSearch2 {
+          right:100px !important;
+          z-index: 4 !important;
+          top: 24px !important;
+     }
+
+     .iconmenu2 {
           left: 20px !important;
      }
-     .name{
+
+     .name {
           left: -25px !important;
      }
 
      .btnCreate {
           margin-right: -8px;
      }
+
      .openSearch {
           display: inline-block;
           position: absolute;
-          right: 70px  !important;
+          right: 100px !important;
           top: 8%;
           width: 40%;
           max-height: 200px;
@@ -353,16 +391,6 @@ display: inline-block;
      left: 0px;
 }
 
-.navbar {
-     position: relative !important;
-     display: inline;
-     width: 15%;
-     visibility: visible !important;
-     overflow: scroll !important;
-     background: white;
-     background: linear-gradient(180deg, rgba(231, 237, 199) 0%, rgba(219, 237, 199) 100%);
-
-}
 
 .menubar {
      display: flex;
@@ -371,6 +399,9 @@ display: inline-block;
 .right {
      width: 85%;
      position: relative;
+     margin-left: 15%;
+     max-height: max-content !important;
+     min-height: 100vmin !important;
 }
 
 
@@ -379,17 +410,17 @@ display: inline-block;
      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
      border-radius: 15px !important;
      width: 40% !important;
-     height: 35px;
+     height: 37px;
      position: absolute;
-     left: 47%;
-     top: 2.8%;
+     right: 180px;
+     top: 18px;
 }
 
 
 .btnSearch1 {
      position: absolute;
-     left: 84%;
-     top: 3.5%;
+     right: 190px;
+     top: 24px !important;
      border-radius: 10px;
      border: none;
      background: none;
@@ -397,20 +428,13 @@ display: inline-block;
 
 .closeSearch {
      display: none;
-     width: 110%;
-     margin: 0 auto 10px auto;
-     padding: 10px 20px;
-     color: white;
-     border-radius: 5px;
-     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
-          rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
 
 .openSearch {
      display: inline-block;
      position: absolute;
-     right: 165px;
-     top: 8%;
+     right: 180px;
+     top: 60px;
      width: 40%;
      max-height: 200px;
      background-color: #FAFAFC;
@@ -453,6 +477,9 @@ display: inline-block;
      background: #E4E5EB;
      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
      border-radius: 0px 0px 15px 15px;
+     width: 82%;
+     z-index: 6;
+     position: fixed;
 }
 
 .name {
@@ -463,20 +490,31 @@ display: inline-block;
      line-height: 46px;
      color: #B3B4BA;
      position: relative;
-     top: -8%;
+     top: 2px;
      margin-left: 18px;
 }
 
-@media  screen and (max-width: 1430px)  {
+@media screen and (max-width: 1430px) {
 
-     .topRight{
-          margin-left:10px !important;
+     .topRight {
+          margin-left: 20px !important;
           margin-right: 2px !important;
+          position: fixed;
+          width: 98%;
+          z-index: 6;
      }
+
+     .btnCreate {
+          /* position: fixed; */
+
+
+     }
+
      .right {
           width: 100%;
           position: relative !important;
           height: max-content;
+          margin-left: 0 !important;
      }
 
      .iconmenu1 {
@@ -485,11 +523,12 @@ display: inline-block;
           height: 40px;
           position: absolute;
           left: 185px;
-          z-index: 2;
+          z-index: 6;
           color: rgb(157, 158, 153);
           top: 5px;
           border: none;
           background-color: #eef56f;
+          position: sticky;
      }
 
      .nameclass {
@@ -506,11 +545,10 @@ display: inline-block;
           font-size: 25px !important;
           color: #B3B4BA;
           position: relative;
-          padding-top: 5px;
      }
 
      .name2 {
-          display: none !important;
+          /* display: none !important; */
      }
 
      .iconmenu2 {
@@ -518,9 +556,9 @@ display: inline-block;
           width: 40px;
           height: 40px;
           position: absolute;
-          z-index: 2;
+          z-index: 10 !important;
           left: 40px;
-          top: 17px;
+          top: 8px;
           color: #4a4a4b;
           border: none;
      }
@@ -530,17 +568,20 @@ display: inline-block;
      }
 
      .navbarresponsive {
-          position: absolute !important;
-          z-index: 1;
-          width: 230px !important;
-          min-height: 100%;
+          position: fixed !important;
+          z-index: 5;
+          width: max-content !important;
+          height: max-content;
           display: inline !important;
-          background: linear-gradient(180deg, rgba(231, 237, 199) 0%, rgba(219, 237, 199) 100%);
           box-shadow: none !important;
+          overflow: auto;
+          overflow-x: hidden;
      }
 
      .leftNoneActive {
-          filter: blur(0.5px) !important
+          filter: blur(0.5px) !important;
+          pointer-events: none;
+          scroll-behavior: none !important;
      }
 
      .inputSearch1 {
@@ -553,8 +594,6 @@ display: inline-block;
      .btnSearch1 {
           position: absolute;
           left: 80%;
-          top: 3.5%;
-          border-radius: 10px;
           border: none;
           display: none;
           background: none;
@@ -565,18 +604,17 @@ display: inline-block;
           box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
           border-radius: 15px !important;
           width: 60% !important;
-          height: 35px;
-          position: absolute !important;
-          right: 0 !important;
-          top: 20px;
-          z-index: 2;
-          display: inline !important;
+          height: 37px;
+          position: absolute;
+          right: 100px !important;
+          left: none !important;
+          top: 18px;
      }
 
      .btnSearch2 {
           position: absolute;
-          right: 90px;
-          top: 25px;
+          right: 100px;
+          top: 24px !important;
           border-radius: 10px;
           border: none;
           background: none;
@@ -598,7 +636,7 @@ display: inline-block;
      .openSearch {
           display: inline-block;
           position: absolute;
-          right: 90px;
+          right: 100px;
           top: 60px;
           width: 60%;
           max-height: 200px;
@@ -639,14 +677,21 @@ display: inline-block;
      }
 }
 
+
 .left {
-     position: relative;
+     position: fixed;
      display: inline;
      width: 15%;
      background: white;
      height: 100vmin !important;
-     background: linear-gradient(180deg, rgba(231, 237, 199) 0%, rgba(219, 237, 199) 100%);
-     ;
+     z-index: 5;
+     position: fixed !important;
+     z-index: 5;
+     width: max-content !important;
+     height: max-content;
+     box-shadow: none !important;
+     overflow: auto;
+     overflow-x: hidden;
 }
 
 .btnSearch2 {
@@ -655,9 +700,13 @@ display: inline-block;
 
 .inputSearch2 {
      display: none;
-     right: 90px !important;
+     background-color: none;
+     width: 2%;
+     height: 37px;
      position: absolute;
-     width: 40%;
+     right: 190px;
+     top: 18px;
+     z-index: -1;
 }
 
 .iconmenu1 {
@@ -673,4 +722,24 @@ display: inline-block;
 
 .leftNoneActive {
      filter: none;
+}
+
+input[type=radio] {
+     appearance: none;
+     background: #E4E5EB;
+     border: 1px solid #FAFAFC;
+     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+     border-radius: 50%;
+     width: 16px;
+     height: 16px;
+     filter: drop-shadow(0px 4px 5px rgba(0, 0, 0, 0.25));
+     transition: 0.2s all linear;
+     margin-right: 5px;
+     position: relative;
+     top: 4px;
+}
+
+input[type=radio]:checked {
+     background: #FFFA37;
+     box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.25);
 }

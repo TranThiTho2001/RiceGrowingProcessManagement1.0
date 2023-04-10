@@ -14,12 +14,6 @@
     position: relative;
 }
 
-.epidemicManagement .epidemicManagementFrame .rightEpidemicManagement {
-    border-left: #bdf487 0.5px solid;
-}
-
-
-
 .epidemicManagement .navigationBar .btnEpidemic {
     display: block;
     width: 94%;

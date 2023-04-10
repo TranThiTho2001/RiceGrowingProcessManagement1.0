@@ -26,7 +26,7 @@ const setupActivityDetailsRoutes = require("./app/routes/activityDetails.routes"
 const setupOtherActivitiesRoutes = require("./app/routes/otherActivities.routes");
 const setupDevelopmentStageRoutes = require("./app/routes/DevelopmentStage.routes");
 const setupRiceCropInformationRoutes = require("./app/routes/riceCropInformation.routes");
-const setupEpidemicsClassificationRoutes = require("./app/routes/epidemicsClassification.routes");
+const setupEpidemicsClassificationRoutes = require("./app/routes/epidemicClassification.routes");
 
 const app = express();
 const bodyParser= require('body-parser')

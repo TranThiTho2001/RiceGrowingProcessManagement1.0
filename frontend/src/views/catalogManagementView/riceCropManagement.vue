@@ -9,7 +9,7 @@
                          <Catalog />
                </div>
                <div class="right rightRiceCropManagement" :class="{ leftNoneActive: active.leftnNoneActive }">
-                    <div class="row pt-3 mb-5 pb-1 topRight" style="margin-left: 20px; margin-right: 18px;">
+                    <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 30px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Theo dõi mùa vụ</h3>
                          </div>
@@ -43,9 +43,8 @@
                               </div>
                          </div>
                     </div>
-                    <div class="row mr-1 ml-4 mt-5 mb-4 pt-2">
-                         <div class="col-sm-10"></div>
-                         <div class="col-sm-2 text-right">
+                    <div class="" style="margin-top: 145px; z-index: 4; width: 99%;">
+                         <div class="col-sm-12 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
                                         style="font-size: 15px;"></i> Thêm Mùa Vụ</button>
                          </div>
