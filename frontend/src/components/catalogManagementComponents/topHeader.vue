@@ -83,7 +83,7 @@ export default {
      height: 10px;
      position: absolute;
      left: -16px;
-     top:18px !important;
+     top:16px !important;
     z-index: 4;
 }
 

@@ -1,6 +1,6 @@
 <template>
-     <div class="container-fluid riceCropManagement" style="background-color:  #EAEAEA; height: 100vmin;">
-          <div class="row riceCropManagemenFrame" style="height: 100vmin;">
+     <div class="container-fluid riceCropManagement" style="background-color:  #EAEAEA; height: max-content;">
+          <div class="row riceCropManagemenFrame" style="height: max-content;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2" 
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -9,7 +9,7 @@
                          <Catalog />
                </div>
                <div class="right rightRiceCropManagement" :class="{ leftNoneActive: active.leftnNoneActive }">
-                    <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 30px; margin-right: 10px;">
+                    <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Theo dõi mùa vụ</h3>
                          </div>
@@ -73,8 +73,8 @@
                               </template>
                          </carousel> -->
                     <!-- </div> -->
-                    <div class="row riceCropList text-left">
-                         <div v-for="(riceCrop, i) in riceCropList" :key="i" style="display: inline-block; margin-right: 13px; margin-bottom: 7px;">
+                    <div class="row riceCropList mt-3" style="max-height: 100%; width: 98%;">
+                         <div class="col-lg-3 col-md-4 col-sm-6 text-center" v-for="(riceCrop, i) in riceCropList" :key="i" style=" margin-left: 0px !important; margin-right: 0px !important; margin-bottom: 10px;">
                               <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
                          </div>
                          <!-- <carousel v-if="riceCropListByFinish.length > getWidth" :settings="settings"

@@ -1,13 +1,13 @@
 <template>
-     <div style="height: 260px; min-width: 197px;">
-          <router-link class="linktoRiceCropInfor container-fuild"
+     <div style="height: 100%; width:100%" class="responsiveComponent">
+          <router-link class="linktoRiceCropInfor container-fluid"
                :to="{ name: 'RiceCropDetail', params: { id: riceCrop.RiceCropInformation_id } }">
                <div class="riceCropComponent text-dark border">
-                    <div class="img mt-2 ml-2 mr-2 text-center"><img :src="riceCrop.Images_link" class="img-fluid" alt=""
-                              style="max-height: 127px; min-height: 127px;">
+                    <div class="img mt-2 ml-2 mr-2 text-center" style="height: 60%; width: 94%;"><img
+                              :src="riceCrop.Images_link" class="img-fluid" alt="">
                     </div>
                     <div class="body-riceCropComponent">
-                         <div class="row ml-1 mr-1">
+                         <div class="row pl-2 mr-1">
                               <div class="col">
                                    <strong class="font-weight-bold text-left">
                                         <span class="textid">{{ riceCrop.RiceCropInformation_id }}</span>
@@ -18,12 +18,12 @@
                                    </p>
                               </div>
                          </div>
-                         <div class="row pl-3 mb-2">
+                         <div class="row ml-2">
                               <table style="width: 90%;">
                                    <tr>
                                         <td class="text-center"><i class="fas fa-info-circle mt-1"
                                                   style="color: #919302; font-size: 26px;"></i></td>
-                                        <td class="text-center">
+                                        <td class="col-sm-12 text-center" style="justify-content: center;">
                                              <button v-if="riceCrop.RiceCropInformation_harvestDate != null"
                                                   class="btn btnFinish">Đã kết thúc</button>
                                              <button v-if="riceCrop.RiceCropInformation_harvestDate == null"
@@ -36,7 +36,8 @@
                                                             class="row">Xoas
                                                        </a>
                                                   </div>
-                                             </i></td>
+                                             </i>
+                                        </td>
                                    </tr>
 
                               </table>
@@ -72,8 +73,9 @@ export default {
 }
 
 .body-riceCropComponent {
-     padding: 1px;
+     padding: 1px 1px 0px 1px;
      border: none;
+     padding-top: 1px;
 }
 
 
@@ -85,7 +87,10 @@ export default {
      -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
      -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
      border-radius: 10px;
-     width: 197px;
+     /* width: 197px; */
+     width: 100%;
+     height: 90%;
+     max-height: 325px;
      text-align: left;
      background-color: #FAFAFC;
      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
@@ -148,19 +153,20 @@ export default {
      align-items: center;
      height: 30px;
      display: flex;
-     
+     margin-left: 20% !important;
+
 }
 
 .riceCropComponent .btnFinish {
      color: #6D6E73;
      background-color: #ABD2C8;
-margin-left: 10px;
+     margin-left: 10px;
 }
 
 .riceCropComponent .btnMonitoring {
      color: #5C5D22;
      background: #EEEA41;
-margin-left: 6px;
+     margin-left: 6px;
 }
 
 .riceCropComponent .deleteIcon {
@@ -168,5 +174,16 @@ margin-left: 6px;
      display: none;
 }
 
+@media screen and (max-width: 576px) {
+     .riceCropComponent {
+          height: 95% !important;
+          max-height: 450px;
+     }
 
-.riceCropComponent .fa-info-circle {}</style>
+     .body-riceCropComponent {
+          padding: 1px;
+          border: none;
+          padding-top: 20px !important;
+     }
+}
+</style>

@@ -1,16 +1,16 @@
 <template>
      <div class="container-fluid epidemicManagement" style="height:max-content !important;">
-          <div class="row epidemicManagementFrame" style="height: 100vmin;">
+          <div class="row epidemicManagementFrame" style="height: max-content;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
                     @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true"></button>
-               <div  class="left" :class=" {navbarresponsive: openMenu.openMenu }">
+               <div  class="left" :class=" {navbarresponsive: openMenu.openMenu }" style="z-index: 8;">
                          <Catalog />
                </div>
 
                <div class="right rightEpidemicManagement ">
-                    <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 30px; margin-right: 10px;">
+                    <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Dịch bệnh</h3>
                          </div>
@@ -45,7 +45,7 @@
                          </div>
                     </div>
 
-                    <div class="" style="margin-top: 145px; z-index: 4; width: 99%;">
+                    <div class="" style="margin-top: 145px; z-index: 2; width: 99%;">
                          <div class="col-sm-12 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i
                                         class="fas fa-plus-circle pt-1" style="font-size: 20px;"></i> Thêm bệnh dịch</button>

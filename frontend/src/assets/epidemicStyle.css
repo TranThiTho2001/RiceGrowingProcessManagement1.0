@@ -2,7 +2,6 @@
 .epidemicManagement .updateEpidemicForm {
     background-color: #dbdbdb;
     border: 0.5px solid #b8b5b5;
-    font-family: Inter;
     border-radius: 10px;
     position: absolute;
     top: calc(16%);
@@ -10,9 +9,6 @@
     width: 85%;
 }
 
-.epidemicManagement {
-    position: relative;
-}
 
 .epidemicManagement .navigationBar .btnEpidemic {
     display: block;

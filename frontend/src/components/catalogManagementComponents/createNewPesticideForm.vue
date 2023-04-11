@@ -13,12 +13,19 @@
                </p>
           </div>
           <div class="row content">
-               <div class="col-sm-5">
+               <div class="col-sm-4">
                     <div class="form-group">
-                         <label for="id" class="mt-2">Mã thuốc <span style="color: red">*</span></label>
+                         <label for="id" class="">Mã thuốc <span style="color: red">*</span></label>
                          <Field name="id" type="name" class="form-control" v-model="newpesticide.Pesticide_id"
                               placeholder="Nhập mã thuốc..." />
                          <ErrorMessage name="id" class="error-feedback" />
+                    </div>
+
+                    <div class="form-group">
+                         <label for="name" class="mt-3">Tên thuốc <span style="color: red">*</span></label>
+                         <Field name="name" class="form-control" v-model="newpesticide.Pesticide_name"
+                              placeholder="Nhập tên thuốc..." />
+                         <ErrorMessage name="name" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
@@ -29,40 +36,35 @@
                     </div>
 
                     <div class="form-group">
-                         <label for="description" class="mt-3">Thông tin <span style="color: red">*</span></label>
-                         <Field name="description" class="form-control" v-model="newpesticide.Pesticide_description"
-                              as="textarea" style="height: 206px;" placeholder="Thông tin thuốc..." />
-                         <ErrorMessage name="description" class="error-feedback" />
+                         <label for="components" class="mt-3">Thành phần <span style="color: red">*</span></label>
+                         <Field name="components" class="form-control" v-model="newpesticide.Pesticide_component"
+                              as="textarea" style="height: 185px;" placeholder="Thông tin thuốc..." />
+                         <ErrorMessage name="components" class="error-feedback" />
+                    </div>
+               </div>
+
+               <div class="col-md-4">
+                    <div class="form-group">
+                         <label for="uses" class="">Công dụng <span style="color: red">*</span></label>
+                         <Field name="uses" class="form-control" v-model="newpesticide.Pesticide_uses" as="textarea"
+                              style="height: 206px;" placeholder="Công dụng phân bón..." />
+                         <ErrorMessage name="uses" class="error-feedback" />
                     </div>
 
-               </div>
-               <div class="col-sm-7">
                     <div class="form-group">
-                         <label for="name" class="mt-2">Tên thuốc <span style="color: red">*</span></label>
-                         <Field name="name" class="form-control" v-model="newpesticide.Pesticide_name"
-                              placeholder="Nhập tên thuốc..." />
-                         <ErrorMessage name="name" class="error-feedback" />
+                         <label for="directionsForUse" class="mt-1">Hướng dẫn sử dụng<span
+                                   style="color: red">*</span></label>
+                         <Field name="directionsForUse" class="form-control"
+                              v-model="newpesticide.Pesticide_directionsForUse" as="textarea" style="height: 182px;"
+                              placeholder="Thông tin phân bón..." />
+                         <ErrorMessage name="directionsForUse" class="error-feedback" />
                     </div>
-                    <div class="form-group" style="height: 295px !important;">
-                         <div class="ml-3 mt-3">
-                              <label for="" class="mt-3">Điều trị bệnh dịch gây hại<span
-                                        style="color: red">*</span></label><br>
+               </div>
+               <div class="col-sm-4">
+                    <div class="form-group" style="height: 420px !important;">
+                         <div class="ml-3">
+                              <label for="" class="">Điều trị bệnh dịch gây hại<span style="color: red">*</span></label><br>
                          </div>
-                         <!-- <div class="row mt-2">
-                              <input type="text" class="form-control inputSearch3" placeholder="Tìm" v-model="nameToSearch"
-                                   @click="retrieveEpidemicList()" @keyup.enter="searchName(nameToSearch)"
-                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                              <button class="btnSearch3" @click="searchName(nameToSearch)"
-                                   v-if="nameToSearch == '' && !isOpenSearch.open">
-                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                              </button>
-                               :class="{ openSearch:isOpenSearch.open, closeSearch:isOpenSearch.close }" 
-                              <div :class="{ openSearch1: isOpenSearch.open, closeSearch1: isOpenSearch.close }">
-                                   <p class="item" v-for="epidemic in filteredList()" :key="epidemic.Epidemic_name"
-                                        @click="searchName(epidemic.Epidemic_name)">
-                                        {{ epidemic.Epidemic_name }}</p>
-                              </div>
-                         </div> -->
                          <div class="epidemicSelect" style="overflow-y: scroll;">
                               <div class="col-sm-12 mt-1">
                                    <div class="row ml-2" v-for="epidemic in epidemiclist" :key="epidemic.Epidemic_id">
@@ -74,12 +76,11 @@
                               </div>
                          </div>
                     </div>
-
                </div>
           </div>
 
           <div class="row ">
-               <div class="col-sm-12 mt-2 mb-3 text-center">
+               <div class="col-sm-12 mt-2 mb-2 text-center">
                     <span v-if="message2 == 'Thêm thành công.'" class="fas fa-check-circle"
                          style="color:#00BA13; text-align: center; display: inline;"></span>
                     <span v-if="message1 == 'Thêm không thành công.'" class="fas fa-times-circle"
@@ -90,9 +91,9 @@
                          thuốc mới không thành công </span>
                </div>
           </div>
-          <div class="row mb-4">
+          <div class="row mb-1">
                <div class="col-sm-12 text-center">
-                    <button class="btn btn-outline-secondary btnLuu col-sm-2">Lưu</button>
+                    <button class="btn btn-outline-secondary btnLuu">Lưu</button>
                </div>
           </div>
           <div v-if="isOpenSearch.open" class="outside" @click.passive="away()"></div>
@@ -127,9 +128,15 @@ export default {
                supplier: yup
                     .string()
                     .required("Nhà cung cấp thuốc trị bệnh dịch phải có giá trị"),
-               description: yup
+               components: yup
                     .string()
-                    .required("Thông tin thuốc phải có giá trị")
+                    .required("Thành phần thuốc phải có giá trị"),
+               uses: yup
+                    .string()
+                    .required("Công dụng thuốc phải có giá trị"),
+               directionsForUse: yup
+                    .string()
+                    .required("Hướng dẫn sử dụng phải có giá trị")
 
           });
           return {
@@ -262,11 +269,12 @@ export default {
 }
 
 .epidemicSelect {
-     background-color: #f7f7f7;
-     border-radius: 3px;
-     max-height: 240px !important;
+     background-color: #FAFAFC !important;
+     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+     max-height: 443px !important;
      min-height: 295px;
      z-index: 3 !important;
-     width: 100%;
-     position: relative;
-}</style>
+     border-radius: 15px !important;
+     border-radius: 15px;
+}
+</style>

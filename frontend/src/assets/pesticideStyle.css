@@ -2,12 +2,11 @@
 .pesticideManagement .updatePesticideForm{
     background-color: #dbdbdb;
     border: 0.5px solid #b8b5b5;
-     font-family: Inter;
      border-radius: 10px;
      position: absolute;
-     top: calc(100px);
-     left: 18px;
-     width: 98%;
+     top: calc(90px);
+     left: 30px;
+     width: 97%;
 }
 
 .pesticideManagement .fertilizerList{

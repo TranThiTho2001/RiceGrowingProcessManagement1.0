@@ -64,7 +64,7 @@ ActivityDetails.getAll = (riceCropInformation_id, result) => {
      });
 };
 
-ActivityDetails.findbyIdRiceCropInformation = (name, riceCropInformation_id, result) => {
+ActivityDetails.findbyNameAndIdRiceCrop = (name, riceCropInformation_id, result) => {
      let query = "SELECT * FROM ActivityDetails JOIN otheractivities on otheractivities.OtherActivities_id=ActivityDetails.OtherActivities_id"
      + " JOIN Employee on Employee.Employee_id = ActivityDetails.Employee_id"
      + ` JOIN DevelopmentStage on DevelopmentStage.DevelopmentStage_id = ActivityDetails.DevelopmentStage_id ` 

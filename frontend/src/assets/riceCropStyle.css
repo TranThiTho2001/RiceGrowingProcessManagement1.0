@@ -38,7 +38,7 @@
     margin-bottom: 2px;
     overflow: auto;
     max-width: 100%;
-    margin-left: 20px;
+    margin-left: 10px;
     margin-right: 2px;
 }
 
@@ -68,4 +68,19 @@
     position: fixed;
     top: 0px;
     left: 0px;
+}
+
+
+
+@media screen and (max-width: 1430px) {
+    .riceCropList{
+        margin-left: -5px !important;
+        width: 100% !important;
+        margin-right:0 !important;
+    }
+}
+
+.riceCropList .col-md-3{
+    /* height: 350px; */
+    margin-right: 2px !important;
 }

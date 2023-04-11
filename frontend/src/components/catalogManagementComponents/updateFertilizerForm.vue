@@ -14,14 +14,22 @@
                </p>
           </div>
           <div class="row content">
-               <div class="col-md-5">
+               <div class="col-md-4">
                     <div class="form-group">
-                         <label for="id" class="mt-2">Mã phân bón <span style="color: red">*</span></label>
+                         <label for="id" class="mt-3">Mã phân bón <span style="color: red">*</span></label>
                          <Field name="id" type="name" class="form-control" v-model="newfertilixer.Fertilizer_id"
                               placeholder="Nhập mã phân bón..." />
                          <ErrorMessage name="id" class="error-feedback" />
                     </div>
 
+                    <div class="form-group">
+                         <label for="components" class="mt-3">Thành phần <span style="color: red">*</span></label>
+                         <Field name="components" class="form-control" v-model="newfertilixer.Fertilizer_component"
+                              as="textarea" style="height: 240px;" placeholder="Thông tin phân bón..." />
+                         <ErrorMessage name="components" class="error-feedback" />
+                    </div>
+               </div>
+               <div class="col-md-4">
                     <div class="form-group">
                          <label for="name" class="mt-3">Tên phân bón <span style="color: red">*</span></label>
                          <Field name="name" class="form-control" v-model="newfertilixer.Fertilizer_name"
@@ -30,25 +38,27 @@
                     </div>
 
                     <div class="form-group">
+                         <label for="uses" class="mt-3">Công dụng <span style="color: red">*</span></label>
+                         <Field name="uses" class="form-control" v-model="newfertilixer.Fertilizer_uses" as="textarea"
+                              style="height: 240px;" placeholder="Công dụng phân bón..." />
+                         <ErrorMessage name="uses" class="error-feedback" />
+                    </div>
+
+               </div>
+
+               <div class="col-md-4">
+                    <div class="form-group">
                          <label for="supplier" class="mt-3">Nhà cung cấp <span style="color: red">*</span></label>
                          <Field name="supplier" class="form-control" v-model="newfertilixer.Fertilizer_supplier"
                               placeholder="Nhà cung cấp phân bón..." />
                          <ErrorMessage name="supplier" class="error-feedback" />
                     </div>
-               </div>
-               <div class="col-md-7">
-                    <div class="form-group">
-                         <label for="description" class="mt-2">Thông tin thành phần <span style="color: red">*</span></label>
-                         <Field name="description" class="form-control" v-model="newfertilixer.Fertilizer_description"
-                              as="textarea" style="height: 128px;" placeholder="Thông tin phân bón..." />
-                         <ErrorMessage name="description" class="error-feedback" />
-                    </div>
 
                     <div class="form-group">
-                         <label for="uses" class="">Công dụng <span style="color: red">*</span></label>
-                         <Field name="uses" class="form-control" v-model="newfertilixer.Fertilizer_uses" as="textarea"
-                              style="height: 128px;" placeholder="Công dụng phân bón..." />
-                         <ErrorMessage name="uses" class="error-feedback" />
+                         <label for="directionsForUse" class="mt-3">Hướng dẫn sử dụng<span style="color: red">*</span></label>
+                         <Field name="directionsForUse" class="form-control" v-model="newfertilixer.Fertilizer_directionsForUse"
+                              as="textarea" style="height: 240px;" placeholder="Thông tin phân bón..." />
+                         <ErrorMessage name="directionsForUse" class="error-feedback" />
                     </div>
                </div>
           </div>
@@ -102,11 +112,15 @@ export default {
                supplier: yup
                     .string()
                     .required("Nhà cung cấp phân bón phải có giá trị"),
-               description: yup
+               components: yup
                     .string()
-                    .required("Thông tin phân bón phải có giá trị"),
+                    .required("Thành phần phân bón phải có giá trị"),
                uses: yup
-                    .string(),
+                    .string()
+                    .required("Công dụng phân bón phải có giá trị"),
+               directionsForUse: yup
+                    .string()
+                    .required("Hưỡng dẫn sử dụng phân bón phải có giá trị")
           });
           return {
                newfertilixer: this.newFertilizer,

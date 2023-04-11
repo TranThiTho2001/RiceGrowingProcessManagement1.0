@@ -175,7 +175,7 @@ export default {
 
 <style>  
 .navigationBar {
- background:  linear-gradient(180deg, rgba(231, 237, 199) 0%, rgba(219, 237, 199) 100%);
+     background: linear-gradient(180deg, rgba(128, 255, 0, 0.15) 0%, rgba(250, 255, 0, 0.15) 100%);
        font-family: Inter;
        background-color: inherit;
        min-height: 100vh;
@@ -185,7 +185,6 @@ export default {
 
   .navigationBar .categoryList .btn-outline-secondary {
        font-size: 17px;
-       font-family: Inter;
        text-align: left;
        width: 88%;
        display: block;
@@ -193,11 +192,11 @@ export default {
        color: #737374;
        border: none;
        border-radius: 14px;
+       font-family: 'Roboto';
   }
 
   .navigationBar .categoryList .catalog .btn-outline-secondary {
        font-size: 17px;
-       font-family: Inter;
        text-align: left;
        width: 84% !important;
        margin-left: 20px;
@@ -206,10 +205,10 @@ export default {
        color: #737374;
        border: none;
        border-radius: 14px;
+       font-family: 'Roboto';
   }
   .navigationBar .categoryList .catalog .btn-outline-secondary:hover {
        font-size: 17px;
-       font-family: Inter;
        text-align: left;
        width: 84% !important;
        margin-left: 20px;
@@ -226,7 +225,6 @@ export default {
        background-color: #FFFA37;
        color: #5C5D22;
        border: none;
-       font-family: Inter;
        border-radius: 14px;
   }
 
@@ -252,7 +250,6 @@ export default {
 
   .navigationBar .btnEmployee {
        font-size: 16px;
-       font-family: Inter;
        text-align: left;
        min-width: 90%;
        width: 100%;
@@ -262,6 +259,7 @@ export default {
        border: none;
        border-radius: 14px;
        font-weight: 500;
+       font-family: 'Roboto';
   }
 
   .nav-item {

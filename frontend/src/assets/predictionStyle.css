@@ -20,7 +20,7 @@
 .predictiveManagement .navigationBar .btnPrediction{
     display: block;
     width: 88%;
-    font-size: 18px;
+    font-size: 17px;
     background-color: #fff945;
     box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
     color: #5C5D22;
@@ -41,3 +41,15 @@
     line-height: 10px;
 }
 
+.btnPredict{
+    border-radius: 10px !important;
+    background: #008B8E;
+    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
+    font-size: 17px;
+    font-family: 'Roboto';
+    font-weight: 500 !important;
+    border: none;
+    color: #FFFED8;
+    margin-right: 22px;
+    z-index: -1;
+}

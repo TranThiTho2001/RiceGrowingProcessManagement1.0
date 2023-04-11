@@ -1,13 +1,13 @@
 <template>
-     <div style="height: 300px; width: 240px;" class="container-fuild">
+     <div class="container-fuild">
           <div class="imageComponent text-dark border">
                <div class="img mt-2 ml-2 mr-2 text-center"><img :src="images.Image_link" class="img-fluid" alt=""
                          style="min-height: 200px; max-height: 200px;">
                </div>
                <div class="row ml-2 mr-2">
                     <div style="width: 80%;">
-                         <div class="infor">Ngày: {{ formatDate(images.Image_date) }}</div>
-                         <div class="infor">Giờ: {{ formatTimes(images.Image_date) }}</div>
+                         <div class="datetime">Ngày: {{ formatDate(images.Image_date) }}</div>
+                         <div class="datetime">Giờ: {{ formatTimes(images.Image_date) }}</div>
                     </div>
                     <div style="width: 20%;">
                          <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown" aria-haspopup="true"
@@ -70,12 +70,8 @@ export default {
    
 <style>
 .imageComponent {
-     margin-right: 10%;
-     -moz-border-radius: 2px;
-     -webkit-border-radius: 2px;
      -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
      -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-     width: 96%;
      text-align: left;
      background-color: #FAFAFC;
      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
@@ -89,8 +85,7 @@ export default {
      float: right;
 }
 
-.imageComponent .infor {
-     font-family: Inter;
+.imageComponent .datetime {
      font-size: 15px;
      color: rgb(195, 195, 103);
 }

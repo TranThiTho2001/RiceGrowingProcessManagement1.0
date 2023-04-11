@@ -10,7 +10,7 @@
                </div>
 
                <div class="right rightPesticideManagement" :class="{ leftNoneActive: active.leftnNoneActive }">
-                    <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 30px; margin-right: 10px;">
+                    <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Thuốc trị bệnh dịch</h3>
                          </div>
@@ -394,16 +394,16 @@ export default {
                                                   temp = 1;
                                              }
                                         });
-                                         if (temp == 0) {
-                                        this.deleteTreatment(data.Pesticide_id, element.Epidemic_id);
+                                        if (temp == 0) {
+                                             this.deleteTreatment(data.Pesticide_id, element.Epidemic_id);
+                                        }
+                                        temp = 0;
                                    }
-                                   temp = 0;
-                                   }
-                                   else{
+                                   else {
                                         this.deleteTreatment(element.Pesticide_id, element.Epidemic_id);
                                    }
 
-                                  
+
                               });
                          }
                          this.message2 = "Cập nhật thành công.";
@@ -428,7 +428,7 @@ export default {
 
           async deleteTreatments() {
                this.message = '';
-               if(this.pesticideChosen.Treatment != null){
+               if (this.pesticideChosen.Treatment != null) {
                     this.pesticideChosen.Treatment.forEach(element => {
                          this.deleteTreatment(this.pesticideChosen.Pesticide_id, element.Epidemic_id);
                     });
@@ -437,7 +437,7 @@ export default {
           },
 
 
-          async deletePesticide(pesticideid){
+          async deletePesticide(pesticideid) {
                this.message = '';
                const [error, response] = await this.handle(
                     PesticideService.delete(pesticideid)
