@@ -309,6 +309,8 @@
      font-style: normal;
      font-size: 17px;
      padding: 8px 4px 8px 4px;
+     border-top: 0.1px solid #b5b6b9;
+     border-bottom: 0.1px solid #b5b6b9;
 }
 
 

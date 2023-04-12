@@ -129,6 +129,13 @@ const routes = [
         component: () => import("../views/catalogManagementView/activitiesManagement.vue"),
 
     },
+    
+    {
+        path: "/FertilizerDetail/:id",
+        alias: "/FertilizerDetail",
+        name: "FertilizerDetail",
+        component: () => import("../views/catalogManagementView/fertilizerDetail.vue"),
+    },
 ];
 
 const router = createRouter({

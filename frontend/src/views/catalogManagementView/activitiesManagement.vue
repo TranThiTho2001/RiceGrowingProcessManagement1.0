@@ -21,26 +21,16 @@
                          </div>
                     </div>
 
-                    <div class="row ml-2 mr2" style="margin-top: 145px; z-index: 4; width: 99%;">
+                    <div class="row row-inputSearch">
                          <div class="col-sm-10">
-                              <div class="">
                                    <input type="text" class="form-control inputSearch1" placeholder="Tìm"
                                         v-model="nameToSearch" @click="retrieveOtherActivities, isOpenInput1 = true"
                                         @keyup.enter="searchName(nameToSearch), away()"
                                         @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                                   <button class="btnSearch1" @click="searchName(nameToSearch), away()"
-                                        v-if="nameToSearch == ''">
+                                   <button class="btnSearch1" @click="searchName(nameToSearch), away()">
                                         <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                                    </button>
 
-                                   <!-- <input v-if="isOpenInput2 || (isOpenSearch.open)" autofocus type="text"
-                                        class="form-control inputSearch2" placeholder="Tìm" style="width: 2%;"
-                                        v-model="nameToSearch" @click="retrieveOtherActivities"
-                                        @keyup.enter="searchName(nameToSearch), away()"
-                                        @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                                   <button class="btnSearch2" @click="isOpenInput2 = !isOpenInput2">
-                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                                   </button> -->
 
                                    <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
                                         <p class="item" v-for="activity in filteredList()"
@@ -49,7 +39,6 @@
                                              {{ activity.OtherActivities_name }}</p>
                                    </div>
                               </div>
-                         </div>
                          <div class="col-sm-2 text-right">
                               <button class="btn btnCreate"
                                    @click="isOpenCreateOtherActivities = !isOpenCreateOtherActivities"><i
@@ -75,20 +64,28 @@
                                              <td data-label="Tên hoạt động">{{ activity.OtherActivities_name }}</td>
                                              <td data-label="Số lần được thực hiệnSTT">{{ activity.Times.length }}</td>
 
-                                             <td data-label="Tùy chọn" style=" padding: 2px ;">
-                                                  <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
+                                             <td data-label="Tùy chọn" style="padding: 2px ;">
+                                                  <button type="button" class="btn btn-sm btnMore option1" data-toggle="dropdown"
                                                        aria-haspopup="true" aria-expanded="false">
                                                        <i class="fas fa-ellipsis-v"></i>
                                                   </button>
-                                                  <div class="dropdown-menu">
+                                                  <div class="dropdown-menu option1">
                                                        <a class="dropdown-item action"
-                                                            @click="setActivityChoosen(activity), isOpenUpdateActivities = !isOpenUpdateActivities">
+                                                       @click="setActivityChoosen(activity), isOpenUpdateActivities = !isOpenUpdateActivities">
                                                             <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                                        </a>
                                                        <a class="dropdown-item" href="#"
-                                                            @click="setActivityChoosen(activity), isOpenConfirm = !isOpenConfirm">
+                                                       @click="setActivityChoosen(activity), isOpenConfirm = !isOpenConfirm">
                                                             <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                        </a>
+                                                  </div>
+                                                  <div class="option2">
+                                                       <button class="btn btnMore"
+                                                       @click="setActivityChoosen(activity), isOpenUpdateActivities = !isOpenUpdateActivities">
+                                                            <span class="fas fa-edit actionIcon"></span> Chỉnh sửa</button>
+                                                       <button class="btn btnMore"
+                                                       @click="setActivityChoosen(activity), isOpenConfirm = !isOpenConfirm">
+                                                            <span class="fas fa-trash-alt actionIcon"></span> Xóa</button>
                                                   </div>
                                              </td>
                                         </tr>

@@ -22,27 +22,19 @@
                          </div>
                     </div>
 
-                    <div class="row" style="margin-top: 145px; z-index: 2; width: 99%;">
+                    <div class="row row-inputSearch">
                          <div class="col-sm-10">
                               <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
                                    @click="retrieveEpidemicList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch), away()"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                              <button class="btnSearch1" @click="searchName(nameToSearch), away()"
-                                   v-if="nameToSearch == '' && !isOpenSearch.open">
+                              <button class="btnSearch1" @click="searchName(nameToSearch), away()">
                                    <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
                               
-                              <input v-if="isOpenInput2 || (isOpenSearch.open)" autofocus type="text" class="form-control inputSearch2" placeholder="Tìm" style="width: 2%;"
-                                   v-model="nameToSearch" @click="retrieveEpidemicList" 
-                                   @keyup.enter="searchName(nameToSearch), away()"
-                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                              <button class="btnSearch2" @click="isOpenInput2 = !isOpenInput2">
-                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                              </button>
 
                               <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
                                    <p class="item" v-for="epidemic in filteredList()" :key="epidemic.Epidemic_id"
-                                        @click="searchName(epidemic.Epidemic_name)">
+                                        @click="searchName(epidemic.Epidemic_name), away()">
                                         {{ epidemic.Epidemic_name }}</p>
                               </div>
                          </div>

@@ -10,8 +10,7 @@
           </div>
 
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fa fa-plus-circle"> </span> Cập nhật thông tin nhân
-                    viên
+               <p class="col-sm-12 text-center functionName"><span class="fa fa-plus-circle"> </span> CẬP NHẬT THÔNG TIN NHÂN VIÊN
                </p>
           </div>
 

@@ -9,8 +9,7 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> Thêm lần thực hiện
-                    hoạt động</p>
+               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i>THÊM LẦN THỰC HIỆN HOẠT ĐỘNG CHO MÙA VỤ</p>
           </div>
           <div class="row content">
                <div class="col-sm-4 mt-2">

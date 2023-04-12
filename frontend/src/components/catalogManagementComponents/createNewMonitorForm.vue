@@ -9,7 +9,7 @@
           </div>
           <div class="row">
                <p class="col-sm-12 text-center functionName">
-                    <i class="fas fa-plus-circle"></i>Thêm Nhân Viên Theo Dõi Mùa Vụ
+                    <i class="fas fa-plus-circle"></i> QUẢN LÝ QUYỀN THEO DÕI MÙA VỤ
                </p>
 
           </div>

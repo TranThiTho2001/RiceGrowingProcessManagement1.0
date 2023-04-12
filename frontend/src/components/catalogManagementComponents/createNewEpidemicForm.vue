@@ -8,8 +8,7 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> Cập nhật thông
-                    tin giống lúa mới
+               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i>THÊM GIỐNG LÚA MỚI
                </p>
           </div>
           <div class="row content">

@@ -10,7 +10,7 @@
         <div class="functionName row mb-3">
             <div class="col-sm-12 text-center">
             <i class="fa fa-plus-circle pt-2" style="font-size: 25px;"> </i>
-            <p class="title"> Thêm hình ảnh </p>
+            <p class="title">THÊM HÌNH ẢNH</p>
         </div>
         </div>
         <div class="row">

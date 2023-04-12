@@ -9,9 +9,9 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Cập nhật thông tin
-                    lần thực hiện
-                    hoạt động</p>
+               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span>
+                    CẬP NHẬT THÔNG TIN LẦN THỰC HIỆN HOẠT ĐỘNG CỦA MÙA VỤ
+               </p>
           </div>
           <div class="row content">
                <div class="col-sm-4 mt-2">

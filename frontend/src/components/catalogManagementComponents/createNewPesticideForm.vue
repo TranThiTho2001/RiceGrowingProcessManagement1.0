@@ -8,8 +8,8 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> Thêm loại thuốc trị bệnh
-                    dịch mới
+               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i>
+                    THÊM LOẠI THUỐC TRỊ BỆNH DỊCH MỚI
                </p>
           </div>
           <div class="row content">

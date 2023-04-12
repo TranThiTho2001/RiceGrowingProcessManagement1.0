@@ -5,14 +5,14 @@
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
                     @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true, active.leftnNoneActive = false"></button>
-                    <div  class="left" :class=" {navbarresponsive: openMenu.openMenu }" >
-                         <Catalog />
+               <div class="left" :class="{ navbarresponsive: openMenu.openMenu }">
+                    <Catalog />
                </div>
                <div class="right rightSeedManagement " :class="{ leftNoneActive: active.leftnNoneActive }">
                     <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
-                              <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Giống lúa</h3>
-                         </div>                 
+                              <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Giống lúa</h3>
+                         </div>
 
                          <div class="text-right">
                               <div class="row">
@@ -20,23 +20,16 @@
                               </div>
                          </div>
                     </div>
-                    <div class="row ml-2 mr-2" style="margin-top: 145px; z-index: 4; width: 99%;">
+                    <div class="row row-inputSearch">
                          <div class="col-sm-10">
                               <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
-                                   @click="retrieveSeedList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch), away()"
+                                   @click="retrieveSeedList, isOpenInput1 = true"
+                                   @keyup.enter="searchName(nameToSearch), away()"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                              <button class="btnSearch1" @click="searchName(nameToSearch), away()"
-                                   v-if="nameToSearch == '' && !isOpenSearch.open">
+                              <button class="btnSearch1" @click="searchName(nameToSearch), away()">
                                    <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
 
-                              <input v-if="isOpenInput2 || (isOpenSearch.open)" autofocus type="text" class="form-control inputSearch2" placeholder="Tìm" style="width: 2%;"
-                                   v-model="nameToSearch" @click="retrieveSeedList" 
-                                   @keyup.enter="searchName(nameToSearch), away()"
-                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                              <button class="btnSearch2" @click="isOpenInput2 = !isOpenInput2">
-                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                              </button>
                               <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
                                    <p class="item" v-for="seed in filteredList()" :key="seed.Seed_name"
                                         @click="searchName(seed.Seed_name), away()">
@@ -50,48 +43,52 @@
                     </div>
                     <div class="scrollTable">
                          <div class="scrollTable-content">
-                         <table class="table seedList">
-                              <thead>
-                                   <tr>
-                                        <th class="centerclass">STT</th>
-                                        <th>Mã</th>
-                                        <th>Tên</th>
-                                        <th>Nhà cung cấp</th>
-                                        <th>Đặc tính</th>
-                                        <th></th>
-                                   </tr>
-                              </thead>
-                              <tbody>
-                                   <tr v-for="(seed, i ) in seedList" :key="i">
-                                        <td class="centerclass" data-label="STT">{{ i + 1 }}</td>
-                                        <td data-label="Mã">{{ seed.Seed_id }}</td>
-                                        <td data-label="Tên">{{ seed.Seed_name }}</td>
-                                        <td data-label="Nhà cung cấp">{{ seed.Seed_supplier }}</td>
-                                        <td data-label="Đặc tính">{{ seed.Seed_characteristic }}
-                                        </td>
-                                        <td class="" data-label="Tùy chọn">
-                                             <button type="button" class="btn btn-sm btnMore option1" data-toggle="dropdown"
-                                                  aria-haspopup="true" aria-expanded="false">
-                                                  <i class="fas fa-ellipsis-v"></i>
-                                             </button>
-                                             <div class="dropdown-menu option1">
-                                                  <a class="dropdown-item action"
-                                                       @click="setSeedChosen(seed), isOpenUpdateSeed = !isOpenUpdateSeed">
-                                                       <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
-                                                  </a>
-                                                  <a class="dropdown-item" href="#"
-                                                       @click="setSeedChosen(seed), isOpenConfirm = !isOpenConfirm">
-                                                       <span class="fas fa-trash-alt actionIcon"></span> Xóa
-                                                  </a>
-                                             </div>
-                                             <div class="option2">
-                                                 <button class="btn btnMore" @click="setSeedChosen(seed), isOpenUpdateSeed = !isOpenUpdateSeed"> <span class="fas fa-edit actionIcon"></span> Chỉnh sửa</button>
-                                                 <button class="btn btnMore" @click="setSeedChosen(seed), isOpenConfirm = !isOpenConfirm"> <span class="fas fa-trash-alt actionIcon"></span> Xóa</button>
-                                             </div>
-                                        </td>
-                                   </tr>
-                              </tbody>
-                         </table>
+                              <table class="table seedList">
+                                   <thead>
+                                        <tr>
+                                             <th class="centerclass">STT</th>
+                                             <th>Mã</th>
+                                             <th>Tên</th>
+                                             <th>Nhà cung cấp</th>
+                                             <th>Đặc tính</th>
+                                             <th></th>
+                                        </tr>
+                                   </thead>
+                                   <tbody>
+                                        <tr v-for="(seed, i ) in seedList" :key="i">
+                                             <td class="centerclass" data-label="STT">{{ i + 1 }}</td>
+                                             <td data-label="Mã">{{ seed.Seed_id }}</td>
+                                             <td data-label="Tên">{{ seed.Seed_name }}</td>
+                                             <td data-label="Nhà cung cấp">{{ seed.Seed_supplier }}</td>
+                                             <td data-label="Đặc tính">{{ seed.Seed_characteristic }}
+                                             </td>
+                                             <td class="" data-label="Tùy chọn">
+                                                  <button type="button" class="btn btn-sm btnMore option1"
+                                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                       <i class="fas fa-ellipsis-v"></i>
+                                                  </button>
+                                                  <div class="dropdown-menu option1">
+                                                       <a class="dropdown-item action"
+                                                            @click="setSeedChosen(seed), isOpenUpdateSeed = !isOpenUpdateSeed">
+                                                            <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
+                                                       </a>
+                                                       <a class="dropdown-item" href="#"
+                                                            @click="setSeedChosen(seed), isOpenConfirm = !isOpenConfirm">
+                                                            <span class="fas fa-trash-alt actionIcon"></span> Xóa
+                                                       </a>
+                                                  </div>
+                                                  <div class="option2">
+                                                       <button class="btn btnMore"
+                                                            @click="setSeedChosen(seed), isOpenUpdateSeed = !isOpenUpdateSeed">
+                                                            <span class="fas fa-edit actionIcon"></span> Chỉnh sửa</button>
+                                                       <button class="btn btnMore"
+                                                            @click="setSeedChosen(seed), isOpenConfirm = !isOpenConfirm">
+                                                            <span class="fas fa-trash-alt actionIcon"></span> Xóa</button>
+                                                  </div>
+                                             </td>
+                                        </tr>
+                                   </tbody>
+                              </table>
                          </div>
                     </div>
                     <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
@@ -417,5 +414,4 @@ nav .pagination .page-item .page-link {
      font-weight: 700;
      background-color: #EAEAEA;
      font-size: 20px;
-}
-</style>
+}</style>

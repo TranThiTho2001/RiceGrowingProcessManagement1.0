@@ -9,8 +9,7 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Cập Nhật Lần Bị
-                    Bệnh Dịch</p>
+               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span>CẬP NHẬT THÔNG TIN LẦN BỊ BỆNH DỊCH</p>
           </div>
           <div class="row content">
                <div class="col-sm-4 mt-2">

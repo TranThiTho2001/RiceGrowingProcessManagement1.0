@@ -21,21 +21,12 @@
                               </div>
                          </div>
                     </div>
-                    <div class="row" style="margin-top: 145px; z-index: 4; width: 99%;">
+                    <div class="row row-inputSearch">
                          <div class="col-sm-10">
                               <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
                                    @click="retrieveFertilizerList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch), away()"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                              <button class="btnSearch1" @click="searchName(nameToSearch), away()"
-                                   v-if="nameToSearch == '' && !isOpenSearch.open">
-                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                              </button>
-
-                              <input v-if="isOpenInput2 || (isOpenSearch.open)" autofocus type="text" class="form-control inputSearch2" placeholder="Tìm" style="width: 2%;"
-                                   v-model="nameToSearch" @click="retrieveFertilizerList" 
-                                   @keyup.enter="searchName(nameToSearch), away()"
-                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                              <button class="btnSearch2" @click="isOpenInput2 = !isOpenInput2">
+                              <button class="btnSearch1" @click="searchName(nameToSearch), away()">
                                    <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
 
@@ -61,20 +52,22 @@
                                              <th>Nhà cung cấp</th>
                                              <th>Thông tin thành phần</th>
                                              <th>Công dụng</th>
+                                             <th>Hướng dẫn sử dụng</th>
                                              <th></th>
                                         </tr>
                                    </thead>
                                    <tbody>
-                                        <tr v-for="(fertilizer, i ) in fertilizerList" :key="i"
+                                        <tr v-for="(fertilizer, i ) in fertilizerList" :key="i" @click="goToFertilizerDetail(fertilizer.Fertilizer_id)"
                                              class="">
 
                                              <td data-label="STT" class="centerclass">{{ i + 1 }}</td>
                                              <td data-label="Mã">{{ fertilizer.Fertilizer_id }}</td>
                                              <td data-label="Tên">{{ fertilizer.Fertilizer_name }}</td>
                                              <td data-label="Nhà cung cấp">{{ fertilizer.Fertilizer_supplier }}</td>
-                                             <td data-label="Thông tin thành phần" >{{ fertilizer.Fertilizer_description }}</td>
+                                             <td data-label="Thành phần" >{{ fertilizer.Fertilizer_component }}</td>
                                              <td data-label="Công dụng" >{{ fertilizer.Fertilizer_uses }}</td>
-                                             <td data-label="M" class="centerclass">
+                                             <td data-label="Hướng dẫn sử dụng">{{ fertilizer.Fertilizer_directionForUse }}</td>
+                                             <td data-label="M" class="centerclass" style="z-index: 1000;">
                                                   <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
                                                        aria-haspopup="true" aria-expanded="false">
                                                        <i class="fas fa-ellipsis-v"></i>
@@ -157,11 +150,6 @@ export default {
 
      data() {
           return {
-               currentPage: 1,
-               elementsPerPage: 6,
-               ascending: false,
-               previous: '<<',
-               next: '>>',
                fertilizerList: [],
                openCreate: false,
                newFertilizer: {},
@@ -343,6 +331,10 @@ export default {
                this.fertilizerChosen = fertilizer;
           },
 
+          async goToFertilizerDetail(fertilizer_id){
+               console.log(fertilizer_id)
+               this.$router.push({ name: 'FertilizerDetail', params: { id: fertilizer_id } });
+          }
           
      },
 

@@ -20,21 +20,12 @@
                               </div>
                          </div>
                     </div>
-                    <div class="row" style="margin-top: 145px; z-index: 4; width: 99%;">
+                    <div class="row row-inputSearch">
                          <div class="col-sm-10">
                               <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
                                    @click="retrieveRiceCropList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch), away()"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                              <button class="btnSearch1" @click="searchName(nameToSearch), away()"
-                                   v-if="nameToSearch == '' && !isOpenSearch.open">
-                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                              </button>
-
-                              <input v-if="isOpenInput2 || (isOpenSearch.open)" autofocus type="text" class="form-control inputSearch2" placeholder="Tìm" style="width: 2%;"
-                                   v-model="nameToSearch" @click="retrieveRiceCropList" 
-                                   @keyup.enter="searchName(nameToSearch), away()"
-                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                              <button class="btnSearch2" @click="isOpenInput2 = !isOpenInput2">
+                              <button class="btnSearch1" @click="searchName(nameToSearch), away()">
                                    <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                               </button>
                               
@@ -356,7 +347,7 @@ export default {
 
                     this.fullListRiceCrop = respone.data;
                     var temp = (String(this.fullListRiceCrop[this.fullListRiceCrop.length - 1].RiceCropInformation_id)).split("");
-                    console.log(temp)
+                    console.log("jhj"+temp)
                     var id = "";
                     for (let index = 0; index < temp.length; index++) {
                          const element = temp[index];
@@ -401,7 +392,7 @@ export default {
                          console.log(this.urlImage);
                     }
                     else {
-                         this.riceCropList[position].Images_link = require('@/images/' + "Rice1.png");
+                         this.riceCropList[position].Images_link = require('@/images/' + "Rice14.jpg");
                     }
                }
           },

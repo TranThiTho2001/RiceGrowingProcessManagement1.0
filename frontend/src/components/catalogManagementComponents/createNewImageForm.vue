@@ -8,7 +8,7 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> Thêm Ảnh Cho Mùa Vụ
+               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> THÊM HÌNH ẢNH CHO MÙA VỤ
                </p>
           </div>
 

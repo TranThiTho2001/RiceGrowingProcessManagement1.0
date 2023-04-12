@@ -9,7 +9,7 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> Thêm lần bón phân
+               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> THÊM LẦN BÓN PHÂN CHO MÙA VỤ
                </p>
           </div>
           <div class="row content">
@@ -51,9 +51,10 @@
                     </div>
 
                     <div class="form-group">
-                         <label for="developmentid" class="mt-3">Giai đoạn phát triển<span style="color:red">*</span></label>
+                         <label for="developmentid" class="mt-3 pt-1">Giai đoạn phát triển<span
+                                   style="color:red">*</span></label>
                          <Field name="developmentid" class="form-control" v-model="newfertilizertimes.DevelopmentStage_name">
-                              <select class="form-control" v-model="newfertilizertimes.DevelopmentStage_name"
+                              <select class="form-control selectBox" v-model="newfertilizertimes.DevelopmentStage_name"
                                    name="developmentid" for="developmentid">
                                    <option v-for="(developmentStage, i) in development" :key="i">
                                         {{ developmentStage.DevelopmentStage_name }}
@@ -119,22 +120,23 @@
                </div>
 
           </div>
-          <div class="row mt-2 ml-1 mr-1 fertilizerUsed">
-               <button type="button" @click="addFertilizer()" class="btnAddFertilizer row mt-2"> Thêm </button>
-               <div class="fertilizerlist ml-2">
-                    <table class="table thead-dark table-striped" style="height: 200px">
+          <div class=" fertilizerUsed row pt-2 mt-3 ml-1 mr-1">
+               
+               <div class="fertilizerlist ml-2 mt-2">
+                    <table class=" table thead-dark" style="height: 200px; width: 99% !important;">
                          <thead>
-
                               <tr>
                                    <th class="text-center">STT</th>
                                    <th>Tên loại phân</th>
-                                   <th>Số lượng dùng</th>
+                                   <th>Số lượng dùng
+                                        <button type="button" @click="addFertilizer()" class="btnAddFertilizer"> Thêm phân bón </button>
+                                   </th>
                               </tr>
                          </thead>
                          <tbody>
                               <tr v-for="(fertilizertimes, i) in newfertilizertimes.Fertilizer" :key="i">
                                    <td class="text-center">{{ i + 1 }}</td>
-                                   <td>
+                                   <td style="padding: 5px 2px 5px 2px !important; ">
                                         <select class="selectionFertilizer" name="classtify"
                                              v-model="fertilizertimes.Fertilizer_name" for="classtify"
                                              @change="setFertilizer($event)">
@@ -166,7 +168,8 @@
                          style="color:red; text-align: center; display: inline;"></span>
                     <span v-if="message2 == 'Thêm thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;">
                          Thêm lần bón phân thành công</span>
-                    <span v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2"> Thêm lần bón phân không thành công
+                    <span v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2"> Thêm lần bón phân không
+                         thành công
                     </span>
                </div>
           </div>
@@ -329,7 +332,8 @@ export default {
                     this.newfertilizertimes.FertilizerTimes_temperature = (this.weatherInfor.totalTemperature / this.weatherInfor.temperatureList.length).toFixed(2);
                     this.newfertilizertimes.FertilizerTimes_humidity = (this.weatherInfor.totalHumitidity / this.weatherInfor.humitidityList.length).toFixed(2);
                     this.newfertilizertimes.FertilizerTimes_windSpeed = (this.weatherInfor.totalWindSpeed / this.weatherInfor.windSpeed.length).toFixed(2);
-                    this.newfertilizertimes.FertilizerTimes_solarRadiation = (this.weatherInfor.totalSolarRadiation / this.weatherInfor.solarRadiation.length).toFixed(2);               }
+                    this.newfertilizertimes.FertilizerTimes_solarRadiation = (this.weatherInfor.totalSolarRadiation / this.weatherInfor.solarRadiation.length).toFixed(2);
+               }
                else if (((end.getTime() - start.getTime()) / (24 * 3600 * 1000)) + 1 >= 7 && this.newfertilizertimes.FertilizerTimes_endDate != '' && this.newfertilizertimes.FertilizerTimes_endDate <= date) {
                     let urlAPI = `https://archive-api.open-meteo.com/v1/archive?latitude=${this.riceCropChosen.ArableLand_latitude}&longitude=${this.riceCropChosen.ArableLand_longitude}&start_date=${moment(this.newfertilizertimes.FertilizerTimes_startDate).format("YYYY-MM-DD")}&end_date=${moment(this.newfertilizertimes.FertilizerTimes_endDate).format("YYYY-MM-DD")}&timezone=auto&hourly=relativehumidity_2m&daily=temperature_2m_mean&daily=precipitation_sum&daily=windspeed_10m_max&daily=shortwave_radiation_sum`;
                     let data = await fetch(urlAPI).then(res => res.json())
@@ -393,7 +397,8 @@ export default {
                     this.newfertilizertimes.FertilizerTimes_temperature = (this.weatherInfor.totalTemperature / this.weatherInfor.temperatureList.length).toFixed(2);
                     this.newfertilizertimes.FertilizerTimes_humidity = (this.weatherInfor.totalHumitidity / this.weatherInfor.humitidityList.length).toFixed(2);
                     this.newfertilizertimes.FertilizerTimes_windSpeed = (this.weatherInfor.totalWindSpeed / this.weatherInfor.windSpeed.length).toFixed(2);
-                    this.newfertilizertimes.FertilizerTimes_solarRadiation = (this.weatherInfor.totalSolarRadiation / this.weatherInfor.solarRadiation.length).toFixed(2);               }
+                    this.newfertilizertimes.FertilizerTimes_solarRadiation = (this.weatherInfor.totalSolarRadiation / this.weatherInfor.solarRadiation.length).toFixed(2);
+               }
 
           }
 
@@ -435,8 +440,9 @@ export default {
 }
 
 .dp__input {
-     background-color: var(--dp-background-color);
-     border-radius: 10px;
+     background: #FAFAFC !important;
+     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+     border-radius: 10px !important;
      font-family: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen, ubuntu, cantarell, "Open Sans", "Helvetica Neue", sans-serif;
      border: 1px solid var(--dp-border-color);
      outline: none;
@@ -446,20 +452,8 @@ export default {
      line-height: 1.5rem;
      padding: 6px 12px;
      color: var(--dp-text-color);
-     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
      box-sizing: border-box;
      height: 35px !important;
 }
 
-.inputAmount {
-     background-color: #FAFAFC;
-     border: 0.1px solid #c8c8ca;
-     font-size: 17px;
-     height: 37px;
-     width: 100%;
-     color: #2F3033;
-     font-family: 'Roboto';
-     font-style: normal;
-     font-weight: 500;
-}
 </style>

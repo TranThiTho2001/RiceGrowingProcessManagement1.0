@@ -8,7 +8,7 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fa fa-plus-circle"> </span> Thêm giống lúa mới
+               <p class="col-sm-12 text-center functionName"><span class="fa fa-plus-circle"> </span>THÊM GIỐNG LÚA
                </p>
           </div>
           <div class="row content">

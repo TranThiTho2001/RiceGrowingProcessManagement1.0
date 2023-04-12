@@ -10,7 +10,7 @@
           </div>
 
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> Thêm Lần Bị Bệnh Dịch</p>
+               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i>THÊM LẦN BỊ BỆNH DỊCH</p>
           </div>
 
           <div class="row content">

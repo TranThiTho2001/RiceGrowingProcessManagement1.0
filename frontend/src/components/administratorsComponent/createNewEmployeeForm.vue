@@ -9,7 +9,7 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fa fa-plus-circle"> </span> Thêm nhân viên mới
+               <p class="col-sm-12 text-center functionName"><span class="fa fa-plus-circle"> </span> THHÊM NHÂN VIÊN
                </p>
           </div>
           <div class="row content">

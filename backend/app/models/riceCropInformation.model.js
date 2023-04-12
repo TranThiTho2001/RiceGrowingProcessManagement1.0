@@ -51,6 +51,7 @@ RiceCropInformation.getAll = (name, result) => {
      if (name) {
           query += ` WHERE RiceCropInformation_name LIKE '%${name}%'`;
      }
+query += ' order by RiceCropInformation_id';
      sql.query(query, (err, res) => {
           if (err) {
                console.log("error: ", err);

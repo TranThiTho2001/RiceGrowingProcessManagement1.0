@@ -9,8 +9,8 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Cập Nhật Lần Phun
-                    Thuốc
+               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span>
+                    CẬP NHẬT THÔNG TIN LẦN PHUN THUỐC CỦA MÙA VỤ
                </p>
           </div>
           <div class="row content">

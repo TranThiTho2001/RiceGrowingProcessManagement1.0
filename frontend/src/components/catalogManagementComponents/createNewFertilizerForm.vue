@@ -9,8 +9,7 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> Thêm loại
-                    phân bón
+               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> THÊM LOẠI PHÂN BÓN MỚI
                </p>
           </div>
           <div class="row content">
@@ -60,6 +59,22 @@
                               as="textarea" style="height: 240px;" placeholder="Thông tin phân bón..." />
                          <ErrorMessage name="directionsForUse" class="error-feedback" />
                     </div>
+
+                    <div class="form-group">
+                    <label for="image">Hình ảnh &nbsp; &nbsp;</label>
+                    <Field name="image" class="form-control " v-model="images"
+                                >
+                                <input type="file" ref="file"  :multiple="true" name="image" @change="selectFile($event)" accept="image/*"
+                                    class="" v-bind:aria-disabled="true">
+                            </Field>
+                    <div class="row" >
+                        <div class="col-md-5">
+                            <img v-if="url!=''" :src="url" class="img-fluid">
+                        </div>
+                        <div class="col-md-7">
+                        </div>
+                    </div>
+                </div>
                </div>
           </div>
 
@@ -124,11 +139,21 @@ export default {
           return {
                newfertilixer: this.newFertilizer,
                schema,
+               images: [],
           };
      },
 
      methods: {
-
+          async selectFile(event) {
+               console.log(event.target.files); 
+            var fileImage = {};
+            fileImage = event.target.files[0];console.log(fileImage);
+           const filename = "image_" + fileImage.name;
+           
+            console.log("filename" + filename)
+            
+            this.url = URL.createObjectURL(fileImage);
+        },
      }
 };
 </script>

@@ -9,8 +9,8 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> Cập nhật lần bón
-                    phân
+               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span>
+                    CẬP NHẬT THÔNG TIN LẦN BÓN PHÂN CỦA MÙA VỤ
                </p>
           </div>
           <div class="row content">

@@ -19,11 +19,7 @@
                               </div>
                          </div>
                     </div>
-                    <!-- <div class="row updateRiceCrop mr-2 ml-2 mb-1" style="width: 100%;">
-                         <UpdateRiceCropForm v-if="isOpenUpdateRiceCrop" :seedList="seedList" :newRiceCrop="newRiceCrop"
-                              :arableLandList="arableLandList" @updateRiceCrop-submit="updateRiceCrop" :message1="message1"
-                              :message2="message2" />
-                    </div> -->
+                    
                     <div class="infor row">
                          <div class="riceCropInfor">
                               <div class="row row-riceCropInfor ml-1 mr-2">
