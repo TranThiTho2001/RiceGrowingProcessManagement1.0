@@ -60,7 +60,7 @@ EpidemicTimes.getAll = (Epidemics_id, result) => {
      sql.query(query, (err, res) => {
           if (err) {
                console.log("error: ", err);
-               result(null, err);
+               result(err, null);
                return;
           }
           result(null, res);
@@ -80,7 +80,7 @@ EpidemicTimes.findByName= (name,id, result) => {
      sql.query(query, (err, res) => {
           if (err) {
                console.log("error: ", err);
-               result(null, err);
+               result(err, null);
                return;
           }
           result(null, res);
@@ -94,7 +94,7 @@ EpidemicTimes.updateById = (riceCropInformation_id, Epidemic_id, times, epidemic
           (err, res) => {
                if (err) {
                     console.log("error: ", err);
-                    result(null, err);
+                    result(err, null);
                     return;
                }
                if (res.affectedRows == 0) {
@@ -112,7 +112,7 @@ EpidemicTimes.remove = (riceCropInformation_id, epidemic_id, times, result) => {
      sql.query(`DELETE FROM EpidemicTimes WHERE (RiceCropInformation_id LIKE '${riceCropInformation_id}' AND Epidemic_id LIKE '${epidemic_id}' AND EpidemicTimes_times LIKE '${times}')`, (err, res) => {
           if (err) {
                console.log("error: ", err);
-               result(null, err);
+               result(err, null);
                return;
           }
           if (res.affectedRows == 0) {
@@ -129,7 +129,7 @@ EpidemicTimes.removeAll = result => {
      sql.query("DELETE FROM EpidemicTimes", (err, res) => {
           if (err) {
                console.log("error: ", err);
-               result(null, err);
+               result(err, null);
                return;
           }
           console.log(`deleted ${res.affectedRows} EpidemicTimes`);

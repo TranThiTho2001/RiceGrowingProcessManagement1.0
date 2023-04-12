@@ -102,7 +102,7 @@ exports.delete = async (req, res) => {
                if (err.kind === "not_found") {
                     res.send(`Không tìm thấy ${req.params.Pesticide_id} và  ${req.params.Epidemic_id}`)
                } else {
-                    res.redirect("Lỗi trong quá trình xóa quyền giám sát!!");
+                    res.send("Lỗi trong quá trình xóa quyền giám sát!!");
                }
           } else res.send(data);
      });

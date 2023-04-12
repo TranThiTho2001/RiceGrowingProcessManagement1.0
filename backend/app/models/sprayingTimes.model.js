@@ -58,7 +58,7 @@ SprayingTimes.getAll = (Pesticide_id, result) => {
      sql.query(query, (err, res) => {
           if (err) {
                console.log("error: ", err);
-               result(null, err);
+               result(err, null);
                return;
           }
           result(null, res);
@@ -74,7 +74,7 @@ SprayingTimes.findByName = (Pesticide_name,id, result) => {
      sql.query(query, (err, res) => {
           if (err) {
                console.log("error: ", err);
-               result(null, err);
+               result(err, null);
                return;
           }
           result(null, res);
@@ -87,7 +87,7 @@ SprayingTimes.updateById = (riceCropInformation_id, Pesticide_id, times, sprayin
           (err, res) => {
                if (err) {
                     console.log("error: ", err);
-                    result(null, err);
+                    result(err, null);
                     return;
                }
                if (res.affectedRows == 0) {
@@ -105,7 +105,7 @@ SprayingTimes.remove = (riceCropInformation_id, Pesticide_id, times, result) => 
      sql.query(`DELETE FROM SprayingTimes WHERE (RiceCropInformation_id LIKE '${riceCropInformation_id}' AND Pesticide_id LIKE '${Pesticide_id}' AND SprayingTimes_times LIKE '${times}')`, (err, res) => {
           if (err) {
                console.log("error: ", err);
-               result(null, err);
+               result(err, null);
                return;
           }
           if (res.affectedRows == 0) {
@@ -122,7 +122,7 @@ SprayingTimes.removeAll = result => {
      sql.query("DELETE FROM SprayingTimes", (err, res) => {
           if (err) {
                console.log("error: ", err);
-               result(null, err);
+               result(err, null);
                return;
           }
           console.log(`deleted ${res.affectedRows} SprayingTimes`);

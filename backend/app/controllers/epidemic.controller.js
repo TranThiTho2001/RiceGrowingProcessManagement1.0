@@ -68,7 +68,7 @@ exports.delete = async (req, res) => {
             if (err.kind === "not_found") {
                 res.send(`Không tìm thấy dịch bệnh có mã ${req.params.id}.`)
             } else {
-                res.redirect("Lỗi trong quá trình xóa dịch bệnh!!");
+                res.send("Lỗi trong quá trình xóa dịch bệnh!!");
             }
         } else res.send(data);
     });

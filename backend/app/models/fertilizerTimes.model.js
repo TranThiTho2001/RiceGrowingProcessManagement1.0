@@ -59,7 +59,7 @@ FertilizerTimes.getAll = (Fertilizer_id, result) => {
      sql.query(query, (err, res) => {
           if (err) {
                console.log("error: ", err);
-               result(null, err);
+               result(err, null);
                return;
           }
           result(null, res);
@@ -91,7 +91,7 @@ FertilizerTimes.updateById = (riceCropInformation_id, Fertilizer_id, times, fert
           (err, res) => {
                if (err) {
                     console.log("error: ", err);
-                    result(null, err);
+                    result(err, null);
                     return;
                }
                if (res.affectedRows == 0) {
@@ -109,7 +109,7 @@ FertilizerTimes.remove = (riceCropInformation_id, Fertilizer_id, times, result) 
      sql.query(`DELETE FROM FertilizerTimes WHERE (RiceCropInformation_id LIKE '${riceCropInformation_id}' AND Fertilizer_id LIKE '${Fertilizer_id}' AND FertilizerTimes_times LIKE '${times}')`, (err, res) => {
           if (err) {
                console.log("error: ", err);
-               result(null, err);
+               result(err, null);
                return;
           }
           if (res.affectedRows == 0) {
@@ -126,7 +126,7 @@ FertilizerTimes.removeAll = result => {
      sql.query("DELETE FROM FertilizerTimes", (err, res) => {
           if (err) {
                console.log("error: ", err);
-               result(null, err);
+               result(err, null);
                return;
           }
           console.log(`deleted ${res.affectedRows} FertilizerTimes`);

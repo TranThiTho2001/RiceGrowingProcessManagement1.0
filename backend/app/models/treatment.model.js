@@ -62,7 +62,7 @@ Treatment.getAll = (employee_id, result) => {
     sql.query(query, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         result(null, res);
@@ -78,7 +78,7 @@ Treatment.findEpidemicId = (id, result) => {
     sql.query(query, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         result(null, res);
@@ -95,7 +95,7 @@ Treatment.findByEpidemicName = (name, result) => {
      sql.query(query, (err, res) => {
          if (err) {
              console.log("error: ", err);
-             result(null, err);
+             result(err, null);
              return;
          }
          result(null, res);
@@ -109,7 +109,7 @@ Treatment.findByEpidemicName = (name, result) => {
 //         (err, res) => {
 //             if (err) {
 //                 console.log("error: ", err);
-//                 result(null, err);
+//                 result(err, null);
 //                 return;
 //             }
 //             if (res.affectedRows == 0) {
@@ -128,7 +128,7 @@ Treatment.remove = (Pesticide_id, Epidemic_id, result) => {
     sql.query(`DELETE FROM Treatment WHERE (Treatment.Pesticide_id LIKE '${Pesticide_id}' AND Epidemic_id LIKE '${Epidemic_id}')`,(err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         if (res.affectedRows == 0) {
@@ -145,7 +145,7 @@ Treatment.removeAll = result => {
     sql.query("DELETE FROM Monitor", (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         console.log(`deleted ${res.affectedRows} Monitor`);

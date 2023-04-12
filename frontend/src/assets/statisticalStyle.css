@@ -19,12 +19,15 @@
 }
 
 .statisticalComponent {
-    background-color: azure;
     border-radius: 8px;
-    margin-left: 16px;
+    margin-right: 6%;
     padding-bottom: 5px;
     margin-bottom: 20px;
+    background: #FAFAFC;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
+
+.apexcharts-pie-label {}
 
 .amount {
     border-radius: 50%;
@@ -32,10 +35,20 @@
 }
 
 .nameComponent {
-    background-color: #c8cecb;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+    margin-top: 15px;
     font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 23px;
+
+    /* Accent/2 */
+
+    color: #5C5D22;
+
+    text-shadow: 4px 7px 7px rgba(0, 0, 0, 0.25);
 }
 
 .inputSearch4 {
@@ -101,7 +114,7 @@
     top: 4px;
 }
 
-.statisticsByRiceCrop .leftStatistical .checkedCrop{
+.statisticsByRiceCrop .leftStatistical .checkedCrop {
     /* appearance:unset; */
     background: #E4E5EB !important;
     border: 1px solid #FAFAFC;
@@ -115,11 +128,11 @@
     top: 4px;
 }
 
-.statisticsByRiceCrop .leftStatistical .checkedCrop:checked{
+.statisticsByRiceCrop .leftStatistical .checkedCrop:checked {
     accent-color: #FFFA37 !important;
     flood-color: #5C5D22;
-box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.25);
-color: #1111a1;
+    box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.25);
+    color: #1111a1;
 }
 
 
@@ -209,7 +222,7 @@ color: #1111a1;
 
 .cicle {
     width: 170px;
-    background-color: #EAEAEA;
+    background-color: #ABD2C8;
     height: 170px;
     border-radius: 50%;
     margin-left: 20%;
@@ -222,8 +235,6 @@ color: #1111a1;
 }
 
 .arablename {
-    background-color: none;
-    cursor: pointer;
     bottom: 0.1px;
     color: black;
     font-family: 'Roboto';
@@ -242,6 +253,7 @@ color: #1111a1;
 
 .amountFertilizer {
     font-size: 50px;
+    color: #5C5D22;
 }
 
 .label_statictical {
@@ -258,6 +270,48 @@ color: #1111a1;
     font-weight: 500;
 }
 
+.col-satisticByYield {
+    background: #FAFAFC;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    height: max-content;
+}
+
+.row-satisticByYield {
+    background: #E4E5EB;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    margin-bottom: 15px;
+    margin-left: 1% !important;
+    margin-right: 1% !important;
+}
+
+.row-satisticByYield .title{
+    background-color: none;
+    cursor: pointer;
+    bottom: 0.1px;
+    color: black;
+    font-family: 'Roboto';
+    font-style: normal;
+    /* font-weight: 500 !important; */
+    font-size: 16px !important;
+    padding: 0.1px;
+    display: inline;
+}
+.row-satisticByYield .value{
+    bottom: 0.1px;
+    color: black;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    padding: 0.1px;
+    display: inline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 @media only screen and (max-width: 1430px) {
     .statisticsByRiceCrop .statisticalBy {
         margin-left: 10px !important;
@@ -272,12 +326,13 @@ color: #1111a1;
 
 @media only screen and (max-width: 1000px) {
     .statisticalComponent {
-        width: 100% !important;
-        height: 100% !important;
+        width: 300px !important;
+        height: 300px !important;
         vertical-align: middle;
         position: relative;
         justify-content: center;
         align-items: center;
+        margin-left: 8%;
     }
 
     .cicle {

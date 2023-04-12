@@ -45,7 +45,7 @@ Fertilizer.getAll = (name, result) => {
     sql.query(query, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         result(null, res);
@@ -59,7 +59,7 @@ Fertilizer.updateById = (id, fertilizer, result) => {
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
-                result(null, err);
+                result(err, null);
                 return;
             }
             if (res.affectedRows == 0) {
@@ -78,7 +78,7 @@ Fertilizer.remove = (id, result) => {
     sql.query("DELETE FROM Fertilizer WHERE Fertilizer_id = ?", id, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         if (res.affectedRows == 0) {
@@ -95,7 +95,7 @@ Fertilizer.removeAll = result => {
     sql.query("DELETE FROM Fertilizer", (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         console.log(`deleted ${res.affectedRows} Fertilizer`);

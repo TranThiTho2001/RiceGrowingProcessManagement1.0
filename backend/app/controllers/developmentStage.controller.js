@@ -63,7 +63,7 @@ exports.delete = async (req, res) => {
             if (err.kind === "not_found") {
                 res.send(`Không tìm thấy giai đoạn sinh trưởng có mã ${req.params.id}`)
             } else {
-                res.redirect("Lỗi trong quá trình xóa giai đoạn sinh trưởng!!");
+                res.send("Lỗi trong quá trình xóa giai đoạn sinh trưởng!!");
             }
         } else res.send(data);
     });

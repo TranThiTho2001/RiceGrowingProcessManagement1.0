@@ -66,7 +66,7 @@ exports.delete = async (req, res) => {
             if (err.kind === "not_found") {
                 res.send(`Không tìm thấy loại nhân viên có mã ${req.params.id}`)
             } else {
-                res.redirect("Lỗi trong quá trình xóa loại nhân viên!!");
+                res.send("Lỗi trong quá trình xóa loại nhân viên!!");
             }
         } else res.send(data);
     });

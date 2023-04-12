@@ -155,14 +155,6 @@ exports.changePassword = (req, res) => {
                 res.send("Lỗi trong quá trình tìm kiếm. Vui lòng thử lại sau!!!!")
             }
         } else {
-            // const passwordIsValid = bcrypt.compareSync(
-            //     req.body.Employee_password,
-            //     data1.Employee_password,
-            // );
-            // console.log(passwordIsValid)
-            // if (!passwordIsValid) {
-            //     return res.send("")
-            // }
             newPassword = bcrypt.hashSync(req.body.Employee_password, 8)
             Employee.changePassword(req.params.Employee_id, newPassword, (err, data) => {
                 if (err) {

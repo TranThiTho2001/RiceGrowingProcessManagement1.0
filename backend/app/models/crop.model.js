@@ -42,7 +42,7 @@ Crop.getAll = (name, result) => {
     sql.query(query, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         result(null, res);
@@ -56,7 +56,7 @@ Crop.updateById = (id, crop, result) => {
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
-                result(null, err);
+                result(err, null);
                 return;
             }
             if (res.affectedRows == 0) {
@@ -75,7 +75,7 @@ Crop.remove = (id, result) => {
     sql.query("DELETE FROM Crop WHERE Crop_id = ?", id, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         if (res.affectedRows == 0) {
@@ -92,7 +92,7 @@ Crop.removeAll = result => {
     sql.query("DELETE FROM Crop", (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         console.log(`deleted ${res.affectedRows} Crop`);

@@ -63,7 +63,7 @@ exports.delete = async (req, res) => {
             if (err.kind === "not_found") {
                 res.send(`Không tìm thấy hoạt động có mã ${req.params.id}`)
             } else {
-                res.redirect("Lỗi trong quá trình xóa hoạt động!!");
+                res.send("Lỗi trong quá trình xóa hoạt động!!");
             }
         } else res.send(data);
     });

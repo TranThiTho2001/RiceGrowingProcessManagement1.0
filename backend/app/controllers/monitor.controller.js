@@ -77,7 +77,7 @@ exports.delete = async (req, res) => {
                if (err.kind === "not_found") {
                     res.send(`Không tìm thấy quyền giám sát có mã vụ mùa ${req.params.RiceCropInformation_id} và mã nhân viên ${req.params.Employee_id}`)
                } else {
-                    res.redirect("Lỗi trong quá trình xóa quyền giám sát!!");
+                    res.send("Lỗi trong quá trình xóa quyền giám sát!!");
                }
           } else res.send(data);
      });

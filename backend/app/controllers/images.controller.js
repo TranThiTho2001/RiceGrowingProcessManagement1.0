@@ -68,7 +68,7 @@ exports.delete = async (req, res) => {
             if (err.kind === "not_found") {
                 res.send(`Không tìm thấy hình ảnh có mã ${req.params.id}.`)
             } else {
-                res.redirect("Lỗi trong quá trình xóa hình ảnh!!");
+                res.send("Lỗi trong quá trình xóa hình ảnh!!");
             }
         } else res.send(data);
     });

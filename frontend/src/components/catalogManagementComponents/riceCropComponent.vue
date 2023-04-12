@@ -1,25 +1,21 @@
 <template>
-     <div style="height: 100%; width:100%" class="responsiveComponent">
+     <div style="height: 98%; width:100%; margin-top: 0px !important;" class="responsiveComponent">
           <router-link class="linktoRiceCropInfor container-fluid"
                :to="{ name: 'RiceCropDetail', params: { id: riceCrop.RiceCropInformation_id } }">
                <div class="riceCropComponent text-dark border">
-                    <div class="img mt-2 ml-2 mr-2 text-center" style="height: 60%; width: 94%;"><img
+                    <div class="img mt-2 ml-2 mr-2 text-center" style="height: 64%; width: 94%; display: inline-flexbox;"><img
                               :src="riceCrop.Images_link" class="img-fluid" alt="">
                     </div>
                     <div class="body-riceCropComponent">
-                         <div class="row pl-2 mr-1">
-                              <div class="col">
-                                   <strong class="font-weight-bold text-left">
-                                        <span class="textid">{{ riceCrop.RiceCropInformation_id }}</span>
-                                   </strong>
-
+                         <div class="" style="margin-top: 0px !important;">
+                                   <p class="textid">{{ riceCrop.RiceCropInformation_id }}</p>
+                              
                                    <p class="textname">
                                         {{ riceCrop.RiceCropInformation_name }}
                                    </p>
-                              </div>
                          </div>
-                         <div class="row ml-2">
-                              <table style="width: 90%;">
+                         <div class="row ml-2 mr-1">
+                              <table style="width: 95%;">
                                    <tr>
                                         <td class="text-center"><i class="fas fa-info-circle mt-1"
                                                   style="color: #919302; font-size: 26px;"></i></td>
@@ -29,7 +25,7 @@
                                              <button v-if="riceCrop.RiceCropInformation_harvestDate == null"
                                                   class="btn btn-sm btnMonitoring ">Đang theo dõi</button>
                                         </td>
-                                        <td class="text-center"><i class="fas fa-ellipsis-v mt-1 "
+                                        <td class="text-center"><i class="fas fa-ellipsis-v mt-1 mb-2"
                                                   style="color: #919302; font-size: 25px; ">
                                                   <div class="deleteIcon ">
                                                        <a style="width: 70px; height: 30px; background-color:#919302; font-size: 15px;"
@@ -42,7 +38,7 @@
 
                               </table>
 
-                         </div>
+                         </div> 
                     </div>
                </div>
           </router-link>
@@ -73,28 +69,27 @@ export default {
 }
 
 .body-riceCropComponent {
-     padding: 1px 1px 0px 1px;
+     padding: 1px 1px 1px 1px;
      border: none;
-     padding-top: 1px;
+     padding-top: 0px;
+     margin-bottom: 2px;
+     position: relative;
+     display: inline-flexbox;
+     height: max-content;
+     margin-bottom: 2px;
 }
 
 
 .riceCropComponent {
-     /* margin-right: 10%; */
-     margin-top: 2%;
-     -moz-border-radius: 2px;
-     -webkit-border-radius: 2px;
-     -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-     -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
      border-radius: 10px;
-     /* width: 197px; */
      width: 100%;
-     height: 90%;
+     height: 92%;
      max-height: 325px;
      text-align: left;
      background-color: #FAFAFC;
      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
      position: relative;
+     margin-top: -5% !important;
 }
 
 .riceCropComponent:hover {
@@ -116,30 +111,28 @@ export default {
 }
 
 .riceCropComponent .textid {
-     font-family: Inter;
      white-space: nowrap;
      overflow: hidden;
      text-overflow: ellipsis;
-     font-size: 18px;
+     font-size: 19px;
+     font-weight: 700;
      color: #008B8E;
+     margin-bottom: 1px !important;
+     margin-left: 2%;
+     font-family: 'Roboto';
 }
 
 .riceCropComponent .textname {
-     font-family: Inter;
      font-size: 16px;
      color: #919302;
      font-weight: 500;
      white-space: nowrap;
      overflow: hidden;
      text-overflow: ellipsis;
-}
-
-.riceCropComponent .textTenSanPham {
-     white-space: nowrap;
-     overflow: hidden;
-     text-overflow: ellipsis;
-     font-family: Inter;
-     font-size: 18px;
+     margin-bottom: 1px !important;
+     margin-left: 2%;
+     font-size: 17px;
+     font-family: 'Roboto';
 }
 
 .riceCropComponent .btnMonitoring,

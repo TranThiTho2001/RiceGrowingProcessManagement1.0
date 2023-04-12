@@ -13,7 +13,15 @@
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Theo dõi mùa vụ</h3>
                          </div>
-                         <div class="">
+     
+                         <div class="text-right">
+                              <div class="row">
+                                   <TopHeader />
+                              </div>
+                         </div>
+                    </div>
+                    <div class="row" style="margin-top: 145px; z-index: 4; width: 99%;">
+                         <div class="col-sm-10">
                               <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
                                    @click="retrieveRiceCropList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch), away()"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
@@ -37,14 +45,7 @@
                                         {{ riceCrop.RiceCropInformation_name }}</p>
                               </div>
                          </div>
-                         <div class="text-right">
-                              <div class="row">
-                                   <TopHeader />
-                              </div>
-                         </div>
-                    </div>
-                    <div class="" style="margin-top: 145px; z-index: 4; width: 99%;">
-                         <div class="col-sm-12 text-right">
+                         <div class="col-sm-2 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
                                         style="font-size: 15px;"></i> Thêm Mùa Vụ</button>
                          </div>
@@ -73,8 +74,8 @@
                               </template>
                          </carousel> -->
                     <!-- </div> -->
-                    <div class="row riceCropList mt-3" style="max-height: 100%; width: 98%;">
-                         <div class="col-lg-3 col-md-4 col-sm-6 text-center" v-for="(riceCrop, i) in riceCropList" :key="i" style=" margin-left: 0px !important; margin-right: 0px !important; margin-bottom: 10px;">
+                    <div class="row riceCropList mt-3" style="max-height: 98%; width: 98%;">
+                         <div class="col-lg-3 col-md-4 col-sm-6 text-center" v-for="(riceCrop, i) in riceCropList" :key="i" style=" margin-left: 0px !important; margin-right: 0px !important; margin-bottom: 5px;">
                               <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
                          </div>
                          <!-- <carousel v-if="riceCropListByFinish.length > getWidth" :settings="settings"

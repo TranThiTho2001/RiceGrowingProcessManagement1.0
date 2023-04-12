@@ -5,14 +5,14 @@
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
                     @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true, active.leftnNoneActive = false"></button>
-                    <div  class="left" :class=" {navbarresponsive: openMenu.openMenu }" >
-                         <Catalog />
+               <div class="left" :class="{ navbarresponsive: openMenu.openMenu }">
+                    <Catalog />
                </div>
 
                <div class="right rightStatisticalManagementManagement" :class="{ leftNoneActive: active.leftnNoneActive }">
                     <div class="mb-5 pb-2 pt-2 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
-                              <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Thống kê</h3>
+                              <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Thống kê</h3>
                          </div>
 
                          <div class="text-right">
@@ -21,69 +21,78 @@
                               </div>
                          </div>
                     </div>
-                    <div class="row mr-2 ml-2" style="margin-top: 145px; z-index: 4; width: 99%;">
-                         <div class="statisticalComponent text-center" @click="goToStatiticsByriceCrop()"
-                              id="statisticalRice1">
-                              <div class="nameComponent">
-                                   <h2>Mùa Vụ</h2>
+                    <div class="row mr-2 ml-2 pr-1" style="margin-top: 145px; z-index: 4; width: 99%;">
+                         <div class="col-sm-7">
+                              <div class="row ml-1">
+                                   <div class="statisticalComponent text-center" @click="goToStatiticsByriceCrop()"
+                                        id="statisticalRice1">
+
+                                        <h5 class="nameComponent">MÙA VỤ</h5>
+                                        <apexchart width="100%" type="pie" :options="chartDataForRiceCrop.chartOptions"
+                                             :series="chartDataForRiceCrop.series">
+                                        </apexchart>
+                                   </div>
+
+                                   <div class="statisticalComponent text-center">
+                                        <h5 class="nameComponent">MẪU RUỘNG</h5>
+                                        <apexchart width="100%" type="pie" :options="chartDataForArableLand.chartOptions"
+                                             :series="chartDataForArableLand.series">
+                                        </apexchart>
+
+                                   </div>
+
+                                   <div class="statisticalComponent text-center">
+                                        <h5 class="nameComponent">HOẠT ĐỘNG</h5>
+                                        <div class="cicle text-center">
+                                             <h2 class="amountFertilizer">{{ otherActivitiesList.length }}</h2>
+                                        </div>
+                                   </div>
+
+                                   <div class="statisticalComponent text-center">
+                                        <h5 class="nameComponent">PHÂN BÓN</h5>
+                                        <div class="cicle text-center">
+                                             <h2 class="amountFertilizer">{{ fertilizerList.length }}</h2>
+                                        </div>
+                                   </div>
+
+                                   <div class="statisticalComponent text-center">
+                                        <h5 class="nameComponent">GIỐNG LÚA</h5>
+                                        <div class="cicle text-center">
+                                             <h2 class="amountFertilizer">{{ seedList.length }}</h2>
+                                        </div>
+                                   </div>
+
+                                   <div class="statisticalComponent text-center">
+                                        <h5 class="nameComponent">BỆNH DỊCH</h5>
+                                        <div class="cicle text-center">
+                                             <h2 class="amountFertilizer">{{ epidemicList.length }}</h2>
+                                        </div>
+                                   </div>
+
+                                   <div class="statisticalComponent text-center">
+                                        <h5 class="nameComponent">THUỐC TRỊ BỆNH DỊCH</h5>
+                                        <div class="cicle text-center">
+                                             <h2 class="amountFertilizer">{{ pesticideList.length }}</h2>
+                                        </div>
+                                   </div>
                               </div>
-                              <apexchart width="100%" type="pie" :options="chartDataForRiceCrop.chartOptions"
-                                   :series="chartDataForRiceCrop.series">
-                              </apexchart>
                          </div>
-
-                         <div class="statisticalComponent text-center">
+                         <div class="col-sm-5 text-center col-satisticByYield" v-if="loaded">
                               <div class="nameComponent">
-                                   <h2>Mẫu Ruộng</h2>
+                                   <h5>MÙA VỤ NĂNG SUẤT CAO</h5>
                               </div>
-                              <apexchart width="100%" type="pie" :options="chartDataForArableLand.chartOptions"
-                                   :series="chartDataForArableLand.series">
-                              </apexchart>
+                              <div class="row row-satisticByYield" v-for="(riceCrop, i) in riceCropListByFinish" :key="i">
+                                   <div class="left-statisticByYield align-self-center" style="width: 30%; vertical-align: middle;">
+                                        <h4>{{ riceCrop.RiceCropInformation_yield }}</h4>
+                                        <p  class="title">Tạ/ha</p>
+                                   </div>
+                                   <div class="right-statisticByYeild text-left" style="width: 70%;  ">
+                                        <h5>{{ riceCrop.RiceCropInformation_name }}</h5>
+                                        <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><span class="title">Sử dụng giống lúa: </span><span class="value">{{ riceCrop.Seed_name }}</span></div>
+                                        <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><span class="title">Canh tác trên mẫu ruộng:  </span><span class="value">{{ riceCrop.ArableLand_owner }}</span></div>
+                                        <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><span class="title"></span> <span class="value">{{ riceCrop.Province_name }}</span></div>
 
-                         </div>
-
-                         <div class="statisticalComponent text-center" >
-                              <div class="nameComponent">
-                                   <h2>Các Hoạt Động</h2>
-                              </div>
-                              <div class="cicle text-center">
-                                   <h2 class="amountFertilizer">{{ otherActivitiesList.length }}</h2>
-                              </div>
-                         </div>
-
-                         <div class="statisticalComponent text-center" >
-                              <div class="nameComponent">
-                                   <h2>Phân Bón</h2>
-                              </div>
-                              <div class="cicle text-center">
-                                   <h2 class="amountFertilizer">{{ fertilizerList.length }}</h2>
-                              </div>
-                         </div>
-
-                         <div class="statisticalComponent text-center">
-                              <div class="nameComponent">
-                                   <h2>Giống Lúa</h2>
-                              </div>
-                              <div class="cicle text-center">
-                                   <h2 class="amountFertilizer">{{ seedList.length }}</h2>
-                              </div>
-                         </div>
-
-                         <div class="statisticalComponent text-center">
-                              <div class="nameComponent">
-                                   <h2>Dịch Bệnh</h2>
-                              </div>
-                              <div class="cicle text-center">
-                                   <h2 class="amountFertilizer">{{ epidemicList.length }}</h2>
-                              </div>
-                         </div>
-
-                         <div class="statisticalComponent text-center">
-                              <div class="nameComponent">
-                                   <h2>Thuốc Trị Dịch Bệnh</h2>
-                              </div>
-                              <div class="cicle text-center">
-                                   <h2 class="amountFertilizer">{{ pesticideList.length }}</h2>
+                                   </div>
                               </div>
                          </div>
                     </div>
@@ -150,7 +159,51 @@ export default {
                               type: 'pie',
                          },
                          labels: ["Đang theo dõi", "Đã kết thúc"],
-                         colors: ['#98f3c1', '#EEEA41'],
+                         colors: ['#ABD2C8', '#FFFD9F'],
+                         fill: {
+                              colors: ['#ABD2C8', '#FFFD9F'],
+                              opacity: 0.9,
+                              type: 'solid',
+                         },
+                         dataLabels: {
+                              enabled: true,
+                              textAnchor: 'end',
+                              distributed: false,
+                              offsetX: 0.5,
+                              offsetY: 0.5,
+                              style: {
+                                   x: 100,
+                                   fontSize: '12.2px',
+                                   fontFamily: 'Helvetica, Arial, sans-serif',
+                                   // fontWeight: 'bold',
+                                   colors: ['none'],
+                                   borders: ['none']
+                              }, background: {
+                                   enabled: true,
+                                   foreColor: '#5C5D22',
+                                   padding: 0,
+                                   // opacity: 0.5,
+                                   borderColor: 'none'
+                              },
+                              dropShadow: {
+                                   enabled: false,
+                                   top: 2,
+                                   left: 1,
+                                   color: '#5C5D22',
+                              },
+
+                         },
+                         legend: {
+                              show: true,
+                              showForSingleSeries: false,
+                              showForNullSeries: true,
+                              showForZeroSeries: true,
+                              position: 'bottom',
+                              horizontalAlign: 'center',
+                              fontSize: '14px',
+                              fontFamily: 'Helvetica, Arial',
+                              fontWeight: 400,
+                         },
                          responsive: [
                               {
                                    breakpoint: 1600,
@@ -172,7 +225,45 @@ export default {
                               type: 'pie',
                          },
                          labels: ["Đang trong mùa vụ", "Đang để trống"],
-                         colors: ['#98f3c1', 'rgb(175, 173, 171)'],
+                         colors: ['#ABD2C8', '#D0D1D6'],
+                         fill: {
+                              colors: ['#ABD2C8', '#D0D1D6'],
+                              opacity: 0.9,
+                              type: 'solid',
+                         },
+                         dataLabels: {
+                              enabled: true,
+
+                              style: {
+                                   fontSize: '12px',
+                                   fontFamily: 'Helvetica, Arial, sans-serif',
+                                   fontWeight: 'bold',
+                                   colors: ['none'],
+                                   borders: ['none']
+                              }, background: {
+                                   borderColor: 'none',
+                                   enabled: true,
+                                   foreColor: '#5C5D22',
+                              },
+                              dropShadow: {
+                                   enabled: false,
+                                   top: 2,
+                                   left: 1,
+                                   color: '#5C5D22',
+                              }
+                         },
+                         legend: {
+                              show: true,
+                              showForSingleSeries: false,
+                              showForNullSeries: true,
+                              showForZeroSeries: true,
+                              position: 'bottom',
+                              horizontalAlign: 'center',
+                              fontSize: '14px',
+                              fontFamily: 'Helvetica, Arial',
+                              fontWeight: 400,
+                         },
+                         backgroundColors: ['#FFFD9F', '#FFFD9F'],
                          responsive: [
                               {
                                    breakpoint: 1600,
@@ -193,7 +284,7 @@ export default {
                },
                styleComponent: {
                     width: 0,
-                    height:0,
+                    height: 0,
                }
           }
 
@@ -256,7 +347,9 @@ export default {
                     this.chartDataForRiceCrop.series = [];
                     this.chartDataForRiceCrop.series[0] = (this.riceCropListByMonitoring.length);
                     this.chartDataForRiceCrop.series[1] = (this.riceCropListByFinish.length);
+                    this.bubbleSort();
                     this.loaded = true;
+
                }
           },
 
@@ -322,7 +415,7 @@ export default {
                }
           },
 
-          
+
           async retrieveSeedList() {
                const [err, respone] = await this.handle(
                     SeedService.getAll()
@@ -356,10 +449,26 @@ export default {
                var height = document.getElementById("statisticalRice1").offsetHeight;
                var list = document.getElementsByClassName("statisticalComponent");
                Array.from(list).forEach(element => {
-                    element.style.width = width+"px";
-                    element.style.height = height+"px";
+                    element.style.width = width + "px";
+                    element.style.height = height + "px";
                });
-          }
+          },
+
+          bubbleSort() {
+               for (let i = 0; i < this.riceCropListByFinish.length - 1; i++) {
+                    for (let j = this.riceCropListByFinish.length - 1; j > i; j--) {
+                         if (this.riceCropListByFinish[i].RiceCropInformation_yield != null && this.riceCropListByFinish[j].RiceCropInformation_yield != null) {
+                              if (this.riceCropListByFinish[j].RiceCropInformation_yield > this.riceCropListByFinish[j - 1].RiceCropInformation_yield) {
+                                   let t = this.riceCropListByFinish[j];
+                                   this.riceCropListByFinish[j] = this.riceCropListByFinish[j - 1];
+                                   this.riceCropListByFinish[j - 1] = t;
+                              }
+                         }
+
+                    }
+                    console.log(this.riceCropListByFinish)
+               }
+          },
 
      },
 
@@ -380,6 +489,4 @@ export default {
 <style>
 @import url(../../assets/mainStyle.css);
 @import url(../../assets/statisticalStyle.css);
-
-
 </style>

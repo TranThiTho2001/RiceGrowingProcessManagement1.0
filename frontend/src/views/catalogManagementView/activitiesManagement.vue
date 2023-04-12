@@ -13,31 +13,6 @@
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Hoạt động</h3>
                          </div>
-                         <div class="">
-                              <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
-                                   @click="retrieveOtherActivities, isOpenInput1 = true"
-                                   @keyup.enter="searchName(nameToSearch), away()"
-                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                              <button class="btnSearch1" @click="searchName(nameToSearch), away()"
-                                   v-if="nameToSearch == '' && !isOpenSearch.open">
-                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                              </button>
-
-                              <input v-if="isOpenInput2 || (isOpenSearch.open)" autofocus type="text"
-                                   class="form-control inputSearch2" placeholder="Tìm" style="width: 2%;"
-                                   v-model="nameToSearch" @click="retrieveOtherActivities"
-                                   @keyup.enter="searchName(nameToSearch), away()"
-                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                              <button class="btnSearch2" @click="isOpenInput2 = !isOpenInput2">
-                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                              </button>
-
-                              <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
-                                   <p class="item" v-for="activity in filteredList()" :key="activity.OtherActivities_name"
-                                        @click="searchName(activity.OtherActivities_name), away()">
-                                        {{ activity.OtherActivities_name }}</p>
-                              </div>
-                         </div>
 
                          <div class="text-right mt-3">
                               <div class="row">
@@ -46,8 +21,36 @@
                          </div>
                     </div>
 
-                    <div class="" style="margin-top: 145px; z-index: 4; width: 99%;">
-                         <div class="col-sm-12 text-right">
+                    <div class="row ml-2 mr2" style="margin-top: 145px; z-index: 4; width: 99%;">
+                         <div class="col-sm-10">
+                              <div class="">
+                                   <input type="text" class="form-control inputSearch1" placeholder="Tìm"
+                                        v-model="nameToSearch" @click="retrieveOtherActivities, isOpenInput1 = true"
+                                        @keyup.enter="searchName(nameToSearch), away()"
+                                        @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                                   <button class="btnSearch1" @click="searchName(nameToSearch), away()"
+                                        v-if="nameToSearch == ''">
+                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                                   </button>
+
+                                   <!-- <input v-if="isOpenInput2 || (isOpenSearch.open)" autofocus type="text"
+                                        class="form-control inputSearch2" placeholder="Tìm" style="width: 2%;"
+                                        v-model="nameToSearch" @click="retrieveOtherActivities"
+                                        @keyup.enter="searchName(nameToSearch), away()"
+                                        @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                                   <button class="btnSearch2" @click="isOpenInput2 = !isOpenInput2">
+                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                                   </button> -->
+
+                                   <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                                        <p class="item" v-for="activity in filteredList()"
+                                             :key="activity.OtherActivities_name"
+                                             @click="searchName(activity.OtherActivities_name), away()">
+                                             {{ activity.OtherActivities_name }}</p>
+                                   </div>
+                              </div>
+                         </div>
+                         <div class="col-sm-2 text-right">
                               <button class="btn btnCreate"
                                    @click="isOpenCreateOtherActivities = !isOpenCreateOtherActivities"><i
                                         class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm hoạt động</button>
@@ -72,7 +75,7 @@
                                              <td data-label="Tên hoạt động">{{ activity.OtherActivities_name }}</td>
                                              <td data-label="Số lần được thực hiệnSTT">{{ activity.Times.length }}</td>
 
-                                             <td data-label="Tùy chọn">
+                                             <td data-label="Tùy chọn" style=" padding: 2px ;">
                                                   <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
                                                        aria-haspopup="true" aria-expanded="false">
                                                        <i class="fas fa-ellipsis-v"></i>
@@ -110,7 +113,7 @@
                     <div class="messageDialog" v-if="isOpenMessage">
                          <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
                               class="labelThongBao">
-                              <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
+                              {{
                                    message
                               }}
                          </p>
@@ -227,6 +230,7 @@ export default {
                     console.log(err)
                }
                else {
+                    console.log(respone.data)
                     this.activitiesList = respone.data;
                     this.cloneActivitiesList = respone.data;
                     var i = 0;
@@ -245,7 +249,18 @@ export default {
                               }
                          }
                     });
-                    this.newOtherActivities.OtherActivities_id = "OA" + String(Number(id) + 1);
+                    if (id < 9) {
+                         this.newOtherActivities.OtherActivities_id = "OA0000000" + String(Number(id) + 1);
+                    }
+                    else if (id >= 9 && id < 99) {
+                         this.newOtherActivities.OtherActivities_id = "OA000000" + String(Number(id) + 1);
+                    }
+                    else if (id >= 99 && id < 999) {
+                         this.newOtherActivities.OtherActivities_id = "OA00000" + String(Number(id) + 1);
+                    }
+                    else {
+                         this.newOtherActivities.OtherActivities_id = "OA00" + String(Number(id) + 1);
+                    }
 
                }
                this.loaded = true;
@@ -321,7 +336,11 @@ export default {
                if (error) {
                     console.log(error);
                     this.message = "Xóa hoạt động không thành công";
-               } else {
+               } else if(response.data == "Lỗi trong quá trình xóa hoạt động!!"){
+                    this.message = "Xóa hoạt động không thành công";
+                    console.log(response.data)
+               }
+               else{
                     this.message = "Xóa hoạt động thành công";
                     this.retrieveOtherActivities();
                     console.log(response.data);
@@ -344,13 +363,13 @@ export default {
                          } else {
                               if (responses.data.length > 0) {
                                    this.activitiesList = responses.data;
-                                   
+
                               }
                               else {
                                    this.isOpenMessage = !this.isOpenMessage;
                               }
                          }
-                         if(this.activitiesList.length>0){
+                         if (this.activitiesList.length > 0) {
                               var i = 0;
                               this.activitiesList.forEach(element => {
                                    this.activitiesList[i].Times = new Array();
@@ -361,7 +380,7 @@ export default {
                     }
 
                }
-               else{
+               else {
                     this.retrieveOtherActivities();
                }
 

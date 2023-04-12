@@ -132,7 +132,7 @@ exports.delete = async (req, res) => {
                if (err.kind === "not_found") {
                     res.send(`Không tìm thấy chi tiết hoạt động có mã vụ mùa ${req.params.RiceCropInformation_id} và mã hoạt động ${req.params.OtherActivities_id}`)
                } else {
-                    res.redirect("Lỗi trong quá trình xóa chi tiết hoạt động!!");
+                    res.send("Lỗi trong quá trình xóa chi tiết hoạt động!!");
                }
           } else res.send(data);
      });

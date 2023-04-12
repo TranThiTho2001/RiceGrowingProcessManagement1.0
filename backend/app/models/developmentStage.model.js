@@ -42,7 +42,7 @@ DevelopmentStage.getAll = (name, result) => {
     sql.query(query, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         result(null, res);
@@ -56,7 +56,7 @@ DevelopmentStage.updateById = (id, developmentStage, result) => {
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
-                result(null, err);
+                result(err, null);
                 return;
             }
             if (res.affectedRows == 0) {
@@ -75,7 +75,7 @@ DevelopmentStage.remove = (id, result) => {
     sql.query("DELETE FROM DevelopmentStage WHERE DevelopmentStage_id = ?", id, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         if (res.affectedRows == 0) {
@@ -92,7 +92,7 @@ DevelopmentStage.removeAll = result => {
     sql.query("DELETE FROM DevelopmentStage", (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         console.log(`deleted ${res.affectedRows} DevelopmentStage`);

@@ -63,7 +63,7 @@ exports.delete = async (req, res) => {
             if (err.kind === "not_found") {
                 res.send(`Không tìm thấy vụ mùa có mã ${req.params.id}`)
             } else {
-                res.redirect("Lỗi trong quá trình xóa vụ mùa!!");
+                res.send("Lỗi trong quá trình xóa vụ mùa!!");
             }
         } else res.send(data);
     });

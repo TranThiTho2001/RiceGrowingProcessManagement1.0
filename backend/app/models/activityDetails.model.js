@@ -157,7 +157,7 @@ ActivityDetails.removeAll = result => {
      sql.query("DELETE FROM ActivityDetails", (err, res) => {
           if (err) {
                console.log("error: ", err);
-               result(null, err);
+               result( err,null);
                return;
           }
           console.log(`deleted ${res.affectedRows} ActivityDetails`);

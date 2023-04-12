@@ -92,7 +92,7 @@ exports.delete = async (req, res) => {
                if (err.kind === "not_found") {
                     res.send(`Không tìm thấy lần bị dịch bệnh có mã vụ mùa ${req.params.RiceCropInformation_id} và mã dịch bệnh ${req.params.Epidemics_id}`)
                } else {
-                    res.redirect("Lỗi trong quá trình xóa lần bị dịch bệnh!!");
+                    res.send("Lỗi trong quá trình xóa lần bị dịch bệnh!!");
                }
           } else res.send(data);
      });

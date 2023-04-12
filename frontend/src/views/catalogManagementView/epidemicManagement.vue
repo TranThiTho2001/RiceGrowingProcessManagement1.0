@@ -13,8 +13,17 @@
                     <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Dịch bệnh</h3>
+                         </div>                    
+
+                         <div class="text-right">
+                              <div class="row">
+                                   <TopHeader />
+                              </div>
                          </div>
-                         <div class="">
+                    </div>
+
+                    <div class="row" style="margin-top: 145px; z-index: 2; width: 99%;">
+                         <div class="col-sm-10">
                               <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
                                    @click="retrieveEpidemicList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch), away()"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
@@ -37,16 +46,7 @@
                                         {{ epidemic.Epidemic_name }}</p>
                               </div>
                          </div>
-
-                         <div class="text-right">
-                              <div class="row">
-                                   <TopHeader />
-                              </div>
-                         </div>
-                    </div>
-
-                    <div class="" style="margin-top: 145px; z-index: 2; width: 99%;">
-                         <div class="col-sm-12 text-right">
+                         <div class="col-sm-2 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate"><i
                                         class="fas fa-plus-circle pt-1" style="font-size: 20px;"></i> Thêm bệnh dịch</button>
                          </div>

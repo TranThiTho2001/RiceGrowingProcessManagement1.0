@@ -51,7 +51,7 @@ Prediction.getAll = (name, result) => {
      sql.query(query, (err, res) => {
           if (err) {
                console.log("error: ", err);
-               result(null, err);
+               result(err, null);
                return;
           }
           result(null, res);
@@ -65,7 +65,7 @@ Prediction.findByRiceCropInformationid = (id, result) => {
      sql.query(query, (err, res) => {
           if (err) {
                console.log("error: ", err);
-               result(null, err);
+               result(err, null);
                return;
           }
           result(null, res);
@@ -83,7 +83,7 @@ Prediction.findByArableLand = (name, id, result) => {
      sql.query(query, (err, res) => {
           if (err) {
                console.log("error: ", err);
-               result(null, err);
+               result(err, null);
                return;
           }
           result(null, res);
@@ -97,7 +97,7 @@ Prediction.updateById = (id, riceCropInformation, result) => {
           (err, res) => {
                if (err) {
                     console.log("error: ", err);
-                    result(null, err);
+                    result(err, null);
                     return;
                }
                if (res.affectedRows == 0) {
@@ -116,7 +116,7 @@ Prediction.remove = (id, result) => {
      sql.query("DELETE FROM RiceCropInformation WHERE RiceCropInformation_id = ?", id, (err, res) => {
           if (err) {
                console.log("error: ", err);
-               result(null, err);
+               result(err, null);
                return;
           }
           if (res.affectedRows == 0) {
@@ -133,7 +133,7 @@ Prediction.removeAll = result => {
      sql.query("DELETE FROM RiceCropInformation", (err, res) => {
           if (err) {
                console.log("error: ", err);
-               result(null, err);
+               result(err, null);
                return;
           }
           console.log(`deleted ${res.affectedRows} RiceCropInformation`);

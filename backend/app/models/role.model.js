@@ -40,7 +40,7 @@ Role.getAll = (name, result) => {
     sql.query(query, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         result(null, res);
@@ -54,7 +54,7 @@ Role.updateById = (id, role, result) => {
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
-                result(null, err);
+                result(err, null);
                 return;
             }
             if (res.affectedRows == 0) {
@@ -72,7 +72,7 @@ Role.remove = (id, result) => {
     sql.query("DELETE FROM role WHERE role_id = ?", id, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         if (res.affectedRows == 0) {
@@ -89,7 +89,7 @@ Role.removeAll = result => {
     sql.query("DELETE FROM role", (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         console.log(`deleted ${res.affectedRows} Role`);

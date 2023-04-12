@@ -42,7 +42,7 @@ Province.updateById = (id, province, result) => {
           (err, res) => {
                if (err) {
                     console.log("error: ", err);
-                    result(null, err);
+                    result(err, null);
                     return;
                }
                if (res.affectedRows == 0) {
@@ -61,7 +61,7 @@ Province.remove = (id, result) => {
      sql.query("DELETE FROM Province WHERE Province_id = ?", id, (err, res) => {
           if (err) {
                console.log("error: ", err);
-               result(null, err);
+               result(err, null);
                return;
           }
           if (res.affectedRows == 0) {
@@ -78,7 +78,7 @@ Province.removeAll = result => {
      sql.query("DELETE FROM Province", (err, res) => {
           if (err) {
                console.log("error: ", err);
-               result(null, err);
+               result(err, null);
                return;
           }
           console.log(`deleted ${res.affectedRows} Province`);

@@ -38,10 +38,11 @@ OtherActivities.getAll = (name, result) => {
     if (name) {
         query += ` WHERE OtherActivities_name LIKE '%${name}%'`;
     }
+    query += " Order By OtherActivities_id"
     sql.query(query, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         console.log(res)
@@ -56,7 +57,7 @@ OtherActivities.updateById = (id, otherActivities, result) => {
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
-                result(null, err);
+                result(err, null);
                 return;
             }
             if (res.affectedRows == 0) {
@@ -75,7 +76,7 @@ OtherActivities.remove = (id, result) => {
     sql.query("DELETE FROM OtherActivities WHERE OtherActivities_id = ?", id, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err,null);
             return;
         }
         if (res.affectedRows == 0) {
@@ -92,7 +93,7 @@ OtherActivities.removeAll = result => {
     sql.query("DELETE FROM OtherActivities", (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         console.log(`deleted ${res.affectedRows} OtherActivities`);

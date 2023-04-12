@@ -49,7 +49,7 @@ ArableLand.getAll = (name, result) => {
     sql.query(query, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         result(null, res);
@@ -63,7 +63,7 @@ ArableLand.updateById = (id, arableLand, result) => {
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
-                result(null, err);
+                result(err, null);
                 return;
             }
             if (res.affectedRows == 0) {
@@ -82,7 +82,7 @@ ArableLand.remove = (id, result) => {
     sql.query("DELETE FROM ArableLand WHERE ArableLand_id = ?", id, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         if (res.affectedRows == 0) {
@@ -99,7 +99,7 @@ ArableLand.removeAll = result => {
     sql.query("DELETE FROM ArableLand", (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         console.log(`deleted ${res.affectedRows} ArableLand`);

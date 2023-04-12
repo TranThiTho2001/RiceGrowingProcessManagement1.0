@@ -12,8 +12,16 @@
                     <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Giống lúa</h3>
+                         </div>                 
+
+                         <div class="text-right">
+                              <div class="row">
+                                   <TopHeader />
+                              </div>
                          </div>
-                         <div class="">
+                    </div>
+                    <div class="row ml-2 mr-2" style="margin-top: 145px; z-index: 4; width: 99%;">
+                         <div class="col-sm-10">
                               <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
                                    @click="retrieveSeedList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch), away()"
                                    @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
@@ -35,15 +43,7 @@
                                         {{ seed.Seed_name }}</p>
                               </div>
                          </div>
-
-                         <div class="text-right">
-                              <div class="row">
-                                   <TopHeader />
-                              </div>
-                         </div>
-                    </div>
-                    <div class="" style="margin-top: 145px; z-index: 4; width: 99%;">
-                         <div class="col-sm-12 text-right">
+                         <div class="col-sm-2 text-right">
                               <button class="btn btnCreate" @click="openCreate = !openCreate" style="border-radius: 12px;"><i
                                         class="fas fa-plus-circle"></i> Thêm giống lúa</button>
                          </div>

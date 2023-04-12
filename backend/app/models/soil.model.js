@@ -41,7 +41,7 @@ Soil.getAll = (name, result) => {
     sql.query(query, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         result(null, res);
@@ -55,7 +55,7 @@ Soil.updateById = (id, soil, result) => {
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
-                result(null, err);
+                result(err, null);
                 return;
             }
             if (res.affectedRows == 0) {
@@ -74,7 +74,7 @@ Soil.remove = (id, result) => {
     sql.query("DELETE FROM Soil WHERE Soil_id = ?", id, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         if (res.affectedRows == 0) {
@@ -91,7 +91,7 @@ Soil.removeAll = result => {
     sql.query("DELETE FROM Soil", (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         console.log(`deleted ${res.affectedRows} Soil`);

@@ -45,7 +45,7 @@ Monitor.getAll = (employee_id, result) => {
     sql.query(query, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         result(null, res);
@@ -62,7 +62,7 @@ Monitor.findByName = (name,id, result) => {
     sql.query(query, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         result(null, res);
@@ -75,7 +75,7 @@ Monitor.updateById = (id, monitor, result) => {
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
-                result(null, err);
+                result(err, null);
                 return;
             }
             if (res.affectedRows == 0) {
@@ -94,7 +94,7 @@ Monitor.remove = (riceCropInformation_id, employee_id, result) => {
     sql.query(`DELETE FROM Monitor WHERE (RiceCropInformation_id LIKE '${riceCropInformation_id}' AND Employee_id LIKE '${employee_id}')`,(err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         if (res.affectedRows == 0) {
@@ -111,7 +111,7 @@ Monitor.removeAll = result => {
     sql.query("DELETE FROM Monitor", (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         console.log(`deleted ${res.affectedRows} Monitor`);

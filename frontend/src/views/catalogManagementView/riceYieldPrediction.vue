@@ -13,7 +13,16 @@
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Dự đoán năng suất</h3>
                          </div>
-                         <div class="">
+                    
+                         <div class="text-right">
+                              <div class="row">
+                                   <TopHeader />
+                              </div>
+                         </div>
+                    </div>
+
+                    <div class="row ml-2 mr-2" style="margin-top: 145px; z-index: 4; width: 99%;">
+                         <div class="col-sm-10">
                               <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
                                    @click="retrievePredictionList, isOpenInput1 = true"
                                    @keyup.enter="searchName(nameToSearch), away()"
@@ -40,15 +49,7 @@
                               </div>
                          </div>
 
-                         <div class="text-right">
-                              <div class="row">
-                                   <TopHeader />
-                              </div>
-                         </div>
-                    </div>
-
-                    <div class="" style="margin-top: 145px; z-index: 4; width: 99%;">
-                         <div class="col-sm-12 text-right">
+                         <div class="col-sm-2 text-right">
                               <button class="btn btnPredict" v-if="!isOpenRiceCropDetail && !isOpenRiceCropList"
                                    @click="isOpenRiceCropList = !isOpenRiceCropList, retrieveRiceCropList()"> Dự
                                    đoán</button>

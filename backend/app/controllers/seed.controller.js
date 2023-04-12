@@ -65,7 +65,7 @@ exports.delete = async (req, res) => {
             if (err.kind === "not_found") {
                 res.send(`Không tìm thấy giống lúa có mã ${req.params.id}`)
             } else {
-                res.redirect("Lỗi trong quá trình xóa giống lúa!!");
+                res.send("Lỗi trong quá trình xóa giống lúa!!");
             }
         } else res.send(data);
     });

@@ -46,7 +46,7 @@ Epidemic.getAll = (name, result) => {
     sql.query(query, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         result(null, res);
@@ -60,7 +60,7 @@ Epidemic.updateById = (id, epidemic, result) => {
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
-                result(null, err);
+                result(err, null);
                 return;
             }
             if (res.affectedRows == 0) {
@@ -79,7 +79,7 @@ Epidemic.remove = (id, result) => {
     sql.query("DELETE FROM Epidemic WHERE Epidemic_id = ?", id, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         if (res.affectedRows == 0) {
@@ -96,7 +96,7 @@ Epidemic.removeAll = result => {
     sql.query("DELETE FROM Epidemic", (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
         console.log(`deleted ${res.affectedRows} Epidemic`);

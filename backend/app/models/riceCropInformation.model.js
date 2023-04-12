@@ -54,7 +54,7 @@ RiceCropInformation.getAll = (name, result) => {
      sql.query(query, (err, res) => {
           if (err) {
                console.log("error: ", err);
-               result(null, err);
+               result(err, null);
                return;
           }
           result(null, res);
@@ -72,7 +72,7 @@ RiceCropInformation.getByemployeeAndRiceCrop = (name,id, result) => {
      sql.query(query, (err, res) => {
           if (err) {
                console.log("error: ", err);
-               result(null, err);
+               result(err, null);
                return;
           }
           result(null, res);
@@ -90,7 +90,7 @@ RiceCropInformation.findByArableLand = (name,id, result) => {
      sql.query(query, (err, res) => {
           if (err) {
                console.log("error: ", err);
-               result(null, err);
+               result(err, null);
                return;
           }
           result(null, res);
@@ -104,7 +104,7 @@ RiceCropInformation.updateById = (id, riceCropInformation, result) => {
           (err, res) => {
                if (err) {
                     console.log("error: ", err);
-                    result(null, err);
+                    result(err, null);
                     return;
                }
                if (res.affectedRows == 0) {
@@ -123,7 +123,7 @@ RiceCropInformation.remove = (id, result) => {
      sql.query("DELETE FROM RiceCropInformation WHERE RiceCropInformation_id = ?", id, (err, res) => {
           if (err) {
                console.log("error: ", err);
-               result(null, err);
+               result(err, null);
                return;
           }
           if (res.affectedRows == 0) {
@@ -140,7 +140,7 @@ RiceCropInformation.removeAll = result => {
      sql.query("DELETE FROM RiceCropInformation", (err, res) => {
           if (err) {
                console.log("error: ", err);
-               result(null, err);
+               result(err, null);
                return;
           }
           console.log(`deleted ${res.affectedRows} RiceCropInformation`);
