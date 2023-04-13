@@ -4,7 +4,7 @@
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times" @click="newmonitor.close = false, $emit('addMonitor-submit', newmonitor)"
-                         style="font-size: 25px; "></i>
+                         style="font-size: 25px; padding: 5px;"></i>
                </div>
           </div>
           <div class="row">

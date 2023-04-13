@@ -1,10 +1,10 @@
 <template>
      <Form @submit="newotherActivities.close = true, $emit('addOtherActivities-submit', newotherActivities)" :validation-schema="schema"
-          class="form container createOtherActiviesForm">
+          class="form createOtherActiviesForm container-fluid">
           <div class="row">
-               <div class="col-sm-12 text-right">
+               <div class="col-sm-12 text-right" >
                     <i class="fas fa-times" @click="newotherActivities.close = false, $emit('addOtherActivities-submit', newotherActivities)"
-                         style="font-size: 25px; "></i>
+                         style="font-size: 25px; padding-right: 20px !important;"></i>
                </div>
           </div>
           <div class="row">

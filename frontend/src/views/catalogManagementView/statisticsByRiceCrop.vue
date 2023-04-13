@@ -31,53 +31,53 @@
                                    <div class="col-lg-4">
                                         <input type="radio" id="arableLand" name="all" value="all"
                                              v-model="chooseSatisticsBy" checked="true"
-                                             @click="retrieveRiceCropList(), nameToSearch = ''">
+                                             @click="retrieveRiceCropList(), nameToSearch = '', isOpenRightSatistical = true">
                                         <label for="all">&nbsp; Tất cả</label><br>
                                         <input type="radio" id="arableLand" name="statisticsby" value="arableLand"
                                              v-model="chooseSatisticsBy"
-                                             @click="retrieveArableLandList(), deleteRiceCropList(), nameToSearch = ''">
+                                             @click="retrieveArableLandList(), deleteRiceCropList(), nameToSearch = '', isOpenRightSatistical = false">
                                         <label for="arableLand">&nbsp; Mẫu ruộng</label><br>
                                         <input type="radio" id="seed" name="statisticsby" value="seed"
                                              v-model="chooseSatisticsBy"
-                                             @click="deleteRiceCropList(), retrieveSeedList(), nameToSearch = ''">
+                                             @click="deleteRiceCropList(), retrieveSeedList(), nameToSearch = '', isOpenRightSatistical = false">
                                         <label for="seed"> &nbsp; Giống lúa</label><br>
                                         <input type="radio" id="epidemic" name="statisticsby" value="epidemic"
-                                             @click="retrieveEpidemicTimesList(), retrieveEpidemicList(), deleteRiceCropList(), nameToSearch = ''"
+                                             @click="retrieveEpidemicTimesList(), retrieveEpidemicList(), deleteRiceCropList(), nameToSearch = '', isOpenRightSatistical = false"
                                              v-model="chooseSatisticsBy">
                                         <label for="epidemic">&nbsp; Dịch bệnh gây hại</label><br>
                                    </div>
                                    <div class="col-lg-4">
                                         <input type="radio" id="epidemic" name="statisticsby" value="epidemic" style="visibility:hidden;"><br>
                                         <input type="radio" id="fertilizer" name="statisticsby" value="fertilizer"
-                                             @click="retrieveFertilizerList(), retrieveFertilizerTimesList(), deleteRiceCropList(), nameToSearch = ''"
+                                             @click="retrieveFertilizerList(), retrieveFertilizerTimesList(), deleteRiceCropList(), nameToSearch = '', isOpenRightSatistical = false"
                                              v-model="chooseSatisticsBy">
                                         <label for="fertilizer">&nbsp; Phân bón</label><br>
                                         <input type="radio" id="pesticide" name="statisticsby" value="pesticide"
-                                             @click="deleteRiceCropList(), retrievePesticideList(), retrievePrayingTimesList(), nameToSearch = ''"
+                                             @click="deleteRiceCropList(), retrievePesticideList(), retrievePrayingTimesList(), nameToSearch = '', isOpenRightSatistical = false"
                                              v-model="chooseSatisticsBy">
                                         <label for="pesticide">&nbsp; Thuốc trị bệnh dịch</label><br>
                                         <input type="radio" id="seed" name="statisticsby" value="activity"
                                              v-model="chooseSatisticsBy"
-                                             @click="deleteRiceCropList(), retrieveActivitiesList(), retrieveActivityDetailList(), nameToSearch = ''">
+                                             @click="deleteRiceCropList(), retrieveActivitiesList(), retrieveActivityDetailList(), nameToSearch = '', isOpenRightSatistical = false">
                                         <label for="seed">&nbsp; Hoạt động</label><br>
                                    </div>
                                    <div class="col-lg-4">
                                         <input type="radio" id="crop" name="statisticsby" value="crop"
                                              v-model="chooseSatisticsBy"
-                                             @click="deleteRiceCropList(), retrieveCropList(), nameToSearch = ''">
+                                             @click="deleteRiceCropList(), retrieveCropList(), nameToSearch = '', isOpenRightSatistical = true">
                                         <label for="crop">&nbsp; Vụ mùa</label><br>
                                         <div class=" ml-4 pl-2">
                                              <div v-for="crop in cropList" :key="crop.Crop_id">
                                                   <input type="checkbox" :id="crop.Crop_id" :value="crop.Crop_name" :class="{nonecheckedCrop:chooseSatisticsBy != 'crop', checkedCrop:chooseSatisticsBy == 'crop'}"
                                                         v-model="idToSearchByCrop" @change="searchByIDCrop()">
-                                                  <label for=""> {{ crop.Crop_name }}</label><br>
+                                                  <label for="" :class="{noneBlurCrop:chooseSatisticsBy == 'crop', blurCrop:chooseSatisticsBy != 'crop'}"> {{ crop.Crop_name }}</label><br>
                                              </div>
                                         </div>
                                    </div>
                               </div>
                          </div>
 
-                         <div class="rightStatistical">
+                         <div class="rightStatistical" :class="{ openRightStatistical: isOpenRightSatistical }">
                               <div class="statisticsByArabeLand" v-if="chooseSatisticsBy == 'arableLand'">
                                    <input type="text" class="form-control inputSearch4" placeholder="Tìm"
                                         v-model="nameToSearch" @click="retrieveRiceCropList"
@@ -365,6 +365,7 @@ export default {
                          orientation: 'portrait'
                     }
                },
+               isOpenRightSatistical: true,
                isOPenrepost: false,
                riceCropList: [],
                cloneRiceCropList: [],

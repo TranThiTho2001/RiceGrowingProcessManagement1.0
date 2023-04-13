@@ -1,7 +1,5 @@
 .riceCropManagement .createRiceCropForm {
-    background-color: #dbdbdb;
     border: 0.5px solid #b8b5b5;
-    font-family: Inter;
     border-radius: 10px;
     position: absolute;
     top: calc(25%);
@@ -81,6 +79,5 @@
 }
 
 .riceCropList .col-md-3{
-    /* height: 350px; */
     margin-right: 2px !important;
 }

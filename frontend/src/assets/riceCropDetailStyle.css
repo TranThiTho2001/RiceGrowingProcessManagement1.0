@@ -7,7 +7,6 @@
 
 .active {
      background: #EAEAEA;
-
 }
 
 .riceCropDetail .topRight {
@@ -31,9 +30,11 @@
      font-weight: 700;
      display: inline-block;
 }
-.riceCropDetail .left{
+
+.riceCropDetail .left {
      width: 15% !important;
 }
+
 .riceCropDetail .btnName {
      background: none;
      color: #919302;
@@ -135,12 +136,13 @@
      border: none !important;
 }
 
-.infor{
-     z-index: 4; 
-     margin-top:100px;
-      margin-left :10px !important; 
-      width: 98%;
+.infor {
+     z-index: 4;
+     margin-top: 100px;
+     margin-left: 10px !important;
+     width: 98%;
 }
+
 @media screen and (max-width: 1430px) {
 
      .riceCropDetail .topRight {
@@ -149,11 +151,12 @@
           width: 98% !important;
           z-index: 6;
      }
-     .infor{
-          z-index: 4; 
-          margin-top:100px;
-           margin-left:0 !important; 
-           width: 99%;
+
+     .infor {
+          z-index: 4;
+          margin-top: 100px;
+          margin-left: 0 !important;
+          width: 99%;
      }
 }
 
@@ -181,7 +184,8 @@
      .riceCropDetail .functionName::-webkit-scrollbar {
           width: 0 !important
      }
-     .openSearch5{
+
+     .openSearch5 {
           width: 50% !important;
      }
 }
@@ -214,14 +218,14 @@
      right: 150px !important;
      top: 110px;
      z-index: 2;
-   width: 23%;
-   max-height: 120px;
+     width: 23%;
+     max-height: 120px;
      background-color: #FAFAFC;
      border-radius: 5px;
      z-index: 1;
      box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
           rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-          overflow: hidden;
+     overflow: hidden;
 }
 
 .riceCropDetail .item {
@@ -280,18 +284,9 @@
      background: #e8e8e8;
 }
 
-/* .my-custom-scrollbar {
-     position: relative;
-     max-height: 260px;
-     overflow: auto;
-     background: #FAFAFC;
-     border: none;
-} */
-
-
 .riceCropDetail .tableFixHead {
      overflow: auto;
-     max-height: 350px; 
+     max-height: 350px;
      width: 100%;
      margin-top: 30px;
 }
@@ -337,48 +332,6 @@
 .riceCropDetail table thead tr {
      background-color: none !important;
 }
-
-
-/* .riceCropDetail .ricecropTable {
-     height: min-content;
-     width: 98.5% !important;
-     background: #FAFAFC !important;
-     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-.riceCropDetail .ricecropTable tbody tr:hover {
-     color: #1C1C1F;
-     font-family: 'Roboto';
-     font-style: normal;
-     font-weight: 400;
-     font-size: 16px;
-     background-color: #8e0f0f;
-}
-
-.riceCropDetail .ricecropTable thead tr th {
-     vertical-align: middle;
-}
-
-.riceCropDetail .ricecropTable tbody tr {
-     font-family: 'Roboto';
-     font-style: normal;
-     font-weight: 400;
-     font-size: 16px;
-     line-height: 15px;
-     border-bottom: 0.1px solid #f4f5f6 !important;
-}
-
-.riceCropDetail .ricecropTable tbody tr td {
-     font-family: 'Roboto' !important;
-     font-style: normal;
-     vertical-align: middle;
-     border-bottom: 0.5px solid #cbcccf !important;
-     padding-left: 5px !important;
-     vertical-align: middle !important;
-     font-size: 14px;
-     text-align: justify;
-     padding: 10px;
-} */
 
 @media only screen and (max-width: 760px) {
      .riceCropDetail .ricecropTable {

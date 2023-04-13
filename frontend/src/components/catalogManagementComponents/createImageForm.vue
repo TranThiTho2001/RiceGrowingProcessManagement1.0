@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-sm-12 text-right">
                 <i class="fas fa-times" @click="newimage.close = false, $emit('addImage-submit', newimage)"
-                    style="font-size: 25px; "></i>
+                    style="font-size: 25px; padding: 10px;"></i>
             </div>
         </div>
         <div class="functionName row mb-3">
@@ -88,7 +88,6 @@ export default {
     position: absolute;
     width: 50%;
     height: 520px;
-    background-color: aquamarine;
     top: 18%;
     left: 22%;
     border-radius: 10px;
@@ -110,10 +109,5 @@ export default {
      font-size: 18px;
      font-family: Inter;
 }
- .createImageForm .btnLuu{
-     background-color: rgb(4, 105, 4);
-     color: #f0f0f0;
-     font-size: 20px;
-     text-align: center;
-}
+
 </style>

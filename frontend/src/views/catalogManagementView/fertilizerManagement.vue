@@ -1,18 +1,18 @@
 <template>
      <div class="container-fluid fertilizerManagement pr-4 " style="background-color: #EAEAEA; height: max-content;">
           <div class="row fertilizerManagementFrame" style="height: 100vmin;">
-               <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2" 
+               <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
                     @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true, active.leftnNoneActive = false"></button>
-               <div  class="left" :class=" {navbarresponsive: openMenu.openMenu }" >
-                         <Catalog />
+               <div class="left" :class="{ navbarresponsive: openMenu.openMenu }">
+                    <Catalog />
                </div>
 
                <div class="right rightFertilizerManagement " :class="{ leftNoneActive: active.leftnNoneActive }">
                     <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
-                              <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Phân bón</h3>
+                              <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Phân bón</h3>
                          </div>
 
                          <div class="text-right">
@@ -22,24 +22,21 @@
                          </div>
                     </div>
                     <div class="row row-inputSearch">
-                         <div class="col-sm-10">
-                              <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
-                                   @click="retrieveFertilizerList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch), away()"
-                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                              <button class="btnSearch1" @click="searchName(nameToSearch), away()">
-                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                              </button>
+                         <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
+                              @click="retrieveFertilizerList, isOpenInput1 = true"
+                              @keyup.enter="searchName(nameToSearch), away()"
+                              @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                         <button class="btnSearch1" @click="searchName(nameToSearch), away()">
+                              <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                         </button>
 
-                              <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
-                                   <p class="item" v-for="fertilizer in filteredList()" :key="fertilizer.Fertilizer_name"
-                                        @click="searchName(fertilizer.Fertilizer_name), away()">
-                                        {{ fertilizer.Fertilizer_name }}</p>
-                              </div>
+                         <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                              <p class="item" v-for="fertilizer in filteredList()" :key="fertilizer.Fertilizer_name"
+                                   @click="searchName(fertilizer.Fertilizer_name), away()">
+                                   {{ fertilizer.Fertilizer_name }}</p>
                          </div>
-                         <div class="col-sm-2 text-right">
-                              <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
-                                        style="font-size: 15px;"></i> Thêm phân bón</button>
-                         </div>
+                         <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
+                                   style="font-size: 15px;"></i> Thêm phân bón</button>
                     </div>
                     <div class="scrollTable">
                          <div class="scrollTable-content">
@@ -57,16 +54,17 @@
                                         </tr>
                                    </thead>
                                    <tbody>
-                                        <tr v-for="(fertilizer, i ) in fertilizerList" :key="i" @click="goToFertilizerDetail(fertilizer.Fertilizer_id)"
-                                             class="">
+                                        <tr v-for="(fertilizer, i ) in fertilizerList" :key="i"
+                                             @click="goToFertilizerDetail(fertilizer.Fertilizer_id)" class="">
 
                                              <td data-label="STT" class="centerclass">{{ i + 1 }}</td>
                                              <td data-label="Mã">{{ fertilizer.Fertilizer_id }}</td>
                                              <td data-label="Tên">{{ fertilizer.Fertilizer_name }}</td>
                                              <td data-label="Nhà cung cấp">{{ fertilizer.Fertilizer_supplier }}</td>
-                                             <td data-label="Thành phần" >{{ fertilizer.Fertilizer_component }}</td>
-                                             <td data-label="Công dụng" >{{ fertilizer.Fertilizer_uses }}</td>
-                                             <td data-label="Hướng dẫn sử dụng">{{ fertilizer.Fertilizer_directionForUse }}</td>
+                                             <td data-label="Thành phần">{{ fertilizer.Fertilizer_component }}</td>
+                                             <td data-label="Công dụng">{{ fertilizer.Fertilizer_uses }}</td>
+                                             <td data-label="Hướng dẫn sử dụng">{{ fertilizer.Fertilizer_directionForUse }}
+                                             </td>
                                              <td data-label="M" class="centerclass" style="z-index: 1000;">
                                                   <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
                                                        aria-haspopup="true" aria-expanded="false">
@@ -331,11 +329,11 @@ export default {
                this.fertilizerChosen = fertilizer;
           },
 
-          async goToFertilizerDetail(fertilizer_id){
+          async goToFertilizerDetail(fertilizer_id) {
                console.log(fertilizer_id)
                this.$router.push({ name: 'FertilizerDetail', params: { id: fertilizer_id } });
           }
-          
+
      },
 
      created() {

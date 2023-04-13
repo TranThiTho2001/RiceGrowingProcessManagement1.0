@@ -22,25 +22,21 @@
                          </div>
                     </div>
                     <div class="row row-inputSearch">
-                         <div class="col-sm-10">
-                              <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
-                                   @click="retrievePesticideList, isOpenInput1 = true"
-                                   @keyup.enter="searchName(nameToSearch), away()"
-                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                              <button class="btnSearch1" @click="searchName(nameToSearch), away()">
-                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                              </button>
+                         <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
+                              @click="retrievePesticideList, isOpenInput1 = true"
+                              @keyup.enter="searchName(nameToSearch), away()"
+                              @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                         <button class="btnSearch1" @click="searchName(nameToSearch), away()">
+                              <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                         </button>
 
-                              <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
-                                   <p class="item" v-for="pesticide in filteredList()" :key="pesticide.Pesticide_id"
-                                        @click="searchName(pesticide.Pesticide_name), away()">
-                                        {{ pesticide.Pesticide_name }}</p>
-                              </div>
+                         <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                              <p class="item" v-for="pesticide in filteredList()" :key="pesticide.Pesticide_id"
+                                   @click="searchName(pesticide.Pesticide_name), away()">
+                                   {{ pesticide.Pesticide_name }}</p>
                          </div>
-                         <div class="col-sm-2 text-right">
-                              <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
-                                        style="font-size: 15px;"></i> Thêm loại thuốc mới</button>
-                         </div>
+                         <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
+                                   style="font-size: 15px;"></i> Thêm loại thuốc mới</button>
                     </div>
                     <div class="scrollTable" v-if="!openCreate && !isOpenUpdatePesticide">
                          <div class="scrollTable-content">
@@ -65,7 +61,8 @@
                                              <td data-label="Nhà cung cấp">{{ pesticide.Pesticide_supplier }}</td>
                                              <td data-label="Thành phần"> {{
                                                   pesticide.Pesticide_component }}</td>
-                                                  <td data-label="Hướng dẫn sử dụng">{{ pesticide.Pesticide_directionForUse }}</td>
+                                             <td data-label="Hướng dẫn sử dụng">{{ pesticide.Pesticide_directionForUse }}
+                                             </td>
                                              <td data-label="Trị bệnh">
                                                   <div style="display: inline-block;">
                                                        <p v-for="treatment in pesticide.Treatment"

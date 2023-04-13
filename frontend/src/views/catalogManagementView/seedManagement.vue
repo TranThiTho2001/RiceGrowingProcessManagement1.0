@@ -21,26 +21,22 @@
                          </div>
                     </div>
                     <div class="row row-inputSearch">
-                         <div class="col-sm-10">
-                              <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
-                                   @click="retrieveSeedList, isOpenInput1 = true"
-                                   @keyup.enter="searchName(nameToSearch), away()"
-                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                              <button class="btnSearch1" @click="searchName(nameToSearch), away()">
-                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                              </button>
+                         <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
+                              @click="retrieveSeedList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch), away()"
+                              @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                         <button class="btnSearch1" @click="searchName(nameToSearch), away()">
+                              <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                         </button>
 
-                              <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
-                                   <p class="item" v-for="seed in filteredList()" :key="seed.Seed_name"
-                                        @click="searchName(seed.Seed_name), away()">
-                                        {{ seed.Seed_name }}</p>
-                              </div>
+                         <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                              <p class="item" v-for="seed in filteredList()" :key="seed.Seed_name"
+                                   @click="searchName(seed.Seed_name), away()">
+                                   {{ seed.Seed_name }}</p>
                          </div>
-                         <div class="col-sm-2 text-right">
-                              <button class="btn btnCreate" @click="openCreate = !openCreate" style="border-radius: 12px;"><i
-                                        class="fas fa-plus-circle"></i> Thêm giống lúa</button>
-                         </div>
+                         <button class="btn btnCreate" @click="openCreate = !openCreate" style="border-radius: 12px;"><i
+                                   class="fas fa-plus-circle"></i> Thêm giống lúa</button>
                     </div>
+
                     <div class="scrollTable">
                          <div class="scrollTable-content">
                               <table class="table seedList">
@@ -414,4 +410,5 @@ nav .pagination .page-item .page-link {
      font-weight: 700;
      background-color: #EAEAEA;
      font-size: 20px;
-}</style>
+}
+</style>

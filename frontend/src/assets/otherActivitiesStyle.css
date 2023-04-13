@@ -1,15 +1,23 @@
 .activitiesManagement .createOtherActiviesForm,
 .activitiesManagement .updateOtherActiviesForm {
-    background-color: #dbdbdb;
     border: 0.5px solid #b8b5b5;
-    font-family: Inter;
     border-radius: 10px;
-    position: absolute;
+    position: relative;
     top: calc(24%);
     left: 30%;
     width: 40%;
+    z-index: 12;
 }
 
+.riceCropDetail .createOtherActiviesForm{
+    border: 0.5px solid #b8b5b5;
+    border-radius: 10px;
+    position: relative;
+    top: calc(-44%);
+    left: 0%;
+    width: 40%;
+    z-index: 12;
+}
 .outside {
     width: 100vw;
     height: 100vh;

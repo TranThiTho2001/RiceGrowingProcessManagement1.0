@@ -1,19 +1,19 @@
 <template>
      <div class="container-fluid riceCropManagement" style="background-color:  #EAEAEA; height: max-content;">
           <div class="row riceCropManagemenFrame" style="height: max-content;">
-               <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2" 
+               <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
                     @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true, active.leftnNoneActive = false"></button>
-               <div  class="left" :class=" {navbarresponsive: openMenu.openMenu }" >
-                         <Catalog />
+               <div class="left" :class="{ navbarresponsive: openMenu.openMenu }">
+                    <Catalog />
                </div>
                <div class="right rightRiceCropManagement" :class="{ leftNoneActive: active.leftnNoneActive }">
                     <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
-                              <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Theo dõi mùa vụ</h3>
+                              <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Theo dõi mùa vụ</h3>
                          </div>
-     
+
                          <div class="text-right">
                               <div class="row">
                                    <TopHeader />
@@ -21,28 +21,24 @@
                          </div>
                     </div>
                     <div class="row row-inputSearch">
-                         <div class="col-sm-10">
-                              <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
-                                   @click="retrieveRiceCropList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch), away()"
-                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                              <button class="btnSearch1" @click="searchName(nameToSearch), away()">
-                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                              </button>
-                              
-                              <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
-                                   <p class="item" v-for="riceCrop in filteredList()"
-                                        :key="riceCrop.RiceCropInformation_name"
-                                        @click="searchName(riceCrop.RiceCropInformation_name), away()">
-                                        {{ riceCrop.RiceCropInformation_name }}</p>
-                              </div>
+                         <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
+                              @click="retrieveRiceCropList, isOpenInput1 = true"
+                              @keyup.enter="searchName(nameToSearch), away()"
+                              @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                         <button class="btnSearch1" @click="searchName(nameToSearch), away()">
+                              <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                         </button>
+
+                         <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                              <p class="item" v-for="riceCrop in filteredList()" :key="riceCrop.RiceCropInformation_name"
+                                   @click="searchName(riceCrop.RiceCropInformation_name), away()">
+                                   {{ riceCrop.RiceCropInformation_name }}</p>
                          </div>
-                         <div class="col-sm-2 text-right">
-                              <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
-                                        style="font-size: 15px;"></i> Thêm Mùa Vụ</button>
-                         </div>
+                         <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
+                                   style="font-size: 15px;"></i> Thêm Mùa Vụ</button>
                     </div>
                     <!-- <div class=" row riceCropList ml-4 mr-4 pr-2 mt-1 text-left" v-if="riceCropListByMonitoring.length > 0"> -->
-                         <!-- <carousel v-if="riceCropListByMonitoring.length > getWidth()" :settings="settings"
+                    <!-- <carousel v-if="riceCropListByMonitoring.length > getWidth()" :settings="settings"
                               :breakpoints="breakpoints" style="width:100%" :autoplay="2000" :wrap-around="true">
                               <slide v-for="(riceCrop, i) in riceCropListByMonitoring" :key="i">
                                    <div class="carousel__item">
@@ -66,7 +62,8 @@
                          </carousel> -->
                     <!-- </div> -->
                     <div class="row riceCropList mt-3" style="max-height: 98%; width: 98%;">
-                         <div class="col-lg-3 col-md-4 col-sm-6 text-center" v-for="(riceCrop, i) in riceCropList" :key="i" style=" margin-left: 0px !important; margin-right: 0px !important; margin-bottom: 5px;">
+                         <div class="col-lg-3 col-md-4 col-sm-6 text-center" v-for="(riceCrop, i) in riceCropList" :key="i"
+                              style=" margin-left: -4px !important; margin-right: 0px !important; margin-bottom: 5px;">
                               <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
                          </div>
                          <!-- <carousel v-if="riceCropListByFinish.length > getWidth" :settings="settings"
@@ -347,7 +344,7 @@ export default {
 
                     this.fullListRiceCrop = respone.data;
                     var temp = (String(this.fullListRiceCrop[this.fullListRiceCrop.length - 1].RiceCropInformation_id)).split("");
-                    console.log("jhj"+temp)
+                    console.log("jhj" + temp)
                     var id = "";
                     for (let index = 0; index < temp.length; index++) {
                          const element = temp[index];
@@ -810,7 +807,7 @@ export default {
 
           async searchName(data) {
                this.nameToSearch = data;
-               
+
                if (this.nameToSearch == "") {
                     this.retrieveRiceCropList();
                }
@@ -847,7 +844,7 @@ export default {
 
           },
 
-          getResponsive(){
+          getResponsive() {
                var width = document.body.clientWidth;
                return width;
           },
@@ -892,4 +889,6 @@ export default {
 
 .riceCropManagement {
      height: 100vmin;
-}</style>
+}
+
+</style>

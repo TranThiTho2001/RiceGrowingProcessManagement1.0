@@ -5,15 +5,15 @@
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
                     @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true"></button>
-               <div  class="left" :class=" {navbarresponsive: openMenu.openMenu }" style="z-index: 8;">
-                         <Catalog />
+               <div class="left" :class="{ navbarresponsive: openMenu.openMenu }" style="z-index: 8;">
+                    <Catalog />
                </div>
 
                <div class="right rightEpidemicManagement ">
                     <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
-                              <h3 class="name" :class="{name2: isOpenInput2}"  style="font">Dịch bệnh</h3>
-                         </div>                    
+                              <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Dịch bệnh</h3>
+                         </div>
 
                          <div class="text-right">
                               <div class="row">
@@ -23,25 +23,22 @@
                     </div>
 
                     <div class="row row-inputSearch">
-                         <div class="col-sm-10">
-                              <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
-                                   @click="retrieveEpidemicList, isOpenInput1 = true" @keyup.enter="searchName(nameToSearch), away()"
-                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                              <button class="btnSearch1" @click="searchName(nameToSearch), away()">
-                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                              </button>
-                              
+                         <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
+                              @click="retrieveEpidemicList, isOpenInput1 = true"
+                              @keyup.enter="searchName(nameToSearch), away()"
+                              @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                         <button class="btnSearch1" @click="searchName(nameToSearch), away()">
+                              <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                         </button>
 
-                              <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
-                                   <p class="item" v-for="epidemic in filteredList()" :key="epidemic.Epidemic_id"
-                                        @click="searchName(epidemic.Epidemic_name), away()">
-                                        {{ epidemic.Epidemic_name }}</p>
-                              </div>
+
+                         <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                              <p class="item" v-for="epidemic in filteredList()" :key="epidemic.Epidemic_id"
+                                   @click="searchName(epidemic.Epidemic_name), away()">
+                                   {{ epidemic.Epidemic_name }}</p>
                          </div>
-                         <div class="col-sm-2 text-right">
-                              <button class="btn btnCreate" @click="openCreate = !openCreate"><i
-                                        class="fas fa-plus-circle pt-1" style="font-size: 20px;"></i> Thêm bệnh dịch</button>
-                         </div>
+                         <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle pt-1"
+                                   style="font-size: 20px;"></i> Thêm bệnh dịch</button>
                     </div>
                     <div class="scrollTable">
                          <div class="scrollTable-content">
@@ -60,16 +57,18 @@
                                    </thead>
                                    <tbody>
                                         <tr v-for="(epidemic, i ) in epidemicList" :key="i">
-                                             <td class="centerclass"  data-label="STT">{{ i + 1 }}</td>
+                                             <td class="centerclass" data-label="STT">{{ i + 1 }}</td>
                                              <td data-label="Mã">{{ epidemic.Epidemic_id }}</td>
-                                             <td data-label="Tên" >{{ epidemic.Epidemic_name }}</td>
-                                             <td data-label="Thời điểm" class="centerclass">{{ epidemic.Epidemic_timeOfDevelopment }}</td>
+                                             <td data-label="Tên">{{ epidemic.Epidemic_name }}</td>
+                                             <td data-label="Thời điểm" class="centerclass">{{
+                                                  epidemic.Epidemic_timeOfDevelopment }}</td>
                                              <td data-label="Môi trường phát triển">{{
                                                   epidemic.Epidemic_developmentEnvironment }}</td>
                                              <td data-label="Tác hại">{{ epidemic.Epidemic_Harm }}
                                              </td>
-                                             <td data-label="Phân loại" class="centerclass">{{ epidemic.EpidemicClassification_name }}</td>
-                                             <td  data-label="Tùy chọn" class="">
+                                             <td data-label="Phân loại" class="centerclass">{{
+                                                  epidemic.EpidemicClassification_name }}</td>
+                                             <td data-label="Tùy chọn" class="">
                                                   <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
                                                        aria-haspopup="true" aria-expanded="false">
                                                        <i class="fas fa-ellipsis-v"></i>
@@ -167,7 +166,7 @@ export default {
                nameToSearch: "",
                message: "",
                epidemicClassificationList: [],
-               isOpenInput1:false,
+               isOpenInput1: false,
                isOpenInput2: false,
                isOpenSearch: {
                     open: false,
@@ -246,7 +245,7 @@ export default {
           },
 
           async createEpidemic(data) {
-               console.log(data.EpidemicClassification_id+" "+ data.EpidemicClassification_name)
+               console.log(data.EpidemicClassification_id + " " + data.EpidemicClassification_name)
                this.epidemicClassificationList.forEach(element => {
                     if (data.EpidemicClassification_name == element.EpidemicClassification_name) {
                          data.EpidemicClassification_id = element.EpidemicClassification_id;
@@ -396,6 +395,4 @@ export default {
 <style>
 @import url(../../assets/mainStyle.css);
 @import url(../../assets/epidemicStyle.css);
-
-
 </style>

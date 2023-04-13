@@ -123,10 +123,10 @@
                                         @click="setTable('btnAttendee')">Người theo dõi</button>
 
                               </div>
-                              <!-- Image -->
+                              <!-- -------------------------------Image ------------------------------>
                               <div class="row activitiesList ml-2 mr-2" v-if="isOpenImage">
                                    <div class="row">
-                                        <button class="btnAddimage"
+                                        <button class="btn btnAdd"
                                              @click="isOpenCreateImage = !isOpenCreateImage, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
                                              Thêm
                                         </button>

@@ -1,6 +1,6 @@
 <template>
      <Form @submit="newactivitiesDetail.close = true, $emit('addOtherActivityTimes-submit', newactivitiesDetail)"
-          :validation-schema="schema" class="form container-fluid createActivityDetailForm">
+          :validation-schema="schema" class="form container-fluid createActivityDetailForm" :class="{open:openCreateNewOtherActivity}">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times"
@@ -223,6 +223,7 @@ export default {
                message4: "",
                weatherInfor: {},
                schema,
+               openCreateNewOtherActivity: false,
           };
      },
 
@@ -230,6 +231,7 @@ export default {
           async setOtherActivies() {
                if (this.newactivitiesDetail.OtherActivities_name == "Thêm hoạt động mới") {
                     this.isOpenCreateOtherActivities = true;
+                    this.openCreateNewOtherActivity = true;
                }
                else {
                     this.otherActivitiesList.forEach(element => {
@@ -270,6 +272,7 @@ export default {
                this.message4 = "";
                if (!data.close) {
                     this.isOpenCreateOtherActivities = false;
+                    this.openCreateNewOtherActivity = false;
                }
                else {
                     const [error, response] = await this.handle(
@@ -499,5 +502,12 @@ export default {
      color: var(--dp-text-color);
      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
      box-sizing: border-box;
+}
+
+.open{
+     /* display: 
+      */
+      filter: blur(1px);
+  -webkit-filter: blur(1px);
 }
 </style>

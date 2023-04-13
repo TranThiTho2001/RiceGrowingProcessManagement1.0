@@ -1,6 +1,5 @@
 .riceCropDetailFrame .createSprayingTimesForm,
 .riceCropDetailFrame .updateArableLandForm {
-    background-color: #dbdbdb;
     border: 0.5px solid #b8b5b5;
     font-family: 'Roboto';
     border-radius: 10px;
@@ -36,7 +35,6 @@
     vertical-align: middle !important;
 }
 
-
 .createSprayingTimesForm .btnAddPesticide {
     border-radius: 5px;
     background: #008B8E;
@@ -71,14 +69,11 @@
     font-weight: 500;
 }
 
-.content .error-feedback,
 .content .error-feedback {
     color: red;
     float: right;
 }
 
-
-.content .form-group label,
 .content .form-group label {
     float: left;
     font-family: 'Roboto';
@@ -87,7 +82,6 @@
     font-size: 18px;
 }
 
-.content .form-group .selectBox,
 .content .form-group .selectBox {
     width: 100%;
     height: 38px;
@@ -95,12 +89,10 @@
     border-radius: 4px;
 }
 
-.content .form-group input,
 .content .form-group input {
     float: left;
 }
 
-.content .form-group .form-control,
 .content .form-group .form-control {
     background-color: #FAFAFC;
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -114,25 +106,15 @@
     vertical-align: middle;
 }
 
-.functionName,
 .functionName {
     font-family: 'Roboto';
     font-size: 24px;
 }
 
-.form-group .textMessage2,
-.form-group .textMessage1,
 .form-group .textMessage1,
 .form-group .textMessage2 {
     text-align: center;
     display: inline;
     font-size: 18px;
     font-family: 'Roboto';
-}
-
-.btnLuu {
-    background-color: rgb(4, 105, 4) !important;
-    color: #f0f0f0;
-    font-size: 20px;
-    text-align: center;
 }

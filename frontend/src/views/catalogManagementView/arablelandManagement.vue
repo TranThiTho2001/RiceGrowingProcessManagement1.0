@@ -23,26 +23,22 @@
                     </div>
 
                     <div class="row row-inputSearch">
-                         <div class="col-sm-10">
-                              <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
-                                   @click="retrieveArableLandList, isOpenInput1 = true"
-                                   @keyup.enter="searchName(nameToSearch), away()"
-                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                              <button class="btnSearch1" @click="searchName(nameToSearch), away()">
-                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                              </button>
+                         <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
+                              @click="retrieveArableLandList, isOpenInput1 = true"
+                              @keyup.enter="searchName(nameToSearch), away()"
+                              @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                         <button class="btnSearch1" @click="searchName(nameToSearch), away()">
+                              <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                         </button>
 
-                              <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
-                                   <p class="item" v-for="arableLand in filteredList()" :key="arableLand.ArableLand_id"
-                                        @click="searchName(arableLand.ArableLand_owner), away()">
-                                        {{ arableLand.ArableLand_owner }}</p>
-                              </div>
+                         <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                              <p class="item" v-for="arableLand in filteredList()" :key="arableLand.ArableLand_id"
+                                   @click="searchName(arableLand.ArableLand_owner), away()">
+                                   {{ arableLand.ArableLand_owner }}</p>
                          </div>
-                         <div class="col-sm-2 text-right">
-                              <button class="btn btnCreate"
-                                   @click="retrieveProvinceList(), retrieveSoilList(), openCreate = !openCreate"><i
-                                        class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm mẫu ruộng</button>
-                         </div>
+                         <button class="btn btnCreate"
+                              @click="retrieveProvinceList(), retrieveSoilList(), openCreate = !openCreate"><i
+                                   class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm mẫu ruộng</button>
                     </div>
                     <div class="scrollTable">
                          <div class="scrollTable-content">
@@ -121,9 +117,9 @@
                          @addArableLand-submit="createArableLand" :message1="message1" :message2="message2"
                          :provinceList="provinceList" />
 
-                    <UpdateArableLandForm v-if="isOpenUpdateArableLand" :newArableLand="arablelandChosen" :soilList="soilList"
-                         @updateArableLand-submit="updateArableLand" :message1="message1" :message2="message2"
-                         :provinceList="provinceList" />
+                    <UpdateArableLandForm v-if="isOpenUpdateArableLand" :newArableLand="arablelandChosen"
+                         :soilList="soilList" @updateArableLand-submit="updateArableLand" :message1="message1"
+                         :message2="message2" :provinceList="provinceList" />
                </div>
           </div>
      </div>
@@ -441,4 +437,5 @@ nav .pagination .page-item .page-link {
      font-size: 20px;
 }
 
-@import url(../../assets/mainStyle.css);</style>
+@import url(../../assets/mainStyle.css);
+</style>

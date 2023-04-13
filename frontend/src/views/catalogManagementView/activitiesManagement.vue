@@ -22,7 +22,6 @@
                     </div>
 
                     <div class="row row-inputSearch">
-                         <div class="col-sm-10">
                                    <input type="text" class="form-control inputSearch1" placeholder="Tìm"
                                         v-model="nameToSearch" @click="retrieveOtherActivities, isOpenInput1 = true"
                                         @keyup.enter="searchName(nameToSearch), away()"
@@ -38,12 +37,12 @@
                                              @click="searchName(activity.OtherActivities_name), away()">
                                              {{ activity.OtherActivities_name }}</p>
                                    </div>
-                              </div>
-                         <div class="col-sm-2 text-right">
+                             
+                         
                               <button class="btn btnCreate"
                                    @click="isOpenCreateOtherActivities = !isOpenCreateOtherActivities"><i
                                         class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm hoạt động</button>
-                         </div>
+                        
                     </div>
                     <div class="scrollTable">
                          <div class="scrollTable-content">

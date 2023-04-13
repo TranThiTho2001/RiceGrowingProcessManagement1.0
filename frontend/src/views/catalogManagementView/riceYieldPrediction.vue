@@ -13,7 +13,7 @@
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Dự đoán năng suất</h3>
                          </div>
-                    
+
                          <div class="text-right">
                               <div class="row">
                                    <TopHeader />
@@ -22,30 +22,24 @@
                     </div>
 
                     <div class="row row-inputSearch">
-                         <div class="col-sm-10">
-                              <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
-                                   @click="retrievePredictionList, isOpenInput1 = true"
-                                   @keyup.enter="searchName(nameToSearch), away()"
-                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                              <button class="btnSearch1" @click="searchName(nameToSearch), away()">
-                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                              </button>
+                         <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
+                              @click="retrievePredictionList, isOpenInput1 = true"
+                              @keyup.enter="searchName(nameToSearch), away()"
+                              @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                         <button class="btnSearch1" @click="searchName(nameToSearch), away()">
+                              <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                         </button>
 
-                              <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
-                                   <p class="item" v-for="prediction in filteredList()"
-                                        :key="prediction.RiceCropInformation_name"
-                                        @click="searchName(prediction.RiceCropInformation_name), away()">
-                                        {{ prediction.RiceCropInformation_name }}</p>
-                              </div>
+                         <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                              <p class="item" v-for="prediction in filteredList()" :key="prediction.RiceCropInformation_name"
+                                   @click="searchName(prediction.RiceCropInformation_name), away()">
+                                   {{ prediction.RiceCropInformation_name }}</p>
                          </div>
-
-                         <div class="col-sm-2 text-right">
-                              <button class="btn btnPredict" v-if="!isOpenRiceCropDetail && !isOpenRiceCropList"
-                                   @click="isOpenRiceCropList = !isOpenRiceCropList, retrieveRiceCropList()"> Dự
-                                   đoán</button>
-                              <button class="btn btnPredict" v-if="isOpenRiceCropDetail" @click="getWeather()"> Dự
-                                   đoán</button>
-                         </div>
+                         <button class="btn btnPredict" v-if="!isOpenRiceCropDetail && !isOpenRiceCropList"
+                              @click="isOpenRiceCropList = !isOpenRiceCropList, retrieveRiceCropList()"> Dự
+                              đoán</button>
+                         <button class="btn btnPredict" v-if="isOpenRiceCropDetail" @click="getWeather()"> Dự
+                              đoán</button>
                     </div>
 
                     <div class="scrollTable">
@@ -123,7 +117,8 @@
                                              <td class="centerclass" data-label="Ngày gieo xạ">{{
                                                   formatDate(ricecrop.RiceCropInformation_sowingDate) }}</td>
                                              <td class="centerclass" data-label="Dự đoán">
-                                                  <button class="btn btnCreate" @click="setRiceCropChosen(ricecrop), getWeather()"> Dự đoán</button>
+                                                  <button class="btn btnCreate"
+                                                       @click="setRiceCropChosen(ricecrop), getWeather()"> Dự đoán</button>
                                              </td>
                                         </tr>
                                    </tbody>

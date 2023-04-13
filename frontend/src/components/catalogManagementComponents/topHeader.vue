@@ -77,12 +77,11 @@ export default {
 <style>
 .topHeader {
      font-size: 18px;
-
      margin-left: 0px;
      border-radius: 10px;
      height: 10px;
      position: absolute;
-     left: -16px;
+     left: -15px;
      top:16px !important;
     z-index: 4;
 }

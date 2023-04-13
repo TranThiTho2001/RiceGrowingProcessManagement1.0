@@ -1,6 +1,5 @@
 .pesticideManagement .createPesticideForm,
 .pesticideManagement .updatePesticideForm{
-    background-color: #dbdbdb;
     border: 0.5px solid #b8b5b5;
      font-family: Inter;
      border-radius: 10px;
@@ -28,17 +27,6 @@
     font-family: 'Roboto';
     font-style: normal;
     border-radius: 14px;
-}
-
-.predictiveManagement table tbody tr td{
-    text-align: justify;
-    vertical-align: top !important;
-}
-
-.predictiveManagement .th_pre{
-    position:  relative !important;
-    background-color: #bab9b9;
-    line-height: 10px;
 }
 
 .btnPredict{
