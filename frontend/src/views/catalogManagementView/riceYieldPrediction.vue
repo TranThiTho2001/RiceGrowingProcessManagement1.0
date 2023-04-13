@@ -35,10 +35,9 @@
                                    @click="searchName(prediction.RiceCropInformation_name), away()">
                                    {{ prediction.RiceCropInformation_name }}</p>
                          </div>
-                         <button class="btn btnPredict" v-if="!isOpenRiceCropDetail && !isOpenRiceCropList"
-                              @click="isOpenRiceCropList = !isOpenRiceCropList, retrieveRiceCropList()"> Dự
-                              đoán</button>
-                         <button class="btn btnPredict" v-if="isOpenRiceCropDetail" @click="getWeather()"> Dự
+                         <button class="btn btnPredict1" v-if="!isOpenRiceCropDetail && !isOpenRiceCropList"
+                              @click="isOpenRiceCropList = !isOpenRiceCropList, retrieveRiceCropList()">Danh sách mùa vụ</button>
+                         <button class="btn btnPredict1" v-if="isOpenRiceCropDetail" @click="getWeather()"> Dự
                               đoán</button>
                     </div>
 
@@ -50,7 +49,7 @@
                                         <tr>
                                              <th class="centerclass" style="">STT</th>
                                              <th class="centerclass">Mã mùa vụ</th>
-                                             <th class="centerclass">Tên mùa vụ</th>
+                                             <th>Tên mùa vụ</th>
                                              <th class="centerclass">Ngày dự đoán</th>
                                              <th class="centerclass">Năng suất(kg/ha)</th>
                                              <th></th>
@@ -62,7 +61,7 @@
                                              <td class="centerclass" data-label="STT">{{ i + 1 }}</td>
                                              <td class="centerclass" data-label="Mã mùa vụ">
                                                   {{ prediction.RiceCropInformation_id }}</td>
-                                             <td class="centerclass" data-label="Tên mùa vụ">
+                                             <td data-label="Tên mùa vụ">
                                                   {{ prediction.RiceCropInformation_name }}</td>
                                              <td class="centerclass" data-label="Ngày dự đoán">{{
                                                   formatDateTime(prediction.Prediction_date) }}</td>
@@ -117,8 +116,8 @@
                                              <td class="centerclass" data-label="Ngày gieo xạ">{{
                                                   formatDate(ricecrop.RiceCropInformation_sowingDate) }}</td>
                                              <td class="centerclass" data-label="Dự đoán">
-                                                  <button class="btn btnCreate"
-                                                       @click="setRiceCropChosen(ricecrop), getWeather()"> Dự đoán</button>
+                                               <button class="btn btnPredict2" 
+                                                       @click="setRiceCropChosen(ricecrop)"> Dự đoán</button> <!--    , getWeather() -->
                                              </td>
                                         </tr>
                                    </tbody>
@@ -152,20 +151,19 @@
                               @click="isOpenMessage = !isOpenMessage">OK</button>
                     </div>
 
-                    <div class="confirmationDialog" v-if="predicting">
+                    <div class="waitingDialog" v-if="predicting">
                          <div>
                               <p class="labelConfirm mt-4 pt-4">Đang xử lý....</p>
                          </div>
                          <span v-show="predicting" class="spinner-border spinner-border-sm"></span>
                     </div>
-                    <div class="confirmationDialog" v-if="result">
+                    <div class="resultDialog" v-if="result">
                          <p style="color:#515151; text-align:center; margin-top: 30px; font-size: 20px;"
-                              class="labelConfirm">
-                              <span class="fas fa-trash-alt" style="color:red"></span> Năng suất dự đoán cho mùa vụ {{
-                                   this.riceCropChosen.RiceCropInformation_name }}<br> {{ this.riceCropChosen.Prediction_yield }}
+                              class="labelConfirm"> Năng suất dự đoán cho mùa vụ {{
+                                   this.riceCropChosen.RiceCropInformation_name }}<br> <span class="result">{{ this.riceCropChosen.Prediction_yield }}</span>
                               kg/ha
                          </p>
-                         <button class="btnNo btn btn-sm btn-outline-secondary mb-3" @click="result = !result">OK</button>
+                         <button class="btnOK btn btn-sm btn-outline-secondary mb-3" @click="result = !result">OK</button>
                     </div>
                </div>
           </div>

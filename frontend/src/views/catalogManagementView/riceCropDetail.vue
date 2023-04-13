@@ -124,7 +124,7 @@
 
                               </div>
                               <!-- -------------------------------Image ------------------------------>
-                              <div class="row activitiesList ml-2 mr-2" v-if="isOpenImage">
+                              <div class="row activitiesList ml-2 mr-2 mt-3" v-if="isOpenImage">
                                    <div class="row">
                                         <button class="btn btnAdd"
                                              @click="isOpenCreateImage = !isOpenCreateImage, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">

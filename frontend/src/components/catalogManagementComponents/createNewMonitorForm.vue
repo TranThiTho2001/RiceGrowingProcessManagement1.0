@@ -14,41 +14,42 @@
 
           </div>
           <div class="row ml-2 mr-2">
-               <input type="text" class="form-control col-sm-4 ml-4 pt-2 inputSearch" placeholder="Tìm theo tên"
+               <input type="text" class="form-control col-sm-4 pt-2 inputSearch" placeholder="Tìm theo tên"
                     style="border-radius:10px" v-model="nameToSearch" @keyup.enter="searchName" />
                <button class=" btnSearch pt-2" @click="searchName">
                     <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                </button>
                <div class="tableFixHead" style="height: 420px;" v-if="loaded">
-               <table class="table  mt-3" aria-placeholder="my-table">
-                    <thead>
-                         <th class="text-center">STT</th>
-                         <th class="text-center">Mã</th>
-                         <th>Họ và tên</th>
-                         <th>Chuyên môn</th>
-                         <th>Vai trò</th>
-                         <th class="text-center">Tùy chọn</th>
-                    </thead>
-                    <tbody>
-                         <tr v-for="(employee, i) in employeelist" :key="i">
-                              <td class="text-center">{{ i+1 }}</td>
-                              <td class="text-center">{{ employee.Employee_id }}</td>
-                              <td>{{ employee.Employee_name }}</td>
-                              <td>{{ employee.Employee_major }}</td>
-                              <td>{{ employee.Role_name }}</td>
-                              <td class="text-center">
-                                   <button class="btnMonitor" v-if="!employee.Employee_monitor"
-                                        @click="CreateNewMonitor(employee)">
-                                        Cấp quyền theo dõi
-                                   </button>
-                                   <button class="btnMonitoring" v-if="employee.Employee_monitor" @click="deleteMonitor(employee)">
-                                        Đang theo dõi
-                                   </button>
-                              </td>
-                         </tr>
-                    </tbody>
-               </table>
-          </div>
+                    <table class="table  mt-3" aria-placeholder="my-table">
+                         <thead>
+                              <th class="text-center">STT</th>
+                              <th class="text-center">Mã</th>
+                              <th>Họ và tên</th>
+                              <th>Chuyên môn</th>
+                              <th>Vai trò</th>
+                              <th class="text-center">Tùy chọn</th>
+                         </thead>
+                         <tbody>
+                              <tr v-for="(employee, i) in employeelist" :key="i">
+                                   <td class="text-center">{{ i + 1 }}</td>
+                                   <td class="text-center">{{ employee.Employee_id }}</td>
+                                   <td>{{ employee.Employee_name }}</td>
+                                   <td>{{ employee.Employee_major }}</td>
+                                   <td>{{ employee.Role_name }}</td>
+                                   <td class="text-center">
+                                        <button class="btnMonitor" v-if="!employee.Employee_monitor"
+                                             @click="CreateNewMonitor(employee)">
+                                             Cấp quyền theo dõi
+                                        </button>
+                                        <button class="btnMonitoring" v-if="employee.Employee_monitor"
+                                             @click="deleteMonitor(employee)">
+                                             Đang theo dõi
+                                        </button>
+                                   </td>
+                              </tr>
+                         </tbody>
+                    </table>
+               </div>
           </div>
 
 
@@ -182,19 +183,21 @@ export default {
 <style>
 .createMonitorForm {
      position: absolute;
-     width: 97.5%;
+     width: 97.2%;
      height: 80vh;
      top: 100px;
      left: 20px;
      background-color: rgb(254, 254, 254);
-     border:solid 1px #84858A;
+     border: solid 1px #84858A;
      border-radius: 10px;
 }
 
-.createMonitorForm .table thead td {
-     background-color: rgb(245, 242, 162);
-     font-size: 18px;
-     font-weight: 600;
+.createMonitorForm .table tbody td {
+     font-size: 16px;
+     padding: 4px 2px 4px 2px !important;
+     font-family: 'Roboto';
+     font-style: normal;
+     color: #1C1C1F;
 }
 
 .createMonitorForm .table tbody tr:hover {
@@ -223,7 +226,7 @@ export default {
      border: none;
      border-radius: 10px;
      color: #5C5D22;
-     font-weight: 700;
+     font-weight: 500;
      font-family: 'Roboto';
      font-size: 17px;
      padding: 4px 8px 4px 8px;
@@ -244,7 +247,7 @@ export default {
      border: none;
      border-radius: 10px;
      color: #5C5D22;
-     font-weight: 700;
+     font-weight: 500;
      font-family: 'Roboto';
      font-size: 17px;
      padding: 4px 8px 4px 8px;
@@ -263,7 +266,7 @@ export default {
 
 .createMonitorForm .btnSearch {
      position: absolute;
-     left: 32%;
+     left: 31%;
      border-radius: 10px;
      border: none;
      background: none;

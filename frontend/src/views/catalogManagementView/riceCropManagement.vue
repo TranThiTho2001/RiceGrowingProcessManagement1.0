@@ -891,4 +891,7 @@ export default {
      height: 100vmin;
 }
 
+.riceCropManagement .btnCreate{
+     right: 3.7% !important;
+}
 </style>

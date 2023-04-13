@@ -91,10 +91,10 @@ app.use((err, req, res, next) => {
 
 
 // backup and restore
-const cron = require('node-cron')
-const moment = require('moment')
-const fs = require('fs')
-const spawn = require('child_process').spawn
+const cron = require('node-cron');
+const moment = require('moment');
+const fs = require('fs');
+const spawn = require('child_process').spawn;
 const  mysqldump =require('mysqldump');
 cron.schedule('0 15 10 * * MON', () => {
     const fileName = "ricegrowingprocessmanagementdatabase"+`${moment().format('YYYY_MM_DD')}.sql`

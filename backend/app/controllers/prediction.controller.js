@@ -5,8 +5,16 @@ const file = "D:/HOC/HK2_2022_2023/Luan_Van_Tot_Nghiep/Project/RiceGrowingProces
 // Create and Save 
 exports.store = async (req, res) => {
      var yield = 0;
+     var temp = new Object();
+     temp.crop = req.body.crop;
+     temp.precipitation = req.body.precipitation;
+     temp.temperature = req.body.temperature;
+     temp.humitidity = req.body.humitidity;
+     temp.windSpeed =  req.body.windSpeed;
+     temp.solarRadiation = req.body.solarRadiation;
+     temp.area = req.body.area;
      const { spawn } = require('child_process');
-     const pyProg = spawn('python', [`${file}`, req.body.crop, req.body.precipitation, req.body.temperature, req.body.humitidity, req.body.windSpeed, req.body.solarRadiation, req.body.area]);
+     const pyProg = spawn('python', [`${file}`, JSON.stringify(temp)]);
      pyProg.stdout.on('data', function (data) {
           yield = String(data.toString()).slice(0, String(data.toString()).indexOf("\r\n"));
           yield = (String(yield).slice(1,));
@@ -71,7 +79,6 @@ exports.findByRiceCropInformationid = async (req, res) => {
 };
 
 
-
 // Delete a Prediction with the specified id in the request
 exports.delete = async (req, res) => {
      Prediction.remove(req.params.id, (err, data) => {
@@ -84,4 +91,6 @@ exports.delete = async (req, res) => {
           } else res.send(data);
      });
 };
+
+
 

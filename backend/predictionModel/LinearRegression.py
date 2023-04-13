@@ -43,19 +43,24 @@ for train_index, test_index in kf.split(X):
 # print(data)
 
 # ---------LinearRegression ****Ok MAE 562 RME 704
-lm = LinearRegression()
-lm.fit(X_train,y_train)
-predictions = lm.predict(X_test)
+import json
+temp = json.loads(sys.argv[1])
+print(temp['crop'])
+# input = sys.stdin.read()
+# print(json.loads(input))
+# lm = LinearRegression()
+# lm.fit(X_train,y_train)
+# predictions = lm.predict(X_test)
 
-if sys.argv[1] == '1':
-  yield_pr = lm.predict([[ 1,0,0, float(sys.argv[2]), float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5]), float(sys.argv[6]), float(sys.argv[7]) ]])
-  print(yield_pr)
-elif sys.argv[1] == '2':
-  yield_pr = lm.predict([[ 0,1,0, float(sys.argv[2]), float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5]), float(sys.argv[6]), float(sys.argv[7])  ]])
-  print(yield_pr)
-else:
-  yield_pr = lm.predict([[ 0,0,1, float(sys.argv[2]), float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5]), float(sys.argv[6]), float(sys.argv[7]) ]])
-  print(yield_pr)
+# if sys.argv[1] == '1':
+#   yield_pr = lm.predict([[ 1,0,0, float(sys.argv[2]), float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5]), float(sys.argv[6]), float(sys.argv[7]) ]])
+#   print(yield_pr)
+# elif sys.argv[1] == '2':
+#   yield_pr = lm.predict([[ 0,1,0, float(sys.argv[2]), float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5]), float(sys.argv[6]), float(sys.argv[7])  ]])
+#   print(yield_pr)
+# else:
+#   yield_pr = lm.predict([[ 0,0,1, float(sys.argv[2]), float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5]), float(sys.argv[6]), float(sys.argv[7]) ]])
+#   print(yield_pr)
 
 # print(yield_pr)
 sys.stdout.flush()
