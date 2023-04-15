@@ -1742,6 +1742,7 @@ export default {
                     }
                }
           },
+          
           async retrieveImagesList() {
                const [error, response] = await this.handle(
                     ImagesService.findByName(this.newRiceCrop.RiceCropInformation_id)

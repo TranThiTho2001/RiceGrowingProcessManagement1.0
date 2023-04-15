@@ -2,19 +2,20 @@
      <div style="height: 98%; width:100%; margin-top: 0px !important;" class="responsiveComponent">
           <router-link class="linktoRiceCropInfor container-fluid"
                :to="{ name: 'RiceCropDetail', params: { id: riceCrop.RiceCropInformation_id } }">
-               <div class="riceCropComponent text-dark border">
-                    <div class="img mt-2 ml-2 mr-2 text-center" style="height: 64%; width: 94%; display: inline-flexbox;"><img
-                              :src="riceCrop.Images_link" class="img-fluid" alt="">
+               <div class="riceCropComponent text-dark border row">
+                    <div class="img ml-2 mt-2 text-center " style="height: 64%; width: 94%;">
+                         <img :src="riceCrop.Images_link" class="img-fluid imageRiceCrop" alt=""
+                              style=" display: block; max-height: 190px;">
                     </div>
-                    <div class="body-riceCropComponent">
-                         <div class="" style="margin-top: 0px !important;">
-                                   <p class="textid">{{ riceCrop.RiceCropInformation_id }}</p>
-                              
-                                   <p class="textname">
-                                        {{ riceCrop.RiceCropInformation_name }}
-                                   </p>
+                    <div class="row body-riceCropComponent ">
+                         <div class="col-sm-12" style="margin-top: 0px !important;">
+                              <p class="textid">{{ riceCrop.RiceCropInformation_id }}</p>
+
+                              <p class="textname">
+                                   {{ riceCrop.RiceCropInformation_name }}
+                              </p>
                          </div>
-                         <div class="row ml-2 mr-1">
+                         <!-- <div class="row ml-2 mr-1">
                               <table style="width: 95%;">
                                    <tr>
                                         <td class="text-center"><i class="fas fa-info-circle mt-1"
@@ -38,7 +39,7 @@
 
                               </table>
 
-                         </div> 
+                         </div> -->
                     </div>
                </div>
           </router-link>
@@ -69,16 +70,16 @@ export default {
 }
 
 .body-riceCropComponent {
-     padding: 1px 1px 1px 1px;
+     /* padding: 1px 1px 1px 1px; */
      border: none;
      padding-top: 0px;
      margin-bottom: 2px;
-     position: relative;
-     display: inline-flexbox;
+     margin-left: -2% !important;
      height: max-content;
-     margin-bottom: 2px;
+     margin-top: 2%;
+     width: 100%;
+     display: inline;
 }
-
 
 .riceCropComponent {
      border-radius: 10px;
@@ -178,5 +179,21 @@ export default {
           border: none;
           padding-top: 20px !important;
      }
+
+     .imageRiceCrop {
+          max-width: 100%;
+          max-height: 100px !important;
+          margin: auto;
+          display: block;
+     }
+
+     .img {
+          height: 90px !important;
+     }
+}
+
+.responsiveComponent{
+     width: 100%;
+     height: 120%;
 }
 </style>

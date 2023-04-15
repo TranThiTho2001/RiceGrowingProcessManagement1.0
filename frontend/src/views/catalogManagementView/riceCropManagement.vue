@@ -1,6 +1,7 @@
 <template>
-     <div class="container-fluid riceCropManagement" style="background-color:  #EAEAEA; height: max-content;">
-          <div class="row riceCropManagemenFrame" style="height: max-content;">
+     <div class="container-fluid riceCropManagement" style="height: max-content;">
+          <Preloader color="red" scale="0.4" v-if="loading"/>
+          <div class="row riceCropManagemenFrame" style="height: max-content;" v-if="!loading">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -37,55 +38,11 @@
                          <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
                                    style="font-size: 15px;"></i> Thêm Mùa Vụ</button>
                     </div>
-                    <!-- <div class=" row riceCropList ml-4 mr-4 pr-2 mt-1 text-left" v-if="riceCropListByMonitoring.length > 0"> -->
-                    <!-- <carousel v-if="riceCropListByMonitoring.length > getWidth()" :settings="settings"
-                              :breakpoints="breakpoints" style="width:100%" :autoplay="2000" :wrap-around="true">
-                              <slide v-for="(riceCrop, i) in riceCropListByMonitoring" :key="i">
-                                   <div class="carousel__item">
-                                        <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
-                                   </div>
-                              </slide>
-                              <template #addons>
-                                   <navigation  />
-                              </template>
-                         </carousel>
-                         <carousel v-if="riceCropListByMonitoring.length <= getWidth()" :settings="settings"
-                              :breakpoints="breakpoints" style="width:100%">
-                              <slide v-for="(riceCrop, i) in riceCropListByMonitoring" :key="i">
-                                   <div class="carousel__item">
-                                        <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
-                                   </div>
-                              </slide>
-                              <template #addons>
-                                   <navigation v-if="riceCropListByMonitoring.length > getWidth()" /> 
-                              </template>
-                         </carousel> -->
-                    <!-- </div> -->
                     <div class="row riceCropList mt-3" style="max-height: 98%; width: 98%;">
-                         <div class="col-lg-3 col-md-4 col-sm-6 text-center" v-for="(riceCrop, i) in riceCropList" :key="i"
+                         <div class="riceCropComponent-class col-lg-3 col-md-4 col-sm-6 text-center" v-for="(riceCrop, i) in riceCropList" :key="i"
                               style=" margin-left: -4px !important; margin-right: 0px !important; margin-bottom: 5px;">
                               <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
                          </div>
-                         <!-- <carousel v-if="riceCropListByFinish.length > getWidth" :settings="settings"
-                              :breakpoints="breakpoints" style="width:100%" :autoplay="2000" :wrap-around="true">
-                              <div class="carousel__item">
-                              <slide v-for="(riceCrop, i) in riceCropListByFinish" :key="i">
-                                   <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
-
-                              </slide></div>
-                              <template #addons>
-                                   <navigation v-if="riceCropListByFinish.length > getWidth" />
-                              </template>
-                         </carousel>
-                         <carousel v-else :settings="settings" :breakpoints="breakpoints" style="width:100%">
-                              <slide v-for="(riceCrop, i) in riceCropListByFinish" :key="i">
-                                   <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
-
-                              </slide>
-                              <template #addons>
-                                   <navigation v-if="riceCropListByFinish.length > getWidth" />
-                              </template>
-                         </carousel> -->
                     </div>
 
                     <div class="confirmationDialog" v-if="isOpenConfirm">
@@ -152,8 +109,7 @@ import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import RiceCropComponent from '@/components/catalogManagementComponents/riceCropComponent.vue';
 import ImagesService from '@/services/images.service';
 import 'vue3-carousel/dist/carousel.css'
-// import { Carousel, Slide, Navigation } from 'vue3-carousel';
-// import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
+import Preloader from '@/components/catalogManagementComponents/Preloader.vue'
 
 class RiceCrop {
      constructor(riceCrop) {
@@ -171,9 +127,7 @@ export default {
           CreateSprayingTimesForm,
           TopHeader,
           RiceCropComponent,
-          // Carousel,
-          // Slide,
-          // Navigation,
+          Preloader,
      },
 
      data() {
@@ -217,11 +171,6 @@ export default {
                elementsPerPage: 6,
                ascending: false,
                fullListRiceCrop: [],
-               settings: {
-                    itemsToShow: 1,
-                    snapAlign: 'center',
-
-               },
                isOpenInput2: false,
                isOpenInput1: true,
                isOpenSearch: {
@@ -229,51 +178,7 @@ export default {
                     close: true,
                },
                cloneRiceCropList: [],
-               breakpoints: {
-                    300: {
-                         itemsToShow: 1.5,
-                         snapAlign: 'start',
-                    },
-                    450: {
-                         itemsToShow: 2,
-                         snapAlign: 'start',
-                    },
-                    600: {
-                         itemsToShow: 2.5,
-                         snapAlign: 'start',
-                    },
-                    800: {
-                         itemsToShow: 3,
-                         snapAlign: 'start',
-                    },
-                    900: {
-                         itemsToShow: 3.5,
-                         snapAlign: 'start',
-                    },
-                    // 700px and up
-                    1000: {
-                         itemsToShow: 4,
-                         snapAlign: 'start',
-                    },
-                    1200: {
-                         itemsToShow: 4.5,
-                         snapAlign: 'start',
-                    },
-                    // 1024 and up
-                    1400: {
-                         itemsToShow: 5,
-                         snapAlign: 'start',
-                    },
-                    1500: {
-                         itemsToShow: 5.5,
-                         snapAlign: 'start',
-                    },
-                    1600: {
-                         itemsToShow: 7.5,
-                         snapAlign: 'start',
-                    },
-
-               },
+               loading:true,
           }
      },
 
@@ -302,38 +207,9 @@ export default {
                this.isOpenInput1 = false;
           },
 
-          getWidth() {
-               var width = document.body.clientWidth;
-               if (width > 300 && width < 450) {
-                    return 1.5
-               }
-               else if (width >= 450 && width < 600) {
-                    return 2
-               }
-               else if (width >= 600 && width < 800) {
-                    return 2.5
-               }
-               else if (width >= 800 && width < 900) {
-                    return 3;
-               }
-               else if (width >= 900 && width < 1000) {
-                    return 3.5;
-               }
-               else if (width >= 1000 && width < 1200) {
-                    return 4;
-               }
-               else if (width >= 1200 & width < 1400) {
-                    return 4.5;
-               }
-               else if (width >= 1400 && width < 1500) {
-                    return 5;
-               }
-               else if (width >= 1500) {
-                    return 5.5;
-               }
-          },
 
           async retrieveFullRiceCropList() {
+               this.loading = true;
                const [err, respone] = await this.handle(
                     RiceCropService.getAll()
                );
@@ -370,6 +246,11 @@ export default {
                          this.newRiceCrop.RiceCropInformation_id = "RCI00" + String(Number(id) + 1);
                     }
 
+               }
+               if (this.loading == true) {
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 2000);
                }
           },
 
@@ -893,5 +774,12 @@ export default {
 
 .riceCropManagement .btnCreate{
      right: 3.7% !important;
+}
+
+@media only screen and (max-width: 576px) {
+     .riceCropComponent-class{
+          width: 48% !important;
+     }
+
 }
 </style>

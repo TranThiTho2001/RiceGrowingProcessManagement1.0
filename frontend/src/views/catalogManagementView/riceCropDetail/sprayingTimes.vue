@@ -1,6 +1,7 @@
 <template>
      <div class="container-fluid riceCropDetail">
-          <div class="row riceCropDetailFrame" style="height: max-content;">
+          <Preloader color="red" scale="0.4" v-if="loading" />
+          <div class="row riceCropDetailFrame" style="height: max-content;" v-if="!loading">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -80,22 +81,6 @@
                          <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
                               @click="isOpenMessage = !isOpenMessage">OK</button>
                     </div>
-
-                    <UpdateRiceCropForm v-if="isOpenUpdateRiceCrop" :seedList="seedList" :newRiceCrop="newRiceCrop"
-                         :arableLandList="arableLandList" @updateRiceCrop-submit="updateRiceCrop" :message1="message1"
-                         :message2="message2" />
-
-                    <CreateFertilizerTimesForm v-if="isOpenCreateFertilizerTimesForm" :weather="weatherInfor"
-                         :newFertilizerTimes="newFertilizerTimes" :fertilizerList="fertilizerList"
-                         :developmentStageList="developmentStageList" :currentUser="currentUser"
-                         :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
-                         @addFertilizerTimes-submit="createFertilizerTimes" :message1="message1" :message2="message2" />
-                    <UpdateFertilizerTimesForm v-if="isOpenUpdateFertilizerTimesForm"
-                         :newFertilizerTimes="fertilizerTimesChosen" :fertilizerList="fertilizerList"
-                         :developmentStageList="developmentStageList" :currentUser="currentUser"
-                         :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
-                         @updateFertilizerTimes-submit="updateFertilizerTimes" :message1="message1" :message2="message2" />
-
                     <CreateSprayingTimesForm v-if="isOpenCreateSprayingTimesForm" :newSprayingTimes="newSprayingTimes"
                          :pesticideList="pesticideList" :developmentStageList="developmentStageList"
                          :currentUser="currentUser" :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
@@ -105,48 +90,27 @@
                          :pesticideList="pesticideList" :developmentStageList="developmentStageList"
                          :currentUser="currentUser" :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
                          @updateSprayingTimes-submit="updateSprayingTimes" :message1="message1" :message2="message2" />
-                    <CreateEpidemicTimesForm v-if="isOpenCreateEpidemicTimesForm" :newEpidemicTimes="newEpidemicTimes"
-                         :epidemicList="epidemicList" :developmentStageList="developmentStageList" :currentUser="currentUser"
-                         :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
-                         @addEpidemicTimes-submit="createEpidemicTimes" :message1="message1" :message2="message2" />
 
-                    <UpdateEpidemicTimesForm v-if="isOpenUpdateEpidemicTimesForm" :newEpidemicTimes="epidemicTimesChosen"
-                         :epidemicList="epidemicList" :developmentStageList="developmentStageList" :currentUser="currentUser"
-                         :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
-                         @updateEpidemicTimes-submit="updateEpidemicTimes" :message1="message1" :message2="message2" />
-                    <CreateMonitorForm v-if="isOpenCreateMonitorForm" :newMonitor="newMonitor" :employeeList="employeeList"
-                         :newRiceCrop="newRiceCrop" @addMonitor-submit="createNewMonitor" :message1="message1"
-                         :message2="message2" />
-
-                    <CreateImageForm v-if="isOpenCreateImage" :newImage="newImage" :message1="message1" :message2="message2"
-                         :newRiceCrop="newRiceCrop" @addImage-submit=createNewImage />
-
-                    <CreateActivitiiesDetailForm v-if="isOpenCreateActivitiesDetail" :newActivityDetail="newActivityDetail"
-                         :currentUser="currentUser" :developmentStageList="developmentStageList"
-                         :riceCropChosen="newRiceCrop" @addOtherActivityTimes-submit="createNewActivitiesDetail"
-                         :message1="message1" :message2="message2" />
-                    <UpadteActivitiiesDetailForm v-if="isOpenUpdateActivitiesDetail"
-                         :newActivityDetail="activitiesDetailChosen" :currentUser="currentUser"
-                         :developmentStageList="developmentStageList" :riceCropChosen="newRiceCrop"
-                         @updateActivitiesDetail-submit="updateActivitiesDetail" :message1="message1" :message2="message2" />
                </div>
 
           </div>
      </div>
-
 </template>
 
 <script >
 
 import moment from 'moment';
-import { mapGetters, mapMutations } from "vuex";
-import RiceCropService from '@/services/riceCropInformation.service';
-import Catalog from '../../../components/catalogManagementComponents/catalog.vue';
-import CreateSprayingTimesForm from '@/components/catalogManagementComponents/createNewSprayingTimesForm.vue';
-import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
-import SprayingTimesService from '@/services/sprayingTimes.service';
-import UpdateSprayingTimesForm from '@/components/catalogManagementComponents/updateSprayingTimesForm.vue';
 import 'vue3-carousel/dist/carousel.css'
+import { mapGetters, mapMutations } from "vuex";
+import SprayingTimesService from '@/services/sprayingTimes.service';
+import RiceCropService from '@/services/riceCropInformation.service';
+import DevelopmentStageService from '@/services/developmentStage.service';
+import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
+import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
+import Catalog from '../../../components/catalogManagementComponents/catalog.vue';
+import UpdateSprayingTimesForm from '@/components/catalogManagementComponents/updateSprayingTimesForm.vue';
+import CreateSprayingTimesForm from '@/components/catalogManagementComponents/createNewSprayingTimesForm.vue';
+
 export default {
      name: "sprayingTimes",
 
@@ -157,6 +121,7 @@ export default {
           CreateSprayingTimesForm,
           UpdateSprayingTimesForm,
           TopHeader,
+          Preloader,
      },
 
      data() {
@@ -164,15 +129,15 @@ export default {
                nameToSearch: "",
                newRiceCrop: {},
                employeeList: {},
-             newSprayingTimes: {},
+               newSprayingTimes: {},
                SprayingTimesList: [],
-             message1: "",
+               message1: "",
                message2: "",
-             newImage: {},
-              isOpenCreateSprayingTimesForm: false,
+               newImage: {},
+               isOpenCreateSprayingTimesForm: false,
                isOpenUpdateSprayingTimesForm: false,
                sprayingTimesChosen: {},
-                delete: "",
+               delete: "",
                isOpenConfirm: false,
                isOpenMessage: false,
                message: "",
@@ -188,6 +153,8 @@ export default {
                     isOpenMenuIcon: true,
                     isCloseMenu: false,
                },
+               loading: true,
+               developmentStageList: [],
           }
      },
 
@@ -216,7 +183,20 @@ export default {
                })
           },
 
+          async retrieveDvelopmentStageList() {
+               const [err, respone] = await this.handle(
+                    DevelopmentStageService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.developmentStageList = respone.data;
+               }
+          },
+
           async retrieveSprayingTimesList() {
+               this.loading = true;
                const [err, respone] = await this.handle(
                     SprayingTimesService.get(this.newRiceCrop.RiceCropInformation_id)
                );
@@ -237,10 +217,15 @@ export default {
                     else {
                          this.newSprayingTimes.SprayingTimes_times = 1;
                     }
+
+               }
+               if (this.loading == true) {
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 1000);
                }
           },
 
-     
           // SprayingTimes
           async setSprayingTimes(data) {
                this.sprayingTimesChosen = data;
@@ -436,7 +421,7 @@ export default {
                     this.newRiceCrop.ArableLand_longitude = respone.data.ArableLand_longitude;
                }
           },
-          
+
           formatDate(data) {
                if (data == null || data == "Invalid da") return "";
                return (moment(String(data)).format("DD-MM-YYYY")).slice(0, 10);

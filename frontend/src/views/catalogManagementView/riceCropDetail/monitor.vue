@@ -1,6 +1,6 @@
 <template>
-     <div class="container-fluid riceCropDetail">
-          <Preloader color="red" scale="0.4" v-if="loading" />
+     <div  class="container-fluid riceCropDetail" scale="0.6" style="height: 100vh;">
+          <Preloader color="red" scale="0.4" v-if="loading"/>
           <div v-if="!loading" class="row riceCropDetailFrame" style="height: max-content;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
@@ -22,27 +22,46 @@
                     </div>
 
                     <div class="row" style="margin-top: 130px; margin-left:20px; margin-right:0px">
+
                          <button class="btn btnCome-back" @click="goToRiceCrop()">Trở về</button>
-                         <button class="btn btnCreate" @click="isOpenCreateImage = !isOpenCreateImage">Thêm</button>
+                         <button class="btn btnCreate"
+                              @click="isOpenCreateFertilizerTimesForm = !isOpenCreateFertilizerTimesForm">Thêm</button>
                     </div>
                     <div class="row mt-4 function-row" style=" margin-left:20px;margin-right: 10px ">
-                         <div class="row" style="margin-left:  0px !important; margin-right:0px !important">
-
-                              <div class="image-class col-lg-3 col-md-4 col-sm-4" v-for="(image, i) in imagesList" :key="i"
-                                   style="margin-bottom: 8px !important;">
-                                   <ImageComponent :images="image" @clicked-something="handleClickInParent" />
+                         <div class="detail-Component text-center" v-for="(monitor, i) in monitorList" :key="i">
+                              <div class="btnMoreInfor"> <button type="button" class="btn btn-sm" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                   </button>
+                                   <div class="dropdown-menu">
+                                        <a class="dropdown-item action"
+                                             @click="setMonitorChosen(fertilizertimes), isOpenUpdateFertilizerTimesForm = !isOpenUpdateFertilizerTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
+                                             <span class="fas fa-edit actionIcon"></span> Chỉnh
+                                             sửa
+                                        </a>
+                                        <a class="dropdown-item" href="#"
+                                             @click="setMonitorChosen(fertilizertimes), setDelete('FertilizerTimes'), isOpenConfirm = !isOpenConfirm">
+                                             <span class="fas fa-trash-alt actionIcon"></span>
+                                             Xóa
+                                        </a>
+                                   </div>
                               </div>
+
+                              <div class="far fa-user-circle" style="font-size: 50px;"></div>
+                              <h5 class="nameComponent text-center">{{ monitor.Employee_name }}</h5>
+
                          </div>
 
 
                     </div>
+
                     <div class="confirmationDialog" v-if="isOpenConfirm">
                          <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
                               class="labelConfirm">
                               <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
                          </p>
                          <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteImage()">Xóa</button>
+                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, choosenDelete()">Xóa</button>
                          <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
                               @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
                     </div>
@@ -58,9 +77,9 @@
                          <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
                               @click="isOpenMessage = !isOpenMessage">OK</button>
                     </div>
-
-                    <CreateImageForm v-if="isOpenCreateImage" :newImage="newImage" :message1="message1" :message2="message2"
-                         :newRiceCrop="newRiceCrop" @addImage-submit=createNewImage />
+                    <CreateMonitorForm v-if="isOpenCreateMonitorForm" :newMonitor="newMonitor" :employeeList="employeeList"
+                         :newRiceCrop="newRiceCrop" @addMonitor-submit="createNewMonitor" :message1="message1"
+                         :message2="message2" />
                </div>
 
           </div>
@@ -69,53 +88,50 @@
 
 <script >
 
-import axios from 'axios';
 import moment from 'moment';
 import 'vue3-carousel/dist/carousel.css'
 import { mapGetters, mapMutations } from "vuex";
-import ImagesService from '@/services/images.service';
+import MonitorService from '@/services/monitor.service';
 import RiceCropService from '@/services/riceCropInformation.service';
 import Preloader from '@/components/catalogManagementComponents/Preloader.vue'
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import Catalog from '../../../components/catalogManagementComponents/catalog.vue';
-import CreateImageForm from '@/components/catalogManagementComponents/createImageForm.vue';
-import ImageComponent from '@/components/catalogManagementComponents/imageComponent.vue';
+import CreateMonitorForm from '@/components/catalogManagementComponents/createNewMonitorForm.vue';
+
 export default {
-     name: "sprayingTimes",
+     name: "fertilizerTimes",
 
      props: ["id"],
 
      components: {
           Catalog,
-          CreateImageForm,
           TopHeader,
+          CreateMonitorForm,
           Preloader,
-          ImageComponent,
      },
 
      data() {
           return {
                nameToSearch: "",
                newRiceCrop: {},
-               imagesList: [],
+               newMonitor: {},
+               cloneMonitorList: [],
+               monitorList: [],
                message1: "",
                message2: "",
-               isOpenImage: false,
-               newImage: {},
-               idImage: 0,
-               isOpenCreateImage: false,
+               delete: "",
+               isOpenConfirm: false,
                isOpenMessage: false,
+               message: "",
                isOpenSearch: {
                     open: false,
                     close: true,
                },
-               cloneImageList: [],
                openMenu: {
                     openMenu: false,
                     isOpenMenuIcon: true,
                     isCloseMenu: false,
                },
-               imageChosen: {},
                loading: true,
           }
      },
@@ -138,29 +154,34 @@ export default {
                "initEmployeeState"
           ]),
 
-          filteredImagesList() {
-               return this.cloneImageList.filter(image => {
-                    return image.Images_date.toLowerCase().includes(this.nameToSearch.toLowerCase())
+          filteredMonitorList() {
+               return this.cloneMonitorList.filter(monitor => {
+                    return monitor.Employee_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
                })
           },
 
-          async retrieveImagesList() {
+          async retrieveMonitorList() {
                this.loading = true;
-               const [error, response] = await this.handle(
-                    ImagesService.findByName(this.newRiceCrop.RiceCropInformation_id)
+               const [err, respone] = await this.handle(
+                    MonitorService.get(this.newRiceCrop.RiceCropInformation_id)
                );
-               if (error) {
-                    console.log(error);
-               } else {
-                    if (response.data == error) {
-                         console.log(error)
-                    }
-                    else {
-                         this.imagesList = response.data;
-                         this.imagesList.forEach(element => {
-                              element.Image_link = require('@/images/' + element.Image_link);
-                         });
-                    }
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.monitorList = respone.data;
+                    this.monitorList.forEach(element => {
+                         if (element.Role_id == '01') {
+                              element.Role_name = "Quản trị viên";
+                         }
+                         else if (element.Role_id == '02') {
+                              element.Role_name = "Chuyên gia";
+                         }
+                         else {
+                              element.Role_name = "Nhân viên"
+                         }
+                    });
+                    this.cloneMonitorList = this.monitorList;
                     if (this.loading == true) {
                          setTimeout(() => {
                               this.loading = false;
@@ -169,118 +190,38 @@ export default {
                }
           },
 
-          async retrieveImageID(link) {
-               this.getIdImage();
-               const data = {};
-               data.Employee_id = this.currentUser.Employee_id;
-               data.Image_link = link;
-               const day = new Date();
-               data.Image_id = this.idImage;
-               data.Image_date = moment(day).format("YYYY-MM-DD hh:mm:ss");
-               data.RiceCropInformation_id = this.newRiceCrop.RiceCropInformation_id;
-               const [error, response] = await this.handle(
-                    ImagesService.create(data)
-               );
-               if (error) {
-                    console.log(error);
-               } else {
-                    if (response.data == error) {
-                         this.message = "Thêm không thành công.";
-                    }
-                    else if (response.data == "Không thể lưu hình ảnh.") {
-                         this.message = "Thêm không thành công";
-                    }
-                    else {
-                         this.message = "Thêm thành công.";
-                    }
-               }
+          async setMonitorChosen(data) {
+               this.monitorChosen = data;
           },
 
-
-          async getIdImage() {
-               const [error, response] = await this.handle(
-                    ImagesService.getAll()
-               );
-               if (error) {
-                    console.log(error);
-               } else {
-                    if (response.data == error) {
-                         console.log(error)
-                    }
-                    else {
-                         const temp = response.data;
-                         if (temp.length > 0) {
-                              this.idImage = temp[temp.length - 1].Image_id + 1;
-                         }
-                         else {
-                              this.idImage = 1;
-
-                         }
-                    }
-               }
-          },
-
-          async createNewImage(data) {
+          async createNewMonitor(data) {
                if (data.close == false) {
-                    this.isOpenCreateImage = false;
-               }
-               else {
-                    if (data.Image != null) {
-                         const formdata = require('form-data');
-                         const formData = new formdata();
-                         formData.append("image", data.Image);
-                         axios.post('http://localhost:8080/api/image', formData, {
-                              headers: {
-                                   'Content-Type': `multipart/form-data;`,
-                              }
-                         },
-                         ).then((response) => {
-                              fnSuccess(response);
-                         }).catch((error) => {
-                              fnFail(error);
-                         });
-
-                         const fnSuccess = (response) => {
-                              this.retrieveImageID(response.data.Image_link);
-                              this.message2 = "Thêm thành công";
-                         };
-
-                         const fnFail = (error) => {
-                              console.log(error);
-                              this.message2 = "Thêm không thành công";
-                         };
-                    }
-                    else {
-                         this.message1 = "Vui lòng chọn hình ảnh!!"
-                    }
+                    this.stylebac.none = false;
+                    this.stylebac.active = true;
+                    this.isOpenCreateMonitorForm = false;
+                    this.retrieveMonitorList();
                }
           },
-
-          async setImageChosen(image) {
-               this.imageChosen = image;
-          },
-
-          async deleteImage() {
+          
+          async deleteMonitor() {
                const [error, response] = await this.handle(
-                    ImagesService.delete(this.imageChosen.Image_id)
+                    MonitorService.delete(this.newRiceCrop.RiceCropInformation_id, this.monitorChosen.Employee_id)
                );
                if (error) {
                     console.log(error);
-                    this.message = "Xóa hình ảnh không thành công";
                } else {
-                    this.message = "Xóa hình ảnh thành công";
-                    console.log(response.data);
-                    this.retrieveImagesList();
+                    if (response.data == error) {
+                         this.message = "Xóa không thành công.";
+                    }
+                    else if (response.data == "Lỗi trong quá trình xóa quyền giám sát!!") {
+                         this.message = "Xóa không thành công";
+                    }
+                    else {
+                         this.message = "Xóa thành công.";
+                         this.retrieveMonitorList();
+                    }
                }
-          },
-
-          formatDate(data) {
-               if (data == null || data == "Invalid da") return "";
-               return (moment(String(data)).format("DD-MM-YYYY hh:mm:ss A")).slice(0, 10);
-          },
-
-          formatTimes(data) {
-               return moment(String(data)).format("hh:mm:ss A");
+               this.delete = "";
           },
 
           async retrieveNewRiceCrop() {
@@ -309,16 +250,20 @@ export default {
                }
           },
 
+          formatDate(data) {
+               if (data == null || data == "Invalid da") return "";
+               return (moment(String(data)).format("DD-MM-YYYY")).slice(0, 10);
+          },
+
           goToRiceCrop() {
                this.$router.push({ name: 'RiceCropDetail', params: { id: this.newRiceCrop.RiceCropInformation_id } });
           },
-
      },
 
      mounted() {
           this.initEmployeeState();
+          this.retrieveMonitorList();
           this.retrieveNewRiceCrop();
-          this.retrieveImagesList();
      }
 };
 </script>
@@ -327,65 +272,9 @@ export default {
 @import url(../../../assets/mainStyle.css);
 @import url(../../../assets/riceCropDetailStyle.css);
 
-.datetime {
-     position: relative;
-     margin-bottom: 0;
-     float: left;
-     color: #5C5D22;
-     font-family: 'Roboto';
-     font-style: normal;
-     font-size: 16px;
-}
-
-.btnMoreInforImage {
-     position: absolute;
-     left: 92%;
-}
-
-.detail-image {
-     border-radius: 0px !important;
-     min-height: 220px !important;
-}
-
 .btnAddimage {
      background-color: rgb(241, 248, 164);
      border-radius: 5px;
 }
-
-/* .imageclass{
-     max-height: 250px;
-} */
-@media only screen and (max-width: 1000px) {
-     .datetime {
-          font-size: 13px;
-     }
-
-     .btnMoreInforImage {
-          position: absolute;
-          bottom: -5px !important;
-          left: 92%;
-
-     }
-
-}
-
-@media only screen and (max-width: 576px) {
-     .datetime {
-          font-size: 13px;
-     }
-
-     .btnMoreInforImage {
-          position: absolute;
-          bottom: -5px !important;
-          left: 92%;
-
-     }
-
-     .image-class {
-          width:50% !important;
-          height: auto;
-          margin-left: 0px !important;
-     }
-
-}
 </style>
+

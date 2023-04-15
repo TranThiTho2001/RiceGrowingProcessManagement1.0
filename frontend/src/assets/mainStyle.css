@@ -398,8 +398,8 @@ html {
      }
 
      .openSearch {
-          margin-left: 1% !important;
-          top: -4px !important;
+          margin-left: 5% !important;
+          top: 140px !important;
           width: 38% !important;
           z-index: 3 !important;
      }
@@ -436,7 +436,7 @@ html {
      width: 40% !important;
      height: 37px;
      margin-left: 34px;
-     z-index: 10;
+     z-index: 6;
 
      /* top: 18px; */
 }
@@ -449,7 +449,7 @@ html {
      border-radius: 10px;
      border: none;
      background: none;
-     z-index: 10;
+     z-index: 6;
 }
 
 .closeSearch {
@@ -465,7 +465,7 @@ html {
      max-height: 200px;
      background-color: #FAFAFC;
      border-radius: 5px;
-     z-index: 1;
+     z-index: 6;
      box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
           rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
      overflow: hidden;
@@ -601,7 +601,7 @@ html {
 
      .navbarresponsive {
           position: fixed !important;
-          z-index: 5;
+          z-index: 7;
           width: max-content !important;
           height: 100vmax;
           display: inline !important;
@@ -687,9 +687,8 @@ html {
      display: inline;
      width: 15%;
      background: white;
-     z-index: 5;
+     z-index: 7;
      position: fixed !important;
-     z-index: 5;
      width: max-content !important;
      height: 100vh;
      box-shadow: none !important;

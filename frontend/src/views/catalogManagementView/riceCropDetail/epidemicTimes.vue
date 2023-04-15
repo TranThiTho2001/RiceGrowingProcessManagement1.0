@@ -1,6 +1,7 @@
 <template>
      <div class="container-fluid riceCropDetail">
-          <div class="row riceCropDetailFrame" style="height: max-content;">
+          <Preloader color="red" scale="0.4" v-if="loading" />
+          <div class="row riceCropDetailFrame" style="height: max-content;" v-if="!loading">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -34,7 +35,7 @@
                                    </button>
                                    <div class="dropdown-menu">
                                         <a class="dropdown-item action"
-                                             @click="setEpidemicChosen(epidemictimes), isOpenUpdateEpidemicTimesForm= !isOpenUpdateEpidemicTimesForm">
+                                             @click="setEpidemicChosen(epidemictimes), isOpenUpdateEpidemicTimesForm = !isOpenUpdateEpidemicTimesForm">
                                              <span class="fas fa-edit actionIcon"></span> Chỉnh
                                              sửa
                                         </a>
@@ -95,17 +96,22 @@
 </template>
 
 <script >
-import EmployeeService from '@/services/employee.service';
+
 import moment from 'moment';
+import 'vue3-carousel/dist/carousel.css'
 import { mapGetters, mapMutations } from "vuex";
-import Catalog from '../../../components/catalogManagementComponents/catalog.vue';
 import EpidemicService from '@/services/epidemic.service';
+import EmployeeService from '@/services/employee.service';
+import TreatmentService from '@/services/treatment.service';
 import EpidemicTimesService from '@/services/epidemicTimes.service';
+import RiceCropService from '@/services/riceCropInformation.service';
+import DevelopmentStageService from '@/services/developmentStage.service';
+import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
+import Catalog from '../../../components/catalogManagementComponents/catalog.vue';
 import CreateEpidemicTimesForm from '@/components/catalogManagementComponents/createNewEpidemicTimesForm.vue';
 import UpdateEpidemicTimesForm from '@/components/catalogManagementComponents/updateEpidemicTimesForm.vue';
-import RiceCropService from '@/services/riceCropInformation.service';
-import 'vue3-carousel/dist/carousel.css'
+
 export default {
      name: "epidemicTimes",
 
@@ -116,6 +122,7 @@ export default {
           CreateEpidemicTimesForm,
           UpdateEpidemicTimesForm,
           TopHeader,
+          Preloader,
      },
 
      data() {
@@ -128,14 +135,12 @@ export default {
                epidemicTimesList: [],
                message1: "",
                message2: "",
-               isOpenTableEpidemicTimes: false,
                isOpenCreateEpidemicTimesForm: false,
                isOpenUpdateEpidemicTimesForm: false,
                epidemicTimesChosen: {},
                delete: "",
                isOpenConfirm: false,
                isOpenMessage: false,
-               isOpenUpdateRiceCrop: false,
                message: "",
                cloneEpidemicTimesList: [],
                openMenu: {
@@ -144,6 +149,8 @@ export default {
                     isCloseMenu: false,
                },
                weatherInfor: {},
+               loading: true,
+               developmentStageList: [],
           }
      },
 
@@ -158,7 +165,6 @@ export default {
           this.newRiceCrop.RiceCropInformation_id = this.$route.params.id;
           this.initEmployeeState();
      },
-
 
      methods: {
 
@@ -177,6 +183,18 @@ export default {
                this.isOpenSearch.close = true;
           },
 
+          async retrieveDvelopmentStageList() {
+               const [err, respone] = await this.handle(
+                    DevelopmentStageService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.developmentStageList = respone.data;
+               }
+          },
+
           async retrieveEmpoyeeList() {
                const [err, respone] = await this.handle(
                     EmployeeService.getAll()
@@ -188,7 +206,6 @@ export default {
                     this.employeeList = respone.data;
                }
           },
-
 
           async retrieveEpidemicList() {
                const [err, respone] = await this.handle(
@@ -203,6 +220,7 @@ export default {
           },
 
           async retrieveEpidemicTimesList() {
+               this.loading = true;
                const [err, respone] = await this.handle(
                     EpidemicTimesService.get(this.newRiceCrop.RiceCropInformation_id)
                );
@@ -219,17 +237,42 @@ export default {
                               element.Treatment = [];
                               this.getTreatment(element.Epidemic_id, i);
                               i++
-
                          });
                     }
                     else {
                          this.newEpidemicTimes.EpidemicTimes_times = 1;
                     }
 
+               } if (this.loading == true) {
+                    setTimeout(() => {
+                         this.loading = false;
+                         console.log(this.loading)
+                    }, 500);
                }
           },
 
-     
+          async getTreatment(epidemicid, i) {
+               const [error, response] = await this.handle(
+                    TreatmentService.findByEpidemicId(epidemicid)
+               );
+               if (error) {
+                    console.log(error);
+               } else {
+                    if (response.data == error) {
+                         console.log(error)
+                    }
+                    else {
+                         var temp = [];
+                         temp = response.data;
+                         if (temp.length > 0) {
+                              this.epidemicTimesList[i].Treatment = [];
+                              temp.forEach(element => {
+                                   this.epidemicTimesList[i].Treatment.push(element.Pesticide_name);
+                              });
+                         }
+                    }
+               }
+          },
 
           async setDelete(data) {
                this.delete = data;
@@ -253,7 +296,6 @@ export default {
                }
           },
 
-          // EidemicTimes
           async setEpidemicChosen(data) {
                this.epidemicTimesChosen = data;
           },
@@ -272,7 +314,6 @@ export default {
                     else {
                          this.newEpidemicTimes.EpidemicTimes_times = this.epidemicTimesList[this.epidemicTimesList.length - 1].EpidemicTimes_times + 1;
                     }
-
                }
                else {
                     this.message1 = " ";
@@ -318,7 +359,6 @@ export default {
                          this.message2 = "Thêm thành công.";
                          this.retrieveEpidemicTimesList();
                     }
-
                }
           },
 
@@ -379,7 +419,6 @@ export default {
                          console.log(respone.data);
                          this.retrieveEpidemicTimesList();
                     }
-
                }
           },
 
@@ -399,6 +438,7 @@ export default {
                }
                this.delete = "";
           },
+          
           async searchNameEpidemic(data) {
                this.nameToSearch = data;
                if (this.nameToSearch != "") {

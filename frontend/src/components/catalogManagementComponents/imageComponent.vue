@@ -1,13 +1,13 @@
 <template>
      <div class="container-fuild">
           <div class="imageComponent text-dark border">
-               <div class="img mt-2 ml-2 mr-2 text-center"><img :src="images.Image_link" class="img-fluid" alt=""
-                         style="min-height: 200px; max-height: 200px;">
+               <div class=" mt-2 ml-2 mr-2 text-center"><img :src="images.Image_link" class="img-fluid img-class" alt=""
+                         style="height: 200px;">
                </div>
                <div class="row ml-2 mr-2">
                     <div style="width: 80%;">
-                         <div class="datetime">Ngày: {{ formatDate(images.Image_date) }}</div>
-                         <div class="datetime">Giờ: {{ formatTimes(images.Image_date) }}</div>
+                         <div class="datetime">{{ formatDate(images.Image_date) }}</div>
+                         <div class="datetime">{{ formatTimes(images.Image_date) }}</div>
                     </div>
                     <div style="width: 20%;">
                          <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown" aria-haspopup="true"
@@ -79,6 +79,16 @@ export default {
 
 .imageComponent:hover {
      background-color: #dfdfdf;
+}
+
+@media only screen and (max-width: 576px) {
+     .img-class{
+          height: 110px !important;
+     }
+
+     .datetime{
+          font-size: 13px !important;
+     }
 }
 
 .imageComponent .btnMore {

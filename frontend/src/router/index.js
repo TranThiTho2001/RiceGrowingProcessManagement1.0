@@ -163,6 +163,12 @@ const routes = [
         name: "ImagesRiceCrop",
         component: () => import("../views/catalogManagementView/riceCropDetail/imagesRiceCrop.vue"),
     },
+    {
+        path: "/SupervisionRights/:id",
+        alias: "/SupervisionRights",
+        name: "SupervisionRights",
+        component: () => import("../views/catalogManagementView/riceCropDetail/monitor.vue"),
+    },
     
 ];
 

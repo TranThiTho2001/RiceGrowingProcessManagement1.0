@@ -87,7 +87,7 @@ export default {
 .createImageForm {
     position: absolute;
     width: 50%;
-    height: 520px;
+    height: 550px;
     top: 18%;
     left: 22%;
     border-radius: 10px;

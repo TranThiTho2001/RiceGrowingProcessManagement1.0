@@ -2,8 +2,30 @@
      width: 100%;
      position: relative;
      height: max-content !important;
+     transition-delay: width 2s;
 
 }
+@-webkit-keyframes riceCropDetail{
+     from {
+         top: 150px;
+         animation-timing-function: ease-out;
+     }
+     25% {
+         top: 50px;
+         animation-timing-function: ease-in;
+     }
+     50% {
+         top: 200px;
+         animation-timing-function: ease-out;
+     }
+     75% {
+         top: 75px;
+         animation-timing-function: ease-in;
+     }
+     to {
+         top: 150px;
+     }
+ }
 
 .active {
      background: #EAEAEA;
@@ -31,9 +53,7 @@
      display: inline-block;
 }
 
-.riceCropDetail .left {
-     width: 15% !important;
-}
+
 
 .riceCropDetail .btnName {
      background: none;
@@ -535,11 +555,6 @@
      }
 }
 
-.imageclass{
-     border-top-right-radius: 10px;
-     border-top-left-radius: 10px;
-}
-
 .btnView{
      background: #008B8E;
      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -601,7 +616,7 @@
      color: #FFFED8;
 }
 
-.btnCreate{
+.btnCreateTimes{
      background: #008B8E;
      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
      border-radius: 12px;

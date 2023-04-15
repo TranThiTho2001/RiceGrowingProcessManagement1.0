@@ -1,6 +1,7 @@
 <template>
      <div class="container-fluid riceCropDetail">
-          <div class="row riceCropDetailFrame" style="height: max-content;">
+          <Preloader color="red" scale="0.4" v-if="loading" />
+          <div class="row riceCropDetailFrame" style="height: max-content;" v-if="!loading">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -44,7 +45,6 @@
                                              <span class="fas fa-trash-alt actionIcon"></span>
                                              Xóa
                                         </a>
-
                                    </div>
                               </div>
                               <h5 class="nameComponent text-center">Lần {{ fertilizertimes.FertilizerTimes_times }}</h5>
@@ -61,27 +61,27 @@
                     </div>
 
                     <div class="confirmationDialog" v-if="isOpenConfirm">
-                                   <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                                        class="labelConfirm">
-                                        <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
-                                   </p>
-                                   <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                                        @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, choosenDelete()">Xóa</button>
-                                   <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                                        @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
-                              </div>
+                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
+                              class="labelConfirm">
+                              <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
+                         </p>
+                         <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
+                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, choosenDelete()">Xóa</button>
+                         <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                              @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
+                    </div>
 
-                              <div class="messageDialog" v-if="isOpenMessage">
-                                   <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                                        class="labelThongBao">
-                                        <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span>
-                                        {{
-                                             message
-                                        }}
-                                   </p>
-                                   <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                                        @click="isOpenMessage = !isOpenMessage">OK</button>
-                              </div>
+                    <div class="messageDialog" v-if="isOpenMessage">
+                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
+                              class="labelThongBao">
+                              <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span>
+                              {{
+                                   message
+                              }}
+                         </p>
+                         <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                              @click="isOpenMessage = !isOpenMessage">OK</button>
+                    </div>
 
                     <CreateFertilizerTimesForm v-if="isOpenCreateFertilizerTimesForm" :weather="weatherInfor"
                          :newFertilizerTimes="newFertilizerTimes" :fertilizerList="fertilizerList"
@@ -97,20 +97,22 @@
 
           </div>
      </div>
-
 </template>
 
 <script >
 
 import moment from 'moment';
-import { mapGetters, mapMutations } from "vuex";
-import RiceCropService from '@/services/riceCropInformation.service';
-import Catalog from '../../../components/catalogManagementComponents/catalog.vue';
-import CreateFertilizerTimesForm from '@/components/catalogManagementComponents/createNewFertilizerTimesForm.vue';
-import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
-import FertilizerTimesService from '@/services/fertilizerTimes.service';
-import UpdateFertilizerTimesForm from '@/components/catalogManagementComponents/updateFertilizerTimesForm.vue';
 import 'vue3-carousel/dist/carousel.css'
+import { mapGetters, mapMutations } from "vuex";
+
+import RiceCropService from '@/services/riceCropInformation.service';
+import FertilizerTimesService from '@/services/fertilizerTimes.service';
+import DevelopmentStageService from '@/services/developmentStage.service';
+import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
+import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
+import Catalog from '../../../components/catalogManagementComponents/catalog.vue';
+import UpdateFertilizerTimesForm from '@/components/catalogManagementComponents/updateFertilizerTimesForm.vue';
+import CreateFertilizerTimesForm from '@/components/catalogManagementComponents/createNewFertilizerTimesForm.vue';
 
 export default {
      name: "fertilizerTimes",
@@ -122,6 +124,7 @@ export default {
           CreateFertilizerTimesForm,
           UpdateFertilizerTimesForm,
           TopHeader,
+          Preloader,
      },
 
      data() {
@@ -138,18 +141,18 @@ export default {
                isOpenConfirm: false,
                isOpenMessage: false,
                message: "",
-
                isOpenSearch: {
                     open: false,
                     close: true,
                },
-
                cloneFertilizerTimesList: [],
                openMenu: {
                     openMenu: false,
                     isOpenMenuIcon: true,
                     isCloseMenu: false,
                },
+               loading: true,
+               developmentStageList: [],
           }
      },
 
@@ -178,8 +181,20 @@ export default {
                })
           },
 
+          async retrieveDvelopmentStageList() {
+               const [err, respone] = await this.handle(
+                    DevelopmentStageService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.developmentStageList = respone.data;
+               }
+          },
 
           async retrieveFertilizerTimesList() {
+               this.loading = true;
                const [err, respone] = await this.handle(
                     FertilizerTimesService.get(this.newRiceCrop.RiceCropInformation_id)
                );
@@ -200,11 +215,13 @@ export default {
                     else {
                          this.newFertilizerTimes.FertilizerTimes_times = 1;
                     }
-                    console.log(this.fertilizerTimesList)
+                    if (this.loading == true) {
+                         setTimeout(() => {
+                              this.loading = false;
+                         }, 1000);
+                    }
                }
           },
-
-
 
           async retrieveNewRiceCrop() {
                const [err, respone] = await this.handle(
@@ -232,8 +249,6 @@ export default {
                }
           },
 
-
-
           async setFertilizerChosen(data) {
                this.fertilizerTimesChosen = data;
                this.fertilizerTimesChosen.Fertilizer_id = data.Fertilizer_id;
@@ -244,7 +259,6 @@ export default {
                });
           },
 
-          // FertilizerTime
           async createFertilizerTimes(data) {
                if (data.close == false) {
                     this.isOpenCreateFertilizerTimesForm = false;
@@ -303,9 +317,7 @@ export default {
                          }
 
                     });
-
                }
-
           },
 
           async createNewFertilizerTimes(data) {
@@ -382,11 +394,8 @@ export default {
                          this.message2 = "Cập nhật thành công.";
                          this.retrieveFertilizerTimesList();
                     }
-
                }
-
           },
-
 
           async deleteFertilizerTimes() {
                const [error, respone] = await this.handle(
@@ -410,9 +419,6 @@ export default {
                return (moment(String(data)).format("DD-MM-YYYY")).slice(0, 10);
           },
 
-
-
-
           goToRiceCrop() {
                this.$router.push({ name: 'RiceCropDetail', params: { id: this.newRiceCrop.RiceCropInformation_id } });
           },
@@ -420,7 +426,7 @@ export default {
 
      mounted() {
           this.initEmployeeState();
-          this.retrieveSprayingTimesList();
+          this.retrieveFertilizerTimesList();
           this.retrieveNewRiceCrop();
      }
 };
