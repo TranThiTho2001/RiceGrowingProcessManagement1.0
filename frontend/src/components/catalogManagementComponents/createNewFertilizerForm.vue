@@ -1,10 +1,10 @@
 <template>
-     <Form @submit="newfertilixer.close = true, $emit('addFertilizer-submit', newfertilixer)" :validation-schema="schema"
-          class="form  createFertilizerForm container-fluid">
+     <Form @submit="newfertilixer.close = true, newfertilixer.Nutrient = nutrientlist, $emit('addFertilizer-submit', newfertilixer)"
+          :validation-schema="schema" class="form  createFertilizerForm container-fluid">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times"
-                         @click="newfertilixer.close = false, $emit('addFertilizer-submit', newfertilixer)"
+                         @click="newfertilixer.close = false, newfertilixer.Nutrient = nutrientlist, $emit('addFertilizer-submit', newfertilixer)"
                          style="font-size: 25px; "></i>
                </div>
           </div>
@@ -21,12 +21,15 @@
                          <ErrorMessage name="id" class="error-feedback" />
                     </div>
 
-                    <div class="form-group">
-                         <label for="components" class="mt-3">Thành phần <span style="color: red">*</span></label>
-                         <Field name="components" class="form-control" v-model="newfertilixer.Fertilizer_component"
-                              as="textarea" style="height: 240px;" placeholder="Thông tin phân bón..." />
-                         <ErrorMessage name="components" class="error-feedback" />
+                    <div class="form-group" v-for="(contain,i) in newfertilixer.Contain" :key="contain.Nutrient_id">
+                         <label :for="contain.Nutrient_id " class="mt-3">{{contain.Nutrient_name}} <span style="color: red">*</span></label>
+                         <Field :name="contain.Nutrient_id " class="form-control" v-model="newfertilixer.Contain[i].Contain_percent"
+                              placeholder="Thông tin phân bón..." @update:model-value="show(newfertilixer.Contain[i].Contain_percent)" />
+                         <ErrorMessage :name="contain.Nutrient_id " class="error-feedback" />
                     </div>
+
+
+
                </div>
                <div class="col-md-4">
                     <div class="form-group">
@@ -54,27 +57,28 @@
                     </div>
 
                     <div class="form-group">
-                         <label for="directionsForUse" class="mt-3">Hướng dẫn sử dụng<span style="color: red">*</span></label>
-                         <Field name="directionsForUse" class="form-control" v-model="newfertilixer.Fertilizer_directionsForUse"
-                              as="textarea" style="height: 240px;" placeholder="Thông tin phân bón..." />
+                         <label for="directionsForUse" class="mt-3">Hướng dẫn sử dụng<span
+                                   style="color: red">*</span></label>
+                         <Field name="directionsForUse" class="form-control"
+                              v-model="newfertilixer.Fertilizer_directionsForUse" as="textarea" style="height: 240px;"
+                              placeholder="Thông tin phân bón..." />
                          <ErrorMessage name="directionsForUse" class="error-feedback" />
                     </div>
 
-                    <div class="form-group">
-                    <label for="image">Hình ảnh &nbsp; &nbsp;</label>
-                    <Field name="image" class="form-control " v-model="images"
-                                >
-                                <input type="file" ref="file"  :multiple="true" name="image" @change="selectFile($event)" accept="image/*"
-                                    class="" v-bind:aria-disabled="true">
-                            </Field>
-                    <div class="row" >
-                        <div class="col-md-5">
-                            <img v-if="url!=''" :src="url" class="img-fluid">
-                        </div>
-                        <div class="col-md-7">
-                        </div>
-                    </div>
-                </div>
+                    <!-- <div class="form-group">
+                         <label for="image">Hình ảnh &nbsp; &nbsp;</label>
+                         <Field name="image" class="form-control " v-model="images">
+                              <input type="file" ref="file" :multiple="true" name="image" @change="selectFile($event)"
+                                   accept="image/*" class="" v-bind:aria-disabled="true">
+                         </Field>
+                         <div class="row">
+                              <div class="col-md-5">
+                                   <img v-if="url != ''" :src="url" class="img-fluid">
+                              </div>
+                              <div class="col-md-7">
+                              </div>
+                         </div>
+                    </div> -->
                </div>
           </div>
 
@@ -111,7 +115,7 @@ export default {
           ErrorMessage,
      },
      emits: ["addFertilizer-submit"],
-     props: ["newFertilizer", "message1", "message2"],
+     props: ["newFertilizer", "message1", "message2", "nutrientList"],
      data() {
 
           const schema = yup.object().shape({
@@ -126,9 +130,9 @@ export default {
                supplier: yup
                     .string()
                     .required("Nhà cung cấp phân bón phải có giá trị"),
-               components: yup
-                    .string()
-                    .required("Thành phần phân bón phải có giá trị"),
+               // components: yup
+               //      .string()
+               //      .required("Thành phần phân bón phải có giá trị"),
                uses: yup
                     .string()
                     .required("Công dụng phân bón phải có giá trị"),
@@ -138,22 +142,27 @@ export default {
           });
           return {
                newfertilixer: this.newFertilizer,
+               nutrientlist: this.nutrientList,
                schema,
                images: [],
           };
      },
 
      methods: {
+          show(data){
+               console.log(data)
+          },
+
           async selectFile(event) {
-               console.log(event.target.files); 
-            var fileImage = {};
-            fileImage = event.target.files[0];console.log(fileImage);
-           const filename = "image_" + fileImage.name;
-           
-            console.log("filename" + filename)
-            
-            this.url = URL.createObjectURL(fileImage);
-        },
+               console.log(event.target.files);
+               var fileImage = {};
+               fileImage = event.target.files[0]; console.log(fileImage);
+               const filename = "image_" + fileImage.name;
+
+               console.log("filename" + filename)
+
+               this.url = URL.createObjectURL(fileImage);
+          },
      }
 };
 </script>

@@ -263,7 +263,7 @@ html {
 }
 
 .form {
-     z-index: 10;
+     z-index: 12 !important;
      background-color: #dbdbdb;
 }
 

@@ -110,7 +110,7 @@
                               @click="isOpenMessage = !isOpenMessage">OK</button>
                     </div>
 
-                    <CreateFertilizerForm v-if="openCreate" :newFertilizer="newFertilizer"
+                    <CreateFertilizerForm v-if="openCreate" :newFertilizer="newFertilizer" :nutrientList="nutrientList"
                          @addFertilizer-submit="createFertilizer" :message1="message1" :message2="message2" />
 
                     <UpdateFertilizerForm v-if="isOpenUpdateFertilizer" :newFertilizer="fertilizerChosen"
@@ -129,6 +129,8 @@ import FertilizerService from '../../services/fertilizer.service';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import CreateFertilizerForm from '@/components/catalogManagementComponents/createNewFertilizerForm.vue';
 import UpdateFertilizerForm from '@/components/catalogManagementComponents/updateFertilizerForm.vue';
+import ContainService from '@/services/contain.service';
+import NutrientService from '@/services/nutrient.service';
 
 class Fertilizer {
      constructor(fertilizer) {
@@ -175,7 +177,8 @@ export default {
                active: {
                     rightActive: false,
                     leftnNoneActive: false,
-               }
+               },
+               nutrientList:[],
           }
      },
 
@@ -241,8 +244,30 @@ export default {
                     else {
                          this.newFertilizer.Fertilizer_id = "FR00" + String(Number(id) + 1);
                     }
-                    console.log(this.fertilizerList)
+                    this.newFertilizer.Contain = [];
+                    var i = 0;
+                    this.nutrientList.forEach(nutrient => {
+                         this.newFertilizer.Contain[i] = {};
+                         this.newFertilizer.Contain[i].Nutrient_name = nutrient.Nutrient_name;
+                         this.newFertilizer.Contain[i].Nutrient_id = nutrient.Nutrient_id;
+                         this.newFertilizer.Contain[i].Contain_percent = '0';
+                         i++;
+                    });
+                    console.log(this.newFertilizer.Contain);
                }
+          },
+
+          async retrieveNutrientList() {
+               const [err, respone] = await this.handle(
+                    NutrientService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.nutrientList = respone.data;
+               }
+               this.retrieveFertilizerList();
           },
 
           async createFertilizer(data) {
@@ -252,6 +277,7 @@ export default {
                     this.message2 = " ";
                }
                else {
+                    console.log(data.Contain)
                     this.message1 = "";
                     this.message2 = "";
                     const [error, respone] = await this.handle(
@@ -266,8 +292,24 @@ export default {
                          this.message2 = "Thêm thành công.";
                          this.newFertilizer = {}
                          this.retrieveFertilizerList();
+                        data.Contain.forEach(contain => {
+                              contain.Fertilizer_id = data.Fertilizer_id;
+                              this.createContain(contain);
+                         });
                     }
                }
+          },
+
+          async createContain(contain){
+               const [error, respone] = await this.handle(
+                         ContainService.create(contain)
+                    );
+                    if (error) {
+                         console.log(error);
+                    } else {
+                         this.retrieveFertilizerList();
+                         console.log(respone.data)
+                    }
           },
 
           async updateFertilizer(data) {
@@ -341,7 +383,7 @@ export default {
      },
 
      mounted() {
-          this.retrieveFertilizerList();
+          this.retrieveNutrientList();
      }
 }
 </script>

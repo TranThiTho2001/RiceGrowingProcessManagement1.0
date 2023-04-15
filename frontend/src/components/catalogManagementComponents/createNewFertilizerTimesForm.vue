@@ -13,7 +13,7 @@
                </p>
           </div>
           <div class="row content">
-               <div class="col-sm-3 mt-1">
+               <div class="col-sm-6 mt-1">
                     <div class="form-group">
                          <label for="ricecropid" class="mt-2">Mã mẫu ruộng <span style="color:red">*</span></label>
                          <Field name="ricecropid" type="name" class="form-control"
@@ -42,7 +42,7 @@
                     </div>
 
                </div>
-               <div class="col-sm-3">
+               <div class="col-sm-6">
                     <div class="form-group ">
                          <label for="times" class="mt-1 pt-1">Lần<span style="color:red">*</span></label>
                          <Field name="times" class="form-control" v-model="newfertilizertimes.FertilizerTimes_times"
@@ -78,7 +78,7 @@
 
 
 
-               <div class="col-sm-3">
+               <!-- <div class="col-sm-3">
                     <div class="form-group ">
                          <label for="temperature" class="mt-1 pt-1">Nhiệt độ(°C)</label>
                          <Field name="temperature" class="form-control"
@@ -117,7 +117,7 @@
                               placeholder="Nhập bức xạ mặt trời..." />
                          <ErrorMessage name="solarradiation" class="error-feedback" />
                     </div>
-               </div>
+               </div> -->
 
           </div>
           <div class=" fertilizerUsed row pt-2 mt-3 ml-1 mr-1">
@@ -220,18 +220,18 @@ export default {
                     .string(),
                end: yup
                     .string(),
-               temperature: yup
-                    .string(),
-               humidity: yup
-                    .string(),
-               precipitation: yup
-                    .string(),
-               windspeed: yup
-                    .string()
-                    .nullable(),
-               solarradiation: yup
-                    .string()
-                    .nullable(),
+               // temperature: yup
+               //      .string(),
+               // humidity: yup
+               //      .string(),
+               // precipitation: yup
+               //      .string(),
+               // windspeed: yup
+               //      .string()
+               //      .nullable(),
+               // solarradiation: yup
+               //      .string()
+               //      .nullable(),
           });
           return {
                newfertilizertimes: this.newFertilizerTimes,

@@ -14,7 +14,7 @@
                </p>
           </div>
           <div class="row content">
-               <div class="col-sm-4">
+               <div class="col-sm-6">
                     <div class="form-group">
                          <label for="ricecropid" class="mt-2">Mã mẫu ruộng <span style="color:red">*</span></label>
                          <Field name="ricecropid" type="name" class="form-control"
@@ -64,7 +64,7 @@
                     </div>
 
                </div>
-               <div class="col-sm-4">
+               <div class="col-sm-6">
                     <div class="form-group ">
                          <label for="times" class="mt-1 pt-1">Lần<span style="color:red">*</span></label>
                          <Field name="times" class="form-control" v-model="newfertilizertimes.FertilizerTimes_times"
@@ -96,15 +96,15 @@
                          <ErrorMessage name="end" class="error-feedback" />
                     </div>
 
-                    <div class="form-group ">
+                    <!-- <div class="form-group ">
                          <label for="humidity" class="mt-3 pt-1">Độ ẩm</label>
                          <Field name="humidity" class="form-control" v-model="newfertilizertimes.FertilizerTimes_humidity"
                               placeholder="Nhập độ ẩm..." />
                          <ErrorMessage name="humidity" class="error-feedback" />
-                    </div>
+                    </div> -->
                </div>
 
-               <div class="col-sm-4 ">
+               <!-- <div class="col-sm-4 ">
                     <div class="form-group ">
                          <label for="temperature" class="mt-1 pt-1">Nhiệt độ</label>
                          <Field name="temperature" class="form-control"
@@ -132,7 +132,7 @@
                               placeholder="Nhập bức xạ mặt trời..." />
                          <ErrorMessage name="solarradiation" class="error-feedback" />
                     </div>
-               </div>
+               </div> -->
           </div>
 
           <div class="row ">
@@ -200,21 +200,21 @@ export default {
                fertilizer: yup
                     .string()
                     .required("Loại phân phải có giá trị"),
-               temperature: yup
-                    .string()
-                    .nullable(),
-               humidity: yup
-                    .string()
-                    .nullable(),
-               precipitation: yup
-                    .string()
-                    .nullable(),
-               windspeed: yup
-                    .string()
-                    .nullable(),
-               solarradiation: yup
-                    .string()
-                    .nullable(),
+               // temperature: yup
+               //      .string()
+               //      .nullable(),
+               // humidity: yup
+               //      .string()
+               //      .nullable(),
+               // precipitation: yup
+               //      .string()
+               //      .nullable(),
+               // windspeed: yup
+               //      .string()
+               //      .nullable(),
+               // solarradiation: yup
+               //      .string()
+               //      .nullable(),
           });
           return {
                newfertilizertimes: this.newFertilizerTimes,

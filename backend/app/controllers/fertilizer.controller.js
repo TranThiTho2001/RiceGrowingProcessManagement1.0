@@ -8,7 +8,6 @@ exports.store = async (req, res) => {
         Fertilizer_id: req.body.Fertilizer_id,
         Fertilizer_name: req.body.Fertilizer_name,
         Fertilizer_supplier: req.body.Fertilizer_supplier,
-        Fertilizer_component: req.body.Fertilizer_component,
         Fertilizer_uses: req.body.Fertilizer_uses,
         Fertilizer_directionsForUse: req.body.Fertilizer_directionsForUse
      });

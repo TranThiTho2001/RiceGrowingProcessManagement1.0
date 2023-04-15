@@ -1,9 +1,10 @@
 const Prediction = require("../models/prediction.model");
 const config = require("../config");
 const moment = require('moment');
-const file = "D:/HOC/HK2_2022_2023/Luan_Van_Tot_Nghiep/Project/RiceGrowingProcessManagement1.0/backend/predictionModel/LinearRegression.py";
+const file = process.cwd() + '/app/controllers/predictionModel/LinearRegression.py';
 // Create and Save 
 exports.store = async (req, res) => {
+     console.log(file)
      var yield = 0;
      var temp = new Object();
      temp.crop = req.body.crop;
@@ -14,8 +15,9 @@ exports.store = async (req, res) => {
      temp.solarRadiation = req.body.solarRadiation;
      temp.area = req.body.area;
      const { spawn } = require('child_process');
-     const pyProg = spawn('python', [`${file}`, JSON.stringify(temp)]);
+     const pyProg = spawn("python", [`${file}`, JSON.stringify(temp)]);
      pyProg.stdout.on('data', function (data) {
+          console.log(data.toString());
           yield = String(data.toString()).slice(0, String(data.toString()).indexOf("\r\n"));
           yield = (String(yield).slice(1,));
           yield = (String(yield).slice(0,(String(yield).length-1)));

@@ -462,3 +462,165 @@
      color: #FFFED8;
      padding: 2px 5px 2px 5px;
 }
+/* --------------------------------------------------------------------------------------------------- */
+.function-Component {
+     border-radius: 10px;
+     margin-right: 2%;
+     padding-bottom: 5px;
+     margin-bottom: 20px;
+     background: #FAFAFC;
+     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     width: 31%;
+     /* background-image: url(../images/BON-PHAN.jpg); */
+ }
+
+ .amount {
+     border-radius: 50%;
+     background-color: #FFFA37;
+ }
+ 
+ .nameComponent {
+     border-top-left-radius: 8px;
+     border-top-right-radius: 8px;
+     margin-top: 15px;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 600;
+     font-size: 18px;
+     line-height: 23px;
+     color: #5C5D22;
+     text-shadow: 4px 7px 7px rgba(0, 0, 0, 0.25);
+ }
+
+ .cicle {
+     width: 170px;
+     background-color: #ABD2C8;
+     height: 170px;
+     border-radius: 50%;
+     margin-left: 20%;
+     margin-top: 6%;
+     vertical-align: middle;
+     position: relative;
+     justify-content: center;
+     align-items: center;
+     display: flex;
+ }
+.function-row{
+     margin-left: 20px;
+     margin-top: 35px;
+}
+ @media only screen and (max-width: 1000px) {
+     .function-Component {
+         width: 48% !important;
+         height: 48% !important;
+         vertical-align: middle;
+         position: relative;
+         justify-content: center;
+         align-items: center;
+     }
+
+     .function-row{
+          margin-left: 1% !important;
+     }
+     .detail-Component{
+          width: 48% !important;
+          vertical-align: middle;
+          position: relative;
+          justify-content: center;
+          align-items: center;
+     }
+
+     .btnMoreInfor{
+          left:90% !important;
+     }
+}
+
+.imageclass{
+     border-top-right-radius: 10px;
+     border-top-left-radius: 10px;
+}
+
+.btnView{
+     background: #008B8E;
+     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     border-radius: 12px;
+     width: 180px;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 700;
+     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     color: #FFFED8;
+     margin-right: 34px;
+}
+
+.table-detail{
+     border-radius: 10px;
+     border-top:none !important;
+     width: 100%;
+}
+
+.table-detail thead tr th{
+     border-top:0px !important;
+     border-bottom: 1px solid black;
+     background: #ABD2C8;
+}
+
+.table-detail thead tr{
+     border: none !important;
+     background-color: #008B8E;
+}
+.table-detail tbody tr td{
+    word-wrap:break-word !important;
+}
+.detail-Component{
+     border-radius: 10px;
+     margin-right: 2%;
+     padding-bottom: 5px;
+     margin-bottom: 20px;
+     background: #FAFAFC;
+     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     width: 23%;
+     position: relative;
+
+}
+
+.detail-Component:hover{
+     background: #dbdbdb;
+     position: relative;
+}
+
+.btnCome-back{
+     background: #008B8E;
+     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     border-radius: 12px;
+     width: 100px;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 700;
+     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     color: #FFFED8;
+}
+
+.btnCreate{
+     background: #008B8E;
+     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     border-radius: 12px;
+     width: 100px;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 700;
+     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     color: #FFFED8;
+}
+
+.detail-component-content{
+     width: 96%;
+     position: relative;
+     margin-left: 2%;
+}
+
+.btnMoreInfor{
+     position: absolute;
+     left: 92%;
+     top:1%;
+}

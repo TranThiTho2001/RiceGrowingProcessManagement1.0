@@ -136,6 +136,34 @@ const routes = [
         name: "FertilizerDetail",
         component: () => import("../views/catalogManagementView/fertilizerDetail.vue"),
     },
+
+    {
+        path: "/FertilizerTimes/:id",
+        alias: "/FertilizerTimes",
+        name: "FertilizerTimes",
+        component: () => import("../views/catalogManagementView/riceCropDetail/fertilizerTimes.vue"),
+    },
+
+    {
+        path: "/SprayingTimes/:id",
+        alias: "/SprayingTimes",
+        name: "SprayingTimes",
+        component: () => import("../views/catalogManagementView/riceCropDetail/sprayingTimes.vue"),
+    },
+
+    {
+        path: "/EpidemicTimes/:id",
+        alias: "/EpidemicTimes",
+        name: "EpidemicTimes",
+        component: () => import("../views/catalogManagementView/riceCropDetail/epidemicTimes.vue"),
+    },
+    {
+        path: "/ImagesRiceCrop/:id",
+        alias: "/ImagesRiceCrop",
+        name: "ImagesRiceCrop",
+        component: () => import("../views/catalogManagementView/riceCropDetail/imagesRiceCrop.vue"),
+    },
+    
 ];
 
 const router = createRouter({

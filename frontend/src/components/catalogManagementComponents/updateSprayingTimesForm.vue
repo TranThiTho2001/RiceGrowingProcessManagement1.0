@@ -14,7 +14,7 @@
                </p>
           </div>
           <div class="row content">
-               <div class="col-sm-4 mt-2">
+               <div class="col-sm-6 mt-2">
                     <div class="form-group">
                          <label for="ricecropid" class="mt-2">Mã mẫu ruộng <span style="color:red">*</span></label>
                          <Field name="ricecropid" type="name" class="form-control" :disabled="true"
@@ -57,7 +57,7 @@
                     </div>
 
                </div>
-               <div class="col-sm-4">
+               <div class="col-sm-6">
                     <div class="form-group ">
                          <label for="times" class="mt-3">Lần<span style="color:red">*</span></label>
                          <Field name="times" class="form-control" v-model="newsprayingtimes.SprayingTimes_times"
@@ -98,7 +98,7 @@
                     </div>
 
                </div>
-               <div class="col-sm-4">
+               <!-- <div class="col-sm-4">
                     <div class="form-group">
                          <label for="temperature" class="mt-3">Nhiệt độ(°C)</label>
                          <Field name="temperature" class="form-control" v-model="newsprayingtimes.SprayingTimes_temperature"
@@ -134,7 +134,7 @@
                               placeholder="Nhập bức xạ mặt trời..." />
                          <ErrorMessage name="solarradiation" class="error-feedback" />
                     </div>
-               </div>
+               </div> -->
           </div>
 
           <div class="row ">

@@ -9,7 +9,14 @@ from sklearn import metrics
 
 from sklearn.linear_model import OrthogonalMatchingPursuit
 from sklearn.datasets import make_regression
-dataset = pd.DataFrame(pd.read_csv("D:/HOC/HK2_2022_2023/Luan_Van_Tot_Nghiep/Project/RiceGrowingProcessManagement1.0/backend/predictionModel/data2.0.csv"))
+import os
+dr = os.getcwd()
+import json
+
+sys.stdout.flush()
+file = os.path.dirname(os.path.abspath(__file__))+"/data.csv"
+
+dataset = pd.DataFrame(pd.read_csv(file))
 dataset.head()
 
 X= dataset.iloc[:, :-1].values  
@@ -45,24 +52,24 @@ for train_index, test_index in kf.split(X):
 # ---------LinearRegression ****Ok MAE 562 RME 704
 import json
 temp = json.loads(sys.argv[1])
-print(temp['crop'])
-# input = sys.stdin.read()
-# print(json.loads(input))
-# lm = LinearRegression()
-# lm.fit(X_train,y_train)
-# predictions = lm.predict(X_test)
+# # print(temp["crop"])
+# # input = sys.stdin.read()
+# # print(json.loads(input))
+lm = LinearRegression()
+lm.fit(X_train,y_train)
+predictions = lm.predict(X_test)
 
-# if sys.argv[1] == '1':
-#   yield_pr = lm.predict([[ 1,0,0, float(sys.argv[2]), float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5]), float(sys.argv[6]), float(sys.argv[7]) ]])
-#   print(yield_pr)
-# elif sys.argv[1] == '2':
-#   yield_pr = lm.predict([[ 0,1,0, float(sys.argv[2]), float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5]), float(sys.argv[6]), float(sys.argv[7])  ]])
-#   print(yield_pr)
-# else:
-#   yield_pr = lm.predict([[ 0,0,1, float(sys.argv[2]), float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5]), float(sys.argv[6]), float(sys.argv[7]) ]])
-#   print(yield_pr)
+if sys.argv[1] == '1':
+  yield_pr = lm.predict([[ 1,0,0, float(temp["precipitation"]), float(temp["temperature"]), float(temp["humitidity"]), float(temp["windSpeed"]), float(temp["solarRadiation"]), float(temp["area"]) ]])
+  print(yield_pr)
+elif sys.argv[1] == '2':
+  yield_pr = lm.predict([[ 1,0,0, float(temp["precipitation"]), float(temp["temperature"]), float(temp["humitidity"]), float(temp["windSpeed"]), float(temp["solarRadiation"]), float(temp["area"]) ]])
+  print(yield_pr)
+else:
+  yield_pr = lm.predict([[ 1,0,0, float(temp["precipitation"]), float(temp["temperature"]), float(temp["humitidity"]), float(temp["windSpeed"]), float(temp["solarRadiation"]), float(temp["area"]) ]])
+  print(yield_pr)
 
-# print(yield_pr)
+print(yield_pr)
 sys.stdout.flush()
 # yield_pr = lm.predict([[1,0,0, 21.3, 26.45, 75.58,2]])
 # print('MAE:', metrics.mean_absolute_error(y_test, predictions))
