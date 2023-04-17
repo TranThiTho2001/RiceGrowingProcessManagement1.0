@@ -9,11 +9,11 @@ const SprayingTimes = function (sprayingTimes) {
      this.SprayingTimes_amount = sprayingTimes.SprayingTimes_amount;
      this.SprayingTimes_startDate = sprayingTimes.SprayingTimes_startDate;
      this.SprayingTimes_endDate = sprayingTimes.SprayingTimes_endDate;
-     this.SprayingTimes_temperature = sprayingTimes.SprayingTimes_temperature;
-     this.SprayingTimes_humidity= sprayingTimes.SprayingTimes_humidity;
-     this.SprayingTimes_precipitation = sprayingTimes.SprayingTimes_precipitation;
-     this.SprayingTimes_windSpeed = sprayingTimes.SprayingTimes_windSpeed;
-     this.SprayingTimes_solarRadiation = sprayingTimes.SprayingTimes_solarRadiation;
+     // this.SprayingTimes_temperature = sprayingTimes.SprayingTimes_temperature;
+     // this.SprayingTimes_humidity= sprayingTimes.SprayingTimes_humidity;
+     // this.SprayingTimes_precipitation = sprayingTimes.SprayingTimes_precipitation;
+     // this.SprayingTimes_windSpeed = sprayingTimes.SprayingTimes_windSpeed;
+     // this.SprayingTimes_solarRadiation = sprayingTimes.SprayingTimes_solarRadiation;
 }
 
 SprayingTimes.create = (newSprayingTimes, result) => {
@@ -82,8 +82,8 @@ SprayingTimes.findByName = (Pesticide_name,id, result) => {
 };
 SprayingTimes.updateById = (riceCropInformation_id, Pesticide_id, times, sprayingTimes, result) => {
      sql.query(
-          "UPDATE SprayingTimes SET Employee_id = ?, DevelopmentStage_id = ?, SprayingTimes_amount = ?, SprayingTimes_startDate = ?, SprayingTimes_endDate = ?, SprayingTimes_temperature = ?, SprayingTimes_humidity = ?, SprayingTimes_precipitation = ?, SprayingTimes_windSpeed = ?, SprayingTimes_solarRadiation = ? WHERE (RiceCropInformation_id = ? And Pesticide_id = ? and SprayingTimes_times = ?)",
-          [sprayingTimes.Employee_id, sprayingTimes.DevelopmentStage_id, sprayingTimes.SprayingTimes_amount, sprayingTimes.SprayingTimes_startDate, sprayingTimes.SprayingTimes_endDate, sprayingTimes.SprayingTimes_temperature, sprayingTimes.SprayingTimes_humidity, sprayingTimes.SprayingTimes_precipitation, sprayingTimes.SprayingTimes_windSpeed, sprayingTimes.SprayingTimes_solarRadiation, riceCropInformation_id, Pesticide_id, times],
+          "UPDATE SprayingTimes SET Employee_id = ?, DevelopmentStage_id = ?, SprayingTimes_amount = ?, SprayingTimes_startDate = ?, SprayingTimes_endDate = ? WHERE (RiceCropInformation_id = ? And Pesticide_id = ? and SprayingTimes_times = ?)",
+          [sprayingTimes.Employee_id, sprayingTimes.DevelopmentStage_id, sprayingTimes.SprayingTimes_amount, sprayingTimes.SprayingTimes_startDate, sprayingTimes.SprayingTimes_endDate,  riceCropInformation_id, Pesticide_id, times],
           (err, res) => {
                if (err) {
                     console.log("error: ", err);

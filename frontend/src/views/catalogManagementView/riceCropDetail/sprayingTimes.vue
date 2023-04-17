@@ -40,21 +40,24 @@
                                              sửa
                                         </a>
                                         <a class="dropdown-item" href="#"
-                                             @click="setSprayingTimes(sprayingtimes), setDelete('SprayingTimes'), isOpenConfirm = !isOpenConfirm">
+                                             @click="setSprayingTimes(sprayingtimes),isOpenConfirm = !isOpenConfirm">
                                              <span class="fas fa-trash-alt actionIcon"></span>
                                              Xóa
                                         </a>
 
                                    </div>
                               </div>
-                              <h5 class="nameComponent text-center">Lần {{ sprayingtimes.SprayingTimes_times }}</h5>
-                              <span>Thuốc: </span><span>{{ sprayingtimes.Pesticide_name }}</span><br>
-                              <span>Liều lượng: </span><span>{{ sprayingtimes.SprayingTimes_amount }} (kg/ha)</span><br>
-                              <span>Từ ngày: </span><span>{{ formatDate(sprayingtimes.SprayingTimes_startDate)
-                              }}</span><br>
-                              <span>Đến ngày: </span><span>{{ formatDate(sprayingtimes.SprayingTimes_endDate)
-                              }}</span><br>
-                              <span>Nhân viên: </span><span>{{ sprayingtimes.Employee_name }}</span><br>
+                              <h5 class="function-name text-center">Lần {{ sprayingtimes.SprayingTimes_times }}</h5>
+                              <span class="title-detail">Thuốc: </span>
+                              <span class="value-name-detail">{{ sprayingtimes.Pesticide_name }}</span><br>
+                              <span class="title-detail">Liều lượng: </span>
+                              <span class="value-detail">{{ sprayingtimes.SprayingTimes_amount }} (ml/ha)</span><br>
+                              <span class="title-detail">Từ ngày: </span>
+                              <span class="value-detail">{{ formatDate(sprayingtimes.SprayingTimes_startDate)}}</span><br>
+                              <span class="title-detail">Đến ngày: </span>
+                              <span class="value-detail">{{ formatDate(sprayingtimes.SprayingTimes_endDate)}}</span><br>
+                              <span class="title-detail">Nhân viên: </span>
+                              <span class="value-detail">{{ sprayingtimes.Employee_name }}</span><br>
                          </div>
 
 
@@ -65,7 +68,7 @@
                               <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
                          </p>
                          <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, choosenDelete()">Xóa</button>
+                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteSprayingTimes()">Xóa</button>
                          <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
                               @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
                     </div>
@@ -92,7 +95,6 @@
                          @updateSprayingTimes-submit="updateSprayingTimes" :message1="message1" :message2="message2" />
 
                </div>
-
           </div>
      </div>
 </template>
@@ -104,6 +106,7 @@ import 'vue3-carousel/dist/carousel.css'
 import { mapGetters, mapMutations } from "vuex";
 import SprayingTimesService from '@/services/sprayingTimes.service';
 import RiceCropService from '@/services/riceCropInformation.service';
+import PesticideService from '@/services/pesticide.service';
 import DevelopmentStageService from '@/services/developmentStage.service';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
@@ -155,6 +158,7 @@ export default {
                },
                loading: true,
                developmentStageList: [],
+               pesticideList: [],
           }
      },
 
@@ -208,16 +212,15 @@ export default {
                          this.SprayingTimesList = respone.data;
                          this.cloneSprayingTimesList = respone.data;
                          this.newSprayingTimes.SprayingTimes_times = this.SprayingTimesList[this.SprayingTimesList.length - 1].SprayingTimes_times + 1;
-                         var temp = {};
-                         this.newSprayingTimes.Pesticide = [];
-                         temp.Pesticide_name = "";
-                         temp.Pesticide_amount = '0';
-                         this.newSprayingTimes.Pesticide.push(temp);
                     }
                     else {
                          this.newSprayingTimes.SprayingTimes_times = 1;
                     }
-
+                    var temp = {};
+                         this.newSprayingTimes.Pesticide = [];
+                         temp.Pesticide_name = "";
+                         temp.Pesticide_amount = '0';
+                         this.newSprayingTimes.Pesticide.push(temp);
                }
                if (this.loading == true) {
                     setTimeout(() => {
@@ -236,8 +239,6 @@ export default {
                     this.isOpenCreateSprayingTimesForm = false;
                     this.message1 = " ";
                     this.message2 = " ";
-                    this.stylebac.none = false;
-                    this.stylebac.active = true;
                     this.newSprayingTimes = {};
                     if (this.SprayingTimesList.length > 0) {
                          this.newSprayingTimes.SprayingTimes_times = this.SprayingTimesList[this.SprayingTimesList.length - 1].SprayingTimes_times + 1;
@@ -251,7 +252,6 @@ export default {
                     temp.Pesticide_name = "";
                     temp.Pesticide_id = 0;
                     this.newSprayingTimes.Pesticide.push(temp);
-                    console.log(this.newSprayingTimes.Pesticide)
                }
                else {
                     this.message1 = " ";
@@ -323,10 +323,9 @@ export default {
                     this.isOpenTable = true;
                     this.message1 = " ";
                     this.message2 = " ";
-                    this.stylebac.none = false;
-                    this.stylebac.active = true;
                     this.newSprayingTimes = {};
                     this.newSprayingTimes.SprayingTimes_times = this.SprayingTimesList[this.SprayingTimesList.length - 1].SprayingTimes_times + 1;
+               
                }
                else {
                     this.message1 = " ";
@@ -370,9 +369,11 @@ export default {
                          this.message1 = "Cập nhật không thành công."
                     } else {
                          this.message2 = "Cập nhật thành công.";
-                         this.retrieveSprayingTimesList();
+                        
                     }
+                     
                }
+               this.retrieveSprayingTimesList();
 
           },
 
@@ -422,6 +423,18 @@ export default {
                }
           },
 
+          async retrievePesticideList() {
+               const [err, respone] = await this.handle(
+                    PesticideService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.pesticideList = respone.data;
+               }
+          },
+
           formatDate(data) {
                if (data == null || data == "Invalid da") return "";
                return (moment(String(data)).format("DD-MM-YYYY")).slice(0, 10);
@@ -430,6 +443,8 @@ export default {
 
      mounted() {
           this.initEmployeeState();
+          this.retrieveDvelopmentStageList();
+          this.retrievePesticideList();
           this.retrieveSprayingTimesList();
           this.retrieveNewRiceCrop();
      }

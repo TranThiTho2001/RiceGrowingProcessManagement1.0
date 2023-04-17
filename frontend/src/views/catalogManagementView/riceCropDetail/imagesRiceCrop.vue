@@ -25,16 +25,11 @@
                          <button class="btn btnCome-back" @click="goToRiceCrop()">Trở về</button>
                          <button class="btn btnCreate" @click="isOpenCreateImage = !isOpenCreateImage">Thêm</button>
                     </div>
-                    <div class="row mt-4 function-row" style=" margin-left:20px;margin-right: 10px ">
-                         <div class="row" style="margin-left:  0px !important; margin-right:0px !important">
-
+                    <div class="row mt-4 function-row" style=" margin-left:5px;margin-right: 10px ">
                               <div class="image-class col-lg-3 col-md-4 col-sm-4" v-for="(image, i) in imagesList" :key="i"
                                    style="margin-bottom: 8px !important;">
                                    <ImageComponent :images="image" @clicked-something="handleClickInParent" />
                               </div>
-                         </div>
-
-
                     </div>
                     <div class="confirmationDialog" v-if="isOpenConfirm">
                          <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"

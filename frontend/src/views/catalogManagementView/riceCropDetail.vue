@@ -1,7 +1,7 @@
 <template>
-     <div class="container-fluid riceCropDetail">
-          <Preloader color="red" scale="0.4" v-if="loading" />
-          <div class="row riceCropDetailFrame" style="height: max-content;" v-if="!loading">
+     <div class="container-fluid riceCropDetail" style="background-color:#EAEAEA;">
+          <Preloader color="red" scale="0.4" v-if="loading && !loading" />
+          <div class="row riceCropDetailFrame" style="height: max-content;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -21,47 +21,51 @@
                          </div>
                     </div>
 
-                    <div class="row" style="margin-top: 130px; margin-left:20px; margin-right:0px">
-                         <div class="col-sm-12 text-right">
-                              <button class="btn btnView"
-                                   @click="isOpenUpdateRiceCrop = !isOpenUpdateRiceCrop, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">Xem
-                                   thông tin mùa vụ</button>
+                    <div class="row weather-row" style="margin-top: 110px; margin-left:20px; margin-right:0px">
+                         <div class="col-sm-6 weather-column">
+                              <img :src="iconWeather" style="width: 49px;">
+                              <span class="weather-value"> Nhiệt độ: {{ weatherInfor.temperature }}°C &nbsp; </span>
+                              <span class="weather-value">Độ ẩm: {{ weatherInfor.humidity }}% &nbsp;</span>
+                              <span class="weather-value">Tốc độ gió: {{ weatherInfor.windspeed }}Km/h &nbsp; </span>
+                              <span class="weather-value">Bức xạ: {{ weatherInfor.solarradiation }}MJ/m²</span>
+                         </div>
+                         <div class="col-sm-6 text-right">
+                              <button class="btn btnView" @click="isOpenUpdateRiceCrop = !isOpenUpdateRiceCrop">Xem
+                                   Thông Tin Mùa Vụ</button>
                          </div>
                     </div>
-                    <div class="row function-row" style=" margin-left:20px;margin-right: 10px ">
+                    <div class="row function-row" style="margin-left:-5px;margin-right: 10px ">
+
                          <div class="function-Component text-center" @click="gotoFertilizerTimes()">
                               <img src="../../images/BON-PHAN.jpg" class="img-fluid imageclass">
-                              <h5 class="nameComponent">BÓN PHÂN</h5>
-                              <!-- <div class="cicle text-center">
-                                   <h2 class="amountFertilizer">{{ fertilizerTimesList.length }}</h2>
-                              </div> -->
+                              <h5 class="name-Component">BÓN PHÂN</h5>
                          </div>
 
                          <div class="function-Component text-center" @click="goToSprayingTimes()">
                               <img src="../../images/PHUN-THUOC.jpg" class="img-fluid imageclass">
-                              <h5 class="nameComponent">PHUN THUỐC</h5>
+                              <h5 class="name-Component">PHUN THUỐC</h5>
 
                          </div>
                          <div class="function-Component text-center" @click="goToImagesRiceCrop()">
                               <img src="../../images/image2.png" class="img-fluid imageclass">
-                              <h5 class="nameComponent">HÌNH ẢNH</h5>
+                              <h5 class="name-Component">HÌNH ẢNH</h5>
                          </div>
                          <div class="function-Component text-center" @click="goToEpidemicTimes()">
-                              <img src="../../images/saubenh.png" class="img-fluid">
-                              <h5 class="nameComponent">BỆNH DỊCH</h5>
+                              <img src="../../images/saubenh.png" class="img-fluid imageclass">
+                              <h5 class="name-Component">BỆNH DỊCH</h5>
                          </div>
                          <div class="function-Component text-center" @click="goToSupervisionRights()">
                               <img src="../../images/tham-dong.jpg" class="img-fluid imageclass">
-                              <h5 class="nameComponent">NGƯỜI THEO DÕI</h5>
+                              <h5 class="name-Component">NGƯỜI THEO DÕI</h5>
                          </div>
 
-                         <div class="function-Component text-center" @click="goToEpidemicTimes()">
+                         <div class="function-Component text-center" @click="goToActivities()">
                               <img src="../../images/activities2.png" class="img-fluid imageclass">
-                              <h5 class="nameComponent">HOẠT ĐỘNG</h5>
+                              <h5 class="name-Component">HOẠT ĐỘNG</h5>
                          </div>
+
+
                     </div>
-
-
                     <UpdateRiceCropForm v-if="isOpenUpdateRiceCrop" :seedList="seedList" :newRiceCrop="newRiceCrop"
                          :arableLandList="arableLandList" @updateRiceCrop-submit="updateRiceCrop" :message1="message1"
                          :message2="message2" />
@@ -71,8 +75,6 @@
 
           </div>
      </div>
-
-     <div v-if="isOpenSearch.open" class="outside" @click.passive="away()"></div>
 </template>
 
 <script >
@@ -84,7 +86,9 @@ import RiceCropService from '@/services/riceCropInformation.service';
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import 'vue3-carousel/dist/carousel.css'
-import Preloader from '@/components/catalogManagementComponents/Preloader.vue'
+import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
+import SeedService from '@/services/seed.service';
+import ArableLandService from '@/services/arableLand.service';
 export default {
      name: "riceCropDetail",
 
@@ -103,121 +107,25 @@ export default {
                nameToSearch: "",
                activitiesList: [],
                newRiceCrop: {},
-               employeeList: {},
-               newMonitor: {},
-               newOtherActivities: {},
-               newFertilizerTimes: {},
-               newSprayingTimes: {},
-               newEpidemicTimes: {},
-               newOtherActivitiesTimes: {},
-               monitorList: [],
                cropList: [],
                seedList: [],
-               pesticideList: [],
                arableLandList: [],
                developmentStageList: [],
-               fertilizerTimesList: [],
-               SprayingTimesList: [],
-               epidemicList: [],
-               epidemicTimesList: [],
                riceCropList: [],
-               imagesList: [],
-               otherActivitiesList: [],
-               activitiesDetailList: [],
                message1: "",
                message2: "",
-               isOpenTableFertilizerTimes: true,
-               isOpenTableSprayingTimes: false,
-               isOpenTableOtherActivitiesTimes: false,
-               isOpenTableEpidemicTimes: false,
-               isOpenTableMonitor: false,
-               isOpenImage: false,
-               isOpenCreateImage: false,
-               newImage: {},
-               isOpenCreateFertilizerTimesForm: false,
-               isOpenUpdateFertilizerTimesForm: false,
-               fertilizerTimesChosen: {},
-               isOpenCreateSprayingTimesForm: false,
-               isOpenUpdateSprayingTimesForm: false,
-               sprayingTimesChosen: {},
-               isOpenCreateEpidemicTimesForm: false,
-               isOpenUpdateEpidemicTimesForm: false,
-               epidemicTimesChosen: {},
-               isOpenCreateMonitorForm: false,
-               newActivityDetail: {},
-               isOpenCreateActivitiesDetail: false,
-               isOpenUpdateActivitiesDetail: false,
-               activitiesDetailChosen: {},
                delete: "",
                isOpenConfirm: false,
                isOpenMessage: false,
                isOpenUpdateRiceCrop: false,
                message: "",
-               monitorChosen: {},
-               idImage: 0,
-               settings: {
-                    itemsToShow: 1,
-                    snapAlign: 'center',
-
-               },
-               breakpoints: {
-                    500: {
-                         itemsToShow: 2,
-                         snapAlign: 'left',
-                    },
-                    800: {
-                         itemsToShow: 3,
-                         snapAlign: 'left',
-                    },
-
-                    // 700px and up
-                    1000: {
-                         itemsToShow: 4.5,
-                         snapAlign: 'left',
-                    },
-                    1200: {
-                         itemsToShow: 5,
-                         snapAlign: 'left',
-                    },
-                    // 1024 and up
-                    1400: {
-                         itemsToShow: 5.5,
-                         snapAlign: 'start',
-                    },
-                    1500: {
-                         itemsToShow: 4,
-                         snapAlign: 'start',
-                    },
-                    1600: {
-                         itemsToShow: 8,
-                         snapAlign: 'start',
-                    },
-
-               },
-
-               stylebac: {
-                    active: true,
-                    none: false,
-               },
-
-               isOpenSearch: {
-                    open: false,
-                    close: true,
-               },
-
-               cloneFertilizerTimesList: [],
-               cloneSprayingTimesList: [],
-               cloneEpidemicTimesList: [],
-               cloneMonitorList: [],
-               cloneActivityDetailList: [],
-               cloneImageList: [],
-               treatmentList: [],
                openMenu: {
                     openMenu: false,
                     isOpenMenuIcon: true,
                     isCloseMenu: false,
                },
                weatherInfor: {},
+               iconWeather: "",
           }
      },
 
@@ -240,13 +148,23 @@ export default {
                "initEmployeeState"
           ]),
 
+          async retrieveRiceCropList() {
+               const [err, respone] = await this.handle(
+                    RiceCropService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.riceCropList = respone.data;
+               }
+          },
+
           async updateRiceCrop(data) {
                this.message1 = " ";
                this.message2 = " ";
                if (!data.close) {
                     this.isOpenUpdateRiceCrop = false;
-                    this.stylebac.none = false;
-                    this.stylebac.active = true;
                }
 
                this.seedList.forEach(element => {
@@ -261,23 +179,23 @@ export default {
                     }
                });
 
-
                if (data.RiceCropInformation_sowingDate != null) {
                     data.RiceCropInformation_sowingDate = (moment(String(data.RiceCropInformation_sowingDate)).format("YYYY-MM-DD")).slice(0, 10);
                }
 
                else {
                     data.RiceCropInformation_sowingDate = null;
-               }
-               if (data.RiceCropInformation_harvestDate != null) {
+               }console.log(data.RiceCropInformation_harvestDate)
+               if (data.RiceCropInformation_harvestDate != null && data.RiceCropInformation_harvestDate != "Invalid da") {
                     data.RiceCropInformation_harvestDate = (moment(String(data.RiceCropInformation_harvestDate)).format("YYYY-MM-DD")).slice(0, 10);
                }
                else {
                     data.RiceCropInformation_harvestDate = null;
                }
+               
                var check = true;
                this.riceCropList.forEach(element => {
-                    if (element.ArableLand_id == data.ArableLand_id) {
+                    if (element.ArableLand_id == data.ArableLand_id && element.RiceCropInformation_id != data.RiceCropInformation_id) {
                          if (element.RiceCropInformation_harvestDate == null) {
                               check = false;
                          }
@@ -305,6 +223,7 @@ export default {
           async getWeather() {
                let urlAPI = `https://api.open-meteo.com/v1/forecast?latitude=${this.newRiceCrop.ArableLand_latitude}&longitude=${this.newRiceCrop.ArableLand_longitude}&current_weather=true&forecast_days=1&daily=shortwave_radiation_sum&timezone=auto&daily=precipitation_sum&hourly=relativehumidity_2m`;
                let data = await fetch(urlAPI).then(res => res.json())
+               console.log(data)
                if (data.error != true) {
                     this.weatherInfor.temperature = data.current_weather.temperature;
                     this.weatherInfor.windspeed = data.current_weather.windspeed;
@@ -319,6 +238,27 @@ export default {
                          }
                          i++;
                     });
+                    var weatherCode = data.current_weather.weathercode;
+                    console.log(weatherCode)
+                    var date1 = new Date();
+                    if (weatherCode == 0 && (date1.getHours() > 18 || date1.getHours() < 6)) {
+                         this.iconWeather = require('@/images/weather/' + 'Clearsky_night.png');
+                    }
+                    else if (weatherCode == 0 && (date.getHours() < 18 || date.getHours() > 6)) {
+                         this.iconWeather = require('@/images/weather/' + 'Clearsky_morning.png');
+                    }
+                    if (weatherCode == 3 || weatherCode == 1 || weatherCode == 2) {
+                         this.iconWeather = require('@/images/weather/' + 'muanang.png');
+                    }
+                    else if (weatherCode == 45 || weatherCode == 48) {
+                         this.iconWeather = require('@/images/weather/' + 'fog.png');
+                    }
+                    else if (weatherCode == 51 || weatherCode == 52 || weatherCode == 53) {
+                         this.iconWeather = require('@/images/weather/' + 'rain.png');
+                    }
+                    else {
+                         this.iconWeather = require('@/images/weather/' + 'Mainly_clear_partly_cloudy_overcast.png');
+                    }
                }
                else {
                     this.weatherInfor.temperature = "";
@@ -328,7 +268,7 @@ export default {
                     this.weatherInfor.humidity = "";
                }
           },
-          
+
           async retrieveNewRiceCrop() {
                this.loading = true;
                const [err, respone] = await this.handle(
@@ -361,6 +301,29 @@ export default {
                }
           },
 
+          async retrieveSeedList() {
+               const [err, respone] = await this.handle(
+                    SeedService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.seedList = respone.data;
+               }
+          },
+
+          async retrieveArableLandList() {
+               const [err, respone] = await this.handle(
+                    ArableLandService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.arableLandList = respone.data;
+               }
+          },
 
           gotoFertilizerTimes() {
                this.$router.push({ name: 'FertilizerTimes', params: { id: this.newRiceCrop.RiceCropInformation_id } });
@@ -381,11 +344,18 @@ export default {
           goToImagesRiceCrop() {
                this.$router.push({ name: 'ImagesRiceCrop', params: { id: this.newRiceCrop.RiceCropInformation_id } });
           },
+
+          goToActivities() {
+               this.$router.push({ name: 'Activities', params: { id: this.newRiceCrop.RiceCropInformation_id } });
+          },
      },
 
      mounted() {
           this.initEmployeeState();
+          this.retrieveArableLandList();
           this.retrieveNewRiceCrop();
+          this.retrieveSeedList();
+
      }
 };
 </script>

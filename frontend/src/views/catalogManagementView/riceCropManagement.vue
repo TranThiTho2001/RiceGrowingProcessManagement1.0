@@ -1,5 +1,5 @@
 <template>
-     <div class="container-fluid riceCropManagement" style="height: max-content;">
+     <div class="container-fluid riceCropManagement" style="height: max-content; background-color: #EAEAEA;">
           <Preloader color="red" scale="0.4" v-if="loading"/>
           <div class="row riceCropManagemenFrame" style="height: max-content;" v-if="!loading">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
@@ -38,9 +38,9 @@
                          <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
                                    style="font-size: 15px;"></i> Thêm Mùa Vụ</button>
                     </div>
-                    <div class="row riceCropList mt-3" style="max-height: 98%; width: 98%;">
+                    <div class="riceCropList mt-3 row" style="max-height: 98%; width: 98%;">
                          <div class="riceCropComponent-class col-lg-3 col-md-4 col-sm-6 text-center" v-for="(riceCrop, i) in riceCropList" :key="i"
-                              style=" margin-left: -4px !important; margin-right: 0px !important; margin-bottom: 5px;">
+                              style="; margin-right: 0px !important; margin-bottom: 1px;">
                               <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
                          </div>
                     </div>
@@ -779,7 +779,8 @@ export default {
 @media only screen and (max-width: 576px) {
      .riceCropComponent-class{
           width: 48% !important;
+          padding-right: 20px !important;
      }
-
 }
+
 </style>

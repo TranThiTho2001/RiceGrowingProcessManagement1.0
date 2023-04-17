@@ -117,7 +117,7 @@ const routes = [
 
     {
         path: "/RiceCropDetail/:id",
-        alias: "/RiceCropDetail",
+        alias: "/RiceCropDetail/:id",
         name: "RiceCropDetail",
         component: () => import("../views/catalogManagementView/riceCropDetail.vue"),
     },
@@ -132,44 +132,57 @@ const routes = [
     
     {
         path: "/FertilizerDetail/:id",
-        alias: "/FertilizerDetail",
+        alias: "/FertilizerDetail/:id",
         name: "FertilizerDetail",
         component: () => import("../views/catalogManagementView/fertilizerDetail.vue"),
     },
 
     {
         path: "/FertilizerTimes/:id",
-        alias: "/FertilizerTimes",
+        alias: "/FertilizerTimes/:id",
         name: "FertilizerTimes",
         component: () => import("../views/catalogManagementView/riceCropDetail/fertilizerTimes.vue"),
     },
 
     {
         path: "/SprayingTimes/:id",
-        alias: "/SprayingTimes",
+        alias: "/SprayingTimes/:id",
         name: "SprayingTimes",
         component: () => import("../views/catalogManagementView/riceCropDetail/sprayingTimes.vue"),
     },
 
     {
         path: "/EpidemicTimes/:id",
-        alias: "/EpidemicTimes",
+        alias: "/EpidemicTimes/:id",
         name: "EpidemicTimes",
         component: () => import("../views/catalogManagementView/riceCropDetail/epidemicTimes.vue"),
     },
     {
         path: "/ImagesRiceCrop/:id",
-        alias: "/ImagesRiceCrop",
+        alias: "/ImagesRiceCrop/:id",
         name: "ImagesRiceCrop",
         component: () => import("../views/catalogManagementView/riceCropDetail/imagesRiceCrop.vue"),
     },
     {
         path: "/SupervisionRights/:id",
-        alias: "/SupervisionRights",
+        alias: "/SupervisionRights/:id",
         name: "SupervisionRights",
         component: () => import("../views/catalogManagementView/riceCropDetail/monitor.vue"),
     },
+
+    {
+        path: "/Activities/:id",
+        alias: "/Activities/:id",
+        name: "Activities",
+        component: () => import("../views/catalogManagementView/riceCropDetail/activityTimes.vue"),
+    },
     
+    {
+        path: "/RiceYieldPredictionDetail",
+        alias: "/RiceYieldPredictionDetail",
+        name: "RiceYieldPredictionDetail",
+        component: () => import("../views/catalogManagementView/riceYieldPredictionDetail.vue"),
+    },
 ];
 
 const router = createRouter({

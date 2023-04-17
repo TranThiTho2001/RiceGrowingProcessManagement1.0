@@ -3,7 +3,7 @@
           <router-link class="linktoRiceCropInfor container-fluid"
                :to="{ name: 'RiceCropDetail', params: { id: riceCrop.RiceCropInformation_id } }">
                <div class="riceCropComponent text-dark border row">
-                    <div class="img ml-2 mt-2 text-center " style="height: 64%; width: 94%;">
+                    <div class="img text-center " style="height: 64%; width: 94%;">
                          <img :src="riceCrop.Images_link" class="img-fluid imageRiceCrop" alt=""
                               style=" display: block; max-height: 190px;">
                     </div>
@@ -168,6 +168,20 @@ export default {
      display: none;
 }
 
+.img {
+     margin-left: auto;
+     margin-right: auto;
+     margin-top: 2%;
+}
+
+.imageRiceCrop {
+     max-width: 100%;
+     margin: auto;
+     display: block;
+     margin-left: auto;
+     margin-right: auto;
+}
+
 @media screen and (max-width: 576px) {
      .riceCropComponent {
           height: 95% !important;
@@ -182,18 +196,25 @@ export default {
 
      .imageRiceCrop {
           max-width: 100%;
-          max-height: 100px !important;
+          max-height: 140px !important;
           margin: auto;
           display: block;
+          margin-left: auto;
+          margin-right: auto;
      }
 
      .img {
           height: 90px !important;
      }
+
+     .responsiveComponent {
+          width: 115% !important;
+          display: inline-block;
+     }
 }
 
-.responsiveComponent{
+.responsiveComponent {
      width: 100%;
-     height: 120%;
+     display: inline-block;
 }
 </style>

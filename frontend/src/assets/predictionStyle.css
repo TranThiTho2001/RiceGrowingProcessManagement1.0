@@ -1,21 +1,21 @@
 .pesticideManagement .createPesticideForm,
-.pesticideManagement .updatePesticideForm{
+.pesticideManagement .updatePesticideForm {
     border: 0.5px solid #b8b5b5;
-     border-radius: 10px;
-     position: absolute;
-     top: calc(15%);
-     left: 5%;
-     width: 90%;
+    border-radius: 10px;
+    position: absolute;
+    top: calc(15%);
+    left: 5%;
+    width: 90%;
 }
 
-.predictiveManagement .predictiveList{
+.predictiveManagement .predictiveList {
     background: #FAFAFC;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 15px;
     height: 480px;
 }
 
-.predictiveManagement .navigationBar .btnPrediction{
+.predictiveManagement .navigationBar .btnPrediction {
     display: block;
     width: 88%;
     font-size: 17px;
@@ -28,7 +28,7 @@
     border-radius: 14px;
 }
 
-.btnPredict1{
+.btnPredict1 {
     border-radius: 10px !important;
     background: #008B8E;
     box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
@@ -42,7 +42,7 @@
     position: absolute;
 }
 
-.btnPredict2{
+.btnPredict2 {
     border-radius: 10px !important;
     background: #008B8E;
     box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
@@ -54,7 +54,7 @@
     z-index: 3;
 }
 
-.waitingDialog{
+.waitingDialog {
     background: #F7FFD9;
     border: 1px solid rgb(62, 77, 77);
     border-radius: 10px;
@@ -69,7 +69,7 @@
     text-align: center;
 }
 
-.resultDialog{
+.resultDialog {
     background: #F7FFD9;
     border: 1px solid rgb(62, 77, 77);
     border-radius: 10px;
@@ -84,7 +84,7 @@
     text-align: center;
 }
 
-.btnOK{
+.btnOK {
     display: block;
     width: 120px;
     font-size: 18px;
@@ -97,9 +97,195 @@
     border-radius: 14px;
 }
 
-.result{
+.result {
     color: #5C5D22;
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 600;
+}
+
+.btnResult,
+.btnReality,
+.btnRiceCropList {
+    background: #008B8E !important;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+    color: #FFFED8 !important;
+    font-family: 'Roboto';
+    font-style: normal;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 10px !important;
+    width: 160px;
+    margin-right: 20px;
+}
+
+/* .predictiveManagement .row-inputSearch {
+    margin-left: 20px;
+} */
+
+@media only screen and (max-width: 1200px) {
+    .ricecrop-Component {
+        width: 22% !important;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .ricecrop-Component {
+        width: 31% !important;
+    }
+}
+@media only screen and (max-width: 576px) {
+
+    .btnResult,
+    .btnReality,
+    .btnRiceCropList {
+        color: #FFFED8 !important;
+        font-family: 'Roboto';
+        font-style: normal;
+        text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+        font-size: 13px !important;
+        width: 100px;
+        margin-right: 4px;
+        display: inline;
+        padding: 0;
+    }
+
+    .predictiveManagement .row-inputSearch {
+        margin-left: 2px;
+        overflow-x: scroll;
+    }
+
+    .ricecrop-Component {
+        width: 48% !important;
+    }
+
+    .btnMoreInfor {
+        left: 90% !important;
+   }
+}
+
+.ricecrop-Component {
+    border-radius: 10px;
+    margin-left: 2%;
+    margin-bottom: 5px;
+    padding-bottom: 1px;
+    background: #FAFAFC;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    width: 18%;
+    position: relative;
+    text-align: center;
+}
+
+.result-Component {
+    border-radius: 10px;
+    margin-bottom: 18px;
+    padding-bottom: 1px;
+    background: #FAFAFC;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    width: 48%;
+    position: relative;
+    text-align: center;
+    display: inline;
+    margin-right: 2%;
+}
+
+@media only screen and (max-width: 700px) {
+    .result-Component{
+        width: 100% !important;
+    }
+}
+
+.right-ricecrop-component {
+    width: 70%;
+    padding-left: 4px;
+}
+
+.btnPredict {
+    border-radius: 5px !important;
+    background: #556b6b;
+    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
+    font-size: 14px;
+    font-family: 'Roboto';
+    padding: 1px !important;
+    border: none;
+    color: #FFFED8;
+    /* width: 40px; */
+    z-index: 3;
+    text-align: right;
+    float: right;
+}
+
+.riceCropName, .resultPrediction, .riceCropId {
+    font-family: 'Roboto';
+    font-style: normal;
+}
+
+.riceCropName{
+    color: #008B8E;
+    font-size: 20px;
+}
+
+.resultPrediction{
+    color: #2F3033;
+    font-size: 16px;
+}
+
+.riceCropId{
+    color: #2F3033;
+    font-size: 14px;
+}
+
+.btnMoreInfor {
+    position: absolute;
+    left: 92%;
+    top: 1%;
+}
+
+.btnmore{
+    border: 0px;
+    background: none;
+}
+
+.dropdown-menu{
+    position: absolute;
+    right: -100% !important;
+    transform: translate3d(-150px, 20px, 100px) !important;
+}
+
+
+.tableResultPredict{
+    height: min-content;
+    width: 100% !important;
+    height: fit-content !important;
+    background: #FAFAFC !important;
+}
+
+.tableResultPredict thead tr th {
+    vertical-align: middle;
+    position: sticky;
+    top: 0;
+    z-index: 0;
+    padding-left: 2px !important;
+    background: #ABD2C8;
+    color: #1C1C1F;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    vertical-align: middle;
+    font-size: 17px;
+    padding: 5px;
+    border-top: 0.1px solid #b5b6b9;
+    border-bottom: 0.1px solid #b5b6b9;
+}
+
+.tableResultPredict tbody tr td {
+    font-family: 'Roboto' !important;
+    font-style: normal;
+    vertical-align: middle;
+    border-bottom: 0.1px solid #B3B4BA;
+    padding-left: 5px !important;
+    vertical-align: middle !important;
+    font-size: 13.5px !important;
+    text-align: center;
+    padding: 6px;
+    color: #1C1C1F;
 }

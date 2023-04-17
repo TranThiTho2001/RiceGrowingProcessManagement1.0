@@ -1,6 +1,6 @@
 <template>
-     <div  class="container-fluid riceCropDetail" scale="0.6" style="height: 100vh;">
-          <Preloader color="red" scale="0.4" v-if="loading"/>
+     <div class="container-fluid riceCropDetail" scale="0.6" style="height: 100vh;">
+          <Preloader color="red" scale="0.4" v-if="loading" />
           <div v-if="!loading" class="row riceCropDetailFrame" style="height: max-content;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
@@ -25,34 +25,27 @@
 
                          <button class="btn btnCome-back" @click="goToRiceCrop()">Trở về</button>
                          <button class="btn btnCreate"
-                              @click="isOpenCreateFertilizerTimesForm = !isOpenCreateFertilizerTimesForm">Thêm</button>
+                              @click="isOpenCreateMonitorForm = !isOpenCreateMonitorForm">Thêm</button>
                     </div>
-                    <div class="row mt-4 function-row" style=" margin-left:20px;margin-right: 10px ">
-                         <div class="detail-Component text-center" v-for="(monitor, i) in monitorList" :key="i">
+                    <div class="mt-4 function-row row" style=" margin-left:20px;margin-right: 10px ">
+                         <div class="account-Component text-center" v-for="(monitor, i) in monitorList" :key="i">
                               <div class="btnMoreInfor"> <button type="button" class="btn btn-sm" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v"></i>
                                    </button>
                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item action"
-                                             @click="setMonitorChosen(fertilizertimes), isOpenUpdateFertilizerTimesForm = !isOpenUpdateFertilizerTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
-                                             <span class="fas fa-edit actionIcon"></span> Chỉnh
-                                             sửa
-                                        </a>
                                         <a class="dropdown-item" href="#"
-                                             @click="setMonitorChosen(fertilizertimes), setDelete('FertilizerTimes'), isOpenConfirm = !isOpenConfirm">
+                                             @click="setMonitorChosen(monitor), isOpenConfirm = !isOpenConfirm">
                                              <span class="fas fa-trash-alt actionIcon"></span>
                                              Xóa
                                         </a>
                                    </div>
                               </div>
 
-                              <div class="far fa-user-circle" style="font-size: 50px;"></div>
-                              <h5 class="nameComponent text-center">{{ monitor.Employee_name }}</h5>
-
+                              <div class="far fa-user-circle iconAccount"></div>
+                              <h5 class="function-name text-center">{{ monitor.Employee_name }}</h5>
+                              <h6>{{ monitor.Role_name }}</h6>
                          </div>
-
-
                     </div>
 
                     <div class="confirmationDialog" v-if="isOpenConfirm">
@@ -61,7 +54,7 @@
                               <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
                          </p>
                          <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, choosenDelete()">Xóa</button>
+                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteMonitor()">Xóa</button>
                          <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
                               @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
                     </div>
@@ -95,6 +88,7 @@ import MonitorService from '@/services/monitor.service';
 import RiceCropService from '@/services/riceCropInformation.service';
 import Preloader from '@/components/catalogManagementComponents/Preloader.vue'
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
+import EmployeeService from '@/services/employee.service';
 import Catalog from '../../../components/catalogManagementComponents/catalog.vue';
 import CreateMonitorForm from '@/components/catalogManagementComponents/createNewMonitorForm.vue';
 
@@ -119,7 +113,9 @@ export default {
                monitorList: [],
                message1: "",
                message2: "",
+               employeeList: [],
                delete: "",
+               isOpenCreateMonitorForm: false,
                isOpenConfirm: false,
                isOpenMessage: false,
                message: "",
@@ -190,19 +186,29 @@ export default {
                }
           },
 
+          async retrieveEmpoyeeList() {
+               const [err, respone] = await this.handle(
+                    EmployeeService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.employeeList = respone.data;
+               }
+          },
+
           async setMonitorChosen(data) {
                this.monitorChosen = data;
           },
 
           async createNewMonitor(data) {
                if (data.close == false) {
-                    this.stylebac.none = false;
-                    this.stylebac.active = true;
                     this.isOpenCreateMonitorForm = false;
                     this.retrieveMonitorList();
                }
           },
-          
+
           async deleteMonitor() {
                const [error, response] = await this.handle(
                     MonitorService.delete(this.newRiceCrop.RiceCropInformation_id, this.monitorChosen.Employee_id)
@@ -264,6 +270,7 @@ export default {
           this.initEmployeeState();
           this.retrieveMonitorList();
           this.retrieveNewRiceCrop();
+          this.retrieveEmpoyeeList();
      }
 };
 </script>
@@ -275,6 +282,12 @@ export default {
 .btnAddimage {
      background-color: rgb(241, 248, 164);
      border-radius: 5px;
+}
+
+.iconAccount {
+     color: #5C5D22;
+     padding-top: 10px;
+     font-size: 50px;
 }
 </style>
 

@@ -41,9 +41,9 @@ Employee.findById = (id, result) => {
     });
 };
 Employee.getAll = (name, result) => {
-    let query = "SELECT * FROM Employee  JOIN Role on Role.Role_id = Employee.Role_id";
+    let query = "SELECT * FROM Employee  JOIN Role on Role.Role_id = Employee.Role_id Where Employee.Role_id = '02' OR Employee.Role_id = '03'";
     if(name) {
-        query += ` WHERE Employee_name LIKE '%${name}%'`;
+        query += ` And Employee_name LIKE '%${name}%'`;
     }
     query += " Order By Employee.Employee_id";
     sql.query(query, (err, res) => {

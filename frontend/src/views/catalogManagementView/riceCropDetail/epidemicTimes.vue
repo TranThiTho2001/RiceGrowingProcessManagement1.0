@@ -47,13 +47,14 @@
 
                                    </div>
                               </div>
-                              <h5 class="nameComponent text-center">Lần {{ epidemictimes.EpidemicTimes_times }}</h5>
-                              <span>Tên: </span><span>{{ epidemictimes.Epidemic_name }}</span><br>
-                              <span>Từ ngày: </span><span>{{ formatDate(epidemictimes.EpidemicTimes_startDate)
-                              }}</span><br>
-                              <span>Đến ngày: </span><span>{{ formatDate(epidemictimes.EpidemicTimes_endDate)
-                              }}</span><br>
-                              <span>Nhân viên: </span><span>{{ epidemictimes.Employee_name }}</span><br>
+                              <h5 class="function-name text-center">Lần {{ epidemictimes.EpidemicTimes_times }}</h5>
+                              <span class="title-detail">Tên: </span>
+                              <span class="value-name-detail">{{ epidemictimes.Epidemic_name }}</span><br>
+                              <span class="title-detail">Từ ngày: </span>
+                              <span class="value-detail">{{ formatDate(epidemictimes.EpidemicTimes_startDate)}}</span><br>
+                              <span class="title-detail">Đến ngày: </span>
+                              <span class="value-detail">{{ formatDate(epidemictimes.EpidemicTimes_endDate)}}</span><br>
+                              <span class="title-detail">Nhân viên: </span><span class="value-detail">{{ epidemictimes.Employee_name }}</span><br>
                          </div>
 
 
@@ -131,7 +132,6 @@ export default {
                newRiceCrop: {},
                newEpidemicTimes: {},
                cropList: [],
-               epidemicList: [],
                epidemicTimesList: [],
                message1: "",
                message2: "",
@@ -151,6 +151,7 @@ export default {
                weatherInfor: {},
                loading: true,
                developmentStageList: [],
+               epidemicList: [],
           }
      },
 
@@ -510,7 +511,10 @@ export default {
           this.initEmployeeState();
           this.retrieveNewRiceCrop();
           this.retrieveEpidemicList();
+          this.retrieveEpidemicList();
+          this.retrieveDvelopmentStageList();
           this.retrieveEpidemicTimesList();
+          
      }
 };
 </script>

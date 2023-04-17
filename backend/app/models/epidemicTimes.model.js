@@ -8,11 +8,11 @@ const EpidemicTimes = function (epidemicTimes) {
      this.EpidemicTimes_times = epidemicTimes.EpidemicTimes_times;
      this.EpidemicTimes_startDate = epidemicTimes.EpidemicTimes_startDate;
      this.EpidemicTimes_endDate = epidemicTimes.EpidemicTimes_endDate;
-     this.EpidemicTimes_temperature = epidemicTimes.EpidemicTimes_temperature;
-     this.EpidemicTimes_humidity = epidemicTimes.EpidemicTimes_humidity;
-     this.EpidemicTimes_precipitation = epidemicTimes.EpidemicTimes_precipitation;
-     this.EpidemicTimes_windSpeed = epidemicTimes.EpidemicTimes_windSpeed;
-     this.EpidemicTimes_solarRadiation = epidemicTimes.EpidemicTimes_solarRadiation;
+     // this.EpidemicTimes_temperature = epidemicTimes.EpidemicTimes_temperature;
+     // this.EpidemicTimes_humidity = epidemicTimes.EpidemicTimes_humidity;
+     // this.EpidemicTimes_precipitation = epidemicTimes.EpidemicTimes_precipitation;
+     // this.EpidemicTimes_windSpeed = epidemicTimes.EpidemicTimes_windSpeed;
+     // this.EpidemicTimes_solarRadiation = epidemicTimes.EpidemicTimes_solarRadiation;
 }
 
 EpidemicTimes.create = (newEpidemicTimes, result) => {
@@ -89,8 +89,8 @@ EpidemicTimes.findByName= (name,id, result) => {
 
 EpidemicTimes.updateById = (riceCropInformation_id, Epidemic_id, times, epidemicTimes, result) => {
      sql.query(
-          "UPDATE EpidemicTimes SET Employee_id = ?, DevelopmentStage_id = ?, EpidemicTimes_startDate = ?, EpidemicTimes_endDate = ?, EpidemicTimes_temperature = ?, EpidemicTimes_humidity = ?, EpidemicTimes_precipitation = ?, Epidemic_id = ?, EpidemicTimes_solarRadiation = ?, EpidemicTimes_windSpeed = ?  WHERE (RiceCropInformation_id = ? and EpidemicTimes_times = ?)",
-          [epidemicTimes.Employee_id, epidemicTimes.DevelopmentStage_id, epidemicTimes.EpidemicTimes_startDate, epidemicTimes.EpidemicTimes_endDate, epidemicTimes.EpidemicTimes_temperature, epidemicTimes.EpidemicTimes_humidity, epidemicTimes.EpidemicTimes_precipitation, Epidemic_id,epidemicTimes.EpidemicTimes_solarRadiation, epidemicTimes.EpidemicTimes_windSpeed, riceCropInformation_id, times],
+          "UPDATE EpidemicTimes SET Employee_id = ?, DevelopmentStage_id = ?, EpidemicTimes_startDate = ?, EpidemicTimes_endDate = ?, Epidemic_id = ?  WHERE (RiceCropInformation_id = ? and EpidemicTimes_times = ?)",
+          [epidemicTimes.Employee_id, epidemicTimes.DevelopmentStage_id, epidemicTimes.EpidemicTimes_startDate, epidemicTimes.EpidemicTimes_endDate, Epidemic_id,  riceCropInformation_id, times],
           (err, res) => {
                if (err) {
                     console.log("error: ", err);

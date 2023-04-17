@@ -47,14 +47,17 @@
                                         </a>
                                    </div>
                               </div>
-                              <h5 class="nameComponent text-center">Lần {{ fertilizertimes.FertilizerTimes_times }}</h5>
-                              <span>Phân: </span><span>{{ fertilizertimes.Fertilizer_name }}</span><br>
-                              <span>Số lượng: </span><span>{{ fertilizertimes.FertilizerTimes_amount }} (kg/ha)</span><br>
-                              <span>Bón ngày: </span><span>{{ formatDate(fertilizertimes.FertilizerTimes_startDate)
-                              }}</span><br>
-                              <span>Đến ngày: </span><span>{{ formatDate(fertilizertimes.FertilizerTimes_endDate)
-                              }}</span><br>
-                              <span>Nhân viên: </span><span>{{ fertilizertimes.Employee_name }}</span><br>
+                              <h5 class="function-name text-center">Lần {{ fertilizertimes.FertilizerTimes_times }}</h5>
+                              <span class="title-detail">Phân: </span>
+                              <span class="value-name-detail">{{ fertilizertimes.Fertilizer_name }}</span><br>
+                              <span class="title-detail">Số lượng: </span>
+                              <span class="value-detail">{{ fertilizertimes.FertilizerTimes_amount }} (kg/ha)</span><br>
+                              <span class="title-detail">Bón ngày: </span>
+                              <span class="value-detail">{{ formatDate(fertilizertimes.FertilizerTimes_startDate)}}</span><br>
+                              <span class="title-detail">Đến ngày: </span>
+                              <span class="value-detail">{{ formatDate(fertilizertimes.FertilizerTimes_endDate)}}</span><br>
+                              <span class="title-detail">Nhân viên: </span>
+                              <span class="value-detail">{{ fertilizertimes.Employee_name }}</span><br>
                          </div>
 
 
@@ -107,7 +110,8 @@ import { mapGetters, mapMutations } from "vuex";
 
 import RiceCropService from '@/services/riceCropInformation.service';
 import FertilizerTimesService from '@/services/fertilizerTimes.service';
-import DevelopmentStageService from '@/services/developmentStage.service';
+import developmentStageService from '@/services/developmentStage.service';
+import fertilizerService from '@/services/fertilizer.service';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
 import Catalog from '../../../components/catalogManagementComponents/catalog.vue';
@@ -133,6 +137,8 @@ export default {
                newRiceCrop: {},
                newFertilizerTimes: {},
                fertilizerTimesList: [],
+               fertilizerList: [],
+               developmentStageList: [],
                message1: "",
                message2: "",
                isOpenCreateFertilizerTimesForm: false,
@@ -152,7 +158,6 @@ export default {
                     isCloseMenu: false,
                },
                loading: true,
-               developmentStageList: [],
           }
      },
 
@@ -181,17 +186,6 @@ export default {
                })
           },
 
-          async retrieveDvelopmentStageList() {
-               const [err, respone] = await this.handle(
-                    DevelopmentStageService.getAll()
-               );
-               if (err) {
-                    console.log(err)
-               }
-               else {
-                    this.developmentStageList = respone.data;
-               }
-          },
 
           async retrieveFertilizerTimesList() {
                this.loading = true;
@@ -206,15 +200,15 @@ export default {
                          this.fertilizerTimesList = respone.data;
                          this.cloneFertilizerTimesList = respone.data;
                          this.newFertilizerTimes.FertilizerTimes_times = this.fertilizerTimesList[this.fertilizerTimesList.length - 1].FertilizerTimes_times + 1;
-                         this.newFertilizerTimes.Fertilizer = [];
-                         var fertilizerInfor = {};
-                         fertilizerInfor.Fertilizer_name = "";
-                         fertilizerInfor.FertilizerTimes_amount = 0;
-                         this.newFertilizerTimes.Fertilizer.push(fertilizerInfor)
                     }
                     else {
                          this.newFertilizerTimes.FertilizerTimes_times = 1;
                     }
+                    this.newFertilizerTimes.Fertilizer = [];
+                         var fertilizerInfor = {};
+                         fertilizerInfor.Fertilizer_name = "";
+                         fertilizerInfor.FertilizerTimes_amount = 0;
+                         this.newFertilizerTimes.Fertilizer.push(fertilizerInfor)
                     if (this.loading == true) {
                          setTimeout(() => {
                               this.loading = false;
@@ -231,21 +225,7 @@ export default {
                     console.log(err)
                }
                else {
-
-                    this.newRiceCrop.RiceCropInformation_id = respone.data.RiceCropInformation_id;
-                    this.newRiceCrop.RiceCropInformation_name = respone.data.RiceCropInformation_name;
-                    this.newRiceCrop.Seed_id = respone.data.Seed_id;
-                    this.newRiceCrop.Seed_name = respone.data.Seed_name;
-                    this.newRiceCrop.RiceCropInformation_sowingDate = respone.data.RiceCropInformation_sowingDate;
-                    this.newRiceCrop.RiceCropInformation_harvestDate = (moment(String(respone.data.RiceCropInformation_harvestDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    this.newRiceCrop.RiceCropInformation_yield = respone.data.RiceCropInformation_yield;
-                    this.newRiceCrop.Crop_id = respone.data.Crop_id;
-                    this.newRiceCrop.Crop_name = respone.data.Crop_name;
-                    this.newRiceCrop.ArableLand_id = respone.data.ArableLand_id;
-                    this.newRiceCrop.ArableLand_location = respone.data.ArableLand_location;
-                    this.newRiceCrop.ArableLand_owner = respone.data.ArableLand_owner;
-                    this.newRiceCrop.ArableLand_latitude = respone.data.ArableLand_latitude;
-                    this.newRiceCrop.ArableLand_longitude = respone.data.ArableLand_longitude;
+                    this.newRiceCrop = respone.data;
                }
           },
 
@@ -266,8 +246,6 @@ export default {
                     this.message2 = " ";
                     this.newFertilizerTimes = {};
                     this.newFertilizerTimes.FertilizerTimes_times = this.fertilizerTimesList[this.fertilizerTimesList.length - 1].FertilizerTimes_times + 1;
-                    this.stylebac.none = false;
-                    this.stylebac.active = true;
                     this.newFertilizerTimes.Fertilizer = [];
                     var fertilizerInfor = {};
                     fertilizerInfor.Fertilizer_name = "";
@@ -315,7 +293,6 @@ export default {
                               fertilisertimes.FertilizerTimes_amount = element.FertilizerTimes_amount;
                               this.createNewFertilizerTimes(fertilisertimes);
                          }
-
                     });
                }
           },
@@ -337,14 +314,11 @@ export default {
 
           async updateFertilizerTimes(data) {
                if (data.close == false) {
-                    this.isOpenTable = true;
                     this.isOpenUpdateFertilizerTimesForm = false;
                     this.message1 = " ";
                     this.message2 = " ";
                     this.newFertilizerTimes = {};
                     this.newFertilizerTimes.FertilizerTimes_times = this.fertilizerTimesList[this.fertilizerTimesList.length - 1].FertilizerTimes_times + 1;
-                    this.stylebac.none = false;
-                    this.stylebac.active = true;
                     this.newFertilizerTimes.Fertilizer = [];
                     var fertilizerInfor = {};
                     fertilizerInfor.Fertilizer_name = "";
@@ -414,6 +388,30 @@ export default {
                this.retrieveFertilizerTimesList();
           },
 
+          async retrieveDvelopmentStageList() {
+               const [err, respone] = await this.handle(
+                    developmentStageService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.developmentStageList = respone.data;
+               }
+          },
+
+          async retrieveFertilizerList() {
+               const [err, respone] = await this.handle(
+                    fertilizerService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.fertilizerList = respone.data;
+               }
+          },
+
           formatDate(data) {
                if (data == null || data == "Invalid da") return "";
                return (moment(String(data)).format("DD-MM-YYYY")).slice(0, 10);
@@ -426,8 +424,10 @@ export default {
 
      mounted() {
           this.initEmployeeState();
-          this.retrieveFertilizerTimesList();
           this.retrieveNewRiceCrop();
+          this.retrieveFertilizerList();
+          this.retrieveDvelopmentStageList();
+          this.retrieveFertilizerTimesList();
      }
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
      <div class="container-fluid riceCropDetail">
-          <Preloader color="red" scale="0.4" v-if="loading"/>
-          <div class="row riceCropDetailFrame" style="height: max-content;"  v-if="!loading" >
+          <Preloader color="red" scale="0.4" v-if="loading" />
+          <div class="row riceCropDetailFrame" style="height: max-content;" v-if="!loading">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -25,7 +25,7 @@
 
                          <button class="btn btnCome-back" @click="goToRiceCrop()">Trở về</button>
                          <button class="btn btnCreate"
-                              @click="isOpenCreateEpidemicTimesForm = !isOpenCreateEpidemicTimesForm">Thêm</button>
+                              @click="isOpenCreateActivitiesDetail = !isOpenCreateActivitiesDetail">Thêm</button>
                     </div>
                     <div class="row mt-4 row-detail" style=" margin-left:20px;margin-right: 10px ">
                          <div class="detail-Component text-center" v-for="(activity, i) in activitiesDetailList" :key="i">
@@ -35,25 +35,24 @@
                                    </button>
                                    <div class="dropdown-menu">
                                         <a class="dropdown-item action"
-                                             @click="setEpidemicChosen(activity), isOpenUpdateEpidemicTimesForm= !isOpenUpdateEpidemicTimesForm">
+                                             @click="setActivityChosen(activity), isOpenUpdateActivitiesDetail = !isOpenUpdateActivitiesDetail">
                                              <span class="fas fa-edit actionIcon"></span> Chỉnh
                                              sửa
                                         </a>
                                         <a class="dropdown-item" href="#"
-                                             @click="setEpidemicChosen(activity), setDelete('EpidemicTimes'), isOpenConfirm = !isOpenConfirm">
+                                             @click="setActivityChosen(activity), isOpenConfirm = !isOpenConfirm">
                                              <span class="fas fa-trash-alt actionIcon"></span>
                                              Xóa
                                         </a>
 
                                    </div>
                               </div>
-                              <h5 class="nameComponent text-center">Lần {{ activity.ActivityDetails_times }}</h5>
-                              <span>Tên: </span><span>{{ activity.OtherActivities_name }}</span><br>
-                              <span>Từ ngày: </span><span>{{ formatDate(activity.ActivityDetails_startDate)
+                              <h5 class="function-name text-center">{{ activity.OtherActivities_name }} Lần {{ activity.ActivityDetails_times }}</h5>
+                              <span class="title-detail">Từ ngày: </span><span class="value-detail">{{ formatDate(activity.ActivityDetails_startDate)
                               }}</span><br>
-                              <span>Đến ngày: </span><span>{{ formatDate(activity.ActivityDetails_endDate)
+                              <span class="title-detail">Đến ngày: </span><span class="value-detail">{{ formatDate(activity.ActivityDetails_endDate)
                               }}</span><br>
-                              <span>Nhân viên: </span><span>{{ activity.Employee_name }}</span><br>
+                              <span class="title-detail">Nhân viên: </span><span class="value-detail">{{ activity.Employee_name }}</span><br>
                          </div>
 
 
@@ -64,7 +63,7 @@
                               <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
                          </p>
                          <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, choosenDelete()">Xóa</button>
+                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteActivitiesDetail()">Xóa</button>
                          <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
                               @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
                     </div>
@@ -80,7 +79,12 @@
                          <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
                               @click="isOpenMessage = !isOpenMessage">OK</button>
                     </div>
-
+               <CreateActivitiiesDetailForm v-if="isOpenCreateActivitiesDetail" :newActivityDetail="newActivityDetail"
+                    :currentUser="currentUser" :developmentStageList="developmentStageList" :riceCropChosen="newRiceCrop"
+                    @addOtherActivityTimes-submit="createNewActivitiesDetail" :message1="message1" :message2="message2" />
+               <UpadteActivitiiesDetailForm v-if="isOpenUpdateActivitiesDetail" :newActivityDetail="activitiesDetailChosen"
+                    :currentUser="currentUser" :developmentStageList="developmentStageList" :riceCropChosen="newRiceCrop"
+                    @updateActivitiesDetail-submit="updateActivitiesDetail" :message1="message1" :message2="message2" />
                </div>
 
           </div>
@@ -96,7 +100,10 @@ import DevelopmentStageService from '@/services/developmentStage.service';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import Preloader from '@/components/catalogManagementComponents/Preloader.vue'
 import Catalog from '../../../components/catalogManagementComponents/catalog.vue';
-
+import ActivityDetailsService from '@/services/activityDetails.service';
+import otherActivitiesService from '@/services/otherActivities.service';
+import UpadteActivitiiesDetailForm from '@/components/catalogManagementComponents/updateActivitiesDetailForm.vue'
+import CreateActivitiiesDetailForm from '@/components/catalogManagementComponents/createNewOtherActivityTimesForm.vue';
 export default {
      name: "epidemicTimes",
 
@@ -106,6 +113,8 @@ export default {
           Catalog,
           TopHeader,
           Preloader,
+          UpadteActivitiiesDetailForm,
+          CreateActivitiiesDetailForm,
      },
 
      data() {
@@ -128,6 +137,11 @@ export default {
                activitiesDetailList: [],
                cloneActivityDetailList: [],
                developmentStageList: [],
+               otherActivitiesList: [],
+               newActivityDetail: {},
+               isOpenUpdateActivitiesDetail: false,
+               isOpenCreateActivitiesDetail: false,
+               activitiesDetailChosen: {},
           }
      },
 
@@ -155,6 +169,10 @@ export default {
                this.isOpenSearch.close = true;
           },
 
+          setActivityChosen(activity) {
+               this.activitiesDetailChosen = activity;
+          },
+
           async retrieveDvelopmentStageList() {
                const [err, respone] = await this.handle(
                     DevelopmentStageService.getAll()
@@ -168,6 +186,7 @@ export default {
           },
 
           async retrieveActivitiesDetail() {
+               this.loading = true;
                const [err, respone] = await this.handle(
                     ActivityDetailsService.findByIdRiceCrop(this.newRiceCrop.RiceCropInformation_id)
                );
@@ -182,6 +201,145 @@ export default {
                     else {
                          this.newActivityDetail.ActivityDetails_times = 1;
                     }
+               }
+               if (this.loading == true) {
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 500);
+               }
+          },
+
+          async createNewActivitiesDetail(data) {
+               this.message1 = "";
+               this.message2 = "";
+               if (!data.close) {
+                    this.isOpenCreateActivitiesDetail = false;
+                    this.stylebac.none = false;
+                    this.stylebac.active = true;
+                    this.newActivityDetail = {};
+                    this.retrieveActivitiesDetail();
+               }
+               else {
+                    data.RiceCropInformation_id = this.newRiceCrop.RiceCropInformation_id;
+                    data.Employee_id = this.currentUser.Employee_id;
+                    this.otherActivitiesList.forEach(element => {
+                         if (data.OtherActivities_name == element.OtherActivities_name) {
+                              data.OtherActivities_id = element.OtherActivities_id;
+                         }
+                    });
+                    this.developmentStageList.forEach(element => {
+                         if (data.DevelopmentStage_name == element.DevelopmentStage_name) {
+                              data.DevelopmentStage_id = element.DevelopmentStage_id;
+                         }
+                    });
+                    if (data.ActivityDetails_endDate != null) {
+                         data.ActivityDetails_endDate = (moment(String(data.ActivityDetails_endDate)).format("YYYY-MM-DD")).slice(0, 10);
+                    }
+                    else {
+                         data.ActivityDetails_endDate = null;
+                    }
+                    if (data.ActivityDetails_startDate != null) {
+                         data.ActivityDetails_startDate = (moment(String(data.ActivityDetails_startDate)).format("YYYY-MM-DD")).slice(0, 10);
+                    }
+                    else {
+                         data.ActivityDetails_startDate = null;
+                    }
+                    const [error, response] = await this.handle(
+                         ActivityDetailsService.create(data)
+                    );
+
+                    if (response.data == error) {
+                         this.message1 = "Thêm không thành công.";
+                    }
+                    else if (response.data == "Không thể tạo chi tiết hoạt động mới.") {
+                         this.message1 = "Thêm không thành công.";
+                    }
+                    else {
+                         this.message2 = "Thêm thành công.";
+                         this.retrieveActivitiesDetail();
+                    }
+
+               }
+          },
+
+          async updateActivitiesDetail(data) {
+               this.message1 = "";
+               this.message2 = "";
+               if (!data.close) {
+                    this.isOpenUpdateActivitiesDetail = false;
+                    this.stylebac.none = false;
+                    this.stylebac.active = true;
+                    this.newActivityDetail = {};
+                    this.retrieveActivitiesDetail();
+               }
+               else {
+                    data.RiceCropInformation_id = this.newRiceCrop.RiceCropInformation_id;
+                    data.Employee_id = this.currentUser.Employee_id;
+                    this.otherActivitiesList.forEach(element => {
+                         if (data.OtherActivities_name == element.OtherActivities_name) {
+                              data.OtherActivities_id = element.OtherActivities_id;
+                         }
+                    });
+                    this.developmentStageList.forEach(element => {
+                         if (data.DevelopmentStage_name == element.DevelopmentStage_name) {
+                              data.DevelopmentStage_id = element.DevelopmentStage_id;
+                         }
+                    });
+                    if (data.ActivityDetails_endDate != null) {
+                         data.ActivityDetails_endDate = (moment(String(data.ActivityDetails_endDate)).format("YYYY-MM-DD")).slice(0, 10);
+                    }
+                    else {
+                         data.ActivityDetails_endDate = null;
+                    }
+                    if (data.ActivityDetails_startDate != null) {
+                         data.ActivityDetails_startDate = (moment(String(data.ActivityDetails_startDate)).format("YYYY-MM-DD")).slice(0, 10);
+                    }
+                    else {
+                         data.ActivityDetails_startDate = null;
+                    }
+                    //Ipdate
+                    const [error, response] = await this.handle(
+                         ActivityDetailsService.update(this.newRiceCrop.RiceCropInformation_id, data.OtherActivities_id, data.ActivityDetails_times, data)
+                    );
+
+                    if (response.data == error) {
+                         this.message1 = "Cập nhật không thành công.";
+                    }
+                    else if (response.data == "Đã xảy ra lỗi trong quá trình cập nhật thông tin!") {
+                         this.message1 = "Cập nhật không thành công.";
+                    }
+                    else {
+                         this.message2 = "Cập nhật thành công.";
+                    }
+                    this.retrieveActivitiesDetail()
+               }
+          },
+
+          async deleteActivitiesDetail() {
+               const [error, respone] = await this.handle(
+                    ActivityDetailsService.delete(this.newRiceCrop.RiceCropInformation_id, this.activitiesDetailChosen.OtherActivities_id, this.activitiesDetailChosen.ActivityDetails_times)
+               );
+               if (error) {
+                    console.log(error);
+                    this.message = "Xóa lần thực hiện hoạt động không thành công"
+               } else if (respone.data == "Lỗi trong quá trình lần bón phân!!") {
+                    this.message = "Xóa lần thực hiện hoạt động không thành công"
+               } else {
+                    this.message = "Xóa lần thực hiện hoạt động thành công";
+                    this.retrieveActivitiesDetail()
+               }
+               this.delete = "";
+          },
+
+          async retrieveOtherActivities() {
+               const [err, respone] = await this.handle(
+                    otherActivitiesService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.cloneActivityDetailList = respone.data;
                }
           },
 
@@ -208,9 +366,10 @@ export default {
                     this.newRiceCrop.ArableLand_owner = respone.data.ArableLand_owner;
                     this.newRiceCrop.ArableLand_latitude = respone.data.ArableLand_latitude;
                     this.newRiceCrop.ArableLand_longitude = respone.data.ArableLand_longitude;
-                    // this.getWeather();
                }
           },
+
+
 
           goToRiceCrop() {
                this.$router.push({ name: 'RiceCropDetail', params: { id: this.newRiceCrop.RiceCropInformation_id } });
@@ -224,9 +383,9 @@ export default {
 
      mounted() {
           this.initEmployeeState();
+          this.retrieveDvelopmentStageList();
           this.retrieveNewRiceCrop();
-          this.retrieveEpidemicList();
-          this.retrieveEpidemicTimesList();
+          this.retrieveActivitiesDetail();
      }
 };
 </script>

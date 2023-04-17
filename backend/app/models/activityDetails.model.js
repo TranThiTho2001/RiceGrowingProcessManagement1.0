@@ -5,14 +5,14 @@ const ActivityDetails = function (activityDetails) {
      this.OtherActivities_id = activityDetails.OtherActivities_id;
      this.ActivityDetails_startDate = activityDetails.ActivityDetails_startDate;
      this.ActivityDetails_endDate = activityDetails.ActivityDetails_endDate;
-     this.ActivityDetails_temperature = activityDetails.ActivityDetails_temperature;
-     this.ActivityDetails_humidity = activityDetails.ActivityDetails_humidity;
-     this.ActivityDetails_precipitation = activityDetails.ActivityDetails_precipitation;
      this.Employee_id = activityDetails.Employee_id;
      this.ActivityDetails_times = activityDetails.ActivityDetails_times;
      this.DevelopmentStage_id = activityDetails.DevelopmentStage_id;
-     this.ActivityDetails_solarRadiation = activityDetails.ActivityDetails_solarRadiation;
-     this.ActivityDetails_windSpeed = activityDetails.ActivityDetails_windSpeed;
+     // this.ActivityDetails_solarRadiation = activityDetails.ActivityDetails_solarRadiation;
+     // this.ActivityDetails_windSpeed = activityDetails.ActivityDetails_windSpeed;
+     // this.ActivityDetails_temperature = activityDetails.ActivityDetails_temperature;
+     // this.ActivityDetails_humidity = activityDetails.ActivityDetails_humidity;
+     // this.ActivityDetails_precipitation = activityDetails.ActivityDetails_precipitation;
 }
 
 ActivityDetails.create = (newActivityDetails, result) => {
@@ -117,8 +117,8 @@ ActivityDetails.findByName= (name, result) => {
 
 ActivityDetails.updateById = (riceCropInformation_id, otherActivities_id, times, activityDetails, result) => {
      sql.query(
-          "UPDATE ActivityDetails SET Employee_id = ?, ActivityDetails_startDate = ?, ActivityDetails_endDate = ?, ActivityDetails_temperature = ?, ActivityDetails_humidity = ?, ActivityDetails_precipitation = ?, DevelopmentStage_id = ?, ActivityDetails_solarRadiation = ?, ActivityDetails_windSpeed = ? WHERE (RiceCropInformation_id = ? And OtherActivities_id= ? and ActivityDetails_times = ?)",
-          [activityDetails.Employee_id, activityDetails.ActivityDetails_startDate, activityDetails.ActivityDetails_endDate, activityDetails.ActivityDetails_temperature, activityDetails.ActivityDetails_humidity, activityDetails.ActivityDetails_precipitation, activityDetails.DevelopmentStage_id, activityDetails.ActivityDetails_solarRadiation, activityDetails.ActivityDetails_windSpeed, riceCropInformation_id, otherActivities_id, times],
+          "UPDATE ActivityDetails SET Employee_id = ?, ActivityDetails_startDate = ?, ActivityDetails_endDate = ?,  DevelopmentStage_id = ? WHERE (RiceCropInformation_id = ? And OtherActivities_id= ? and ActivityDetails_times = ?)",
+          [activityDetails.Employee_id, activityDetails.ActivityDetails_startDate, activityDetails.ActivityDetails_endDate, activityDetails.DevelopmentStage_id, riceCropInformation_id, otherActivities_id, times],
           (err, res) => {
                if (err) {
                     console.log("error: ", err);

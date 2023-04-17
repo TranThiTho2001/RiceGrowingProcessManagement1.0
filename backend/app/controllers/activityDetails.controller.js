@@ -9,15 +9,14 @@ exports.store = async (req, res) => {
           OtherActivities_id: req.body.OtherActivities_id,
           ActivityDetails_startDate: req.body.ActivityDetails_startDate,
           ActivityDetails_endDate: req.body.ActivityDetails_endDate,
-          ActivityDetails_temperature: req.body.ActivityDetails_temperature,
-          ActivityDetails_humidity: req.body.ActivityDetails_humidity,
-          ActivityDetails_precipitation: req.body.ActivityDetails_precipitation,
           Employee_id: req.body.Employee_id,
           ActivityDetails_times: req.body.ActivityDetails_times,
           DevelopmentStage_id: req.body.DevelopmentStage_id,
-          ActivityDetails_solarRadiation: req.body.ActivityDetails_solarRadiation,
-          ActivityDetails_windSpeed: req.body.ActivityDetails_windSpeed,
-          
+          // ActivityDetails_solarRadiation: req.body.ActivityDetails_solarRadiation,
+          // ActivityDetails_windSpeed: req.body.ActivityDetails_windSpeed,
+          //ActivityDetails_temperature: req.body.ActivityDetails_temperature,
+          // ActivityDetails_humidity: req.body.ActivityDetails_humidity,
+          // ActivityDetails_precipitation: req.body.ActivityDetails_precipitation,
      });
      // Save ActivityDetails in the database
      ActivityDetails.create(activityDetails, (err, data) => {
@@ -40,7 +39,7 @@ exports.findAll = async (req, res) => {
 exports.findbyIdRiceCropInformation = async (req, res) => {
      const id = req.params.RiceCropInformation_id;
      const OtherActivities_id = req.params.OtherActivities_id
-     ActivityDetails.findByIdRiceCropInformation(id,OtherActivities_id, (err, data) => {
+     ActivityDetails.findByIdRiceCropInformation(id, OtherActivities_id, (err, data) => {
           if (err) {
                if (err.kind === "not_found") {
                     res.send("Không tìm thấy chi tiết hoạt động.")
@@ -66,9 +65,9 @@ exports.findbyName = async (req, res) => {
 
 
 exports.findbyNameAndIdRiceCrop = async (req, res) => {
-     const  name = req.query.name;
-     const  id = req.params.RiceCropInformation_id;
-     ActivityDetails.findbyNameAndIdRiceCrop(name,id, (err, data) => {
+     const name = req.query.name;
+     const id = req.params.RiceCropInformation_id;
+     ActivityDetails.findbyNameAndIdRiceCrop(name, id, (err, data) => {
           if (err) {
                if (err.kind === "not_found") {
                     res.send("Không tìm thấy chi tiết hoạt động.")
@@ -94,7 +93,7 @@ exports.findbyNameAndIdRiceCrop = async (req, res) => {
 // };
 
 exports.findbyId = async (req, res) => {
-     const  id = req.params.OtherActivities_id;
+     const id = req.params.OtherActivities_id;
      ActivityDetails.findById(id, (err, data) => {
           if (err) {
                if (err.kind === "not_found") {

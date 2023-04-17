@@ -6,12 +6,13 @@
     left: 8%;
     width: 80%;
     height: max-content;
+    background: linear-gradient(135.44deg, rgba(217, 217, 217, 0.4) 15.43%, rgba(217, 217, 217, 0.1) 79.67%) !important;
+    box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(37.5px);
 }
 
 .riceCropDetail .updateRiceCropForm {
-    background-color: #dbdbdb;
     border: 0.5px solid #b8b5b5;
-    font-family: Inter;
     border-radius: 10px;
     position: absolute;
     top: calc(18%);
@@ -19,6 +20,9 @@
     width: 80%;
     height: max-content;
     z-index: 4;
+    background: linear-gradient(135.44deg, rgba(217, 217, 217, 0.4) 15.43%, rgba(217, 217, 217, 0.1) 79.67%) !important;
+    box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(37.5px);
 }
 
 .calendaer {
@@ -36,7 +40,7 @@
     margin-bottom: 2px;
     overflow: auto;
     max-width: 100%;
-    margin-left: 10px;
+    margin-left: 18px !important;
     margin-right: 2px;
 }
 
@@ -71,13 +75,16 @@
 
 
 @media screen and (max-width: 1430px) {
-    .riceCropList{
-        margin-left: -5px !important;
-        width: 100% !important;
-        margin-right:0 !important;
+    .riceCropManagement .riceCropManagemenFrame .rightRiceCropManagement .riceCropList {
+        height: 540px;
+        margin-bottom: 2px;
+        overflow: auto;
+        max-width: 100%;
+        margin-left: 2% !important;
+        margin-right: 2px;
     }
 }
 
-.riceCropList .col-md-3{
+.riceCropList .col-md-3 {
     margin-right: 2px !important;
 }

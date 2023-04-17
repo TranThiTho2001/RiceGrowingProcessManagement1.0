@@ -909,6 +909,7 @@ export default {
                     }
                }
           },
+          
           async beforeDownload({ html2pdf, options, pdfContent }) {
                await html2pdf().set(options).from(pdfContent).toPdf().get('pdf').then((pdf) => {
                     const totalPages = pdf.internal.getNumberOfPages()
