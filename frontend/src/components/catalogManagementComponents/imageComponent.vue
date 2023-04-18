@@ -7,7 +7,7 @@
                <div class="row ml-2 mr-2">
                     <div style="width: 80%;">
                          <div class="datetime">{{ formatDate(images.Image_date) }}</div>
-                         <div class="datetime">{{ formatTimes(images.Image_date) }}</div>
+                         <div class="datetime"> &nbsp;{{ formatTimes(images.Image_date) }}</div>
                     </div>
                     <div style="width: 20%;">
                          <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown" aria-haspopup="true"

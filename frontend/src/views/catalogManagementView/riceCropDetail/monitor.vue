@@ -29,7 +29,7 @@
                     </div>
                     <div class="mt-4 function-row row" style=" margin-left:20px;margin-right: 10px ">
                          <div class="account-Component text-center" v-for="(monitor, i) in monitorList" :key="i">
-                              <div class="btnMoreInfor"> <button type="button" class="btn btn-sm" data-toggle="dropdown"
+                              <div class="btnMoreInfor-Employee"> <button type="button" class="btn-sm btnmore" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v"></i>
                                    </button>
@@ -42,9 +42,11 @@
                                    </div>
                               </div>
 
-                              <div class="far fa-user-circle iconAccount"></div>
-                              <h5 class="function-name text-center">{{ monitor.Employee_name }}</h5>
-                              <h6>{{ monitor.Role_name }}</h6>
+                              <div class="fas fa-user-circle iconAccountExpert" v-if="monitor.Role_id == '02'"></div>
+                              <div class="fas fa-user-circle iconAccountEmployee" v-if="monitor.Role_id == '03'"></div>
+                              <h5 class="nameEmloyee text-center">{{ monitor.Employee_name }}</h5>
+                              <button v-if="monitor.Role_id == '03'" class="btnEmployee">{{ monitor.Role_name }}</button>
+                              <button v-if="monitor.Role_id == '02'" class="btnExpert">{{ monitor.Role_name }}</button>
                          </div>
                     </div>
 
@@ -288,6 +290,78 @@ export default {
      color: #5C5D22;
      padding-top: 10px;
      font-size: 50px;
+}
+
+.iconAccountExpert {
+     color: #EEEA41;
+     text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+     font-size: 80px;
+     padding-bottom: 20px !important;
+     padding-top: 20px !important;
+}
+
+.nameEmloyee {
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 700;
+     font-size: 20px;
+     line-height: 23px;
+     color: #5C5D22;
+     text-transform: uppercase;
+     padding-top: 10px !important;
+     padding-bottom: 20px !important;
+}
+
+.iconAccountEmployee {
+     color: #51AEB0;
+     ;
+     text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+     font-size: 80px;
+     padding-bottom: 20px !important;
+     padding-top: 20px !important;
+}
+
+.riceCropDetail .btnEmployee {
+     background: #ABD2C8;
+     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+     border-radius: 20px;
+     border: 0px;
+     color: #6D6E73;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-size: 18px;
+     text-transform: capitalize;
+     margin-bottom: 20px;
+}
+
+.riceCropDetail .btnExpert {
+     background: #FFFED8;
+     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+     border-radius: 20px;
+     border: 0px;
+     color: #6D6E73;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-size: 18px;
+     text-transform: capitalize;
+     margin-bottom: 20px;
+}
+
+.btnMoreInfor-Employee{
+     position: absolute;
+     top:3%;
+     left: 88%;
+     border: 0px;
+    background: none;
+}
+
+.btnmore{
+     border: 0px;
+    background: none;
+}
+
+.btnmore:hover{
+     background: #cbcbcb;
 }
 </style>
 

@@ -24,32 +24,34 @@
                     <div class="row row-inputSearch">
                          <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
                               @click="retrievePredictionList, isOpenInput1 = true"
-                              @keyup.enter="searchName(nameToSearch), away()"
+                              @keyup.enter="searchPrediction(nameToSearch), away()"
                               @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                         <button class="btnSearch1" @click="searchName(nameToSearch), away()">
+                         <button class="btnSearch1" @click="searchPrediction(nameToSearch), away()">
                               <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                          </button>
 
                          <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
                               <p class="item" v-for="prediction in filteredList()" :key="prediction.RiceCropInformation_name"
-                                   @click="searchName(prediction.RiceCropInformation_name), away()">
+                                   @click="searchPrediction(prediction.RiceCropInformation_name), away()">
                                    {{ prediction.RiceCropInformation_name }}</p>
                          </div>
 
 
-                         <button class="btn btnPredict1" @click="isOpenPredictionHistory = !isOpenPredictionHistory">Lịch sử
-                              dự đoán</button>
+                         <button class="btn btnPredict1" @click="goToRiceCropToPredict()">Dự Đoán</button>
                     </div>
 
                     <div class="row resultPrediction-row" style="margin-left:20px;margin-right: 10px ; margin-top:20px">
-                         <div class="result-Component" v-for="(resultPrediction, i) in predictionListByRiceCrop" :key="i">
+                         <div class="result-Component" v-for="(resultPrediction, i) in clonePredictionListByRiceCrop"
+                              :key="i">
                               <div class="row" style="width: 96%; margin-left: 10px;">
                                    <h5 class="name-Component" style="display: block;">{{
                                         resultPrediction.RiceCropInformation_name
                                    }}</h5>
                               </div>
-                              <div class="row" style="width: 96%; margin-left: 10px;">
-                                   <table class="tableResultPredict">
+                              <div class="row" style="width: 100%; margin-left: 10px;">
+                                   <apexchart style="width: 95%;" type="line" :options="data(resultPrediction)"
+                                        :series="dataset(resultPrediction)"></apexchart>
+                                   <!-- <table class="tableResultPredict">
                                         <thead>
                                              <tr>
                                                   <th>Ngày dự đoán</th>
@@ -59,7 +61,7 @@
                                         </thead>
                                         <tbody>
                                              <tr v-for="(result, j) in resultPrediction.resultList" :key="j">
-                                                  <td>{{ result.Prediction_date }}</td>
+                                                  <td>{{ formatDateTime(result.Prediction_date) }}</td>
                                                   <td>{{ result.Prediction_yield }}</td>
                                                   <td>
                                                        <div class="btnMoreInfor">
@@ -86,7 +88,7 @@
                                                   </td>
                                              </tr>
                                         </tbody>
-                                   </table>
+                                   </table> -->
 
                               </div>
                          </div>
@@ -146,12 +148,14 @@ import PredictionService from '../../services/prediction.service';
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import RiceCropInformationService from '../../services/riceCropInformation.service';
+import VueApexCharts from "vue3-apexcharts";
 
 export default {
      name: "predictiveManagement",
      components: {
           Catalog,
           TopHeader,
+          apexchart: VueApexCharts,
      },
 
      data() {
@@ -172,8 +176,7 @@ export default {
                     open: false,
                     close: true,
                },
-               clonePredictionList: [],
-               cloneRiceCropList: [],
+               clonePredictionListByRiceCrop: [],
                openMenu: {
                     openMenu: false,
                     isOpenMenuIcon: false,
@@ -185,6 +188,18 @@ export default {
                     leftnNoneActive: false,
                },
                predictionListByRiceCrop: [],
+               // options: {
+               //      chart: {
+               //           id: 'vuechart-example'
+               //      },
+               //      xaxis: {
+               //           categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
+               //      }
+               // },
+               // series: [{
+               //      name: 'series-1',
+               //      data: [30, 40, 45, 50, 49, 60, 70, 91]
+               // }]
           }
      },
 
@@ -200,16 +215,9 @@ export default {
           ]),
 
           filteredList() {
-               if (!this.isOpenRiceCropList) {
-                    return this.clonePredictionList.filter(prediction => {
-                         return prediction.RiceCropInformation_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
-                    })
-               }
-               else {
-                    return this.cloneRiceCropList.filter(ricecrop => {
-                         return ricecrop.RiceCropInformation_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
-                    })
-               }
+               return this.clonePredictionListByRiceCrop.filter(ricecrop => {
+                    return ricecrop.RiceCropInformation_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
+               })
 
           },
 
@@ -231,7 +239,7 @@ export default {
                else {
 
                     this.predictionList = respone.data;
-                    this.clonePredictionList = respone.data;
+                    this.clonePredictionListByRiceCrop = respone.data;
                     for (let index = 0; index < this.predictionList.length; index++) {
                          var temp = this.predictionList[index];
                          if (this.predictionListByRiceCrop == 0) {
@@ -271,29 +279,20 @@ export default {
                     }
                }
                this.bubbleSort();
+               this.clonePredictionListByRiceCrop = this.predictionListByRiceCrop;
                this.loaded = true;
-          },
-
-
-          async searchName(data) {
-               if (!this.isOpenRiceCropList) {
-                    this.searchPrediction(data);
-               }
-               else {
-                    this.searchRiceCrop(data);
-               }
           },
 
           async searchPrediction(data) {
                this.nameToSearch = data;
                if (this.nameToSearch != '') {
-                    this.predictionList = [];
-                    this.clonePredictionList.forEach(prediction => {
+                    this.clonePredictionListByRiceCrop = [];
+                    this.predictionListByRiceCrop.forEach(prediction => {
                          if (prediction.RiceCropInformation_name == this.nameToSearch) {
-                              this.predictionList.push(prediction);
+                              this.clonePredictionListByRiceCrop.push(prediction);
                          }
                          else if ((String(prediction.RiceCropInformation_name).toUpperCase()).indexOf(String(this.nameToSearch).toUpperCase()) != -1) {
-                              this.predictionList.push(prediction);
+                              this.clonePredictionListByRiceCrop.push(prediction);
                          }
                     });
 
@@ -305,7 +304,7 @@ export default {
                               console.log(error);
                          } else {
                               if (response.data != null) {
-                                   this.predictionList = response.data;
+                                   this.clonePredictionListByRiceCrop = response.data;
                               }
                          }
                     }
@@ -327,6 +326,73 @@ export default {
                }
           },
 
+
+          data(prediction) {
+               // options: {
+               //      chart: {
+               //           id: 'vuechart-example'
+               //      },
+               //      xaxis: {
+               //           categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
+               //      }
+               // },
+               // series: [{
+               //      name: 'series-1',
+               //      data: [30, 40, 45, 50, 49, 60, 70, 91]
+               // }]
+               const options = {
+                    chart: {
+                         id: 'vuechart-example'
+                    },
+                    xaxis: {
+                         categories: []
+                    },
+                    colors: ['#FFFD9F'],
+                    borders:['2px'],
+                    markers: {
+                         size: 2,
+                         fill: ['#FFFD9F']
+                    },
+                    style: {
+                         x: 100,
+                         fontSize: '12.2px',
+                         fontFamily: 'Helvetica, Arial, sans-serif',
+                         // fontWeight: 'bold',
+                         colors: ['none'],
+                         borders: ['2px']
+                    },
+                    responsive: [
+                         {
+                              breakpoint: 1400,
+                              options: {
+                                   legend: {
+                                        position: 'bottom'
+                                   },
+                                   with: "80%",
+                              }
+                         }
+                    ]
+
+               }
+
+               prediction.resultList.forEach(element => {
+                    options.xaxis.categories.push(this.formatDate(element.Prediction_date));
+               });
+               return options;
+          },
+
+          dataset(prediction) {
+               const series = [{
+                    name: 'safe',
+                    data: []
+               }]
+               series[0].name = prediction.RiceCropInformation_name;
+               prediction.resultList.forEach(element => {
+                    series[0].data.push(element.Prediction_yield);
+
+               });
+               return series;
+          },
           async searchRiceCrop(data) {
                this.nameToSearch = data;
                if (this.nameToSearch != '') {
@@ -380,8 +446,8 @@ export default {
                this.predictionChosen = prediction;
           },
 
-          goToRiceCropDetail() {
-               this.$router.push({ name: 'RiceCropDetail', params: { id: this.riceCropChosen.RiceCropInformation_id } });
+          goToRiceCropToPredict() {
+               this.$router.push("/Predition");
           }
      },
 
@@ -398,8 +464,22 @@ export default {
 <style>
 @import url(../../assets/predictionStyle.css);
 @import url(../../assets/mainStyle.css);
-.predictiveDetailManagement .btnMoreInfor{
-     position:  relative !important;
-    left: auto !important;
+
+.predictiveDetailManagement .btnMoreInfor {
+     position: relative !important;
+     left: auto !important;
+}
+
+.predictiveDetailManagement .navigationBar .btnPrediction {
+     display: block;
+     width: 88%;
+     font-size: 17px;
+     background-color: #fff945;
+     box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+     color: #5C5D22;
+     border: none;
+     font-family: 'Roboto';
+     font-style: normal;
+     border-radius: 14px;
 }
 </style>

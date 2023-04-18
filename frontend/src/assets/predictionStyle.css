@@ -50,7 +50,8 @@
     font-family: 'Roboto';
     font-weight: 400 !important;
     border: none;
-    color: #FFFED8;;
+    color: #FFFED8;
+    ;
     z-index: 3;
 }
 
@@ -135,6 +136,7 @@
         width: 31% !important;
     }
 }
+
 @media only screen and (max-width: 576px) {
 
     .btnResult,
@@ -162,19 +164,19 @@
 
     .btnMoreInfor {
         left: 90% !important;
-   }
+    }
 }
 
 .ricecrop-Component {
     border-radius: 10px;
     margin-left: 2%;
-    margin-bottom: 5px;
+    margin-bottom: 2%;
     padding-bottom: 1px;
     background: #FAFAFC;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     width: 18%;
     position: relative;
-    text-align: center;
+    text-align: left;
 }
 
 .result-Component {
@@ -191,7 +193,7 @@
 }
 
 @media only screen and (max-width: 700px) {
-    .result-Component{
+    .result-Component {
         width: 100% !important;
     }
 }
@@ -216,24 +218,64 @@
     float: right;
 }
 
-.riceCropName, .resultPrediction, .riceCropId {
+.riceCropName,
+.resultPrediction,
+.riceCropId,
+.textPredict {
     font-family: 'Roboto';
     font-style: normal;
-}
-
-.riceCropName{
     color: #008B8E;
-    font-size: 20px;
+    padding: auto;
+    padding-top: 5px !important;
+    text-align: center;
 }
 
-.resultPrediction{
-    color: #2F3033;
+.riceCropName {
+    text-transform: uppercase;
+}
+
+.riceCropName {
+    color: #008B8E;
     font-size: 16px;
 }
 
-.riceCropId{
+.textPredict, .textKg {
+    color: #000000 !important;
+    font: 15px;
+    font-weight: 600;
+    text-transform: none;
+    margin-bottom: 20px !important;
+    padding-left: 20px ;
+    display: inline;
+}
+
+.textKg{
+    text-transform: capitalize;
+    color: #2F3033 !important;
+    padding-left: 0px !important;
+}
+.resultPrediction {
+    color: #5C5D22;
+    font-size: 18px;
+    background: #FFFD9F;
+    box-shadow: inset 0px 4px 7px rgba(0, 0, 0, 0.25);
+    display: inline;
+    margin: 1px 4px 5px 4px;
+    border:none;
+    border-radius: 15px;
+    width: 80px;
+}
+
+
+
+.riceCropId {
     color: #2F3033;
     font-size: 14px;
+    padding-left: 20px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    font-size: 15px;
+    text-align: left;
 }
 
 .btnMoreInfor {
@@ -242,19 +284,19 @@
     top: 1%;
 }
 
-.btnmore{
+.btnmore {
     border: 0px;
     background: none;
 }
 
-.dropdown-menu{
+.dropdown-menu {
     position: absolute;
     right: -100% !important;
     transform: translate3d(-150px, 20px, 100px) !important;
 }
 
 
-.tableResultPredict{
+.tableResultPredict {
     height: min-content;
     width: 100% !important;
     height: fit-content !important;

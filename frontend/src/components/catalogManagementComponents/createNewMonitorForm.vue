@@ -3,13 +3,13 @@
           class="form createMonitorForm">
           <div class="row">
                <div class="col-sm-12 text-right">
-                    <i class="fas fa-times" @click="newmonitor.close = false, $emit('addMonitor-submit', newmonitor)"
-                         style="font-size: 25px; padding: 5px;"></i>
+                    <i class="fas fa-times-circle" @click="newmonitor.close = false, $emit('addMonitor-submit', newmonitor)"
+                         style="font-size: 25px; padding: 5px; color: #FAFAFC;"></i>
                </div>
           </div>
           <div class="row">
                <p class="col-sm-12 text-center functionName">
-                    <i class="fas fa-plus-circle"></i> QUẢN LÝ QUYỀN THEO DÕI MÙA VỤ
+                    QUẢN LÝ QUYỀN THEO DÕI MÙA VỤ
                </p>
 
           </div>
@@ -187,9 +187,10 @@ export default {
      height: 80vh;
      top: 100px;
      left: 20px;
-     background-color: rgb(254, 254, 254);
-     border: solid 1px #84858A;
-     border-radius: 10px;
+     background: linear-gradient(135.44deg, rgba(217, 217, 217, 0.4) 15.43%, rgba(217, 217, 217, 0.1) 79.67%) !important;
+     box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3) !important;
+     backdrop-filter: blur(20px);
+     border-radius: 15px;
 }
 
 .createMonitorForm .table tbody td {
@@ -222,7 +223,7 @@ export default {
 
 .createMonitorForm .btnMonitor {
      background: #EEEA41;
-     box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
+     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
      border: none;
      border-radius: 10px;
      color: #5C5D22;
@@ -242,11 +243,11 @@ export default {
 }
 
 .createMonitorForm .btnMonitoring {
-     background: #e9e89d;
-     box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
      border: none;
-     border-radius: 10px;
      color: #5C5D22;
+     border-radius: 10px;
+     background: #ABD2C8;
+     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
      font-weight: 500;
      font-family: 'Roboto';
      font-size: 17px;

@@ -1,5 +1,5 @@
 <template>
-     <div class="container-fluid predictiveManagement pr-4" style="background-color: #EAEAEA;height:max-content;">
+     <div class="container-fluid predictiveManagement pr-4" style="background-color: #EAEAEA;height:max-content; min-height: 100vh;">
           <div class="row predictiveManagementFrame" style="height: max-content;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
@@ -11,7 +11,7 @@
                <div class="right rightPredictiveManagement " :class="{ leftNoneActive: active.leftnNoneActive }">
                     <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
-                              <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Dự đoán năng suất</h3>
+                              <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Dự Đoán Năng Suất</h3>
                          </div>
 
                          <div class="text-right">
@@ -24,24 +24,24 @@
                     <div class="row row-inputSearch">
                          <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
                               @click="retrievePredictionList, isOpenInput1 = true"
-                              @keyup.enter="searchName(nameToSearch), away()"
+                              @keyup.enter="searchRiceCrop(nameToSearch), away()"
                               @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                         <button class="btnSearch1" @click="searchName(nameToSearch), away()">
+                         <button class="btnSearch1" @click="searchRiceCrop(nameToSearch), away()">
                               <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                          </button>
 
                          <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
-                              <p class="item" v-for="prediction in filteredList()" :key="prediction.RiceCropInformation_name"
-                                   @click="searchName(prediction.RiceCropInformation_name), away()">
-                                   {{ prediction.RiceCropInformation_name }}</p>
+                              <p class="item" v-for="ricecrop in filteredList()" :key="ricecrop.RiceCropInformation_name"
+                                   @click="searchRiceCrop(ricecrop.RiceCropInformation_name), away()">
+                                   {{ ricecrop.RiceCropInformation_name }}</p>
                          </div>
 
-                         <button class="btn btnPredict1" @click="goToRiceYieldPredictionDetail()">Lịch sử
-                              dự đoán</button>
-                         </div>
+                         <button class="btn btnPredict1" @click="goToRiceYieldPredictionDetail()">Lịch Sử
+                              Dự Đoán</button>
+                    </div>
 
                     <div class=" row ricecropList-row" style="margin-left:-5px;margin-right: 10px ; margin-top:20px">
-                         <div class="ricecrop-Component" v-for="(ricecrop, i) in riceCropList" :key="i">
+                         <div class="ricecrop-Component" v-for="(ricecrop, i) in clonePredictionList" :key="i">
                               <div class="btnMoreInfor">
                                    <button type="button" class="btn-sm btnmore" data-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
@@ -62,11 +62,12 @@
                                    </button>
                               </div>
                               <h5 class="riceCropName">{{ ricecrop.RiceCropInformation_name }}</h5>
-                              <span class="riceCropId">{{ ricecrop.RiceCropInformation_id }}</span><br>
-                              <span>{{ get_day_of_time(ricecrop.RiceCropInformation_sowingDate) }} Ngày</span><br>
-                              <span class="resultPrediction">Dự đoán <span style="font-size:18px; font-weight: 600;">{{
+                              <p class="riceCropId">{{ ricecrop.RiceCropInformation_id }}</p>
+                              <p class="riceCropId">{{ get_day_of_time(ricecrop.RiceCropInformation_sowingDate) }} Ngày</p>
+                              <p class="textPredict">Dự đoán </p><button class="resultPrediction">{{
                                    ricecrop.Prediction_yield
-                              }}</span> kg/ha</span><br>
+                              }}</button>
+                              <p class="textKg">kg/ha</p>
                          </div>
                     </div>
 
@@ -210,19 +211,13 @@ import PredictionService from '../../services/prediction.service';
 import ImagesService from '@/services/images.service';
 import RiceCropInformationService from '../../services/riceCropInformation.service';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
-// import RiceCropDetailsComponent from '@/components/catalogManagementComponents/riceCropDetailsComponent.vue';
 import moment from 'moment';
-// import RiceCropComponent from '@/components/catalogManagementComponents/riceCropComponent.vue';
-
-// import axios from 'axios';
 
 export default {
      name: "predictiveManagement",
      components: {
           Catalog,
           TopHeader,
-          // RiceCropDetailsComponent,
-          // RiceCropComponent,
      },
 
      data() {
@@ -279,16 +274,9 @@ export default {
           ]),
 
           filteredList() {
-               if (!this.isOpenRiceCropList) {
-                    return this.clonePredictionList.filter(prediction => {
-                         return prediction.RiceCropInformation_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
-                    })
-               }
-               else {
-                    return this.cloneRiceCropList.filter(ricecrop => {
-                         return ricecrop.RiceCropInformation_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
-                    })
-               }
+               return this.riceCropList.filter(ricecrop => {
+                    return ricecrop.RiceCropInformation_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
+               })
 
           },
 
@@ -310,50 +298,10 @@ export default {
                else {
 
                     this.predictionList = respone.data;
-                    this.clonePredictionList = respone.data;
-                    for (let index = 0; index < this.predictionList.length; index++) {
-                         var temp = this.predictionList[index];
-                         if (this.predictionListByRiceCrop == 0) {
-                              var resultPrediction = {};
-                              resultPrediction.RiceCropInformation_id = temp.RiceCropInformation_id;
-                              resultPrediction.RiceCropInformation_name = temp.RiceCropInformation_name;
-                              resultPrediction.resultList = [];
-                              const newResult1 = {};
-                              newResult1.Prediction_yield = temp.Prediction_yield;
-                              newResult1.Prediction_date = temp.Prediction_date;
-                              resultPrediction.resultList.push(newResult1);
-                              this.predictionListByRiceCrop.push(resultPrediction);
-                         }
-                         else {
-                              var check = 0;
-                              this.predictionListByRiceCrop.forEach(element => {
-                                   if (element.RiceCropInformation_id == temp.RiceCropInformation_id) {
-                                        const newResult2 = {};
-                                        newResult2.Prediction_yield = temp.Prediction_yield;
-                                        newResult2.Prediction_date = temp.Prediction_date;
-                                        element.resultList.push(newResult2);
-                                        check = 1;
-                                   }
-                              });
-                              if (check == 0) {
-                                   const newRiceCrop = {};
-                                   newRiceCrop.RiceCropInformation_id = temp.RiceCropInformation_id;
-                                   newRiceCrop.RiceCropInformation_name = temp.RiceCropInformation_name;
-                                   newRiceCrop.resultList = [];
-                                   const newResult2 = {};
-                                   newResult2.Prediction_yield = temp.Prediction_yield;
-                                   newResult2.Prediction_date = temp.Prediction_date;
-                                   newRiceCrop.resultList.push(newResult2);
-                                   this.predictionListByRiceCrop.push(newRiceCrop);
-                              }
-                         }
-                    }
                }
-               this.bubbleSort();
                this.retrieveRiceCropList();
                this.loaded = true;
           },
-
 
 
           async getURLForResult(position) {
@@ -429,6 +377,7 @@ export default {
                     for (let index = 0; index < this.riceCropList.length; index++) {
                          this.getURLForRiceCrop(index);
                     }
+                    this.cloneRiceCropList = this.riceCropList;
                }
                this.loaded = true;
           },
@@ -451,72 +400,20 @@ export default {
                }
           },
 
-          async searchName(data) {
-               if (!this.isOpenRiceCropList) {
-                    this.searchPrediction(data);
-               }
-               else {
-                    this.searchRiceCrop(data);
-               }
-          },
-
-          async searchPrediction(data) {
-               this.nameToSearch = data;
-               if (this.nameToSearch != '') {
-                    this.predictionList = [];
-                    this.clonePredictionList.forEach(prediction => {
-                         if (prediction.RiceCropInformation_name == this.nameToSearch) {
-                              this.predictionList.push(prediction);
-                         }
-                         else if ((String(prediction.RiceCropInformation_name).toUpperCase()).indexOf(String(this.nameToSearch).toUpperCase()) != -1) {
-                              this.predictionList.push(prediction);
-                         }
-                    });
-
-                    if (this.predictionList.length == 0) {
-                         const [error, response] = await this.handle(
-                              PredictionService.findByName(this.nameToSearch)
-                         );
-                         if (error) {
-                              console.log(error);
-                         } else {
-                              if (response.data != null) {
-                                   this.predictionList = response.data;
-                              }
-                         }
-                    }
-               }
-               else {
-                    this.retrievePredictionList();
-               }
-          },
-
-          bubbleSort() {
-               for (let i = 0; i < this.predictionListByRiceCrop.length - 1; i++) {
-                    for (let j = this.predictionListByRiceCrop.length - 1; j > i; j--) {
-                         if (this.predictionListByRiceCrop[j].resultList.length > this.predictionListByRiceCrop[j - 1].resultList.length) {
-                              let t = this.predictionListByRiceCrop[j];
-                              this.predictionListByRiceCrop[j] = this.predictionListByRiceCrop[j - 1];
-                              this.predictionListByRiceCrop[j - 1] = t;
-                         }
-                    }
-               }
-          },
-
           async searchRiceCrop(data) {
                this.nameToSearch = data;
                if (this.nameToSearch != '') {
-                    this.predictionList = [];
-                    this.cloneRiceCropList.forEach(ricecrop => {
+                    this.clonePredictionList = [];
+                    this.riceCropList.forEach(ricecrop => {
                          if (ricecrop.RiceCropInformation_name == this.nameToSearch) {
-                              this.riceCropList.push(ricecrop);
+                              this.clonePredictionList.push(ricecrop);
                          }
                          else if ((String(ricecrop.RiceCropInformation_name).toUpperCase()).indexOf(String(this.nameToSearch).toUpperCase()) != -1) {
-                              this.riceCropList.push(ricecrop);
+                              this.clonePredictionList.push(ricecrop);
                          }
                     });
 
-                    if (this.predictionList.length == 0) {
+                    if (this.clonePredictionList.length == 0) {
                          const [error, response] = await this.handle(
                               RiceCropInformationService.findByName(this.nameToSearch)
                          );
@@ -524,7 +421,7 @@ export default {
                               console.log(error);
                          } else {
                               if (response.data != null) {
-                                   this.riceCropList = response.data;
+                                   this.clonePredictionList = response.data;
                               }
                          }
                     }
@@ -670,7 +567,7 @@ export default {
                this.$router.push({ name: 'RiceCropDetail', params: { id: this.riceCropChosen.RiceCropInformation_id } });
           },
 
-          goToRiceYieldPredictionDetail(){
+          goToRiceYieldPredictionDetail() {
                this.$router.push("/RiceYieldPredictionDetail");
           }
      },
