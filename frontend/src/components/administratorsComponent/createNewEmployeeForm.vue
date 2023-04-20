@@ -69,12 +69,12 @@
                     <div class="form-group">
                          <label for="sex" class="mt-3">Giới tính: &nbsp;</label><br>
                          <Field name="sex" class="form-control" placeholder="" v-model="newemployee.Employee_sex">
-                              <input type="radio" id="nam" value="Nam" class="mt-3" style="float:none"
+                              <input type="radio" id="nam" value="Nam" class="" 
                                    v-model="newemployee.Employee_sex" />
-                              <label for="one" class="mt-2"> &nbsp;Nam&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
-                              <input type="radio" id="nu" value="Nữ" class="mt-3" style="float:none"
+                              <label for="one" class="labelInput"> &nbsp;Nam&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+                              <input type="radio" id="nu" value="Nữ" 
                                    v-model="newemployee.Employee_sex" />
-                              <label for="two" class="mt-2"> &nbsp;Nữ</label>
+                              <label for="two" class="labelInput" > &nbsp;Nữ</label>
                          </Field>
                          <ErrorMessage name="sex" class="error-feedback" />
                     </div>
@@ -109,13 +109,13 @@
                     <div class="form-group">
                          <label for="lock" class="mt-3">Tài khoản: &nbsp; </label><br>
                          <Field name="lock" class="form-control" v-model="newemployee.Employee_lockAccount">
-                              <input type="radio" id="mokhoa" value="1" v-model="newemployee.Employee_lockAccount" style="float:none"
+                              <input type="radio" id="mokhoa" value="1" v-model="newemployee.Employee_lockAccount" 
                                   />
-                              <label for="one">Mở khóa &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                              <label for="one" class="labelInput" >Mở khóa &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 
-                              <input type="radio" id="khoa" value="0" v-model="newemployee.Employee_lockAccount" style="float:none"
+                              <input type="radio" id="khoa" value="0" v-model="newemployee.Employee_lockAccount"
                                    />
-                              <label for="two">Khóa</label>
+                              <label for="two" class="labelInput" >Khóa</label>
                          </Field>
                          <ErrorMessage name="lock" class="error-feedback" />
                     </div>
@@ -223,4 +223,50 @@ export default {
  
 <style>
 @import url(../../assets/employeeStyle.css);
+.dp__theme_light {
+     --dp-background-color: #FAFAFC;
+     --dp-border-radius: 10px;
+     --dp-text-color: #2F3033;
+     --dp-hover-color: #f3f3f3;
+     --dp-hover-text-color: #212121;
+     --dp-hover-icon-color: #959595;
+     --dp-primary-color: #1976d2;
+     --dp-primary-disabled-color: #6bacea;
+     --dp-primary-text-color: #f8f5f5;
+     --dp-secondary-color: #c0c4cc;
+     --dp-border-color: #ddd;
+     --dp-menu-border-color: #ddd;
+     --dp-border-color-hover: #aaaeb7;
+     --dp-disabled-color: #f6f6f6;
+     --dp-scroll-bar-background: #f3f3f3;
+     --dp-scroll-bar-color: #959595;
+     --dp-success-color: #76d275;
+     --dp-success-color-disabled: #a3d9b1;
+     --dp-icon-color: #959595;
+     --dp-danger-color: #ff6f60;
+     --dp-marker-color: #ff6f60;
+     --dp-tooltip-color: #fafafa;
+     --dp-disabled-color-text: #8e8e8e;
+     --dp-highlight-color: rgb(25 118 210 / 10%);
+}
+
+.dp__input {
+     background-color: var(--dp-background-color);
+     border-radius: 10px !important;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-size: 18px;
+     font-weight: 500;
+     border: 1px solid var(--dp-border-color);
+     outline: none;
+     transition: border-color .2s cubic-bezier(0.645, 0.045, 0.355, 1);
+     width: 100%;
+     height: 80%;
+     font-size: 1rem;
+     line-height: 1.5rem;
+     padding: 6px 12px;
+     color: var(--dp-text-color);
+     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+     box-sizing: border-box;
+}
 </style>

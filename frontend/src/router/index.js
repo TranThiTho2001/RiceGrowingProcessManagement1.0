@@ -183,6 +183,13 @@ const routes = [
         name: "RiceYieldPredictionDetail",
         component: () => import("../views/catalogManagementView/riceYieldPredictionDetail.vue"),
     },
+
+    {
+        path: "/RiceCropHarvested",
+        alias: "/RiceCropHarvested",
+        name: "RiceCropHarvested",
+        component: () => import("../views/catalogManagementView/finalPrediction.vue"),
+    },
 ];
 
 const router = createRouter({

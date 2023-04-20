@@ -129,6 +129,19 @@
     .ricecrop-Component {
         width: 22% !important;
     }
+    .btnFinal{
+        background: #008B8E;
+        box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
+        font-size: 17px;
+        font-family: 'Roboto';
+        font-weight: 500 !important;
+        border: none;
+        color: #FFFED8;
+        right: 15% !important;
+        z-index: 3;
+        position: absolute;
+        border-radius: 10px !important;
+    }
 }
 
 @media only screen and (max-width: 900px) {
@@ -196,6 +209,19 @@
     .result-Component {
         width: 100% !important;
     }
+    .btnFinal{
+        background: #008B8E;
+        box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
+        font-size: 17px;
+        font-family: 'Roboto';
+        font-weight: 500 !important;
+        border: none;
+        color: #FFFED8;
+        right: 22% !important;
+        z-index: 3;
+        position: absolute;
+        border-radius: 10px !important;
+    }
 }
 
 .right-ricecrop-component {
@@ -212,10 +238,23 @@
     padding: 1px !important;
     border: none;
     color: #FFFED8;
-    /* width: 40px; */
     z-index: 3;
     text-align: right;
     float: right;
+}
+
+.btnFinal{
+    background: #008B8E;
+    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
+    font-size: 17px;
+    font-family: 'Roboto';
+    font-weight: 500 !important;
+    border: none;
+    color: #FFFED8;
+    right: 10%;
+    z-index: 3;
+    position: absolute;
+    border-radius: 10px !important;
 }
 
 .riceCropName,
@@ -289,7 +328,7 @@
     background: none;
 }
 
-.dropdown-menu {
+.predictiveManagement .dropdown-menu {
     position: absolute;
     right: -100% !important;
     transform: translate3d(-150px, 20px, 100px) !important;

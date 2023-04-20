@@ -8,12 +8,18 @@
                               style=" display: block; max-height: 190px;">
                     </div>
                     <div class="row body-riceCropComponent ">
-                         <div class="col-sm-12" style="margin-top: 0px !important;">
+                         <div class="col-sm-7" style="margin-top: 10px !important;">
                               <p class="textid">{{ riceCrop.RiceCropInformation_id }}</p>
 
                               <p class="textname">
                                    {{ riceCrop.RiceCropInformation_name }}
                               </p>
+                         </div>
+                         <div class="col-sm-5 text-right">
+                              <button v-if="riceCrop.RiceCropInformation_harvestDate == null"
+                                   class="btn btn-sm btnMonitoring ">Theo dõi</button>
+                              <button v-if="riceCrop.RiceCropInformation_harvestDate != null" class="btn btnFinish">Kết
+                                   thúc</button>
                          </div>
                          <!-- <div class="row ml-2 mr-1">
                               <table style="width: 95%;">
@@ -142,25 +148,26 @@ export default {
      width: max-content;
      font-weight: 600;
      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-     border-radius: 15px;
-     justify-content: center;
+     border-radius: 10px;
+     /* justify-content: center; */
      align-items: center;
-     height: 30px;
-     display: flex;
-     margin-left: 20% !important;
+     /* height: 30px; */
+     padding: 2px 4px 2px 4px;
+     /* display: flex; */
+     /* right: 90% !important; */
+     margin: auto;
+     margin-top: 30px ;
 
 }
 
 .riceCropComponent .btnFinish {
      color: #6D6E73;
      background-color: #ABD2C8;
-     margin-left: 10px;
 }
 
 .riceCropComponent .btnMonitoring {
      color: #5C5D22;
      background: #EEEA41;
-     margin-left: 6px;
 }
 
 .riceCropComponent .deleteIcon {
@@ -211,6 +218,13 @@ export default {
           width: 115% !important;
           display: inline-block;
      }
+     .riceCropComponent .btnMonitoring,
+.riceCropComponent .btnFinish {
+     position:relative;
+     margin-top:2px !important;
+
+
+}
 }
 
 .responsiveComponent {

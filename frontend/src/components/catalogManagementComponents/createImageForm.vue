@@ -3,8 +3,8 @@
         class="form createImageForm containe-fluid">
         <div class="row">
             <div class="col-sm-12 text-right">
-                <i class="fas fa-times" @click="newimage.close = false, $emit('addImage-submit', newimage)"
-                    style="font-size: 25px; padding: 10px;"></i>
+                <i class="fas fa-times-circle" @click="newimage.close = false, $emit('addImage-submit', newimage)"
+                style="font-size: 25px; padding-top:10px; color:#FAFAFC"></i>
             </div>
         </div>
         <div class="functionName row mb-3">

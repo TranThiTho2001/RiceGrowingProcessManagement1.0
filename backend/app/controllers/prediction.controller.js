@@ -69,7 +69,7 @@ exports.findById = async (req, res) => {
 
 exports.findByRiceCropInformationid = async (req, res) => {
      const id = req.params.RiceCropInformation_id;
-     Prediction.findByRiceCropInformation(id, (err, data) => {
+     Prediction.findByRiceCropInformationId(id, (err, data) => {
           if (err) {
                if (err.kind === "not_found") {
                     res.send("Không tìm thấy kết quả dự đoán.")

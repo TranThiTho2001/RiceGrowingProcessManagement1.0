@@ -1,7 +1,8 @@
 <template>
      <div class="container-fluid predictiveDetailManagement pr-4" style="background-color: #EAEAEA;height:max-content;">
-          
-          <div class="row predictiveManagementFrame" style="height: max-content;">
+          <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
+          <Preloader color="red" scale="0.4" /></div>
+          <div class="row predictiveManagementFrame" style="height: max-content;" v-if="!loading">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -37,21 +38,22 @@
                                    {{ prediction.RiceCropInformation_name }}</p>
                          </div>
 
-                         <button class="btn btnFinal" @click="goToRiceCropHarvested()">Mùa Vụ Đã Kết Thúc</button>
+                         <button class="btn btnFinal" @click="goToRiceCropToPredict()">Mùa Vụ Đã Kết Thúc</button>
                          <button class="btn btnPredict1" @click="goToRiceCropToPredict()">Dự Đoán</button>
                     </div>
 
                     <div class="row resultPrediction-row" style="margin-left:20px;margin-right: 10px ; margin-top:20px">
-                         <div class="result-Component" v-for="(resultPrediction, i) in clonePredictionListByRiceCrop"
+                         <div class="result-Component" v-for="(resultPrediction, i) in riceCropHarvestedList"
                               :key="i">
                               <div class="row" style="width: 96%; margin-left: 10px;">
-                                   <h5 class="name-Component" style="display: block;">
-                                   {{ resultPrediction.RiceCropInformation_name }} - {{ resultPrediction.RiceCropInformation_id }}</h5>
+                                   <h5 class="name-Component" style="display: block;">{{
+                                        resultPrediction.RiceCropInformation_name
+                                   }}</h5>
                               </div>
                               <div class="row" style="width: 100%; margin-left: 10px;">
-                                   <apexchart style="width: 95%;" type="line" :options="data(resultPrediction)"
+                                   <apexchart style="width: 95%;" type="column" :options="data(resultPrediction)"
                                         :series="dataset(resultPrediction)"></apexchart>
-                                   
+
                               </div>
                          </div>
                     </div>
@@ -90,8 +92,8 @@
                     <div class="resultDialog" v-if="result">
                          <p style="color:#515151; text-align:center; margin-top: 30px; font-size: 20px;"
                               class="labelConfirm"> Năng suất dự đoán cho mùa vụ {{
-                                   this.riceCropChosen.RiceCropInformation_name }}<br>
-                                    <span class="result">{{ this.riceCropChosen.Prediction_yield }}</span>
+                                   this.riceCropChosen.RiceCropInformation_name }}<br> <span class="result">{{
+          this.riceCropChosen.Prediction_yield }}</span>
                               kg/ha
                          </p>
                          <button class="btnOK btn btn-sm btn-outline-secondary mb-3" @click="result = !result">OK</button>
@@ -105,42 +107,43 @@
 <script>
 
 import moment from 'moment';
-import VueApexCharts from "vue3-apexcharts";
 import { mapGetters, mapMutations } from "vuex";
 import PredictionService from '../../services/prediction.service';
+import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import RiceCropInformationService from '../../services/riceCropInformation.service';
+import VueApexCharts from "vue3-apexcharts";
 
 export default {
      name: "predictiveManagement",
      components: {
           Catalog,
           TopHeader,
+          Preloader,
           apexchart: VueApexCharts,
      },
 
      data() {
           return {
-               message: "",
+               loading: true,
+               predictionList: [],
+               riceCropList: [],
                message1: " ",
                message2: " ",
-               nameToSearch: "",
-               riceCropList: [],
-               predictionList: [],
+               isOpenPredictionHistory: false,
                isOpenMessage: false,
                isOpenConfirm: false,
                predictionChosen: {},
+               nameToSearch: "",
+               message: "",
                isOpenInput2: false,
                isOpenInput1: false,
-               predictionListByRiceCrop: [],
-               isOpenPredictionHistory: false,
-               clonePredictionListByRiceCrop: [],
                isOpenSearch: {
                     open: false,
                     close: true,
                },
-               
+               clonePredictionListByRiceCrop: [],
                openMenu: {
                     openMenu: false,
                     isOpenMenuIcon: false,
@@ -151,7 +154,8 @@ export default {
                     rightActive: false,
                     leftnNoneActive: false,
                },
-               
+               predictionListByRiceCrop: [],
+               riceCropHarvestedList: [],
           }
      },
 
@@ -180,7 +184,30 @@ export default {
                this.isOpenInput2 = false;
           },
 
-          async find(){
+          async findPrediction(id, position) {
+               this.loaded = false;
+               const [err, response] = await this.handle(
+                    PredictionService.findByRiceCropInformation(id)
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.riceCropHarvestedList[position].resultPredictions = [];
+                    var temp = [];
+                    temp = response.data;
+                    if (temp.length > 0) {
+                         temp.forEach(result => {
+                              this.riceCropHarvestedList[position].resultPredictions.push(result);
+                         });
+                    }
+               }
+
+          },
+
+
+          async retrieveRiceCropList() {
+               this.loading = true;
                const [err, respone] = await this.handle(
                     RiceCropInformationService.findRiceCropHarvested()
                );
@@ -188,105 +215,17 @@ export default {
                     console.log(err)
                }
                else {
-                    console.log(respone.data);
-               }
-          },
-          async retrievePredictionList() {
-               this.find()
-               this.loaded = false;
-               const [err, respone] = await this.handle(
-                    PredictionService.getAll()
-               );
-               if (err) {
-                    console.log(err)
-               }
-               else {
-
-                    this.predictionList = respone.data;
-                    this.clonePredictionListByRiceCrop = respone.data;
-                    for (let index = 0; index < this.predictionList.length; index++) {
-                         var temp = this.predictionList[index];
-                         if (this.predictionListByRiceCrop == 0) {
-                              var resultPrediction = {};
-                              resultPrediction.RiceCropInformation_id = temp.RiceCropInformation_id;
-                              resultPrediction.RiceCropInformation_name = temp.RiceCropInformation_name;
-                              resultPrediction.resultList = [];
-                              const newResult1 = {};
-                              newResult1.Prediction_yield = temp.Prediction_yield;
-                              newResult1.Prediction_date = temp.Prediction_date;
-                              resultPrediction.resultList.push(newResult1);
-                              this.predictionListByRiceCrop.push(resultPrediction);
-                         }
-                         else {
-                              var check = 0;
-                              this.predictionListByRiceCrop.forEach(element => {
-                                   if (element.RiceCropInformation_id == temp.RiceCropInformation_id) {
-                                        const newResult2 = {};
-                                        newResult2.Prediction_yield = temp.Prediction_yield;
-                                        newResult2.Prediction_date = temp.Prediction_date;
-                                        element.resultList.push(newResult2);
-                                        check = 1;
-                                   }
-                              });
-                              if (check == 0) {
-                                   const newRiceCrop = {};
-                                   newRiceCrop.RiceCropInformation_id = temp.RiceCropInformation_id;
-                                   newRiceCrop.RiceCropInformation_name = temp.RiceCropInformation_name;
-                                   newRiceCrop.resultList = [];
-                                   const newResult2 = {};
-                                   newResult2.Prediction_yield = temp.Prediction_yield;
-                                   newResult2.Prediction_date = temp.Prediction_date;
-                                   newRiceCrop.resultList.push(newResult2);
-                                   this.predictionListByRiceCrop.push(newRiceCrop);
-                              }
-                         }
+                    this.riceCropHarvestedList = respone.data;
+                    for (let index = 0; index < this.riceCropHarvestedList.length; index++) {
+                         const element = this.riceCropHarvestedList[index];
+                         this.findPrediction(element.RiceCropInformation_id, index);
                     }
+                    console.log(this.riceCropHarvestedList)
                }
-               this.bubbleSort();
-               this.clonePredictionListByRiceCrop = this.predictionListByRiceCrop;
-               this.loaded = true;
-          },
-
-          async searchPrediction(data) {
-               this.nameToSearch = data;
-               if (this.nameToSearch != '') {
-                    this.clonePredictionListByRiceCrop = [];
-                    this.predictionListByRiceCrop.forEach(prediction => {
-                         if (prediction.RiceCropInformation_name == this.nameToSearch) {
-                              this.clonePredictionListByRiceCrop.push(prediction);
-                         }
-                         else if ((String(prediction.RiceCropInformation_name).toUpperCase()).indexOf(String(this.nameToSearch).toUpperCase()) != -1) {
-                              this.clonePredictionListByRiceCrop.push(prediction);
-                         }
-                    });
-
-                    if (this.predictionList.length == 0) {
-                         const [error, response] = await this.handle(
-                              PredictionService.findByName(this.nameToSearch)
-                         );
-                         if (error) {
-                              console.log(error);
-                         } else {
-                              if (response.data != null) {
-                                   this.clonePredictionListByRiceCrop = response.data;
-                              }
-                         }
-                    }
-               }
-               else {
-                    this.retrievePredictionList();
-               }
-          },
-
-          bubbleSort() {
-               for (let i = 0; i < this.predictionListByRiceCrop.length - 1; i++) {
-                    for (let j = this.predictionListByRiceCrop.length - 1; j > i; j--) {
-                         if (this.predictionListByRiceCrop[j].resultList.length > this.predictionListByRiceCrop[j - 1].resultList.length) {
-                              let t = this.predictionListByRiceCrop[j];
-                              this.predictionListByRiceCrop[j] = this.predictionListByRiceCrop[j - 1];
-                              this.predictionListByRiceCrop[j - 1] = t;
-                         }
-                    }
+               if(this.loading){
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 600);
                }
           },
 
@@ -299,17 +238,16 @@ export default {
                     xaxis: {
                          categories: []
                     },
-                    colors: ['#556b6b'],
-                    borders:['2px'],
+                    colors: ['#FFFD9F'],
+                    borders: ['2px'],
                     markers: {
                          size: 2,
-                         fill: ['#556b6b']
+                         fill: ['#FFFD9F']
                     },
                     style: {
                          x: 100,
                          fontSize: '12.2px',
                          fontFamily: 'Helvetica, Arial, sans-serif',
-                         // fontWeight: 'bold',
                          colors: ['none'],
                          borders: ['2px']
                     },
@@ -326,25 +264,35 @@ export default {
                     ]
 
                }
-
-               prediction.resultList.forEach(element => {
-                    options.xaxis.categories.push(this.formatDate(element.Prediction_date));
-               });
+               options.xaxis.categories.push(prediction.RiceCropInformation_name)
                return options;
           },
 
           dataset(prediction) {
-               const series = [{
-                    name: 'safe',
-                    data: []
-               }]
+               const series = [
+                    {
+                         
+                         data: [
+                         ]
+                    },
+                    {
+                         name: 'safe',
+                         data: []
+                    }
+               ]
                series[0].name = prediction.RiceCropInformation_name;
-               prediction.resultList.forEach(element => {
-                    series[0].data.push(element.Prediction_yield);
+               var newdata = {};
+               newdata.x = prediction.RiceCropInformation_name;
+               newdata.y = prediction.resultPredictions[0].Prediction_yield
+              series[0].data.push(newdata);
+              series[1].data.push(newdata);
 
-               });
+              console.log(series)
                return series;
           },
+
+
+
           async searchRiceCrop(data) {
                this.nameToSearch = data;
                if (this.nameToSearch != '') {
@@ -400,10 +348,6 @@ export default {
 
           goToRiceCropToPredict() {
                this.$router.push("/Predition");
-          },
-
-          goToRiceCropHarvested(){
-               this.$router.push("/RiceCropHarvested");
           }
      },
 
@@ -412,7 +356,7 @@ export default {
      },
 
      mounted() {
-          this.retrievePredictionList();
+          this.retrieveRiceCropList()
      }
 }
 </script>

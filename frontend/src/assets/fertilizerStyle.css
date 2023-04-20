@@ -2,9 +2,9 @@
 .fertilizerManagement .updateFertilizerForm {
     border-radius: 10px;
     position: absolute;
-    top: calc(144px);
-    left: 30px;
-    width: 97%;
+    top: calc(100px);
+    left: 20px;
+    width: 98%;
     z-index: 2;
 }
 

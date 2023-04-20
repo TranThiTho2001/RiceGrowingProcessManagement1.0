@@ -91,7 +91,7 @@ export default {
 
      methods: {
           async searchName() {
-               const [error, response] = await this.handle(EmployeeService.findByName(this.nameToSearch));
+               const [error, response] = await this.handle(EmployeeService.findByNameofPartil(this.nameToSearch));
                if (error) {
                     console.log(error);
                } else {

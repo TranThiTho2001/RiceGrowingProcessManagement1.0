@@ -58,10 +58,10 @@ Prediction.getAll = (name, result) => {
      });
 };
 
-Prediction.findByRiceCropInformationid = (id, result) => {
-     let query = `SELECT * FROM RSELECT * FROM Prediction` +
-          ` JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = Prediction.RiceCropInformation_id`
-          + `where Prediction.RiceCropInformation_id LIKE '%${id}%'`;
+Prediction.findByRiceCropInformationId = (id, result) => {
+     let query = `SELECT * FROM Prediction` +
+          ` JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = Prediction.RiceCropInformation_id` +
+          ` where Prediction.RiceCropInformation_id LIKE '%${id}%'`;
      sql.query(query, (err, res) => {
           if (err) {
                console.log("error: ", err);

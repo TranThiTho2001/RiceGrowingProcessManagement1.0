@@ -1,6 +1,8 @@
 <template>
      <div class="container-fluid pesticideManagement pr-4" style="background-color: #EAEAEA; height: 100%;">
-          <div class="row pesticideManagementFrame" style="min-height: 100%;">
+          <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
+          <Preloader color="red" scale="0.4" /></div>
+          <div class="row pesticideManagementFrame" style="min-height: 100%;" v-if="!loading">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -134,6 +136,7 @@ import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import { mapGetters, mapMutations } from "vuex";
 import PesticideService from '../../services/pesticide.service';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue'
+import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
 import EpidemicService from '@/services/epidemic.service';
 import TreatmentService from '@/services/treatment.service';
 import CreatePesticideForm from '@/components/catalogManagementComponents/createNewPesticideForm.vue';
@@ -152,6 +155,7 @@ export default {
      components: {
           Catalog,
           TopHeader,
+          Preloader,
           CreatePesticideForm,
           UpdatePesticideForm,
      },
@@ -163,6 +167,7 @@ export default {
                newPesticide: {},
                message1: " ",
                message2: " ",
+               loading: true,
                isOpenMessage: false,
                isOpenConfirm: false,
                pesticideChosen: {},
@@ -219,6 +224,7 @@ export default {
           },
 
           async retrievePesticideList() {
+               this.loading = true;
                const [err, respone] = await this.handle(
                     PesticideService.getAll()
                );
@@ -258,6 +264,11 @@ export default {
                     else {
                          this.newPesticide.Pesticide_id = "PE00" + String(Number(id) + 1);
                     }
+               }
+               if(this.loading){
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 1000);
                }
           },
 

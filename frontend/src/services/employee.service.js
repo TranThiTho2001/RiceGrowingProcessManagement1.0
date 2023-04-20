@@ -13,12 +13,14 @@ class EmployeeService {
      }
 
      getAll() { return http.get("/employee"); }
+     getPartial() { return http.get("/employee/find/findPartial"); }
      get(id) { return http.get(`/employee/${id}`); }
      create(data) { return http.post("/employee", data); }
      update(id, data) { return http.put(`/employee/${id}`, data); }
      changePassword(id, data) { return http.put(`/employee/change/${id}`, data); }
      delete(id) { return http.delete(`/employee/${id}`); }
-     findByName(name) { return http.get(`/employee?name=${name}`); }
+     findByNameofAll(name) { return http.get(`/employee?name=${name}`); }
+     findByNameofPartil(name) { return http.get(`/employee/find/findPartial?name=${name}`); }
 }
 
 export default new EmployeeService();

@@ -3,8 +3,8 @@
           class="form createOtherActiviesForm container-fluid">
           <div class="row">
                <div class="col-sm-12 text-right" >
-                    <i class="fas fa-times" @click="newotherActivities.close = false, $emit('addOtherActivities-submit', newotherActivities)"
-                         style="font-size: 25px; padding-right: 20px !important;"></i>
+                    <i class="fas fa-times-circle" @click="newotherActivities.close = false, $emit('addOtherActivities-submit', newotherActivities)"
+                    style="font-size: 25px; padding-top:10px; color:#FAFAFC"></i>
                </div>
           </div>
           <div class="row">

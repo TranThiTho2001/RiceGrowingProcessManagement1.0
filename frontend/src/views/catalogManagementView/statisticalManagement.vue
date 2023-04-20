@@ -1,6 +1,8 @@
 <template>
      <div class="container-fluid StatisticalManagement pr-4" style="background-color: #EAEAEA; height: 100vmin;">
-          <div class="row StatisticalManagementManagementFrame" style="height: 100vmin;">
+          <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
+          <Preloader color="red" scale="0.4" /></div>
+          <div class="row StatisticalManagementManagementFrame" style="height: 100vmin;" v-if="!loading">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -24,16 +26,16 @@
                     <div class="row mr-2 ml-2 pr-1" style="margin-top: 145px; z-index: 4; width: 99%;">
                          <div class="col-sm-7">
                               <div class="row ml-1">
-                                   <div class="statisticalComponent text-center" @click="goToStatiticsByriceCrop()"
+                                   <div class="statistical-Component text-center" @click="goToStatiticsByriceCrop()"
                                         id="statisticalRice1">
 
                                         <h5 class="nameComponent">MÙA VỤ</h5>
-                                        <apexchart width="100%" type="pie" :options="chartDataForRiceCrop.chartOptions"
+                                        <apexchart class="apexchart" type="pie" :options="chartDataForRiceCrop.chartOptions"
                                              :series="chartDataForRiceCrop.series">
                                         </apexchart>
                                    </div>
 
-                                   <div class="statisticalComponent text-center">
+                                   <div class="statistical-Component text-center">
                                         <h5 class="nameComponent">MẪU RUỘNG</h5>
                                         <apexchart width="100%" type="pie" :options="chartDataForArableLand.chartOptions"
                                              :series="chartDataForArableLand.series">
@@ -41,35 +43,35 @@
 
                                    </div>
 
-                                   <div class="statisticalComponent text-center">
+                                   <div class="statistical-Component text-center">
                                         <h5 class="nameComponent">HOẠT ĐỘNG</h5>
                                         <div class="cicle text-center">
                                              <h2 class="amountFertilizer">{{ otherActivitiesList.length }}</h2>
                                         </div>
                                    </div>
 
-                                   <div class="statisticalComponent text-center">
+                                   <div class="statistical-Component text-center">
                                         <h5 class="nameComponent">PHÂN BÓN</h5>
                                         <div class="cicle text-center">
                                              <h2 class="amountFertilizer">{{ fertilizerList.length }}</h2>
                                         </div>
                                    </div>
 
-                                   <div class="statisticalComponent text-center">
+                                   <div class="statistical-Component text-center">
                                         <h5 class="nameComponent">GIỐNG LÚA</h5>
                                         <div class="cicle text-center">
                                              <h2 class="amountFertilizer">{{ seedList.length }}</h2>
                                         </div>
                                    </div>
 
-                                   <div class="statisticalComponent text-center">
+                                   <div class="statistical-Component text-center">
                                         <h5 class="nameComponent">BỆNH DỊCH</h5>
                                         <div class="cicle text-center">
                                              <h2 class="amountFertilizer">{{ epidemicList.length }}</h2>
                                         </div>
                                    </div>
 
-                                   <div class="statisticalComponent text-center">
+                                   <div class="statistical-Component text-center">
                                         <h5 class="nameComponent">THUỐC TRỊ BỆNH DỊCH</h5>
                                         <div class="cicle text-center">
                                              <h2 class="amountFertilizer">{{ pesticideList.length }}</h2>
@@ -115,11 +117,13 @@ import PesticideService from '@/services/pesticide.service';
 import EpidemicService from '@/services/epidemic.service';
 import SeedService from '@/services/seed.service';
 import OtherActivitiesService from '@/services/otherActivities.service';
+import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
 export default {
      name: "ArableLandManagement",
      components: {
           Catalog,
           TopHeader,
+          Preloader,
           apexchart: VueApexCharts,
 
      },
@@ -128,6 +132,7 @@ export default {
      data() {
           return {
                riceCropList: [],
+               loading: true,
                riceCropListByMonitoring: [],
                riceCropListByFinish: [],
                arableLandList: [],
@@ -325,7 +330,7 @@ export default {
                }
           },
           async retrieveRiceCropList() {
-               this.loaded = false;
+               this.loading = true;
                const [err, respone] = await this.handle(
                     RiceCropInformationService.getAll()
                );
@@ -350,6 +355,12 @@ export default {
                     this.bubbleSort();
                     this.loaded = true;
 
+               }
+
+               if(this.loading){
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 1000);
                }
           },
 

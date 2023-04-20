@@ -1,6 +1,8 @@
 <template>
      <div class="container-fluid arablelandManagement pr-4" style="background-color: #EAEAEA;height: 100%;">
-          <div class="row arablelandManagementFrame" style="height: 100vmin;">
+          <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
+          <Preloader color="red" scale="0.4" /></div>
+          <div class="row arablelandManagementFrame" style="height: 100vmin;" v-if="!loading">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -128,14 +130,16 @@
 
 <script>
 
-import Catalog from '../../components/catalogManagementComponents/catalog.vue';
+
 import { mapGetters, mapMutations } from "vuex";
 import SoilService from '../../services/soil.service'
-import ArableLandService from '../../services/arableLand.service';
 import ProvinceService from '../../services/province.service';
+import ArableLandService from '../../services/arableLand.service';
+import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
-import CreateArableLandForm from '@/components/catalogManagementComponents/createNewArableLandForm.vue';
+import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import UpdateArableLandForm from '@/components/catalogManagementComponents/updateArableLandForm.vue';
+import CreateArableLandForm from '@/components/catalogManagementComponents/createNewArableLandForm.vue';
 
 class ArableLand {
      constructor(arableLand) {
@@ -151,28 +155,33 @@ export default {
           TopHeader,
           CreateArableLandForm,
           UpdateArableLandForm,
+          Preloader,
      },
 
      data() {
           return {
-               arablelandList: [],
-               openCreate: false,
-               newArableLand: {},
+               message: "",
+               soilList: [],
+               loading: true,
                message1: " ",
                message2: " ",
+               nameToSearch: "",
+               provinceList: [],
+               newArableLand: {},
+               openCreate: false,
+               arablelandList: [],
+               isOpenInput2: false,
+               isOpenInput1: false,
                isOpenMessage: false,
                isOpenConfirm: false,
                arablelandChosen: {},
+               cloneArableLandList: [],
                isOpenUpdateArableLand: false,
-               nameToSearch: "",
-               message: "",
-               isOpenInput2: false,
-               isOpenInput1: false,
                isOpenSearch: {
                     open: false,
                     close: true,
                },
-               cloneArableLandList: [],
+
                openMenu: {
                     openMenu: false,
                     isOpenMenuIcon: true,
@@ -183,8 +192,7 @@ export default {
                     rightActive: false,
                     leftnNoneActive: false,
                },
-               provinceList: [],
-               soilList: [],
+
           }
      },
 
@@ -250,6 +258,7 @@ export default {
           },
 
           async retrieveArableLandList() {
+               this.loading = true;
                const [err, respone] = await this.handle(
                     ArableLandService.getAll()
                );
@@ -286,6 +295,11 @@ export default {
                     else {
                          this.newArableLand.ArableLand_id = "AL00" + String(Number(id) + 1);
                     }
+               }
+               if (this.loading) {
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 1000);
                }
           },
 

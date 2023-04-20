@@ -1,6 +1,8 @@
 <template>
      <div class="container-fluid fertilizerManagement pr-4 " style="background-color: #EAEAEA; height: max-content;">
-          <div class="row fertilizerManagementFrame" style="height: max-content;">
+          <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
+          <Preloader color="red" scale="0.4" /></div>
+          <div class="row fertilizerManagementFrame" style="height: max-content;" v-if="!loading">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -59,6 +61,7 @@
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import { mapGetters, mapMutations } from "vuex";
 import FertilizerService from '../../services/fertilizer.service';
+import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 
 
@@ -67,10 +70,12 @@ export default {
      components: {
           Catalog,
           TopHeader,
+          Preloader,
      },
      props: ["id"],
      data() {
           return {
+               loading: true,
                fertilizer: {},
                openMenu: {
                     openMenu: false,
@@ -96,6 +101,7 @@ export default {
           ]),
 
           async retrieveFertilizer() {
+               this.loading = true;
                console.log(this.id)
                const [error, respone] = await this.handle(
                     FertilizerService.get(this.fertilizer.Fertilizer_id)
@@ -106,10 +112,12 @@ export default {
                     this.fertilizer = respone.data;
                     console.log(this.fertilizer)
                }
+               if (this.loading) {
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 1000);
+               }
           },
-
-
-
      },
 
      created() {
@@ -133,11 +141,11 @@ export default {
      margin-left: 20px
 }
 
-.fertilizer-content .left-content{
+.fertilizer-content .left-content {
      width: 30%;
 }
 
-.fertilizer-content .right-content{
+.fertilizer-content .right-content {
      width: 70%;
 }
 </style>

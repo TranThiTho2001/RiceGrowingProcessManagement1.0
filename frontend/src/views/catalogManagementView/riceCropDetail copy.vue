@@ -19,7 +19,7 @@
                               </div>
                          </div>
                     </div>
-                    
+
                     <div class="infor row">
                          <div class="riceCropInfor">
                               <div class="row row-riceCropInfor ml-1 mr-2">
@@ -134,7 +134,8 @@
                                    <div class="tableFixHead">
                                         <div class="row" style="margin-left:  0px !important; margin-right:0px !important">
 
-                                             <div class="col-lg-3" v-for="(image, i) in imagesList" :key="i" style="margin-bottom: 8px !important;">
+                                             <div class="col-lg-3" v-for="(image, i) in imagesList" :key="i"
+                                                  style="margin-bottom: 8px !important;">
                                                   <ImageComponent :images="image" @clicked-something="handleClickInParent" />
                                              </div>
                                         </div>
@@ -514,50 +515,53 @@
                          </div>
                     </div>
                     <UpdateRiceCropForm v-if="isOpenUpdateRiceCrop" :seedList="seedList" :newRiceCrop="newRiceCrop"
-                    :arableLandList="arableLandList" @updateRiceCrop-submit="updateRiceCrop" :message1="message1"
-                    :message2="message2" />
+                         :arableLandList="arableLandList" @updateRiceCrop-submit="updateRiceCrop" :message1="message1"
+                         :message2="message2" />
 
-               <CreateFertilizerTimesForm v-if="isOpenCreateFertilizerTimesForm" :weather="weatherInfor"
-                    :newFertilizerTimes="newFertilizerTimes" :fertilizerList="fertilizerList"
-                    :developmentStageList="developmentStageList" :currentUser="currentUser" :riceCropChosen="newRiceCrop"
-                    :arableLandList="arableLandList" @addFertilizerTimes-submit="createFertilizerTimes" :message1="message1"
-                    :message2="message2" />
-               <UpdateFertilizerTimesForm v-if="isOpenUpdateFertilizerTimesForm" :newFertilizerTimes="fertilizerTimesChosen"
-                    :fertilizerList="fertilizerList" :developmentStageList="developmentStageList" :currentUser="currentUser"
-                    :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
-                    @updateFertilizerTimes-submit="updateFertilizerTimes" :message1="message1" :message2="message2" />
+                    <CreateFertilizerTimesForm v-if="isOpenCreateFertilizerTimesForm" :weather="weatherInfor"
+                         :newFertilizerTimes="newFertilizerTimes" :fertilizerList="fertilizerList"
+                         :developmentStageList="developmentStageList" :currentUser="currentUser"
+                         :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
+                         @addFertilizerTimes-submit="createFertilizerTimes" :message1="message1" :message2="message2" />
+                    <UpdateFertilizerTimesForm v-if="isOpenUpdateFertilizerTimesForm"
+                         :newFertilizerTimes="fertilizerTimesChosen" :fertilizerList="fertilizerList"
+                         :developmentStageList="developmentStageList" :currentUser="currentUser"
+                         :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
+                         @updateFertilizerTimes-submit="updateFertilizerTimes" :message1="message1" :message2="message2" />
 
-               <CreateSprayingTimesForm v-if="isOpenCreateSprayingTimesForm" :newSprayingTimes="newSprayingTimes"
-                    :pesticideList="pesticideList" :developmentStageList="developmentStageList" :currentUser="currentUser"
-                    :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
-                    @addSprayingTimes-submit="createNewSprayingTimes" :message1="message1" :message2="message2" />
+                    <CreateSprayingTimesForm v-if="isOpenCreateSprayingTimesForm" :newSprayingTimes="newSprayingTimes"
+                         :pesticideList="pesticideList" :developmentStageList="developmentStageList"
+                         :currentUser="currentUser" :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
+                         @addSprayingTimes-submit="createNewSprayingTimes" :message1="message1" :message2="message2" />
 
-               <UpdateSprayingTimesForm v-if="isOpenUpdateSprayingTimesForm" :newSprayingTimes="sprayingTimesChosen"
-                    :pesticideList="pesticideList" :developmentStageList="developmentStageList" :currentUser="currentUser"
-                    :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
-                    @updateSprayingTimes-submit="updateSprayingTimes" :message1="message1" :message2="message2" />
-               <CreateEpidemicTimesForm v-if="isOpenCreateEpidemicTimesForm" :newEpidemicTimes="newEpidemicTimes"
-                    :epidemicList="epidemicList" :developmentStageList="developmentStageList" :currentUser="currentUser"
-                    :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
-                    @addEpidemicTimes-submit="createEpidemicTimes" :message1="message1" :message2="message2" />
+                    <UpdateSprayingTimesForm v-if="isOpenUpdateSprayingTimesForm" :newSprayingTimes="sprayingTimesChosen"
+                         :pesticideList="pesticideList" :developmentStageList="developmentStageList"
+                         :currentUser="currentUser" :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
+                         @updateSprayingTimes-submit="updateSprayingTimes" :message1="message1" :message2="message2" />
+                    <CreateEpidemicTimesForm v-if="isOpenCreateEpidemicTimesForm" :newEpidemicTimes="newEpidemicTimes"
+                         :epidemicList="epidemicList" :developmentStageList="developmentStageList" :currentUser="currentUser"
+                         :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
+                         @addEpidemicTimes-submit="createEpidemicTimes" :message1="message1" :message2="message2" />
 
-               <UpdateEpidemicTimesForm v-if="isOpenUpdateEpidemicTimesForm" :newEpidemicTimes="epidemicTimesChosen"
-                    :epidemicList="epidemicList" :developmentStageList="developmentStageList" :currentUser="currentUser"
-                    :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
-                    @updateEpidemicTimes-submit="updateEpidemicTimes" :message1="message1" :message2="message2" />
-               <CreateMonitorForm v-if="isOpenCreateMonitorForm" :newMonitor="newMonitor" :employeeList="employeeList"
-                    :newRiceCrop="newRiceCrop" @addMonitor-submit="createNewMonitor" :message1="message1"
-                    :message2="message2" />
+                    <UpdateEpidemicTimesForm v-if="isOpenUpdateEpidemicTimesForm" :newEpidemicTimes="epidemicTimesChosen"
+                         :epidemicList="epidemicList" :developmentStageList="developmentStageList" :currentUser="currentUser"
+                         :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
+                         @updateEpidemicTimes-submit="updateEpidemicTimes" :message1="message1" :message2="message2" />
+                    <CreateMonitorForm v-if="isOpenCreateMonitorForm" :newMonitor="newMonitor" :employeeList="employeeList"
+                         :newRiceCrop="newRiceCrop" @addMonitor-submit="createNewMonitor" :message1="message1"
+                         :message2="message2" />
 
-               <CreateImageForm v-if="isOpenCreateImage" :newImage="newImage" :message1="message1" :message2="message2"
-                    :newRiceCrop="newRiceCrop" @addImage-submit=createNewImage />
+                    <CreateImageForm v-if="isOpenCreateImage" :newImage="newImage" :message1="message1" :message2="message2"
+                         :newRiceCrop="newRiceCrop" @addImage-submit=createNewImage />
 
-               <CreateActivitiiesDetailForm v-if="isOpenCreateActivitiesDetail" :newActivityDetail="newActivityDetail"
-                    :currentUser="currentUser" :developmentStageList="developmentStageList" :riceCropChosen="newRiceCrop"
-                    @addOtherActivityTimes-submit="createNewActivitiesDetail" :message1="message1" :message2="message2" />
-               <UpadteActivitiiesDetailForm v-if="isOpenUpdateActivitiesDetail" :newActivityDetail="activitiesDetailChosen"
-                    :currentUser="currentUser" :developmentStageList="developmentStageList" :riceCropChosen="newRiceCrop"
-                    @updateActivitiesDetail-submit="updateActivitiesDetail" :message1="message1" :message2="message2" />
+                    <CreateActivitiiesDetailForm v-if="isOpenCreateActivitiesDetail" :newActivityDetail="newActivityDetail"
+                         :currentUser="currentUser" :developmentStageList="developmentStageList"
+                         :riceCropChosen="newRiceCrop" @addOtherActivityTimes-submit="createNewActivitiesDetail"
+                         :message1="message1" :message2="message2" />
+                    <UpadteActivitiiesDetailForm v-if="isOpenUpdateActivitiesDetail"
+                         :newActivityDetail="activitiesDetailChosen" :currentUser="currentUser"
+                         :developmentStageList="developmentStageList" :riceCropChosen="newRiceCrop"
+                         @updateActivitiesDetail-submit="updateActivitiesDetail" :message1="message1" :message2="message2" />
                </div>
 
           </div>
@@ -568,43 +572,42 @@
 
 <script >
 
-import UpdateRiceCropForm from '@/components/catalogManagementComponents/updateRiceCropForm.vue';
+import axios from 'axios';
 import moment from 'moment';
+import 'vue3-carousel/dist/carousel.css'
 import { mapGetters, mapMutations } from "vuex";
 import CropService from '@/services/crop.service';
 import SeedService from '@/services/seed.service';
-import ArableLandService from '@/services/arableLand.service';
-import RiceCropService from '@/services/riceCropInformation.service';
-import Catalog from '../../components/catalogManagementComponents/catalog.vue';
-import fertilizerService from '@/services/fertilizer.service';
-import MonitorService from '@/services/monitor.service';
-import developmentStageService from '@/services/developmentStage.service';
-import CreateFertilizerTimesForm from '@/components/catalogManagementComponents/createNewFertilizerTimesForm.vue';
-import PesticideService from '@/services/pesticide.service';
-import EpidemicService from '@/services/epidemic.service';
-import EpidemicTimesService from '@/services/epidemicTimes.service';
-import CreateSprayingTimesForm from '@/components/catalogManagementComponents/createNewSprayingTimesForm.vue';
-import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
-import FertilizerTimesService from '@/services/fertilizerTimes.service';
-import SprayingTimesService from '@/services/sprayingTimes.service';
-import UpdateFertilizerTimesForm from '@/components/catalogManagementComponents/updateFertilizerTimesForm.vue';
-import UpdateSprayingTimesForm from '@/components/catalogManagementComponents/updateSprayingTimesForm.vue';
-import CreateEpidemicTimesForm from '@/components/catalogManagementComponents/createNewEpidemicTimesForm.vue';
-import UpdateEpidemicTimesForm from '@/components/catalogManagementComponents/updateEpidemicTimesForm.vue';
-import EmployeeService from '@/services/employee.service';
-import CreateMonitorForm from '@/components/catalogManagementComponents/createNewMonitorForm.vue';
-// import CreateImageForm from '@/components/catalogManagementComponents/createNewImageForm.vue';
-import CreateImageForm from '@/components/catalogManagementComponents/createImageForm.vue';
 import ImagesService from '@/services/images.service';
-import ImageComponent from '@/components/catalogManagementComponents/imageComponent.vue';
-import 'vue3-carousel/dist/carousel.css'
-// import { Carousel, Slide, Navigation } from 'vue3-carousel';
-import ActivityDetailsService from '@/services/activityDetails.service';
-import UpadteActivitiiesDetailForm from '@/components/catalogManagementComponents/updateActivitiesDetailForm.vue'
-import CreateActivitiiesDetailForm from '@/components/catalogManagementComponents/createNewOtherActivityTimesForm.vue';
-import axios from 'axios';
-import otherActivitiesService from '@/services/otherActivities.service';
+import MonitorService from '@/services/monitor.service';
+import EpidemicService from '@/services/epidemic.service';
+import EmployeeService from '@/services/employee.service';
+import PesticideService from '@/services/pesticide.service';
 import TreatmentService from '@/services/treatment.service';
+import fertilizerService from '@/services/fertilizer.service';
+import ArableLandService from '@/services/arableLand.service';
+import SprayingTimesService from '@/services/sprayingTimes.service';
+import EpidemicTimesService from '@/services/epidemicTimes.service';
+import RiceCropService from '@/services/riceCropInformation.service';
+import ActivityDetailsService from '@/services/activityDetails.service';
+import otherActivitiesService from '@/services/otherActivities.service';
+import FertilizerTimesService from '@/services/fertilizerTimes.service';
+import developmentStageService from '@/services/developmentStage.service';
+import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
+import Catalog from '../../components/catalogManagementComponents/catalog.vue';
+import ImageComponent from '@/components/catalogManagementComponents/imageComponent.vue';
+import CreateImageForm from '@/components/catalogManagementComponents/createImageForm.vue';
+import UpdateRiceCropForm from '@/components/catalogManagementComponents/updateRiceCropForm.vue';
+import CreateMonitorForm from '@/components/catalogManagementComponents/createNewMonitorForm.vue';
+import UpdateSprayingTimesForm from '@/components/catalogManagementComponents/updateSprayingTimesForm.vue';
+import UpdateEpidemicTimesForm from '@/components/catalogManagementComponents/updateEpidemicTimesForm.vue';
+import CreateSprayingTimesForm from '@/components/catalogManagementComponents/createNewSprayingTimesForm.vue';
+import CreateEpidemicTimesForm from '@/components/catalogManagementComponents/createNewEpidemicTimesForm.vue';
+import UpdateFertilizerTimesForm from '@/components/catalogManagementComponents/updateFertilizerTimesForm.vue';
+import UpadteActivitiiesDetailForm from '@/components/catalogManagementComponents/updateActivitiesDetailForm.vue';
+import CreateFertilizerTimesForm from '@/components/catalogManagementComponents/createNewFertilizerTimesForm.vue';
+import CreateActivitiiesDetailForm from '@/components/catalogManagementComponents/createNewOtherActivityTimesForm.vue';
+
 export default {
      name: "riceCropDetail",
 
@@ -625,108 +628,73 @@ export default {
           CreateActivitiiesDetailForm,
           UpadteActivitiiesDetailForm,
           TopHeader,
-          // Carousel,
-          // Slide,
-          // Navigation,
      },
 
      data() {
           return {
-               nameToSearch: "",
-               activitiesList: [],
-               newRiceCrop: {},
-               employeeList: {},
-               newMonitor: {},
-               newOtherActivities: {},
-               newFertilizerTimes: {},
-               newSprayingTimes: {},
-               newEpidemicTimes: {},
-               newOtherActivitiesTimes: {},
-               monitorList: [],
-               cropList: [],
-               seedList: [],
-               pesticideList: [],
-               arableLandList: [],
-               developmentStageList: [],
-               fertilizerTimesList: [],
-               SprayingTimesList: [],
-               epidemicList: [],
-               epidemicTimesList: [],
-               riceCropList: [],
-               imagesList: [],
-               otherActivitiesList: [],
-               activitiesDetailList: [],
+               idImage: 0,  
+               delete: "",
+               message: "",
                message1: "",
                message2: "",
-               isOpenTableFertilizerTimes: true,
-               isOpenTableSprayingTimes: false,
-               isOpenTableOtherActivitiesTimes: false,
-               isOpenTableEpidemicTimes: false,
-               isOpenTableMonitor: false,
-               isOpenImage: false,
-               isOpenCreateImage: false,
+               cropList: [],
+               seedList: [],
                newImage: {},
-               isOpenCreateFertilizerTimesForm: false,
-               isOpenUpdateFertilizerTimesForm: false,
-               fertilizerTimesChosen: {},
-               isOpenCreateSprayingTimesForm: false,
-               isOpenUpdateSprayingTimesForm: false,
-               sprayingTimesChosen: {},
-               isOpenCreateEpidemicTimesForm: false,
-               isOpenUpdateEpidemicTimesForm: false,
-               epidemicTimesChosen: {},
-               isOpenCreateMonitorForm: false,
-               newActivityDetail: {},
-               isOpenCreateActivitiesDetail: false,
-               isOpenUpdateActivitiesDetail: false,
-               activitiesDetailChosen: {},
-               delete: "",
+               newMonitor: {},
+               imagesList: [],
+               newRiceCrop: {},
+               employeeList: {},
+               nameToSearch: "",
+               monitorList: [],
+               riceCropList: [],
+               epidemicList: [],
+               weatherInfor: {},
+               treatmentList: [],
+               monitorChosen: {},
+               pesticideList: [],
+               cloneImageList: [],
+               activitiesList: [],
+               arableLandList: [],
+               isOpenImage: false,
                isOpenConfirm: false,
                isOpenMessage: false,
+               newSprayingTimes: {},
+               newEpidemicTimes: {},
+               cloneMonitorList: [],
+               newActivityDetail: {},              
+               SprayingTimesList: [],
+               epidemicTimesList: [],
+               newOtherActivities: {},
+               newFertilizerTimes: {},
+               sprayingTimesChosen: {},
+               epidemicTimesChosen: {},             
+               fertilizerTimesList: [],
+               otherActivitiesList: [],
+               developmentStageList: [],
+               activitiesDetailList: [],
+               isOpenCreateImage: false,
+               isOpenTableMonitor: false,
+                fertilizerTimesChosen: {},
+               activitiesDetailChosen: {},
+               cloneSprayingTimesList: [],
+               cloneEpidemicTimesList: [],
+               newOtherActivitiesTimes: {},
                isOpenUpdateRiceCrop: false,
-               message: "",
-               monitorChosen: {},
-               idImage: 0,
-               settings: {
-                    itemsToShow: 1,
-                    snapAlign: 'center',
-
-               },
-               breakpoints: {
-                    500: {
-                         itemsToShow: 2,
-                         snapAlign: 'left',
-                    },
-                    800: {
-                         itemsToShow: 3,
-                         snapAlign: 'left',
-                    },
-
-                    // 700px and up
-                    1000: {
-                         itemsToShow: 4.5,
-                         snapAlign: 'left',
-                    },
-                    1200: {
-                         itemsToShow: 5,
-                         snapAlign: 'left',
-                    },
-                    // 1024 and up
-                    1400: {
-                         itemsToShow: 5.5,
-                         snapAlign: 'start',
-                    },
-                    1500: {
-                         itemsToShow: 4,
-                         snapAlign: 'start',
-                    },
-                    1600: {
-                         itemsToShow: 8,
-                         snapAlign: 'start',
-                    },
-
-               },
-
+               cloneActivityDetailList: [],
+               cloneFertilizerTimesList: [],
+               isOpenCreateMonitorForm: false,
+               isOpenTableSprayingTimes: false,
+               isOpenTableEpidemicTimes: false,
+               isOpenTableFertilizerTimes: true,
+               isOpenCreateActivitiesDetail: false,
+               isOpenUpdateActivitiesDetail: false,
+               isOpenCreateEpidemicTimesForm: false,
+               isOpenUpdateEpidemicTimesForm: false,
+               isOpenCreateSprayingTimesForm: false,
+               isOpenUpdateSprayingTimesForm: false,
+               isOpenTableOtherActivitiesTimes: false,
+               isOpenCreateFertilizerTimesForm: false,
+               isOpenUpdateFertilizerTimesForm: false,
                stylebac: {
                     active: true,
                     none: false,
@@ -737,19 +705,11 @@ export default {
                     close: true,
                },
 
-               cloneFertilizerTimesList: [],
-               cloneSprayingTimesList: [],
-               cloneEpidemicTimesList: [],
-               cloneMonitorList: [],
-               cloneActivityDetailList: [],
-               cloneImageList: [],
-               treatmentList: [],
                openMenu: {
                     openMenu: false,
                     isOpenMenuIcon: true,
                     isCloseMenu: false,
                },
-               weatherInfor: {},
           }
      },
 
@@ -1742,7 +1702,7 @@ export default {
                     }
                }
           },
-          
+
           async retrieveImagesList() {
                const [error, response] = await this.handle(
                     ImagesService.findByName(this.newRiceCrop.RiceCropInformation_id)

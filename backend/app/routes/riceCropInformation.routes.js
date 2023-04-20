@@ -13,6 +13,8 @@ module.exports = (app) => {
      //find by employee and name ricecrop
      router.get("/findbynameandemployee/:name/:Employee_id", riceCropInformation.findbyEmployeeAndRiceCrop)
 
+     router.get("/findRiceCropHarvested/find", riceCropInformation.findRiceCropHarvested)
+
      // Store 
      router.post("/", riceCropInformation.store);
 

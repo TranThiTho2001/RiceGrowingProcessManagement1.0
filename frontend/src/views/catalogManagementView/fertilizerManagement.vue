@@ -1,6 +1,8 @@
 <template>
      <div class="container-fluid fertilizerManagement pr-4 " style="background-color: #EAEAEA; height: max-content;">
-          <div class="row fertilizerManagementFrame" style="height: 100vmin;">
+          <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
+          <Preloader color="red" scale="0.4" /></div>
+          <div class="row fertilizerManagementFrame" style="height: 100vmin;" v-if="!loading">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -54,9 +56,7 @@
                                         </tr>
                                    </thead>
                                    <tbody>
-                                        <tr v-for="(fertilizer, i ) in fertilizerList" :key="i"
-                                             @click="goToFertilizerDetail(fertilizer.Fertilizer_id)" class="">
-
+                                        <tr v-for="(fertilizer, i ) in fertilizerList" :key="i" class="">
                                              <td data-label="STT" class="centerclass">{{ i + 1 }}</td>
                                              <td data-label="Mã">{{ fertilizer.Fertilizer_id }}</td>
                                              <td data-label="Tên">{{ fertilizer.Fertilizer_name }}</td>
@@ -123,14 +123,17 @@
 
 <script>
 
-import Catalog from '../../components/catalogManagementComponents/catalog.vue';
+
 import { mapGetters, mapMutations } from "vuex";
-import FertilizerService from '../../services/fertilizer.service';
-import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
-import CreateFertilizerForm from '@/components/catalogManagementComponents/createNewFertilizerForm.vue';
-import UpdateFertilizerForm from '@/components/catalogManagementComponents/updateFertilizerForm.vue';
+
 import ContainService from '@/services/contain.service';
 import NutrientService from '@/services/nutrient.service';
+import FertilizerService from '../../services/fertilizer.service';
+import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
+import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
+import Catalog from '../../components/catalogManagementComponents/catalog.vue';
+import UpdateFertilizerForm from '@/components/catalogManagementComponents/updateFertilizerForm.vue';
+import CreateFertilizerForm from '@/components/catalogManagementComponents/createNewFertilizerForm.vue';
 
 class Fertilizer {
      constructor(fertilizer) {
@@ -144,30 +147,35 @@ export default {
      components: {
           Catalog,
           TopHeader,
+          Preloader,
           CreateFertilizerForm,
           UpdateFertilizerForm,
      },
 
      data() {
           return {
-               fertilizerList: [],
-               openCreate: false,
-               newFertilizer: {},
+               message: "",
+               loading: true,
                message1: " ",
                message2: " ",
+               nameToSearch: "",
+               nutrientList: [],
+               openCreate: false,
+               newFertilizer: {},
+               fertilizerList: [],
+               isOpenInput2: false,
+               isOpenInput1: false,
                isOpenMessage: false,
                isOpenConfirm: false,
                fertilizerChosen: {},
+               cloneFertilizerList: [],
                isOpenUpdateFertilizer: false,
-               nameToSearch: "",
-               message: "",
-               isOpenInput2: false,
-               isOpenInput1: false,
+
                isOpenSearch: {
                     open: false,
                     close: true,
                },
-               cloneFertilizerList: [],
+
                openMenu: {
                     openMenu: false,
                     isOpenMenuIcon: true,
@@ -178,7 +186,6 @@ export default {
                     rightActive: false,
                     leftnNoneActive: false,
                },
-               nutrientList:[],
           }
      },
 
@@ -208,6 +215,7 @@ export default {
           },
 
           async retrieveFertilizerList() {
+               this.loading = true;
                const [err, respone] = await this.handle(
                     FertilizerService.getAll()
                );
@@ -253,7 +261,11 @@ export default {
                          this.newFertilizer.Contain[i].Contain_percent = '0';
                          i++;
                     });
-                    console.log(this.newFertilizer.Contain);
+               }
+               if (this.loading) {
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 1000);
                }
           },
 
@@ -292,7 +304,7 @@ export default {
                          this.message2 = "Thêm thành công.";
                          this.newFertilizer = {}
                          this.retrieveFertilizerList();
-                        data.Contain.forEach(contain => {
+                         data.Contain.forEach(contain => {
                               contain.Fertilizer_id = data.Fertilizer_id;
                               this.createContain(contain);
                          });
@@ -300,16 +312,16 @@ export default {
                }
           },
 
-          async createContain(contain){
+          async createContain(contain) {
                const [error, respone] = await this.handle(
-                         ContainService.create(contain)
-                    );
-                    if (error) {
-                         console.log(error);
-                    } else {
-                         this.retrieveFertilizerList();
-                         console.log(respone.data)
-                    }
+                    ContainService.create(contain)
+               );
+               if (error) {
+                    console.log(error);
+               } else {
+                    this.retrieveFertilizerList();
+                    console.log(respone.data)
+               }
           },
 
           async updateFertilizer(data) {
@@ -391,4 +403,5 @@ export default {
 <style>
 @import url(../../assets/fertilizerStyle.css);
 
-@import url(../../assets/mainStyle.css);</style>
+@import url(../../assets/mainStyle.css);
+</style>

@@ -1,6 +1,8 @@
 <template>
      <div class="container-fluid activitiesManagement pr-4" style="background-color: #EAEAEA;height: max-content;">
-          <div class="row activitiesManagementFrame">
+          <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
+          <Preloader color="red" scale="0.4" /></div>
+          <div class="row activitiesManagementFrame" v-if="!loading">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -22,27 +24,25 @@
                     </div>
 
                     <div class="row row-inputSearch">
-                                   <input type="text" class="form-control inputSearch1" placeholder="Tìm"
-                                        v-model="nameToSearch" @click="retrieveOtherActivities, isOpenInput1 = true"
-                                        @keyup.enter="searchName(nameToSearch), away()"
-                                        @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                                   <button class="btnSearch1" @click="searchName(nameToSearch), away()">
-                                        <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                                   </button>
+                         <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
+                              @click="retrieveOtherActivities, isOpenInput1 = true"
+                              @keyup.enter="searchName(nameToSearch), away()"
+                              @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                         <button class="btnSearch1" @click="searchName(nameToSearch), away()">
+                              <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                         </button>
 
 
-                                   <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
-                                        <p class="item" v-for="activity in filteredList()"
-                                             :key="activity.OtherActivities_name"
-                                             @click="searchName(activity.OtherActivities_name), away()">
-                                             {{ activity.OtherActivities_name }}</p>
-                                   </div>
-                             
-                         
-                              <button class="btn btnCreate"
-                                   @click="isOpenCreateOtherActivities = !isOpenCreateOtherActivities"><i
-                                        class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm hoạt động</button>
-                        
+                         <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                              <p class="item" v-for="activity in filteredList()" :key="activity.OtherActivities_name"
+                                   @click="searchName(activity.OtherActivities_name), away()">
+                                   {{ activity.OtherActivities_name }}</p>
+                         </div>
+
+
+                         <button class="btn btnCreate" @click="isOpenCreateOtherActivities = !isOpenCreateOtherActivities"><i
+                                   class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm hoạt động</button>
+
                     </div>
                     <div class="scrollTable">
                          <div class="scrollTable-content">
@@ -64,26 +64,26 @@
                                              <td data-label="Số lần được thực hiệnSTT">{{ activity.Times.length }}</td>
 
                                              <td data-label="Tùy chọn" style="padding: 2px ;">
-                                                  <button type="button" class="btn btn-sm btnMore option1" data-toggle="dropdown"
-                                                       aria-haspopup="true" aria-expanded="false">
+                                                  <button type="button" class="btn btn-sm btnMore option1"
+                                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                        <i class="fas fa-ellipsis-v"></i>
                                                   </button>
                                                   <div class="dropdown-menu option1">
                                                        <a class="dropdown-item action"
-                                                       @click="setActivityChoosen(activity), isOpenUpdateActivities = !isOpenUpdateActivities">
+                                                            @click="setActivityChoosen(activity), isOpenUpdateActivities = !isOpenUpdateActivities">
                                                             <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                                        </a>
                                                        <a class="dropdown-item" href="#"
-                                                       @click="setActivityChoosen(activity), isOpenConfirm = !isOpenConfirm">
+                                                            @click="setActivityChoosen(activity), isOpenConfirm = !isOpenConfirm">
                                                             <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                        </a>
                                                   </div>
                                                   <div class="option2">
                                                        <button class="btn btnMore"
-                                                       @click="setActivityChoosen(activity), isOpenUpdateActivities = !isOpenUpdateActivities">
+                                                            @click="setActivityChoosen(activity), isOpenUpdateActivities = !isOpenUpdateActivities">
                                                             <span class="fas fa-edit actionIcon"></span> Chỉnh sửa</button>
                                                        <button class="btn btnMore"
-                                                       @click="setActivityChoosen(activity), isOpenConfirm = !isOpenConfirm">
+                                                            @click="setActivityChoosen(activity), isOpenConfirm = !isOpenConfirm">
                                                             <span class="fas fa-trash-alt actionIcon"></span> Xóa</button>
                                                   </div>
                                              </td>
@@ -130,10 +130,12 @@
 
 <script>
 
-import Catalog from '../../components/catalogManagementComponents/catalog.vue';
+
 import { mapGetters, mapMutations } from "vuex";
-import OtherActivitiesService from '@/services/otherActivities.service';
 import ActivityDetailsService from '@/services/activityDetails.service';
+import OtherActivitiesService from '@/services/otherActivities.service';
+import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
+import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import UpdateOtherActivityForm from '@/components/catalogManagementComponents/updateOtherActvitiesForm.vue'
 import CreateOtherActivityForm from '@/components/catalogManagementComponents/createNewOtherActivities.vue';
@@ -143,42 +145,42 @@ export default {
      components: {
           Catalog,
           TopHeader,
+          Preloader,
           CreateOtherActivityForm,
           UpdateOtherActivityForm,
      },
 
      data() {
           return {
-               activitiesList: [],
-               isOpenCreateOtherActivities: false,
-               newOtherActivities: {},
+               loading: true,
+               loaded: false,
                message1: " ",
                message2: " ",
+               message: "",
+               nameToSearch: "",
+               isOpenInput2: false,
+               isOpenInput1: false,
                isOpenMessage: false,
                isOpenConfirm: false,
                activityChosen: {},
+               activitiesList: [],
+               newOtherActivities: {},
+               cloneActivitiesList: [],
                isOpenUpdateActivities: false,
-               nameToSearch: "",
-               message: "",
-               isOpenInput2: false,
-               isOpenInput1: false,
+               isOpenCreateOtherActivities: false,
                isOpenSearch: {
                     open: false,
                     close: true,
                },
-               cloneActivitiesList: [],
                openMenu: {
                     openMenu: false,
                     isOpenMenuIcon: true,
                     isCloseMenu: false,
                },
-
                active: {
                     rightActive: false,
                     leftnNoneActive: false,
                },
-
-               loaded: false,
           }
      },
 
@@ -218,6 +220,7 @@ export default {
           },
 
           async retrieveOtherActivities() {
+               this.loading = true;
                this.loaded = false;
                const [err, respone] = await this.handle(
                     OtherActivitiesService.getAll()
@@ -260,6 +263,12 @@ export default {
 
                }
                this.loaded = true;
+               if (this.loading==true) {
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 1000);
+               }
+              
           },
 
           async findActivityTimes(activityId, position) {
@@ -332,11 +341,11 @@ export default {
                if (error) {
                     console.log(error);
                     this.message = "Xóa hoạt động không thành công";
-               } else if(response.data == "Lỗi trong quá trình xóa hoạt động!!"){
+               } else if (response.data == "Lỗi trong quá trình xóa hoạt động!!") {
                     this.message = "Xóa hoạt động không thành công";
                     console.log(response.data)
                }
-               else{
+               else {
                     this.message = "Xóa hoạt động thành công";
                     this.retrieveOtherActivities();
                     console.log(response.data);

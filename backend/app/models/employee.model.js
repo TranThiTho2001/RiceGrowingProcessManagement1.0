@@ -40,7 +40,25 @@ Employee.findById = (id, result) => {
         result({ kind: "not_found" }, null);
     });
 };
+
 Employee.getAll = (name, result) => {
+    let query = "SELECT * FROM Employee  JOIN Role on Role.Role_id = Employee.Role_id";
+    if(name) {
+        query += ` Where Employee_name LIKE '%${name}%'`;
+    }
+    query += " Order By Employee.Employee_id";
+    sql.query(query, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+        }
+        result(null, res);
+    });
+};
+
+
+Employee.getPartial  = (name, result) => {
     let query = "SELECT * FROM Employee  JOIN Role on Role.Role_id = Employee.Role_id Where Employee.Role_id = '02' OR Employee.Role_id = '03'";
     if(name) {
         query += ` And Employee_name LIKE '%${name}%'`;

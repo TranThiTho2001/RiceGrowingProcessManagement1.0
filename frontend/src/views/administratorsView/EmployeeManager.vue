@@ -1,6 +1,9 @@
 <template>
      <div class="EmployeeManagerFrame container-fluid pr-4" style="background-color: #EAEAEA;height: max-content;">
-          <div class="row EmployeeManager" style="height: 100vmin;">
+          <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
+               <Preloader color="red" scale="0.4" />
+          </div>
+          <div v-if="!loading" class="row EmployeeManager" style="height: 100vmin;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -10,53 +13,42 @@
                </div>
 
                <div class="right rightEmployeeManager">
-                    <div class="row pt-3 mb-5 pb-1 topRight" style="margin-left: 20px; margin-right: 10px;">
+                    <div class="mb-4  pt-2 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
-                              <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Nhân viên</h3>
+                              <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Nhân Viên</h3>
                          </div>
 
-                         <div class="">
-                              <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
-                                   @click="retrieveEmployeeList, isOpenInput1 = true"
-                                   @keyup.enter="searchName(nameToSearch), away()"
-                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                              <button class="btnSearch1" @click="searchName(nameToSearch), away()"
-                                   v-if="nameToSearch == '' && !isOpenSearch.open">
-                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                              </button>
-
-                              <input v-if="isOpenInput2 || (isOpenSearch.open)" autofocus type="text"
-                                   class="form-control inputSearch2" placeholder="Tìm" style="width: 2%;"
-                                   v-model="nameToSearch" @click="retrieveEmployeeList"
-                                   @keyup.enter="searchName(nameToSearch), away()"
-                                   @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
-                              <button class="btnSearch2" @click="isOpenInput2 = !isOpenInput2">
-                                   <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
-                              </button>
-                              <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
-                                   <p class="item" v-for="employee in filteredList()" :key="employee.Employee_id"
-                                        @click="searchName(employee.Employee_name)">
-                                        {{ employee.Employee_name }}</p>
-                              </div>
-                         </div>
-
-                         <div class="text-right">
+                         <div class="text-right mt-3">
                               <div class="row">
                                    <TopHeader />
                               </div>
                          </div>
                     </div>
+                    <div class="row row-inputSearch">
+                         <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
+                              @click="retrieveEmployeeList, isOpenInput1 = true"
+                              @keyup.enter="searchName(nameToSearch), away()"
+                              @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                         <button class="btnSearch1" @click="searchName(nameToSearch), away()">
+                              <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                         </button>
 
-                    <div class="row ml-4 mr-1 mt-3 pb-4 pt-2">
-                         <div class="col-sm-12 text-right">
-                              <button class="btn btnCreate"
-                                   @click="retrieveRoleList(), isOpenCreateEmployeeForm = !isOpenCreateEmployeeForm">
-                                   <i class="fas fa-plus-circle"></i>Thêm Nhân Viên</button>
+
+                         <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                              <p class="item" v-for="employee in filteredList()" :key="employee.Employee_id"
+                                   @click="searchName(employee.Employee_name)">
+                                   {{ employee.Employee_name }}</p>
                          </div>
+
+
+                         <button class="btn btnCreate" @click="isOpenCreateEmployeeForm = !isOpenCreateEmployeeForm, retrieveRoleList()"><i
+                                   class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm nhân viên</button>
+
                     </div>
 
-                    <div class=" row scrollTable">
-                         <div class="col-sm-12 justify-content-center">
+
+                    <div class="scrollTable">
+                         <div class="scrollTable-content">
                               <table class="table employeeList">
                                    <thead>
                                         <tr>
@@ -375,7 +367,7 @@ export default {
                     });
                     if (this.employeeList.length == 0) {
                          const [error, response] = await this.handle(
-                              employeeService.findByName(this.nameToSearch));
+                              employeeService.findByNameofAll(this.nameToSearch));
                          if (error) {
                               console.log(error);
                          } else {

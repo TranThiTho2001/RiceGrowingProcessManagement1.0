@@ -63,11 +63,11 @@
 
 .btnLuu {
      background: #008B8E !important;
-     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)  !important;
-     color: #FFFED8  !important;
+     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+     color: #FFFED8 !important;
      font-family: 'Roboto';
      font-style: normal;
-     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)  !important;
+     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
      font-size: 20px;
      text-align: center;
      border-radius: 10px !important;
@@ -263,7 +263,9 @@ html {
 
 .form {
      z-index: 12 !important;
-     background-color: #dbdbdb;
+     background: linear-gradient(135.44deg, rgba(217, 217, 217, 0.4) 15.43%, rgba(217, 217, 217, 0.1) 79.67%);
+     box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3);
+     backdrop-filter: blur(37.5px);
 }
 
 @media only screen and (max-width: 990px) {
@@ -713,7 +715,8 @@ html {
      filter: none;
 }
 
-input[type=radio] {
+.StatisticalManagement input[type=radio],
+.statisticsByRiceCrop input[type=radio] {
      appearance: none;
      background: #E4E5EB;
      border: 1px solid #FAFAFC;
@@ -728,13 +731,16 @@ input[type=radio] {
      top: 4px;
 }
 
-input[type=radio]:checked {
+.StatisticalManagement input[type=radio]:checked,
+.statisticsByRiceCrop input[type=radio]:checked  {
      background: #FFFA37;
      box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.25);
 }
 
-.dropdown-menu{
+.riceCropDetail .dropdown-menu,
+.predictiveManagement .dropdown-menu,
+.predictiveDetailManagement .dropdown-menu {
      position: absolute;
      right: -100% !important;
      transform: translate3d(-150px, 20px, 100px) !important;
- }
+}

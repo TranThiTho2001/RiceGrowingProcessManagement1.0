@@ -1,6 +1,8 @@
 <template>
      <div class="container-fluid statisticsByRiceCrop pr-4" style="background-color: #EAEAEA; height: 100vmin;">
-          <div class="row statisticsByRiceCropFrame" style="height: 100vmin;">
+          <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
+          <Preloader color="red" scale="0.4" /></div>
+          <div class="row statisticsByRiceCropFrame" style="height: 100vmin;" v-if="!loading">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -308,23 +310,25 @@
 
 <script type="text/javascript">
 
-import Catalog from '../../components/catalogManagementComponents/catalog.vue';
-import { mapGetters, mapMutations } from "vuex";
-import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
-import RiceCropInformationService from '@/services/riceCropInformation.service';
-import ArableLandService from '@/services/arableLand.service';
-import CropService from '@/services/crop.service';
-import SeedService from '@/services/seed.service';
-import EpidemicTimesService from '@/services/epidemicTimes.service';
-import EpidemicService from '@/services/epidemic.service';
-import FertilizerService from '@/services/fertilizer.service';
-import FertilizerTimesService from '@/services/fertilizerTimes.service';
-import PesticideService from '@/services/pesticide.service';
-import ActivityDetailsService from '@/services/activityDetails.service';
-import OtherActivitiesService from '@/services/otherActivities.service';
-import SprayingTimesService from '@/services/sprayingTimes.service';
 import moment from 'moment';
 import VueApexCharts from "vue3-apexcharts";
+import { mapGetters, mapMutations } from "vuex";
+import CropService from '@/services/crop.service';
+import SeedService from '@/services/seed.service';
+import EpidemicService from '@/services/epidemic.service';
+import PesticideService from '@/services/pesticide.service';
+import FertilizerService from '@/services/fertilizer.service';
+import ArableLandService from '@/services/arableLand.service';
+import SprayingTimesService from '@/services/sprayingTimes.service';
+import EpidemicTimesService from '@/services/epidemicTimes.service';
+import FertilizerTimesService from '@/services/fertilizerTimes.service';
+import ActivityDetailsService from '@/services/activityDetails.service';
+import OtherActivitiesService from '@/services/otherActivities.service';
+import Catalog from '../../components/catalogManagementComponents/catalog.vue';
+import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
+import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
+import RiceCropInformationService from '@/services/riceCropInformation.service';
+
 // import vue3html2pdf from 'vue3-html2pdf'
 // import riceCropReport from '@/components/report/RiceCropReport.vue'
 
@@ -333,6 +337,7 @@ export default {
      components: {
           Catalog,
           TopHeader,
+          Preloader,
           apexchart: VueApexCharts,
           // vue3html2pdf,
           // riceCropReport,
@@ -342,6 +347,7 @@ export default {
 
      data() {
           return {
+               loading: true,
                htmlToPdfOptions: {
                     margin: 10,
 
@@ -529,6 +535,7 @@ export default {
                }
           },
           async retrieveRiceCropList() {
+               this.loading = true;
                const [err, respone] = await this.handle(
                     RiceCropInformationService.getAll()
                );
@@ -549,6 +556,11 @@ export default {
                          }
                     });
                     this.bubbleSort();
+               }
+               if(this.loading){
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 1000);
                }
           },
 

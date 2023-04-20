@@ -1,7 +1,8 @@
 <template>
      <div class="container-fluid riceCropDetail" style="background-color:#EAEAEA;">
-          <Preloader color="red" scale="0.4" v-if="loading && !loading" />
-          <div class="row riceCropDetailFrame" style="height: max-content;">
+          <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
+          <Preloader color="red" scale="0.4" /></div>
+          <div class="row riceCropDetailFrame" style="height: max-content;" v-if="!loading">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -297,7 +298,7 @@ export default {
                if (this.loading == true) {
                     setTimeout(() => {
                          this.loading = false;
-                    }, 2000);
+                    }, 1000);
                }
           },
 

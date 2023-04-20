@@ -35,7 +35,16 @@ exports.findAll = async (req, res) => {
         else res.send(data);
 
     });
+};
 
+exports.findPartial = async (req, res) => {
+    const name = req.query.name;
+    Employee.getPartial(name, (err, data) => {
+        if (err)
+            res.send("Đã xảy ra lỗi trong quá trình tìm kiếm")
+        else res.send(data);
+
+    });
 };
 
 exports.find = async (req, res) => {

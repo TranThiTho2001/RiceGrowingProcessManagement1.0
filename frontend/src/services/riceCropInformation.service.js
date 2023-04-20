@@ -19,6 +19,8 @@ class RiceCropInformationService {
      update(id, data) { return http.put(`/riceCropInformation/${id}`, data); }
      delete(id) { return http.delete(`/riceCropInformation/${id}`); }
      findByName(name) { return http.get(`/riceCropInformation?name=${name}`); }
+     findRiceCropHarvested() {return http.get(`/riceCropInformation/findRiceCropHarvested/find`); }
+     
 }
 
 export default new RiceCropInformationService();

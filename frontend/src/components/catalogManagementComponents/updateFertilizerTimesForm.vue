@@ -3,9 +3,9 @@
           :validation-schema="schema" class="form container-fluid updateFertilizerTimesForm">
           <div class="row">
                <div class="col-sm-12 text-right">
-                    <i class="fas fa-times"
+                    <i class="fas fa-times-circle"
                          @click="newfertilizertimes.close = false, $emit('updateFertilizerTimes-submit', newfertilizertimes)"
-                         style="font-size: 25px; "></i>
+                         style="font-size: 25px; padding-top:10px; color:#FAFAFC"></i>
                </div>
           </div>
           <div class="row">
@@ -45,7 +45,7 @@
                     <div class="form-group ">
                          <label for="fertilizer" class="mt-3 pt-1">Loại phân<span style="color:red">*</span></label>
                          <Field name="fertilizer" v-model="newfertilizertimes.Fertilizer_name">
-                              <select class="form-control" v-model="newfertilizertimes.Fertilizer_name" name="classtify"
+                              <select class="form-control" v-model="newfertilizertimes.Fertilizer_name" name="classtify" disabled
                                    for="classtify">
                                    <option v-for="(fertilizer, i) in fertilizerList" :key="i">{{ fertilizer.Fertilizer_name
                                    }}
@@ -55,15 +55,8 @@
                          </Field>
                          <ErrorMessage name="fertilizer" class="error-feedback" />
                     </div>
-
-                    <div class="form-group">
-                         <label for="amount" class="mt-1">Số lượng(kg/ha)<span style="color:red">*</span></label>
-                         <Field name="amount" class="form-control" v-model="newfertilizertimes.FertilizerTimes_amount"
-                              placeholder="Nhập số lượng phân đã bón..." />
-                         <ErrorMessage name="amount" class="error-feedback" />
-                    </div>
-
                </div>
+
                <div class="col-sm-6">
                     <div class="form-group ">
                          <label for="times" class="mt-1 pt-1">Lần<span style="color:red">*</span></label>
@@ -75,7 +68,7 @@
                     <div class="form-group">
                          <label for="developmentid" class="mt-3">Giai đoạn phát triển<span style="color:red">*</span></label>
                          <Field name="developmentid" class="form-control" v-model="newfertilizertimes.DevelopmentStage_name">
-                              <select class="form-control" v-model="newfertilizertimes.DevelopmentStage_name"
+                              <select class="form-control" v-model="newfertilizertimes.DevelopmentStage_name" 
                                    name="developmentid" for="developmentid">
                                    <option v-for="(developmentStage, i) in developmentStageList" :key="i">
                                         {{ developmentStage.DevelopmentStage_name }}
@@ -95,7 +88,12 @@
                          </Field>
                          <ErrorMessage name="end" class="error-feedback" />
                     </div>
-
+                    <div class="form-group">
+                         <label for="amount" class="mt-4">Số lượng(kg/ha)<span style="color:red">*</span></label>
+                         <Field name="amount" class="form-control" v-model="newfertilizertimes.FertilizerTimes_amount"
+                              placeholder="Nhập số lượng phân đã bón..." />
+                         <ErrorMessage name="amount" class="error-feedback" />
+                    </div>
                     <!-- <div class="form-group ">
                          <label for="humidity" class="mt-3 pt-1">Độ ẩm</label>
                          <Field name="humidity" class="form-control" v-model="newfertilizertimes.FertilizerTimes_humidity"
@@ -373,7 +371,7 @@ export default {
 .dp__theme_light {
      --dp-background-color: #FAFAFC;
      --dp-border-radius: 10px;
-     --dp-text-color: #212121;
+     --dp-text-color: #2F3033;
      --dp-hover-color: #f3f3f3;
      --dp-hover-text-color: #212121;
      --dp-hover-icon-color: #959595;
@@ -395,17 +393,20 @@ export default {
      --dp-tooltip-color: #fafafa;
      --dp-disabled-color-text: #8e8e8e;
      --dp-highlight-color: rgb(25 118 210 / 10%);
-
 }
 
 .dp__input {
      background-color: var(--dp-background-color);
-     border-radius: 12px;
-     font-family: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen, ubuntu, cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+     border-radius: 10px !important;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-size: 18px;
+     font-weight: 500;
      border: 1px solid var(--dp-border-color);
      outline: none;
      transition: border-color .2s cubic-bezier(0.645, 0.045, 0.355, 1);
      width: 100%;
+     height: 80%;
      font-size: 1rem;
      line-height: 1.5rem;
      padding: 6px 12px;

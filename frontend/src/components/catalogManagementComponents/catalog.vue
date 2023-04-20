@@ -46,7 +46,7 @@
                     <div class="row mt-1 ml-2" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
                          <button class="btn pl-3 pr-5 btn-sm btn-outline-secondary btnCatalog"
                               @click="isOpenCatalog = !isOpenCatalog"><i class="fas fa-caret-down"
-                                   style="font-size: 24px;">&nbsp;</i> Danh
+                                   style="font-size: 24px;">&nbsp;</i> Quản Lý Danh
                               Mục</button>
                     </div>
                     <div class="catalog" v-if="isOpenCatalog">

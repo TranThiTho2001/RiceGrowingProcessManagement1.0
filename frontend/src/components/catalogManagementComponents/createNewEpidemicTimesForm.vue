@@ -3,9 +3,9 @@
           :validation-schema="schema" class="form container-fluid createEpidemicTimesForm">
           <div class="row">
                <div class="col-sm-12 text-right">
-                    <i class="fas fa-times"
+                    <i class="fas fa-times-circle"
                          @click="newepidemictimes.close = false, $emit('addEpidemicTimes-submit', newepidemictimes)"
-                         style="font-size: 25px; "></i>
+                         style="font-size: 25px; padding-top:10px; color:#FAFAFC"></i>
                </div>
           </div>
 
@@ -364,7 +364,7 @@ export default {
 .dp__theme_light {
      --dp-background-color: #FAFAFC;
      --dp-border-radius: 10px;
-     --dp-text-color: #212121;
+     --dp-text-color: #2F3033;
      --dp-hover-color: #f3f3f3;
      --dp-hover-text-color: #212121;
      --dp-hover-icon-color: #959595;
@@ -386,21 +386,25 @@ export default {
      --dp-tooltip-color: #fafafa;
      --dp-disabled-color-text: #8e8e8e;
      --dp-highlight-color: rgb(25 118 210 / 10%);
-
 }
 
 .dp__input {
      background-color: var(--dp-background-color);
-     border-radius: 10px;
-     font-family: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen, ubuntu, cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+     border-radius: 10px !important;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-size: 18px;
+     font-weight: 500;
      border: 1px solid var(--dp-border-color);
      outline: none;
      transition: border-color .2s cubic-bezier(0.645, 0.045, 0.355, 1);
      width: 100%;
+     height: 80%;
      font-size: 1rem;
      line-height: 1.5rem;
      padding: 6px 12px;
      color: var(--dp-text-color);
      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
      box-sizing: border-box;
-}</style>
+}
+</style>

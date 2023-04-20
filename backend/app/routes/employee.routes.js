@@ -8,6 +8,9 @@ module.exports = (app) => {
      router.get("/", employee.findAll);
      
      router.get("/:id", employee.find)
+
+     router.get("/find/findPartial", employee.findPartial)
+
      // Store 
      router.post("/", employee.store);
      // Update  with id

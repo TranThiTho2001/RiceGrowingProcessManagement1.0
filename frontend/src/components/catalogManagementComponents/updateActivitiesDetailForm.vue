@@ -3,9 +3,9 @@
           :validation-schema="schema" class="form container-fluid updateActivityDetailForm">
           <div class="row">
                <div class="col-sm-12 text-right">
-                    <i class="fas fa-times"
+                    <i class="fas fa-times-circle"
                          @click="newactivitiesDetail.close = false, $emit('updateActivitiesDetail-submit', newactivitiesDetail)"
-                         style="font-size: 25px; "></i>
+                         style="font-size: 25px; padding-top:10px; color:#FAFAFC"></i>
                </div>
           </div>
           <div class="row">

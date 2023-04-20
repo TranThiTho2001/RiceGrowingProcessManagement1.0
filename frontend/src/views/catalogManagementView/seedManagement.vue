@@ -1,6 +1,8 @@
 <template>
      <div class="container-fluid seedManagement pr-4 " style="background-color: #EAEAEA; height: 100%;">
-          <div class="row seedManagementFrame" style="height: 100%;">
+          <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
+          <Preloader color="red" scale="0.4" /></div>
+          <div class="row seedManagementFrame" style="height: 100%;" v-if="!loading">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -128,6 +130,7 @@
 import { mapGetters, mapMutations } from "vuex";
 import SeedService from '../../services/seed.service';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue'
+import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
 import createSeedForm from '@/components/catalogManagementComponents/createNewSeedForm.vue';
 import updateSeedForm from '@/components/catalogManagementComponents/updateSeedForm.vue';
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
@@ -145,6 +148,7 @@ export default {
      name: "SeedManagement",
      components: {
           Catalog,
+          Preloader,
           createSeedForm,
           updateSeedForm,
           TopHeader,
@@ -155,6 +159,7 @@ export default {
                seedList: [],
                openCreate: false,
                newSeed: {},
+               loading: true,
                message1: " ",
                message2: " ",
                isOpenMessage: false,
@@ -208,6 +213,7 @@ export default {
           },
 
           async retrieveSeedList() {
+               this.loading = true;
                const [err, respone] = await this.handle(
                     SeedService.getAll()
                );
@@ -244,6 +250,11 @@ export default {
                     else {
                          this.newSeed.Seed_id = "SD00" + String(Number(id) + 1);
                     }
+               }
+               if(this.loading){
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 1000);
                }
           },
 

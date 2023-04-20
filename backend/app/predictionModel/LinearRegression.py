@@ -119,10 +119,10 @@ predictions = lm.predict(X_test)
 # print(data)
 
 
-# import pickle
-# # save the model to disk
-# filename = 'backend/predictionModel/ModelTrained/predictionByLinearRegression.sav'
-# # pickle.dump(lm, open(filename, 'wb')) 
+import pickle
+# # save the model to disk backend\app\predictionModel\LinearRegression.py
+filename = 'backend/app/predictionModel/ModelTrained/predictionByLinearRegression.sav'
+pickle.dump(lm, open(filename, 'wb')) 
 # lm = pickle.load(open(filename, 'rb'))
 # # if sys.argv[1] == '1':
 # #   yield_pr = lm.predict([[ 1,0,0, sys.argv[2],sys.argv[3],sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7] ]])

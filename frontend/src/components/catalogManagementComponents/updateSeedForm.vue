@@ -3,8 +3,8 @@
           class="form container updateSeedForm">
           <div class="row">
                <div class="col-sm-12 text-right">
-                    <i class="fas fa-times" @click="newseed.close = false, $emit('updateSeed-submit', newseed)"
-                         style="font-size: 25px; "></i>
+                    <i class="fas fa-times-circle" @click="newseed.close = false, $emit('updateSeed-submit', newseed)"
+                    style="font-size: 25px; padding-top:10px; color:#FAFAFC"></i>
                </div>
           </div>
           <div class="row">

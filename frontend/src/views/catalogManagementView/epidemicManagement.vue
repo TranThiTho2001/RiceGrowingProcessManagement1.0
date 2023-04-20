@@ -1,6 +1,8 @@
 <template>
      <div class="container-fluid epidemicManagement" style="height:max-content !important;">
-          <div class="row epidemicManagementFrame" style="height: max-content;">
+          <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
+          <Preloader color="red" scale="0.4" /></div>
+          <div class="row epidemicManagementFrame" style="height: max-content;" v-if="!loading">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -131,6 +133,7 @@
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import { mapGetters, mapMutations } from "vuex";
 import EpidemicService from '../../services/epidemic.service';
+import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import CreateEpidemicForm from '@/components/catalogManagementComponents/createNewEpidemicForm.vue';
 import UpdateEpidemicForm from '@/components/catalogManagementComponents/updateEpidemicForm.vue';
@@ -148,31 +151,34 @@ export default {
      components: {
           Catalog,
           TopHeader,
+          Preloader,
           CreateEpidemicForm,
           UpdateEpidemicForm,
      },
 
      data() {
           return {
-               epidemicList: [],
-               openCreate: false,
-               newEpidemic: {},
+               message: "",
                message1: " ",
                message2: " ",
-               isOpenMessage: false,
-               isOpenConfirm: false,
-               epidemicChosen: {},
-               isOpenUpdateEpidemic: false,
+               loading: true,
+               newEpidemic: {},
                nameToSearch: "",
-               message: "",
-               epidemicClassificationList: [],
+               epidemicList: [],
+               openCreate: false,
                isOpenInput1: false,
                isOpenInput2: false,
+               epidemicChosen: {},
+               isOpenMessage: false,
+               isOpenConfirm: false,
+               cloneEpidemicList: [],
+               isOpenUpdateEpidemic: false,
+               epidemicClassificationList: [],
                isOpenSearch: {
                     open: false,
                     close: true,
                },
-               cloneEpidemicList: [],
+
                openMenu: {
                     openMenu: false,
                     isOpenMenuIcon: true,
@@ -206,6 +212,7 @@ export default {
           },
 
           async retrieveEpidemicList() {
+               this.loading = true;
                const [err, respone] = await this.handle(
                     EpidemicService.getAll()
                );
@@ -241,6 +248,11 @@ export default {
                     else {
                          this.newEpidemic.Epidemic_id = "EC00" + String(Number(id) + 1);
                     }
+               }
+               if (this.loading) {
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 1000);
                }
           },
 

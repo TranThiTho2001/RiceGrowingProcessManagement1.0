@@ -1,6 +1,9 @@
 <template>
-     <div class="container-fluid predictiveManagement pr-4" style="background-color: #EAEAEA;height:max-content; min-height: 100vh;">
-          <div class="row predictiveManagementFrame" style="height: max-content;">
+     <div class="container-fluid predictiveManagement pr-4"
+          style="background-color: #EAEAEA;height:max-content; min-height: 100vh;">
+          <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
+          <Preloader color="red" scale="0.4" /></div>
+          <div class="row predictiveManagementFrame" style="height: max-content;" v-if="!loading">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -205,44 +208,54 @@
 
 <script>
 
-import Catalog from '../../components/catalogManagementComponents/catalog.vue';
-import { mapGetters, mapMutations } from "vuex";
-import PredictionService from '../../services/prediction.service';
-import ImagesService from '@/services/images.service';
-import RiceCropInformationService from '../../services/riceCropInformation.service';
-import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import moment from 'moment';
+import { mapGetters, mapMutations } from "vuex";
+import ImagesService from '@/services/images.service';
+import PredictionService from '../../services/prediction.service';
+import Catalog from '../../components/catalogManagementComponents/catalog.vue';
+import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
+import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
+import RiceCropInformationService from '../../services/riceCropInformation.service';
 
 export default {
      name: "predictiveManagement",
      components: {
           Catalog,
           TopHeader,
+          Preloader,
      },
 
      data() {
           return {
-               predictionList: [],
-               riceCropList: [],
+               message: "",
+               loading: true,
+               loaded: false,
+               result: false,
                message1: " ",
                message2: " ",
-               isOpenPredictionHistory: false,
-               isOpenMessage: false,
-               isOpenConfirm: false,
-               isOpenRiceCropList: false,
-               isOpenRiceCropDetail: false,
-               riceCropChosen: {},
-               predictionChosen: {},
                nameToSearch: "",
-               message: "",
+               riceCropList: [],
+               weatherInfor: [],
+               predicting: false,
+               predictionList: [],
+               riceCropChosen: {},
                isOpenInput2: false,
                isOpenInput1: false,
+               predictionChosen: {},
+               isOpenMessage: false,
+               isOpenConfirm: false,
+               cloneRiceCropList: [],
+               clonePredictionList: [],
+               isOpenRiceCropList: false,
+               isOpenRiceCropDetail: false,
+               predictionListByRiceCrop: [],
+               isOpenPredictionHistory: false,
+
                isOpenSearch: {
                     open: false,
                     close: true,
                },
-               clonePredictionList: [],
-               cloneRiceCropList: [],
+
                openMenu: {
                     openMenu: false,
                     isOpenMenuIcon: false,
@@ -253,12 +266,6 @@ export default {
                     rightActive: false,
                     leftnNoneActive: false,
                },
-
-               loaded: false,
-               result: false,
-               predicting: false,
-               weatherInfor: [],
-               predictionListByRiceCrop: [],
           }
      },
 
@@ -341,7 +348,7 @@ export default {
           },
 
           async retrieveRiceCropList() {
-               this.loaded = false;
+               this.loading = true;
                const [err, respone] = await this.handle(
                     RiceCropInformationService.getAll()
                );
@@ -379,7 +386,11 @@ export default {
                     }
                     this.cloneRiceCropList = this.riceCropList;
                }
-               this.loaded = true;
+               if (this.loading) {
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 1000);
+               }
           },
 
           async setRiceCropChosen(data, id) {

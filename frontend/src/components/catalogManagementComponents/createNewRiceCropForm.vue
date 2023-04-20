@@ -3,8 +3,8 @@
           class="form container createRiceCropForm">
           <div class="row">
                <div class="col-sm-12 text-right">
-                    <i class="fas fa-times" @click="newricecrop.close = false, $emit('addRiceCrop-submit', newricecrop)"
-                         style="font-size: 25px; "></i>
+                    <i class="fas fa-times-circle" @click="newricecrop.close = false, $emit('addRiceCrop-submit', newricecrop)"
+                    style="font-size: 25px; padding-top:10px; color:#FAFAFC"></i>
                </div>
           </div>
           <div class="row">
