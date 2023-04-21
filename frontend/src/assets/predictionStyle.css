@@ -129,7 +129,8 @@
     .ricecrop-Component {
         width: 22% !important;
     }
-    .btnFinal{
+
+    .btnFinal {
         background: #008B8E;
         box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
         font-size: 17px;
@@ -209,7 +210,8 @@
     .result-Component {
         width: 100% !important;
     }
-    .btnFinal{
+
+    .btnFinal {
         background: #008B8E;
         box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
         font-size: 17px;
@@ -229,21 +231,8 @@
     padding-left: 4px;
 }
 
-.btnPredict {
-    border-radius: 5px !important;
-    background: #556b6b;
-    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
-    font-size: 14px;
-    font-family: 'Roboto';
-    padding: 1px !important;
-    border: none;
-    color: #FFFED8;
-    z-index: 3;
-    text-align: right;
-    float: right;
-}
 
-.btnFinal{
+.btnFinal {
     background: #008B8E;
     box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
     font-size: 17px;
@@ -278,21 +267,23 @@
     font-size: 16px;
 }
 
-.textPredict, .textKg {
+.textPredict,
+.textKg {
     color: #000000 !important;
     font: 15px;
     font-weight: 600;
     text-transform: none;
     margin-bottom: 20px !important;
-    padding-left: 20px ;
+    padding-left: 20px;
     display: inline;
 }
 
-.textKg{
+.textKg {
     text-transform: capitalize;
     color: #2F3033 !important;
     padding-left: 0px !important;
 }
+
 .resultPrediction {
     color: #5C5D22;
     font-size: 18px;
@@ -300,7 +291,7 @@
     box-shadow: inset 0px 4px 7px rgba(0, 0, 0, 0.25);
     display: inline;
     margin: 1px 4px 5px 4px;
-    border:none;
+    border: none;
     border-radius: 15px;
     width: 80px;
 }
@@ -334,6 +325,12 @@
     transform: translate3d(-150px, 20px, 100px) !important;
 }
 
+.tablePredict {
+    height: min-content;
+    width: 100% !important;
+    height: fit-content !important;
+    background: #FAFAFC !important;
+}
 
 .tableResultPredict {
     height: min-content;
@@ -369,4 +366,148 @@
     text-align: center;
     padding: 6px;
     color: #1C1C1F;
+}
+
+.tablePredict tbody tr:hover {
+    color: #1C1C1F;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    background-color: #EAEAEA;
+}
+
+.tablePredict thead tr th {
+    vertical-align: middle;
+    position: sticky;
+    top: 0;
+    z-index: 0;
+    padding-left: 2px !important;
+    background: #ABD2C8;
+    color: #1C1C1F;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    vertical-align: middle;
+    font-size: 17px;
+    padding: 5px;
+    border-top: 0.1px solid #b5b6b9;
+    border-bottom: 0.1px solid #b5b6b9;
+}
+
+.tablePredict tbody tr {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 15px;
+    height: fit-content !important;
+    border-bottom: 0.1px solid #f4f5f6 !important;
+}
+
+.tablePredict tbody tr td {
+    font-family: 'Roboto' !important;
+    font-style: normal;
+    vertical-align: middle;
+    border-bottom: 0.1px solid #B3B4BA;
+    padding-left: 5px !important;
+    vertical-align: middle !important;
+    font-size: 13.5px !important;
+    text-align: justify;
+    padding: 6px;
+    color: #1C1C1F;
+}
+
+.option2 {
+    display: none;
+}
+
+.tablePredict .centerclass {
+    text-align: center !important;
+}
+
+.tablePredict .final-row {
+    font-size: 18px !important;
+    font-weight: 600;
+    padding: 6px;
+    background-color: #a0a0a1;
+}
+
+.btnDowload,
+.btnPredict {
+    background: #008B8E;
+    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
+    font-size: 17px;
+    font-family: 'Roboto';
+    font-weight: 500 !important;
+    border: none;
+    color: #FFFED8;
+    z-index: 3;
+    position: absolute;
+    right: 1.5%;
+    border-radius: 10px !important;
+}
+
+.tablericeCropInfor {
+    width: 40% !important;
+    border-radius: 10px !important;
+}
+
+.calendarComponent {
+    margin-left: 2%;
+    width: 18%;
+}
+time.icon {
+    font-size: 1.4em;
+    /* change icon size */
+    display: block;
+    position: relative;
+    width: 8em;
+    height: 8em;
+    background-color: #fff;
+    border-radius: 0.6em;
+    box-shadow: 0 1px 0 #bdbdbd, 0 2px 0 #fff, 0 3px 0 #bdbdbd, 0 4px 0 #fff, 0 5px 0 #bdbdbd, 0 0 0 1px #bdbdbd;
+    overflow: hidden;
+}
+
+time.icon * {
+    display: block;
+    width: 100%;
+    font-size: 1em;
+    font-weight: bold;
+    font-style: normal;
+    text-align: center;
+}
+
+time.icon strong {
+    position: absolute;
+    top: 0;
+    padding: 0.4em 0;
+    color: #1C1C1F;
+    background: #ABD2C8;
+    border-bottom: 1px dashed #ABD2C8;
+    box-shadow: 0 2px 0 #ABD2C8;
+}
+
+time.icon em {
+    position: absolute;
+    bottom: 0.3em;
+    color: linear-gradient(180deg, rgba(128, 255, 0, 0.15) 0%, rgba(250, 255, 0, 0.15) 100%);
+}
+
+time.icon span {
+    font-size: 2.8em;
+    letter-spacing: -0.05em;
+    padding-top: 0.8em;
+    color: #2f2f2f;
+}
+
+.resultRiceYield{
+    width: 38.5%;
+}
+
+.resultRiceYield .result-prediction, .resultRiceYield .result-readly{
+    width: 48%;
+    display: inline-block;
+    background: #ABD2C8;
+    border-radius: 10px;
+    height: 100%;
 }

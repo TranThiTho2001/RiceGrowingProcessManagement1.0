@@ -185,6 +185,13 @@ const routes = [
     },
 
     {
+        path: "/RiceCropDetailForPrediction/:id",
+        alias: "/RiceCropDetailForPrediction",
+        name: "RiceCropDetailForPrediction",
+        component: () => import("../views/catalogManagementView/riceCropDetailForPrediction.vue"),
+    },
+
+    {
         path: "/RiceCropHarvested",
         alias: "/RiceCropHarvested",
         name: "RiceCropHarvested",

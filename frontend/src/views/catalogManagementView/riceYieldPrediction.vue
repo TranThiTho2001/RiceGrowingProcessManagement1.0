@@ -59,7 +59,10 @@
                                              <option class="dropdown-item" href="#"
                                                   @click="setRiceCropChosen(ricecrop), goToRiceCropDetail()">
                                                   <span class="fas fa-eye"></span>Xem Mùa Vụ
-
+                                             </option>
+                                             <option class="dropdown-item" href="#"
+                                                  @click="setRiceCropChosen(ricecrop), goToRiceCropData()">
+                                                  <span class="fas fa-eye"></span>Dữ liệu Dự Đoán
                                              </option>
                                         </div>
                                    </button>
@@ -73,93 +76,6 @@
                               <p class="textKg">kg/ha</p>
                          </div>
                     </div>
-
-                    <!-- <div class="scrollTable">
-                         <div class="scrollTable-content">
-                              <table class="table predictiveList"
-                                   v-if="loaded && !isOpenRiceCropList && !isOpenRiceCropDetail">
-                                   <thead>
-                                        <tr>
-                                             <th class="centerclass" style="">STT</th>
-                                             <th class="centerclass">Mã mùa vụ</th>
-                                             <th>Tên mùa vụ</th>
-                                             <th class="centerclass">Ngày dự đoán</th>
-                                             <th class="centerclass">Năng suất(kg/ha)</th>
-                                             <th></th>
-                                        </tr>
-                                   </thead>
-                                   <tbody>
-                                        <tr v-for="(prediction, i ) in predictionList" :key="i"
-                                             @click="setRiceCropChosen(prediction, '1')">
-                                             <td class="centerclass" data-label="STT">{{ i + 1 }}</td>
-                                             <td class="centerclass" data-label="Mã mùa vụ">
-                                                  {{ prediction.RiceCropInformation_id }}</td>
-                                             <td data-label="Tên mùa vụ">
-                                                  {{ prediction.RiceCropInformation_name }}</td>
-                                             <td class="centerclass" data-label="Ngày dự đoán">{{
-                                                  formatDateTime(prediction.Prediction_date) }}</td>
-                                             <td class="centerclass" data-label="Năng suất(kg/ha)">{{
-                                                  prediction.Prediction_yield }}</td>
-                                             <td data-label="Tùy chọn">
-                                                  <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
-                                                       aria-haspopup="true" aria-expanded="false">
-                                                       <i class="fas fa-ellipsis-v"></i>
-                                                  </button>
-                                                  <div class="dropdown-menu">
-                                                       <a class="dropdown-item action"
-                                                            @click="setActivityChoosen(prediction), isOpenUpdateActivities = !isOpenUpdateActivities">
-                                                            <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
-                                                       </a>
-                                                       <a class="dropdown-item" href="#"
-                                                            @click="setActivityChoosen(prediction), isOpenConfirm = !isOpenConfirm">
-                                                            <span class="fas fa-trash-alt actionIcon"></span> Xóa
-                                                       </a>
-                                                  </div>
-                                             </td>
-                                        </tr>
-                                   </tbody>
-                              </table>
-
-                              <table class="table riceCropList" v-if="loaded && isOpenRiceCropList && !isOpenRiceCropDetail">
-                                   <thead>
-                                        <tr>
-                                             <th class="centerclass" style="">STT</th>
-                                             <th class="centerclass">Mã mùa vụ</th>
-                                             <th>Tên mùa vụ</th>
-                                             <th>Vụ mùa</th>
-                                             <th>Giống lúa</th>
-                                             <th>Mẫu ruộng</th>
-                                             <th class="centerclass">Số ngày</th>
-                                             <th></th>
-                                              <th class="centerclass">Năng suất(kg/ha)</th>
-                                        </tr>
-                                   </thead>
-                                   <tbody>
-                                        <tr v-for="(ricecrop, i ) in riceCropList" :key="i"
-                                             @click="setRiceCropChosen(ricecrop, '2'), isOpenRiceCropDetail = true">
-                                             <td class="centerclass" data-label="STT">{{ i + 1 }}</td>
-                                             <td class="centerclass" data-label="Mã mùa vụ">{{
-                                                  ricecrop.RiceCropInformation_id
-                                             }}</td>
-                                             <td data-label="Tên mùa vụ">{{
-                                                  ricecrop.RiceCropInformation_name }}</td>
-                                             <td data-label="Vụ mùa">{{ ricecrop.Crop_name }}</td>
-                                             <td data-label="Giống lúa">{{ ricecrop.Seed_name }}</td>
-                                             <td data-label="Mẫu ruộng">{{ ricecrop.ArableLand_owner }}</td>
-                                             <td class="centerclass" data-label="Số ngày">{{
-                                                  get_day_of_time(ricecrop.RiceCropInformation_sowingDate) }}</td>
-                                             <td class="centerclass" data-label="Dự đoán">
-                                                  <button class="btn btnPredict2" @click="setRiceCropChosen(ricecrop)">
-                                                       Dự
-                                                       đoán</button> , getWeather() 
-                                             </td>
-                                        </tr>
-                                   </tbody>
-                              </table> -->
-
-                    <!-- <RiceCropDetailsComponent v-if="isOpenRiceCropDetail" :riceCropChosen="riceCropChosen" />
-                         </div>
-                    </div> -->
 
                     <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
 
@@ -580,6 +496,9 @@ export default {
 
           goToRiceYieldPredictionDetail() {
                this.$router.push("/RiceYieldPredictionDetail");
+          },
+          goToRiceCropData(){
+               this.$router.push({ name: 'RiceCropDetailForPrediction', params: { id: this.riceCropChosen.RiceCropInformation_id } });
           }
      },
 

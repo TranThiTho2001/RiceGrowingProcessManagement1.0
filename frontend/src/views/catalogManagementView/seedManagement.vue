@@ -1,7 +1,8 @@
 <template>
      <div class="container-fluid seedManagement pr-4 " style="background-color: #EAEAEA; height: 100%;">
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
-          <Preloader color="red" scale="0.4" /></div>
+               <Preloader color="red" scale="0.4" />
+          </div>
           <div class="row seedManagementFrame" style="height: 100%;" v-if="!loading">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
@@ -41,7 +42,7 @@
 
                     <div class="scrollTable">
                          <div class="scrollTable-content">
-                              <table class="table seedList">
+                              <table class="table seedList" id="tblStocks">
                                    <thead>
                                         <tr>
                                              <th class="centerclass">STT</th>
@@ -89,6 +90,7 @@
                               </table>
                          </div>
                     </div>
+                    <button @click="dowload">dowload</button>
                     <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
 
                     <div class="confirmationDialog" v-if="isOpenConfirm">
@@ -124,7 +126,7 @@
      <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click.passive="away()"></div>
 </template>
 
-<script>
+<script >
 
 
 import { mapGetters, mapMutations } from "vuex";
@@ -212,6 +214,56 @@ export default {
                this.isOpenInput2 = false;
           },
 
+          async download_csv(csv, filename) {
+               var csvFile;
+               var downloadLink;
+
+               // CSV FILE
+               csvFile = new Blob(["\uFEFF" + csv], { type: "text/csv" });
+
+               // Download link
+               downloadLink = document.createElement("a");
+
+               // File name
+               downloadLink.download = filename;
+
+               // We have to create a link to the file
+               downloadLink.href = window.URL.createObjectURL(csvFile);
+
+               // Make sure that the link is not displayed
+               downloadLink.style.display = "none";
+
+               // Add the link to your DOM
+               document.body.appendChild(downloadLink);
+
+               // Lanzamos
+               downloadLink.click();
+          },
+
+          async export_table_to_csv(html, filename) {
+               var csv = [];
+               var rows = document.querySelectorAll("table tr");
+
+               for (var i = 0; i < rows.length; i++) {
+                    var row = [], cols = rows[i].querySelectorAll("td, th");
+
+                    for (var j = 0; j < cols.length; j++)
+                         row.push(String(cols[j].innerText).replaceAll(',', ''));
+
+                    csv.push(row.join(","));
+
+               }
+               // Download CSV
+               this.download_csv(csv.join("\n"), filename);
+          },
+
+          async dowload() {
+               var html = document.querySelector("table").outerHTML;
+               this.export_table_to_csv(html, "table.csv");
+          },
+
+
+
           async retrieveSeedList() {
                this.loading = true;
                const [err, respone] = await this.handle(
@@ -251,7 +303,7 @@ export default {
                          this.newSeed.Seed_id = "SD00" + String(Number(id) + 1);
                     }
                }
-               if(this.loading){
+               if (this.loading) {
                     setTimeout(() => {
                          this.loading = false;
                     }, 1000);
