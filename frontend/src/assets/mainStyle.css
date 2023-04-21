@@ -698,8 +698,6 @@ html {
      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-
-
 .iconmenu1 {
      font-size: 20px;
      display: none;
@@ -709,7 +707,6 @@ html {
      font-size: 20px;
      display: none;
 }
-
 
 .leftNoneActive {
      filter: none;
@@ -732,7 +729,7 @@ html {
 }
 
 .StatisticalManagement input[type=radio]:checked,
-.statisticsByRiceCrop input[type=radio]:checked  {
+.statisticsByRiceCrop input[type=radio]:checked {
      background: #FFFA37;
      box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.25);
 }
@@ -743,4 +740,22 @@ html {
      position: absolute;
      right: -100% !important;
      transform: translate3d(-150px, 20px, 100px) !important;
+     background: #FAFAFC;
+     border: 1px solid #D0D1D6;
+     color: #6D6E73;
+}
+
+.riceCropDetail .dropdown-menu .dropdown-item,
+.predictiveManagement .dropdown-menu .dropdown-item,
+.predictiveDetailManagement .dropdown-menu  .dropdown-item{
+     font-family: 'Roboto';
+     font-style: normal;
+     color: #6D6E73;
+}
+
+.riceCropDetail .dropdown-menu .dropdown-item:hover,
+.predictiveManagement .dropdown-menu .dropdown-item:hover,
+.predictiveDetailManagement .dropdown-menu  .dropdown-item:hover{
+     background-color: #FFFED8;
+     color: #1C1C1F;
 }

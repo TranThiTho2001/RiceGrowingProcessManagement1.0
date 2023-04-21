@@ -257,7 +257,6 @@ export default {
           },
 
           async createEpidemic(data) {
-               console.log(data.EpidemicClassification_id + " " + data.EpidemicClassification_name)
                this.epidemicClassificationList.forEach(element => {
                     if (data.EpidemicClassification_name == element.EpidemicClassification_name) {
                          data.EpidemicClassification_id = element.EpidemicClassification_id;
@@ -351,7 +350,6 @@ export default {
                } else {
                     if (response.data != null) {
                          this.epidemicList = response.data;
-                         console.log(response.data)
                     }
                     else {
                          this.message = "Không tìm thấy bệnh dịch!";
@@ -362,34 +360,6 @@ export default {
           async setEpidemicChosen(epidemic) {
                this.epidemicChosen = epidemic;
                this.epidemicChosen.EpidemicClassification_id = epidemic.EpidemicClassification_id;
-               console.log(this.epidemicChosen)
-          },
-
-          get_rows(list) {
-               var start = (this.currentPage - 1) * this.elementsPerPage;
-               var end = start + this.elementsPerPage;
-               return list.slice(start, end);
-
-          },
-
-          // So trang cua danh sach danh muc
-          num_pages(list) {
-               return Math.ceil(list.length / this.elementsPerPage);
-          },
-
-          async change_page(page, list) {
-               if (page == '-' && this.currentPage > 1) {
-                    this.currentPage -= 1;
-                    this.get_rows(list);
-               }
-               else if (page == '+' && this.currentPage < this.num_pages(list)) {
-                    this.currentPage += 1;
-                    this.get_rows(list);
-               }
-               else {
-                    this.currentPage = page;
-                    this.get_rows(list);
-               }
           },
      },
 

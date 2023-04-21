@@ -1,7 +1,8 @@
 <template>
      <div class="container-fluid riceCropManagement" style="height: max-content; background-color: #EAEAEA;">
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
-          <Preloader color="red" scale="0.4" /></div>
+               <Preloader color="red" scale="0.4" />
+          </div>
           <div class="row riceCropManagemenFrame" style="height: max-content;" v-if="!loading">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
@@ -36,11 +37,28 @@
                                    @click="searchName(riceCrop.RiceCropInformation_name), away()">
                                    {{ riceCrop.RiceCropInformation_name }}</p>
                          </div>
+
+                         <div class="selection-component1">
+                         <label class="labelYear">Năm</label>
+                         <select class="selectYear" v-model="filter.year" @change="searchByYear()">
+                              <option class="optionYear" v-for="year in getYear()" :value="year" :key="year">{{ year }}
+                              </option>
+                         </select>
+
+
+                         <label class="labelYear">Trạng Thái</label>
+                         <select class="selectStatus" v-model="filter.status" @change="searchByYear()">
+                              <option class="optionYear" value="all" selected="true">Tất cả</option>
+                              <option class="optionYear" value="monitoring">Đang theo dõi</option>
+                              <option class="optionYear" value="finished">Đã kết thúc</option>
+                         </select></div>
+
                          <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
                                    style="font-size: 15px;"></i> Thêm Mùa Vụ</button>
                     </div>
                     <div class="riceCropList mt-3 row" style="max-height: 98%; width: 98%;">
-                         <div class="riceCropComponent-class col-lg-3 col-md-4 col-sm-6 text-center" v-for="(riceCrop, i) in riceCropList" :key="i"
+                         <div class="riceCropComponent-class col-lg-3 col-md-4 col-sm-6 text-center"
+                              v-for="(riceCrop, i) in riceCropList" :key="i"
                               style="; margin-right: 0px !important; margin-bottom: 1px;">
                               <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
                          </div>
@@ -143,7 +161,8 @@ export default {
                     rightActive: false,
                     leftnNoneActive: false,
                },
-
+               years: [],
+               filter: {},
                number: 0,
                riceCropList: [],
                cropList: [],
@@ -179,7 +198,7 @@ export default {
                     close: true,
                },
                cloneRiceCropList: [],
-               loading:true,
+               loading: true,
           }
      },
 
@@ -701,6 +720,7 @@ export default {
                          console.log(error);
                     } else {
                          if (response.data != null) {
+                              console.log(response.data)
                               this.riceCropList = [];
                               this.riceCropList = response.data;
                               this.riceCropListByFinish = [];
@@ -722,6 +742,86 @@ export default {
                          }
 
                     }
+               }
+
+          },
+
+          getYear() {
+               this.years = [];
+               this.years[0] = "Tất cả";
+               for (let index = 2022; index <= (new Date()).getFullYear(); index++) {
+                    this.years.push(index);
+
+               }
+               return this.years;
+          },
+
+          async searchByYear() {
+               if (this.filter.year == "Tất cả" && this.filter.status == 'all') {
+                    this.retrieveRiceCropList()
+               }
+               else if (this.filter.year == "Tất cả" && this.filter.status == 'monitoring') {
+                    this.riceCropList = [];
+                    this.cloneRiceCropList.forEach(ricecrop => {
+                         if (ricecrop.RiceCropInformation_harvestDate == null) {
+                              this.riceCropList.push(ricecrop);
+                         }
+                    });
+               }
+               else if (this.filter.year == "Tất cả" && this.filter.status == 'finished') {
+                    this.riceCropList = [];
+                    this.cloneRiceCropList.forEach(ricecrop => {
+                         if (ricecrop.RiceCropInformation_harvestDate != null) {
+                              this.riceCropList.push(ricecrop);
+                         }
+                    });
+               }
+               else if (this.filter.year != "Tất cả" && this.filter.status == 'all'){
+                    this.riceCropList = [];
+                    this.cloneRiceCropList.forEach(ricecrop => {
+                         if (((new Date(ricecrop.RiceCropInformation_sowingDate)).getFullYear() == this.filter.year || (new Date(ricecrop.RiceCropInformation_harvestDate)).getFullYear() == this.filter.year)) {
+                              this.riceCropList.push(ricecrop);
+                         }
+                    });
+               }
+               else if (this.filter.year != "Tất cả" && this.filter.status == 'monitoring'){
+                    this.riceCropList = [];
+                    this.cloneRiceCropList.forEach(ricecrop => {
+                         if ((new Date(ricecrop.RiceCropInformation_sowingDate)).getFullYear() == this.filter.year && ricecrop.RiceCropInformation_harvestDate == null) {
+                              this.riceCropList.push(ricecrop);
+                         }
+                    });
+               }
+               else {
+                    this.riceCropList = [];
+                    this.cloneRiceCropList.forEach(ricecrop => {
+                         if ((new Date(ricecrop.RiceCropInformation_sowingDate)).getFullYear() == this.filter.year && ricecrop.RiceCropInformation_harvestDate != null) {
+                              this.riceCropList.push(ricecrop);
+                         }
+                    });
+               }
+
+          },
+
+          async searchByStatus() {
+               console.log(this.filter.status)
+               this.riceCropList = [];
+               if (this.filter.status == "monitoring") {
+                    this.cloneRiceCropList.forEach(ricecrop => {
+                         if (ricecrop.RiceCropInformation_harvestDate == null) {
+                              this.riceCropList.push(ricecrop);
+                         }
+                    });
+               }
+               else if (this.filter.status == 'all') {
+                    this.retrieveRiceCropList();
+               }
+               else {
+                    this.cloneRiceCropList.forEach(ricecrop => {
+                         if (ricecrop.RiceCropInformation_harvestDate != null) {
+                              this.riceCropList.push(ricecrop);
+                         }
+                    });
                }
 
           },
@@ -751,6 +851,8 @@ export default {
           this.retrieveFullRiceCropList();
           this.retrievePesticideList();
           this.newFertilizerTimes.Employee_id = this.currentUser.Employee_id;
+          this.filter.status = "all";
+          this.filter.year = "Tất cả";
      }
 }
 
@@ -773,15 +875,14 @@ export default {
      height: 100vmin;
 }
 
-.riceCropManagement .btnCreate{
+.riceCropManagement .btnCreate {
      right: 3.7% !important;
 }
 
 @media only screen and (max-width: 576px) {
-     .riceCropComponent-class{
+     .riceCropComponent-class {
           width: 48% !important;
           padding-right: 20px !important;
      }
 }
-
 </style>

@@ -15,7 +15,8 @@
     height: 480px;
 }
 
-.predictiveManagement .navigationBar .btnPrediction {
+.predictiveManagement .navigationBar .btnPrediction,
+.riceCropDetailForPrediction .navigationBar .btnPrediction {
     display: block;
     width: 88%;
     font-size: 17px;
@@ -121,6 +122,48 @@
     margin-right: 20px;
 }
 
+.labelYear {
+    position: sticky;
+    top: 0;
+    z-index: 0;
+    padding-left: 2px !important;
+    color: #1C1C1F;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    vertical-align: middle;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-size: 18px;
+    margin: 4px 4px 4px 19px;
+}
+
+.selectYear {
+    background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px !important;;
+    height: 37px;
+    width: 80px;
+    border: 0px !important;
+    color: #1C1C1F;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    vertical-align: middle;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-size: 18px;
+}
+
+.selectYear::selection{
+    border: 0px !important;
+}
+
+.selectYear .optionYear{
+    color: #1C1C1F;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    vertical-align: middle;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-size: 18px;
+}
+
 /* .predictiveManagement .row-inputSearch {
     margin-left: 20px;
 } */
@@ -224,6 +267,44 @@
         position: absolute;
         border-radius: 10px !important;
     }
+
+    .riceCropName,
+    .resultPrediction,
+    .riceCropId,
+    .textPredict {
+        font-family: 'Roboto';
+        font-style: normal;
+        color: #008B8E;
+        padding: auto;
+        padding-top: 5px !important;
+        text-align: center;
+    }
+
+    .resultPrediction{
+        font-size: 14px !important;
+        color: #5C5D22;
+        background: #FFFD9F;
+        box-shadow: inset 0px 4px 7px rgba(0, 0, 0, 0.25);
+        display: inline;
+        margin: 1px 4px 5px 2px;
+        border: none;
+        border-radius: 15px;
+        width: 70px !important;
+    }
+    .riceCropId {
+        padding-left: 2px !important;
+    }
+
+    .textPredict,
+    .textKg {
+        color: #000000 !important;
+        font: 14px;
+        font-weight: 600;
+        text-transform: none;
+        margin-bottom: 20px !important;
+        padding-left: 2px !important;
+        display: inline;
+    }
 }
 
 .right-ricecrop-component {
@@ -301,7 +382,7 @@
 .riceCropId {
     color: #2F3033;
     font-size: 14px;
-    padding-left: 20px !important;
+    padding-left: 20px;
     padding-top: 0px !important;
     padding-bottom: 0px !important;
     font-size: 15px;
@@ -441,9 +522,10 @@
     border: none;
     color: #FFFED8;
     z-index: 3;
-    position: absolute;
+    position:relative;
     right: 1.5%;
     border-radius: 10px !important;
+    margin-bottom: 20px;
 }
 
 .tablericeCropInfor {
@@ -455,6 +537,7 @@
     margin-left: 2%;
     width: 18%;
 }
+
 time.icon {
     font-size: 1.4em;
     /* change icon size */
@@ -500,11 +583,12 @@ time.icon span {
     color: #2f2f2f;
 }
 
-.resultRiceYield{
+.resultRiceYield {
     width: 38.5%;
 }
 
-.resultRiceYield .result-prediction, .resultRiceYield .result-readly{
+.resultRiceYield .result-prediction,
+.resultRiceYield .result-readly {
     width: 48%;
     display: inline-block;
     background: #ABD2C8;

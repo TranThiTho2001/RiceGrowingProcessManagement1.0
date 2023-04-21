@@ -102,7 +102,6 @@ export default {
 
           async retrieveFertilizer() {
                this.loading = true;
-               console.log(this.id)
                const [error, respone] = await this.handle(
                     FertilizerService.get(this.fertilizer.Fertilizer_id)
                );
@@ -110,7 +109,6 @@ export default {
                     console.log(error);
                } else {
                     this.fertilizer = respone.data;
-                    console.log(this.fertilizer)
                }
                if (this.loading) {
                     setTimeout(() => {

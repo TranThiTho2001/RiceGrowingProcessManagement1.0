@@ -277,7 +277,6 @@ export default {
           },
 
           async createEmployee(data) {
-               console.log("1")
                this.message1 = "";
                this.message2 = "";
                if (data.close == false) {
@@ -350,7 +349,6 @@ export default {
                     console.log(err)
                }
                else {
-                    console.log(respone.data);
                     this.message = respone.data;
                     this.retrieveEmployeeList();
                }
@@ -373,7 +371,6 @@ export default {
                          } else {
                               if (response.data != null) {
                                    this.employeeList = response.data;
-                                   console.log(response.data)
                               }
                               else {
                                    console.log(response.data)

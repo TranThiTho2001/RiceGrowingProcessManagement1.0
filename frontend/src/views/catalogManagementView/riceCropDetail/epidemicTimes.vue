@@ -435,7 +435,6 @@ export default {
                     this.message = "Xóa lần bị bệnh dịch không không thành công"
                } else {
                     this.message = "Xóa lần bị bệnh dịch không thành công";
-                    console.log(respone.data);
                     this.retrieveEpidemicTimesList();
                }
                this.delete = "";

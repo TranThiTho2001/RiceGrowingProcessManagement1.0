@@ -220,7 +220,6 @@ export default {
                          const element = this.riceCropHarvestedList[index];
                          this.findPrediction(element.RiceCropInformation_id, index);
                     }
-                    console.log(this.riceCropHarvestedList)
                }
                if(this.loading){
                     setTimeout(() => {
@@ -271,7 +270,6 @@ export default {
           dataset(prediction) {
                const series = [
                     {
-                         
                          data: [
                          ]
                     },
@@ -286,8 +284,6 @@ export default {
                newdata.y = prediction.resultPredictions[0].Prediction_yield
               series[0].data.push(newdata);
               series[1].data.push(newdata);
-
-              console.log(series)
                return series;
           },
 

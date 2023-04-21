@@ -28,8 +28,6 @@ export default {
       }
       else {
         this.employee = respone.data;
-        console.log(respone.data);
-        console.log("alomalo")
       }
     },
 
@@ -40,7 +38,6 @@ export default {
   mounted() {
     this.retrieveEmployee();
    this.random= Math.random().toString(36).slice(5);
-   console.log(this.random);
   },
 }
 </script>

@@ -319,16 +319,6 @@ export default {
                this.isOpenSearch.close = true;
           },
 
-          getWidth() {
-               console.log(document.body.clientWidth)
-               var width = document.body.clientWidth;
-               if (width > 1300 && width < 1600) {
-                    return true;
-               }
-               else {
-                    return false;
-               }
-          },
           async retrieveRiceCropList() {
                this.loading = true;
                const [err, respone] = await this.handle(
@@ -385,7 +375,6 @@ export default {
                               this.chartDataForArableLand.series[1] += 1;
                          }
                     });
-                    console.log(this.chartDataForArableLand.series)
                }
           },
 
@@ -477,7 +466,6 @@ export default {
                          }
 
                     }
-                    console.log(this.riceCropListByFinish)
                }
           },
 

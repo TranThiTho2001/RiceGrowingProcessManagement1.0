@@ -1,5 +1,5 @@
 <template>
-     <div class="container-fluid riceCropDetail" style="background-color:#EAEAEA;">
+     <div class="container-fluid riceCropDetailForPrediction" style="background-color:#EAEAEA;">
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
                <Preloader color="red" scale="0.4" />
           </div>
@@ -14,7 +14,7 @@
                <div class="right rightRiceCropDetail" data-bs-spy="scroll">
                     <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
-                              <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Theo dõi mùa vụ</h3>
+                              <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Dự Đoán Năng Suất</h3>
                          </div>
                          <div class="text-right">
                               <div class="row">
@@ -310,7 +310,6 @@ export default {
           ]),
 
           async retrieveFertilizerTimesList() {
-               console.log(this.riceCrop.RiceCropInformation_id)
                const [err, respone] = await this.handle(
                     FertilizerTimesService.get(this.riceCrop.RiceCropInformation_id)
                );
@@ -341,7 +340,6 @@ export default {
                          this.loading = false;
                     }, 1000);
                }
-               console.log(this.riceCrop)
                this.retrieveFertilizerTimesList();
                this.getWeather()
           },
@@ -354,7 +352,6 @@ export default {
                     console.log(err)
                }
                else {
-                    console.log(respone.data)
                     if (respone.data != "Không tìm thấy lần bị dịch bệnh.") {
                          this.epidemicTimesList = respone.data;
                     }
@@ -550,15 +547,13 @@ export default {
                     csv.push(row.join(","));
 
                }
-               console.log(row)
                // Download CSV
                this.download_csv(csv.join("\n"), filename);
           },
 
           async dowload() {
                var html = document.getElementById("weatherInfor");
-               console.log(html)
-               this.export_table_to_csv(html, "table.csv");
+               this.export_table_to_csv(html, "data.csv");
           },
 
           get_day_of_time(d1) {
@@ -590,4 +585,5 @@ export default {
 
 <style>
 @import url(../../assets/mainStyle.css);
-@import url(../../assets/predictionStyle.css);</style>
+@import url(../../assets/predictionStyle.css);
+</style>

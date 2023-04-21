@@ -287,7 +287,6 @@ export default {
                     console.log(err)
                }
                else {
-
                     this.newRiceCrop.RiceCropInformation_id = respone.data.RiceCropInformation_id;
                     this.newRiceCrop.RiceCropInformation_name = respone.data.RiceCropInformation_name;
                     this.newRiceCrop.Seed_id = respone.data.Seed_id;

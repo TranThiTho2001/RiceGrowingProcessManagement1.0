@@ -71,7 +71,6 @@ export default {
                this.newEmployee.Employee_phoneNumber = data.Employee_phoneNumber;
                this.newEmployee.Employee_identityCardNumber = data.Employee_identityCardNumber;
 
-               console.log(this.newEmployee)
                if (this.newEmployee.Role_id == "Quản lý" || this.newEmployee.Role_id == "01") {
                     this.newEmployee.Role_id = "01";
                }
@@ -88,9 +87,6 @@ export default {
                else {
                     this.newEmployee.Employee_sex = "Nữ";
                }
-               //     const temp = (moment(String(this.newEmployee.Employee_birthDate)).format("YYYY-MM-DD")).slice(0, 10);
-               //     this.newEmpoyee.Employee_birthDate = (moment(String(data.Employee_birthdate)).format("YYYY-MM-DD")).slice(0, 10);
-               //     console.log("bwsafe")
                data.Employee_birthdate = (moment(String(data.Employee_birthdate)).format("YYYY-MM-DD")).slice(0, 10);
                this.newEmployee.Employee_birthDate = data.Employee_birthdate;
                const [error, response] = await this.handle(
@@ -102,7 +98,6 @@ export default {
                     this.message1 = "Cập nhật không thành công."
                } else {
                     this.message2 = "Cập nhật thành công.";
-                    // this.newEmployee = response.data;
                     this.newEmployee = response.data;
                }
           },

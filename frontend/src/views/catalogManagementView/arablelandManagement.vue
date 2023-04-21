@@ -220,17 +220,6 @@ export default {
                this.isOpenInput2 = false;
           },
 
-          getWidth() {
-               console.log(document.body.clientWidth)
-               var width = document.body.clientWidth;
-               if (width > 1300 && width < 1600) {
-                    return true;
-               }
-               else {
-                    return false;
-               }
-          },
-
           async retrieveProvinceList() {
                const [err, respone] = await this.handle(
                     ProvinceService.getAll()
@@ -383,14 +372,12 @@ export default {
 
           async searchName(data) {
                this.nameToSearch = data;
-               console.log(data)
                const [error, response] = await this.handle(ArableLandService.findByName(this.nameToSearch));
                if (error) {
                     console.log(error);
                } else {
                     if (response.data != null) {
                          this.arablelandList = response.data;
-                         console.log(response.data)
                     }
                     else {
                          this.isOpenMessage = !this.isOpenMessage;
@@ -411,7 +398,6 @@ export default {
 
      mounted() {
           this.retrieveArableLandList();
-          this.getWidth();
           this.retrieveProvinceList();
           this.retrieveSoilList();
      }

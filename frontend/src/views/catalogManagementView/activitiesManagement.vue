@@ -208,17 +208,6 @@ export default {
                this.isOpenInput2 = false;
           },
 
-          getWidth() {
-               console.log(document.body.clientWidth)
-               var width = document.body.clientWidth;
-               if (width > 1300 && width < 1600) {
-                    return true;
-               }
-               else {
-                    return false;
-               }
-          },
-
           async retrieveOtherActivities() {
                this.loading = true;
                this.loaded = false;
@@ -229,7 +218,6 @@ export default {
                     console.log(err)
                }
                else {
-                    console.log(respone.data)
                     this.activitiesList = respone.data;
                     this.cloneActivitiesList = respone.data;
                     var i = 0;
@@ -272,7 +260,6 @@ export default {
           },
 
           async findActivityTimes(activityId, position) {
-               console.log(activityId)
                const [err, respone] = await this.handle(
                     ActivityDetailsService.findById(activityId)
                );
@@ -343,12 +330,10 @@ export default {
                     this.message = "Xóa hoạt động không thành công";
                } else if (response.data == "Lỗi trong quá trình xóa hoạt động!!") {
                     this.message = "Xóa hoạt động không thành công";
-                    console.log(response.data)
                }
                else {
                     this.message = "Xóa hoạt động thành công";
                     this.retrieveOtherActivities();
-                    console.log(response.data);
                }
           },
 

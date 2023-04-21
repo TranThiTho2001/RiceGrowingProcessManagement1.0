@@ -186,7 +186,7 @@ export default {
 
                else {
                     data.RiceCropInformation_sowingDate = null;
-               }console.log(data.RiceCropInformation_harvestDate)
+               }
                if (data.RiceCropInformation_harvestDate != null && data.RiceCropInformation_harvestDate != "Invalid da") {
                     data.RiceCropInformation_harvestDate = (moment(String(data.RiceCropInformation_harvestDate)).format("YYYY-MM-DD")).slice(0, 10);
                }
@@ -224,7 +224,7 @@ export default {
           async getWeather() {
                let urlAPI = `https://api.open-meteo.com/v1/forecast?latitude=${this.newRiceCrop.ArableLand_latitude}&longitude=${this.newRiceCrop.ArableLand_longitude}&current_weather=true&forecast_days=1&daily=shortwave_radiation_sum&timezone=auto&daily=precipitation_sum&hourly=relativehumidity_2m`;
                let data = await fetch(urlAPI).then(res => res.json())
-               console.log(data)
+
                if (data.error != true) {
                     this.weatherInfor.temperature = data.current_weather.temperature;
                     this.weatherInfor.windspeed = data.current_weather.windspeed;
@@ -240,7 +240,7 @@ export default {
                          i++;
                     });
                     var weatherCode = data.current_weather.weathercode;
-                    console.log(weatherCode)
+
                     var date1 = new Date();
                     if (weatherCode == 0 && (date1.getHours() > 18 || date1.getHours() < 6)) {
                          this.iconWeather = require('@/images/weather/' + 'Clearsky_night.png');

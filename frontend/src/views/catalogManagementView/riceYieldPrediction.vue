@@ -38,7 +38,10 @@
                                    @click="searchRiceCrop(ricecrop.RiceCropInformation_name), away()">
                                    {{ ricecrop.RiceCropInformation_name }}</p>
                          </div>
-
+                         <label class="labelYear">Năm</label>
+                         <select class="selectYear" v-model="filter.year" @change="searchByYear()">
+                              <option class="optionYear" v-for="year in getYear()" :key="year">{{ year }}</option>
+                         </select>
                          <button class="btn btnPredict1" @click="goToRiceYieldPredictionDetail()">Lịch Sử
                               Dự Đoán</button>
                     </div>
@@ -131,6 +134,7 @@ import PredictionService from '../../services/prediction.service';
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
+
 import RiceCropInformationService from '../../services/riceCropInformation.service';
 
 export default {
@@ -166,7 +170,8 @@ export default {
                isOpenRiceCropDetail: false,
                predictionListByRiceCrop: [],
                isOpenPredictionHistory: false,
-
+               years:[],
+               filter: {},
                isOpenSearch: {
                     open: false,
                     close: true,
@@ -467,6 +472,26 @@ export default {
                this.weatherInfor.SolarRadiation = this.weatherInfor.totalSolarRadiation / this.weatherInfor.solarRadiation.length;
                this.weatherInfor.loadding = true;
                this.predict();
+          },
+
+
+          async searchByYear(){
+               this.clonePredictionList = [];
+               this.riceCropList.forEach(ricecrop => {
+                    if( ((new Date(ricecrop.RiceCropInformation_sowingDate)).getFullYear() == this.filter.year || (new Date(ricecrop.RiceCropInformation_harvestDate)).getFullYear() ==this.filter.year )){
+                         this.clonePredictionList.push(ricecrop);
+                    }
+               });
+          },
+
+          getYear(){
+               this.years = [];
+               this.years[0] = 2022;
+               for (let index = 2022+1; index <= (new Date()).getFullYear(); index++) {
+                    this.years.push(index);
+                    
+               }
+               return this.years;
           },
 
           get_day_of_time(d1) {

@@ -414,7 +414,6 @@ export default {
           },
 
           async deleteTreatment(pesticideid, epidemicid) {
-               console.log(pesticideid, epidemicid)
                const [error, response] = await this.handle(
                     TreatmentService.delete(pesticideid, epidemicid)
                );

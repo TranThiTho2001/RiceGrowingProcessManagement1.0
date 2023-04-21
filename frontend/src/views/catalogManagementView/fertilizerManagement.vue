@@ -289,7 +289,6 @@ export default {
                     this.message2 = " ";
                }
                else {
-                    console.log(data.Contain)
                     this.message1 = "";
                     this.message2 = "";
                     const [error, respone] = await this.handle(
@@ -371,7 +370,6 @@ export default {
                } else {
                     if (response.data != null) {
                          this.fertilizerList = response.data;
-                         console.log(response.data)
                     }
                     else {
                          this.isOpenMessage = !this.isOpenMessage;
@@ -384,7 +382,6 @@ export default {
           },
 
           async goToFertilizerDetail(fertilizer_id) {
-               console.log(fertilizer_id)
                this.$router.push({ name: 'FertilizerDetail', params: { id: fertilizer_id } });
           }
 
