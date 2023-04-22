@@ -1,6 +1,6 @@
 <template>
      <Form @submit="newseed.close = true, $emit('addSeed-submit', newseed)" :validation-schema="schema"
-          class="form container createSeedForm">
+          class="form  container-fluid createSeedForm">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times-circle" @click="newseed.close = false, $emit('addSeed-submit', newseed)"
@@ -108,6 +108,11 @@ export default {
 </script>
  
 <style>
+.createSeedForm{
+     pointer-events:all !important;
+     /* scroll-behavior: none !important; */
+     filter: none !important;
+}
 @import url(../../assets/seedStyle.css);
 @import url(../../assets/mainStyle.css);
 </style>

@@ -3,10 +3,23 @@
     border-radius: 10px;
     position: absolute;
     top: calc(100px);
-    left: 20px;
-    width: 98%;
+    left: 16%;
+    width: 82.5%;
     z-index: 2;
 }
+
+@media only screen and (max-width: 1430px) {
+    .fertilizerManagement .createFertilizerForm,
+    .fertilizerManagement .updateFertilizerForm {
+        border-radius: 10px;
+        position: absolute;
+        top: calc(100px);
+        left: 10%;
+        width: 82%;
+        z-index: 2;
+    }
+}
+
 
 .fertilizerManagement {
     position: relative;

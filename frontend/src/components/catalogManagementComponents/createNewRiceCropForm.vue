@@ -1,6 +1,6 @@
 <template>
      <Form @submit="newricecrop.close = true, $emit('addRiceCrop-submit', newricecrop)" :validation-schema="schema"
-          class="form container createRiceCropForm">
+          class="form  container-fluid createRiceCropForm">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times-circle" @click="newricecrop.close = false, $emit('addRiceCrop-submit', newricecrop)"

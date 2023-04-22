@@ -87,6 +87,10 @@ export default {
 </script>
  
 <style>
+.createOtherActiviesForm{
+     pointer-events:all !important;
+     filter:unset !important;
+}
 @import url(../../assets/otherActivitiesStyle.css);
 @import url(../../assets/mainStyle.css);
 .dp__theme_light {

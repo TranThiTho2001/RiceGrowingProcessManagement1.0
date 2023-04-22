@@ -88,8 +88,8 @@ export default {
     position: absolute;
     width: 50%;
     height: 550px;
-    top: 18%;
-    left: 22%;
+    top: 170px;
+    left: 28%;
     border-radius: 10px;
 }
 

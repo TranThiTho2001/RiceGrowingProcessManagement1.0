@@ -2,7 +2,8 @@
      <div class="container-fluid predictiveManagement pr-4"
           style="background-color: #EAEAEA;height:max-content; min-height: 100vh;">
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
-          <Preloader color="red" scale="0.4" /></div>
+               <Preloader color="red" scale="0.4" />
+          </div>
           <div class="row predictiveManagementFrame" style="height: max-content;" v-if="!loading">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
@@ -55,7 +56,7 @@
 
                                         <div class=" select dropdown-menu">
                                              <option class="dropdown-item action"
-                                                  @click="setRiceCropChosen(ricecrop), getWeather()">
+                                                  @click="setRiceCropChosen(ricecrop), goToRiceCropData()">
                                                   <span class="fas fa-lightbulb" style="font-size: 20px;"></span> Dự
                                                   Đoán
                                              </option>
@@ -170,7 +171,7 @@ export default {
                isOpenRiceCropDetail: false,
                predictionListByRiceCrop: [],
                isOpenPredictionHistory: false,
-               years:[],
+               years: [],
                filter: {},
                isOpenSearch: {
                     open: false,
@@ -278,7 +279,7 @@ export default {
                }
                else {
                     respone.data.forEach(ricecrop => {
-                         if (ricecrop.RiceCropInformation_sowingDate != null && ricecrop.RiceCropInformation_harvestDate == null) {
+                         if (ricecrop.RiceCropInformation_sowingDate != null ) {
                               if (this.get_day_of_time(ricecrop.RiceCropInformation_sowingDate) >= 60) {
                                    this.riceCropList.push(ricecrop);
                                    this.clonePredictionList.push(ricecrop);
@@ -475,21 +476,27 @@ export default {
           },
 
 
-          async searchByYear(){
+          async searchByYear() {
                this.clonePredictionList = [];
-               this.riceCropList.forEach(ricecrop => {
-                    if( ((new Date(ricecrop.RiceCropInformation_sowingDate)).getFullYear() == this.filter.year || (new Date(ricecrop.RiceCropInformation_harvestDate)).getFullYear() ==this.filter.year )){
-                         this.clonePredictionList.push(ricecrop);
-                    }
-               });
+               if (this.filter.year == "Tất cả") {
+                    this.clonePredictionList = this.riceCropList;
+               }
+               else {
+                    this.riceCropList.forEach(ricecrop => {
+                         if (((new Date(ricecrop.RiceCropInformation_sowingDate)).getFullYear() == this.filter.year || (new Date(ricecrop.RiceCropInformation_harvestDate)).getFullYear() == this.filter.year)) {
+                              this.clonePredictionList.push(ricecrop);
+                         }
+                    });
+               }
+
           },
 
-          getYear(){
+          getYear() {
                this.years = [];
-               this.years[0] = 2022;
-               for (let index = 2022+1; index <= (new Date()).getFullYear(); index++) {
+               this.years[0] = "Tất cả";
+               for (let index = 2022; index <= (new Date()).getFullYear(); index++) {
                     this.years.push(index);
-                    
+
                }
                return this.years;
           },
@@ -522,7 +529,7 @@ export default {
           goToRiceYieldPredictionDetail() {
                this.$router.push("/RiceYieldPredictionDetail");
           },
-          goToRiceCropData(){
+          goToRiceCropData() {
                this.$router.push({ name: 'RiceCropDetailForPrediction', params: { id: this.riceCropChosen.RiceCropInformation_id } });
           }
      },
@@ -533,7 +540,7 @@ export default {
 
      mounted() {
           this.retrievePredictionList();
-
+          this.filter.year = "Tất cả";
      }
 }
 </script>

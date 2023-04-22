@@ -1,6 +1,6 @@
 <template>
      <Form @submit="newepidemic.close = true, $emit('addEpidemic-submit', newepidemic)" :validation-schema="schema"
-          class="form container createEpidemicForm">
+          class="form  container-fluid createEpidemicForm">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times-circle" @click="newepidemic.close = false, $emit('addEpidemic-submit', newepidemic)"
@@ -8,7 +8,7 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i>THÊM GIỐNG LÚA MỚI
+               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i>THÊM BỆNH DỊCH MỚI
                </p>
           </div>
           <div class="row content">

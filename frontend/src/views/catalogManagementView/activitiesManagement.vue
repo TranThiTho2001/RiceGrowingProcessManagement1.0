@@ -1,8 +1,9 @@
 <template>
      <div class="container-fluid activitiesManagement pr-4" style="background-color: #EAEAEA;height: max-content;">
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
-          <Preloader color="red" scale="0.4" /></div>
-          <div class="row activitiesManagementFrame" v-if="!loading">
+               <Preloader color="red" scale="0.4" />
+          </div>
+          <div class="row activitiesManagementFrame" v-if="!loading" :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -40,7 +41,8 @@
                          </div>
 
 
-                         <button class="btn btnCreate" @click="isOpenCreateOtherActivities = !isOpenCreateOtherActivities"><i
+                         <button class="btn btnCreate"
+                              @click="isOpenCreateOtherActivities = !isOpenCreateOtherActivities, active = true"><i
                                    class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm hoạt động</button>
 
                     </div>
@@ -70,11 +72,11 @@
                                                   </button>
                                                   <div class="dropdown-menu option1">
                                                        <a class="dropdown-item action"
-                                                            @click="setActivityChoosen(activity), isOpenUpdateActivities = !isOpenUpdateActivities">
+                                                            @click="setActivityChoosen(activity), isOpenUpdateActivities = !isOpenUpdateActivities, active = true">
                                                             <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                                        </a>
                                                        <a class="dropdown-item" href="#"
-                                                            @click="setActivityChoosen(activity), isOpenConfirm = !isOpenConfirm">
+                                                            @click="setActivityChoosen(activity), isOpenConfirm = !isOpenConfirm, active = true">
                                                             <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                        </a>
                                                   </div>
@@ -95,35 +97,35 @@
 
                     <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
 
-                    <div class="confirmationDialog" v-if="isOpenConfirm">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelConfirm">
-                              <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
-                         </p>
-                         <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteOtherActivity(activityChosen)">Xóa</button>
-                         <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
-                    </div>
 
-                    <div class="messageDialog" v-if="isOpenMessage">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelThongBao">
-                              {{
-                                   message
-                              }}
-                         </p>
-                         <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenMessage = !isOpenMessage">OK</button>
-                    </div>
 
-                    <CreateOtherActivityForm v-if="isOpenCreateOtherActivities" :newOtherActivities="newOtherActivities"
-                         @addOtherActivities-submit="createOtherActivity" :message1="message1" :message2="message2" />
-
-                    <UpdateOtherActivityForm v-if="isOpenUpdateActivities" :newOtherActivities="activityChosen"
-                         @updateOtherActivities-submit="updateOtherActivity" :message1="message1" :message2="message2" />
                </div>
           </div>
+          <div class="confirmationDialog" v-if="isOpenConfirm">
+               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
+                    <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
+               </p>
+               <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
+                    @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteOtherActivity(activityChosen)">Xóa</button>
+               <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                    @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
+          </div>
+
+          <div class="messageDialog" v-if="isOpenMessage">
+               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
+                    {{
+                         message
+                    }}
+               </p>
+               <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                    @click="isOpenMessage = !isOpenMessage, active = false">OK</button>
+          </div>
+
+          <CreateOtherActivityForm v-if="isOpenCreateOtherActivities" :newOtherActivities="newOtherActivities"
+               @addOtherActivities-submit="createOtherActivity" :message1="message1" :message2="message2" />
+
+          <UpdateOtherActivityForm v-if="isOpenUpdateActivities" :newOtherActivities="activityChosen"
+               @updateOtherActivities-submit="updateOtherActivity" :message1="message1" :message2="message2" />
      </div>
      <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click.passive="away()"></div>
 </template>
@@ -177,10 +179,7 @@ export default {
                     isOpenMenuIcon: true,
                     isCloseMenu: false,
                },
-               active: {
-                    rightActive: false,
-                    leftnNoneActive: false,
-               },
+               active: false,
           }
      },
 
@@ -208,8 +207,16 @@ export default {
                this.isOpenInput2 = false;
           },
 
+          async loadData(){
+               this.loading= true;
+               if (this.loading) {
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 1000);
+               }
+          },
+
           async retrieveOtherActivities() {
-               this.loading = true;
                this.loaded = false;
                const [err, respone] = await this.handle(
                     OtherActivitiesService.getAll()
@@ -251,12 +258,7 @@ export default {
 
                }
                this.loaded = true;
-               if (this.loading==true) {
-                    setTimeout(() => {
-                         this.loading = false;
-                    }, 1000);
-               }
-              
+
           },
 
           async findActivityTimes(activityId, position) {
@@ -278,7 +280,7 @@ export default {
                this.message2 = "";
                if (!data.close) {
                     this.isOpenCreateOtherActivities = false;
-
+                    this.active = false;
                }
                else {
                     const [error, response] = await this.handle(
@@ -303,6 +305,7 @@ export default {
                     this.isOpenUpdateActivities = false;
                     this.message1 = "";
                     this.message2 = "";
+                    this.active = false;
                }
                else {
                     const [error, response] = await this.handle(
@@ -387,6 +390,7 @@ export default {
 
      mounted() {
           this.retrieveOtherActivities();
+          this.loadData();
      }
 }
 </script>

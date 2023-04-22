@@ -1,8 +1,9 @@
 <template>
      <div class="container-fluid riceCropDetail" scale="0.6" style="height: 100vh;">
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
-          <Preloader color="red" scale="0.4" /></div>
-          <div v-if="!loading" class="row riceCropDetailFrame" style="height: max-content;">
+               <Preloader color="red" scale="0.4" />
+          </div>
+          <div v-if="!loading" class="row riceCropDetailFrame" style="height: max-content;" :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -26,17 +27,17 @@
 
                          <button class="btn btnCome-back" @click="goToRiceCrop()">Trở về</button>
                          <button class="btn btnCreate"
-                              @click="isOpenCreateMonitorForm = !isOpenCreateMonitorForm">Thêm</button>
+                              @click="isOpenCreateMonitorForm = !isOpenCreateMonitorForm, active = true">Thêm</button>
                     </div>
                     <div class="mt-4 function-row row" style=" margin-left:20px;margin-right: 10px ">
                          <div class="account-Component text-center" v-for="(monitor, i) in monitorList" :key="i">
-                              <div class="btnMoreInfor-Employee"> <button type="button" class="btn-sm btnmore" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
+                              <div class="btnMoreInfor-Employee"> <button type="button" class="btn-sm btnmore"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v"></i>
                                    </button>
                                    <div class="dropdown-menu">
                                         <a class="dropdown-item" href="#"
-                                             @click="setMonitorChosen(monitor), isOpenConfirm = !isOpenConfirm">
+                                             @click="setMonitorChosen(monitor), isOpenConfirm = !isOpenConfirm, active = true">
                                              <span class="fas fa-trash-alt actionIcon"></span>
                                              Xóa
                                         </a>
@@ -51,34 +52,32 @@
                          </div>
                     </div>
 
-                    <div class="confirmationDialog" v-if="isOpenConfirm">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelConfirm">
-                              <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
-                         </p>
-                         <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteMonitor()">Xóa</button>
-                         <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
-                    </div>
 
-                    <div class="messageDialog" v-if="isOpenMessage">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelThongBao">
-                              <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span>
-                              {{
-                                   message
-                              }}
-                         </p>
-                         <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenMessage = !isOpenMessage">OK</button>
-                    </div>
-                    <CreateMonitorForm v-if="isOpenCreateMonitorForm" :newMonitor="newMonitor" :employeeList="employeeList"
-                         :newRiceCrop="newRiceCrop" @addMonitor-submit="createNewMonitor" :message1="message1"
-                         :message2="message2" />
                </div>
 
           </div>
+          <div class="confirmationDialog" v-if="isOpenConfirm">
+               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
+                    <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
+               </p>
+               <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
+                    @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteMonitor()">Xóa</button>
+               <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                    @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
+          </div>
+
+          <div class="messageDialog" v-if="isOpenMessage">
+               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
+                    <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span>
+                    {{
+                         message
+                    }}
+               </p>
+               <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                    @click="isOpenMessage = !isOpenMessage, active = false">OK</button>
+          </div>
+          <CreateMonitorForm v-if="isOpenCreateMonitorForm" :newMonitor="newMonitor" :employeeList="employeeList"
+               :newRiceCrop="newRiceCrop" @addMonitor-submit="createNewMonitor" :message1="message1" :message2="message2" />
      </div>
 </template>
 
@@ -132,7 +131,9 @@ export default {
                     isCloseMenu: false,
                },
                loading: true,
+               active: false,
           }
+
      },
 
      computed: {
@@ -159,8 +160,16 @@ export default {
                })
           },
 
-          async retrieveMonitorList() {
+          async loadData() {
                this.loading = true;
+               if (this.loading) {
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 1000);
+               }
+          },
+
+          async retrieveMonitorList() {
                const [err, respone] = await this.handle(
                     MonitorService.get(this.newRiceCrop.RiceCropInformation_id)
                );
@@ -181,11 +190,6 @@ export default {
                          }
                     });
                     this.cloneMonitorList = this.monitorList;
-                    if (this.loading == true) {
-                         setTimeout(() => {
-                              this.loading = false;
-                         }, 900);
-                    }
                }
           },
 
@@ -208,6 +212,7 @@ export default {
           async createNewMonitor(data) {
                if (data.close == false) {
                     this.isOpenCreateMonitorForm = false;
+                    this.active = false;
                     this.retrieveMonitorList();
                }
           },
@@ -274,6 +279,7 @@ export default {
           this.retrieveMonitorList();
           this.retrieveNewRiceCrop();
           this.retrieveEmpoyeeList();
+          this.loadData();
      }
 };
 </script>
@@ -348,20 +354,20 @@ export default {
      margin-bottom: 20px;
 }
 
-.btnMoreInfor-Employee{
+.btnMoreInfor-Employee {
      position: absolute;
-     top:3%;
+     top: 3%;
      left: 88%;
      border: 0px;
-    background: none;
+     background: none;
 }
 
-.btnmore{
+.btnmore {
      border: 0px;
-    background: none;
+     background: none;
 }
 
-.btnmore:hover{
+.btnmore:hover {
      background: #cbcbcb;
 }
 </style>

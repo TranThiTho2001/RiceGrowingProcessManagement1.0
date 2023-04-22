@@ -1,8 +1,9 @@
 <template>
      <div class="container-fluid epidemicManagement" style="height:max-content !important;">
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
-          <Preloader color="red" scale="0.4" /></div>
-          <div class="row epidemicManagementFrame" style="height: max-content;" v-if="!loading">
+               <Preloader color="red" scale="0.4" />
+          </div>
+          <div class="row epidemicManagementFrame" style="height: max-content;" v-if="!loading"  :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -39,7 +40,7 @@
                                    @click="searchName(epidemic.Epidemic_name), away()">
                                    {{ epidemic.Epidemic_name }}</p>
                          </div>
-                         <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle pt-1"
+                         <button class="btn btnCreate" @click="openCreate = !openCreate, active= true"><i class="fas fa-plus-circle pt-1"
                                    style="font-size: 20px;"></i> Thêm bệnh dịch</button>
                     </div>
                     <div class="scrollTable">
@@ -77,11 +78,11 @@
                                                   </button>
                                                   <div class="dropdown-menu">
                                                        <a class="dropdown-item action"
-                                                            @click="setEpidemicChosen(epidemic), isOpenUpdateEpidemic = !isOpenUpdateEpidemic">
+                                                            @click="setEpidemicChosen(epidemic), isOpenUpdateEpidemic = !isOpenUpdateEpidemic, active= true">
                                                             <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                                        </a>
                                                        <a class="dropdown-item" href="#"
-                                                            @click="setEpidemicChosen(epidemic), isOpenConfirm = !isOpenConfirm">
+                                                            @click="setEpidemicChosen(epidemic), isOpenConfirm = !isOpenConfirm, active= true">
                                                             <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                        </a>
                                                   </div>
@@ -92,38 +93,37 @@
                          </div>
                     </div>
 
-                    <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
 
-                    <div class="confirmationDialog" v-if="isOpenConfirm">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelConfirm">
-                              <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
-                         </p>
-                         <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteEpidemic(epidemicChosen.Epidemic_id)">Xóa</button>
-                         <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
-                    </div>
-
-                    <div class="messageDialog" v-if="isOpenMessage">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelThongBao">
-                              <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
-                                   message
-                              }}
-                         </p>
-                         <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenMessage = !isOpenMessage">OK</button>
-                    </div>
-
-                    <CreateEpidemicForm v-if="openCreate" :newEpidemic="newEpidemic" @addEpidemic-submit="createEpidemic"
-                         :message1="message1" :message2="message2" />
-
-                    <UpdateEpidemicForm v-if="isOpenUpdateEpidemic" :newEpidemic="epidemicChosen"
-                         :epidemicClassificationList="epidemicClassificationList" @updateEpidemic-submit="updateEpidemic"
-                         :message1="message1" :message2="message2" />
                </div>
           </div>
+          <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
+
+          <div class="confirmationDialog" v-if="isOpenConfirm">
+               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
+                    <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
+               </p>
+               <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
+                    @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteEpidemic(epidemicChosen.Epidemic_id)">Xóa</button>
+               <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                    @click="isOpenConfirm = !isOpenConfirm, active = false;">Hủy</button>
+          </div>
+
+          <div class="messageDialog" v-if="isOpenMessage">
+               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
+                    <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
+                         message
+                    }}
+               </p>
+               <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                    @click="isOpenMessage = !isOpenMessage, active = false;">OK</button>
+          </div>
+
+          <CreateEpidemicForm v-if="openCreate" :newEpidemic="newEpidemic" @addEpidemic-submit="createEpidemic"
+               :message1="message1" :message2="message2" />
+
+          <UpdateEpidemicForm v-if="isOpenUpdateEpidemic" :newEpidemic="epidemicChosen"
+               :epidemicClassificationList="epidemicClassificationList" @updateEpidemic-submit="updateEpidemic"
+               :message1="message1" :message2="message2" />
      </div>
      <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click.passive="away()"></div>
 </template>
@@ -183,7 +183,9 @@ export default {
                     openMenu: false,
                     isOpenMenuIcon: true,
                     isCloseMenu: false,
-               }
+               },
+
+               active: false,
           }
      },
 
@@ -267,6 +269,7 @@ export default {
                     this.openCreate = false;
                     this.message1 = " ";
                     this.message2 = " ";
+                    this.active = false;
                }
                else {
                     this.message1 = "";
@@ -298,6 +301,7 @@ export default {
                     this.isOpenUpdateEpidemic = false;
                     this.message1 = " ";
                     this.message2 = " ";
+                    this.active = false;
                }
                else {
                     this.message1 = "";

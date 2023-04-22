@@ -1,8 +1,9 @@
 <template>
      <div class="container-fluid riceCropDetail" style="background-color:#EAEAEA;">
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
-          <Preloader color="red" scale="0.4" /></div>
-          <div class="row riceCropDetailFrame" style="height: max-content;" v-if="!loading">
+               <Preloader color="red" scale="0.4" />
+          </div>
+          <div class="row riceCropDetailFrame" style="height: max-content;" v-if="!loading" :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -31,12 +32,12 @@
                               <span class="weather-value">Bức xạ: {{ weatherInfor.solarradiation }}MJ/m²</span>
                          </div>
                          <div class="col-sm-6 text-right">
-                              <button class="btn btnView" @click="isOpenUpdateRiceCrop = !isOpenUpdateRiceCrop">Xem
+                              <button class="btn btnView" @click="isOpenUpdateRiceCrop = !isOpenUpdateRiceCrop, active = true">Xem
                                    Thông Tin Mùa Vụ</button>
                          </div>
                     </div>
-                    <div class="row function-row" style="margin-left:-5px;margin-right: 10px ">
 
+                    <div class="row function-row" style="margin-left:-5px;margin-right: 10px ">
                          <div class="function-Component text-center" @click="gotoFertilizerTimes()">
                               <img src="../../images/BON-PHAN.jpg" class="img-fluid imageclass">
                               <h5 class="name-Component">BÓN PHÂN</h5>
@@ -65,16 +66,12 @@
                               <h5 class="name-Component">HOẠT ĐỘNG</h5>
                          </div>
 
-
                     </div>
-                    <UpdateRiceCropForm v-if="isOpenUpdateRiceCrop" :seedList="seedList" :newRiceCrop="newRiceCrop"
-                         :arableLandList="arableLandList" @updateRiceCrop-submit="updateRiceCrop" :message1="message1"
-                         :message2="message2" />
-
-
                </div>
-
           </div>
+          <UpdateRiceCropForm v-if="isOpenUpdateRiceCrop" :seedList="seedList" :newRiceCrop="newRiceCrop"
+               :arableLandList="arableLandList" @updateRiceCrop-submit="updateRiceCrop" :message1="message1"
+               :message2="message2" />
      </div>
 </template>
 
@@ -105,6 +102,7 @@ export default {
      data() {
           return {
                loading: true,
+               active: false,
                nameToSearch: "",
                activitiesList: [],
                newRiceCrop: {},
@@ -166,6 +164,7 @@ export default {
                this.message2 = " ";
                if (!data.close) {
                     this.isOpenUpdateRiceCrop = false;
+                    this.active = false;
                }
 
                this.seedList.forEach(element => {
@@ -193,7 +192,7 @@ export default {
                else {
                     data.RiceCropInformation_harvestDate = null;
                }
-               
+
                var check = true;
                this.riceCropList.forEach(element => {
                     if (element.ArableLand_id == data.ArableLand_id && element.RiceCropInformation_id != data.RiceCropInformation_id) {

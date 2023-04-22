@@ -3,7 +3,7 @@
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
                <Preloader color="red" scale="0.4" />
           </div>
-          <div class="row seedManagementFrame" style="height: 100%;" v-if="!loading">
+          <div class="row seedManagementFrame" style="height: 100%;" v-if="!loading" :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -11,7 +11,7 @@
                <div class="left" :class="{ navbarresponsive: openMenu.openMenu }">
                     <Catalog />
                </div>
-               <div class="right rightSeedManagement " :class="{ leftNoneActive: active.leftnNoneActive }">
+               <div class="right rightSeedManagement ">
                     <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Giống lúa</h3>
@@ -36,8 +36,8 @@
                                    @click="searchName(seed.Seed_name), away()">
                                    {{ seed.Seed_name }}</p>
                          </div>
-                         <button class="btn btnCreate" @click="openCreate = !openCreate" style="border-radius: 12px;"><i
-                                   class="fas fa-plus-circle"></i> Thêm giống lúa</button>
+                         <button class="btn btnCreate" @click="openCreate = !openCreate, active = !active"
+                              style="border-radius: 12px;"><i class="fas fa-plus-circle"></i> Thêm giống lúa</button>
                     </div>
 
                     <div class="scrollTable">
@@ -68,11 +68,11 @@
                                                   </button>
                                                   <div class="dropdown-menu option1">
                                                        <a class="dropdown-item action"
-                                                            @click="setSeedChosen(seed), isOpenUpdateSeed = !isOpenUpdateSeed">
+                                                            @click="setSeedChosen(seed), isOpenUpdateSeed = !isOpenUpdateSeed, active = !active">
                                                             <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                                        </a>
                                                        <a class="dropdown-item" href="#"
-                                                            @click="setSeedChosen(seed), isOpenConfirm = !isOpenConfirm">
+                                                            @click="setSeedChosen(seed), isOpenConfirm = !isOpenConfirm, active = !active">
                                                             <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                        </a>
                                                   </div>
@@ -91,36 +91,32 @@
                          </div>
                     </div>
                     <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
-
-                    <div class="confirmationDialog" v-if="isOpenConfirm">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelConfirm">
-                              <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
-                         </p>
-                         <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteSeed(seedChosen.Seed_id)">Xóa</button>
-                         <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
-                    </div>
-
-                    <div class="messageDialog" v-if="isOpenMessage">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelThongBao">
-                              <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
-                                   message
-                              }}
-                         </p>
-                         <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenMessage = !isOpenMessage">OK</button>
-                    </div>
-
-                    <createSeedForm v-if="openCreate" :newSeed="newSeed" @addSeed-submit="createSeed" :message1="message1"
-                         :message2="message2" />
-
-                    <updateSeedForm v-if="isOpenUpdateSeed" :newSeed="seedChosen" @updateSeed-submit="updateSeed"
-                         :message1="message1" :message2="message2" />
                </div>
           </div>
+          <div class="confirmationDialog" v-if="isOpenConfirm">
+               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
+                    <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
+               </p>
+               <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
+                    @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteSeed(seedChosen.Seed_id)">Xóa</button>
+               <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                    @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
+          </div>
+
+          <div class="messageDialog" v-if="isOpenMessage">
+               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
+                    <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
+                         message
+                    }}
+               </p>
+               <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                    @click="isOpenMessage = !isOpenMessage, active = !active">OK</button>
+          </div>
+          <createSeedForm v-if="openCreate" :newSeed="newSeed" @addSeed-submit="createSeed" :message1="message1"
+               :message2="message2" />
+
+          <updateSeedForm v-if="isOpenUpdateSeed" :newSeed="seedChosen" @updateSeed-submit="updateSeed" :message1="message1"
+               :message2="message2" />
      </div>
      <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click.passive="away()"></div>
 </template>
@@ -182,10 +178,7 @@ export default {
                     isCloseMenu: false,
                },
 
-               active: {
-                    rightActive: false,
-                    leftnNoneActive: false,
-               }
+               active: false,
           }
      },
 
@@ -213,9 +206,16 @@ export default {
                this.isOpenInput2 = false;
           },
 
+          async loadData(){
+               this.loading= true;
+               if (this.loading) {
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 1000);
+               }
+          },
 
           async retrieveSeedList() {
-               this.loading = true;
                const [err, respone] = await this.handle(
                     SeedService.getAll()
                );
@@ -253,11 +253,6 @@ export default {
                          this.newSeed.Seed_id = "SD00" + String(Number(id) + 1);
                     }
                }
-               if (this.loading) {
-                    setTimeout(() => {
-                         this.loading = false;
-                    }, 1000);
-               }
           },
 
           async createSeed(data) {
@@ -265,8 +260,8 @@ export default {
                     this.openCreate = false;
                     this.message1 = " ";
                     this.message2 = " ";
+                    this.active = false;
                     this.newSeed = {};
-                    this.retrieveSeedList();
                }
                else {
                     this.message1 = "";
@@ -289,10 +284,10 @@ export default {
           async updateSeed(data) {
                if (data.close == false) {
                     this.isOpenUpdateSeed = false;
+                    this.active = false;
                     this.message1 = " ";
                     this.message2 = " ";
                     this.newSeed = {};
-                    this.retrieveSeedList();
                }
                else {
                     this.message1 = "";
@@ -360,6 +355,7 @@ export default {
 
      mounted() {
           this.retrieveSeedList();
+          this.loadData();
      }
 }
 </script>

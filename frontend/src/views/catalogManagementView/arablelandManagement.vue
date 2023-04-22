@@ -1,8 +1,9 @@
 <template>
      <div class="container-fluid arablelandManagement pr-4" style="background-color: #EAEAEA;height: 100%;">
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
-          <Preloader color="red" scale="0.4" /></div>
-          <div class="row arablelandManagementFrame" style="height: 100vmin;" v-if="!loading">
+               <Preloader color="red" scale="0.4" />
+          </div>
+          <div class="row arablelandManagementFrame" style="height: 100vmin; 100%" v-if="!loading"  :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -39,7 +40,7 @@
                                    {{ arableLand.ArableLand_owner }}</p>
                          </div>
                          <button class="btn btnCreate"
-                              @click="retrieveProvinceList(), retrieveSoilList(), openCreate = !openCreate"><i
+                              @click="retrieveProvinceList(), retrieveSoilList(), openCreate = !openCreate, active= true"><i
                                    class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm mẫu ruộng</button>
                     </div>
                     <div class="scrollTable">
@@ -76,11 +77,11 @@
                                                   </button>
                                                   <div class="dropdown-menu">
                                                        <a class="dropdown-item action"
-                                                            @click="setArableLandChosen(arableland), isOpenUpdateArableLand = !isOpenUpdateArableLand">
+                                                            @click="setArableLandChosen(arableland), isOpenUpdateArableLand = !isOpenUpdateArableLand, active= true">
                                                             <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                                        </a>
                                                        <a class="dropdown-item" href="#"
-                                                            @click="setArableLandChosen(arableland), isOpenConfirm = !isOpenConfirm">
+                                                            @click="setArableLandChosen(arableland), isOpenConfirm = !isOpenConfirm, active= true">
                                                             <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                        </a>
                                                   </div>
@@ -93,37 +94,36 @@
 
                     <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
 
-                    <div class="confirmationDialog" v-if="isOpenConfirm">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelConfirm">
-                              <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
-                         </p>
-                         <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteArableLand(arablelandChosen.ArableLand_id)">Xóa</button>
-                         <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
-                    </div>
 
-                    <div class="messageDialog" v-if="isOpenMessage">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelThongBao">
-                              <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
-                                   message
-                              }}
-                         </p>
-                         <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenMessage = !isOpenMessage">OK</button>
-                    </div>
-
-                    <CreateArableLandForm v-if="openCreate" :newArableLand="newArableLand" :soilList="soilList"
-                         @addArableLand-submit="createArableLand" :message1="message1" :message2="message2"
-                         :provinceList="provinceList" />
-
-                    <UpdateArableLandForm v-if="isOpenUpdateArableLand" :newArableLand="arablelandChosen"
-                         :soilList="soilList" @updateArableLand-submit="updateArableLand" :message1="message1"
-                         :message2="message2" :provinceList="provinceList" />
                </div>
           </div>
+          <div class="confirmationDialog" v-if="isOpenConfirm">
+               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
+                    <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
+               </p>
+               <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
+                    @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteArableLand(arablelandChosen.ArableLand_id)">Xóa</button>
+               <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                    @click="isOpenConfirm = !isOpenConfirm, active= false">Hủy</button>
+          </div>
+
+          <div class="messageDialog" v-if="isOpenMessage">
+               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
+                    <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
+                         message
+                    }}
+               </p>
+               <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                    @click="isOpenMessage = !isOpenMessage, active= false">OK</button>
+          </div>
+
+          <CreateArableLandForm v-if="openCreate" :newArableLand="newArableLand" :soilList="soilList"
+               @addArableLand-submit="createArableLand" :message1="message1" :message2="message2"
+               :provinceList="provinceList" />
+
+          <UpdateArableLandForm v-if="isOpenUpdateArableLand" :newArableLand="arablelandChosen" :soilList="soilList"
+               @updateArableLand-submit="updateArableLand" :message1="message1" :message2="message2"
+               :provinceList="provinceList" />
      </div>
      <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click.passive="away()"></div>
 </template>
@@ -188,10 +188,7 @@ export default {
                     isCloseMenu: false,
                },
 
-               active: {
-                    rightActive: false,
-                    leftnNoneActive: false,
-               },
+               active: false,
 
           }
      },
@@ -246,8 +243,16 @@ export default {
                }
           },
 
+          async loadData(){
+               this.loading= true;
+               if (this.loading) {
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 1000);
+               }
+          },
+
           async retrieveArableLandList() {
-               this.loading = true;
                const [err, respone] = await this.handle(
                     ArableLandService.getAll()
                );
@@ -285,17 +290,13 @@ export default {
                          this.newArableLand.ArableLand_id = "AL00" + String(Number(id) + 1);
                     }
                }
-               if (this.loading) {
-                    setTimeout(() => {
-                         this.loading = false;
-                    }, 1000);
-               }
           },
 
           async createArableLand(data) {
                if (data.close == false) {
                     this.openCreate = false;
                     this.message1 = " ";
+                    this.active = false;
                     this.message2 = " ";
                }
                else {
@@ -329,6 +330,7 @@ export default {
                     this.isOpenUpdateArableLand = false;
                     this.message1 = " ";
                     this.message2 = " ";
+                    this.active = false;
                }
                else {
                     this.soilList.forEach(soil => {
@@ -400,6 +402,7 @@ export default {
           this.retrieveArableLandList();
           this.retrieveProvinceList();
           this.retrieveSoilList();
+          this.loadData();
      }
 }
 </script>

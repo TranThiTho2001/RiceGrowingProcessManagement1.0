@@ -3,7 +3,7 @@
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
                <Preloader color="red" scale="0.4" />
           </div>
-          <div class="row riceCropManagemenFrame" style="height: max-content;" v-if="!loading">
+          <div class="row riceCropManagemenFrame" style="height: max-content;" v-if="!loading" :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -39,22 +39,23 @@
                          </div>
 
                          <div class="selection-component1">
-                         <label class="labelYear">Năm</label>
-                         <select class="selectYear" v-model="filter.year" @change="searchByYear()">
-                              <option class="optionYear" v-for="year in getYear()" :value="year" :key="year">{{ year }}
-                              </option>
-                         </select>
+                              <label class="labelYear">Năm</label>
+                              <select class="selectYear" v-model="filter.year" @change="searchByYear()">
+                                   <option class="optionYear" v-for="year in getYear()" :value="year" :key="year">{{ year }}
+                                   </option>
+                              </select>
 
 
-                         <label class="labelYear">Trạng Thái</label>
-                         <select class="selectStatus" v-model="filter.status" @change="searchByYear()">
-                              <option class="optionYear" value="all" selected="true">Tất cả</option>
-                              <option class="optionYear" value="monitoring">Đang theo dõi</option>
-                              <option class="optionYear" value="finished">Đã kết thúc</option>
-                         </select></div>
+                              <label class="labelYear">Trạng Thái</label>
+                              <select class="selectStatus" v-model="filter.status" @change="searchByYear()">
+                                   <option class="optionYear" value="all" selected="true">Tất cả</option>
+                                   <option class="optionYear" value="monitoring">Đang theo dõi</option>
+                                   <option class="optionYear" value="finished">Đã kết thúc</option>
+                              </select>
+                         </div>
 
-                         <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
-                                   style="font-size: 15px;"></i> Thêm Mùa Vụ</button>
+                         <button class="btn btnCreate" @click="openCreate = !openCreate, active = true"><i
+                                   class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm Mùa Vụ</button>
                     </div>
                     <div class="riceCropList mt-3 row" style="max-height: 98%; width: 98%;">
                          <div class="riceCropComponent-class col-lg-3 col-md-4 col-sm-6 text-center"
@@ -64,44 +65,42 @@
                          </div>
                     </div>
 
-                    <div class="confirmationDialog" v-if="isOpenConfirm">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelConfirm">
-                              <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
-                         </p>
-                         <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteRiceCrop(riceCropChosen.RiceCropInformation_id)">Xóa</button>
-                         <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
-                    </div>
-
-                    <div class="messageDialog" v-if="isOpenMessage">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelThongBao">
-                              <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
-                                   message
-                              }}
-                         </p>
-                         <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenMessage = !isOpenMessage">OK</button>
-                    </div>
-
-                    <CreateRiceCropForm v-if="openCreate" :newRiceCrop="newRiceCrop" :seedList="seedList"
-                         :arableLandList="arableLandList" @addRiceCrop-submit="createRiceCrop" :message1="message1"
-                         :message2="message2" />
-                    <UpdateRiceCropForm v-if="isOpenUpdateRiceCrop" :seedList="seedList" :newRiceCrop="riceCropChosen"
-                         :arableLandList="arableLandList" @updateRiceCrop-submit="updateRiceCrop" :message1="message1"
-                         :message2="message2" />
-                    <CreateFertilizerTimesForm v-if="isOpenCreateFertilizerTimes" :newFertilizerTimes="newFertilizerTimes"
-                         :fertilizerList="fertilizerList" :developmentStageList="developmentStageList"
-                         :currentUser="currentUser" :riceCropChosen="riceCropChosen" :arableLandList="arableLandList"
-                         @addFertilizerTimes-submit="createFertilizerTimes" :message1="message1" :message2="message2" />
-                    <CreateSprayingTimesForm v-if="isOpenCreateSprayingTimes" :newSprayingTimes="newSprayingTimes"
-                         :pesticideList="pesticideList" :developmentStageList="developmentStageList"
-                         :currentUser="currentUser" :riceCropChosen="riceCropChosen" :arableLandList="arableLandList"
-                         @addSprayingTimes-submit="createSprayingTimes" :message1="message1" :message2="message2" />
                </div>
           </div>
+          <div class="confirmationDialog" v-if="isOpenConfirm">
+               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
+                    <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
+               </p>
+               <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
+                    @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteRiceCrop(riceCropChosen.RiceCropInformation_id)">Xóa</button>
+               <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                    @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
+          </div>
+
+          <div class="messageDialog" v-if="isOpenMessage">
+               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
+                    <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
+                         message
+                    }}
+               </p>
+               <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                    @click="isOpenMessage = !isOpenMessage">OK</button>
+          </div>
+
+          <CreateRiceCropForm v-if="openCreate" :newRiceCrop="newRiceCrop" :seedList="seedList"
+               :arableLandList="arableLandList" @addRiceCrop-submit="createRiceCrop" :message1="message1"
+               :message2="message2" />
+          <UpdateRiceCropForm v-if="isOpenUpdateRiceCrop" :seedList="seedList" :newRiceCrop="riceCropChosen"
+               :arableLandList="arableLandList" @updateRiceCrop-submit="updateRiceCrop" :message1="message1"
+               :message2="message2" />
+          <CreateFertilizerTimesForm v-if="isOpenCreateFertilizerTimes" :newFertilizerTimes="newFertilizerTimes"
+               :fertilizerList="fertilizerList" :developmentStageList="developmentStageList" :currentUser="currentUser"
+               :riceCropChosen="riceCropChosen" :arableLandList="arableLandList"
+               @addFertilizerTimes-submit="createFertilizerTimes" :message1="message1" :message2="message2" />
+          <CreateSprayingTimesForm v-if="isOpenCreateSprayingTimes" :newSprayingTimes="newSprayingTimes"
+               :pesticideList="pesticideList" :developmentStageList="developmentStageList" :currentUser="currentUser"
+               :riceCropChosen="riceCropChosen" :arableLandList="arableLandList"
+               @addSprayingTimes-submit="createSprayingTimes" :message1="message1" :message2="message2" />
      </div>
      <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click="away()"></div>
 </template>
@@ -157,10 +156,7 @@ export default {
                     isCloseMenu: false,
                },
 
-               active: {
-                    rightActive: false,
-                    leftnNoneActive: false,
-               },
+               active: false,
                years: [],
                filter: {},
                number: 0,
@@ -227,9 +223,16 @@ export default {
                this.isOpenInput1 = false;
           },
 
+          async loadData(){
+               this.loading= true;
+               if (this.loading) {
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 1000);
+               }
+          },
 
           async retrieveFullRiceCropList() {
-               this.loading = true;
                const [err, respone] = await this.handle(
                     RiceCropService.getAll()
                );
@@ -266,11 +269,6 @@ export default {
                          this.newRiceCrop.RiceCropInformation_id = "RCI00" + String(Number(id) + 1);
                     }
 
-               }
-               if (this.loading == true) {
-                    setTimeout(() => {
-                         this.loading = false;
-                    }, 1000);
                }
           },
 
@@ -423,8 +421,8 @@ export default {
                     this.openCreate = false;
                     this.message1 = " ";
                     this.message2 = " ";
+                    this.active = false;
                     this.newRiceCrop = {};
-                    this.retrieveRiceCropList();
                }
                else {
                     this.message1 = " ";
@@ -507,6 +505,7 @@ export default {
                     this.isOpenUpdateRiceCrop = false;
                     this.message1 = " ";
                     this.message2 = " ";
+                    this.active = false;
                     this.newRiceCrop = {};
                     this.retrieveRiceCropList();
                     if (data.openFertilizerTime == true) {
@@ -776,7 +775,7 @@ export default {
                          }
                     });
                }
-               else if (this.filter.year != "Tất cả" && this.filter.status == 'all'){
+               else if (this.filter.year != "Tất cả" && this.filter.status == 'all') {
                     this.riceCropList = [];
                     this.cloneRiceCropList.forEach(ricecrop => {
                          if (((new Date(ricecrop.RiceCropInformation_sowingDate)).getFullYear() == this.filter.year || (new Date(ricecrop.RiceCropInformation_harvestDate)).getFullYear() == this.filter.year)) {
@@ -784,7 +783,7 @@ export default {
                          }
                     });
                }
-               else if (this.filter.year != "Tất cả" && this.filter.status == 'monitoring'){
+               else if (this.filter.year != "Tất cả" && this.filter.status == 'monitoring') {
                     this.riceCropList = [];
                     this.cloneRiceCropList.forEach(ricecrop => {
                          if ((new Date(ricecrop.RiceCropInformation_sowingDate)).getFullYear() == this.filter.year && ricecrop.RiceCropInformation_harvestDate == null) {
@@ -853,6 +852,7 @@ export default {
           this.newFertilizerTimes.Employee_id = this.currentUser.Employee_id;
           this.filter.status = "all";
           this.filter.year = "Tất cả";
+          this.loadData();
      }
 }
 

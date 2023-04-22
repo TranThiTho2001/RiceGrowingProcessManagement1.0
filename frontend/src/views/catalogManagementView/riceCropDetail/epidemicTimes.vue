@@ -1,8 +1,9 @@
 <template>
      <div class="container-fluid riceCropDetail">
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
-          <Preloader color="red" scale="0.4" /></div>
-          <div class="row riceCropDetailFrame" style="height: max-content;" v-if="!loading">
+               <Preloader color="red" scale="0.4" />
+          </div>
+          <div class="row riceCropDetailFrame" style="height: max-content;" v-if="!loading" :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -26,7 +27,7 @@
 
                          <button class="btn btnCome-back" @click="goToRiceCrop()">Trở về</button>
                          <button class="btn btnCreate"
-                              @click="isOpenCreateEpidemicTimesForm = !isOpenCreateEpidemicTimesForm">Thêm</button>
+                              @click="isOpenCreateEpidemicTimesForm = !isOpenCreateEpidemicTimesForm, active = true">Thêm</button>
                     </div>
                     <div class="row mt-4 row-detail" style=" margin-left:20px;margin-right: 10px ">
                          <div class="detail-Component text-center" v-for="(epidemictimes, i) in epidemicTimesList" :key="i">
@@ -36,12 +37,12 @@
                                    </button>
                                    <div class="dropdown-menu">
                                         <a class="dropdown-item action"
-                                             @click="setEpidemicChosen(epidemictimes), isOpenUpdateEpidemicTimesForm = !isOpenUpdateEpidemicTimesForm">
+                                             @click="setEpidemicChosen(epidemictimes), isOpenUpdateEpidemicTimesForm = !isOpenUpdateEpidemicTimesForm, active = true">
                                              <span class="fas fa-edit actionIcon"></span> Chỉnh
                                              sửa
                                         </a>
                                         <a class="dropdown-item" href="#"
-                                             @click="setEpidemicChosen(epidemictimes), setDelete('EpidemicTimes'), isOpenConfirm = !isOpenConfirm">
+                                             @click="setEpidemicChosen(epidemictimes), setDelete('EpidemicTimes'), isOpenConfirm = !isOpenConfirm, active = true">
                                              <span class="fas fa-trash-alt actionIcon"></span>
                                              Xóa
                                         </a>
@@ -52,48 +53,48 @@
                               <span class="title-detail">Tên: </span>
                               <span class="value-name-detail">{{ epidemictimes.Epidemic_name }}</span><br>
                               <span class="title-detail">Từ ngày: </span>
-                              <span class="value-detail">{{ formatDate(epidemictimes.EpidemicTimes_startDate)}}</span><br>
+                              <span class="value-detail">{{ formatDate(epidemictimes.EpidemicTimes_startDate) }}</span><br>
                               <span class="title-detail">Đến ngày: </span>
-                              <span class="value-detail">{{ formatDate(epidemictimes.EpidemicTimes_endDate)}}</span><br>
-                              <span class="title-detail">Nhân viên: </span><span class="value-detail">{{ epidemictimes.Employee_name }}</span><br>
+                              <span class="value-detail">{{ formatDate(epidemictimes.EpidemicTimes_endDate) }}</span><br>
+                              <span class="title-detail">Nhân viên: </span><span class="value-detail">{{
+                                   epidemictimes.Employee_name }}</span><br>
                          </div>
 
 
                     </div>
-                    <div class="confirmationDialog" v-if="isOpenConfirm">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelConfirm">
-                              <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
-                         </p>
-                         <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, choosenDelete()">Xóa</button>
-                         <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
-                    </div>
 
-                    <div class="messageDialog" v-if="isOpenMessage">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelThongBao">
-                              <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span>
-                              {{
-                                   message
-                              }}
-                         </p>
-                         <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenMessage = !isOpenMessage">OK</button>
-                    </div>
-                    <CreateEpidemicTimesForm v-if="isOpenCreateEpidemicTimesForm" :newEpidemicTimes="newEpidemicTimes"
-                         :epidemicList="epidemicList" :developmentStageList="developmentStageList" :currentUser="currentUser"
-                         :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
-                         @addEpidemicTimes-submit="createEpidemicTimes" :message1="message1" :message2="message2" />
-
-                    <UpdateEpidemicTimesForm v-if="isOpenUpdateEpidemicTimesForm" :newEpidemicTimes="epidemicTimesChosen"
-                         :epidemicList="epidemicList" :developmentStageList="developmentStageList" :currentUser="currentUser"
-                         :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
-                         @updateEpidemicTimes-submit="updateEpidemicTimes" :message1="message1" :message2="message2" />
                </div>
 
           </div>
+          <div class="confirmationDialog" v-if="isOpenConfirm">
+               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
+                    <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
+               </p>
+               <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
+                    @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, choosenDelete()">Xóa</button>
+               <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                    @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
+          </div>
+
+          <div class="messageDialog" v-if="isOpenMessage">
+               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
+                    <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span>
+                    {{
+                         message
+                    }}
+               </p>
+               <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                    @click="isOpenMessage = !isOpenMessage, active = false">OK</button>
+          </div>
+          <CreateEpidemicTimesForm v-if="isOpenCreateEpidemicTimesForm" :newEpidemicTimes="newEpidemicTimes"
+               :epidemicList="epidemicList" :developmentStageList="developmentStageList" :currentUser="currentUser"
+               :riceCropChosen="newRiceCrop" :arableLandList="arableLandList" @addEpidemicTimes-submit="createEpidemicTimes"
+               :message1="message1" :message2="message2" />
+
+          <UpdateEpidemicTimesForm v-if="isOpenUpdateEpidemicTimesForm" :newEpidemicTimes="epidemicTimesChosen"
+               :epidemicList="epidemicList" :developmentStageList="developmentStageList" :currentUser="currentUser"
+               :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
+               @updateEpidemicTimes-submit="updateEpidemicTimes" :message1="message1" :message2="message2" />
      </div>
 </template>
 
@@ -153,6 +154,7 @@ export default {
                loading: true,
                developmentStageList: [],
                epidemicList: [],
+               active: false,
           }
      },
 
@@ -183,6 +185,15 @@ export default {
           away() {
                this.isOpenSearch.open = false;
                this.isOpenSearch.close = true;
+          },
+
+          async loadData(){
+               this.loading= true;
+               if (this.loading) {
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 1000);
+               }
           },
 
           async retrieveDvelopmentStageList() {
@@ -222,7 +233,6 @@ export default {
           },
 
           async retrieveEpidemicTimesList() {
-               this.loading = true;
                const [err, respone] = await this.handle(
                     EpidemicTimesService.get(this.newRiceCrop.RiceCropInformation_id)
                );
@@ -245,11 +255,6 @@ export default {
                          this.newEpidemicTimes.EpidemicTimes_times = 1;
                     }
 
-               } if (this.loading == true) {
-                    setTimeout(() => {
-                         this.loading = false;
-                         console.log(this.loading)
-                    }, 900);
                }
           },
 
@@ -307,8 +312,7 @@ export default {
                     this.isOpenCreateEpidemicTimesForm = false;
                     this.message1 = " ";
                     this.message2 = " ";
-                    this.stylebac.none = false;
-                    this.stylebac.active = true;
+                    this.active = false;
                     this.newEpidemicTimes = {};
                     if (this.epidemicTimesList.length > 0) {
                          this.newEpidemicTimes.EpidemicTimes_times = this.epidemicTimesList[this.epidemicTimesList.length - 1].EpidemicTimes_times + 1;
@@ -370,12 +374,9 @@ export default {
                     this.isOpenUpdateEpidemicTimesForm = false;
                     this.message1 = " ";
                     this.message2 = " ";
-                    this.stylebac.none = false;
-                    this.stylebac.active = true;
+                    this.active = false;
                     this.newSprayingTimes = {};
                     this.newEpidemicTimes.EpidemicTimes_times = this.epidemicTimesList[this.epidemicTimesList.length - 1].EpidemicTimes_times + 1;
-                    this.stylebac.none = false;
-                    this.stylebac.active = true;
                }
                else {
                     this.message1 = " ";
@@ -439,7 +440,7 @@ export default {
                }
                this.delete = "";
           },
-          
+
           async searchNameEpidemic(data) {
                this.nameToSearch = data;
                if (this.nameToSearch != "") {
@@ -514,7 +515,7 @@ export default {
           this.retrieveEpidemicList();
           this.retrieveDvelopmentStageList();
           this.retrieveEpidemicTimesList();
-          
+          this.loadData();
      }
 };
 </script>

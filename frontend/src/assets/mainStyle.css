@@ -80,8 +80,8 @@
      border: 1px solid rgb(62, 77, 77);
      border-radius: 10px;
      position: absolute;
-     top: calc(38%);
-     transform: translateX(96%);
+     top: calc(300px);
+     left: 42%;
      border-radius: 16px;
      display: block;
      width: 404px;
@@ -708,8 +708,16 @@ html {
      display: none;
 }
 
-.leftNoneActive {
-     filter: none;
+.active {
+     filter: drop-shadow(0px 4px 5px rgba(0, 0, 0, 0.25));
+     filter: blur(0.5px) !important;
+     pointer-events: none;
+     scroll-behavior: none !important;
+}
+
+.form {
+     pointer-events: all !important;
+     filter: none !important;
 }
 
 .StatisticalManagement input[type=radio],
@@ -747,7 +755,7 @@ html {
 
 .riceCropDetail .dropdown-menu .dropdown-item,
 .predictiveManagement .dropdown-menu .dropdown-item,
-.predictiveDetailManagement .dropdown-menu  .dropdown-item{
+.predictiveDetailManagement .dropdown-menu .dropdown-item {
      font-family: 'Roboto';
      font-style: normal;
      color: #6D6E73;
@@ -755,7 +763,7 @@ html {
 
 .riceCropDetail .dropdown-menu .dropdown-item:hover,
 .predictiveManagement .dropdown-menu .dropdown-item:hover,
-.predictiveDetailManagement .dropdown-menu  .dropdown-item:hover{
+.predictiveDetailManagement .dropdown-menu .dropdown-item:hover {
      background-color: #FFFED8;
      color: #1C1C1F;
 }

@@ -1,8 +1,9 @@
 <template>
      <div class="container-fluid fertilizerManagement pr-4 " style="background-color: #EAEAEA; height: max-content;">
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
-          <Preloader color="red" scale="0.4" /></div>
-          <div class="row fertilizerManagementFrame" style="height: 100vmin;" v-if="!loading">
+               <Preloader color="red" scale="0.4" />
+          </div>
+          <div class="row fertilizerManagementFrame" style="height: 100vmin;" v-if="!loading" :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -37,8 +38,8 @@
                                    @click="searchName(fertilizer.Fertilizer_name), away()">
                                    {{ fertilizer.Fertilizer_name }}</p>
                          </div>
-                         <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
-                                   style="font-size: 15px;"></i> Thêm phân bón</button>
+                         <button class="btn btnCreate" @click="openCreate = !openCreate, active = true"><i
+                                   class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm phân bón</button>
                     </div>
                     <div class="scrollTable">
                          <div class="scrollTable-content">
@@ -72,11 +73,11 @@
                                                   </button>
                                                   <div class="dropdown-menu">
                                                        <a class="dropdown-item action"
-                                                            @click="setFertilizerChosen(fertilizer), isOpenUpdateFertilizer = !isOpenUpdateFertilizer">
+                                                            @click="setFertilizerChosen(fertilizer), isOpenUpdateFertilizer = !isOpenUpdateFertilizer, active = true">
                                                             <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                                        </a>
                                                        <a class="dropdown-item" href="#"
-                                                            @click="setFertilizerChosen(fertilizer), isOpenConfirm = !isOpenConfirm">
+                                                            @click="setFertilizerChosen(fertilizer), isOpenConfirm = !isOpenConfirm, active = true">
                                                             <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                        </a>
                                                   </div>
@@ -86,37 +87,36 @@
                               </table>
                          </div>
                     </div>
-                    <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
 
-                    <div class="confirmationDialog" v-if="isOpenConfirm">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelConfirm">
-                              <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
-                         </p>
-                         <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteFertilizer(fertilizerChosen.Fertilizer_id)">Xóa</button>
-                         <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
-                    </div>
-
-                    <div class="messageDialog" v-if="isOpenMessage">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelThongBao">
-                              <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
-                                   message
-                              }}
-                         </p>
-                         <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenMessage = !isOpenMessage">OK</button>
-                    </div>
-
-                    <CreateFertilizerForm v-if="openCreate" :newFertilizer="newFertilizer" :nutrientList="nutrientList"
-                         @addFertilizer-submit="createFertilizer" :message1="message1" :message2="message2" />
-
-                    <UpdateFertilizerForm v-if="isOpenUpdateFertilizer" :newFertilizer="fertilizerChosen"
-                         @updateFertilizer-submit="updateFertilizer" :message1="message1" :message2="message2" />
                </div>
           </div>
+          <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
+
+          <div class="confirmationDialog" v-if="isOpenConfirm">
+               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
+                    <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
+               </p>
+               <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
+                    @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteFertilizer(fertilizerChosen.Fertilizer_id)">Xóa</button>
+               <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                    @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
+          </div>
+
+          <div class="messageDialog" v-if="isOpenMessage">
+               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
+                    <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
+                         message
+                    }}
+               </p>
+               <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                    @click="isOpenMessage = !isOpenMessage, active = false">OK</button>
+          </div>
+
+          <CreateFertilizerForm v-if="openCreate" :newFertilizer="newFertilizer" :nutrientList="nutrientList"
+               @addFertilizer-submit="createFertilizer" :message1="message1" :message2="message2" />
+
+          <UpdateFertilizerForm v-if="isOpenUpdateFertilizer" :newFertilizer="fertilizerChosen"
+               @updateFertilizer-submit="updateFertilizer" :message1="message1" :message2="message2" />
      </div>
      <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click.passive="away()"></div>
 </template>
@@ -182,10 +182,7 @@ export default {
                     isCloseMenu: false,
                },
 
-               active: {
-                    rightActive: false,
-                    leftnNoneActive: false,
-               },
+               active: false,
           }
      },
 
@@ -287,6 +284,7 @@ export default {
                     this.openCreate = false;
                     this.message1 = " ";
                     this.message2 = " ";
+                    this.active = false;
                }
                else {
                     this.message1 = "";
@@ -328,6 +326,7 @@ export default {
                     this.isOpenUpdateFertilizer = false;
                     this.message1 = " ";
                     this.message2 = " ";
+                    this.active = false;
                }
                else {
                     this.message1 = "";

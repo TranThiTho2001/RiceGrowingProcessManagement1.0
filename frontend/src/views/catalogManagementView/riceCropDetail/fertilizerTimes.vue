@@ -1,8 +1,9 @@
 <template>
      <div class="container-fluid riceCropDetail">
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
-          <Preloader color="red" scale="0.4" /></div>
-          <div class="row riceCropDetailFrame" style="height: max-content;" v-if="!loading">
+               <Preloader color="red" scale="0.4" />
+          </div>
+          <div class="row riceCropDetailFrame" style="height: max-content;" v-if="!loading" :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -26,7 +27,7 @@
 
                          <button class="btn btnCome-back" @click="goToRiceCrop()">Trở về</button>
                          <button class="btn btnCreate"
-                              @click="isOpenCreateFertilizerTimesForm = !isOpenCreateFertilizerTimesForm">Thêm</button>
+                              @click="isOpenCreateFertilizerTimesForm = !isOpenCreateFertilizerTimesForm, active = true">Thêm</button>
                     </div>
                     <div class="row mt-4 function-row" style=" margin-left:20px;margin-right: 10px ">
                          <div class="detail-Component text-center" v-for="(fertilizertimes, i) in fertilizerTimesList"
@@ -37,12 +38,12 @@
                                    </button>
                                    <div class="dropdown-menu">
                                         <a class="dropdown-item action"
-                                             @click="setFertilizerChosen(fertilizertimes), isOpenUpdateFertilizerTimesForm = !isOpenUpdateFertilizerTimesForm, stylebac.none = !stylebac.none, stylebac.active = !stylebac.active">
+                                             @click="setFertilizerChosen(fertilizertimes), isOpenUpdateFertilizerTimesForm = !isOpenUpdateFertilizerTimesForm, active = true">
                                              <span class="fas fa-edit actionIcon"></span> Chỉnh
                                              sửa
                                         </a>
                                         <a class="dropdown-item" href="#"
-                                             @click="setFertilizerChosen(fertilizertimes), setDelete('FertilizerTimes'), isOpenConfirm = !isOpenConfirm">
+                                             @click="setFertilizerChosen(fertilizertimes), setDelete('FertilizerTimes'), isOpenConfirm = !isOpenConfirm, active = true">
                                              <span class="fas fa-trash-alt actionIcon"></span>
                                              Xóa
                                         </a>
@@ -54,52 +55,46 @@
                               <span class="title-detail">Số lượng: </span>
                               <span class="value-detail">{{ fertilizertimes.FertilizerTimes_amount }} (kg/ha)</span><br>
                               <span class="title-detail">Bón ngày: </span>
-                              <span class="value-detail">{{ formatDate(fertilizertimes.FertilizerTimes_startDate)}}</span><br>
+                              <span class="value-detail">{{
+                                   formatDate(fertilizertimes.FertilizerTimes_startDate) }}</span><br>
                               <span class="title-detail">Đến ngày: </span>
-                              <span class="value-detail">{{ formatDate(fertilizertimes.FertilizerTimes_endDate)}}</span><br>
+                              <span class="value-detail">{{ formatDate(fertilizertimes.FertilizerTimes_endDate) }}</span><br>
                               <span class="title-detail">Nhân viên: </span>
                               <span class="value-detail">{{ fertilizertimes.Employee_name }}</span><br>
                          </div>
-
-
                     </div>
-
-                    <div class="confirmationDialog" v-if="isOpenConfirm">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelConfirm">
-                              <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
-                         </p>
-                         <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, choosenDelete()">Xóa</button>
-                         <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
-                    </div>
-
-                    <div class="messageDialog" v-if="isOpenMessage">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelThongBao">
-                              <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span>
-                              {{
-                                   message
-                              }}
-                         </p>
-                         <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenMessage = !isOpenMessage">OK</button>
-                    </div>
-
-                    <CreateFertilizerTimesForm v-if="isOpenCreateFertilizerTimesForm" :weather="weatherInfor"
-                         :newFertilizerTimes="newFertilizerTimes" :fertilizerList="fertilizerList"
-                         :developmentStageList="developmentStageList" :currentUser="currentUser"
-                         :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
-                         @addFertilizerTimes-submit="createFertilizerTimes" :message1="message1" :message2="message2" />
-                    <UpdateFertilizerTimesForm v-if="isOpenUpdateFertilizerTimesForm"
-                         :newFertilizerTimes="fertilizerTimesChosen" :fertilizerList="fertilizerList"
-                         :developmentStageList="developmentStageList" :currentUser="currentUser"
-                         :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
-                         @updateFertilizerTimes-submit="updateFertilizerTimes" :message1="message1" :message2="message2" />
                </div>
-
           </div>
+          <div class="confirmationDialog" v-if="isOpenConfirm">
+               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
+                    <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
+               </p>
+               <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
+                    @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, choosenDelete()">Xóa</button>
+               <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                    @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
+          </div>
+
+          <div class="messageDialog" v-if="isOpenMessage">
+               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
+                    <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span>
+                    {{
+                         message
+                    }}
+               </p>
+               <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                    @click="isOpenMessage = !isOpenMessage, active = false">OK</button>
+          </div>
+
+          <CreateFertilizerTimesForm v-if="isOpenCreateFertilizerTimesForm" :weather="weatherInfor"
+               :newFertilizerTimes="newFertilizerTimes" :fertilizerList="fertilizerList"
+               :developmentStageList="developmentStageList" :currentUser="currentUser" :riceCropChosen="newRiceCrop"
+               :arableLandList="arableLandList" @addFertilizerTimes-submit="createFertilizerTimes" :message1="message1"
+               :message2="message2" />
+          <UpdateFertilizerTimesForm v-if="isOpenUpdateFertilizerTimesForm" :newFertilizerTimes="fertilizerTimesChosen"
+               :fertilizerList="fertilizerList" :developmentStageList="developmentStageList" :currentUser="currentUser"
+               :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
+               @updateFertilizerTimes-submit="updateFertilizerTimes" :message1="message1" :message2="message2" />
      </div>
 </template>
 
@@ -159,6 +154,7 @@ export default {
                     isCloseMenu: false,
                },
                loading: true,
+               active: false,
           }
      },
 
@@ -187,9 +183,16 @@ export default {
                })
           },
 
+          async loadData(){
+               this.loading= true;
+               if (this.loading) {
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 1000);
+               }
+          },
 
           async retrieveFertilizerTimesList() {
-               this.loading = true;
                const [err, respone] = await this.handle(
                     FertilizerTimesService.get(this.newRiceCrop.RiceCropInformation_id)
                );
@@ -206,15 +209,10 @@ export default {
                          this.newFertilizerTimes.FertilizerTimes_times = 1;
                     }
                     this.newFertilizerTimes.Fertilizer = [];
-                         var fertilizerInfor = {};
-                         fertilizerInfor.Fertilizer_name = "";
-                         fertilizerInfor.FertilizerTimes_amount = 0;
-                         this.newFertilizerTimes.Fertilizer.push(fertilizerInfor)
-                    if (this.loading == true) {
-                         setTimeout(() => {
-                              this.loading = false;
-                         }, 900);
-                    }
+                    var fertilizerInfor = {};
+                    fertilizerInfor.Fertilizer_name = "";
+                    fertilizerInfor.FertilizerTimes_amount = 0;
+                    this.newFertilizerTimes.Fertilizer.push(fertilizerInfor)
                }
           },
 
@@ -245,6 +243,7 @@ export default {
                     this.isOpenCreateFertilizerTimesForm = false;
                     this.message1 = " ";
                     this.message2 = " ";
+                    this.active = false;
                     this.newFertilizerTimes = {};
                     this.newFertilizerTimes.FertilizerTimes_times = this.fertilizerTimesList[this.fertilizerTimesList.length - 1].FertilizerTimes_times + 1;
                     this.newFertilizerTimes.Fertilizer = [];
@@ -318,6 +317,7 @@ export default {
                     this.isOpenUpdateFertilizerTimesForm = false;
                     this.message1 = " ";
                     this.message2 = " ";
+                    this.active = false;
                     this.newFertilizerTimes = {};
                     this.newFertilizerTimes.FertilizerTimes_times = this.fertilizerTimesList[this.fertilizerTimesList.length - 1].FertilizerTimes_times + 1;
                     this.newFertilizerTimes.Fertilizer = [];
@@ -429,6 +429,7 @@ export default {
           this.retrieveFertilizerList();
           this.retrieveDvelopmentStageList();
           this.retrieveFertilizerTimesList();
+          this.loadData();
      }
 };
 </script>

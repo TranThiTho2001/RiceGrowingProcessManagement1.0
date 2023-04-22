@@ -183,14 +183,20 @@ export default {
 <style>
 .createMonitorForm {
      position: absolute;
-     width: 97.2%;
+     width: 83%;
      height: 80vh;
      top: 100px;
-     left: 20px;
+     left: 16%;
      background: linear-gradient(135.44deg, rgba(217, 217, 217, 0.4) 15.43%, rgba(217, 217, 217, 0.1) 79.67%) !important;
      box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3) !important;
      backdrop-filter: blur(20px);
      border-radius: 15px;
+}
+
+@media only screen and (max-width: 1430px) {
+     .createMonitorForm {
+          left: 10%;
+     }
 }
 
 .createMonitorForm .table tbody td {

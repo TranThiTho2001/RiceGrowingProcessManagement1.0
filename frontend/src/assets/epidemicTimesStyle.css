@@ -4,7 +4,16 @@
      border-radius: 10px;
      position: absolute;
      top: calc(100px);
-     left: 20px;
-     width: 97.2%;
+     left: 16%;
+     width: 83%;
 }
+
+@media only screen and (max-width: 1430px) {
+     .riceCropDetail .updateEpidemicTimesForm,
+     .riceCropDetail .createEpidemicTimesForm{
+          left: 10%;
+
+     }
+     
+ }
 

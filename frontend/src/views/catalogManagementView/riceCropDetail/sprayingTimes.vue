@@ -1,8 +1,9 @@
 <template>
      <div class="container-fluid riceCropDetail">
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
-          <Preloader color="red" scale="0.4" /></div>
-          <div class="row riceCropDetailFrame" style="height: max-content;" v-if="!loading">
+               <Preloader color="red" scale="0.4" />
+          </div>
+          <div class="row riceCropDetailFrame" style="height: max-content;" v-if="!loading" :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -26,7 +27,7 @@
 
                          <button class="btn btnCome-back" @click="goToRiceCrop()">Trở về</button>
                          <button class="btn btnCreate"
-                              @click="isOpenCreateSprayingTimesForm = !isOpenCreateSprayingTimesForm">Thêm</button>
+                              @click="isOpenCreateSprayingTimesForm = !isOpenCreateSprayingTimesForm, active = true">Thêm</button>
                     </div>
                     <div class="row mt-4 row-detail" style=" margin-left:20px;margin-right: 10px ">
                          <div class="detail-Component text-center" v-for="(sprayingtimes, i) in SprayingTimesList" :key="i">
@@ -36,12 +37,12 @@
                                    </button>
                                    <div class="dropdown-menu">
                                         <a class="dropdown-item action"
-                                             @click="setSprayingTimes(sprayingtimes), isOpenUpdateSprayingTimesForm = !isOpenUpdateSprayingTimesForm">
+                                             @click="setSprayingTimes(sprayingtimes), isOpenUpdateSprayingTimesForm = !isOpenUpdateSprayingTimesForm, active = true">
                                              <span class="fas fa-edit actionIcon"></span> Chỉnh
                                              sửa
                                         </a>
                                         <a class="dropdown-item" href="#"
-                                             @click="setSprayingTimes(sprayingtimes),isOpenConfirm = !isOpenConfirm">
+                                             @click="setSprayingTimes(sprayingtimes), isOpenConfirm = !isOpenConfirm, active = true">
                                              <span class="fas fa-trash-alt actionIcon"></span>
                                              Xóa
                                         </a>
@@ -54,49 +55,48 @@
                               <span class="title-detail">Liều lượng: </span>
                               <span class="value-detail">{{ sprayingtimes.SprayingTimes_amount }} (ml/ha)</span><br>
                               <span class="title-detail">Từ ngày: </span>
-                              <span class="value-detail">{{ formatDate(sprayingtimes.SprayingTimes_startDate)}}</span><br>
+                              <span class="value-detail">{{ formatDate(sprayingtimes.SprayingTimes_startDate) }}</span><br>
                               <span class="title-detail">Đến ngày: </span>
-                              <span class="value-detail">{{ formatDate(sprayingtimes.SprayingTimes_endDate)}}</span><br>
+                              <span class="value-detail">{{ formatDate(sprayingtimes.SprayingTimes_endDate) }}</span><br>
                               <span class="title-detail">Nhân viên: </span>
                               <span class="value-detail">{{ sprayingtimes.Employee_name }}</span><br>
                          </div>
 
 
                     </div>
-                    <div class="confirmationDialog" v-if="isOpenConfirm">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelConfirm">
-                              <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
-                         </p>
-                         <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteSprayingTimes()">Xóa</button>
-                         <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
-                    </div>
 
-                    <div class="messageDialog" v-if="isOpenMessage">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelThongBao">
-                              <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span>
-                              {{
-                                   message
-                              }}
-                         </p>
-                         <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenMessage = !isOpenMessage">OK</button>
-                    </div>
-                    <CreateSprayingTimesForm v-if="isOpenCreateSprayingTimesForm" :newSprayingTimes="newSprayingTimes"
-                         :pesticideList="pesticideList" :developmentStageList="developmentStageList"
-                         :currentUser="currentUser" :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
-                         @addSprayingTimes-submit="createNewSprayingTimes" :message1="message1" :message2="message2" />
-
-                    <UpdateSprayingTimesForm v-if="isOpenUpdateSprayingTimesForm" :newSprayingTimes="sprayingTimesChosen"
-                         :pesticideList="pesticideList" :developmentStageList="developmentStageList"
-                         :currentUser="currentUser" :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
-                         @updateSprayingTimes-submit="updateSprayingTimes" :message1="message1" :message2="message2" />
 
                </div>
           </div>
+          <div class="confirmationDialog" v-if="isOpenConfirm">
+               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
+                    <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
+               </p>
+               <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
+                    @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteSprayingTimes()">Xóa</button>
+               <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                    @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
+          </div>
+
+          <div class="messageDialog" v-if="isOpenMessage">
+               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
+                    <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span>
+                    {{
+                         message
+                    }}
+               </p>
+               <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                    @click="isOpenMessage = !isOpenMessage, active = false">OK</button>
+          </div>
+          <CreateSprayingTimesForm v-if="isOpenCreateSprayingTimesForm" :newSprayingTimes="newSprayingTimes"
+               :pesticideList="pesticideList" :developmentStageList="developmentStageList" :currentUser="currentUser"
+               :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
+               @addSprayingTimes-submit="createNewSprayingTimes" :message1="message1" :message2="message2" />
+
+          <UpdateSprayingTimesForm v-if="isOpenUpdateSprayingTimesForm" :newSprayingTimes="sprayingTimesChosen"
+               :pesticideList="pesticideList" :developmentStageList="developmentStageList" :currentUser="currentUser"
+               :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
+               @updateSprayingTimes-submit="updateSprayingTimes" :message1="message1" :message2="message2" />
      </div>
 </template>
 
@@ -188,6 +188,15 @@ export default {
                })
           },
 
+          async loadData() {
+               this.loading = true;
+               if (this.loading) {
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 1000);
+               }
+          },
+
           async retrieveDvelopmentStageList() {
                const [err, respone] = await this.handle(
                     DevelopmentStageService.getAll()
@@ -201,7 +210,6 @@ export default {
           },
 
           async retrieveSprayingTimesList() {
-               this.loading = true;
                const [err, respone] = await this.handle(
                     SprayingTimesService.get(this.newRiceCrop.RiceCropInformation_id)
                );
@@ -218,15 +226,10 @@ export default {
                          this.newSprayingTimes.SprayingTimes_times = 1;
                     }
                     var temp = {};
-                         this.newSprayingTimes.Pesticide = [];
-                         temp.Pesticide_name = "";
-                         temp.Pesticide_amount = '0';
-                         this.newSprayingTimes.Pesticide.push(temp);
-               }
-               if (this.loading == true) {
-                    setTimeout(() => {
-                         this.loading = false;
-                    }, 900);
+                    this.newSprayingTimes.Pesticide = [];
+                    temp.Pesticide_name = "";
+                    temp.Pesticide_amount = '0';
+                    this.newSprayingTimes.Pesticide.push(temp);
                }
           },
 
@@ -240,6 +243,7 @@ export default {
                     this.isOpenCreateSprayingTimesForm = false;
                     this.message1 = " ";
                     this.message2 = " ";
+                    this.active = false;
                     this.newSprayingTimes = {};
                     if (this.SprayingTimesList.length > 0) {
                          this.newSprayingTimes.SprayingTimes_times = this.SprayingTimesList[this.SprayingTimesList.length - 1].SprayingTimes_times + 1;
@@ -324,9 +328,10 @@ export default {
                     this.isOpenTable = true;
                     this.message1 = " ";
                     this.message2 = " ";
+                    this.active = false;
                     this.newSprayingTimes = {};
                     this.newSprayingTimes.SprayingTimes_times = this.SprayingTimesList[this.SprayingTimesList.length - 1].SprayingTimes_times + 1;
-               
+
                }
                else {
                     this.message1 = " ";
@@ -370,9 +375,9 @@ export default {
                          this.message1 = "Cập nhật không thành công."
                     } else {
                          this.message2 = "Cập nhật thành công.";
-                        
+
                     }
-                     
+
                }
                this.retrieveSprayingTimesList();
 
@@ -448,6 +453,7 @@ export default {
           this.retrievePesticideList();
           this.retrieveSprayingTimesList();
           this.retrieveNewRiceCrop();
+          this.loadData();
      }
 };
 </script>

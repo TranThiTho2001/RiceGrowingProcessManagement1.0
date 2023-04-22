@@ -1,8 +1,9 @@
 <template>
      <div class="container-fluid riceCropDetail">
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
-          <Preloader color="red" scale="0.4" /></div>
-          <div class="row riceCropDetailFrame" style="height: max-content;" v-if="!loading">
+               <Preloader color="red" scale="0.4" />
+          </div>
+          <div class="row riceCropDetailFrame" style="height: max-content;" v-if="!loading" :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -26,7 +27,7 @@
 
                          <button class="btn btnCome-back" @click="goToRiceCrop()">Trở về</button>
                          <button class="btn btnCreate"
-                              @click="isOpenCreateActivitiesDetail = !isOpenCreateActivitiesDetail">Thêm</button>
+                              @click="isOpenCreateActivitiesDetail = !isOpenCreateActivitiesDetail, active = true">Thêm</button>
                     </div>
                     <div class="row mt-4 row-detail" style=" margin-left:20px;margin-right: 10px ">
                          <div class="detail-Component text-center" v-for="(activity, i) in activitiesDetailList" :key="i">
@@ -36,59 +37,62 @@
                                    </button>
                                    <div class="dropdown-menu">
                                         <a class="dropdown-item action"
-                                             @click="setActivityChosen(activity), isOpenUpdateActivitiesDetail = !isOpenUpdateActivitiesDetail">
+                                             @click="setActivityChosen(activity), isOpenUpdateActivitiesDetail = !isOpenUpdateActivitiesDetail, active = true">
                                              <span class="fas fa-edit actionIcon"></span> Chỉnh
                                              sửa
                                         </a>
                                         <a class="dropdown-item" href="#"
-                                             @click="setActivityChosen(activity), isOpenConfirm = !isOpenConfirm">
+                                             @click="setActivityChosen(activity), isOpenConfirm = !isOpenConfirm, active = true">
                                              <span class="fas fa-trash-alt actionIcon"></span>
                                              Xóa
                                         </a>
 
                                    </div>
                               </div>
-                              <h5 class="function-name text-center">{{ activity.OtherActivities_name }} Lần {{ activity.ActivityDetails_times }}</h5>
-                              <span class="title-detail">Từ ngày: </span><span class="value-detail">{{ formatDate(activity.ActivityDetails_startDate)
+                              <h5 class="function-name text-center">{{ activity.OtherActivities_name }} Lần {{
+                                   activity.ActivityDetails_times }}</h5>
+                              <span class="title-detail">Từ ngày: </span><span class="value-detail">{{
+                                   formatDate(activity.ActivityDetails_startDate)
                               }}</span><br>
-                              <span class="title-detail">Đến ngày: </span><span class="value-detail">{{ formatDate(activity.ActivityDetails_endDate)
+                              <span class="title-detail">Đến ngày: </span><span class="value-detail">{{
+                                   formatDate(activity.ActivityDetails_endDate)
                               }}</span><br>
-                              <span class="title-detail">Nhân viên: </span><span class="value-detail">{{ activity.Employee_name }}</span><br>
+                              <span class="title-detail">Nhân viên: </span><span class="value-detail">{{
+                                   activity.Employee_name }}</span><br>
                          </div>
 
 
                     </div>
-                    <div class="confirmationDialog" v-if="isOpenConfirm">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelConfirm">
-                              <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
-                         </p>
-                         <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteActivitiesDetail()">Xóa</button>
-                         <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
-                    </div>
 
-                    <div class="messageDialog" v-if="isOpenMessage">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelThongBao">
-                              <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span>
-                              {{
-                                   message
-                              }}
-                         </p>
-                         <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenMessage = !isOpenMessage">OK</button>
-                    </div>
-               <CreateActivitiiesDetailForm v-if="isOpenCreateActivitiesDetail" :newActivityDetail="newActivityDetail"
-                    :currentUser="currentUser" :developmentStageList="developmentStageList" :riceCropChosen="newRiceCrop"
-                    @addOtherActivityTimes-submit="createNewActivitiesDetail" :message1="message1" :message2="message2" />
-               <UpadteActivitiiesDetailForm v-if="isOpenUpdateActivitiesDetail" :newActivityDetail="activitiesDetailChosen"
-                    :currentUser="currentUser" :developmentStageList="developmentStageList" :riceCropChosen="newRiceCrop"
-                    @updateActivitiesDetail-submit="updateActivitiesDetail" :message1="message1" :message2="message2" />
                </div>
 
           </div>
+          <div class="confirmationDialog" v-if="isOpenConfirm">
+               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
+                    <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
+               </p>
+               <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
+                    @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteActivitiesDetail()">Xóa</button>
+               <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                    @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
+          </div>
+
+          <div class="messageDialog" v-if="isOpenMessage">
+               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
+                    <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span>
+                    {{
+                         message
+                    }}
+               </p>
+               <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                    @click="isOpenMessage = !isOpenMessage, active = false">OK</button>
+          </div>
+          <CreateActivitiiesDetailForm v-if="isOpenCreateActivitiesDetail" :newActivityDetail="newActivityDetail"
+               :currentUser="currentUser" :developmentStageList="developmentStageList" :riceCropChosen="newRiceCrop"
+               @addOtherActivityTimes-submit="createNewActivitiesDetail" :message1="message1" :message2="message2" />
+          <UpadteActivitiiesDetailForm v-if="isOpenUpdateActivitiesDetail" :newActivityDetail="activitiesDetailChosen"
+               :currentUser="currentUser" :developmentStageList="developmentStageList" :riceCropChosen="newRiceCrop"
+               @updateActivitiesDetail-submit="updateActivitiesDetail" :message1="message1" :message2="message2" />
      </div>
 </template>
 
@@ -121,6 +125,7 @@ export default {
      data() {
           return {
                nameToSearch: "",
+               active: false,
                newRiceCrop: {},
                message1: "",
                message2: "",
@@ -170,6 +175,14 @@ export default {
                this.isOpenSearch.close = true;
           },
 
+          async loadData(){
+               this.loading= true;
+               if (this.loading) {
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 1000);
+               }
+          },
           setActivityChosen(activity) {
                this.activitiesDetailChosen = activity;
           },
@@ -187,7 +200,6 @@ export default {
           },
 
           async retrieveActivitiesDetail() {
-               this.loading = true;
                const [err, respone] = await this.handle(
                     ActivityDetailsService.findByIdRiceCrop(this.newRiceCrop.RiceCropInformation_id)
                );
@@ -203,11 +215,6 @@ export default {
                          this.newActivityDetail.ActivityDetails_times = 1;
                     }
                }
-               if (this.loading == true) {
-                    setTimeout(() => {
-                         this.loading = false;
-                    }, 900);
-               }
           },
 
           async createNewActivitiesDetail(data) {
@@ -215,8 +222,7 @@ export default {
                this.message2 = "";
                if (!data.close) {
                     this.isOpenCreateActivitiesDetail = false;
-                    this.stylebac.none = false;
-                    this.stylebac.active = true;
+                    this.active = false;
                     this.newActivityDetail = {};
                     this.retrieveActivitiesDetail();
                }
@@ -268,8 +274,7 @@ export default {
                this.message2 = "";
                if (!data.close) {
                     this.isOpenUpdateActivitiesDetail = false;
-                    this.stylebac.none = false;
-                    this.stylebac.active = true;
+                    this.active = false;
                     this.newActivityDetail = {};
                     this.retrieveActivitiesDetail();
                }
@@ -387,6 +392,7 @@ export default {
           this.retrieveDvelopmentStageList();
           this.retrieveNewRiceCrop();
           this.retrieveActivitiesDetail();
+          this.loadData();
      }
 };
 </script>

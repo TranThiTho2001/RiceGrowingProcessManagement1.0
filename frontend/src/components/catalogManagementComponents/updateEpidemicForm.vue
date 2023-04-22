@@ -1,6 +1,6 @@
 <template>
      <Form @submit="newepidemic.close = true, $emit('updateEpidemic-submit', newepidemic)" :validation-schema="schema"
-          class="form container updateEpidemicForm">
+          class="form container-fluid updateEpidemicForm">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times-circle" @click="newepidemic.close = false, $emit('updateEpidemic-submit', newepidemic)"

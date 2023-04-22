@@ -1,8 +1,9 @@
 <template>
      <div class="container-fluid pesticideManagement pr-4" style="background-color: #EAEAEA; height: 100%;">
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
-          <Preloader color="red" scale="0.4" /></div>
-          <div class="row pesticideManagementFrame" style="min-height: 100%;" v-if="!loading">
+               <Preloader color="red" scale="0.4" />
+          </div>
+          <div class="row pesticideManagementFrame" style="min-height: 100%;" v-if="!loading"  :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -37,7 +38,7 @@
                                    @click="searchName(pesticide.Pesticide_name), away()">
                                    {{ pesticide.Pesticide_name }}</p>
                          </div>
-                         <button class="btn btnCreate" @click="openCreate = !openCreate"><i class="fas fa-plus-circle"
+                         <button class="btn btnCreate" @click="openCreate = !openCreate, active= true"><i class="fas fa-plus-circle"
                                    style="font-size: 15px;"></i> Thêm loại thuốc mới</button>
                     </div>
                     <div class="scrollTable" v-if="!openCreate && !isOpenUpdatePesticide">
@@ -80,11 +81,11 @@
                                                   </button>
                                                   <div class="dropdown-menu">
                                                        <a class="dropdown-item action"
-                                                            @click="setPesticideChosen(pesticide, i), isOpenUpdatePesticide = !isOpenUpdatePesticide">
+                                                            @click="setPesticideChosen(pesticide, i), isOpenUpdatePesticide = !isOpenUpdatePesticide, active= true">
                                                             <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                                        </a>
                                                        <a class="dropdown-item" href="#"
-                                                            @click="setPesticideChosen(pesticide, i), isOpenConfirm = !isOpenConfirm">
+                                                            @click="setPesticideChosen(pesticide, i), isOpenConfirm = !isOpenConfirm, active= true">
                                                             <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                        </a>
                                                   </div>
@@ -94,38 +95,37 @@
                               </table>
                          </div>
                     </div>
-                    <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
 
-                    <div class="confirmationDialog" v-if="isOpenConfirm">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelConfirm">
-                              <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
-                         </p>
-                         <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteTreatments()">Xóa</button>
-                         <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
-                    </div>
-
-                    <div class="messageDialog" v-if="isOpenMessage">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelThongBao">
-                              <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
-                                   message
-                              }}
-                         </p>
-                         <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenMessage = !isOpenMessage">OK</button>
-                    </div>
-
-                    <CreatePesticideForm v-if="openCreate" :newPesticide="newPesticide" :epidemicList="epidemicList"
-                         @addPesticide-submit="createPesticide" :message1="message1" :message2="message2" />
-
-                    <UpdatePesticideForm v-if="isOpenUpdatePesticide" :newPesticide="pesticideChosen"
-                         :epidemicList="epidemicList" :treatmentList="treatmentList"
-                         @updatePesticide-submit="updatePesticide" :message1="message1" :message2="message2" />
                </div>
           </div>
+          <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
+
+          <div class="confirmationDialog" v-if="isOpenConfirm">
+               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
+                    <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
+               </p>
+               <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
+                    @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteTreatments()">Xóa</button>
+               <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                    @click="isOpenConfirm = !isOpenConfirm, active=false">Hủy</button>
+          </div>
+
+          <div class="messageDialog" v-if="isOpenMessage">
+               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
+                    <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
+                         message
+                    }}
+               </p>
+               <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                    @click="isOpenMessage = !isOpenMessage, active=false">OK</button>
+          </div>
+
+          <CreatePesticideForm v-if="openCreate" :newPesticide="newPesticide" :epidemicList="epidemicList"
+               @addPesticide-submit="createPesticide" :message1="message1" :message2="message2" />
+
+          <UpdatePesticideForm v-if="isOpenUpdatePesticide" :newPesticide="pesticideChosen" :epidemicList="epidemicList"
+               :treatmentList="treatmentList" @updatePesticide-submit="updatePesticide" :message1="message1"
+               :message2="message2" />
      </div>
      <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click.passive="away()"></div>
 </template>
@@ -191,10 +191,7 @@ export default {
                     isCloseMenu: false,
                },
 
-               active: {
-                    rightActive: false,
-                    leftnNoneActive: false,
-               },
+               active: false,
                searching: false,
           }
      },
@@ -223,8 +220,16 @@ export default {
                this.isOpenInput2 = false;
           },
 
+          async loadData(){
+               this.loading= true;
+               if (this.loading) {
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 1000);
+               }
+          },
+
           async retrievePesticideList() {
-               this.loading = true;
                const [err, respone] = await this.handle(
                     PesticideService.getAll()
                );
@@ -265,11 +270,7 @@ export default {
                          this.newPesticide.Pesticide_id = "PE00" + String(Number(id) + 1);
                     }
                }
-               if(this.loading){
-                    setTimeout(() => {
-                         this.loading = false;
-                    }, 1000);
-               }
+
           },
 
           async retrieveEpidemicList() {
@@ -289,6 +290,7 @@ export default {
                     this.openCreate = false;
                     this.message1 = " ";
                     this.message2 = " ";
+                    this.active = false;
                }
                else {
                     const [error, respone] = await this.handle(
@@ -330,7 +332,6 @@ export default {
           },
 
           async findTreatmentByPesticideId(data, i) {
-
                this.treatmentList = [];
                const [error, respone] = await this.handle(
                     TreatmentService.findByPesticideId(data)
@@ -352,6 +353,7 @@ export default {
                     this.isOpenUpdatePesticide = false;
                     this.message1 = " ";
                     this.message2 = " ";
+                    this.active = false;
                }
                else {
                     const [error, respone] = await this.handle(
@@ -408,7 +410,6 @@ export default {
                          }
                          this.message2 = "Cập nhật thành công.";
                          this.retrievePesticideList();
-
                     }
                }
           },
@@ -478,8 +479,10 @@ export default {
      },
 
      mounted() {
+      
           this.retrievePesticideList();
           this.retrieveEpidemicList();
+          this.loadData();
      }
 }
 </script>

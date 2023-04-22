@@ -85,7 +85,7 @@
                                         <input type="radio" id="crop" name="statisticsby" value="crop"
                                              v-model="chooseSatisticsBy"
                                              @click="deleteRiceCropList(), retrieveCropList(), nameToSearch = '', isOpenRightSatistical = true">
-                                        <label for="crop">&nbsp; Vụ mùa</label><br>
+                                        <label for="crop" :class="{ noneBlurCrop: chooseSatisticsBy == 'crop', blurCrop: chooseSatisticsBy != 'crop' }">&nbsp; Vụ mùa</label><br>
                                         <div class=" ml-4 pl-2">
                                              <div v-for="crop in cropList" :key="crop.Crop_id">
                                                   <input type="checkbox" :id="crop.Crop_id" :value="crop.Crop_name"
@@ -99,10 +99,10 @@
                                    </div>
 
                                    <div class="col-lg-2">
-                                        <input type="radio" id="status" name="statisticsby" value="status"
+                                        <input type="radio" id="status" name="statisticsby" value="status" 
                                              v-model="chooseSatisticsBy"
                                              @click="deleteRiceCropList(), retrieveCropList(), nameToSearch = '', isOpenRightSatistical = true">
-                                        <label for="crop">&nbsp; Trạng Thái</label><br>
+                                        <label for="crop" :class="{ noneBlurStatus: chooseSatisticsBy == 'status', blurStatus: chooseSatisticsBy != 'status' }">&nbsp; Trạng Thái</label><br>
                                         <div class=" ml-4 pl-2">
                                              <div>
                                                   <input type="checkbox" id="monitoring" value="monitoring"
@@ -122,10 +122,10 @@
                                    </div>
 
                                    <div class="col-lg-2">
-                                        <input type="radio" id="year" name="statisticsby" value="year"
+                                        <input type="radio" id="year" name="statisticsby" value="year" 
                                              v-model="chooseSatisticsBy"
                                              @click="deleteRiceCropList(), nameToSearch = '', isOpenRightSatistical = true">
-                                        <label for="crop">&nbsp; Năm</label><br>
+                                        <label for="crop" :class="{ noneBlurCrop: chooseSatisticsBy == 'year', blurCrop: chooseSatisticsBy != 'year' }">&nbsp; Năm</label><br>
                                         <div class=" ml-4 pl-2">
                                              <div v-for="year in getYear()" :key="year">
                                                   <input type="checkbox" :id="year" :value="year"

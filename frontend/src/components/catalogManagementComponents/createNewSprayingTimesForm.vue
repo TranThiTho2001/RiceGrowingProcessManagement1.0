@@ -1,6 +1,6 @@
 <template>
      <Form @submit="newsprayingtimes.close = true, $emit('addSprayingTimes-submit', newsprayingtimes)"
-          :validation-schema="schema" class="form container-fluid createSprayingTimesForm">
+          :validation-schema="schema" class="form createSprayingTimesForm container-fluid">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times-circle"

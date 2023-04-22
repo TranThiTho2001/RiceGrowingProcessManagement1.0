@@ -1,6 +1,6 @@
 <template>
      <Form @submit="newarableLand.close = true, $emit('updateArableLand-submit', newarableLand)" :validation-schema="schema"
-          class="form  container updateArableLandForm">
+          class="form container-fluid updateArableLandForm">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times-circle"

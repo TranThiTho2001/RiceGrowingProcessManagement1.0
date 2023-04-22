@@ -1,6 +1,6 @@
 <template>
      <Form @submit="newseed.close = true, $emit('updateSeed-submit', newseed)" :validation-schema="schema"
-          class="form container updateSeedForm">
+          class="form  container-fluid updateSeedForm">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times-circle" @click="newseed.close = false, $emit('updateSeed-submit', newseed)"

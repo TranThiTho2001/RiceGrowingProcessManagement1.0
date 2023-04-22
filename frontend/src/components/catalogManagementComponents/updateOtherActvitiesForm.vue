@@ -1,6 +1,6 @@
 <template>
      <Form @submit="newotherActivities.close = true, $emit('updateOtherActivities-submit', newotherActivities)"
-          :validation-schema="schema" class="form container updateOtherActiviesForm">
+          :validation-schema="schema" class="form  container-fluid updateOtherActiviesForm">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times-circle"

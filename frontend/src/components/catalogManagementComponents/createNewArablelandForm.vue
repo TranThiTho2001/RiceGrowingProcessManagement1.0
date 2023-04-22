@@ -1,6 +1,6 @@
 <template>
      <Form @submit="newarableLand.close = true, $emit('addArableLand-submit', newarableLand)" :validation-schema="schema"
-          class="form container createArableLandForm ">
+          class="form container-fluid createArableLandForm ">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times-circle"

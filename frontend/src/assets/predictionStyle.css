@@ -61,7 +61,7 @@
     border: 1px solid rgb(62, 77, 77);
     border-radius: 10px;
     position: absolute;
-    top: calc(38%);
+    top: calc(300px);
     transform: translateX(96%);
     border-radius: 16px;
     display: block;
@@ -69,6 +69,7 @@
     height: 187px;
     border-radius: 15px;
     text-align: center;
+    z-index: 5;
 }
 
 .resultDialog {
@@ -76,7 +77,7 @@
     border: 1px solid rgb(62, 77, 77);
     border-radius: 10px;
     position: absolute;
-    top: calc(38%);
+    top: calc(300px);
     transform: translateX(96%);
     border-radius: 16px;
     display: block;
@@ -84,6 +85,7 @@
     height: 187px;
     border-radius: 15px;
     text-align: center;
+    z-index: 5;
 }
 
 .btnOK {
@@ -139,7 +141,8 @@
 .selectYear {
     background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 10px !important;;
+    border-radius: 10px !important;
+    ;
     height: 37px;
     width: 80px;
     border: 0px !important;
@@ -151,11 +154,11 @@
     font-size: 18px;
 }
 
-.selectYear::selection{
+.selectYear::selection {
     border: 0px !important;
 }
 
-.selectYear .optionYear{
+.selectYear .optionYear {
     color: #1C1C1F;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     vertical-align: middle;
@@ -280,7 +283,7 @@
         text-align: center;
     }
 
-    .resultPrediction{
+    .resultPrediction {
         font-size: 14px !important;
         color: #5C5D22;
         background: #FFFD9F;
@@ -291,6 +294,7 @@
         border-radius: 15px;
         width: 70px !important;
     }
+
     .riceCropId {
         padding-left: 2px !important;
     }
@@ -512,8 +516,8 @@
     background-color: #a0a0a1;
 }
 
-.btnDowload,
-.btnPredict {
+.riceCropDetailForPrediction .btnDowload,
+.riceCropDetailForPrediction .btnPredict {
     background: #008B8E;
     box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
     font-size: 17px;
@@ -522,19 +526,19 @@
     border: none;
     color: #FFFED8;
     z-index: 3;
-    position:relative;
-    right: 1.5%;
+    position: absolute;
+    right:4%;
     border-radius: 10px !important;
     margin-bottom: 20px;
 }
 
 .tablericeCropInfor {
-    width: 40% !important;
+    width: 45% !important;
     border-radius: 10px !important;
 }
 
 .calendarComponent {
-    margin-left: 2%;
+    margin-left: 4%;
     width: 18%;
 }
 
@@ -544,7 +548,7 @@ time.icon {
     display: block;
     position: relative;
     width: 8em;
-    height: 8em;
+    height: 100%;
     background-color: #fff;
     border-radius: 0.6em;
     box-shadow: 0 1px 0 #bdbdbd, 0 2px 0 #fff, 0 3px 0 #bdbdbd, 0 4px 0 #fff, 0 5px 0 #bdbdbd, 0 0 0 1px #bdbdbd;
@@ -558,40 +562,94 @@ time.icon * {
     font-weight: bold;
     font-style: normal;
     text-align: center;
+    background: #FAFAFC;
 }
 
 time.icon strong {
     position: absolute;
     top: 0;
     padding: 0.4em 0;
-    color: #1C1C1F;
-    background: #ABD2C8;
-    border-bottom: 1px dashed #ABD2C8;
-    box-shadow: 0 2px 0 #ABD2C8;
+    color: #5C5D22;
+    background: #FFFD9F;
+    border-bottom: 1px dashed #FFFD9F;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 time.icon em {
     position: absolute;
     bottom: 0.3em;
-    color: linear-gradient(180deg, rgba(128, 255, 0, 0.15) 0%, rgba(250, 255, 0, 0.15) 100%);
+    color: #919302;
 }
 
 time.icon span {
     font-size: 2.8em;
     letter-spacing: -0.05em;
     padding-top: 0.8em;
-    color: #2f2f2f;
+    color: #5C5D22;
 }
 
 .resultRiceYield {
-    width: 38.5%;
+    width: 33%;
 }
 
 .resultRiceYield .result-prediction,
 .resultRiceYield .result-readly {
-    width: 48%;
+    width: 45%;
     display: inline-block;
-    background: #ABD2C8;
     border-radius: 10px;
     height: 100%;
+    background: #FAFAFC;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.resultRiceYield .result-readly {
+    margin-left: 10%;
+    margin-right: 0% !important;
+}
+
+.resultRiceYield p {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    padding-top: 10px;
+    color: #5C5D22;
+    text-align: center;
+}
+
+.resultRiceYield .yield {
+    background: #FFFD9F;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 50px;
+    height: 60% !important;
+    width: 90%;
+    margin: auto;
+    text-align: center;
+    margin-top: 20px !important;
+    /* vertical-align: middle; */
+    position: relative;
+    justify-content: center;
+    padding-top:25px;
+    display:block;
+}
+
+ .yield-value{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700 !important;
+    font-size: 25px;
+    line-height: 23px;
+    color: #5C5D22;
+    text-align: center;
+}
+
+.riceCropDetailForPrediction .prediction-title {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 36px;
+    color: #5C5D22;
+
 }
