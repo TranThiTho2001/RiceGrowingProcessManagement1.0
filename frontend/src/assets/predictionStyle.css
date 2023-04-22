@@ -139,19 +139,17 @@
 }
 
 .selectYear {
-    background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
-    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px !important;
-    ;
     height: 37px;
     width: 80px;
     border: 0px !important;
-    color: #1C1C1F;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    background: #FAFAFC;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     vertical-align: middle;
     font-family: 'Roboto';
     font-style: normal;
     font-size: 18px;
+    color: #000000;
 }
 
 .selectYear::selection {
@@ -446,6 +444,7 @@
     vertical-align: middle;
     border-bottom: 0.1px solid #B3B4BA;
     padding-left: 5px !important;
+    margin-left: 10px;
     vertical-align: middle !important;
     font-size: 13.5px !important;
     text-align: center;
@@ -527,14 +526,33 @@
     color: #FFFED8;
     z-index: 3;
     position: absolute;
-    right:4%;
+    right: 3.8%;
     border-radius: 10px !important;
     margin-bottom: 20px;
 }
 
-.tablericeCropInfor {
+.riceCropInfor-component {
     width: 45% !important;
     border-radius: 10px !important;
+    border-spacing: 30px;
+}
+
+.riceCropInfor-component table {
+    width: 94%;
+    margin-left: 3%;
+}
+
+.riceCropInfor-component table tbody tr td {
+    font-family: 'Roboto' !important;
+    font-style: normal;
+    vertical-align: middle;
+    border-bottom: 0.1px solid #B3B4BA;
+    padding-left: 5px !important;
+    vertical-align: middle !important;
+    font-size: 15px !important;
+    text-align: justify;
+    padding: 6px;
+    color: #1C1C1F;
 }
 
 .calendarComponent {
@@ -621,24 +639,24 @@ time.icon span {
 .resultRiceYield .yield {
     background: #FFFD9F;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 50px;
-    height: 60% !important;
+    border-radius: 40px;
+    height: 55% !important;
     width: 90%;
     margin: auto;
     text-align: center;
-    margin-top: 20px !important;
+    margin-top: 30px !important;
     /* vertical-align: middle; */
     position: relative;
     justify-content: center;
-    padding-top:25px;
-    display:block;
+    padding-top: 25px;
+    display: block;
 }
 
- .yield-value{
+.yield-value {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 700 !important;
-    font-size: 25px;
+    font-size: 28px;
     line-height: 23px;
     color: #5C5D22;
     text-align: center;

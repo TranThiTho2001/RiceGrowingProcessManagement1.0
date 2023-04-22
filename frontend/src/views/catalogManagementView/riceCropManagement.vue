@@ -40,8 +40,8 @@
 
                          <div class="selection-component1">
                               <label class="labelYear">Năm</label>
-                              <select class="selectYear" v-model="filter.year" @change="searchByYear()">
-                                   <option class="optionYear" v-for="year in getYear()" :value="year" :key="year">{{ year }}
+                              <select class="selectYear" v-model="filter.year" @change="searchByYear()" v-if="years != null">
+                                   <option class="optionYear" v-for="year in years" :value="year" :key="year">{{ year }}
                                    </option>
                               </select>
 
@@ -195,6 +195,7 @@ export default {
                },
                cloneRiceCropList: [],
                loading: true,
+               
           }
      },
 
@@ -268,8 +269,8 @@ export default {
                     else {
                          this.newRiceCrop.RiceCropInformation_id = "RCI00" + String(Number(id) + 1);
                     }
-
                }
+               this.getYear();
           },
 
           async getURL(position) {
@@ -750,9 +751,8 @@ export default {
                this.years[0] = "Tất cả";
                for (let index = 2022; index <= (new Date()).getFullYear(); index++) {
                     this.years.push(index);
-
                }
-               return this.years;
+               console.log(this.years)
           },
 
           async searchByYear() {
@@ -840,7 +840,8 @@ export default {
           this.initEmployeeState();
      },
 
-     mounted() {
+     mounted() {  
+                  this.getYear();
           this.retrieveRiceCropList();
           this.retrieveCropList();
           this.retrieveSeedList();
@@ -849,6 +850,7 @@ export default {
           this.retrieveFertilizerList();
           this.retrieveFullRiceCropList();
           this.retrievePesticideList();
+
           this.newFertilizerTimes.Employee_id = this.currentUser.Employee_id;
           this.filter.status = "all";
           this.filter.year = "Tất cả";

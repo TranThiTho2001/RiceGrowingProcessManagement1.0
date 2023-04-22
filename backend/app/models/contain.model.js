@@ -19,7 +19,7 @@ Contain.create = (newContain, result) => {
 };
 
 Contain.findbyFertilizerId = (fertilizer_id, result) => {
-    sql.query(`SELECT * FROM Contain WHERE Fertilizer_id like '${fertilizer_id}'`, (err, res) => {
+    sql.query(`SELECT * FROM Contain Join nutrient on nutrient.Nutrient_id = Contain.Nutrient_id WHERE Fertilizer_id like '${fertilizer_id}'`, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -36,7 +36,7 @@ Contain.findbyFertilizerId = (fertilizer_id, result) => {
 };
 
 Contain.findbyNutrientID = (nutrient_id, result) => {
-     sql.query(`SELECT * FROM Contain WHERE Nutrient_id like '${nutrient_id}'`, (err, res) => {
+     sql.query(`SELECT * FROM Contain  Join nutrient on nutrient.Nutrient_id = Contain.Nutrient_id WHERE Nutrient_id like '${nutrient_id}'`, (err, res) => {
          if (err) {
              console.log("error: ", err);
              result(err, null);
@@ -53,7 +53,7 @@ Contain.findbyNutrientID = (nutrient_id, result) => {
  };
 
  Contain.findbyFertilizerAndNutrient = (fertilizer_id, nutrient_id, result) => {
-     sql.query(`SELECT * FROM Contain WHERE  Nutrient_id like '${nutrient_id}' And Fertilizer_id like '${fertilizer_id}' `, (err, res) => {
+     sql.query(`SELECT * FROM Contain  Join nutrient on nutrient.Nutrient_id = Contain.Nutrient_id WHERE  Nutrient_id like '${nutrient_id}' And Fertilizer_id like '${fertilizer_id}' `, (err, res) => {
          if (err) {
              console.log("error: ", err);
              result(err, null);
@@ -71,7 +71,7 @@ Contain.findbyNutrientID = (nutrient_id, result) => {
 
 
 Contain.getAll = (name, result) => {
-    let query = "SELECT * FROM Contain";
+    let query = "SELECT * FROM Contain  Join nutrient on nutrient.Nutrient_id = Contain.Nutrient_id ";
     if (name) {
         query += ` WHERE Nutrient_id LIKE '%${name}%'`;
     }

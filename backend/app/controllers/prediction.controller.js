@@ -1,26 +1,34 @@
 const Prediction = require("../models/prediction.model");
 const config = require("../config");
 const moment = require('moment');
-const file = process.cwd() + '/app/controllers/predictionModel/LinearRegression.py';
+const fileLinearRegression = process.cwd() + '/app/controllers/predictionModel/LinearRegression.py';
+const fileRandomForest = process.cwd() + '/app/controllers/predictionModel/LinearRegression.py';
 // Create and Save 
 exports.store = async (req, res) => {
-     console.log(file)
      var yield = 0;
      var temp = new Object();
      temp.crop = req.body.crop;
      temp.precipitation = req.body.precipitation;
      temp.temperature = req.body.temperature;
      temp.humitidity = req.body.humitidity;
-     temp.windSpeed =  req.body.windSpeed;
+     temp.windSpeed = req.body.windSpeed;
      temp.solarRadiation = req.body.solarRadiation;
      temp.area = req.body.area;
+     // const regression = req.body.regression;
      const { spawn } = require('child_process');
-     const pyProg = spawn("python", [`${file}`, JSON.stringify(temp)]);
+     var pyProg = "";
+     // if (regression == 1) {
+     //      pyProg = spawn("python", [`${fileLinearRegression }`, JSON.stringify(temp)]);
+     // }
+     // else{
+          pyProg = spawn("python", [`${fileRandomForest }`, JSON.stringify(temp)]);
+     // }
+
      pyProg.stdout.on('data', function (data) {
           console.log(data.toString());
           yield = String(data.toString()).slice(0, String(data.toString()).indexOf("\r\n"));
           yield = (String(yield).slice(1,));
-          yield = (String(yield).slice(0,(String(yield).length-1)));
+          yield = (String(yield).slice(0, (String(yield).length - 1)));
           // create new prediction
           const prediciton = new Prediction({
                Prediction_id: null,
@@ -33,7 +41,7 @@ exports.store = async (req, res) => {
                Prediction_windSpeed: req.body.windSpeed,
                Prediction_solarRadiation: req.body.solarRadiation
           });
-console.log(prediciton)
+
           // save prediciton
           Prediction.create(prediciton, (err, data) => {
                if (err)

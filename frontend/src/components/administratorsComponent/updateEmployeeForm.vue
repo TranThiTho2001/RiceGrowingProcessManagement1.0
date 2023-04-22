@@ -91,7 +91,7 @@
                     </div>
 
                     <div class="form-group">
-                         <label for="role" class="mt-3">Chức vụ &nbsp; </label><br>
+                         <label for="role" class="mt-3">Vị trí  &nbsp; </label><br>
                          <Field name="role" class="form-control" v-model="newemployee.Role_name" placeholder="Chức vụ: ">
                               <select v-model="newemployee.Role_name" class="selectBox ">
                                    <option v-for="(role,i) in roleList" :key="i">

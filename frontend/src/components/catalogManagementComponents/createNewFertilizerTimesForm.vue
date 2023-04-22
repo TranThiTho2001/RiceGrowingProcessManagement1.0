@@ -123,7 +123,7 @@
           <div class=" fertilizerUsed row pt-2 mt-3 ml-1 mr-1">
                
                <div class="fertilizerlist ml-2 mt-2">
-                    <table class="table thead-dark ml-2" style="height: 200px; width: 98.5% !important;">
+                    <table class="table thead-dark ml-2" style="height: 200px; width: 99% !important;">
                          <thead>
                               <tr>
                                    <th class="text-center">STT</th>

@@ -62,7 +62,9 @@
                                              <td data-label="Mã">{{ fertilizer.Fertilizer_id }}</td>
                                              <td data-label="Tên">{{ fertilizer.Fertilizer_name }}</td>
                                              <td data-label="Nhà cung cấp">{{ fertilizer.Fertilizer_supplier }}</td>
-                                             <td data-label="Thành phần">{{ fertilizer.Fertilizer_component }}</td>
+                                             <td data-label="Thành phần">
+                                                  <span v-for=" nutrient in fertilizer.Contain" :key="nutrient.Nutrient_id">{{ nutrient.Nutrient_name }}: {{ nutrient.Contain_percent }}%<br></span>
+                                             </td>
                                              <td data-label="Công dụng">{{ fertilizer.Fertilizer_uses }}</td>
                                              <td data-label="Hướng dẫn sử dụng">{{ fertilizer.Fertilizer_directionForUse }}
                                              </td>
@@ -115,7 +117,7 @@
           <CreateFertilizerForm v-if="openCreate" :newFertilizer="newFertilizer" :nutrientList="nutrientList"
                @addFertilizer-submit="createFertilizer" :message1="message1" :message2="message2" />
 
-          <UpdateFertilizerForm v-if="isOpenUpdateFertilizer" :newFertilizer="fertilizerChosen"
+          <UpdateFertilizerForm v-if="isOpenUpdateFertilizer" :newFertilizer="fertilizerChosen" :nutrientList="nutrientList"
                @updateFertilizer-submit="updateFertilizer" :message1="message1" :message2="message2" />
      </div>
      <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click.passive="away()"></div>
@@ -181,7 +183,7 @@ export default {
                     isOpenMenuIcon: true,
                     isCloseMenu: false,
                },
-
+               containList:[],
                active: false,
           }
      },
@@ -211,8 +213,16 @@ export default {
                this.isOpenInput2 = false;
           },
 
+          async loadData(){
+               this.loading= true;
+               if (this.loading) {
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 1000);
+               }
+          },
+
           async retrieveFertilizerList() {
-               this.loading = true;
                const [err, respone] = await this.handle(
                     FertilizerService.getAll()
                );
@@ -259,10 +269,33 @@ export default {
                          i++;
                     });
                }
-               if (this.loading) {
-                    setTimeout(() => {
-                         this.loading = false;
-                    }, 1000);
+               this.retrieveContain();
+          },
+
+         async retrieveContain(){
+               const [err, respone] = await this.handle(
+                    ContainService.getAll()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.containList = respone.data;
+                    console.log(this.containList);
+                    this.fertilizerList.forEach(fertilizer => {
+                         fertilizer.Contain = [];
+                         this.containList.forEach(element => {
+                              if(element.Fertilizer_id == fertilizer.Fertilizer_id){
+                                   var temp = {
+                                        Nutrient_id: element.Nutrient_id,
+                                        Nutrient_name: element.Nutrient_name,
+                                        Contain_percent: element.Contain_percent,
+                                   }
+                                   fertilizer.Contain.push(temp);
+                              }
+                         });
+                    });
+                    console.log(this.fertilizerList)
                }
           },
 
@@ -392,6 +425,7 @@ export default {
 
      mounted() {
           this.retrieveNutrientList();
+          this.loadData();
      }
 }
 </script>

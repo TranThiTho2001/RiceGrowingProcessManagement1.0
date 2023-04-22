@@ -16,18 +16,23 @@
                <div class="col-md-4">
                     <div class="form-group">
                          <label for="id" class="mt-3">Mã phân bón <span style="color: red">*</span></label>
-                         <Field name="id" type="name" class="form-control" v-model="newfertilixer.Fertilizer_id"
+                         <Field name="id" type="name" class="form-control mb-3" v-model="newfertilixer.Fertilizer_id"
                               placeholder="Nhập mã phân bón..." />
                          <ErrorMessage name="id" class="error-feedback" />
                     </div>
 
-                    <div class="form-group" v-for="(contain,i) in newfertilixer.Contain" :key="contain.Nutrient_id">
-                         <label :for="contain.Nutrient_id " class="mt-3">{{contain.Nutrient_name}} <span style="color: red">*</span></label>
-                         <Field :name="contain.Nutrient_id " class="form-control" v-model="newfertilixer.Contain[i].Contain_percent"
-                              placeholder="Thông tin phân bón..." @update:model-value="show(newfertilixer.Contain[i].Contain_percent)" />
-                         <ErrorMessage :name="contain.Nutrient_id " class="error-feedback" />
+                    <div class="row nutrient-row">
+                         <label class="lable-nutrient">Thành phần dinh dưỡng</label>
+                         <div class="form-group" style="margin-left: 20px !important;"
+                              v-for="(contain, i) in newfertilixer.Contain" :key="contain.Nutrient_id">
+                              <label :for="contain.Nutrient_id" class="">{{ contain.Nutrient_name }} <span
+                                        style="color: red">*</span></label>
+                              <Field :name="contain.Nutrient_id" class="form-control"
+                                   v-model="newfertilixer.Contain[i].Contain_percent" placeholder="Thông tin phân bón..."
+                                   @update:model-value="show(newfertilixer.Contain[i].Contain_percent)" />
+                              <ErrorMessage :name="contain.Nutrient_id" class="error-feedback" />
+                         </div>
                     </div>
-
 
 
                </div>
@@ -64,21 +69,6 @@
                               placeholder="Thông tin phân bón..." />
                          <ErrorMessage name="directionsForUse" class="error-feedback" />
                     </div>
-
-                    <!-- <div class="form-group">
-                         <label for="image">Hình ảnh &nbsp; &nbsp;</label>
-                         <Field name="image" class="form-control " v-model="images">
-                              <input type="file" ref="file" :multiple="true" name="image" @change="selectFile($event)"
-                                   accept="image/*" class="" v-bind:aria-disabled="true">
-                         </Field>
-                         <div class="row">
-                              <div class="col-md-5">
-                                   <img v-if="url != ''" :src="url" class="img-fluid">
-                              </div>
-                              <div class="col-md-7">
-                              </div>
-                         </div>
-                    </div> -->
                </div>
           </div>
 
@@ -130,9 +120,21 @@ export default {
                supplier: yup
                     .string()
                     .required("Nhà cung cấp phân bón phải có giá trị"),
-               // components: yup
-               //      .string()
-               //      .required("Thành phần phân bón phải có giá trị"),
+               N: yup
+                    .number()
+                    .typeError("Tỉ lệ là phải là số")
+                    .required("Tỉ lệ đạm phải có giá trị"),
+               K: yup
+                    .number()
+                    .typeError("Tỉ lệ là phải là số")
+                    .required("Tỉ lệ đạm phải có giá trị"),
+               P: yup
+                    .number()
+                    .typeError("Tỉ lệ là phải là số")
+                    .required("Tỉ lệ đạm phải có giá trị"),
+               Y: yup
+                    .number()
+                    .typeError("Tỉ lệ là phải là số"),
                uses: yup
                     .string()
                     .required("Công dụng phân bón phải có giá trị"),
@@ -149,7 +151,7 @@ export default {
      },
 
      methods: {
-          show(data){
+          show(data) {
                console.log(data)
           },
 
@@ -214,5 +216,30 @@ export default {
      color: var(--dp-text-color);
      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
      box-sizing: border-box;
+}
+
+.lable-nutrient {
+     float: left;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 500;
+     font-size: 18px;
+     color: #008B8E;
+     padding-top: 5px;
+}
+
+.nutrient-row {
+     width: 98.5% !important;
+     margin-left: 3px !important;
+     margin-top: 10px !important;
+     background-color: #f0f0f0 ;
+     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+     font-size: 17px;
+     border-radius: 10px;
+     color: #2F3033;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 500;
+     vertical-align: middle;
 }
 </style>

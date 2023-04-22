@@ -212,9 +212,17 @@ export default {
                this.isOpenInput1 = false;
                this.isOpenInput2 = false;
           },
+          
+          async loadData(){
+               this.loading= true;
+               if (this.loading) {
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 1000);
+               }
+          },
 
           async retrieveEpidemicList() {
-               this.loading = true;
                const [err, respone] = await this.handle(
                     EpidemicService.getAll()
                );
@@ -250,11 +258,6 @@ export default {
                     else {
                          this.newEpidemic.Epidemic_id = "EC00" + String(Number(id) + 1);
                     }
-               }
-               if (this.loading) {
-                    setTimeout(() => {
-                         this.loading = false;
-                    }, 1000);
                }
           },
 
@@ -374,6 +377,7 @@ export default {
      mounted() {
           this.retrieveEpidemicClassification();
           this.retrieveEpidemicList();
+          this.loadData();
      }
 }
 </script>

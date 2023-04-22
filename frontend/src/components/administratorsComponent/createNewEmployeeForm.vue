@@ -37,12 +37,14 @@
 
                     <div class="form-group">
                          <label for="birthDate" class="mt-3">Ngày sinh</label>
-                         <Field name="birthDate" class="form-control" v-model="newemployee.Employee_birthDate"
+                         <Field name="birthDate" class="form-control" v-model="newemployee.Employee_birthDate" style="background-color: antiquewhite !important; "
                               placeholder="Ngày sinh">
                               <datepicker  :enable-time-picker="false" :value="newemployee.Employee_birthDate" :hide-input-icon="true" 
-                                   v-model="newemployee.Employee_birthDate" placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false" >
+                                   v-model="newemployee.Employee_birthDate"  format="dd-MM-yyyy" :clearable="false" >
                               </datepicker>
+                              <label><i style="color: #959595; position: absolute;z-index: 1; left: 5%; margin-top:8px;" class="far fa-calendar-alt" ></i></label>
                          </Field>
+                         
                          <ErrorMessage name="birthDate" class="error-feedback" />
                     </div>
 
@@ -88,7 +90,7 @@
                     </div>
 
                     <div class="form-group">
-                         <label for="role" class="mt-3">Chức vụ &nbsp; </label><br>
+                         <label for="role" class="mt-3">Vị trí &nbsp; </label><br>
                          <Field name="role" class="form-control" v-model="newemployee.Role_name" placeholder="Chức vụ: ">
                               <select v-model="newemployee.Role_name" class="selectBox ">
                                    <option v-for="(role,i) in roleList" :key="i">
@@ -268,5 +270,15 @@ export default {
      color: var(--dp-text-color);
      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
      box-sizing: border-box;
+     position: relative;
+}
+
+.dp__input_icon {
+    cursor: pointer;
+     position: absolute; 
+     top: 90% !important;
+    left: 0; 
+     /* transform: translateY(-50%);  */
+    color: var(--dp-icon-color);
 }
 </style>

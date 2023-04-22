@@ -17,17 +17,25 @@
                <div class="col-md-4">
                     <div class="form-group">
                          <label for="id" class="mt-3">Mã phân bón <span style="color: red">*</span></label>
-                         <Field name="id" type="name" class="form-control" v-model="newfertilixer.Fertilizer_id"
+                         <Field name="id" type="name" class="form-control mb-3" v-model="newfertilixer.Fertilizer_id"
                               placeholder="Nhập mã phân bón..." />
                          <ErrorMessage name="id" class="error-feedback" />
                     </div>
 
-                    <div class="form-group">
-                         <label for="components" class="mt-3">Thành phần <span style="color: red">*</span></label>
-                         <Field name="components" class="form-control" v-model="newfertilixer.Fertilizer_component"
-                              as="textarea" style="height: 240px;" placeholder="Thông tin phân bón..." />
-                         <ErrorMessage name="components" class="error-feedback" />
+                    <div class="row nutrient-row">
+                         <label class="lable-nutrient">Thành phần dinh dưỡng</label>
+                         <div class="form-group" style="margin-left: 20px !important;"
+                              v-for="(contain, i) in newfertilixer.Contain" :key="contain.Nutrient_id">
+                              <label :for="contain.Nutrient_id" class="">{{ contain.Nutrient_name }} <span
+                                        style="color: red">*</span></label>
+                              <Field :name="contain.Nutrient_id" class="form-control"
+                                   v-model="newfertilixer.Contain[i].Contain_percent" placeholder="Thông tin phân bón..."
+                                   @update:model-value="show(newfertilixer.Contain[i].Contain_percent)" />
+                              <ErrorMessage :name="contain.Nutrient_id" class="error-feedback" />
+                         </div>
                     </div>
+
+
                </div>
                <div class="col-md-4">
                     <div class="form-group">
@@ -55,9 +63,11 @@
                     </div>
 
                     <div class="form-group">
-                         <label for="directionsForUse" class="mt-3">Hướng dẫn sử dụng<span style="color: red">*</span></label>
-                         <Field name="directionsForUse" class="form-control" v-model="newfertilixer.Fertilizer_directionsForUse"
-                              as="textarea" style="height: 240px;" placeholder="Thông tin phân bón..." />
+                         <label for="directionsForUse" class="mt-3">Hướng dẫn sử dụng<span
+                                   style="color: red">*</span></label>
+                         <Field name="directionsForUse" class="form-control"
+                              v-model="newfertilixer.Fertilizer_directionsForUse" as="textarea" style="height: 240px;"
+                              placeholder="Thông tin phân bón..." />
                          <ErrorMessage name="directionsForUse" class="error-feedback" />
                     </div>
                </div>
@@ -120,10 +130,26 @@ export default {
                     .required("Công dụng phân bón phải có giá trị"),
                directionsForUse: yup
                     .string()
-                    .required("Hưỡng dẫn sử dụng phân bón phải có giá trị")
+                    .required("Hưỡng dẫn sử dụng phân bón phải có giá trị"),
+                    N: yup
+                    .number()
+                    .typeError("Tỉ lệ là phải là số")
+                    .required("Tỉ lệ đạm phải có giá trị"),
+               K: yup
+                    .number()
+                    .typeError("Tỉ lệ là phải là số")
+                    .required("Tỉ lệ đạm phải có giá trị"),
+               P: yup
+                    .number()
+                    .typeError("Tỉ lệ là phải là số")
+                    .required("Tỉ lệ đạm phải có giá trị"),
+               Y: yup
+                    .number()
+                    .typeError("Tỉ lệ là phải là số"),
           });
           return {
                newfertilixer: this.newFertilizer,
+               nutrientlist: this.nutrientList,
                schema,
           };
      },
@@ -135,4 +161,74 @@ export default {
 </script>
  
 <style>
-@import url(../../assets/fertilizerStyle.css);</style>
+@import url(../../assets/fertilizerStyle.css);
+
+.dp__theme_light {
+     --dp-background-color: #FAFAFC;
+     --dp-border-radius: 10px;
+     --dp-text-color: #212121;
+     --dp-hover-color: #f3f3f3;
+     --dp-hover-text-color: #212121;
+     --dp-hover-icon-color: #959595;
+     --dp-primary-color: #1976d2;
+     --dp-primary-disabled-color: #6bacea;
+     --dp-primary-text-color: #f8f5f5;
+     --dp-secondary-color: #c0c4cc;
+     --dp-border-color: #ddd;
+     --dp-menu-border-color: #ddd;
+     --dp-border-color-hover: #aaaeb7;
+     --dp-disabled-color: #f6f6f6;
+     --dp-scroll-bar-background: #f3f3f3;
+     --dp-scroll-bar-color: #959595;
+     --dp-success-color: #76d275;
+     --dp-success-color-disabled: #a3d9b1;
+     --dp-icon-color: #959595;
+     --dp-danger-color: #ff6f60;
+     --dp-marker-color: #ff6f60;
+     --dp-tooltip-color: #fafafa;
+     --dp-disabled-color-text: #8e8e8e;
+     --dp-highlight-color: rgb(25 118 210 / 10%);
+
+}
+
+.dp__input {
+     background-color: var(--dp-background-color);
+     border-radius: 10px;
+     font-family: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen, ubuntu, cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+     border: 1px solid var(--dp-border-color);
+     outline: none;
+     transition: border-color .2s cubic-bezier(0.645, 0.045, 0.355, 1);
+     width: 100%;
+     font-size: 1rem;
+     line-height: 1.5rem;
+     padding: 6px 12px;
+     color: var(--dp-text-color);
+     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+     box-sizing: border-box;
+}
+
+.lable-nutrient {
+     float: left;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 500;
+     font-size: 18px;
+     color: #008B8E;
+     padding-top: 5px;
+}
+
+.nutrient-row {
+     width: 98.5% !important;
+     margin-left: 3px !important;
+     margin-top: 10px !important;
+     background-color: #f0f0f0 ;
+     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+     font-size: 17px;
+     border-radius: 10px;
+     color: #2F3033;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 500;
+     vertical-align: middle;
+}
+</style>

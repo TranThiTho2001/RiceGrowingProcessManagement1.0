@@ -39,9 +39,24 @@
                                    @click="searchName(employee.Employee_name)">
                                    {{ employee.Employee_name }}</p>
                          </div>
+                         <div class="selection-component1">
+                              <label class="labelRole">Vị trí</label>
+                              <select class="selectRole" v-model="filter.role" @change="searchByRole()">
+                                   <option class="optionRole" v-for="role in roles" :value="role" :key="role">{{ role }}
+                                   </option>
+                              </select>
 
 
-                         <button class="btn btnCreate" @click="isOpenCreateEmployeeForm = !isOpenCreateEmployeeForm, retrieveRoleList()"><i
+                              <label class="labelSex">Trạng Thái</label>
+                              <select class="selectSex" v-model="filter.sex" @change="searchBySex()">
+                                   <option class="optionSex" value="Tất cả" selected="true">Tất cả</option>
+                                   <option class="optionSex" value="Nữ">Nữ</option>
+                                   <option class="optionSex" value="Nam">Nam</option>
+                              </select>
+                         </div>
+
+                         <button class="btn btnCreate"
+                              @click="isOpenCreateEmployeeForm = !isOpenCreateEmployeeForm, retrieveRoleList()"><i
                                    class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm nhân viên</button>
 
                     </div>
@@ -134,6 +149,7 @@ import UpdateEmployeeForm from '../../components/administratorsComponent/updateE
 import roleService from '@/services/role.service';
 import moment from 'moment';
 import { mapGetters, mapMutations } from "vuex";
+import Preloader from '@/components/catalogManagementComponents/Preloader.vue'
 
 export default {
      name: 'EmployeeManager',
@@ -142,6 +158,7 @@ export default {
           TopHeader,
           CreateNewEmployeeForm,
           UpdateEmployeeForm,
+          Preloader,
      },
      data() {
           return {
@@ -179,6 +196,9 @@ export default {
                },
                newEmployeeId: '',
                roleList: [],
+               filter: {},
+               roles: [],
+               loading: false,
           }
      },
 
@@ -191,6 +211,9 @@ export default {
 
      created() {
           this.initEmployeeState();
+          this.retrieveRoleList();
+          this.filter.role = "Tất cả";
+          this.filter.sex = "Tất cả"
      },
 
      methods: {
@@ -220,6 +243,7 @@ export default {
                }
                else {
                     this.roleList = respone.data;
+                    this.getRole();
                }
           },
 
@@ -358,7 +382,7 @@ export default {
                this.nameToSearch = data;
                if (this.nameToSearch != '') {
                     this.employeeList = [];
-                    this.employeeList.forEach(element => {
+                    this.cloneEmployeeList.forEach(element => {
                          if (element.Employee_name == data) {
                               this.employeeList.push(element);
                          }
@@ -381,12 +405,77 @@ export default {
                else {
                     this.retrieveEmployeeList();
                }
-
           },
+
+          async searchByRole() {
+               if (this.filter.role == "Tất cả") {
+                    this.employeeList = [];
+                    this.employeeList = this.cloneEmployeeList;
+               }
+               else {
+                    this.employeeList = [];
+                    this.cloneEmployeeList.forEach(employee => {
+                         if (employee.Role_name == this.filter.role) {
+                              this.employeeList.push(employee);
+                         }
+                    });
+               }
+          },
+
+          async searchBySex() {
+               if (this.filter.sex == "Tất cả" && this.filter.role == "Tất cả") {
+                    this.employeeList = [];
+                    this.employeeList = this.cloneEmployeeList;
+               }
+               else if(this.filter.sex == "Tất cả" && this.filter.role != "") {
+                    this.employeeList = [];
+                    this.cloneEmployeeList.forEach(employee => {
+                         if (employee.Role_name == this.filter.role) {
+                              this.employeeList.push(employee);
+                         }
+                    });
+               }
+               else if(this.filter.sex != "Tất cả" && this.filter.role == "Tất cả"){
+                    this.employeeList = [];
+                    this.cloneEmployeeList.forEach(employee => {
+                         if (employee.Employee_sex == this.filter.sex) {
+                              this.employeeList.push(employee);
+                         }
+                    });
+               }
+               else{
+                    this.employeeList = [];
+                    this.cloneEmployeeList.forEach(employee => {
+                         if (employee.Employee_sex == this.filter.sex && employee.Role_name == this.filter.role) {
+                              this.employeeList.push(employee);
+                         }
+                    });
+               }
+          },
+
+          async getRole() {
+               if (this.roleList.length > 0) {
+                    this.roles = [];
+                    this.roles[0] = "Tất cả";
+                    this.roleList.forEach(role => {
+                         this.roles.push(role.Role_name);
+                    });
+               }
+               else{
+                    this.retrieveRoleList();
+                    this.roles = [];
+                    this.roles[0] = "Tất cả";
+                    this.roleList.forEach(role => {
+                         this.roles.push(role.Role_name);
+                    });
+               }
+               return this.roles;
+          }
+
      },
 
      mounted() {
-          this.retrieveEmployeeList()
+          this.retrieveEmployeeList();
      },
 }
 </script>

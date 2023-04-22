@@ -18,8 +18,6 @@ exports.store = async (req, res) => {
 
 // Retrieve all Role from the database (with condition).
 exports.findAll = async (req, res) => {
-    console.log("1")
-
     const name = req.query.name;
 
     Role.getAll(name, (err, data) => {

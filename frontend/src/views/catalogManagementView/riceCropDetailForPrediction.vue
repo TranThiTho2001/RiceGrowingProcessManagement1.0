@@ -31,7 +31,8 @@
                                    riceCrop.RiceCropInformation_name
                               }}</h4>
                               <button class="btn btnPredict" @click="getWeather(true)"> Dự Đoán</button>
-                              <table class="tablericeCropInfor tablePredict">
+                              <div class="riceCropInfor-component tablePredict">
+                              <table class="tablericeCropInfor">
                                    <tbody>
                                         <tr>
                                              <td data-label="Mã mùa vụ">{{
@@ -52,15 +53,16 @@
                                                   riceCrop.ArableLand_latitude }}, {{ riceCrop.ArableLand_longitude }}</td>
                                         </tr>
                                         <tr>
-                                             <td data-label="Ngày gieo xạ">{{
+                                             <td data-label="Ngày gieo xạ">Bắt đầu từ ngày {{
                                                   formatDate(riceCrop.RiceCropInformation_sowingDate) }}</td>
                                         </tr>
                                         <tr>
-                                             <td data-label="Ngày thuc hoạch">{{
+                                             <td data-label="Ngày thu hoạch" style="border-bottom: 0px !important;"> Thu hoạch ngày {{
                                                   formatDate(riceCrop.RiceCropInformation_harvestDate) }}</td>
                                         </tr>
                                    </tbody>
                               </table>
+                         </div>
                               <div class="calendarComponent">
                                    <time class="icon">
                                         <em>Ngày</em>
@@ -90,8 +92,10 @@
                          <div class="row mt-4">
                               <h4 class="prediction-title" style="padding-bottom: 10px;">Thông tin thời tiết trong mùa vụ cho
                                    lần dự đoán ngày {{ formatDate(predictionList[0].Prediction_date) }}</h4>
-                              <button class="btn btnDowload" @click="dowload()">Tải file CSV <i
-                                        class="fas fa-arrow-alt-circle-down"></i></button>
+                                   
+                              <button class="btn btnDowload" @click="dowload()">
+                                   <i class="fas fa-arrow-alt-circle-down"></i> Tải CSV
+                               </button>
                               <table class="tablePredict" id="weatherInfor" v-if="weatherInfor.loadding">
                                    <thead>
                                         <tr>
@@ -99,7 +103,7 @@
                                              <th class="centerclass">Ngày</th>
                                              <th class="centerclass">Nhiệt Độ(°C )</th>
                                              <th class="centerclass">Độ ẩm(%)</th>
-                                             <th class="centerclass">Lương mưa(mm/h)</th>
+                                             <th class="centerclass">Lượng mưa(mm/h)</th>
                                              <th class="centerclass">Tốc độ gió(Km/h)</th>
                                              <th class="centerclass">Bức xạ mặt trời(MJ/m²)</th>
                                         </tr>
@@ -134,7 +138,7 @@
                                              <th class="text-center th_pre">Lần</th>
                                              <th class="th_pre">Tên phân bón</th>
                                              <th class="text-center th_pre">Số lượng (kg/ha)</th>
-                                             <th class="text-center th_pre">Ngày bất đầu</th>
+                                             <th class="text-center th_pre">Ngày bắt đầu</th>
                                              <th class="text-center th_pre">Ngày kết thúc</th>
                                              <th class="th_pre">Nhân viên</th>
                                         </tr>
@@ -329,6 +333,7 @@ export default {
           this.weatherInfor.loadding = false;
           this.initEmployeeState();
           this.retrieveRiceCrop();
+          this.loadData();
      },
      methods: {
           ...mapMutations([
@@ -465,7 +470,6 @@ export default {
           },
 
           async getWeather(ispredict) {
-               this.loading = true;
                this.weatherInfor.loadding = false;
                var lat = this.riceCrop.ArableLand_latitude;
                var lon = this.riceCrop.ArableLand_longitude;
@@ -559,14 +563,16 @@ export default {
                if (ispredict) {
                     this.predictRiceYield();
                }
-               else {
-                    if (this.loading == true) {
-                         setTimeout(() => {
-                              this.loading = false;
-                         }, 2000);
-                    }
-               }
 
+          },
+
+          async loadData(){
+               this.loading= true;
+               if (this.loading) {
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 1000);
+               }
           },
 
           async download_csv(csv, filename) {

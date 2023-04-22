@@ -114,7 +114,7 @@
           </div>
           <div class="row mt-2 ml-1 mr-1 pesticideUsed">
                <button type="button" @click="addPesticide()" class="btnAddPesticide row mt-2"> Thêm </button>
-               <div class="pesticidelist ml-2">
+               <div class="pesticidelist ml-">
                     <table class="table thead-dark table-striped" style="min-height: max-content;">
                          <thead>
 
