@@ -84,11 +84,13 @@
                                    <h5>MÙA VỤ NĂNG SUẤT CAO</h5>
                               </div>
                               <div class="row row-satisticByYield" v-for="(riceCrop, i) in riceCropListByFinish" :key="i">
-                                   <div class="left-statisticByYield align-self-center" style="width: 30%; vertical-align: middle;">
+                                   <div class="left-statisticByYield align-self-center" style="width: 25%; vertical-align: middle;">
+                                        <div class="rice_yield">
                                         <h4>{{ riceCrop.RiceCropInformation_yield }}</h4>
                                         <p  class="title">Tạ/ha</p>
                                    </div>
-                                   <div class="right-statisticByYeild text-left" style="width: 70%;  ">
+                                   </div>
+                                   <div class="right-statisticByYeild text-left" style="width: 72%; margin-left: 3%; ">
                                         <h5>{{ riceCrop.RiceCropInformation_name }}</h5>
                                         <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><span class="title">Sử dụng giống lúa: </span><span class="value">{{ riceCrop.Seed_name }}</span></div>
                                         <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><span class="title">Canh tác trên mẫu ruộng:  </span><span class="value">{{ riceCrop.ArableLand_owner }}</span></div>
@@ -387,7 +389,6 @@ export default {
                }
                else {
                     this.fertilizerList = respone.data;
-                    this.getwidth()
                }
           },
 
@@ -444,15 +445,15 @@ export default {
                this.$router.push("/Statistical/StatisticsByRiceCrop");
           },
 
-          getwidth() {
-               var width = document.getElementById("statisticalRice1").offsetWidth;
-               var height = document.getElementById("statisticalRice1").offsetHeight;
-               var list = document.getElementsByClassName("statisticalComponent");
-               Array.from(list).forEach(element => {
-                    element.style.width = width + "px";
-                    element.style.height = height + "px";
-               });
-          },
+          // getwidth() {
+          //      var width = document.getElementById("statisticalRice1").offsetWidth;
+          //      var height = document.getElementById("statisticalRice1").offsetHeight;
+          //      var list = document.getElementsByClassName("statisticalComponent");
+          //      Array.from(list).forEach(element => {
+          //           element.style.width = width + "px";
+          //           element.style.height = height + "px";
+          //      });
+          // },
 
           bubbleSort() {
                for (let i = 0; i < this.riceCropListByFinish.length - 1; i++) {

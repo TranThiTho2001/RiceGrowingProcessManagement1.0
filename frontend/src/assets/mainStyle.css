@@ -437,7 +437,7 @@ html {
      width: 40% !important;
      height: 37px;
      margin-left: 34px;
-     z-index: 6;
+     z-index: 3;
 
      /* top: 18px; */
 }
@@ -450,7 +450,7 @@ html {
      border-radius: 10px;
      border: none;
      background: none;
-     z-index: 6;
+     z-index: 3;
 }
 
 .closeSearch {

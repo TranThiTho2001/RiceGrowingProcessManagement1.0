@@ -31,38 +31,40 @@
                                    riceCrop.RiceCropInformation_name
                               }}</h4>
                               <button class="btn btnPredict" @click="getWeather(true)"> Dự Đoán</button>
-                              <div class="riceCropInfor-component tablePredict">
-                              <table class="tablericeCropInfor">
-                                   <tbody>
-                                        <tr>
-                                             <td data-label="Mã mùa vụ">{{
-                                                  riceCrop.RiceCropInformation_id }}</td>
-                                        </tr>
-                                        <tr>
-                                             <td data-label="Tên mùa vụ">{{ riceCrop.RiceCropInformation_name }}</td>
-                                        </tr>
-                                        <tr>
-                                             <td data-label="Vụ mùa">Vụ mùa - {{ riceCrop.Crop_name }}</td>
-                                        </tr>
-                                        <tr>
-                                             <td data-label="Giống lúa">Sử dụng giống lúa {{ riceCrop.Seed_name }}
-                                             </td>
-                                        </tr>
-                                        <tr>
-                                             <td data-label="Mẫu ruộng" @click="goToMap">Vị trí mẫu ruộng: {{
-                                                  riceCrop.ArableLand_latitude }}, {{ riceCrop.ArableLand_longitude }}</td>
-                                        </tr>
-                                        <tr>
-                                             <td data-label="Ngày gieo xạ">Bắt đầu từ ngày {{
-                                                  formatDate(riceCrop.RiceCropInformation_sowingDate) }}</td>
-                                        </tr>
-                                        <tr>
-                                             <td data-label="Ngày thu hoạch" style="border-bottom: 0px !important;"> Thu hoạch ngày {{
-                                                  formatDate(riceCrop.RiceCropInformation_harvestDate) }}</td>
-                                        </tr>
-                                   </tbody>
-                              </table>
-                         </div>
+                              <div class="riceCropInfor-component " style="width: 45%">
+                                   <table class="tablericeCropInfor">
+                                        <tbody>
+                                             <tr>
+                                                  <td data-label="Mã mùa vụ">{{
+                                                       riceCrop.RiceCropInformation_id }}</td>
+                                             </tr>
+                                             <tr>
+                                                  <td data-label="Tên mùa vụ">{{ riceCrop.RiceCropInformation_name }}</td>
+                                             </tr>
+                                             <tr>
+                                                  <td data-label="Vụ mùa">Vụ mùa - {{ riceCrop.Crop_name }}</td>
+                                             </tr>
+                                             <tr>
+                                                  <td data-label="Giống lúa">Sử dụng giống lúa {{ riceCrop.Seed_name }}
+                                                  </td>
+                                             </tr>
+                                             <tr>
+                                                  <td data-label="Mẫu ruộng" @click="goToMap">Vị trí mẫu ruộng: {{
+                                                       riceCrop.ArableLand_latitude }}, {{ riceCrop.ArableLand_longitude }}
+                                                  </td>
+                                             </tr>
+                                             <tr>
+                                                  <td data-label="Ngày gieo xạ">Bắt đầu từ ngày {{
+                                                       formatDate(riceCrop.RiceCropInformation_sowingDate) }}</td>
+                                             </tr>
+                                             <tr>
+                                                  <td data-label="Ngày thu hoạch" style="border-bottom: 0px !important;"> Thu
+                                                       hoạch ngày {{
+                                                            formatDate(riceCrop.RiceCropInformation_harvestDate) }}</td>
+                                             </tr>
+                                        </tbody>
+                                   </table>
+                              </div>
                               <div class="calendarComponent">
                                    <time class="icon">
                                         <em>Ngày</em>
@@ -74,15 +76,16 @@
                                    <div class="result-prediction">
                                         <p>Dự đoán</p>
                                         <div class="yield">
-                                            <h2 class="yield-value">{{ predictionList[0].Prediction_yield}}</h2>
-                                            <h5 style="color: #919302;">Kg/ha</h5>
+                                             <h2 class="yield-value">{{ getPrediction() }}</h2>
+                                             <h5 style="color: #919302;">Kg/ha</h5>
                                         </div>
                                    </div>
                                    <div class="result-readly">
                                         <p>Thực tế</p>
                                         <div class="yield">
-                                             <h2  class="yield-value" v-if="riceCrop.RiceCropInformation_yield != null">{{ riceCrop.RiceCropInformation_yield }}</h2>
-                                            <h2  class="yield-value" v-else>00</h2>
+                                             <h2 class="yield-value" v-if="riceCrop.RiceCropInformation_yield != null">{{
+                                                  riceCrop.RiceCropInformation_yield }}</h2>
+                                             <h2 class="yield-value" v-else>00</h2>
                                              <h5 style="color: #919302;">Kg/ha</h5>
                                         </div>
                                    </div>
@@ -91,24 +94,25 @@
 
                          <div class="row mt-4">
                               <h4 class="prediction-title" style="padding-bottom: 10px;">Thông tin thời tiết trong mùa vụ cho
-                                   lần dự đoán ngày {{ formatDate(predictionList[0].Prediction_date) }}</h4>
-                                   
+                                   lần dự đoán ngày <span v-if="getPrediction() != '00'"> {{
+                                        formatDate(predictionList[0].Prediction_date) }}</span></h4>
+
                               <button class="btn btnDowload" @click="dowload()">
                                    <i class="fas fa-arrow-alt-circle-down"></i> Tải CSV
-                               </button>
-                              <table class="tablePredict" id="weatherInfor" v-if="weatherInfor.loadding">
+                              </button>
+                              <table class="tableWeather tablePredict" id="weatherInfor" v-if="weatherInfor.loadding">
                                    <thead>
                                         <tr>
                                              <th class="centerclass">STT</th>
                                              <th class="centerclass">Ngày</th>
-                                             <th class="centerclass">Nhiệt Độ(°C )</th>
-                                             <th class="centerclass">Độ ẩm(%)</th>
-                                             <th class="centerclass">Lượng mưa(mm/h)</th>
-                                             <th class="centerclass">Tốc độ gió(Km/h)</th>
-                                             <th class="centerclass">Bức xạ mặt trời(MJ/m²)</th>
+                                             <th class="centerclass">Nhiệt Độ (°C )</th>
+                                             <th class="centerclass">Độ ẩm (%)</th>
+                                             <th class="centerclass">Lượng mưa (mm/h)</th>
+                                             <th class="centerclass">Tốc độ gió (Km/h)</th>
+                                             <th class="centerclass">Bức xạ mặt trời (MJ/m²)</th>
                                         </tr>
                                    </thead>
-                                   <tbody v-if="predictionList.length > 0">
+                                   <tbody v-if="predictionList.length > 0 && getPrediction() != '00'">
                                         <tr v-for="(data, i) in weatherInfor.dateList" :key="i">
                                              <td class="centerclass">{{ i }}</td>
                                              <td class="centerclass">{{ data }}</td>
@@ -306,7 +310,7 @@ export default {
           return {
                openMenu: {
                     openMenu: false,
-                    isOpenMenuIcon: false,
+                    isOpenMenuIcon: true,
                     isCloseMenu: false,
                },
 
@@ -320,6 +324,7 @@ export default {
                weatherInfor: [],
                predicting: false,
                result: false,
+               algorithm: "",
           }
      },
      computed: {
@@ -330,6 +335,7 @@ export default {
      },
      created() {
           this.riceCrop.RiceCropInformation_id = this.$route.params.id;
+          this.algorithm = this.$route.params.Algorithm;
           this.weatherInfor.loadding = false;
           this.initEmployeeState();
           this.retrieveRiceCrop();
@@ -428,7 +434,6 @@ export default {
                else {
                     this.predictionList = respone.data;
                     this.bubbleSort();
-                    console.log(this.predictionList);
                     this.getWeather(false);
                }
           },
@@ -443,6 +448,12 @@ export default {
                     infor.humitidity = this.weatherInfor.Humitidity;
                     infor.solarRadiation = this.weatherInfor.SolarRadiation;
                     infor.windSpeed = this.weatherInfor.WinSpeed;
+                    if (this.algorithm == "LinearRegression") {
+                         infor.Algorithm_id = '1';
+                    }
+                    else {
+                         infor.Algorithm_id = '2';
+                    }
                     if (this.riceCrop.Crop_id == 'C00001') {
                          infor.crop = '1';
                     }
@@ -566,13 +577,33 @@ export default {
 
           },
 
-          async loadData(){
-               this.loading= true;
+          async loadData() {
+               this.loading = true;
                if (this.loading) {
                     setTimeout(() => {
                          this.loading = false;
                     }, 1000);
                }
+          },
+
+          getPrediction() {
+               var yield_prediction = "00";
+               if (this.algorithm == "LinearRegression") {
+                    this.riceCrop.Algorithm_id = 1;
+               }
+               else {
+                    this.riceCrop.Algorithm_id = 2;
+               }
+
+               if (this.predictionList.length > 0) {
+                    this.predictionList.forEach(element => {
+                         if (element.Algorithm_id == this.riceCrop.Algorithm_id) {
+                              yield_prediction = element.Prediction_yield;
+                         }
+
+                    });
+               }
+               return yield_prediction;
           },
 
           async download_csv(csv, filename) {
@@ -664,6 +695,4 @@ export default {
 
 <style>
 @import url(../../assets/mainStyle.css);
-@import url(../../assets/predictionStyle.css);
-
-</style>
+@import url(../../assets/predictionStyle.css);</style>

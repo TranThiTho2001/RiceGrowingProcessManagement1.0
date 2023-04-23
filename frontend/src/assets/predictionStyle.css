@@ -165,6 +165,119 @@
     font-size: 18px;
 }
 
+@media screen and (max-width: 720px) {
+    .predictiveManagement .selection-component1 {
+        position: relative;
+        top: 10px !important;
+        left: 1%;
+        z-index: 1;
+    }
+
+    .predictiveManagement .inputSearch1 {
+        margin-bottom: 50px !important;
+    }
+
+    .predictiveManagement .btnSearch1 {
+        position: absolute;
+        top: 105px !important;
+        left: 38%;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .predictiveManagement .selection-component1 {
+        position: relative;
+        top: 50px !important;
+        left: -41.5%;
+        z-index: 1;
+    }
+
+    .predictiveManagement .inputSearch1 {
+        margin-bottom: 60px !important;
+    }
+
+    .predictiveManagement .btnSearch1 {
+        position: absolute;
+        top: 105px !important;
+        left: 41%;
+    }
+
+    .riceCropInfor-component {
+        width: 60% !important;
+        border-radius: 10px !important;
+        border-spacing: 30px;
+    }
+
+    .calendarComponent {
+        width: 35% !important;
+        border-radius: 10px !important;
+        border-spacing: 30px;
+    }
+
+    .resultRiceYield {
+        width: 98% !important;
+        margin-top: 20px;
+    }
+
+    .resultRiceYield .result-prediction,
+    .resultRiceYield .result-readly {
+        width: 42% !important;
+        display: inline-block;
+        border-radius: 10px;
+        height: 196px !important;
+        background: #FAFAFC;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+    .resultRiceYield .result-readly {
+        margin-left: 16% !important;
+        margin-right: 0px !important;
+    }
+
+    .tablePredict {
+        height: min-content;
+        width: 96% !important;
+        margin-left: 1% !important;
+        height: fit-content !important;
+        background: #FAFAFC !important;
+    }
+
+    .tableWeather thead tr th{
+        font-size: 12.5px !important;
+        padding: 2px 1px 2px 1px !important;
+    }
+
+    .tableWeather tbody tr .final-row{
+        font-size: 14px !important;
+    }
+
+   .riceCropDetailForPrediction .riceCropDetailComponent{
+    margin-left: 10px !important;
+    }
+
+    time.icon{
+        width: 100% !important;
+    }
+    .ricecrop-Component .tablericeCropInfor tr td{
+        padding: 1px !important;
+    }
+
+    .riceCropDetailForPrediction .btnDowload {
+    background: #008B8E;
+    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
+    font-size: 17px;
+    font-family: 'Roboto';
+    font-weight: 500 !important;
+    border: none;
+    color: #FFFED8;
+    z-index: 3;
+    margin-top: 10px !important;
+    position: relative !important;
+    left: 70%;
+    border-radius: 10px !important;
+    margin-bottom: 10px;
+}
+}
+
 /* .predictiveManagement .row-inputSearch {
     margin-left: 20px;
 } */
@@ -405,13 +518,13 @@
 .predictiveManagement .dropdown-menu {
     position: absolute;
     right: -100% !important;
-    top:5px;
-    transform: translate3d(-150px, 20px,60px) !important;
+    top: 5px;
+    transform: translate3d(-150px, 20px, 60px) !important;
 }
 
 .tablePredict {
     height: min-content;
-    width: 100% !important;
+    width: 100%;
     height: fit-content !important;
     background: #FAFAFC !important;
 }
@@ -533,9 +646,11 @@
 }
 
 .riceCropInfor-component {
-    width: 45% !important;
+    width: 45%;
     border-radius: 10px !important;
     border-spacing: 30px;
+    background: #FAFAFC;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .riceCropInfor-component table {
@@ -552,7 +667,7 @@
     vertical-align: middle !important;
     font-size: 15px !important;
     text-align: justify;
-    padding: 6px;
+    padding: 1px;
     color: #1C1C1F;
 }
 
