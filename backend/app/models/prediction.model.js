@@ -9,7 +9,8 @@ const Prediction = function (prediction) {
      this.Prediction_temperature = prediction.Prediction_temperature;
      this.Prediction_humitidity = prediction.Prediction_humitidity;
      this.Prediction_windSpeed = prediction.Prediction_windSpeed;
-     this.Prediction_solarRadiation = prediction.Prediction_solarRadiation
+     this.Prediction_solarRadiation = prediction.Prediction_solarRadiation;
+     this.Algorithm_id = prediction.Algorithm_id;
 }
 
 Prediction.create = (newPrediction, result) => {
@@ -27,6 +28,7 @@ Prediction.create = (newPrediction, result) => {
 Prediction.findById = (id, result) => {
      sql.query(`SELECT * FROM Prediction` +
           ` JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = Prediction.RiceCropInformation_id` +
+          ` JOIN Algorithm on Algorithm.Algorithm_id = Prediction.Algorithm_id `+
           ` WHERE Prediction.Prediction_id like '${id}'`, (err, res) => {
                if (err) {
                     console.log("error: ", err);
@@ -44,7 +46,8 @@ Prediction.findById = (id, result) => {
 
 Prediction.getAll = (name, result) => {
      let query = `SELECT * FROM  Prediction` +
-          ` JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = Prediction.RiceCropInformation_id`;
+          ` JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = Prediction.RiceCropInformation_id `+
+          ` JOIN Algorithm on Algorithm.Algorithm_id = Prediction.Algorithm_id `;
      if (name) {
           query += ` WHERE RiceCropInformation.RiceCropInformation_name LIKE '%${name}%'`;
      }
@@ -61,6 +64,7 @@ Prediction.getAll = (name, result) => {
 Prediction.findByRiceCropInformationId = (id, result) => {
      let query = `SELECT * FROM Prediction` +
           ` JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = Prediction.RiceCropInformation_id` +
+          ` JOIN Algorithm on Algorithm.Algorithm_id = Prediction.Algorithm_id `+
           ` where Prediction.RiceCropInformation_id LIKE '%${id}%'`;
      sql.query(query, (err, res) => {
           if (err) {
@@ -76,7 +80,8 @@ Prediction.findByArableLand = (name, id, result) => {
      let query = "SELECT * FROM RiceCropInformation JOIN Monitor on Monitor.RiceCropInformation_id = RiceCropInformation.RiceCropInformation_id" +
           ` JOIN Seed on Seed.Seed_id = RiceCropInformation.Seed_id` +
           ` JOIN ArableLand on ArableLand.ArableLand_id= RiceCropInformation.ArableLand_id` +
-          ` JOIN Crop on Crop.Crop_id = RiceCropInformation.Crop_id`
+          ` JOIN Crop on Crop.Crop_id = RiceCropInformation.Crop_id` +
+          ` JOIN Algorithm on Algorithm.Algorithm_id = Prediction.Algorithm_id `;
      if (name) {
           query += ` WHERE  LIKE ArableLand.ArableLand_name '%${name}%' or ArableLand.ArableLand_id LIKE '%${name}%'`;
      }

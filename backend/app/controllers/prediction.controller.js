@@ -14,15 +14,15 @@ exports.store = async (req, res) => {
      temp.windSpeed = req.body.windSpeed;
      temp.solarRadiation = req.body.solarRadiation;
      temp.area = req.body.area;
-     // const regression = req.body.regression;
+     const regression = req.body.Algorithm_id;
      const { spawn } = require('child_process');
      var pyProg = "";
-     // if (regression == 1) {
-     //      pyProg = spawn("python", [`${fileLinearRegression }`, JSON.stringify(temp)]);
-     // }
-     // else{
+     if (regression == 1) {
+          pyProg = spawn("python", [`${fileLinearRegression }`, JSON.stringify(temp)]);
+     }
+     else{
           pyProg = spawn("python", [`${fileRandomForest }`, JSON.stringify(temp)]);
-     // }
+     }
 
      pyProg.stdout.on('data', function (data) {
           console.log(data.toString());
@@ -39,7 +39,8 @@ exports.store = async (req, res) => {
                Prediction_temperature: req.body.temperature,
                Prediction_humitidity: req.body.humitidity,
                Prediction_windSpeed: req.body.windSpeed,
-               Prediction_solarRadiation: req.body.solarRadiation
+               Prediction_solarRadiation: req.body.solarRadiation,
+               Algorithm_id: req.body.Algorithm_id,
           });
 
           // save prediciton

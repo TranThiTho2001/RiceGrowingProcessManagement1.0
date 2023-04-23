@@ -48,39 +48,42 @@
                     </div>
 
                     <div class=" row ricecropList-row" style="margin-left:-5px;margin-right: 10px ; margin-top:20px">
-                         <div class="ricecrop-Component" v-for="(ricecrop, i) in clonePredictionList" :key="i">
+                         <div class="ricecrop-Component" v-for="(ricecrop, i) in cloneRiceCropList" :key="i">
                               <div class="btnMoreInfor">
-                                   <button type="button" class="btn-sm btnmore" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        <i class="fas fa-ellipsis-v"></i>
-
-                                        <div class=" select dropdown-menu">
-                                             <option class="dropdown-item action"
-                                                  @click="setRiceCropChosen(ricecrop), goToRiceCropData()">
-                                                  <span class="fas fa-lightbulb" style="font-size: 20px;"></span> Dự
-                                                  Đoán
-                                             </option>
-                                             <option class="dropdown-item" href="#"
-                                                  @click="setRiceCropChosen(ricecrop), goToRiceCropDetail()">
-                                                  <span class="fas fa-eye"></span>Xem Mùa Vụ
-                                             </option>
-                                             <option class="dropdown-item" href="#"
-                                                  @click="setRiceCropChosen(ricecrop), goToRiceCropData()">
-                                                  <span class="fas fa-eye"></span>Dữ liệu Dự Đoán
-                                             </option>
-                                        </div>
-                                   </button>
+                                   <li class="dropdown">
+                                        <button type="button " class="btnmore fas fa-ellipsis-v" data-toggle="dropdown">
+                                             <b></b></button>
+                                        <ul class="dropdown-menu multi-level">
+                                             <li @click="setRiceCropChosen(ricecrop), goToRiceCropDetail()"><a href="#">Xem
+                                                       mùa vụ</a></li>
+                                             <li class="dropdown-submenu">
+                                                  <a href="#" class="" data-toggle="">Dự đoán <i class="fas fa-caret-right"
+                                                            style="float: right; padding: auto; font-size: 22px;"></i></a>
+                                                  <ul class="dropdown-menu">
+                                                       <li style="background-color: red;"
+                                                            @click="setRiceCropChosen(ricecrop), goToRiceCropData()"><a
+                                                                 href="#">Giải thuật Hồi quy tuyến tính <br> {{ getAlgorithmLinear(ricecrop) }} Kg/ha</a>
+                                                       </li>
+                                                       <li @click="setRiceCropChosen(ricecrop), goToRiceCropData()"><a
+                                                                 href="#">Giải thuật rừng ngầu nhiên<br> {{ getAlgorithmRandom(ricecrop) }} Kg/ha</a></li>
+                                                  </ul>
+                                             </li>
+                                        </ul>
+                                   </li>
                               </div>
                               <h5 class="riceCropName">{{ ricecrop.RiceCropInformation_name }}</h5>
                               <p class="riceCropId">{{ ricecrop.RiceCropInformation_id }}</p>
                               <p class="riceCropId">{{ get_day_of_time(ricecrop.RiceCropInformation_sowingDate) }} Ngày</p>
-                              <p class="textPredict">Dự đoán </p><button class="resultPrediction">{{
-                                   ricecrop.Prediction_yield
-                              }}</button>
+                              <p class="riceCropId" v-if="ricecrop.Predictions.length > 0">Giải thuật {{ ricecrop.Predictions[0].Algorithm_name }}</p>
+                              <p class="riceCropId" v-if="ricecrop.Predictions.length == 0">Giải thuật </p>
+                              <p class="textPredict"  >Dự đoán </p>
+                              <button v-if="ricecrop.Predictions.length > 0" class="resultPrediction">
+                              {{ ricecrop.Predictions[0].Prediction_yield}}</button>
+                              <button v-if="ricecrop.Predictions.length == 0" class="resultPrediction">
+                              0</button>
                               <p class="textKg">kg/ha</p>
                          </div>
                     </div>
-
                     <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
 
                     <div class="confirmationDialog" v-if="isOpenConfirm">
@@ -113,7 +116,8 @@
                     </div>
                     <div class="resultDialog" v-if="result">
                          <p style="color:#515151; text-align:center; margin-top: 30px; font-size: 20px;"
-                              class="labelConfirm"> Năng suất dự đoán cho mùa vụ {{
+                              class="labelConfirm">
+                              Năng suất dự đoán cho mùa vụ {{
                                    this.riceCropChosen.RiceCropInformation_name }}<br> <span class="result">{{
           this.riceCropChosen.Prediction_yield }}</span>
                               kg/ha
@@ -216,6 +220,15 @@ export default {
                this.isOpenInput2 = false;
           },
 
+          async loadData(){
+               this.loading= true;
+               if (this.loading) {
+                    setTimeout(() => {
+                         this.loading = false;
+                    }, 1000);
+               }
+          },
+
           async retrievePredictionList() {
                this.loaded = false;
                const [err, respone] = await this.handle(
@@ -270,7 +283,6 @@ export default {
           },
 
           async retrieveRiceCropList() {
-               this.loading = true;
                const [err, respone] = await this.handle(
                     RiceCropInformationService.getAll()
                );
@@ -278,41 +290,49 @@ export default {
                     console.log(err)
                }
                else {
-                    respone.data.forEach(ricecrop => {
-                         if (ricecrop.RiceCropInformation_sowingDate != null ) {
+                    var temp = respone.data;
+                    this.getPredictionList(temp);
+               }
+          },
+
+         async getPredictionList(list){
+               var i = 0;
+               this.riceCropList = [];
+               list.forEach(ricecrop => {
+                         if (ricecrop.RiceCropInformation_sowingDate != null) {
                               if (this.get_day_of_time(ricecrop.RiceCropInformation_sowingDate) >= 60) {
-                                   this.riceCropList.push(ricecrop);
-                                   this.clonePredictionList.push(ricecrop);
-                                   ricecrop.Prediction_yield = 0;
-                                   ricecrop.Prediction_date = "";
+                                   ricecrop.Predictions = [];
                                    this.predictionList.forEach(result => {
                                         if (result.RiceCropInformation_id == ricecrop.RiceCropInformation_id) {
-                                             if (ricecrop.Prediction_yield == 0) {
-                                                  ricecrop.Prediction_yield = result.Prediction_yield;
-                                                  ricecrop.Prediction_date = result.Prediction_date;
+                                             var temp = {
+                                                  Prediction_yield: 0,
+                                                  Prediction_date: "",
+                                                  Algorithm_name: "",
+                                             }
+                                             if (ricecrop.Predictions == null) {
+                                                  temp.Prediction_yield = result.Prediction_yield;
+                                                  temp.Prediction_date = result.Prediction_date;
+                                                  temp.Algorithm_name = result.Algorithm_name;
+                                                  ricecrop.Predictions.push(temp);
                                              }
                                              else {
-                                                  if (ricecrop.Prediction_date < result.Prediction_date) {
-                                                       ricecrop.Prediction_yield = result.Prediction_yield;
-                                                       ricecrop.Prediction_date = result.Prediction_date;
-                                                  }
+                                                  temp.Prediction_yield = result.Prediction_yield;
+                                                  temp.Prediction_date = result.Prediction_date;
+                                                  temp.Algorithm_name = result.Algorithm_name;
+                                                  ricecrop.Predictions.push(temp);
                                              }
                                         }
+
                                    });
+                                   this.riceCropList.push(ricecrop);
+                                   this.bubbleSort(i);
+                                    i++;
                               }
                          }
+                        
                     });
-
-                    for (let index = 0; index < this.riceCropList.length; index++) {
-                         this.getURLForRiceCrop(index);
-                    }
                     this.cloneRiceCropList = this.riceCropList;
-               }
-               if (this.loading) {
-                    setTimeout(() => {
-                         this.loading = false;
-                    }, 1000);
-               }
+                    console.log(this.cloneRiceCropList)
           },
 
           async setRiceCropChosen(data, id) {
@@ -333,20 +353,35 @@ export default {
                }
           },
 
+
+          bubbleSort(position) {
+               if (this.riceCropList[position].Predictions != null) {
+                    for (let i = 0; i < this.riceCropList[position].Predictions.length - 1; i++) {
+                         for (let j = this.riceCropList[position].Predictions - 1; j > i; j--) {
+                              if (this.riceCropList[position].Predictions[j].Prediction_date < this.riceCropList[position].Predictions[j - 1].Prediction_date) {
+                                   let t = this.riceCropList[position].Predictions[j];
+                                   this.riceCropList[position].Predictions[j] = this.riceCropList[position].Predictions[j - 1];
+                                   this.riceCropList[position].Predictions[j - 1] = t;
+                              }
+                         }
+                    }
+               }
+          },
+
           async searchRiceCrop(data) {
                this.nameToSearch = data;
                if (this.nameToSearch != '') {
-                    this.clonePredictionList = [];
+                    this.cloneRiceCropList = [];
                     this.riceCropList.forEach(ricecrop => {
                          if (ricecrop.RiceCropInformation_name == this.nameToSearch) {
-                              this.clonePredictionList.push(ricecrop);
+                              this.cloneRiceCropList.push(ricecrop);
                          }
                          else if ((String(ricecrop.RiceCropInformation_name).toUpperCase()).indexOf(String(this.nameToSearch).toUpperCase()) != -1) {
-                              this.clonePredictionList.push(ricecrop);
+                              this.cloneRiceCropList.push(ricecrop);
                          }
                     });
 
-                    if (this.clonePredictionList.length == 0) {
+                    if (this.cloneRiceCropList.length == 0) {
                          const [error, response] = await this.handle(
                               RiceCropInformationService.findByName(this.nameToSearch)
                          );
@@ -354,7 +389,7 @@ export default {
                               console.log(error);
                          } else {
                               if (response.data != null) {
-                                   this.clonePredictionList = response.data;
+                                  this.getPredictionList(response.data);
                               }
                          }
                     }
@@ -477,19 +512,43 @@ export default {
 
 
           async searchByYear() {
-               this.clonePredictionList = [];
+               this.cloneRiceCropList = [];
                if (this.filter.year == "Tất cả") {
-                    this.clonePredictionList = this.riceCropList;
+                    this.cloneRiceCropList = this.riceCropList;
                }
                else {
                     this.riceCropList.forEach(ricecrop => {
                          if (((new Date(ricecrop.RiceCropInformation_sowingDate)).getFullYear() == this.filter.year || (new Date(ricecrop.RiceCropInformation_harvestDate)).getFullYear() == this.filter.year)) {
-                              this.clonePredictionList.push(ricecrop);
+                              this.cloneRiceCropList.push(ricecrop);
                          }
                     });
                }
+               this.loadData();
 
           },
+
+              getAlgorithmRandom(ricecrop){
+                    if(ricecrop.Predictions.length>0){
+                         ricecrop.Predictions.forEach(element => {
+                              if(element.Algorithm_name == "Rừng ngẫu nhiên"){
+                                   return element.Prediction_yield;
+                              }
+                         });
+                    }
+                    return 0;
+               },
+               
+              getAlgorithmLinear(ricecrop){
+               var rice_yield = 0;
+                    if(ricecrop.Predictions.length>0){
+                         ricecrop.Predictions.forEach(element => {
+                              if(element.Algorithm_name == "Hồi quy tuyến tính"){
+                                  rice_yield = element.Prediction_yield;
+                              }
+                         });
+                    }
+                    return rice_yield;
+               },
 
           getYear() {
                this.years = [];
@@ -505,6 +564,7 @@ export default {
                let ms1 = (new Date(d1)).getTime();
                var d2 = new Date();
                let ms2 = d2.getTime();
+               console.log(d1)
                return Math.ceil((ms2 - ms1) / (24 * 60 * 60 * 1000));
           },
 
@@ -541,6 +601,8 @@ export default {
      mounted() {
           this.retrievePredictionList();
           this.filter.year = "Tất cả";
+          this.loadData();
+
      }
 }
 </script>
@@ -548,4 +610,73 @@ export default {
 <style>
 @import url(../../assets/predictionStyle.css);
 @import url(../../assets/mainStyle.css);
+
+
+.predictiveManagement .btnMoreInfor .dropdown-submenu {
+     position: relative;
+}
+
+.predictiveManagement .btnMoreInfor  .dropdown {
+     display: inline-block;
+     height: 37px;
+     background: none;
+     box-shadow: none !important;
+     border-radius: 0px !important;
+}
+
+.predictiveManagement .btnMoreInfor  .dropdown-menu .dropdown-submenu>.dropdown-menu {
+     top: -10px;
+     left: 195%;
+     margin-top: -6px;
+     margin-left: -1px;
+     -webkit-border-radius: 0 6px 6px 6px;
+     -moz-border-radius: 0 6px 6px;
+     border-radius: 0 6px 6px 6px;
+     right: 0;
+     position: absolute;
+     width: max-content !important;
+}
+
+.predictiveManagement .btnMoreInfor  .dropdown:hover>.dropdown-menu {
+     display: block;
+}
+
+.predictiveManagement .btnMoreInfor  .dropdown-submenu:hover>.dropdown-menu {
+     display: block;
+
+}
+
+.predictiveManagement .btnMoreInfor  .dropdown-submenu>a:after {
+     display: none;
+     content: " ";
+     float: right;
+}
+
+.predictiveManagement .btnMoreInfor  .dropdown-submenu:hover>a:after {
+     border-left-color: #fff;
+     text-decoration: none;
+}
+
+.predictiveManagement .btnMoreInfor  .dropdown-menu li a {
+     font-family: 'Roboto';
+     font-style: normal;
+     color: #6D6E73;
+     text-decoration: none;
+     text-align: center;
+}
+
+.predictiveManagement .btnMoreInfor  .dropdown-submenu>.dropdown-menu li {
+     text-align: center;
+     border-bottom: 1px solid #6D6E73;
+}
+
+.predictiveManagement  .btnMoreInfor  .dropdown-menu li:hover {
+     background-color: #FFFED8;
+     color: #1C1C1F;
+}
+
+.predictiveManagement .btnMoreInfor  .dropdown-menu li:hover a {
+     color: #1C1C1F;
+     text-decoration: none;
+}
 </style>

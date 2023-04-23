@@ -405,7 +405,8 @@
 .predictiveManagement .dropdown-menu {
     position: absolute;
     right: -100% !important;
-    transform: translate3d(-150px, 20px, 100px) !important;
+    top:5px;
+    transform: translate3d(-150px, 20px,60px) !important;
 }
 
 .tablePredict {
