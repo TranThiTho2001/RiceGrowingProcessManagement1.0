@@ -25,30 +25,18 @@ Contain.findbyFertilizerId = (fertilizer_id, result) => {
             result(err, null);
             return;
         }
-        if (res.length) {
-            console.log("found Contain: ", res[0]);
-            result(null, res[0]);
-            return;
-        }
-        // not found Contain with the id
-        result({ kind: "not_found" }, null);
+        result(null, res);
     });
 };
 
 Contain.findbyNutrientID = (nutrient_id, result) => {
      sql.query(`SELECT * FROM Contain  Join nutrient on nutrient.Nutrient_id = Contain.Nutrient_id WHERE Nutrient_id like '${nutrient_id}'`, (err, res) => {
-         if (err) {
-             console.log("error: ", err);
-             result(err, null);
-             return;
-         }
-         if (res.length) {
-             console.log("found Contain: ", res[0]);
-             result(null, res[0]);
-             return;
-         }
-         // not found Contain with the id
-         result({ kind: "not_found" }, null);
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+        }
+        result(null, res);
      });
  };
 
@@ -85,10 +73,11 @@ Contain.getAll = (name, result) => {
     });
 };
 
-Contain.updateById = (id, contain, result) => {
+Contain.updateById = (fertilizer_id, nutrient_id,contain, result) => {
+    console.log(fertilizer_id, nutrient_id);
     sql.query(
-        "UPDATE Contain SET Nutrient_id = ? WHERE Fertilizer_id = ?",
-        [contain.Nutrient_id, id],
+        "UPDATE Contain SET  Contain_percent = ? WHERE (Nutrient_id = ? And Fertilizer_id = ?)",
+        [ contain.Contain_percent, nutrient_id, fertilizer_id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
@@ -97,29 +86,33 @@ Contain.updateById = (id, contain, result) => {
             }
             if (res.affectedRows == 0) {
                 // not found Contain with the id
+                console.log("no");
                 result({ kind: "not_found" }, null);
                 return;
             }
-            console.log("updated Contain: ", { id: id, ...contain });
-            result(null, { id: id, ...contain });
+            console.log("updated Contain: ", { id: fertilizer_id, ...contain });
+            result(null, { id: fertilizer_id, ...contain });
             
         }
     );
 };
 
 Contain.remove = (fertilizer_id, nutrient_id, result) => {
-    sql.query("DELETE FROM Contain WHERE Fertilizer_id = ? And NNutrient_id = ?", fertilizer_id, nutrient_id, (err, res) => {
+    // console.log(fertilizer_id, nutrient_id)
+    sql.query(`DELETE FROM Contain WHERE (Fertilizer_id LIKE '${fertilizer_id}' And Nutrient_id LIKE '${nutrient_id}' )`,  (err, res) => {
+        console.log(fertilizer_id, nutrient_id)
         if (err) {
             console.log("error: ", err);
             result(err, null);
             return;
         }
         if (res.affectedRows == 0) {
+            console.log("r")
             // not found Contain with the id
             result({ kind: "not_found" }, null);
             return;
         }
-        console.log("deleted Contain with id: ", id);
+        console.log("deleted Contain with id: ", fertilizer_id);
         result(null, res);
     });
 };

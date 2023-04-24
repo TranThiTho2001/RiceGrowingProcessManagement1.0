@@ -63,10 +63,12 @@
                                              <td data-label="Tên">{{ fertilizer.Fertilizer_name }}</td>
                                              <td data-label="Nhà cung cấp">{{ fertilizer.Fertilizer_supplier }}</td>
                                              <td data-label="Thành phần">
-                                                  <span v-for=" nutrient in fertilizer.Contain" :key="nutrient.Nutrient_id">{{ nutrient.Nutrient_name }}: {{ nutrient.Contain_percent }}%<br></span>
+                                                  <span v-for=" nutrient in fertilizer.Contain"
+                                                       :key="nutrient.Nutrient_id">{{ nutrient.Nutrient_name }}: {{
+                                                            nutrient.Contain_percent }}%<br></span>
                                              </td>
                                              <td data-label="Công dụng">{{ fertilizer.Fertilizer_uses }}</td>
-                                             <td data-label="Hướng dẫn sử dụng">{{ fertilizer.Fertilizer_directionForUse }}
+                                             <td data-label="Hướng dẫn sử dụng">{{ fertilizer.Fertilizer_directionsForUse }}
                                              </td>
                                              <td data-label="M" class="centerclass" style="z-index: 1000;">
                                                   <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
@@ -99,7 +101,7 @@
                     <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
                </p>
                <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                    @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteFertilizer(fertilizerChosen.Fertilizer_id)">Xóa</button>
+                    @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteContains(fertilizerChosen)">Xóa</button>
                <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
                     @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
           </div>
@@ -110,7 +112,7 @@
                          message
                     }}
                </p>
-               <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+               <button class="btnOK btn btn-sm btn-outline-secondary"
                     @click="isOpenMessage = !isOpenMessage, active = false">OK</button>
           </div>
 
@@ -183,7 +185,7 @@ export default {
                     isOpenMenuIcon: true,
                     isCloseMenu: false,
                },
-               containList:[],
+               containList: [],
                active: false,
           }
      },
@@ -213,8 +215,8 @@ export default {
                this.isOpenInput2 = false;
           },
 
-          async loadData(){
-               this.loading= true;
+          async loadData() {
+               this.loading = true;
                if (this.loading) {
                     setTimeout(() => {
                          this.loading = false;
@@ -272,7 +274,7 @@ export default {
                this.retrieveContain();
           },
 
-         async retrieveContain(){
+          async retrieveContain() {
                const [err, respone] = await this.handle(
                     ContainService.getAll()
                );
@@ -285,7 +287,7 @@ export default {
                     this.fertilizerList.forEach(fertilizer => {
                          fertilizer.Contain = [];
                          this.containList.forEach(element => {
-                              if(element.Fertilizer_id == fertilizer.Fertilizer_id){
+                              if (element.Fertilizer_id == fertilizer.Fertilizer_id) {
                                    var temp = {
                                         Nutrient_id: element.Nutrient_id,
                                         Nutrient_name: element.Nutrient_name,
@@ -294,6 +296,18 @@ export default {
                                    fertilizer.Contain.push(temp);
                               }
                          });
+                         if (fertilizer.Contain.length == 0) {
+                              this.nutrientList.forEach(element => {
+                                   var temp = {
+                                        Nutrient_id: element.Nutrient_id,
+                                        Nutrient_name: element.Nutrient_name,
+                                        Contain_percent: '0',
+                                        Fertilizer_id: fertilizer.Fertilizer_id,
+                                   }
+                                   fertilizer.Contain.push(temp);
+                                   this.createContain(temp);
+                              });
+                         }
                     });
                     console.log(this.fertilizerList)
                }
@@ -355,6 +369,7 @@ export default {
           },
 
           async updateFertilizer(data) {
+               console.log(data)
                if (data.close == false) {
                     this.isOpenUpdateFertilizer = false;
                     this.message1 = " ";
@@ -374,23 +389,67 @@ export default {
                          this.message1 = "Cập nhật không thành công."
                     } else {
                          this.message2 = "Cập nhật thành công.";
-                         this.retrieveFertilizerList();
+                         data.Contain.forEach(element => {
+                              this.updateContain(element, data.Fertilizer_id);
+                         });
                     }
                }
           },
 
-          async deleteFertilizer(fertilizerid) {
-               const [error, response] = await this.handle(
-                    FertilizerService.delete(fertilizerid)
+          async updateContain(data, fertilizer_id) {
+               console.log(data)
+               var newContain = {
+                    Nutrient_id: data.Nutrient_id,
+                    Contain_percent: data.Contain_percent,
+                    Fertilizer_id: fertilizer_id,
+               }
+               const [error, respone] = await this.handle(
+                    ContainService.update(fertilizer_id, data.Nutrient_id, newContain)
                );
                if (error) {
                     console.log(error);
-                    this.message = "Xóa phân bón không thành công";
+                    this.message1 = "Cập nhật không thành công."
+               } else if (respone.data == "Đã xảy ra lỗi trong quá trình cập nhật thông tin!") {
+                    this.message1 = "Cập nhật không thành công."
                } else {
-                    this.retrieveFertilizerList()
-                    console.log(response.data);
-                    this.message = "Xóa phân bón thành công";
+                    this.message2 = "Cập nhật thành công.";
+                    this.retrieveFertilizerList();
                }
+          },
+          async deleteContain(data, fertilizer_id) {
+               const [error, response] = await this.handle(
+                    ContainService.delete(fertilizer_id, data.Nutrient_id)
+               );
+               if (error) {
+                    console.log(error);
+                    this.message = "Xóa  không thành công";
+               } else {
+                    console.log(response.data);
+                    this.message = "Xóa thành công";
+               }
+          },
+
+          async deleteContains(data) {
+               data.Contain.forEach(element => {
+                    this.deleteContain(element, data.Fertilizer_id);
+               });
+               this.deleteFertilizer(data);
+          },
+
+          async deleteFertilizer(data) {
+                    console.log("t")
+                    const [error, response] = await this.handle(
+                         FertilizerService.delete(data.Fertilizer_id)
+                    );
+                    if (error) {
+                         console.log(error);
+                         this.message = "Xóa phân bón không thành công";
+                    } else {
+                         console.log(response.data);
+                         this.message = "Xóa phân bón thành công";
+                         this.retrieveFertilizerList();
+                    }
+
           },
 
 

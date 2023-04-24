@@ -9,7 +9,7 @@
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span> 
+               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span>
                     CẬP NHẬT THÔNG TIN PHÂN BÓN
                </p>
           </div>
@@ -29,8 +29,7 @@
                               <label :for="contain.Nutrient_id" class="">{{ contain.Nutrient_name }} <span
                                         style="color: red">*</span></label>
                               <Field :name="contain.Nutrient_id" class="form-control"
-                                   v-model="newfertilixer.Contain[i].Contain_percent" placeholder="Thông tin phân bón..."
-                                   @update:model-value="show(newfertilixer.Contain[i].Contain_percent)" />
+                                   v-model="newfertilixer.Contain[i].Contain_percent" placeholder="Thông tin phân bón..." />
                               <ErrorMessage :name="contain.Nutrient_id" class="error-feedback" />
                          </div>
                     </div>
@@ -122,16 +121,7 @@ export default {
                supplier: yup
                     .string()
                     .required("Nhà cung cấp phân bón phải có giá trị"),
-               components: yup
-                    .string()
-                    .required("Thành phần phân bón phải có giá trị"),
-               uses: yup
-                    .string()
-                    .required("Công dụng phân bón phải có giá trị"),
-               directionsForUse: yup
-                    .string()
-                    .required("Hưỡng dẫn sử dụng phân bón phải có giá trị"),
-                    N: yup
+               N: yup
                     .number()
                     .typeError("Tỉ lệ là phải là số")
                     .required("Tỉ lệ đạm phải có giá trị"),
@@ -146,6 +136,12 @@ export default {
                Y: yup
                     .number()
                     .typeError("Tỉ lệ là phải là số"),
+               uses: yup
+                    .string()
+                    .required("Công dụng phân bón phải có giá trị"),
+               directionsForUse: yup
+                    .string()
+                    .required("Hưỡng dẫn sử dụng phân bón phải có giá trị")
           });
           return {
                newfertilixer: this.newFertilizer,
@@ -221,7 +217,7 @@ export default {
      width: 98.5% !important;
      margin-left: 3px !important;
      margin-top: 10px !important;
-     background-color: #f0f0f0 ;
+     background-color: #f0f0f0;
      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
      font-size: 17px;
      border-radius: 10px;

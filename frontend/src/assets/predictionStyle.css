@@ -62,7 +62,7 @@
     border-radius: 10px;
     position: absolute;
     top: calc(300px);
-    transform: translateX(96%);
+    left: 42%;
     border-radius: 16px;
     display: block;
     width: 404px;
@@ -78,7 +78,7 @@
     border-radius: 10px;
     position: absolute;
     top: calc(300px);
-    transform: translateX(96%);
+    left: 42%;
     border-radius: 16px;
     display: block;
     width: 404px;
@@ -228,6 +228,7 @@
         background: #FAFAFC;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     }
+
     .resultRiceYield .result-readly {
         margin-left: 16% !important;
         margin-right: 0px !important;
@@ -241,41 +242,42 @@
         background: #FAFAFC !important;
     }
 
-    .tableWeather thead tr th{
+    .tableWeather thead tr th {
         font-size: 12.5px !important;
         padding: 2px 1px 2px 1px !important;
     }
 
-    .tableWeather tbody tr .final-row{
+    .tableWeather tbody tr .final-row {
         font-size: 14px !important;
     }
 
-   .riceCropDetailForPrediction .riceCropDetailComponent{
-    margin-left: 10px !important;
+    .riceCropDetailForPrediction .riceCropDetailComponent {
+        margin-left: 10px !important;
     }
 
-    time.icon{
+    time.icon {
         width: 100% !important;
     }
-    .ricecrop-Component .tablericeCropInfor tr td{
+
+    .ricecrop-Component .tablericeCropInfor tr td {
         padding: 1px !important;
     }
 
     .riceCropDetailForPrediction .btnDowload {
-    background: #008B8E;
-    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
-    font-size: 17px;
-    font-family: 'Roboto';
-    font-weight: 500 !important;
-    border: none;
-    color: #FFFED8;
-    z-index: 3;
-    margin-top: 10px !important;
-    position: relative !important;
-    left: 70%;
-    border-radius: 10px !important;
-    margin-bottom: 10px;
-}
+        background: #008B8E;
+        box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
+        font-size: 17px;
+        font-family: 'Roboto';
+        font-weight: 500 !important;
+        border: none;
+        color: #FFFED8;
+        z-index: 3;
+        margin-top: 10px !important;
+        position: relative !important;
+        left: 70%;
+        border-radius: 10px !important;
+        margin-bottom: 10px;
+    }
 }
 
 /* .predictiveManagement .row-inputSearch {
@@ -522,15 +524,26 @@
     transform: translate3d(-150px, 20px, 60px) !important;
 }
 
-.tablePredict {
+.tablePredictFrame{
     height: min-content;
     width: 100%;
+    margin: auto;
+    height: fit-content !important;
+    background: #FAFAFC !important;
+    border-radius: 10px;
+}
+
+.tablePredict {
+    height: min-content;
+    width: 98%;
+    margin: 10px auto 10px auto !important;
     height: fit-content !important;
     background: #FAFAFC !important;
 }
 
 .tableResultPredict {
     height: min-content;
+    
     width: 100% !important;
     height: fit-content !important;
     background: #FAFAFC !important;
@@ -574,7 +587,10 @@
     font-size: 16px;
     background-color: #EAEAEA;
 }
-
+.tablePredict thead tr{
+    background: #ABD2C8;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+}
 .tablePredict thead tr th {
     vertical-align: middle;
     position: sticky;
@@ -587,8 +603,8 @@
     vertical-align: middle;
     font-size: 17px;
     padding: 5px;
-    border-top: 0.1px solid #b5b6b9;
-    border-bottom: 0.1px solid #b5b6b9;
+    background: #ABD2C8;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25) !important;
 }
 
 .tablePredict tbody tr {
@@ -625,8 +641,11 @@
 .tablePredict .final-row {
     font-size: 18px !important;
     font-weight: 600;
-    padding: 6px;
-    background-color: #a0a0a1;
+    padding: 10px;
+    background: #E4E5EB !important;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25) !important;
+    color: #5C5D22 !important;
+    border-top: 0px !important;
 }
 
 .riceCropDetailForPrediction .btnDowload,

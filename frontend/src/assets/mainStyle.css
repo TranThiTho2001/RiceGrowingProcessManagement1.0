@@ -109,6 +109,7 @@
      color: rgb(33, 33, 33);
      font-family: 'Roboto';
      font-size: 16px;
+     width: 100px;
 }
 
 .messageDialog {
@@ -116,8 +117,8 @@
      border: 1px solid rgb(62, 77, 77);
      border-radius: 10px;
      position: absolute;
-     top: calc(38%);
-     transform: translateX(96%);
+     top: calc(300px);
+     left: 42%;
      border-radius: 16px;
      display: block;
      width: 404px;

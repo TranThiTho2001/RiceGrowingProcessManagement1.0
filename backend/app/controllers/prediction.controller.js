@@ -1,8 +1,8 @@
 const Prediction = require("../models/prediction.model");
 const config = require("../config");
 const moment = require('moment');
-const fileLinearRegression = process.cwd() + '/app/controllers/predictionModel/LinearRegression.py';
-const fileRandomForest = process.cwd() + '/app/controllers/predictionModel/LinearRegression.py';
+const fileLinearRegression = process.cwd() + '/app/controllers/predictionModel/LinearRegression1.py';
+const fileRandomForest = process.cwd() + '/app/controllers/predictionModel/RandomForestRegression1.py';
 // Create and Save 
 exports.store = async (req, res) => {
      var yield = 0;
@@ -14,7 +14,12 @@ exports.store = async (req, res) => {
      temp.windSpeed = req.body.windSpeed;
      temp.solarRadiation = req.body.solarRadiation;
      temp.area = req.body.area;
+     temp.N = req.body.N;
+     temp.P = req.body.P;
+     temp.K = req.body.K;
+     console.log(temp);
      const regression = req.body.Algorithm_id;
+     console.log(regression);
      const { spawn } = require('child_process');
      var pyProg = "";
      if (regression == 1) {
@@ -25,10 +30,10 @@ exports.store = async (req, res) => {
      }
 
      pyProg.stdout.on('data', function (data) {
-          console.log(data.toString());
           yield = String(data.toString()).slice(0, String(data.toString()).indexOf("\r\n"));
           yield = (String(yield).slice(1,));
           yield = (String(yield).slice(0, (String(yield).length - 1)));
+          console.log(yield)
           // create new prediction
           const prediciton = new Prediction({
                Prediction_id: null,
@@ -41,6 +46,9 @@ exports.store = async (req, res) => {
                Prediction_windSpeed: req.body.windSpeed,
                Prediction_solarRadiation: req.body.solarRadiation,
                Algorithm_id: req.body.Algorithm_id,
+               N: req.body.N,
+               P: req.body.P,
+               K: req.body.K,
           });
 
           // save prediciton

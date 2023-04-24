@@ -50,13 +50,14 @@ sys.stdout.flush()
 # import json
 
 # sys.stdout.flush()
-# file = os.path.dirname(os.path.abspath(__file__))+"/data.csv"
+# file = os.path.dirname(os.path.abspath(__file__))+"/data5.csv"
 
 # dataset = pd.DataFrame(pd.read_csv(file))
 # dataset.head()
 
 # X= dataset.iloc[:, :-1].values  
-# y= dataset.iloc[:, 7].values 
+# y= dataset.iloc[:, -1].values
+
 
 # from sklearn.preprocessing import LabelEncoder, OneHotEncoder  
 # from sklearn.compose import ColumnTransformer
@@ -64,7 +65,7 @@ sys.stdout.flush()
 # X[:, 0]= labelencoder_x.fit_transform(X[:, 0])  
 # columnTransformer = ColumnTransformer([('encoder', OneHotEncoder(), [0])],     remainder='passthrough')
 # X=np.array(columnTransformer.fit_transform(X))
-# # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=101)
+# # # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=101)
 
 # from sklearn.model_selection import KFold
 # kf = KFold(n_splits=4, random_state=1, shuffle=True)
@@ -90,7 +91,7 @@ sys.stdout.flush()
 # model_RFR.fit(X_train,y_train)
 # predictions = model_RFR.predict(X_test)
 
-# yield_pr = model_RFR.predict([[1,0,0, 21.3, 26.45, 75.58,2]])
+# # yield_pr = model_RFR.predict([[1,0,0, 21.3, 26.45, 75.58,2]])
 # print('MAE:', metrics.mean_absolute_error(y_test, predictions))
 # print('MSE:', metrics.mean_squared_error(y_test, predictions))
 # print('RMSE:', np.sqrt(metrics.mean_squared_error(y_test, predictions)))

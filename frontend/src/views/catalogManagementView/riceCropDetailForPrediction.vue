@@ -3,7 +3,7 @@
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
                <Preloader color="red" scale="0.4" />
           </div>
-          <div class="row riceCropDetailFrame" style="height: max-content;" v-if="!loading">
+          <div class="row riceCropDetailFrame" style="height: max-content;" v-if="!loading" :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -30,7 +30,7 @@
                               <h4 class="prediction-title" style="padding-bottom: 10px; width: 100%;">Thông tin {{
                                    riceCrop.RiceCropInformation_name
                               }}</h4>
-                              <button class="btn btnPredict" @click="getWeather(true)"> Dự Đoán</button>
+                              <button class="btn btnPredict" @click="getWeather(true), active= true"> Dự Đoán</button>
                               <div class="riceCropInfor-component " style="width: 45%">
                                    <table class="tablericeCropInfor">
                                         <tbody>
@@ -76,7 +76,7 @@
                                    <div class="result-prediction">
                                         <p>Dự đoán</p>
                                         <div class="yield">
-                                             <h2 class="yield-value">{{ getPrediction() }}</h2>
+                                             <h2 class="yield-value">{{ getPrediction().yield }}</h2>
                                              <h5 style="color: #919302;">Kg/ha</h5>
                                         </div>
                                    </div>
@@ -94,178 +94,212 @@
 
                          <div class="row mt-4">
                               <h4 class="prediction-title" style="padding-bottom: 10px;">Thông tin thời tiết trong mùa vụ cho
-                                   lần dự đoán ngày <span v-if="getPrediction() != '00'"> {{
-                                        formatDate(predictionList[0].Prediction_date) }}</span></h4>
+                                   lần dự đoán ngày <span v-if="getPrediction().yield != '00'"> {{
+                                        formatDate(getPrediction().date) }}</span></h4>
 
                               <button class="btn btnDowload" @click="dowload()">
                                    <i class="fas fa-arrow-alt-circle-down"></i> Tải CSV
                               </button>
-                              <table class="tableWeather tablePredict" id="weatherInfor" v-if="weatherInfor.loadding">
-                                   <thead>
-                                        <tr>
-                                             <th class="centerclass">STT</th>
-                                             <th class="centerclass">Ngày</th>
-                                             <th class="centerclass">Nhiệt Độ (°C )</th>
-                                             <th class="centerclass">Độ ẩm (%)</th>
-                                             <th class="centerclass">Lượng mưa (mm/h)</th>
-                                             <th class="centerclass">Tốc độ gió (Km/h)</th>
-                                             <th class="centerclass">Bức xạ mặt trời (MJ/m²)</th>
-                                        </tr>
-                                   </thead>
-                                   <tbody v-if="predictionList.length > 0 && getPrediction() != '00'">
-                                        <tr v-for="(data, i) in weatherInfor.dateList" :key="i">
-                                             <td class="centerclass">{{ i }}</td>
-                                             <td class="centerclass">{{ data }}</td>
-                                             <td class="centerclass">{{ weatherInfor.temperatureList[i] }}</td>
-                                             <td class="centerclass">{{ weatherInfor.humitidityList.final[i] }}</td>
-                                             <td class="centerclass">{{ weatherInfor.precipitationList[i] }}</td>
-                                             <td class="centerclass">{{ weatherInfor.windSpeed[i] }}</td>
-                                             <td class="centerclass">{{ weatherInfor.solarRadiation[i] }}</td>
-                                        </tr>
-                                        <tr>
-                                             <td class="centerclass final-row">Dữ liệu dùng cho dự đoán</td>
-                                             <td class="centerclass final-row">{{ weatherInfor.dateList.length }}</td>
-                                             <td class="centerclass final-row">{{ weatherInfor.Temperature }}</td>
-                                             <td class="centerclass final-row">{{ weatherInfor.Humitidity }}</td>
-                                             <td class="centerclass final-row">{{ weatherInfor.Precipitation }}</td>
-                                             <td class="centerclass final-row">{{ weatherInfor.WinSpeed }}</td>
-                                             <td class="centerclass final-row">{{ weatherInfor.SolarRadiation }}</td>
-                                        </tr>
-                                   </tbody>
-                              </table>
+                              <div class="tablePredictFrame">
+                                   <table class="tableWeather tablePredict" id="weatherInfor" v-if="weatherInfor.loadding">
+                                        <thead>
+                                             <tr>
+                                                  <th class="centerclass">STT</th>
+                                                  <th class="centerclass">Ngày</th>
+                                                  <th class="centerclass">Nhiệt Độ (°C )</th>
+                                                  <th class="centerclass">Độ ẩm (%)</th>
+                                                  <th class="centerclass">Lượng mưa (mm/h)</th>
+                                                  <th class="centerclass">Tốc độ gió (Km/h)</th>
+                                                  <th class="centerclass">Bức xạ mặt trời (MJ/m²)</th>
+                                             </tr>
+                                        </thead>
+                                        <tbody v-if="predictionList.length > 0 && getPrediction() != '00'">
+                                             <tr v-for="(data, i) in weatherInfor.dateList" :key="i">
+                                                  <td class="centerclass">{{ i }}</td>
+                                                  <td class="centerclass">{{ data }}</td>
+                                                  <td class="centerclass">{{ weatherInfor.temperatureList[i] }}</td>
+                                                  <td class="centerclass">{{ weatherInfor.humitidityList.final[i] }}</td>
+                                                  <td class="centerclass">{{ weatherInfor.precipitationList[i] }}</td>
+                                                  <td class="centerclass">{{ weatherInfor.windSpeed[i] }}</td>
+                                                  <td class="centerclass">{{ weatherInfor.solarRadiation[i] }}</td>
+                                             </tr>
+                                             <tr>
+                                                  <td class="centerclass final-row">Dữ liệu dùng cho dự đoán</td>
+                                                  <td class="centerclass final-row">{{ weatherInfor.dateList.length }}</td>
+                                                  <td class="centerclass final-row">{{ weatherInfor.Temperature }}</td>
+                                                  <td class="centerclass final-row">{{ weatherInfor.Humitidity }}</td>
+                                                  <td class="centerclass final-row">{{ weatherInfor.Precipitation }}</td>
+                                                  <td class="centerclass final-row">{{ weatherInfor.WinSpeed }}</td>
+                                                  <td class="centerclass final-row">{{ weatherInfor.SolarRadiation }}</td>
+                                             </tr>
+                                        </tbody>
+                                   </table>
+                              </div>
                          </div>
                          <div class="row mt-4">
                               <h4 class="prediction-title">Hoạt động bón phân</h4>
-                              <table class="tablePredict">
-                                   <thead>
-                                        <tr>
-                                             <th class="text-center th_pre">Lần</th>
-                                             <th class="th_pre">Tên phân bón</th>
-                                             <th class="text-center th_pre">Số lượng (kg/ha)</th>
-                                             <th class="text-center th_pre">Ngày bắt đầu</th>
-                                             <th class="text-center th_pre">Ngày kết thúc</th>
-                                             <th class="th_pre">Nhân viên</th>
-                                        </tr>
-                                   </thead>
-                                   <tbody>
-                                        <tr v-if="fertilizerTimesList.length < 1">
-                                             <td colspan="6" class="centerclass">Chưa có lần bón phân nào được thực hiện</td>
-                                        </tr>
-                                        <tr v-for="(fertilizer, i) in (fertilizerTimesList)" :key="i">
-                                             <td class="text-center ">{{ fertilizer.FertilizerTimes_times }}</td>
-                                             <td class="">{{ fertilizer.Fertilizer_name }}</td>
-                                             <td class="text-center ">{{ fertilizer.FertilizerTimes_amount }}</td>
-                                             <td class="text-center ">{{
-                                                  formatDate(fertilizer.FertilizerTimes_startDate) }}</td>
-                                             <td class="text-center ">{{
-                                                  formatDate(fertilizer.FertilizerTimes_endDate)
-                                             }}</td>
-                                             <td class="">{{ fertilizer.Employee_name }}</td>
-                                        </tr>
-                                   </tbody>
-                              </table>
+                              <div class="tablePredictFrame">
+                                   <table class="tablePredict">
+                                        <thead>
+                                             <tr>
+                                                  <th class="text-center th_pre">Lần</th>
+                                                  <th class="th_pre">Tên phân bón</th>
+                                                  <th class="text-center th_pre">Số lượng bón (kg/ha)</th>
+                                                  <th class="text-center th_pre">Tỉ lệ Đạm (kg/ha)</th>
+                                                  <th class="text-center th_pre">Tỉ lệ Lân (kg/ha)</th>
+                                                  <th class="text-center th_pre">Tỉ lệ Kali (kg/ha)</th>
+                                                  <th class="text-center th_pre">Ngày bắt đầu</th>
+                                                  <th class="text-center th_pre">Ngày kết thúc</th>
+                                                  <th class="th_pre"></th>
+                                             </tr>
+                                        </thead>
+                                        <tbody>
+                                             <tr v-if="fertilizerTimesList.length < 1">
+                                                  <td colspan="6" class="centerclass">Chưa có lần bón phân nào được thực hiện
+                                                  </td>
+                                             </tr>
+                                             <tr v-for="(fertilizer, i) in (fertilizerTimesList)" :key="i">
+                                                  <td class="text-center ">{{ fertilizer.FertilizerTimes_times }}</td>
+                                                  <td class="">{{ fertilizer.Fertilizer_name }}</td>
+                                                  <td class="text-center ">{{ fertilizer.FertilizerTimes_amount }}</td>
+                                                  <td class="text-center ">{{toFixedNumber(fertilizer.QuantityUsed.N) }}</td>
+                                                  <td class="text-center ">{{ toFixedNumber(fertilizer.QuantityUsed.P) }}</td>
+                                                  <td class="text-center ">{{ toFixedNumber(fertilizer.QuantityUsed.K) }}</td>
+                                                  <td class="text-center ">{{
+                                                       formatDate(fertilizer.FertilizerTimes_startDate) }}</td>
+                                                  <td class="text-center ">{{
+                                                       formatDate(fertilizer.FertilizerTimes_endDate)
+                                                  }}</td>
+                                             </tr>
+                                             <tr>
+                                                  <td class=" final-row" colspan="2">Tổng</td>
+                                                  <td class="text-center final-row">{{ toFixedNumber(total_amount_of_fertilizer_used.Total)
+                                                  }}</td>
+                                                  <td class="text-center final-row">{{ toFixedNumber(total_amount_of_fertilizer_used.N) }}
+                                                  </td>
+                                                  <td class="text-center final-row">{{ toFixedNumber(total_amount_of_fertilizer_used.P) }}
+                                                  </td>
+                                                  <td class="text-center final-row">{{ toFixedNumber(total_amount_of_fertilizer_used.K) }}
+                                                  </td>
+                                                  <td class="text-center final-row"></td>
+                                                  <td class="text-center final-row"></td>
+                                             </tr>
+                                        </tbody>
+                                   </table>
+                              </div>
                          </div>
 
                          <div class="row mt-4">
                               <h4 class="prediction-title">Các lần bị bệnh dịch</h4>
-                              <table class="tablePredict">
-                                   <thead>
-                                        <tr>
-                                             <th class="text-center th_pre">Lần</th>
-                                             <th class="th_pre">Tên bệnh dịch</th>
-                                             <th class="text-center th_pre">Ngày bất đầu</th>
-                                             <th class="text-center th_pre">Ngày kết thúc</th>
-                                             <th class="th_pre">Nhân viên</th>
-                                        </tr>
-                                   </thead>
-                                   <tbody>
-                                        <tr v-if="epidemicTimesList.length < 1">
-                                             <td colspan="5" class="centerclass">Mùa vụ không trải qua lần bị bệnh dịch nào.
-                                             </td>
-                                        </tr>
-                                        <tr v-for="(epidemic, i ) in (epidemicTimesList)" :key="i">
-                                             <td class="text-center ">{{ epidemic.EpidemicTimes_times }}</td>
-                                             <td class="">{{ epidemic.Epidemic_name }}</td>
-                                             <td class="text-center ">{{
-                                                  formatDate(epidemic.EpidemicTimes_startDate)
-                                             }}</td>
-                                             <td class="text-center ">{{ formatDate(epidemic.EpidemicTimes_endDate)
-                                             }}
-                                             </td>
-                                             <td class="">{{ epidemic.Employee_name }}</td>
-                                        </tr>
-                                   </tbody>
-                              </table>
+                              <div class="tablePredictFrame">
+                                   <table class="tablePredict">
+                                        <thead>
+                                             <tr>
+                                                  <th class="text-center th_pre">Lần</th>
+                                                  <th class="th_pre">Tên bệnh dịch</th>
+                                                  <th class="text-center th_pre">Ngày bất đầu</th>
+                                                  <th class="text-center th_pre">Ngày kết thúc</th>
+                                                  <th class="th_pre">Nhân viên</th>
+                                             </tr>
+                                        </thead>
+                                        <tbody>
+                                             <tr v-if="epidemicTimesList.length < 1">
+                                                  <td colspan="5" class="centerclass">Mùa vụ không trải qua lần bị bệnh dịch
+                                                       nào.
+                                                  </td>
+                                             </tr>
+                                             <tr v-for="(epidemic, i ) in (epidemicTimesList)" :key="i">
+                                                  <td class="text-center ">{{ epidemic.EpidemicTimes_times }}</td>
+                                                  <td class="">{{ epidemic.Epidemic_name }}</td>
+                                                  <td class="text-center ">{{
+                                                       formatDate(epidemic.EpidemicTimes_startDate)
+                                                  }}</td>
+                                                  <td class="text-center ">{{ formatDate(epidemic.EpidemicTimes_endDate)
+                                                  }}
+                                                  </td>
+                                                  <td class="">{{ epidemic.Employee_name }}</td>
+                                             </tr>
+                                        </tbody>
+                                   </table>
+                              </div>
                          </div>
 
                          <div class="row mt-4">
                               <h4 class="prediction-title">Hoạt động phun thuốc</h4>
-                              <table class="tablePredict">
-                                   <thead>
-                                        <tr>
-                                             <th class="text-center th_pre">Mã</th>
-                                             <th class="th_pre">Tên thuốc</th>
-                                             <th class="text-center th_pre">Liều lượng (lít/ha)</th>
-                                             <th class="text-center th_pre">Ngày bất đầu</th>
-                                             <th class="text-center th_pre">Ngày kết thúc</th>
-                                             <th class="th_pre">Nhân viên</th>
-                                        </tr>
-                                   </thead>
-                                   <tbody>
-                                        <tr v-if="sprayingTimesList.length < 1">
-                                             <td colspan="6" class="centerclass">Chưa có làn phun thuốc nào được thực hiện
-                                                  trên ruộng lúa</td>
-                                        </tr>
-                                        <tr v-for="(sprayingTimes, i ) in (sprayingTimesList)" :key="i">
-                                             <td class="text-center ">{{ sprayingTimes.SprayingTimes_times }}</td>
-                                             <td class="">{{ sprayingTimes.Pesticide_name }}</td>
-                                             <td class="text-center ">{{ sprayingTimes.SprayingTimes_amount }}</td>
-                                             <td class="text-center ">{{
-                                                  formatDate(sprayingTimes.SprayingTimes_startDate)
-                                             }}</td>
-                                             <td class="text-center ">{{
-                                                  formatDate(sprayingTimes.SprayingTimes_endDate)
-                                             }}
-                                             </td>
-                                             <td class="">{{ sprayingTimes.Employee_name }}</td>
-                                        </tr>
-                                   </tbody>
-                              </table>
+                              <div class="tablePredictFrame">
+                                   <table class="tablePredict">
+                                        <thead>
+                                             <tr>
+                                                  <th class="text-center th_pre">Mã</th>
+                                                  <th class="th_pre">Tên thuốc</th>
+                                                  <th class="text-center th_pre">Liều lượng (lít/ha)</th>
+                                                  <th class="text-center th_pre">Ngày bất đầu</th>
+                                                  <th class="text-center th_pre">Ngày kết thúc</th>
+                                                  <th class="th_pre">Nhân viên</th>
+                                             </tr>
+                                        </thead>
+                                        <tbody>
+                                             <tr v-if="sprayingTimesList.length < 1">
+                                                  <td colspan="6" class="centerclass">Chưa có làn phun thuốc nào được thực
+                                                       hiện
+                                                       trên ruộng lúa</td>
+                                             </tr>
+                                             <tr v-for="(sprayingTimes, i ) in (sprayingTimesList)" :key="i">
+                                                  <td class="text-center ">{{ sprayingTimes.SprayingTimes_times }}</td>
+                                                  <td class="">{{ sprayingTimes.Pesticide_name }}</td>
+                                                  <td class="text-center ">{{ sprayingTimes.SprayingTimes_amount }}</td>
+                                                  <td class="text-center ">{{
+                                                       formatDate(sprayingTimes.SprayingTimes_startDate)
+                                                  }}</td>
+                                                  <td class="text-center ">{{
+                                                       formatDate(sprayingTimes.SprayingTimes_endDate)
+                                                  }}
+                                                  </td>
+                                                  <td class="">{{ sprayingTimes.Employee_name }}</td>
+                                             </tr>
+                                        </tbody>
+                                   </table>
+                              </div>
                          </div>
 
                          <div class="row mt-4">
                               <h4 class="prediction-title">Các hoạt động khác</h4>
-                              <table class="tablePredict">
-                                   <thead>
-                                        <tr>
-                                             <th class="centerclass th_pre">STT</th>
-                                             <th class="centerclass th_pre">Mã</th>
-                                             <th class="th_pre">Tên hoạt động</th>
-                                             <th class="th_pre">Lần</th>
-                                             <th class="th_pre">Ngày bắt đầu</th>
-                                             <th class="th_pre">Ngày kết thúc</th>
-                                             <th class="th_pre">Nhân viên</th>
-                                        </tr>
-                                   </thead>
-                                   <tbody>
-                                        <tr v-if="activitiesDetailList.length < 1">
-                                             <td colspan="7" class="centerclass">Chưa có hoạt động nào được thực hiện cho mùa
-                                                  vụ </td>
-                                        </tr>
-                                        <tr v-for="(activity, i ) in (activitiesDetailList)" :key="i">
-                                             <td class="text-center">{{ i }}</td>
-                                             <td class="text-center">{{ activity.OtherActivities_id }}</td>
-                                             <td>{{ activity.OtherActivities_name }}</td>
-                                             <td>{{ activity.ActivityDetails_times }}</td>
-                                             <td>{{ formatDate(activity.ActivityDetails_startDate) }}</td>
-                                             <td>{{ formatDate(activity.ActivityDetails_endDate) }}</td>
-                                             <td class="">{{ activity.Employee_name }}</td>
-                                        </tr>
-                                   </tbody>
-                              </table>
+                              <div class="tablePredictFrame">
+                                   <table class="tablePredict">
+                                        <thead>
+                                             <tr>
+                                                  <th class="centerclass th_pre">STT</th>
+                                                  <th class="centerclass th_pre">Mã</th>
+                                                  <th class="th_pre">Tên hoạt động</th>
+                                                  <th class="th_pre">Lần</th>
+                                                  <th class="th_pre">Ngày bắt đầu</th>
+                                                  <th class="th_pre">Ngày kết thúc</th>
+                                                  <th class="th_pre">Nhân viên</th>
+                                             </tr>
+                                        </thead>
+                                        <tbody>
+                                             <tr v-if="activitiesDetailList.length < 1">
+                                                  <td colspan="7" class="centerclass">Chưa có hoạt động nào được thực hiện
+                                                       cho mùa
+                                                       vụ </td>
+                                             </tr>
+                                             <tr v-for="(activity, i ) in (activitiesDetailList)" :key="i">
+                                                  <td class="text-center">{{ i }}</td>
+                                                  <td class="text-center">{{ activity.OtherActivities_id }}</td>
+                                                  <td>{{ activity.OtherActivities_name }}</td>
+                                                  <td>{{ activity.ActivityDetails_times }}</td>
+                                                  <td>{{ formatDate(activity.ActivityDetails_startDate) }}</td>
+                                                  <td>{{ formatDate(activity.ActivityDetails_endDate) }}</td>
+                                                  <td class="">{{ activity.Employee_name }}</td>
+                                             </tr>
+                                        </tbody>
+                                   </table>
+                              </div>
                          </div>
                     </div>
-                    <div class="waitingDialog" v-if="predicting">
+
+               </div>
+          </div>                    <div class="waitingDialog" v-if="predicting">
                          <div>
                               <p class="labelConfirm mt-4 pt-4">Đang xử lý....</p>
                          </div>
@@ -278,10 +312,8 @@
                               <span class="result">{{ this.riceCrop.Prediction_yield }}</span> kg/ha
                          </p>
                          <button class="btnOK btn btn-sm btn-outline-secondary mb-3"
-                              @click="result = !result, getPredictionList()">OK</button>
+                              @click="result = !result, getPredictionList(), active=false">OK</button>
                     </div>
-               </div>
-          </div>
      </div>
 </template>
 
@@ -296,6 +328,7 @@ import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import PredictionService from "@/services/prediction.service";
+import ContainService from "@/services/contain.service";
 
 import moment from 'moment';
 export default {
@@ -313,6 +346,7 @@ export default {
                     isOpenMenuIcon: true,
                     isCloseMenu: false,
                },
+               active: false,
 
                loading: true,
                riceCrop: {},
@@ -325,6 +359,12 @@ export default {
                predicting: false,
                result: false,
                algorithm: "",
+               total_amount_of_fertilizer_used: {
+                    N: 0,
+                    P: 0,
+                    K: 0,
+                    Total: 0,
+               },
           }
      },
      computed: {
@@ -355,10 +395,66 @@ export default {
                }
                else {
                     if (respone.data != "Không tìm thấy lần bón phân.") {
-                         this.fertilizerTimesList = respone.data;
+                         this.fertilizerTimesList = [];
+                         this.total_amount_of_fertilizer_used = {
+                              K: 0,
+                              N:0,
+                              P: 0,
+                              Total:0,
+                         }
+                         var i = 0;
+                         console.log(respone.data )
+                         respone.data.forEach(fertizertimes => {
+                              console.log(this.predictionList[0].Prediction_date,this.fertilizerTimesList.FertilizerTimes_startDate )
+                              if (fertizertimes.FertilizerTimes_startDate < this.predictionList[0].Prediction_date) {
+                                  this.fertilizerTimesList.push(fertizertimes); 
+                                  this.getContain(fertizertimes.Fertilizer_id, i);
+                                   this.total_amount_of_fertilizer_used.Total += fertizertimes.FertilizerTimes_amount;
+                                   i++;
+                              }
+                              
+                         });
                     }
                }
+               console.log(this.fertilizerTimesList)
                this.retrieveEpidemicTimesList();
+          },
+
+          async getContain(fertilizer_id, position) {
+               const [err, respone] = await this.handle(
+                    ContainService.getByFertilizerId(fertilizer_id)
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    this.fertilizerTimesList[position].Contains = [];
+                    if (respone.data != "Lỗi trong quá trình tìm kiếm. Vui lòng thử lại sau!!!!") {
+                         this.fertilizerTimesList[position].Contains = respone.data;
+                         this.fertilizerTimesList[position].QuantityUsed = {};
+                         this.fertilizerTimesList[position].Contains.forEach(element => {
+                              if (element.Nutrient_id == "K") {
+                                   this.fertilizerTimesList[position].QuantityUsed.K = (this.fertilizerTimesList[position].FertilizerTimes_amount * (element.Contain_percent / 100)).toFixed(2);
+                                   this.total_amount_of_fertilizer_used.K += parseFloat(this.fertilizerTimesList[position].QuantityUsed.K);
+                              }
+                              else if (element.Nutrient_id == "N") {
+                                   this.fertilizerTimesList[position].QuantityUsed.N = (this.fertilizerTimesList[position].FertilizerTimes_amount * (element.Contain_percent / 100)).toFixed(2);
+                                   this.total_amount_of_fertilizer_used.N += parseFloat(this.fertilizerTimesList[position].QuantityUsed.N);
+                              }
+                              else if (element.Nutrient_id == "P") {
+                                   this.fertilizerTimesList[position].QuantityUsed.P = (this.fertilizerTimesList[position].FertilizerTimes_amount * (element.Contain_percent / 100)).toFixed(2);
+                                   this.total_amount_of_fertilizer_used.P += parseFloat(this.fertilizerTimesList[position].QuantityUsed.P);
+                              }
+                         });
+                         // this.total_amount_of_fertilizer_used.K = parseFloat(this.total_amount_of_fertilizer_used.K).toFixed(2);
+                         // this.total_amount_of_fertilizer_used.N = parseFloat(this.total_amount_of_fertilizer_used.N).toFixed(2);
+                         // this.total_amount_of_fertilizer_used.P = parseFloat(this.total_amount_of_fertilizer_used.P ).toFixed(2);
+                    }
+               }
+          },
+
+          toFixedNumber(number){
+               return parseFloat(number).toFixed(2);
           },
 
           async retrieveRiceCrop() {
@@ -377,7 +473,6 @@ export default {
                          this.loading = false;
                     }, 1000);
                }
-               this.retrieveFertilizerTimesList();
                this.getPredictionList();
           },
 
@@ -433,6 +528,7 @@ export default {
                }
                else {
                     this.predictionList = respone.data;
+                    this.retrieveFertilizerTimesList();
                     this.bubbleSort();
                     this.getWeather(false);
                }
@@ -448,6 +544,9 @@ export default {
                     infor.humitidity = this.weatherInfor.Humitidity;
                     infor.solarRadiation = this.weatherInfor.SolarRadiation;
                     infor.windSpeed = this.weatherInfor.WinSpeed;
+                    infor.N = this.total_amount_of_fertilizer_used.N;
+                    infor.K = this.total_amount_of_fertilizer_used.K;
+                    infor.P = this.total_amount_of_fertilizer_used.P;
                     if (this.algorithm == "LinearRegression") {
                          infor.Algorithm_id = '1';
                     }
@@ -475,6 +574,8 @@ export default {
                          this.riceCrop.Prediction_yield = Number(this.riceCrop.Prediction_yield).toFixed(2);
                          this.predicting = false;
                          this.result = true;
+                        
+                         this.getPredictionList(); 
                          this.getWeather(false);
                     }
                }
@@ -556,10 +657,10 @@ export default {
 
                     i = 0;
                     this.weatherInfor.precipitationList.forEach(pre => {
-                         this.weatherInfor.Precipitation += pre;
-                         this.weatherInfor.totalTemperature += this.weatherInfor.temperatureList[i];
-                         this.weatherInfor.totalWindSpeed += this.weatherInfor.windSpeed[i];
-                         this.weatherInfor.totalSolarRadiation += this.weatherInfor.solarRadiation[i];
+                         this.weatherInfor.Precipitation += (Number(pre));
+                         this.weatherInfor.totalTemperature += Number(this.weatherInfor.temperatureList[i]);
+                         this.weatherInfor.totalWindSpeed += Number(this.weatherInfor.windSpeed[i]);
+                         this.weatherInfor.totalSolarRadiation += Number(this.weatherInfor.solarRadiation[i]);
                          this.weatherInfor.totalHumitidity += Number(this.weatherInfor.humitidityList.final[i]);
                          i++;
                     });
@@ -568,7 +669,7 @@ export default {
                     this.weatherInfor.Humitidity = (this.weatherInfor.totalHumitidity / this.weatherInfor.dateList.length).toFixed(2);
                     this.weatherInfor.WinSpeed = (this.weatherInfor.totalWindSpeed / this.weatherInfor.windSpeed.length).toFixed(2);
                     this.weatherInfor.SolarRadiation = (this.weatherInfor.totalSolarRadiation / this.weatherInfor.solarRadiation.length).toFixed(2);
-                    this.weatherInfor.Precipitation = (this.weatherInfor.Precipitation).toFixed(2);
+                    this.weatherInfor.Precipitation = Number(this.weatherInfor.Precipitation).toFixed(2);
                }
                this.weatherInfor.loadding = true;
                if (ispredict) {
@@ -587,7 +688,10 @@ export default {
           },
 
           getPrediction() {
-               var yield_prediction = "00";
+               var prediction = {
+                    yield: "00",
+                    date: "",
+               };
                if (this.algorithm == "LinearRegression") {
                     this.riceCrop.Algorithm_id = 1;
                }
@@ -596,14 +700,16 @@ export default {
                }
 
                if (this.predictionList.length > 0) {
-                    this.predictionList.forEach(element => {
+                    for (let index = 0; index < this.predictionList.length; index++) {
+                         const element = this.predictionList[index];
                          if (element.Algorithm_id == this.riceCrop.Algorithm_id) {
-                              yield_prediction = element.Prediction_yield;
+                              prediction.yield = element.Prediction_yield;
+                              prediction.date = element.Prediction_date;
+                              break;
                          }
-
-                    });
+                    }
                }
-               return yield_prediction;
+               return prediction;
           },
 
           async download_csv(csv, filename) {
@@ -695,4 +801,5 @@ export default {
 
 <style>
 @import url(../../assets/mainStyle.css);
-@import url(../../assets/predictionStyle.css);</style>
+@import url(../../assets/predictionStyle.css);
+</style>

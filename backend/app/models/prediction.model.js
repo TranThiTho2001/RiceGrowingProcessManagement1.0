@@ -11,6 +11,9 @@ const Prediction = function (prediction) {
      this.Prediction_windSpeed = prediction.Prediction_windSpeed;
      this.Prediction_solarRadiation = prediction.Prediction_solarRadiation;
      this.Algorithm_id = prediction.Algorithm_id;
+     this.Prediction_N = prediction.N;
+     this.Prediction_P = prediction.P;
+     this.Prediction_K = prediction.K;
 }
 
 Prediction.create = (newPrediction, result) => {
