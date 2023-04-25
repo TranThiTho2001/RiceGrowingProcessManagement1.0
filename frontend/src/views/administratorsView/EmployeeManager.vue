@@ -108,32 +108,39 @@
                               </table>
                          </div>
                     </div>
-                    <CreateNewEmployeeForm v-if="isOpenCreateEmployeeForm" :newEmployee="newEmployee" :roleList="roleList"
-                         @addEmployee-submit="createEmployee" :message1="message1" :message2="message2" />
-                    <UpdateEmployeeForm v-if="isOpenUpdateEmployeeForm" :newEmployee="employeeChoosen" :roleList="roleList"
-                         @updateEmployee-submit="updateEmployee" :message1="message1" :message2="message2" />
+                    <div class="overlay2" v-if="isOpenCreateEmployeeForm">
+                         <CreateNewEmployeeForm :newEmployee="newEmployee" :roleList="roleList"
+                              @addEmployee-submit="createEmployee" :message1="message1" :message2="message2" />
+                    </div>
+                    <div class="overlay2" v-if="isOpenUpdateEmployeeForm">
+                         <UpdateEmployeeForm :newEmployee="employeeChoosen" :roleList="roleList"
+                              @updateEmployee-submit="updateEmployee" :message1="message1" :message2="message2" />
+                    </div>
                </div>
 
           </div>
 
           <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
-
-          <div class="confirmationDialog" v-if="isOpenXacNhan">
-               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelXacNhan">
-                    <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
-               </p>
-               <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                    @click="isOpenXacNhan = !isOpenXacNhan, isOpenThongBao = !isOpenThongBao, deleteEmployee(employeeChoosen.Employee_id)">Xóa</button>
-               <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                    @click="isOpenXacNhan = !isOpenXacNhan">Hủy</button>
+          <div class="overlay2" v-if="isOpenXacNhan">
+               <div class="confirmationDialog" >
+                    <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelXacNhan">
+                         <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
+                    </p>
+                    <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
+                         @click="isOpenXacNhan = !isOpenXacNhan, isOpenThongBao = !isOpenThongBao, deleteEmployee(employeeChoosen.Employee_id)">Xóa</button>
+                    <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                         @click="isOpenXacNhan = !isOpenXacNhan">Hủy</button>
+               </div>
           </div>
 
-          <div class="messageDialog" v-if="isOpenThongBao">
-               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
-                    <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{ message }}
-               </p>
-               <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                    @click="isOpenThongBao = !isOpenThongBao">OK</button>
+          <div class="overlay2" v-if="isOpenThongBao">
+               <div class="messageDialog" >
+                    <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
+                         <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{ message }}
+                    </p>
+                    <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                         @click="isOpenThongBao = !isOpenThongBao">OK</button>
+               </div>
           </div>
      </div>
      <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click.passive="away()"></div>
@@ -427,7 +434,7 @@ export default {
                     this.employeeList = [];
                     this.employeeList = this.cloneEmployeeList;
                }
-               else if(this.filter.sex == "Tất cả" && this.filter.role != "") {
+               else if (this.filter.sex == "Tất cả" && this.filter.role != "") {
                     this.employeeList = [];
                     this.cloneEmployeeList.forEach(employee => {
                          if (employee.Role_name == this.filter.role) {
@@ -435,7 +442,7 @@ export default {
                          }
                     });
                }
-               else if(this.filter.sex != "Tất cả" && this.filter.role == "Tất cả"){
+               else if (this.filter.sex != "Tất cả" && this.filter.role == "Tất cả") {
                     this.employeeList = [];
                     this.cloneEmployeeList.forEach(employee => {
                          if (employee.Employee_sex == this.filter.sex) {
@@ -443,7 +450,7 @@ export default {
                          }
                     });
                }
-               else{
+               else {
                     this.employeeList = [];
                     this.cloneEmployeeList.forEach(employee => {
                          if (employee.Employee_sex == this.filter.sex && employee.Role_name == this.filter.role) {
@@ -461,7 +468,7 @@ export default {
                          this.roles.push(role.Role_name);
                     });
                }
-               else{
+               else {
                     this.retrieveRoleList();
                     this.roles = [];
                     this.roles[0] = "Tất cả";

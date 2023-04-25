@@ -3,7 +3,7 @@
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
                <Preloader color="red" scale="0.4" />
           </div>
-          <div class="row pesticideManagementFrame" style="min-height: 100%;" v-if="!loading"  :class="{ active: active }">
+          <div class="row pesticideManagementFrame" style="min-height: 100%;" v-if="!loading" :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -38,11 +38,11 @@
                                    @click="searchName(pesticide.Pesticide_name), away()">
                                    {{ pesticide.Pesticide_name }}</p>
                          </div>
-                         <button class="btn btnCreate" @click="openCreate = !openCreate, active= true"><i class="fas fa-plus-circle"
-                                   style="font-size: 15px;"></i> Thêm loại thuốc mới</button>
+                         <button class="btn btnCreate" @click="openCreate = !openCreate, active = true"><i
+                                   class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm loại thuốc mới</button>
                     </div>
                     <div class="scrollTable" v-if="!openCreate && !isOpenUpdatePesticide">
-                         <div class="scrollTable-content">
+                         <!-- <div class="scrollTable-content">
                               <table class="table pesticideList">
                                    <thead>
                                         <tr>
@@ -93,39 +93,83 @@
                                         </tr>
                                    </tbody>
                               </table>
+                         </div> -->
+
+                         <div class="ol-class" style="--length: 5" role="list">
+                              <a class="li-class " href="#popup1" v-for="(pesticide, j) in pesticideList" :key="j"
+                                   @click="setPesticideChosen(pesticide)">
+                                   <button type="button" class="btn btn-sm btnMoreSelection" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                   </button>
+                                   <div class="dropdown-menu">
+                                        <a class="dropdown-item action"
+                                             @click="setPesticideChosen(pesticide), isOpenUpdatePesticide = !isOpenUpdatePesticide, active = true">
+                                             <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
+                                        </a>
+                                        <a class="dropdown-item" href="#"
+                                             @click="setPesticideChosen(pesticide), isOpenConfirm = !isOpenConfirm, active = true">
+                                             <span class="fas fa-trash-alt actionIcon"></span> Xóa
+                                        </a>
+                                   </div>
+                                   <h5>{{ pesticide.Pesticide_name }}</h5>
+                                   <p>{{ pesticide.Pesticide_uses }}</p>
+                              </a>
+                              <div id="popup1" class="overlay">
+                                   <div class="popup">
+                                        <a class="fas fa-times-circle" href="#"
+                                             style="font-size: 25px; text-decoration: none; color:#B3B4BA; float: right;"></a>
+                                        <h2>{{ pesticideChosen.Pesticide_name }}</h2>
+
+                                        <div class="content">
+                                             <h6 class="title-class">Nhà cung cấp</h6>
+                                             <p class="value-class">{{ pesticideChosen.Pesticide_supplier }}</p>
+                                             <h6 class="title-class">Công dụng</h6>
+                                             <p class="value-class">{{ pesticideChosen.Pesticide_uses }}</p>
+                                             <h6 class="title-class">Thành phần</h6>
+                                             <p class="value-class">{{ pesticideChosen.Pesticide_component }}</p>
+                                             <h6 class="title-class">Hướng dẫn sử dụng</h6>
+                                             <p class="value-class">{{ pesticideChosen.Pesticide_directionsForUse }}</p>
+                                        </div>
+                                   </div>
+                              </div>
                          </div>
                     </div>
 
                </div>
           </div>
           <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
-
-          <div class="confirmationDialog" v-if="isOpenConfirm">
-               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
-                    <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
-               </p>
-               <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                    @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteTreatments()">Xóa</button>
-               <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                    @click="isOpenConfirm = !isOpenConfirm, active=false">Hủy</button>
+          <div class="overlay2" v-if="isOpenConfirm">
+               <div class="confirmationDialog" v-if="isOpenConfirm">
+                    <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
+                         <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
+                    </p>
+                    <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
+                         @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteTreatments()">Xóa</button>
+                    <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                         @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
+               </div>
           </div>
-
-          <div class="messageDialog" v-if="isOpenMessage">
-               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
-                    <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
-                         message
-                    }}
-               </p>
-               <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                    @click="isOpenMessage = !isOpenMessage, active=false">OK</button>
+          <div class="overlay2" v-if="isOpenMessage">
+               <div class="messageDialog">
+                    <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
+                         <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
+                              message
+                         }}
+                    </p>
+                    <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                         @click="isOpenMessage = !isOpenMessage, active = false">OK</button>
+               </div>
           </div>
-
-          <CreatePesticideForm v-if="openCreate" :newPesticide="newPesticide" :epidemicList="epidemicList"
-               @addPesticide-submit="createPesticide" :message1="message1" :message2="message2" />
-
-          <UpdatePesticideForm v-if="isOpenUpdatePesticide" :newPesticide="pesticideChosen" :epidemicList="epidemicList"
-               :treatmentList="treatmentList" @updatePesticide-submit="updatePesticide" :message1="message1"
-               :message2="message2" />
+          <div class="overlay2" v-if="openCreate">
+               <CreatePesticideForm :newPesticide="newPesticide" :epidemicList="epidemicList"
+                    @addPesticide-submit="createPesticide" :message1="message1" :message2="message2" />
+          </div>
+          <div class="overlay2" v-if="isOpenUpdatePesticide">
+               <UpdatePesticideForm :newPesticide="pesticideChosen" :epidemicList="epidemicList"
+                    :treatmentList="treatmentList" @updatePesticide-submit="updatePesticide" :message1="message1"
+                    :message2="message2" />
+          </div>
      </div>
      <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click.passive="away()"></div>
 </template>
@@ -220,8 +264,8 @@ export default {
                this.isOpenInput2 = false;
           },
 
-          async loadData(){
-               this.loading= true;
+          async loadData() {
+               this.loading = true;
                if (this.loading) {
                     setTimeout(() => {
                          this.loading = false;
@@ -479,7 +523,7 @@ export default {
      },
 
      mounted() {
-      
+
           this.retrievePesticideList();
           this.retrieveEpidemicList();
           this.loadData();

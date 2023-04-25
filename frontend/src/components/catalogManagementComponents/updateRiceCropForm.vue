@@ -4,11 +4,11 @@
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times-circle" @click="newricecrop.close = false, $emit('updateRiceCrop-submit', newricecrop)"
-                         style="font-size: 25px; padding-top:10px; color:#FAFAFC"></i>
+                    style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> 
+               <p class="col-sm-12 text-center functionName">
                     CẬP NHẬT THÔNG TIN MÙA VỤ
                </p>
           </div>

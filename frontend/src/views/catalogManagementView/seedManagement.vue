@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="scrollTable">
-                         <div class="scrollTable-content">
+                         <!-- <div class="scrollTable-content">
                               <table class="table seedList" id="tblStocks">
                                    <thead>
                                         <tr>
@@ -88,35 +88,81 @@
                                         </tr>
                                    </tbody>
                               </table>
+                         </div> -->
+
+
+                         <div class="ol-class" style="--length: 5" role="list">
+                              <a class="li-class " href="#popup1" v-for="(seed, j) in seedList" :key="j"
+                                   @click="setSeedChosen(seed)">
+                                   <button type="button" class="btn btn-sm btnMoreSelection" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                   </button>
+                                   <div class="dropdown-menu">
+                                        <a class="dropdown-item action"
+                                             @click="setSeedChosen(seed), isOpenUpdateSeed = !isOpenUpdateSeed, active = true">
+                                             <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
+                                        </a>
+                                        <a class="dropdown-item" href="#"
+                                             @click="setSeedChosen(seed), isOpenConfirm = !isOpenConfirm, active = true">
+                                             <span class="fas fa-trash-alt actionIcon"></span> Xóa
+                                        </a>
+                                   </div>
+                                   <h5>{{ seed.Seed_name }}</h5>
+                                   <p>{{ seed.Seed_characteristic }}</p>
+                              </a>
+                              <div id="popup1" class="overlay" v-if="!active && !isOpenUpdateSeed">
+                                   <div class="popup">
+                                        <a class="fas fa-times-circle" href="#"
+                                             style="font-size: 25px; text-decoration: none; color:#B3B4BA; float: right;"></a>
+                                        <h2>{{ seedChosen.Seed_name }}</h2>
+
+                                        <div class="content">
+                                             <h6 class="title-class">Mã giống</h6>
+                                             <p class="value-class">{{ seedChosen.Seed_id }}</p>
+                                             <h6 class="title-class">Nhà cung cấp</h6>
+                                             <p class="value-class">{{ seedChosen.Seed_supplier }}</p>
+                                             <h6 class="title-class">Đặc tính</h6>
+                                             <p class="value-class">{{ seedChosen.Seed_characteristic }}</p>
+                                        </div>
+                                   </div>
+                              </div>
                          </div>
                     </div>
                     <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
                </div>
           </div>
-          <div class="confirmationDialog" v-if="isOpenConfirm">
-               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
-                    <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
-               </p>
-               <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                    @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteSeed(seedChosen.Seed_id)">Xóa</button>
-               <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                    @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
+          <div class="overlay2" v-if="isOpenConfirm">
+               <div class="confirmationDialog" >
+                    <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
+                         <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
+                    </p>
+                    <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
+                         @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteSeed(seedChosen.Seed_id)">Xóa</button>
+                    <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                         @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
+               </div>
+          </div>
+          <div class="overlay2" v-if="isOpenMessage">
+               <div class="messageDialog">
+                    <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
+                         <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
+                              message
+                         }}
+                    </p>
+                    <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                         @click="isOpenMessage = !isOpenMessage, active = !active">OK</button>
+               </div>
+          </div>
+          <div class="overlay2" v-if="openCreate">
+               <createSeedForm  :newSeed="newSeed" @addSeed-submit="createSeed" :message1="message1"
+                    :message2="message2" />
           </div>
 
-          <div class="messageDialog" v-if="isOpenMessage">
-               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
-                    <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
-                         message
-                    }}
-               </p>
-               <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                    @click="isOpenMessage = !isOpenMessage, active = !active">OK</button>
+          <div class="overlay2" v-if="isOpenUpdateSeed">
+               <updateSeedForm  :newSeed="seedChosen" @updateSeed-submit="updateSeed"
+                    :message1="message1" :message2="message2" />
           </div>
-          <createSeedForm v-if="openCreate" :newSeed="newSeed" @addSeed-submit="createSeed" :message1="message1"
-               :message2="message2" />
-
-          <updateSeedForm v-if="isOpenUpdateSeed" :newSeed="seedChosen" @updateSeed-submit="updateSeed" :message1="message1"
-               :message2="message2" />
      </div>
      <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click.passive="away()"></div>
 </template>
@@ -206,8 +252,8 @@ export default {
                this.isOpenInput2 = false;
           },
 
-          async loadData(){
-               this.loading= true;
+          async loadData() {
+               this.loading = true;
                if (this.loading) {
                     setTimeout(() => {
                          this.loading = false;

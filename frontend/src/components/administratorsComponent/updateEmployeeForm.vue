@@ -93,7 +93,7 @@
                     <div class="form-group">
                          <label for="role" class="mt-3">Vị trí  &nbsp; </label><br>
                          <Field name="role" class="form-control" v-model="newemployee.Role_name" placeholder="Chức vụ: ">
-                              <select v-model="newemployee.Role_name" class="selectBox ">
+                              <select v-model="newemployee.Role_name" class="selectBox " style="background:  #F0F2F7;box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
                                    <option v-for="(role,i) in roleList" :key="i">
                                         {{ role.Role_name }}
                                    </option>
@@ -224,7 +224,7 @@ export default {
 <style>
 @import url(../../assets/employeeStyle.css);
 .dp__theme_light {
-     --dp-background-color: #FAFAFC;
+     --dp-background-color: #F0F2F7;
      --dp-border-radius: 10px;
      --dp-text-color: #2F3033;
      --dp-hover-color: #f3f3f3;

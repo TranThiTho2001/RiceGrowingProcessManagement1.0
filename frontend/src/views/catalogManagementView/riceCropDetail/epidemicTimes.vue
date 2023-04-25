@@ -66,35 +66,41 @@
                </div>
 
           </div>
-          <div class="confirmationDialog" v-if="isOpenConfirm">
-               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
-                    <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
-               </p>
-               <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                    @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, choosenDelete()">Xóa</button>
-               <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                    @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
+          <div class="overlay2" v-if="isOpenConfirm">
+               <div class="confirmationDialog">
+                    <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
+                         <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
+                    </p>
+                    <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
+                         @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, choosenDelete()">Xóa</button>
+                    <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                         @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
+               </div>
           </div>
-
-          <div class="messageDialog" v-if="isOpenMessage">
-               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
-                    <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span>
-                    {{
-                         message
-                    }}
-               </p>
-               <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                    @click="isOpenMessage = !isOpenMessage, active = false">OK</button>
+          <div class="overlay2" v-if="isOpenMessage">
+               <div class="messageDialog">
+                    <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
+                         <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span>
+                         {{
+                              message
+                         }}
+                    </p>
+                    <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                         @click="isOpenMessage = !isOpenMessage, active = false">OK</button>
+               </div>
           </div>
-          <CreateEpidemicTimesForm v-if="isOpenCreateEpidemicTimesForm" :newEpidemicTimes="newEpidemicTimes"
-               :epidemicList="epidemicList" :developmentStageList="developmentStageList" :currentUser="currentUser"
-               :riceCropChosen="newRiceCrop" :arableLandList="arableLandList" @addEpidemicTimes-submit="createEpidemicTimes"
-               :message1="message1" :message2="message2" />
-
-          <UpdateEpidemicTimesForm v-if="isOpenUpdateEpidemicTimesForm" :newEpidemicTimes="epidemicTimesChosen"
-               :epidemicList="epidemicList" :developmentStageList="developmentStageList" :currentUser="currentUser"
-               :riceCropChosen="newRiceCrop" :arableLandList="arableLandList"
-               @updateEpidemicTimes-submit="updateEpidemicTimes" :message1="message1" :message2="message2" />
+          <div class="overlay2" v-if="isOpenCreateEpidemicTimesForm">
+               <CreateEpidemicTimesForm :newEpidemicTimes="newEpidemicTimes" :epidemicList="epidemicList"
+                    :developmentStageList="developmentStageList" :currentUser="currentUser" :riceCropChosen="newRiceCrop"
+                    :arableLandList="arableLandList" @addEpidemicTimes-submit="createEpidemicTimes" :message1="message1"
+                    :message2="message2" />
+          </div>
+          <div class="overlay2" v-if="isOpenUpdateEpidemicTimesForm">
+               <UpdateEpidemicTimesForm :newEpidemicTimes="epidemicTimesChosen" :epidemicList="epidemicList"
+                    :developmentStageList="developmentStageList" :currentUser="currentUser" :riceCropChosen="newRiceCrop"
+                    :arableLandList="arableLandList" @updateEpidemicTimes-submit="updateEpidemicTimes" :message1="message1"
+                    :message2="message2" />
+          </div>
      </div>
 </template>
 
@@ -187,8 +193,8 @@ export default {
                this.isOpenSearch.close = true;
           },
 
-          async loadData(){
-               this.loading= true;
+          async loadData() {
+               this.loading = true;
                if (this.loading) {
                     setTimeout(() => {
                          this.loading = false;

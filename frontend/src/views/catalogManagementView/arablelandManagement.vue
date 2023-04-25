@@ -3,7 +3,8 @@
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
                <Preloader color="red" scale="0.4" />
           </div>
-          <div class="row arablelandManagementFrame" style="height: 100vmin; 100%" v-if="!loading"  :class="{ active: active }">
+          <div class="row arablelandManagementFrame" style="height: 100vmin; 100%" v-if="!loading"
+               :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -40,11 +41,11 @@
                                    {{ arableLand.ArableLand_owner }}</p>
                          </div>
                          <button class="btn btnCreate"
-                              @click="retrieveProvinceList(), retrieveSoilList(), openCreate = !openCreate, active= true"><i
+                              @click="retrieveProvinceList(), retrieveSoilList(), openCreate = !openCreate, active = true"><i
                                    class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm mẫu ruộng</button>
                     </div>
                     <div class="scrollTable">
-                         <div class="scrollTable-content">
+                         <!-- <div class="scrollTable-content">
                               <table class="table arablelandList">
                                    <thead>
                                         <tr>
@@ -77,11 +78,11 @@
                                                   </button>
                                                   <div class="dropdown-menu">
                                                        <a class="dropdown-item action"
-                                                            @click="setArableLandChosen(arableland), isOpenUpdateArableLand = !isOpenUpdateArableLand, active= true">
+                                                            @click="setArableLandChosen(arableland), isOpenUpdateArableLand = !isOpenUpdateArableLand, active = true">
                                                             <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                                        </a>
                                                        <a class="dropdown-item" href="#"
-                                                            @click="setArableLandChosen(arableland), isOpenConfirm = !isOpenConfirm, active= true">
+                                                            @click="setArableLandChosen(arableland), isOpenConfirm = !isOpenConfirm, active = true">
                                                             <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                                        </a>
                                                   </div>
@@ -89,6 +90,53 @@
                                         </tr>
                                    </tbody>
                               </table>
+                         </div> -->
+
+
+                         <div class="ol-class" style="--length: 5" role="list">
+                              <a class="li-class " href="#popup1" v-for="(arableLand, j) in arablelandList" :key="j"
+                                   @click="setArableLandChosen(arableLand)">
+                                   <button type="button" class="btn btn-sm btnMoreSelection" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                   </button>
+                                   <div class="dropdown-menu">
+
+                                        <a class="dropdown-item" href="#"
+                                             @click="setArableLandChosen(arableLand), isOpenConfirm = !isOpenConfirm, active = true">
+                                             <span class="fas fa-trash-alt actionIcon"></span> Xóa
+                                        </a> 
+                                                                               <a class="dropdown-item action"
+                                             @click="setArableLandChosen(arableLand), isOpenUpdateArableLand = !isOpenUpdateArableLand, active = true">
+                                             <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
+                                        </a>
+                                   </div>
+                                   <h5>{{ arableLand.ArableLand_id }}</h5>
+                                   <p>{{ arableLand.ArableLand_location }}</p>
+                              </a>
+                              <div id="popup1" class="overlay" v-if="!active && !isOpenUpdateArableLand">
+                                   <div class="popup">
+                                        <a class="fas fa-times-circle" href="#"
+                                             style="font-size: 25px; text-decoration: none; color:#B3B4BA; float: right;"></a>
+                                        <h2>{{ arablelandChosen.ArableLand_id }}</h2>
+
+                                        <div class="content">
+                                             <h6 class="title-class">Chử sở hữu</h6>
+                                             <p class="value-class">{{ arablelandChosen.ArableLand_owner }}</p>
+                                             <h6 class="title-class">Diện tích</h6>
+                                             <h6 class="title-class">Loại đất</h6>
+                                             <p class="value-class">{{ arablelandChosen.Soil_name }}</p>
+                                             <p class="value-class">{{ arablelandChosen.ArableLand_area }}(ha)</p>
+                                             <h6 class="title-class">Tọa độ</h6>
+                                             <p class="value-class">{{ arablelandChosen.ArableLand_latitude }}, ArableLand_longitude</p>
+                                             <h6 class="title-class">Địa chỉ</h6>
+                                             <p class="value-class">{{ arablelandChosen.ArableLand_location }}, ArableLand_longitude</p>
+                                             <h6 class="title-class">Khu vực nghiên cứu</h6>
+                                             <p class="value-class">{{ arablelandChosen.Province_id }} - {{ arablelandChosen.Province_name }}, ArableLand_longitude</p>
+
+                                        </div>
+                                   </div>
+                              </div>
                          </div>
                     </div>
 
@@ -97,33 +145,38 @@
 
                </div>
           </div>
-          <div class="confirmationDialog" v-if="isOpenConfirm">
-               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
-                    <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
-               </p>
-               <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                    @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteArableLand(arablelandChosen.ArableLand_id)">Xóa</button>
-               <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                    @click="isOpenConfirm = !isOpenConfirm, active= false">Hủy</button>
+          <div class="overlay2" v-if="isOpenConfirm">
+               <div class="confirmationDialog" v-if="isOpenConfirm">
+                    <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
+                         <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
+                    </p>
+                    <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
+                         @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteArableLand(arablelandChosen.ArableLand_id)">Xóa</button>
+                    <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                         @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
+               </div>
           </div>
-
-          <div class="messageDialog" v-if="isOpenMessage">
-               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
-                    <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
-                         message
-                    }}
-               </p>
-               <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                    @click="isOpenMessage = !isOpenMessage, active= false">OK</button>
+          <div class="overlay2" v-if="isOpenMessage" >
+               <div class="messageDialog" >
+                    <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
+                         <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
+                              message
+                         }}
+                    </p>
+                    <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                         @click="isOpenMessage = !isOpenMessage, active = false">OK</button>
+               </div>
           </div>
-
-          <CreateArableLandForm v-if="openCreate" :newArableLand="newArableLand" :soilList="soilList"
-               @addArableLand-submit="createArableLand" :message1="message1" :message2="message2"
-               :provinceList="provinceList" />
-
-          <UpdateArableLandForm v-if="isOpenUpdateArableLand" :newArableLand="arablelandChosen" :soilList="soilList"
-               @updateArableLand-submit="updateArableLand" :message1="message1" :message2="message2"
-               :provinceList="provinceList" />
+          <div class="overlay2" v-if="openCreate">
+               <CreateArableLandForm  :newArableLand="newArableLand" :soilList="soilList"
+                    @addArableLand-submit="createArableLand" :message1="message1" :message2="message2"
+                    :provinceList="provinceList" />
+          </div>
+          <div class="overlay2" v-if="isOpenUpdateArableLand">
+               <UpdateArableLandForm  :newArableLand="arablelandChosen" :soilList="soilList"
+                    @updateArableLand-submit="updateArableLand" :message1="message1" :message2="message2"
+                    :provinceList="provinceList" />
+          </div>
      </div>
      <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click.passive="away()"></div>
 </template>
@@ -243,8 +296,8 @@ export default {
                }
           },
 
-          async loadData(){
-               this.loading= true;
+          async loadData() {
+               this.loading = true;
                if (this.loading) {
                     setTimeout(() => {
                          this.loading = false;

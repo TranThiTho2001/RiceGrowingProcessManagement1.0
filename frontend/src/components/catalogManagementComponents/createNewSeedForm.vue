@@ -4,12 +4,11 @@
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times-circle" @click="newseed.close = false, $emit('addSeed-submit', newseed)"
-                    style="font-size: 25px; padding-top:10px; color:#FAFAFC"></i>
+                    style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fa fa-plus-circle"> </span>THÊM GIỐNG LÚA
-               </p>
+               <p class="col-sm-12 text-center functionName">THÊM GIỐNG LÚA </p>
           </div>
           <div class="row content">
                <div class="col-sm-12">

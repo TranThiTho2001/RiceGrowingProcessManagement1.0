@@ -1,9 +1,9 @@
 <template>
      <div class="container-fluid riceCropDetail" style="background-color:#EAEAEA;">
-          <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
+          <div class="row" v-if="!loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
                <Preloader color="red" scale="0.4" />
           </div>
-          <div class="row riceCropDetailFrame" style="height: max-content;" v-if="!loading" :class="{ active: active }">
+          <div class="row riceCropDetailFrame" style="height: max-content;" :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -32,7 +32,8 @@
                               <span class="weather-value">Bức xạ: {{ weatherInfor.solarradiation }}MJ/m²</span>
                          </div>
                          <div class="col-sm-6 text-right">
-                              <button class="btn btnView" @click="isOpenUpdateRiceCrop = !isOpenUpdateRiceCrop, active = true">Xem
+                              <button class="btn btnView"
+                                   @click="isOpenUpdateRiceCrop = !isOpenUpdateRiceCrop, active = true">Xem
                                    Thông Tin Mùa Vụ</button>
                          </div>
                     </div>
@@ -69,9 +70,10 @@
                     </div>
                </div>
           </div>
-          <UpdateRiceCropForm v-if="isOpenUpdateRiceCrop" :seedList="seedList" :newRiceCrop="newRiceCrop"
-               :arableLandList="arableLandList" @updateRiceCrop-submit="updateRiceCrop" :message1="message1"
-               :message2="message2" />
+          <div class="overlay2" v-if="isOpenUpdateRiceCrop">
+               <UpdateRiceCropForm :seedList="seedList" :newRiceCrop="newRiceCrop" :arableLandList="arableLandList"
+                    @updateRiceCrop-submit="updateRiceCrop" :message1="message1" :message2="message2" />
+          </div>
      </div>
 </template>
 
@@ -160,64 +162,68 @@ export default {
           },
 
           async updateRiceCrop(data) {
-               this.message1 = " ";
-               this.message2 = " ";
+
                if (!data.close) {
                     this.isOpenUpdateRiceCrop = false;
                     this.active = false;
-               }
+                    this.message1 = " ";
+                    this.message2 = " ";
+               } else {
+                    this.seedList.forEach(element => {
+                         if (data.Seed_name == element.Seed_name) {
+                              data.Seed_id = element.Seed_id;
+                         }
+                    });
 
-               this.seedList.forEach(element => {
-                    if (data.Seed_name == element.Seed_name) {
-                         data.Seed_id = element.Seed_id;
+                    this.cropList.forEach(element => {
+                         if (data.Crop_name == element.Crop_name) {
+                              data.Crop_id = element.Crop_id;
+                         }
+                    });
+
+                    if (data.RiceCropInformation_sowingDate != null) {
+                         data.RiceCropInformation_sowingDate = (moment(String(data.RiceCropInformation_sowingDate)).format("YYYY-MM-DD")).slice(0, 10);
                     }
-               });
 
-               this.cropList.forEach(element => {
-                    if (data.Crop_name == element.Crop_name) {
-                         data.Crop_id = element.Crop_id;
+                    else {
+                         data.RiceCropInformation_sowingDate = null;
                     }
-               });
+                    if (data.RiceCropInformation_harvestDate != null && data.RiceCropInformation_harvestDate != "Invalid da") {
+                         data.RiceCropInformation_harvestDate = (moment(String(data.RiceCropInformation_harvestDate)).format("YYYY-MM-DD")).slice(0, 10);
+                    }
+                    else {
+                         data.RiceCropInformation_harvestDate = null;
+                    }
 
-               if (data.RiceCropInformation_sowingDate != null) {
-                    data.RiceCropInformation_sowingDate = (moment(String(data.RiceCropInformation_sowingDate)).format("YYYY-MM-DD")).slice(0, 10);
-               }
-
-               else {
-                    data.RiceCropInformation_sowingDate = null;
-               }
-               if (data.RiceCropInformation_harvestDate != null && data.RiceCropInformation_harvestDate != "Invalid da") {
-                    data.RiceCropInformation_harvestDate = (moment(String(data.RiceCropInformation_harvestDate)).format("YYYY-MM-DD")).slice(0, 10);
-               }
-               else {
-                    data.RiceCropInformation_harvestDate = null;
-               }
-
-               var check = true;
-               this.riceCropList.forEach(element => {
-                    if (element.ArableLand_id == data.ArableLand_id && element.RiceCropInformation_id != data.RiceCropInformation_id) {
-                         if (element.RiceCropInformation_harvestDate == null) {
-                              check = false;
+                    var check = true;
+                    this.riceCropList.forEach(element => {
+                         if (element.ArableLand_id == data.ArableLand_id && element.RiceCropInformation_id != data.RiceCropInformation_id) {
+                              if (element.RiceCropInformation_harvestDate == null) {
+                                   check = false;
+                              }
+                         }
+                    });
+                    if (check == true) {
+                         const [error, respone] = await this.handle(
+                              RiceCropService.update(data.RiceCropInformation_id, data)
+                         );
+                         if (error) {
+                              console.log(error);
+                              this.message1 = "Cập nhật không thành công."
+                         } else if (respone.data == "Đã xảy ra lỗi trong quá trình cập nhật thông tin!") {
+                              this.message1 = "Cập nhật không thành công."
+                         } else {
+                              this.message2 = "Cập nhật thành công.";
+                              this.retrieveNewRiceCrop();
                          }
                     }
-               });
-               if (check == true) {
-                    const [error, respone] = await this.handle(
-                         RiceCropService.update(data.RiceCropInformation_id, data)
-                    );
-                    if (error) {
-                         console.log(error);
-                         this.message1 = "Cập nhật không thành công."
-                    } else if (respone.data == "Đã xảy ra lỗi trong quá trình cập nhật thông tin!") {
-                         this.message1 = "Cập nhật không thành công."
-                    } else {
-                         this.message2 = "Cập nhật thành công.";
-                         this.retrieveNewRiceCrop();
+                    else {
+                         this.message1 = "Cập nhật không thành công.";
                     }
                }
-               else {
-                    this.message1 = "Cập nhật không thành công.";
-               }
+
+
+
           },
 
           async getWeather() {
@@ -270,7 +276,7 @@ export default {
           },
 
           async retrieveNewRiceCrop() {
-               this.loading = true;
+
                const [err, respone] = await this.handle(
                     RiceCropService.get(this.newRiceCrop.RiceCropInformation_id)
                );
@@ -294,11 +300,7 @@ export default {
                     this.newRiceCrop.ArableLand_longitude = respone.data.ArableLand_longitude;
                     this.getWeather();
                }
-               if (this.loading == true) {
-                    setTimeout(() => {
-                         this.loading = false;
-                    }, 1000);
-               }
+
           },
 
           async retrieveSeedList() {

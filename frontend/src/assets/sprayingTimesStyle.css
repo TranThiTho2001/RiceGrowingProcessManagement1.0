@@ -1,12 +1,15 @@
 .riceCropDetail .createSprayingTimesForm,
 .riceCropDetail .updateArableLandForm {
-    border: 0.5px solid #b8b5b5;
-    font-family: 'Roboto';
-    border-radius: 10px;
-    position: absolute;
-    top: calc(100px);
-    left: 16%;
-    width: 83%;
+    margin:auto ;
+    padding: 20px;
+    background: #FAFAFC;
+    box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(37.5px);
+    border-radius: 5px;
+    width: 80%;
+    position: relative;
+    top:60px;
+    transition: all 5s ease-in-out;
 }
 
 @media only screen and (max-width: 1430px) {
@@ -17,7 +20,7 @@
 }
 
 .pesticideUsed {
-    background-color: #FAFAFC;
+    background-color: #e6e6e6;
     border-radius: 5px;
     height: 210px;
 }
@@ -60,20 +63,24 @@
 
 .selectionPesticide {
     width: 90% !important;
-    height: 30px;
-    margin-right: 5%;
+    margin-right: 2%;
+    height: 35px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background: #FAFAFC;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
 }
 
 .inputAmount {
-    background-color: #FAFAFC;
-    border: 0.1px solid #c8c8ca;
-    font-size: 17px;
-    height: 37px;
-    width: 100%;
-    color: #2F3033;
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 500;
+    width: 97% !important;
+    margin-right: 2%;
+    height: 35px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background: #FAFAFC;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
 }
 
 .content .error-feedback {

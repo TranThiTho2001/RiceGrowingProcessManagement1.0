@@ -10,11 +10,11 @@
                          <div class="datetime"> &nbsp;{{ formatTimes(images.Image_date) }}</div>
                     </div>
                     <div style="width: 20%;">
-                         <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown" aria-haspopup="true"
+                         <button type="button" class="btn btn-sm btnMore-image" data-toggle="dropdown" aria-haspopup="true"
                               aria-expanded="false">
                               <i class="fas fa-ellipsis-v mt-2 " style="color: #919302; font-size: 25px;"></i>
                          </button>
-                         <div class="dropdown-menu" style="width: 20px !important;">
+                         <div class="dropdown-menu" style="width: 20px !important; margin-left: 85% !important; margin-top:50%; position:relative !important">
                               <a class="dropdown-item" href="#"
                                    @click="deleteImage()">
                                    <span class="fas fa-trash-alt actionIcon"></span>
@@ -91,8 +91,15 @@ export default {
      }
 }
 
-.imageComponent .btnMore {
+.imageComponent .btnMore-image {
      float: right;
+}
+.imageComponent .dropdown-menu{
+     right: -1% !important;
+    transform: translate3d(-150px, 20px, 100px) !important;
+    background: #FAFAFC;
+    border: 1px solid #D0D1D6;
+    color: #6D6E73;
 }
 
 .imageComponent .datetime {

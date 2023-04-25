@@ -5,12 +5,11 @@
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times-circle"
                          @click="newfertilizertimes.close = false, $emit('addFertilizerTimes-submit', newfertilizertimes)"
-                         style="font-size: 25px; padding-top:10px; color:#FAFAFC"></i>
+                         style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> THÊM LẦN BÓN PHÂN CHO MÙA VỤ
-               </p>
+               <p class="col-sm-12 text-center functionName">THÊM LẦN BÓN PHÂN CHO MÙA VỤ</p>
           </div>
           <div class="row content">
                <div class="col-sm-6 mt-1">
@@ -54,7 +53,7 @@
                          <label for="developmentid" class="mt-3 pt-1">Giai đoạn phát triển<span
                                    style="color:red">*</span></label>
                          <Field name="developmentid" class="form-control" v-model="newfertilizertimes.DevelopmentStage_name">
-                              <select class="form-control selectBox" v-model="newfertilizertimes.DevelopmentStage_name"
+                              <select class="form-control selectBox" v-model="newfertilizertimes.DevelopmentStage_name" style="background: #FAFAFC;box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"
                                    name="developmentid" for="developmentid">
                                    <option v-for="(developmentStage, i) in development" :key="i">
                                         {{ developmentStage.DevelopmentStage_name }}
@@ -64,7 +63,7 @@
                          <ErrorMessage name="developmentid" class="error-feedback" />
                     </div>
                     <div class="form-group ">
-                         <label for="end" class="">Ngày kết thúc</label>
+                         <label for="end" class="mt-1">Ngày kết thúc</label>
                          <Field name="harvendestDate" class="form-control"
                               v-model="newfertilizertimes.FertilizerTimes_endDate" placeholder="Ngày sinh">
                               <datepicker :enable-time-picker="false" :value="newfertilizertimes.FertilizerTimes_endDate"
@@ -76,54 +75,10 @@
                     <ErrorMessage name="end" class="error-feedback" />
                </div>
 
-
-
-               <!-- <div class="col-sm-3">
-                    <div class="form-group ">
-                         <label for="temperature" class="mt-1 pt-1">Nhiệt độ(°C)</label>
-                         <Field name="temperature" class="form-control"
-                              v-model="newfertilizertimes.FertilizerTimes_temperature" placeholder="Nhập nhiệt độ..." />
-                         <ErrorMessage name="temperature" class="error-feedback" />
-                    </div>
-
-                    <div class="form-group ">
-                         <label for="humidity" class="mt-3 pt-1">Độ ẩm(%)</label>
-                         <Field name="humidity" class="form-control" v-model="newfertilizertimes.FertilizerTimes_humidity"
-                              placeholder="Nhập độ ẩm..." />
-                         <ErrorMessage name="humidity" class="error-feedback" />
-                    </div>
-
-                    <div class="form-group">
-                         <label for="precipitation" class="mt-2 pt-1">Lượng mưa(mm)</label>
-                         <Field name="precipitation" class="form-control"
-                              v-model="newfertilizertimes.FertilizerTimes_precipitation" placeholder="Nhập lượng mưa..." />
-                         <ErrorMessage name="precipitation" class="error-feedback" />
-                    </div>
-
-               </div>
-
-               <div class="col-sm-3">
-                    <div class="form-group ">
-                         <label for="windspeed" class="mt-1 pt-1">Tốc độ gió(km/h)</label>
-                         <Field name="windspeed" class="form-control" v-model="newfertilizertimes.FertilizerTimes_windSpeed"
-                              placeholder="Nhập tốc độ gió..." />
-                         <ErrorMessage name="windspeed" class="error-feedback" />
-                    </div>
-
-                    <div class="form-group ">
-                         <label for="solarradiation" class="mt-3 pt-1">Bức xạ mặt trời(MJ/m²)</label>
-                         <Field name="solarradiation" class="form-control"
-                              v-model="newfertilizertimes.FertilizerTimes_solarRadiation"
-                              placeholder="Nhập bức xạ mặt trời..." />
-                         <ErrorMessage name="solarradiation" class="error-feedback" />
-                    </div>
-               </div> -->
-
           </div>
           <div class=" fertilizerUsed row pt-2 mt-3 ml-1 mr-1">
-               
                <div class="fertilizerlist ml-2 mt-2">
-                    <table class="table thead-dark ml-2" style="height: 200px; width: 99% !important;">
+                    <table class="table thead-dark" style="height: 200px; ">
                          <thead>
                               <tr>
                                    <th class="text-center">STT</th>
@@ -412,7 +367,7 @@ export default {
 @import url(../../assets/mainStyle.css);
 
 .dp__theme_light {
-     --dp-background-color: #FAFAFC;
+     --dp-background-color: #F0F2F7;
      --dp-border-radius: 10px;
      --dp-text-color: #2F3033;
      --dp-hover-color: #f3f3f3;

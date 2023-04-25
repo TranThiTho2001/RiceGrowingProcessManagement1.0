@@ -1,5 +1,5 @@
 <template>
-     <div class="container-fluid fertilizerManagement pr-4 " style="background-color: #EAEAEA; height: max-content;">
+     <div class="container-fluid fertilizerManagement pr-4 " style=" height: max-content;">
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
                <Preloader color="red" scale="0.4" />
           </div>
@@ -42,15 +42,15 @@
                                    class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm phân bón</button>
                     </div>
                     <div class="scrollTable">
-                         <div class="scrollTable-content">
+                         <!--   <div class="scrollTable-content" >
                               <table class="table fertilizerList">
                                    <thead>
                                         <tr>
                                              <th class="text-center">STT</th>
-                                             <th>Mã</th>
+                                             <th class="centerclass">Mã</th>
                                              <th>Tên</th>
                                              <th>Nhà cung cấp</th>
-                                             <th>Thông tin thành phần</th>
+                                             <th>Thành phần</th>
                                              <th>Công dụng</th>
                                              <th>Hướng dẫn sử dụng</th>
                                              <th></th>
@@ -62,7 +62,7 @@
                                              <td data-label="Mã">{{ fertilizer.Fertilizer_id }}</td>
                                              <td data-label="Tên">{{ fertilizer.Fertilizer_name }}</td>
                                              <td data-label="Nhà cung cấp">{{ fertilizer.Fertilizer_supplier }}</td>
-                                             <td data-label="Thành phần">
+                                             <td data-label="Thành phần" class="nutrient_class">
                                                   <span v-for=" nutrient in fertilizer.Contain"
                                                        :key="nutrient.Nutrient_id">{{ nutrient.Nutrient_name }}: {{
                                                             nutrient.Contain_percent }}%<br></span>
@@ -89,38 +89,103 @@
                                         </tr>
                                    </tbody>
                               </table>
+
+                         </div> -->
+                         <div class="ol-class" style="--length: 5" role="list">
+                              <a class="li-class " href="#popup1" v-for="(fertilizer, j) in fertilizerList" :key="j"
+                                   @click="setFertilizerChosen(fertilizer)">
+                                   <button type="button" class="btn btn-sm btnMoreSelection" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                   </button>
+                                   <div class="dropdown-menu">
+                                        <a class="dropdown-item action"
+                                             @click="setFertilizerChosen(fertilizer), isOpenUpdateFertilizer = !isOpenUpdateFertilizer, active = true">
+                                             <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
+                                        </a>
+                                        <a class="dropdown-item" href="#"
+                                             @click="setFertilizerChosen(fertilizer), isOpenConfirm = !isOpenConfirm, active = true">
+                                             <span class="fas fa-trash-alt actionIcon"></span> Xóa
+                                        </a>
+                                   </div>
+                                   <h5>{{ fertilizer.Fertilizer_name }}</h5>
+                                   <p>{{ fertilizer.Fertilizer_uses }}</p>
+                              </a>
+                              <div id="popup1" class="overlay" v-if="!active && !isOpenUpdateFertilizer">
+                                   <div class="popup">
+                                        <a class="fas fa-times-circle" href="#"
+                                             style="font-size: 25px; text-decoration: none; color:#B3B4BA; float: right;"></a>
+                                        <h2>{{ fertilizerChosen.Fertilizer_name }}</h2>
+
+                                        <div class="content">
+                                             <h6 class="title-class">Nhà cung cấp</h6>
+                                             <p class="value-class">{{ fertilizerChosen.Fertilizer_supplier }}</p>
+                                             <h6 class="title-class">Công dụng</h6>
+                                             <p class="value-class">{{ fertilizerChosen.Fertilizer_uses }}</p>
+                                             <h6 class="title-class">Thành phần</h6>
+                                             <table class="table">
+                                                  <tbody>
+                                                       <tr>
+                                                            <td>Tên</td>
+                                                            <td>Đạm(N)</td>
+                                                            <td>Lân(P)</td>
+                                                            <td>Kali(K)</td>
+                                                            <td>Khác</td>
+                                                       </tr>
+                                                       <tr>
+                                                            <td>Tỉ lệ(%)</td>
+                                                            <td v-for="contain in fertilizerChosen.Contain"
+                                                                 :key="contain.Nutrient_id">{{ contain.Contain_percent }}
+                                                            </td>
+
+                                                       </tr>
+                                                  </tbody>
+                                             </table>
+                                             <h6 class="title-class">Hướng dẫn sử dụng</h6>
+                                             <p class="value-class">{{ fertilizerChosen.Fertilizer_directionsForUse }}</p>
+                                        </div>
+                                   </div>
+                              </div>
                          </div>
+
                     </div>
 
                </div>
           </div>
           <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
 
-          <div class="confirmationDialog" v-if="isOpenConfirm">
-               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
-                    <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
-               </p>
-               <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                    @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteContains(fertilizerChosen)">Xóa</button>
-               <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                    @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
+          <div class="overlay2" v-if="isOpenConfirm">
+               <div class="confirmationDialog">
+                    <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
+                         <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
+                    </p>
+                    <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
+                         @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteContains(fertilizerChosen)">Xóa</button>
+                    <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                         @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
+               </div>
           </div>
-
-          <div class="messageDialog" v-if="isOpenMessage">
-               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
-                    <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
-                         message
-                    }}
-               </p>
-               <button class="btnOK btn btn-sm btn-outline-secondary"
-                    @click="isOpenMessage = !isOpenMessage, active = false">OK</button>
+          <div class="overlay2" v-if="isOpenMessage">
+               <div class="messageDialog">
+                    <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
+                         <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
+                              message
+                         }}
+                    </p>
+                    <button class="btnOK btn btn-sm btn-outline-secondary"
+                         @click="isOpenMessage = !isOpenMessage, active = false">OK</button>
+               </div>
           </div>
+          <div class="overlay2" v-if="openCreate">
+               <CreateFertilizerForm :newFertilizer="newFertilizer" :nutrientList="nutrientList"
+                    @addFertilizer-submit="createFertilizer" :message1="message1" :message2="message2" />
+          </div>
+          <div class="overlay2" v-if="isOpenUpdateFertilizer">
 
-          <CreateFertilizerForm v-if="openCreate" :newFertilizer="newFertilizer" :nutrientList="nutrientList"
-               @addFertilizer-submit="createFertilizer" :message1="message1" :message2="message2" />
-
-          <UpdateFertilizerForm v-if="isOpenUpdateFertilizer" :newFertilizer="fertilizerChosen" :nutrientList="nutrientList"
-               @updateFertilizer-submit="updateFertilizer" :message1="message1" :message2="message2" />
+               <UpdateFertilizerForm v-if="isOpenUpdateFertilizer" :newFertilizer="fertilizerChosen"
+                    :nutrientList="nutrientList" @updateFertilizer-submit="updateFertilizer" :message1="message1"
+                    :message2="message2" />
+          </div>
      </div>
      <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click.passive="away()"></div>
 </template>
@@ -437,18 +502,18 @@ export default {
           },
 
           async deleteFertilizer(data) {
-                    console.log("t")
-                    const [error, response] = await this.handle(
-                         FertilizerService.delete(data.Fertilizer_id)
-                    );
-                    if (error) {
-                         console.log(error);
-                         this.message = "Xóa phân bón không thành công";
-                    } else {
-                         console.log(response.data);
-                         this.message = "Xóa phân bón thành công";
-                         this.retrieveFertilizerList();
-                    }
+               console.log("t")
+               const [error, response] = await this.handle(
+                    FertilizerService.delete(data.Fertilizer_id)
+               );
+               if (error) {
+                    console.log(error);
+                    this.message = "Xóa phân bón không thành công";
+               } else {
+                    console.log(response.data);
+                    this.message = "Xóa phân bón thành công";
+                    this.retrieveFertilizerList();
+               }
 
           },
 
@@ -489,8 +554,15 @@ export default {
 }
 </script>
 
-<style>
+<style style="scoped">
 @import url(../../assets/fertilizerStyle.css);
 
 @import url(../../assets/mainStyle.css);
+
+.nutrient_class {
+     width: 90px !important;
+}
+
+
+
 </style>

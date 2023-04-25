@@ -4,11 +4,11 @@
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times-circle" @click="newepidemic.close = false, $emit('updateEpidemic-submit', newepidemic)"
-                    style="font-size: 25px; padding-top:10px; color:#FAFAFC"></i>
+                    style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span>
+               <p class="col-sm-12 text-center functionName">
                     CẬP NHẬT THÔNG TIN BỆNH DỊCH
                </p>
           </div>

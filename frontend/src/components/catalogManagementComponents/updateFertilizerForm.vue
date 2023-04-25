@@ -5,18 +5,18 @@
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times-circle"
                          @click="newfertilixer.close = false, $emit('updateFertilizer-submit', newfertilixer)"
-                         style="font-size: 25px; padding-top:10px; color:#FAFAFC"></i>
+                         style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span>
+               <p class="col-sm-12 text-center functionName">
                     CẬP NHẬT THÔNG TIN PHÂN BÓN
                </p>
           </div>
           <div class="row content">
                <div class="col-md-4">
                     <div class="form-group">
-                         <label for="id" class="mt-3">Mã phân bón <span style="color: red">*</span></label>
+                         <label for="id" class="">Mã phân bón <span style="color: red">*</span></label>
                          <Field name="id" type="name" class="form-control mb-3" v-model="newfertilixer.Fertilizer_id"
                               placeholder="Nhập mã phân bón..." />
                          <ErrorMessage name="id" class="error-feedback" />
@@ -38,7 +38,7 @@
                </div>
                <div class="col-md-4">
                     <div class="form-group">
-                         <label for="name" class="mt-3">Tên phân bón <span style="color: red">*</span></label>
+                         <label for="name" class="">Tên phân bón <span style="color: red">*</span></label>
                          <Field name="name" class="form-control" v-model="newfertilixer.Fertilizer_name"
                               placeholder="Nhập tên phân bón..." />
                          <ErrorMessage name="name" class="error-feedback" />
@@ -55,7 +55,7 @@
 
                <div class="col-md-4">
                     <div class="form-group">
-                         <label for="supplier" class="mt-3">Nhà cung cấp <span style="color: red">*</span></label>
+                         <label for="supplier" class="">Nhà cung cấp <span style="color: red">*</span></label>
                          <Field name="supplier" class="form-control" v-model="newfertilixer.Fertilizer_supplier"
                               placeholder="Nhà cung cấp phân bón..." />
                          <ErrorMessage name="supplier" class="error-feedback" />
@@ -85,7 +85,7 @@
                     </span>
                </div>
           </div>
-          <div class="row mb-4">
+          <div class="row mb-2">
                <div class="col-sm-12 text-center">
                     <button class="btn btn-outline-secondary btnLuu col-sm-2">Cập Nhật</button>
                </div>
@@ -218,7 +218,9 @@ export default {
      margin-left: 3px !important;
      margin-top: 10px !important;
      background-color: #f0f0f0;
-     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+     background: #FAFAFC;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 15px;
      font-size: 17px;
      border-radius: 10px;
      color: #2F3033;

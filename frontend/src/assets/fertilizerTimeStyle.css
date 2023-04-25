@@ -1,18 +1,26 @@
  .riceCropDetail .createFertilizerTimesForm {
-      border: 0.5px solid #b8b5b5;
-      border-radius: 10px;
-      position: absolute;
-      top: calc(130px);
-      left: 16.2%;
-      width: 82.9%;
+     margin: auto;
+     padding: 20px;
+     background: #FAFAFC;
+     box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3);
+     backdrop-filter: blur(37.5px);
+     border-radius: 5px;
+     position: relative;
+     top:40px;
+     transition: all 5s ease-in-out;
+      width: 70%;
  }
 
  .riceCropDetail .updateFertilizerTimesForm {
-      border: 0.5px solid #b8b5b5;
-      border-radius: 10px;
-      position: absolute;
-      top: calc(130px);
-      left: 16.2%;
+     margin: auto;
+     padding: 20px;
+     background: #FAFAFC;
+     box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3);
+     backdrop-filter: blur(37.5px);
+     border-radius: 5px;
+     position: relative;
+     top:60px;
+     transition: all 5s ease-in-out;
       width: 82.9%;
  }
 
@@ -43,7 +51,7 @@
       width: 100%;
       height: 38px;
       border: 1px solid #ced4da;
-      border-radius: 4px;
+      border-radius: 10px;
  }
 
  .createFertilizerTimesForm .content .form-group input,
@@ -51,19 +59,7 @@
       float: left;
  }
 
- .createFertilizerTimesForm .content .form-group .form-control,
- .updateFertilizerTimesForm .content .form-group .form-control {
-      background-color: #FAFAFC;
-      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-      font-size: 17px;
-      border-radius: 10px;
-      color: #2F3033;
-      font-family: 'Roboto';
-      font-style: normal;
-      font-weight: 500;
-      height: 35px;
-      vertical-align: middle;
- }
+
 
  .createFertilizerTimesForm .functionName,
  .updateFertilizerTimesForm .functionName {
@@ -95,7 +91,7 @@
 
 
  .fertilizerUsed {
-      background-color: #FAFAFC;
+      background-color: #dedede;
       border-radius: 5px;
       height: 210px;
  }
@@ -118,6 +114,10 @@
       padding-left: 10px !important;
       vertical-align: middle !important;
  }
+ .createFertilizerTimesForm .fertilizerlist table {
+width: 98% !important;
+margin-left: 1%;
+}
 
  .createFertilizerTimesForm .btnAddFertilizer {
       border-radius: 10px;
@@ -138,9 +138,8 @@
  }
 
  .selectionFertilizer {
-      width: 90% !important;
-      margin-right: 5%;
-      width: 100%;
+      width: 70% !important;
+      margin-right: 2%;
       height: 35px;
       border: 1px solid #ced4da;
       border-radius: 4px;
@@ -151,7 +150,7 @@
 
  .inputAmount {
       width: 97% !important;
-      margin-right: 5%;
+      margin-right: 2%;
       height: 35px;
       border: 1px solid #ced4da;
       border-radius: 4px;

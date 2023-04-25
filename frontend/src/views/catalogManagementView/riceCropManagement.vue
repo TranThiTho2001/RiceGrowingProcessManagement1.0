@@ -40,14 +40,16 @@
 
                          <div class="selection-component1">
                               <label class="labelYear">Năm</label>
-                              <select class="selectYear" v-model="filter.year" @change="searchByYear()" v-if="years != null">
+                              <select class="selectYear" v-model="filter.year" @change="searchByYear(), nameToSearch = ''"
+                                   v-if="years != null">
                                    <option class="optionYear" v-for="year in years" :value="year" :key="year">{{ year }}
                                    </option>
                               </select>
 
 
                               <label class="labelYear">Trạng Thái</label>
-                              <select class="selectStatus" v-model="filter.status" @change="searchByYear()">
+                              <select class="selectStatus" v-model="filter.status"
+                                   @change="searchByYear(), nameToSearch = ''">
                                    <option class="optionYear" value="all" selected="true">Tất cả</option>
                                    <option class="optionYear" value="monitoring">Đang theo dõi</option>
                                    <option class="optionYear" value="finished">Đã kết thúc</option>
@@ -86,21 +88,14 @@
                <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
                     @click="isOpenMessage = !isOpenMessage">OK</button>
           </div>
-
-          <CreateRiceCropForm v-if="openCreate" :newRiceCrop="newRiceCrop" :seedList="seedList"
-               :arableLandList="arableLandList" @addRiceCrop-submit="createRiceCrop" :message1="message1"
-               :message2="message2" />
-          <UpdateRiceCropForm v-if="isOpenUpdateRiceCrop" :seedList="seedList" :newRiceCrop="riceCropChosen"
-               :arableLandList="arableLandList" @updateRiceCrop-submit="updateRiceCrop" :message1="message1"
-               :message2="message2" />
-          <CreateFertilizerTimesForm v-if="isOpenCreateFertilizerTimes" :newFertilizerTimes="newFertilizerTimes"
-               :fertilizerList="fertilizerList" :developmentStageList="developmentStageList" :currentUser="currentUser"
-               :riceCropChosen="riceCropChosen" :arableLandList="arableLandList"
-               @addFertilizerTimes-submit="createFertilizerTimes" :message1="message1" :message2="message2" />
-          <CreateSprayingTimesForm v-if="isOpenCreateSprayingTimes" :newSprayingTimes="newSprayingTimes"
-               :pesticideList="pesticideList" :developmentStageList="developmentStageList" :currentUser="currentUser"
-               :riceCropChosen="riceCropChosen" :arableLandList="arableLandList"
-               @addSprayingTimes-submit="createSprayingTimes" :message1="message1" :message2="message2" />
+          <div class="overlay2" v-if="openCreate">
+               <CreateRiceCropForm :newRiceCrop="newRiceCrop" :seedList="seedList" :arableLandList="arableLandList"
+                    @addRiceCrop-submit="createRiceCrop" :message1="message1" :message2="message2" />
+          </div>
+          <div class="overlay2" v-if="isOpenUpdateRiceCrop">
+               <UpdateRiceCropForm :seedList="seedList" :newRiceCrop="riceCropChosen" :arableLandList="arableLandList"
+                    @updateRiceCrop-submit="updateRiceCrop" :message1="message1" :message2="message2" />
+          </div>
      </div>
      <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click="away()"></div>
 </template>
@@ -118,11 +113,9 @@ import UpdateRiceCropForm from '@/components/catalogManagementComponents/updateR
 import fertilizerService from '@/services/fertilizer.service';
 import MonitorService from '@/services/monitor.service';
 import developmentStageService from '@/services/developmentStage.service';
-import CreateFertilizerTimesForm from '@/components/catalogManagementComponents/createNewFertilizerTimesForm.vue';
 import fertilizerTimesService from '@/services/fertilizerTimes.service';
 import PesticideService from '@/services/pesticide.service';
 import SprayingTimesService from '@/services/sprayingTimes.service';
-import CreateSprayingTimesForm from '@/components/catalogManagementComponents/createNewSprayingTimesForm.vue';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import RiceCropComponent from '@/components/catalogManagementComponents/riceCropComponent.vue';
 import ImagesService from '@/services/images.service';
@@ -141,8 +134,6 @@ export default {
           Catalog,
           CreateRiceCropForm,
           UpdateRiceCropForm,
-          CreateFertilizerTimesForm,
-          CreateSprayingTimesForm,
           TopHeader,
           RiceCropComponent,
           Preloader,
@@ -195,7 +186,7 @@ export default {
                },
                cloneRiceCropList: [],
                loading: true,
-               
+
           }
      },
 
@@ -220,12 +211,14 @@ export default {
                this.isOpenSearch.open = false;
                this.isOpenSearch.close = true;
                this.isOpenInput2 = false;
+               this.filter.status = "all";
+               this.filter.year = "Tất cả";
                console.log(this.isOpenInput2)
                this.isOpenInput1 = false;
           },
 
-          async loadData(){
-               this.loading= true;
+          async loadData() {
+               this.loading = true;
                if (this.loading) {
                     setTimeout(() => {
                          this.loading = false;
@@ -840,8 +833,8 @@ export default {
           this.initEmployeeState();
      },
 
-     mounted() {  
-                  this.getYear();
+     mounted() {
+          this.getYear();
           this.retrieveRiceCropList();
           this.retrieveCropList();
           this.retrieveSeedList();

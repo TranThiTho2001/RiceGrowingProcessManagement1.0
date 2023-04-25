@@ -1,12 +1,18 @@
 .fertilizerManagement .createFertilizerForm,
 .fertilizerManagement .updateFertilizerForm {
-    border-radius: 10px;
-    position: absolute;
-    top: calc(100px);
-    left: 16%;
-    width: 82.5%;
-    z-index: 2;
+    margin-left: 12% ;
+    padding: 20px;
+    background: #FAFAFC;
+    box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(37.5px);
+    border-radius: 5px;
+    width: 80%;
+    position: relative;
+    top:40px;
+    transition: all 5s ease-in-out;
+    overflow: scroll;
 }
+
 
 @media only screen and (max-width: 1430px) {
     .fertilizerManagement .createFertilizerForm,
@@ -94,9 +100,19 @@
 }
 
 .form-control {
-    background-color: #f0f0f0 !important;
+    background: #F0F2F7;
+box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+.nutrient-form-control {
+    width: 100% !important;
+    
+}
+
+.nutrient-row .form-group{
+    width: 100% !important;
+    margin-right: 20px !important;
+}
 .functionName {
     font-family: 'Roboto';
     font-size: 24px;

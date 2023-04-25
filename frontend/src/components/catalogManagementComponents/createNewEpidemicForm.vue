@@ -4,12 +4,11 @@
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times-circle" @click="newepidemic.close = false, $emit('addEpidemic-submit', newepidemic)"
-                    style="font-size: 25px; padding-top:10px; color:#FAFAFC"></i>
+                    style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i>THÊM BỆNH DỊCH MỚI
-               </p>
+               <p class="col-sm-12 text-center functionName">THÊM BỆNH DỊCH MỚI</p>
           </div>
           <div class="row content">
                <div class="col-sm-6 mt-2">
@@ -48,7 +47,7 @@
                     <div class="form-group">
                          <label for="classtify" class="mt-3">Phân loại <span style="color: red">*</span></label>
                          <Field name="classtify" v-model="newepidemic.EpidemicClassification_name">
-                              <select class="form-control" v-model="newepidemic.EpidemicClassification_name"
+                              <select class="form-control" v-model="newepidemic.EpidemicClassification_name" style="background:  #F0F2F7;box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"
                                    name="classtify" for="classtify">
                                    <option for="classtify">Côn trùng</option>
                                    <option>Dịch bệnh</option>

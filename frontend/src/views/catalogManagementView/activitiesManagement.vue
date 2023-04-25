@@ -47,7 +47,7 @@
 
                     </div>
                     <div class="scrollTable">
-                         <div class="scrollTable-content">
+                         <!-- <div class="scrollTable-content">
                               <table class="table activitiesList" v-if="loaded">
                                    <thead>
                                         <tr>
@@ -92,6 +92,28 @@
                                         </tr>
                                    </tbody>
                               </table>
+                         </div> -->
+
+                         <div class="ol-class" style="--length: 5" role="list">
+                              <a class="li-class-activity li-class " href="#popup1" v-for="(activity, j) in activitiesList"
+                                   :key="j" @click="setFertilizerChosen(activity)">
+                                   <button type="button" class="btn btn-sm btnMoreSelection" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                   </button>
+                                   <div class="dropdown-menu">
+                                        <a class="dropdown-item action"
+                                             @click="setActivityChoosen(activity), isOpenUpdateActivities = !isOpenUpdateActivities, active = true">
+                                             <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
+                                        </a>
+                                        <a class="dropdown-item" href="#"
+                                             @click="setActivityChoosen(activity), isOpenConfirm = !isOpenConfirm, active = true">
+                                             <span class="fas fa-trash-alt actionIcon"></span> Xóa
+                                        </a>
+                                   </div>
+                                   <h5>{{ activity.OtherActivities_name }}</h5>
+                                   <p>Số lần thực hiện{{ activity.Times.length }}</p>
+                              </a>
                          </div>
                     </div>
 
@@ -101,31 +123,36 @@
 
                </div>
           </div>
-          <div class="confirmationDialog" v-if="isOpenConfirm">
-               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
-                    <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
-               </p>
-               <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                    @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteOtherActivity(activityChosen)">Xóa</button>
-               <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                    @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
+          <div class="overlay2" v-if="isOpenConfirm">
+               <div class="confirmationDialog" v-if="isOpenConfirm">
+                    <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
+                         <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
+                    </p>
+                    <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
+                         @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteOtherActivity(activityChosen)">Xóa</button>
+                    <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                         @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
+               </div>
           </div>
-
-          <div class="messageDialog" v-if="isOpenMessage">
-               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
-                    {{
-                         message
-                    }}
-               </p>
-               <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                    @click="isOpenMessage = !isOpenMessage, active = false">OK</button>
+          <div class="overlay2" v-if="isOpenMessage">
+               <div class="messageDialog" >
+                    <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
+                         {{
+                              message
+                         }}
+                    </p>
+                    <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                         @click="isOpenMessage = !isOpenMessage, active = false">OK</button>
+               </div>
           </div>
-
-          <CreateOtherActivityForm v-if="isOpenCreateOtherActivities" :newOtherActivities="newOtherActivities"
-               @addOtherActivities-submit="createOtherActivity" :message1="message1" :message2="message2" />
-
-          <UpdateOtherActivityForm v-if="isOpenUpdateActivities" :newOtherActivities="activityChosen"
-               @updateOtherActivities-submit="updateOtherActivity" :message1="message1" :message2="message2" />
+          <div class="overlay2" v-if="isOpenCreateOtherActivities">
+               <CreateOtherActivityForm  :newOtherActivities="newOtherActivities"
+                    @addOtherActivities-submit="createOtherActivity" :message1="message1" :message2="message2" />
+          </div>
+          <div class="overlay2" v-if="isOpenUpdateActivities">
+               <UpdateOtherActivityForm  :newOtherActivities="activityChosen"
+                    @updateOtherActivities-submit="updateOtherActivity" :message1="message1" :message2="message2" />
+          </div>
      </div>
      <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click.passive="away()"></div>
 </template>
@@ -207,8 +234,8 @@ export default {
                this.isOpenInput2 = false;
           },
 
-          async loadData(){
-               this.loading= true;
+          async loadData() {
+               this.loading = true;
                if (this.loading) {
                     setTimeout(() => {
                          this.loading = false;

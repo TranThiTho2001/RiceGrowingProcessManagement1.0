@@ -5,21 +5,46 @@
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times-circle"
                          @click="newepidemictimes.close = false, $emit('addEpidemicTimes-submit', newepidemictimes)"
-                         style="font-size: 25px; padding-top:10px; color:#FAFAFC"></i>
+                         style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
 
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i>THÊM LẦN BỊ BỆNH DỊCH</p>
+               <p class="col-sm-12 text-center functionName">THÊM LẦN BỊ BỆNH DỊCH</p>
           </div>
 
           <div class="row content">
-               <div class="col-sm-4 mt-2">
+               <div class="col-sm-6 mt-2">
                     <div class="form-group">
                          <label for="ricecropid" class="mt-2">Mã mẫu ruộng <span style="color:red">*</span></label>
                          <Field name="ricecropid" type="name" class="form-control"
                               v-model="ricecropchosen.RiceCropInformation_id" :disabled="true" />
                          <ErrorMessage name="ricecropid" class="error-feedback" />
+                    </div>
+
+                    <div class="form-group ">
+                         <label for="fertilizer" class="mt-3">Tên bệnh dịch<span style="color:red">*</span></label>
+                         <Field name="fertilizer" v-model="newepidemictimes.Epidemic_name">
+                              <select class="form-control" v-model="newepidemictimes.Epidemic_name" name="classtify" style="background:  #F0F2F7;box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); height: 35px;"  for="classtify">
+                                   <option v-for="(epidemic, i) in epidemicList" :key="i">{{ epidemic.Epidemic_name
+                                   }}
+                                   </option>
+
+                              </select>
+                         </Field>
+                         <ErrorMessage name="fertilizer" class="error-feedback" />
+                    </div>
+
+                    <div class="form-group">
+                         <label for="start" class="">Ngày bắt đầu<span style="color:red">*</span></label>
+                         <Field name="start" class="form-control" v-model="newepidemictimes.EpidemicTimes_startDate"
+                              placeholder="Ngày bắt đầu">
+                              <datepicker :enable-time-picker="false" :value="newepidemictimes.EpidemicTimes_startDate"
+                                   :hide-input-icon="true" v-model="newepidemictimes.EpidemicTimes_startDate"
+                                   @closed="getWeather" placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false">
+                              </datepicker>
+                         </Field>
+                         <ErrorMessage name="start" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
@@ -28,47 +53,20 @@
                               placeholder="Nhập mã nhân viên...." />
                          <ErrorMessage name="employeeid" class="error-feedback" />
                     </div>
+               </div>
 
+               <div class="col-sm-6">
                     <div class="form-group">
-                         <label for="start" class="mt-3">Ngày bắt đầu<span style="color:red">*</span></label>
-                         <Field name="start" class="form-control" v-model="newepidemictimes.EpidemicTimes_startDate"
-                              placeholder="Ngày bắt đầu">
-                              <datepicker :enable-time-picker="false" :value="newepidemictimes.EpidemicTimes_startDate"
-                                   :hide-input-icon="true" v-model="newepidemictimes.EpidemicTimes_startDate" @closed="getWeather"
-                                   placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false">
-                              </datepicker>
-                         </Field>
-                         <ErrorMessage name="start" class="error-feedback" />
-                    </div>
-
-                    <div class="form-group">
-                         <label for="developmentid" class="mt-3 pt-1">Giai đoạn phát triển<span
+                         <label for="developmentid" class="mt-3">Giai đoạn phát triển<span
                                    style="color:red">*</span></label>
                          <Field name="developmentid" class="form-control" v-model="newepidemictimes.DevelopmentStage_name">
-                              <select class="form-control" v-model="newepidemictimes.DevelopmentStage_name" style="height: 35px;"
-                                   name="developmentid" for="developmentid">
+                              <select class="form-control" v-model="newepidemictimes.DevelopmentStage_name" style="background: #FAFAFC;box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);height: 35px;" name="developmentid" for="developmentid">
                                    <option v-for="(developmentStage, i) in development" :key="i">
                                         {{ developmentStage.DevelopmentStage_name }}
                                    </option>
                               </select>
                          </Field>
                          <ErrorMessage name="developmentid" class="error-feedback" />
-                    </div>
-               </div>
-
-               <div class="col-sm-4">
-                    <div class="form-group ">
-                         <label for="fertilizer" class="mt-3">Tên bệnh dịch<span style="color:red">*</span></label>
-                         <Field name="fertilizer" v-model="newepidemictimes.Epidemic_name">
-                              <select class="form-control" v-model="newepidemictimes.Epidemic_name" name="classtify" style="height: 35px;"
-                                   for="classtify">
-                                   <option v-for="(epidemic, i) in epidemicList" :key="i">{{ epidemic.Epidemic_name
-                                   }}
-                                   </option>
-
-                              </select>
-                         </Field>
-                         <ErrorMessage name="fertilizer" class="error-feedback" />
                     </div>
 
                     <div class="form-group ">
@@ -83,48 +81,11 @@
                          <Field name="harvendestDate" class="form-control" v-model="newepidemictimes.EpidemicTimes_endDate"
                               placeholder="Ngày sinh">
                               <datepicker :enable-time-picker="false" :value="newepidemictimes.EpidemicTimes_endDate"
-                                   :hide-input-icon="true" v-model="newepidemictimes.EpidemicTimes_endDate" @closed="getWeather"
-                                   placeholder="DD-MM-YYYY" format="dd-MM-yyyy" v-bind:on-closed="false" :clearable="false">
+                                   :hide-input-icon="true" v-model="newepidemictimes.EpidemicTimes_endDate"
+                                   @closed="getWeather" placeholder="DD-MM-YYYY" format="dd-MM-yyyy" v-bind:on-closed="false"
+                                   :clearable="false">
                               </datepicker>
                          </Field>
-                    </div>
-
-                    <div class="form-group ">
-                         <label for="temperature" class="mt-3 pt-1">Nhiệt độ(°C)</label>
-                         <Field name="temperature" class="form-control" v-model="newepidemictimes.EpidemicTimes_temperature"
-                              placeholder="Nhập nhiệt độ..." />
-                         <ErrorMessage name="temperature" class="error-feedback" />
-                    </div>
-               </div>
-
-               <div class="col-sm-4">
-                    <div class="form-group">
-                         <label for="precipitation" class="mt-3 pt-1">Lượng mưa(mm)</label>
-                         <Field name="precipitation" class="form-control"
-                              v-model="newepidemictimes.EpidemicTimes_precipitation" placeholder="Nhập lượng mưa..." />
-                         <ErrorMessage name="precipitation" class="error-feedback" />
-                    </div>
-
-                    <div class="form-group ">
-                         <label for="humidity" class="mt-2 pt-2">Độ ẩm(%)</label>
-                         <Field name="humidity" class="form-control" v-model="newepidemictimes.EpidemicTimes_humidity"
-                              placeholder="Nhập độ ẩm..." />
-                         <ErrorMessage name="humidity" class="error-feedback" />
-                    </div>
-
-                    <div class="form-group ">
-                         <label for="windspeed" class="mt-1 pt-1">Tốc độ gió(km/h)</label>
-                         <Field name="windspeed" class="form-control" v-model="newepidemictimes.EpidemicTimes_windSpeed"
-                              placeholder="Nhập tốc độ gió..." />
-                         <ErrorMessage name="windspeed" class="error-feedback" />
-                    </div>
-
-                    <div class="form-group ">
-                         <label for="solarradiation" class="mt-3 pt-1">Bức xạ mặt trời(MJ/m²)</label>
-                         <Field name="solarradiation" class="form-control"
-                              v-model="newepidemictimes.EpidemicTimes_solarRadiation"
-                              placeholder="Nhập bức xạ mặt trời..." />
-                         <ErrorMessage name="solarradiation" class="error-feedback" />
                     </div>
                </div>
           </div>
@@ -137,7 +98,8 @@
                          style="color:red; text-align: center; display: inline;"></span>
                     <span v-if="message2 == 'Thêm thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;">
                          Thêm lần bị bệnh dịch thành công</span>
-                    <span v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2"> Thêm lần bị bệnh dịch không thành công
+                    <span v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2"> Thêm lần bị bệnh
+                         dịch không thành công
                     </span>
                </div>
           </div>
@@ -195,18 +157,18 @@ export default {
                fertilizer: yup
                     .string()
                     .required("Loại phân phải có giá trị"),
-               temperature: yup
-                    .string(),
-               humidity: yup
-                    .string(),
-               precipitation: yup
-                    .string(),
-               windspeed: yup
-                    .string()
-                    .nullable(),
-               solarradiation: yup
-                    .string()
-                    .nullable(),
+               // temperature: yup
+               //      .string(),
+               // humidity: yup
+               //      .string(),
+               // precipitation: yup
+               //      .string(),
+               // windspeed: yup
+               //      .string()
+               //      .nullable(),
+               // solarradiation: yup
+               //      .string()
+               //      .nullable(),
 
           });
           return {
@@ -362,7 +324,7 @@ export default {
 @import url(../../assets/epidemicTimesStyle.css);
 
 .dp__theme_light {
-     --dp-background-color: #FAFAFC;
+     --dp-background-color: #F0F2F7;
      --dp-border-radius: 10px;
      --dp-text-color: #2F3033;
      --dp-hover-color: #f3f3f3;

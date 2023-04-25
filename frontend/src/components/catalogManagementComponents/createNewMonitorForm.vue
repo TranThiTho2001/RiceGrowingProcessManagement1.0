@@ -4,7 +4,7 @@
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times-circle" @click="newmonitor.close = false, $emit('addMonitor-submit', newmonitor)"
-                         style="font-size: 25px; padding: 5px; color: #FAFAFC;"></i>
+                    style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
           <div class="row">
@@ -182,15 +182,16 @@ export default {
  
 <style>
 .createMonitorForm {
-     position: absolute;
-     width: 83%;
-     height: 80vh;
-     top: 100px;
-     left: 16%;
-     background: linear-gradient(135.44deg, rgba(217, 217, 217, 0.4) 15.43%, rgba(217, 217, 217, 0.1) 79.67%) !important;
-     box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3) !important;
-     backdrop-filter: blur(20px);
-     border-radius: 15px;
+     margin: auto;
+     padding: 20px;
+     background: #FAFAFC !important;
+     box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3);
+     backdrop-filter: blur(37.5px);
+     border-radius: 5px;
+     width: 82.5%;
+     position: relative;
+     top:100px;
+     transition: all 5s ease-in-out;
 }
 
 @media only screen and (max-width: 1430px) {

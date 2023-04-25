@@ -5,23 +5,47 @@
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times-circle"
                          @click="newactivitiesDetail.close = false, $emit('updateActivitiesDetail-submit', newactivitiesDetail)"
-                         style="font-size: 25px; padding-top:10px; color:#FAFAFC"></i>
+                         style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><span class="fas fa-edit actionIcon"></span>
+               <p class="col-sm-12 text-center functionName">
                     CẬP NHẬT THÔNG TIN LẦN THỰC HIỆN HOẠT ĐỘNG CỦA MÙA VỤ
                </p>
           </div>
           <div class="row content">
-               <div class="col-sm-4 mt-2">
+               <div class="col-sm-6 mt-2">
                     <div class="form-group">
-                         <label for="ricecropid" class="mt-2 lable">Mã mẫu ruộng <span style="color:red">*</span></label>
+                         <label for="ricecropid" class="mt-2 lable">Mã mùa vụ <span style="color:red">*</span></label>
                          <Field name="ricecropid" type="name" class="form-control"
                               v-model="ricecropchosen.RiceCropInformation_id" :disabled="true" />
                          <ErrorMessage name="ricecropid" class="error-feedback" />
                     </div>
-
+                    <div class="form-group ">
+                         <label for="activity" class="mt-3">Tên hoạt động<span style="color:red">*</span></label>
+                         <Field name="activity" v-model="newactivitiesDetail.OtherActivities_name">
+                              <select class="form-control" v-model="newactivitiesDetail.OtherActivities_name"
+                                   @change="setOtherActivies()" name="classtify" for="classtify">
+                                   <option v-for="(otheractivities, i) in otherActivitiesList" :key="i">{{
+                                        otheractivities.OtherActivities_name
+                                   }}
+                                   </option>
+                                   <option>Thêm hoạt động mới</option>
+                              </select>
+                         </Field>
+                         <ErrorMessage name="activity" class="error-feedback" />
+                    </div>
+                    <div class="form-group">
+                         <label for="start" class="lable ">Ngày bắt đầu</label>
+                         <Field name="start" class="form-control" v-model="newactivitiesDetail.ActivityDetails_startDate"
+                              placeholder="Ngày bắt đầu">
+                              <datepicker :enable-time-picker="false" :value="newactivitiesDetail.ActivityDetails_startDate"
+                                   :hide-input-icon="true" v-model="newactivitiesDetail.ActivityDetails_startDate"
+                                   placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false">
+                              </datepicker>
+                         </Field>
+                         <ErrorMessage name="start" class="error-feedback" />
+                    </div>
 
                     <div class="form-group">
                          <label for="employeeid" class="mt-3 lable">Nhân viên thực hiện<span
@@ -30,19 +54,8 @@
                               placeholder="Nhập mã nhân viên...." :disabled="true" />
                          <ErrorMessage name="employeeid" class="error-feedback" />
                     </div>
-
-                    <div class="form-group">
-                         <label for="start" class="lable mt-3">Ngày bắt đầu</label>
-                         <Field name="start" class="form-control" v-model="newactivitiesDetail.ActivityDetails_startDate"
-                              placeholder="Ngày bắt đầu">
-                              <datepicker :enable-time-picker="false" :value="newactivitiesDetail.ActivityDetails_startDate"
-                                   :hide-input-icon="true" v-model="newactivitiesDetail.ActivityDetails_startDate"
-                                   @closed="getWeather()" placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false">
-                              </datepicker>
-                         </Field>
-                         <ErrorMessage name="start" class="error-feedback" />
-                    </div>
-
+               </div>
+               <div class="col-sm-6">
                     <div class="form-group">
                          <label for="developmentid" class="mt-3 lable">Giai đoạn phát triển<span
                                    style="color:red">*</span></label>
@@ -58,23 +71,6 @@
                          <ErrorMessage name="developmentid" class="error-feedback" />
                     </div>
 
-               </div>
-               <div class="col-sm-4">
-                    <div class="form-group ">
-                         <label for="activity" class="mt-3">Tên hoạt động<span style="color:red">*</span></label>
-                         <Field name="activity" v-model="newactivitiesDetail.OtherActivities_name">
-                              <select class="form-control" v-model="newactivitiesDetail.OtherActivities_name"
-                                   @change="setOtherActivies()" name="classtify" for="classtify">
-                                   <option v-for="(otheractivities, i) in otherActivitiesList" :key="i">{{
-                                        otheractivities.OtherActivities_name
-                                   }}
-                                   </option>
-                                   <option>Thêm hoạt động mới</option>
-                              </select>
-                         </Field>
-                         <ErrorMessage name="activity" class="error-feedback" />
-                    </div>
-
                     <div class="form-group ">
                          <label for="times" class="">Lần<span style="color:red">*</span></label>
                          <Field name="times" class="form-control" v-model="newactivitiesDetail.ActivityDetails_times"
@@ -88,47 +84,10 @@
                               v-model="newactivitiesDetail.ActivityDetails_endDate">
                               <datepicker :enable-time-picker="false" :value="newactivitiesDetail.ActivityDetails_endDate"
                                    :hide-input-icon="true" v-model="newactivitiesDetail.ActivityDetails_endDate"
-                                   @closed="getWeather()" placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false">
+                                   placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false">
                               </datepicker>
                          </Field>
                          <ErrorMessage name="end" class="error-feedback" />
-                    </div>
-
-                    <div class="form-group ">
-                         <label for="temperature" class="mt-3">Nhiệt độ</label>
-                         <Field name="temperature" class="form-control"
-                              v-model="newactivitiesDetail.ActivityDetails_temperature" placeholder="Nhập nhiệt độ..." />
-                         <ErrorMessage name="temperature" class="error-feedback" />
-                    </div>
-               </div>
-               <div class="col-sm-4">
-                    <div class="form-group ">
-                         <label for="humidity" class="mt-3">Độ ẩm</label>
-                         <Field name="humidity" class="form-control" v-model="newactivitiesDetail.ActivityDetails_humidity"
-                              placeholder="Nhập độ ẩm..." />
-                         <ErrorMessage name="humidity" class="error-feedback" />
-                    </div>
-
-                    <div class="form-group">
-                         <label for="precipitation" class="mt-3">Lượng mưa</label>
-                         <Field name="precipitation" class="form-control"
-                              v-model="newactivitiesDetail.ActivityDetails_precipitation" placeholder="Nhập lượng mưa..." />
-                         <ErrorMessage name="precipitation" class="error-feedback" />
-                    </div>
-
-                    <div class="form-group ">
-                         <label for="windspeed" class="mt-3">Tốc độ gió(km/h)</label>
-                         <Field name="windspeed" class="form-control" v-model="newactivitiesDetail.ActivityDetails_windSpeed"
-                              placeholder="Nhập tốc độ gió..." />
-                         <ErrorMessage name="windspeed" class="error-feedback" />
-                    </div>
-
-                    <div class="form-group ">
-                         <label for="solarradiation" class="mt-3">Bức xạ mặt trời(MJ/m²)</label>
-                         <Field name="solarradiation" class="form-control"
-                              v-model="newactivitiesDetail.ActivityDetails_solarRadiation"
-                              placeholder="Nhập bức xạ mặt trời..." />
-                         <ErrorMessage name="solarradiation" class="error-feedback" />
                     </div>
                </div>
           </div>
@@ -141,7 +100,8 @@
                          style="color:red; text-align: center; display: inline;"></span>
                     <span v-if="message2 == 'Cập nhật thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;">
                          Cập nhật lần thực hiện hoạt động thành công</span>
-                    <span v-if="message1 == 'Cập nhật không thành công.'" class="textMessage1 pt-2 pb-2"> Cập nhật lần thực hiện hoạt động không thành công
+                    <span v-if="message1 == 'Cập nhật không thành công.'" class="textMessage1 pt-2 pb-2"> Cập nhật
+                         lần thực hiện hoạt động không thành công
                     </span>
                </div>
           </div>
@@ -200,21 +160,21 @@ export default {
                activity: yup
                     .string()
                     .required("Tên hoạt động phải có giá trị"),
-               temperature: yup
-                    .string()
-                    .nullable(),
-               humidity: yup
-                    .string()
-                    .nullable(),
-               precipitation: yup
-                    .string()
-                    .nullable(),
-               windspeed: yup
-                    .string()
-                    .nullable(),
-               solarradiation: yup
-                    .string()
-                    .nullable(),
+               // temperature: yup
+               //      .string()
+               //      .nullable(),
+               // humidity: yup
+               //      .string()
+               //      .nullable(),
+               // precipitation: yup
+               //      .string()
+               //      .nullable(),
+               // windspeed: yup
+               //      .string()
+               //      .nullable(),
+               // solarradiation: yup
+               //      .string()
+               //      .nullable(),
           });
           return {
                newactivitiesDetail: this.newActivityDetail,

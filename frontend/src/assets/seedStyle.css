@@ -1,10 +1,14 @@
 .seedManagement .createSeedForm,
 .seedManagement .updateSeedForm {
-     font-family: Inter;
-     border-radius: 10px;
-     position: absolute;
-     top: calc(110px);
-     left: 32%;
+     margin: auto;
+     padding: 20px;
+     background: #FAFAFC;
+     box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3);
+     backdrop-filter: blur(37.5px);
+     border-radius: 5px;
+     position: relative;
+     top:60px;
+     transition: all 5s ease-in-out;
      width: 50%;
 }
 

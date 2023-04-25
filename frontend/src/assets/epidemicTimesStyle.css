@@ -1,17 +1,21 @@
 .riceCropDetail .updateEpidemicTimesForm,
 .riceCropDetail .createEpidemicTimesForm{
-     border: 0.5px solid #b8b5b5;
-     border-radius: 10px;
-     position: absolute;
-     top: calc(100px);
-     left: 16%;
-     width: 83%;
+     margin: auto;
+     padding: 20px;
+     background: #FAFAFC;
+     box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3);
+     backdrop-filter: blur(37.5px);
+     border-radius: 5px;
+     width: 82.5%;
+     position: relative;
+     top:100px;
+     transition: all 5s ease-in-out;
 }
 
 @media only screen and (max-width: 1430px) {
      .riceCropDetail .updateEpidemicTimesForm,
      .riceCropDetail .createEpidemicTimesForm{
-          left: 10%;
+          /* left: 10%; */
 
      }
      

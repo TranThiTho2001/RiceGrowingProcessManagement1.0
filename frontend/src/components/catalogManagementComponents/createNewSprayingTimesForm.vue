@@ -5,11 +5,11 @@
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times-circle"
                          @click="newsprayingtimes.close = false, $emit('addSprayingTimes-submit', newsprayingtimes)"
-                         style="font-size: 25px; padding-top:10px; color:#FAFAFC"></i>
+                         style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i>THÊM LẦN PHUN THUỐC MÙA VỤ
+               <p class="col-sm-12 text-center functionName">THÊM LẦN PHUN THUỐC MÙA VỤ
                </p>
           </div>
           <div class="row content">
@@ -29,7 +29,7 @@
                     </div>
 
                     <div class="form-group">
-                         <label for="start" class="mt-3">Ngày bắt đầu</label>
+                         <label for="start" class="mt-3 pt-1">Ngày bắt đầu</label>
                          <Field name="start" class="form-control" v-model="newsprayingtimes.SprayingTimes_startDate"
                               placeholder="Ngày bắt đầu">
                               <datepicker :enable-time-picker="false" :value="newsprayingtimes.SprayingTimes_startDate"
@@ -52,7 +52,7 @@
                     <div class="form-group">
                          <label for="developmentid" class="mt-3">Giai đoạn phát triển<span style="color:red">*</span></label>
                          <Field name="developmentid" class="form-control" v-model="newsprayingtimes.DevelopmentStage_name">
-                              <select class="form-control" v-model="newsprayingtimes.DevelopmentStage_name"
+                              <select class="form-control" v-model="newsprayingtimes.DevelopmentStage_name" style="background:  #F0F2F7;box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"
                                    name="developmentid" for="developmentid">
                                    <option v-for="(developmentStage, i) in development" :key="i">
                                         {{ developmentStage.DevelopmentStage_name }}
@@ -74,43 +74,7 @@
                          <ErrorMessage name="end" class="error-feedback" />
                     </div>
                </div>
-               <!-- <div class="col-sm-3">
-                    <div class="form-group">
-                         <label for="temperature" class="mt-1">Nhiệt độ(°C)</label>
-                         <Field name="temperature" class="form-control" v-model="newsprayingtimes.SprayingTimes_temperature"
-                              placeholder="Nhập nhiệt độ..." />
-                         <ErrorMessage name="temperature" class="error-feedback" />
-                    </div>
 
-                    <div class="form-group ">
-                         <label for="humidity" class="mt-3 pt-1">Độ ẩm(%)</label>
-                         <Field name="humidity" class="form-control" v-model="newsprayingtimes.SprayingTimes_humidity"
-                              placeholder="Nhập độ ẩm..." />
-                         <ErrorMessage name="humidity" class="error-feedback" />
-                    </div>
-
-                    <div class="form-group">
-                         <label for="precipitation" class="mt-2 pt-1">Lượng mưa(mm)</label>
-                         <Field name="precipitation" class="form-control"
-                              v-model="newsprayingtimes.SprayingTimes_precipitation" placeholder="Nhập lượng mưa..." />
-                         <ErrorMessage name="precipitation" class="error-feedback" />
-                    </div>
-               </div> -->
-               <!-- <div class="col-sm-3">
-                    <div class="form-group">
-                         <label for="windspeed" class="mt-1">Tốc độ gió(km/h)</label>
-                         <Field name="windspeed" class="form-control" v-model="newsprayingtimes.SprayingTimes_windSpeed"
-                              placeholder="Nhập tốc độ gió..." />
-                         <ErrorMessage name="windspeed" class="error-feedback" />
-                    </div>
-
-                    <div class="form-group ">
-                         <label for="solarradiation" class="mt-3 pt-1">Bức xạ mặt trời(MJ/m²)</label>
-                         <Field name="solarradiation" class="form-control" v-model="newsprayingtimes.SprayingTimes_solarRadiation"
-                              placeholder="Nhập bức xạ mặt trời..." />
-                         <ErrorMessage name="solarradiation" class="error-feedback" />
-                    </div>
-               </div> -->
           </div>
           <div class="row mt-2 ml-1 mr-1 pesticideUsed">
                <button type="button" @click="addPesticide()" class="btnAddPesticide row mt-2"> Thêm </button>
@@ -385,7 +349,7 @@ export default {
 @import url(../../assets/mainStyle.css);
 
 .dp__theme_light {
-     --dp-background-color: #FAFAFC;
+     --dp-background-color: #F0F2F7;
      --dp-border-radius: 10px;
      --dp-text-color: #212121;
      --dp-hover-color: #f3f3f3;
@@ -415,7 +379,10 @@ export default {
 .dp__input {
      background-color: var(--dp-background-color);
      border-radius: 10px;
-     font-family: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen, ubuntu, cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+     font-family: 'Roboto';
+     font-style: normal;
+     font-size: 18px;
+     font-weight: 500;
      border: 1px solid var(--dp-border-color);
      outline: none;
      transition: border-color .2s cubic-bezier(0.645, 0.045, 0.355, 1);

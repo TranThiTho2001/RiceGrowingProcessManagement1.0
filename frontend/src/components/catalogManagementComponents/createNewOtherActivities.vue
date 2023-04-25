@@ -4,11 +4,11 @@
           <div class="row">
                <div class="col-sm-12 text-right" >
                     <i class="fas fa-times-circle" @click="newotherActivities.close = false, $emit('addOtherActivities-submit', newotherActivities)"
-                    style="font-size: 25px; padding-top:10px; color:#FAFAFC"></i>
+                    style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> THÊM HOẠT ĐỘNG
+               <p class="col-sm-12 text-center functionName"> THÊM HOẠT ĐỘNG
                </p>
           </div>
           <div class="row content">

@@ -5,12 +5,11 @@
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times-circle"
                          @click="newarableLand.close = false, $emit('addArableLand-submit', newarableLand)"
-                         style="font-size: 25px; padding-top:10px; color:#FAFAFC"></i>
+                         style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> THÊM MẪU RUỘNG MỚI
-               </p>
+               <p class="col-sm-12 text-center functionName">THÊM MẪU RUỘNG MỚI</p>
           </div>
           <div class="row content">
                <div class="col-sm-6 mt-2">
@@ -31,8 +30,8 @@
                     <div class="form-group">
                          <label for="soil" class="mt-3">Phân loại <span style="color: red">*</span></label>
                          <Field name="soil" v-model="newarableLand.Soil_name" style="width: 100%; position: relative;">
-                              <select class="form-control" v-model="newarableLand.Soil_name" name="soil" for="soil"
-                                   style=" width: 100%;">
+                              <select class="form-control" v-model="newarableLand.Soil_name" name="soil" for="soil" style="background: #FAFAFC;box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);  width: 100%;"
+                                  >
                               <option v-for="(soil, i) in soillist" :key="i">{{ soil.Soil_name }}</option>
                               </select>
                          </Field>

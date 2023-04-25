@@ -1,33 +1,34 @@
 <template>
      <Form @submit="newfertilixer.close = true, newfertilixer.Nutrient = nutrientlist, $emit('addFertilizer-submit', newfertilixer)"
           :validation-schema="schema" class="form  createFertilizerForm container-fluid">
+
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times-circle"
                          @click="newfertilixer.close = false, newfertilixer.Nutrient = nutrientlist, $emit('addFertilizer-submit', newfertilixer)"
-                         style="font-size: 25px; padding-top:10px; color:#FAFAFC"></i>
+                         style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
           <div class="row">
-               <p class="col-sm-12 text-center functionName"><i class="fas fa-plus-circle"></i> THÊM LOẠI PHÂN BÓN MỚI
+               <p class="col-sm-12 text-center functionName">THÊM LOẠI PHÂN BÓN MỚI
                </p>
           </div>
           <div class="row content">
                <div class="col-md-4">
                     <div class="form-group">
-                         <label for="id" class="mt-3">Mã phân bón <span style="color: red">*</span></label>
+                         <label for="id" class="">Mã phân bón <span style="color: red">*</span></label>
                          <Field name="id" type="name" class="form-control mb-3" v-model="newfertilixer.Fertilizer_id"
                               placeholder="Nhập mã phân bón..." />
                          <ErrorMessage name="id" class="error-feedback" />
                     </div>
-
+<label class="lable-nutrient">Thành phần dinh dưỡng</label>
                     <div class="row nutrient-row">
-                         <label class="lable-nutrient">Thành phần dinh dưỡng</label>
+                         
                          <div class="form-group" style="margin-left: 20px !important;"
                               v-for="(contain, i) in newfertilixer.Contain" :key="contain.Nutrient_id">
                               <label :for="contain.Nutrient_id" class="">{{ contain.Nutrient_name }} <span
                                         style="color: red">*</span></label>
-                              <Field :name="contain.Nutrient_id" class="form-control"
+                              <Field :name="contain.Nutrient_id" class="nutrient-form-control form-control"
                                    v-model="newfertilixer.Contain[i].Contain_percent" placeholder="Thông tin phân bón..."
                                    @update:model-value="show(newfertilixer.Contain[i].Contain_percent)" />
                               <ErrorMessage :name="contain.Nutrient_id" class="error-feedback" />
@@ -38,7 +39,7 @@
                </div>
                <div class="col-md-4">
                     <div class="form-group">
-                         <label for="name" class="mt-3">Tên phân bón <span style="color: red">*</span></label>
+                         <label for="name" class="">Tên phân bón <span style="color: red">*</span></label>
                          <Field name="name" class="form-control" v-model="newfertilixer.Fertilizer_name"
                               placeholder="Nhập tên phân bón..." />
                          <ErrorMessage name="name" class="error-feedback" />
@@ -47,7 +48,7 @@
                     <div class="form-group">
                          <label for="uses" class="mt-3">Công dụng <span style="color: red">*</span></label>
                          <Field name="uses" class="form-control" v-model="newfertilixer.Fertilizer_uses" as="textarea"
-                              style="height: 240px;" placeholder="Công dụng phân bón..." />
+                              style="height: 350px;" placeholder="Công dụng phân bón..." />
                          <ErrorMessage name="uses" class="error-feedback" />
                     </div>
 
@@ -55,7 +56,7 @@
 
                <div class="col-md-4">
                     <div class="form-group">
-                         <label for="supplier" class="mt-3">Nhà cung cấp <span style="color: red">*</span></label>
+                         <label for="supplier" class="">Nhà cung cấp <span style="color: red">*</span></label>
                          <Field name="supplier" class="form-control" v-model="newfertilixer.Fertilizer_supplier"
                               placeholder="Nhà cung cấp phân bón..." />
                          <ErrorMessage name="supplier" class="error-feedback" />
@@ -65,7 +66,7 @@
                          <label for="directionsForUse" class="mt-3">Hướng dẫn sử dụng<span
                                    style="color: red">*</span></label>
                          <Field name="directionsForUse" class="form-control"
-                              v-model="newfertilixer.Fertilizer_directionsForUse" as="textarea" style="height: 240px;"
+                              v-model="newfertilixer.Fertilizer_directionsForUse" as="textarea" style="height: 350px;"
                               placeholder="Thông tin phân bón..." />
                          <ErrorMessage name="directionsForUse" class="error-feedback" />
                     </div>
@@ -84,7 +85,7 @@
                          thành công </span>
                </div>
           </div>
-          <div class="row mb-5">
+          <div class="row mb-2">
                <div class="col-sm-12 text-center">
                     <button class="btn btn-outline-secondary btnLuu">Lưu</button>
                </div>
@@ -232,7 +233,9 @@ export default {
      width: 98.5% !important;
      margin-left: 3px !important;
      margin-top: 10px !important;
-     background-color: #f0f0f0 ;
+     background: #FAFAFC;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+border-radius: 15px;
      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
      font-size: 17px;
      border-radius: 10px;

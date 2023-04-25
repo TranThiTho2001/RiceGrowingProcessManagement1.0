@@ -4,12 +4,11 @@
         <div class="row">
             <div class="col-sm-12 text-right">
                 <i class="fas fa-times-circle" @click="newimage.close = false, $emit('addImage-submit', newimage)"
-                style="font-size: 25px; padding-top:10px; color:#FAFAFC"></i>
+                style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
             </div>
         </div>
         <div class="functionName row mb-3">
             <div class="col-sm-12 text-center">
-            <i class="fa fa-plus-circle pt-2" style="font-size: 25px;"> </i>
             <p class="title">THÊM HÌNH ẢNH</p>
         </div>
         </div>
@@ -85,12 +84,16 @@ export default {
 
 <style>
 .createImageForm {
-    position: absolute;
-    width: 50%;
-    height: 550px;
-    top: 170px;
-    left: 28%;
-    border-radius: 10px;
+    margin: auto;
+     padding: 20px;
+     background: #FAFAFC !important;
+     box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3);
+     backdrop-filter: blur(37.5px);
+     border-radius: 5px;
+     width: 40%;
+     position: relative;
+     top:100px;
+     transition: all 5s ease-in-out;
 }
 
 .createImageForm .rowImage {

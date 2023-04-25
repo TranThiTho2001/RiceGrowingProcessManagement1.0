@@ -34,32 +34,37 @@
                               <ImageComponent :images="image" @clicked-something="handleClickInParent" />
                          </div>
                     </div>
-                    <div class="confirmationDialog" v-if="isOpenConfirm">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelConfirm">
-                              <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
-                         </p>
-                         <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteImage()">Xóa</button>
-                         <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
+                    <div class="overlay2" v-if="isOpenConfirm">
+                         <div class="confirmationDialog" >
+                              <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
+                                   class="labelConfirm">
+                                   <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
+                              </p>
+                              <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
+                                   @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteImage()">Xóa</button>
+                              <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                                   @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
+                         </div>
                     </div>
-
-                    <div class="messageDialog" v-if="isOpenMessage">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelThongBao">
-                              <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span>
-                              {{
-                                   message
-                              }}
-                         </p>
-                         <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenMessage = !isOpenMessage">OK</button>
+                    <div class="overlay2" v-if="isOpenMessage">
+                         <div class="messageDialog" >
+                              <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
+                                   class="labelThongBao">
+                                   <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span>
+                                   {{
+                                        message
+                                   }}
+                              </p>
+                              <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
+                                   @click="isOpenMessage = !isOpenMessage">OK</button>
+                         </div>
                     </div>
                </div>
           </div>
-          <CreateImageForm v-if="isOpenCreateImage" :newImage="newImage" :message1="message1" :message2="message2"
-               :newRiceCrop="newRiceCrop" @addImage-submit=createNewImage />
+          <div class="overlay2" v-if="isOpenCreateImage">
+               <CreateImageForm  :newImage="newImage" :message1="message1" :message2="message2"
+                    :newRiceCrop="newRiceCrop" @addImage-submit=createNewImage />
+          </div>
      </div>
 </template>
 
@@ -141,8 +146,8 @@ export default {
                })
           },
 
-          async loadData(){
-               this.loading= true;
+          async loadData() {
+               this.loading = true;
                if (this.loading) {
                     setTimeout(() => {
                          this.loading = false;
