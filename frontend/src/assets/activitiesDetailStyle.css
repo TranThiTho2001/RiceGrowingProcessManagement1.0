@@ -39,31 +39,12 @@
      font-size: 18px;
 }
 
-.createActivityDetailForm .content .form-group .selectBox,
-.updateActivityDetailForm .content .form-group .selectBox {
-     width: 100%;
-     height: 38px;
-     border: 1px solid #ced4da;
-     border-radius: 4px;
-}
 
 .createActivityDetailForm .content .form-group input,
 .updateActivityDetailForm .content .form-group input {
      float: left;
 }
 
-.createActivityDetailForm .content .form-group .form-control,
-.updateActivityDetailForm .content .form-group .form-control {
-     background-color: #FAFAFC;
-     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-     font-size: 17px;
-     border-radius: 15px;
-     color: #2F3033;
-     font-family: 'Roboto';
-     font-style: normal;
-     font-weight: 500;
-     height: 35px;
-}
 
 .createActivityDetailForm .functionName,
 .updateActivityDetailForm .functionName {

@@ -1,34 +1,41 @@
-# MAE: 147.80764980164687
-# MSE: 32008.5385746027
-# RMSE: 178.90930264970208
+# MAE: 202.80786176459608
+# MSE: 62278.665312080884
+# RMSE: 249.556938016319
+
+# MAE: 209.1564280728398
+# MSE: 66524.96285290127
+# RMSE: 257.9243355189682
+
+# MAE: 202.7939728757072 save this
+# MSE: 63009.452374008404
+# RMSE: 251.01683683372397
 
 
-import sys
 import pickle
 import os
 dr = os.getcwd()
-filename = os.path.dirname(os.path.abspath(__file__))+"/ModelTrained/predictionByLinearRegression1.sav"
- 
-model_lm = pickle.load(open(filename, 'rb'))
+filename = os.path.dirname(os.path.abspath(__file__))+"/ModelTrained/DecisionTreeRegressor.sav"
+model_GBR = pickle.load(open(filename, 'rb'))
 
-
+import sys
 import json
 temp = json.loads(sys.argv[1])
-
 if sys.argv[1] == '1':
-  yield_pr = model_lm.predict([[ 1,0,0, float(temp["precipitation"]), float(temp["temperature"]), float(temp["humitidity"]), float(temp["windSpeed"]), float(temp["solarRadiation"]), float(temp["area"]), float(temp["N"]), float(temp["P"]), float(temp["K"]) ]])
+  yield_pr = model_GBR.predict([[ 1,0,0, float(temp["precipitation"]), float(temp["temperature"]), float(temp["humitidity"]), float(temp["windSpeed"]), float(temp["solarRadiation"]), float(temp["area"]) ]])
   print(yield_pr)
 elif sys.argv[1] == '2':
-  yield_pr = model_lm.predict([[ 0,1,0, float(temp["precipitation"]), float(temp["temperature"]), float(temp["humitidity"]), float(temp["windSpeed"]), float(temp["solarRadiation"]), float(temp["area"]), float(temp["N"]), float(temp["P"]), float(temp["K"])  ]])
+  yield_pr = model_GBR.predict([[ 1,0,0, float(temp["precipitation"]), float(temp["temperature"]), float(temp["humitidity"]), float(temp["windSpeed"]), float(temp["solarRadiation"]), float(temp["area"]) ]])
   print(yield_pr)
 else:
-  yield_pr = model_lm.predict([[ 0,0,1, float(temp["precipitation"]), float(temp["temperature"]), float(temp["humitidity"]), float(temp["windSpeed"]), float(temp["solarRadiation"]), float(temp["area"]), float(temp["N"]), float(temp["P"]), float(temp["K"])  ]])
+  yield_pr = model_GBR.predict([[ 1,0,0, float(temp["precipitation"]), float(temp["temperature"]), float(temp["humitidity"]), float(temp["windSpeed"]), float(temp["solarRadiation"]), float(temp["area"]) ]])
   print(yield_pr)
-
 
 sys.stdout.flush()
 
-# ------------------------Training model----------------
+
+
+
+# -----------------------------Training Model------------------------
 # import warnings
 # warnings.filterwarnings('ignore')
 # import numpy as np
@@ -42,12 +49,13 @@ sys.stdout.flush()
 # from sklearn.datasets import make_regression
 # import os
 # dr = os.getcwd()
+# import json
 
 # sys.stdout.flush()
 # file = os.path.dirname(os.path.abspath(__file__))+"/data5.csv"
 
 # dataset = pd.DataFrame(pd.read_csv(file))
-# # print(dataset.head())
+# dataset.head()
 
 # X= dataset.iloc[:, :-1].values  
 # y= dataset.iloc[:, -1].values
@@ -66,12 +74,10 @@ sys.stdout.flush()
 # for train_index, test_index in kf.split(X):
 #   X_train, X_test = X[train_index], X[test_index]
 #   y_train, y_test = y[train_index], y[test_index]
-
-# # ---------LinearRegression ****Ok MAE 562 RME 704
-# model_RFR = LinearRegression()
-# model_RFR.fit(X_train,y_train)
-# predictions = model_RFR.predict(X_test)
-# # yield_pr = model_RFR.predict([[1,0,0, 21.3, 26.45, 75.58,2]])
+# from sklearn.tree import DecisionTreeRegressor
+# model_DTR = DecisionTreeRegressor(max_depth=5)
+# model_DTR.fit(X_train, y_train)
+# predictions = model_DTR.predict(X_test)
 # print('MAE:', metrics.mean_absolute_error(y_test, predictions))
 # print('MSE:', metrics.mean_squared_error(y_test, predictions))
 # print('RMSE:', np.sqrt(metrics.mean_squared_error(y_test, predictions)))
@@ -79,7 +85,6 @@ sys.stdout.flush()
 # print(data)
 
 # import pickle
-# # # # save the model to disk
-# # filename = 'backend/app/controllers/predictionModel/ModelTrained/predictionByLinearRegression1.sav'
-# # pickle.dump(model_RFR, open(filename, 'wb')) 
-
+# # # save the model to disk
+# filename = 'backend/app/controllers/predictionModel/ModelTrained/DecisionTreeRegressor.sav'
+# pickle.dump(model_DTR, open(filename, 'wb') )

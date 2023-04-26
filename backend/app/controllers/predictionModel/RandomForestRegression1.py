@@ -1,3 +1,31 @@
+# MAE: 163.0967741935484
+# MSE: 41706.15919354839
+# RMSE: 204.2208588600792
+
+# MAE: 169.2024193548387
+# MSE: 42199.65830645161
+# RMSE: 205.4255541709736
+
+#MAE: 174.14677419354837
+# MSE: 44519.75580645162
+# RMSE: 210.99705165345705
+
+# MAE: 160.6596774193548
+# MSE: 40455.38193548386
+# RMSE: 201.1352329540597
+
+# MAE: 164.7403225806452
+# MSE: 40343.6970967742
+# RMSE: 200.85740488409732
+
+# MAE: 178.13709677419354
+# MSE: 48214.46274193547
+# RMSE: 219.57791952274135
+
+# MAE: 162.26935483870966
+# MSE: 39972.39983870968
+# RMSE: 199.93098769002688
+
 import numpy as np
 import pandas as pd
 
@@ -95,7 +123,6 @@ sys.stdout.flush()
 # model_RFR = RandomForestRegressor(n_estimators=10)
 # model_RFR.fit(X_train, y_train)
 # Y_pred2 = model_RFR.predict(X_test)
-# print(model_RFR.predict([[1,0,0, 21.3, 26.45, 75.58,2]])) 
 # print('MAE:', metrics.mean_absolute_error(y_test, Y_pred2))
 # print('MSE:', metrics.mean_squared_error(y_test, Y_pred2))
 # print('RMSE:', np.sqrt(metrics.mean_squared_error(y_test, Y_pred2)))

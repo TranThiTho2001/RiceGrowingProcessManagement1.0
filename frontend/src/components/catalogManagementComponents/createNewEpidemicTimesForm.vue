@@ -17,15 +17,15 @@
                <div class="col-sm-6 mt-2">
                     <div class="form-group">
                          <label for="ricecropid" class="mt-2">Mã mẫu ruộng <span style="color:red">*</span></label>
-                         <Field name="ricecropid" type="name" class="form-control"
-                              v-model="ricecropchosen.RiceCropInformation_id" :disabled="true" />
+                         <Field name="ricecropid" type="name" class="form-control-none-bg form-control"
+                              v-model="ricecropchosen.RiceCropInformation_id" disabled />
                          <ErrorMessage name="ricecropid" class="error-feedback" />
                     </div>
 
                     <div class="form-group ">
                          <label for="fertilizer" class="mt-3">Tên bệnh dịch<span style="color:red">*</span></label>
                          <Field name="fertilizer" v-model="newepidemictimes.Epidemic_name">
-                              <select class="form-control" v-model="newepidemictimes.Epidemic_name" name="classtify" style="background:  #F0F2F7;box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); height: 35px;"  for="classtify">
+                              <select class="selectBox form-control" v-model="newepidemictimes.Epidemic_name" name="classtify"  for="classtify">
                                    <option v-for="(epidemic, i) in epidemicList" :key="i">{{ epidemic.Epidemic_name
                                    }}
                                    </option>
@@ -41,8 +41,9 @@
                               placeholder="Ngày bắt đầu">
                               <datepicker :enable-time-picker="false" :value="newepidemictimes.EpidemicTimes_startDate"
                                    :hide-input-icon="true" v-model="newepidemictimes.EpidemicTimes_startDate"
-                                   @closed="getWeather" placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false">
+                                   @closed="getWeather"  format="dd-MM-yyyy" :clearable="false">
                               </datepicker>
+                              <label v-if="newepidemictimes.EpidemicTimes_startDate == null"><i style="color: #959595; position: absolute;z-index: 1; left: 5%; margin-top:8px;" class="far fa-calendar-alt" ></i></label>
                          </Field>
                          <ErrorMessage name="start" class="error-feedback" />
                     </div>
@@ -60,7 +61,7 @@
                          <label for="developmentid" class="mt-3">Giai đoạn phát triển<span
                                    style="color:red">*</span></label>
                          <Field name="developmentid" class="form-control" v-model="newepidemictimes.DevelopmentStage_name">
-                              <select class="form-control" v-model="newepidemictimes.DevelopmentStage_name" style="background: #FAFAFC;box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);height: 35px;" name="developmentid" for="developmentid">
+                              <select class="selectBox form-control" v-model="newepidemictimes.DevelopmentStage_name" name="developmentid" for="developmentid">
                                    <option v-for="(developmentStage, i) in development" :key="i">
                                         {{ developmentStage.DevelopmentStage_name }}
                                    </option>
@@ -82,9 +83,10 @@
                               placeholder="Ngày sinh">
                               <datepicker :enable-time-picker="false" :value="newepidemictimes.EpidemicTimes_endDate"
                                    :hide-input-icon="true" v-model="newepidemictimes.EpidemicTimes_endDate"
-                                   @closed="getWeather" placeholder="DD-MM-YYYY" format="dd-MM-yyyy" v-bind:on-closed="false"
+                                   @closed="getWeather"  format="dd-MM-yyyy" v-bind:on-closed="false"
                                    :clearable="false">
                               </datepicker>
+                              <label v-if="newepidemictimes.EpidemicTimes_endDate == null"><i style="color: #959595; position: absolute;z-index: 1; left: 5%; margin-top:8px;" class="far fa-calendar-alt" ></i></label>
                          </Field>
                     </div>
                </div>
@@ -323,6 +325,7 @@ export default {
 <style>
 @import url(../../assets/epidemicTimesStyle.css);
 
+@import url(../../assets/mainStyle.css);
 .dp__theme_light {
      --dp-background-color: #F0F2F7;
      --dp-border-radius: 10px;

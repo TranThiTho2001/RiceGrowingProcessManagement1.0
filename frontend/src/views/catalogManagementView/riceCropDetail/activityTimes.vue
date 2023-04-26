@@ -23,14 +23,27 @@
                          </div>
                     </div>
 
-                    <div class="row" style="margin-top: 130px; margin-left:20px; margin-right:0px">
+                    <div class="row row-inputSearch">
+                         <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
+                              @click="retrieveOtherActivities(), isOpenInput1 = true"
+                              @keyup.enter="searchName(nameToSearch), away()"
+                              @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                         <button class="btnSearch1" @click="searchName(nameToSearch), away()">
+                              <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                         </button>
 
-                         <button class="btn btnCome-back" @click="goToRiceCrop()">Trở về</button>
-                         <button class="btn btnCreate"
-                              @click="isOpenCreateActivitiesDetail = !isOpenCreateActivitiesDetail, active = true">Thêm</button>
+                         <div class="suggestion" :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                              <p class="item" v-for="activity in filteredList()" :key="activity.OtherActivities_name"
+                                   @click="searchName(activity.OtherActivities_name), away()">
+                                   {{ activity.OtherActivities_name }}</p>
+                         </div>
+
+                         <button class="btn btnCreate" style="right:3.7%"
+                              @click="isOpenCreateActivitiesDetail = !isOpenCreateActivitiesDetail, active = true"> <i
+                                   class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm</button>
                     </div>
                     <div class="row mt-4 row-detail" style=" margin-left:20px;margin-right: 10px ">
-                         <div class="detail-Component text-center" v-for="(activity, i) in activitiesDetailList" :key="i">
+                         <div class="detail-Component text-left" v-for="(activity, i) in activitiesDetailList" :key="i">
                               <div class="btnMoreInfor"> <button type="button" class="btn btn-sm" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v"></i>
@@ -101,6 +114,7 @@
                     @updateActivitiesDetail-submit="updateActivitiesDetail" :message1="message1" :message2="message2" />
           </div>
      </div>
+     <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click.passive="away()"></div>
 </template>
 
 <script >
@@ -155,6 +169,10 @@ export default {
                isOpenUpdateActivitiesDetail: false,
                isOpenCreateActivitiesDetail: false,
                activitiesDetailChosen: {},
+               isOpenSearch: {
+                    open: false,
+                    close: true,
+               },
           }
      },
 
@@ -177,11 +195,11 @@ export default {
                "initEmployeeState"
           ]),
 
-          away() {
-               this.isOpenSearch.open = false;
-               this.isOpenSearch.close = true;
+          filteredList() {
+               return this.otherActivitiesList.filter(activity => {
+                    return activity.OtherActivities_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
+               })
           },
-
           async loadData() {
                this.loading = true;
                if (this.loading) {
@@ -352,7 +370,7 @@ export default {
                     console.log(err)
                }
                else {
-                    this.cloneActivityDetailList = respone.data;
+                    this.otherActivitiesList = respone.data;
                }
           },
 
@@ -364,7 +382,6 @@ export default {
                     console.log(err)
                }
                else {
-
                     this.newRiceCrop.RiceCropInformation_id = respone.data.RiceCropInformation_id;
                     this.newRiceCrop.RiceCropInformation_name = respone.data.RiceCropInformation_name;
                     this.newRiceCrop.Seed_id = respone.data.Seed_id;
@@ -383,6 +400,23 @@ export default {
           },
 
 
+          async searchName(data) {
+               this.nameToSearch = data;
+               if (this.nameToSearch != "") {
+                    const [err, respone] = await this.handle(
+                         ActivityDetailsService.getByName(this.nameToSearch, this.newRiceCrop.RiceCropInformation_id)
+                    );
+                    if (err) {
+                         console.log(err)
+                    }
+                    else {
+                         this.activitiesDetailList = respone.data;
+                    }
+               }
+               else {
+                    this.retrieveActivitiesDetail()
+               }
+          },
 
           goToRiceCrop() {
                this.$router.push({ name: 'RiceCropDetail', params: { id: this.newRiceCrop.RiceCropInformation_id } });
@@ -391,6 +425,13 @@ export default {
           formatDate(data) {
                if (data == null || data == "Invalid da") return "";
                return (moment(String(data)).format("DD-MM-YYYY")).slice(0, 10);
+          },
+
+          away() {
+               this.isOpenSearch.open = false;
+               this.isOpenSearch.close = true;
+               this.isOpenInput1 = false;
+               this.isOpenInput2 = false;
           },
      },
 

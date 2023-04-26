@@ -1,5 +1,4 @@
-.riceCropDetail .createSprayingTimesForm,
-.riceCropDetail .updateArableLandForm {
+.riceCropDetail .createSprayingTimesForm {
     margin:auto ;
     padding: 20px;
     background: #FAFAFC;
@@ -8,7 +7,20 @@
     border-radius: 5px;
     width: 80%;
     position: relative;
-    top:60px;
+    top:40px;
+    transition: all 5s ease-in-out;
+}
+
+.riceCropDetail .updateSprayingTimesForm {
+    margin:auto ;
+    padding: 20px;
+    background: #FAFAFC;
+    box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(37.5px);
+    border-radius: 5px;
+    width: 80%;
+    position: relative;
+    top:100px;
     transition: all 5s ease-in-out;
 }
 
@@ -96,29 +108,13 @@
     font-size: 18px;
 }
 
-.content .form-group .selectBox {
-    width: 100%;
-    height: 38px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-}
+
 
 .content .form-group input {
     float: left;
 }
 
-.content .form-group .form-control {
-    background-color: #FAFAFC;
-    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-    font-size: 17px;
-    border-radius: 14px;
-    color: #2F3033;
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 500;
-    height: 35px;
-    vertical-align: middle;
-}
+
 
 .functionName {
     font-family: 'Roboto';

@@ -23,14 +23,29 @@
                          </div>
                     </div>
 
-                    <div class="row" style="margin-top: 130px; margin-left:20px; margin-right:0px">
+                    <div class="row row-inputSearch" >
 
-                         <button class="btn btnCome-back" @click="goToRiceCrop()">Trở về</button>
-                         <button class="btn btnCreate"
-                              @click="isOpenCreateFertilizerTimesForm = !isOpenCreateFertilizerTimesForm, active = true">Thêm</button>
+                         <!-- <button class="btn btnCome-back" @click="goToRiceCrop()">Trở về</button> -->
+                         <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
+                              @click="retrieveFertilizerList(), isOpenInput1 = true"
+                              @keyup.enter="searchName(nameToSearch), away()"
+                              @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                         <button class="btnSearch1" @click="searchName(nameToSearch), away()">
+                              <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                         </button>
+
+                         <div class="suggestion" :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                              <p class="item" v-for="fertilizer in filteredList()" :key="fertilizer.Fertilizer_name"
+                                   @click="searchName(fertilizer.Fertilizer_name), away()">
+                                   {{ fertilizer.Fertilizer_name }}</p>
+                         </div>
+
+                         <button class="btn btnCreate" style="right:3.7%"
+                              @click="isOpenCreateFertilizerTimesForm = !isOpenCreateFertilizerTimesForm, active = true"> 
+                              <i class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm</button>
                     </div>
-                    <div class="row mt-4 function-row" style=" margin-left:20px;margin-right: 10px ">
-                         <div class="detail-Component text-center" v-for="(fertilizertimes, i) in fertilizerTimesList"
+                    <div class="row mt-3 pt-1 function-row" style=" margin-left:20px;margin-right: 10px ">
+                         <div class="detail-Component text-left" v-for="(fertilizertimes, i) in fertilizerTimesList"
                               :key="i">
                               <div class="btnMoreInfor"> <button type="button" class="btn btn-sm" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
@@ -43,7 +58,7 @@
                                              sửa
                                         </a>
                                         <a class="dropdown-item" href="#"
-                                             @click="setFertilizerChosen(fertilizertimes), setDelete('FertilizerTimes'), isOpenConfirm = !isOpenConfirm, active = true">
+                                             @click="setFertilizerChosen(fertilizertimes),  isOpenConfirm = !isOpenConfirm, active = true">
                                              <span class="fas fa-trash-alt actionIcon"></span>
                                              Xóa
                                         </a>
@@ -71,7 +86,7 @@
                          <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
                     </p>
                     <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                         @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, choosenDelete()">Xóa</button>
+                         @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteFertilizerTimes()">Xóa</button>
                     <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
                          @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
                </div>
@@ -104,6 +119,7 @@
                     :message1="message1" :message2="message2" />
           </div>
      </div>
+     <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click.passive="away()"></div>
 </template>
 
 <script >
@@ -113,9 +129,9 @@ import 'vue3-carousel/dist/carousel.css'
 import { mapGetters, mapMutations } from "vuex";
 
 import RiceCropService from '@/services/riceCropInformation.service';
+import FertilizerService from '@/services/fertilizer.service';
 import FertilizerTimesService from '@/services/fertilizerTimes.service';
 import developmentStageService from '@/services/developmentStage.service';
-import fertilizerService from '@/services/fertilizer.service';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
 import Catalog from '../../../components/catalogManagementComponents/catalog.vue';
@@ -185,9 +201,9 @@ export default {
                "initEmployeeState"
           ]),
 
-          filteredFerilizerTimesList() {
-               return this.cloneFertilizerTimesList.filter(fertilizerTimes => {
-                    return fertilizerTimes.Fertilizer_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
+          filteredList() {
+               return this.fertilizerList.filter(fertilizer => {
+                    return fertilizer.Fertilizer_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
                })
           },
 
@@ -235,6 +251,7 @@ export default {
                     this.newRiceCrop = respone.data;
                }
           },
+
 
           async setFertilizerChosen(data) {
                this.fertilizerTimesChosen = data;
@@ -411,13 +428,43 @@ export default {
 
           async retrieveFertilizerList() {
                const [err, respone] = await this.handle(
-                    fertilizerService.getAll()
+                    FertilizerService.getAll()
                );
                if (err) {
                     console.log(err)
                }
                else {
                     this.fertilizerList = respone.data;
+               }
+          },
+
+          async searchName(data) {
+               this.nameToSearch = data;
+               this.fertilizerTimesList = [];
+               if (this.nameToSearch != "") {
+                    this.cloneFertilizerTimesList.forEach(element => {
+                         if (this.nameToSearch == element.Fertilizer_name) {
+                              this.fertilizerTimesList.push(element)
+                         }
+                    });
+                    if (this.fertilizerTimesList.length == 0) {
+                         const [err, respone] = await this.handle(
+                              FertilizerTimesService.getByName(this.nameToSearch, this.newRiceCrop.RiceCropInformation_id)
+                         );
+                         if (err) {
+                              console.log(err)
+                         }
+                         else {
+                              if (respone.data != "Không tìm thấy lần bón phân.") {
+                                   this.fertilizerTimesList = respone.data;
+                              }
+                              else this.fertilizerTimesList = [];
+                         }
+                    }
+
+               }
+               else {
+                    this.retrieveFertilizerTimesList();
                }
           },
 
@@ -428,6 +475,13 @@ export default {
 
           goToRiceCrop() {
                this.$router.push({ name: 'RiceCropDetail', params: { id: this.newRiceCrop.RiceCropInformation_id } });
+          },
+
+          away() {
+               this.isOpenSearch.open = false;
+               this.isOpenSearch.close = true;
+               this.isOpenInput1 = false;
+               this.isOpenInput2 = false;
           },
      },
 

@@ -17,16 +17,16 @@
                <div class="col-sm-6">
                     <div class="form-group">
                          <label for="ricecropid" class="mt-2">Mã mẫu ruộng <span style="color:red">*</span></label>
-                         <Field name="ricecropid" type="name" class="form-control"
-                              v-model="ricecropchosen.RiceCropInformation_id" />
+                         <Field name="ricecropid" type="name" class=" form-control-none-bg form-control"
+                              v-model="ricecropchosen.RiceCropInformation_id" disabled />
                          <ErrorMessage name="ricecropid" class="error-feedback" />
                     </div>
 
 
                     <div class="form-group">
                          <label for="employeeid" class="mt-3">Nhân viên thực hiện<span style="color:red">*</span></label>
-                         <Field name="employeeid" class="form-control" v-model="currentuser.Employee_id"
-                              placeholder="Nhập mã nhân viên...." />
+                         <Field name="employeeid" class="form-control-none-bg form-control" v-model="currentuser.Employee_id"
+                              placeholder="Nhập mã nhân viên...." disabled />
                          <ErrorMessage name="employeeid" class="error-feedback" />
                     </div>
 
@@ -38,6 +38,7 @@
                                    :hide-input-icon="true" v-model="newfertilizertimes.FertilizerTimes_startDate"
                                    @closed="getWeather" placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false">
                               </datepicker>
+                              <label v-if="newfertilizertimes.FertilizerTimes_startDate == null"><i style="color: #959595; position: absolute;z-index: 1; left: 5%; margin-top:8px;" class="far fa-calendar-alt" ></i></label>
                          </Field>
                          <ErrorMessage name="start" class="error-feedback" />
                     </div>
@@ -45,7 +46,7 @@
                     <div class="form-group ">
                          <label for="fertilizer" class="mt-3 pt-1">Loại phân<span style="color:red">*</span></label>
                          <Field name="fertilizer" v-model="newfertilizertimes.Fertilizer_name">
-                              <select class="form-control" v-model="newfertilizertimes.Fertilizer_name" name="classtify" disabled
+                              <select class="selectBox form-control" v-model="newfertilizertimes.Fertilizer_name" name="classtify" disabled
                                    for="classtify">
                                    <option v-for="(fertilizer, i) in fertilizerList" :key="i">{{ fertilizer.Fertilizer_name
                                    }}
@@ -60,15 +61,15 @@
                <div class="col-sm-6">
                     <div class="form-group ">
                          <label for="times" class="mt-1 pt-1">Lần<span style="color:red">*</span></label>
-                         <Field name="times" class="form-control" v-model="newfertilizertimes.FertilizerTimes_times"
-                              placeholder="Nhập lần thực hiện..." />
+                         <Field name="times" class="form-control-none-bg form-control" v-model="newfertilizertimes.FertilizerTimes_times"
+                              placeholder="Nhập lần thực hiện..." disabled />
                          <ErrorMessage name="times" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
                          <label for="developmentid" class="mt-3">Giai đoạn phát triển<span style="color:red">*</span></label>
                          <Field name="developmentid" class="form-control" v-model="newfertilizertimes.DevelopmentStage_name">
-                              <select class="form-control" v-model="newfertilizertimes.DevelopmentStage_name" 
+                              <select class="selectBox form-control" v-model="newfertilizertimes.DevelopmentStage_name" 
                                    name="developmentid" for="developmentid">
                                    <option v-for="(developmentStage, i) in developmentStageList" :key="i">
                                         {{ developmentStage.DevelopmentStage_name }}
@@ -78,18 +79,19 @@
                          <ErrorMessage name="developmentid" class="error-feedback" />
                     </div>
                     <div class="form-group ">
-                         <label for="end" class="">Ngày kết thúc</label>
+                         <label for="end" class="mt-1">Ngày kết thúc</label>
                          <Field name="harvendestDate" class="form-control"
                               v-model="newfertilizertimes.FertilizerTimes_endDate" placeholder="Ngày sinh">
                               <datepicker :enable-time-picker="false" :value="newfertilizertimes.FertilizerTimes_endDate"
                                    :hide-input-icon="true" v-model="newfertilizertimes.FertilizerTimes_endDate"
                                    @closed="getWeather()" placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false">
                               </datepicker>
+                              <label v-if="newfertilizertimes.FertilizerTimes_endDate == null"><i style="color: #959595; position: absolute;z-index: 1; left: 5%; margin-top:8px;" class="far fa-calendar-alt" ></i></label>
                          </Field>
                          <ErrorMessage name="end" class="error-feedback" />
                     </div>
                     <div class="form-group">
-                         <label for="amount" class="mt-4">Số lượng(kg/ha)<span style="color:red">*</span></label>
+                         <label for="amount" class="mt-3 pt-1">Số lượng(kg/ha)<span style="color:red">*</span></label>
                          <Field name="amount" class="form-control" v-model="newfertilizertimes.FertilizerTimes_amount"
                               placeholder="Nhập số lượng phân đã bón..." />
                          <ErrorMessage name="amount" class="error-feedback" />
@@ -367,7 +369,7 @@ export default {
  
 <style>
 @import url(../../assets/fertilizerTimeStyle.css);
-
+@import url(../../assets/mainStyle.css);
 .dp__theme_light {
      --dp-background-color: #FAFAFC;
      --dp-border-radius: 10px;

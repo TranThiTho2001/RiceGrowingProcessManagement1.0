@@ -1,6 +1,6 @@
 <template>
      <Form @submit="newsprayingtimes.close = true, $emit('updateSprayingTimes-submit', newsprayingtimes)"
-          :validation-schema="schema" class="form container-fluid createSprayingTimesForm">
+          :validation-schema="schema" class="form container-fluid updateSprayingTimesForm">
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times-circle"
@@ -17,7 +17,7 @@
                <div class="col-sm-6 mt-2">
                     <div class="form-group">
                          <label for="ricecropid" class="mt-2">Mã mẫu ruộng <span style="color:red">*</span></label>
-                         <Field name="ricecropid" type="name" class="form-control" :disabled="true"
+                         <Field name="ricecropid" type="name" class="form-control-none-bg form-control" disabled
                               v-model="ricecropchosen.RiceCropInformation_id" />
                          <ErrorMessage name="ricecropid" class="error-feedback" />
                     </div>
@@ -25,15 +25,15 @@
 
                     <div class="form-group">
                          <label for="employeeid" class="mt-3">Nhân viên thực hiện<span style="color:red">*</span></label>
-                         <Field name="employeeid" class="form-control" v-model="currentuser.Employee_id" :disabled="true"
-                              placeholder="Nhập mã nhân viên...." />
+                         <Field name="employeeid" class="form-control-none-bg form-control" v-model="currentuser.Employee_id"
+                              placeholder="Nhập mã nhân viên...." disabled/>
                          <ErrorMessage name="employeeid" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
                          <label for="fertilizer" class="mt-3">Tên thuốc<span style="color:red">*</span></label>
                          <Field name="fertilizer" v-model="newsprayingtimes.Pesticide_name">
-                              <select class="form-control" v-model="newsprayingtimes.Pesticide_name" name="classtify"
+                              <select class="selectBox form-control" v-model="newsprayingtimes.Pesticide_name" name="classtify"
                                    style="height: 35px !important;" for="classtify">
                                    <option v-for="(pesticide, i) in pesticideList" :key="i">{{ pesticide.Pesticide_name
                                    }}
@@ -50,8 +50,9 @@
                               placeholder="Ngày bắt đầu">
                               <datepicker :enable-time-picker="false" :value="newsprayingtimes.SprayingTimes_startDate"
                                    :hide-input-icon="true" v-model="newsprayingtimes.SprayingTimes_startDate"
-                                   @closed="getWeather()" placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false">
+                                    format="dd-MM-yyyy" :clearable="false">
                               </datepicker>
+                              <label v-if="newsprayingtimes.SprayingTimes_startDate == null"><i style="color: #959595; position: absolute;z-index: 1; left: 5%; margin-top:8px;" class="far fa-calendar-alt" ></i></label>
                          </Field>
                          <ErrorMessage name="start" class="error-feedback" />
                     </div>
@@ -60,15 +61,15 @@
                <div class="col-sm-6">
                     <div class="form-group ">
                          <label for="times" class="mt-3">Lần<span style="color:red">*</span></label>
-                         <Field name="times" class="form-control" v-model="newsprayingtimes.SprayingTimes_times"
-                              placeholder="Nhập lần thực hiện..." :disabled="true" />
+                         <Field name="times" class="form-control-none-bg form-control" v-model="newsprayingtimes.SprayingTimes_times"
+                              placeholder="Nhập lần thực hiện..."  />
                          <ErrorMessage name="times" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
                          <label for="developmentid" class="mt-3">Giai đoạn phát triển<span style="color:red">*</span></label>
                          <Field name="developmentid" class="form-control" v-model="newsprayingtimes.DevelopmentStage_name">
-                              <select class="form-control" v-model="newsprayingtimes.DevelopmentStage_name"
+                              <select class="selectBox form-control" v-model="newsprayingtimes.DevelopmentStage_name"
                                    style="height: 35px !important;" name="developmentid" for="developmentid">
                                    <option v-for="(developmentStage, i) in development" :key="i">
                                         {{ developmentStage.DevelopmentStage_name }}
@@ -91,8 +92,9 @@
                               placeholder="Ngày sinh">
                               <datepicker :enable-time-picker="false" :value="newsprayingtimes.SprayingTimes_endDate"
                                    :hide-input-icon="true" v-model="newsprayingtimes.SprayingTimes_endDate"
-                                   @closed="getWeather()" placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false">
+                                    format="dd-MM-yyyy" :clearable="false">
                               </datepicker>
+                              <label v-if="newsprayingtimes.SprayingTimes_endDate == null"><i style="color: #959595; position: absolute;z-index: 1; left: 5%; margin-top:8px;" class="far fa-calendar-alt" ></i></label>
                          </Field>
                          <ErrorMessage name="end" class="error-feedback" />
                     </div>
@@ -152,7 +154,7 @@
           </div>
           <div class="row mb-4">
                <div class="col-sm-12 text-center">
-                    <button class="btn btn-outline-secondary btnLuu">Cập Nhật</button>
+                    <button class="btn btn-outline-secondary btnLuu btnUpdate-">Cập Nhật</button>
                </div>
           </div>
 
@@ -371,7 +373,7 @@ export default {
  
 <style>
 @import url(../../assets/sprayingTimesStyle.css);
-
+@import url(../../assets/mainStyle.css);
 .dp__theme_light {
      --dp-background-color: #FAFAFC;
      --dp-border-radius: 10px;

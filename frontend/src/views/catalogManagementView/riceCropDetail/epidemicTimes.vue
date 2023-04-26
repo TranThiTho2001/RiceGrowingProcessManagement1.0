@@ -23,14 +23,27 @@
                          </div>
                     </div>
 
-                    <div class="row" style="margin-top: 130px; margin-left:20px; margin-right:0px">
+                    <div class="row row-inputSearch">
 
-                         <button class="btn btnCome-back" @click="goToRiceCrop()">Trở về</button>
-                         <button class="btn btnCreate"
-                              @click="isOpenCreateEpidemicTimesForm = !isOpenCreateEpidemicTimesForm, active = true">Thêm</button>
+\                         <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
+                              @click="retrieveEpidemicList(), isOpenInput1 = true"
+                              @keyup.enter="searchName(nameToSearch), away()"
+                              @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                         <button class="btnSearch1" @click="searchName(nameToSearch), away()">
+                              <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                         </button>
+
+                         <div class="suggestion" :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                              <p class="item" v-for="epidemic in filteredList()" :key="epidemic.Epidemic_name"
+                                   @click="searchName(epidemic.Epidemic_name), away()">
+                                   {{ epidemic.Epidemic_name }}</p>
+                         </div>
+                         <button class="btn btnCreate" style="right:3.7%"
+                              @click="isOpenCreateEpidemicTimesForm = !isOpenCreateEpidemicTimesForm, active = true">
+                              <i class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm</button>
                     </div>
                     <div class="row mt-4 row-detail" style=" margin-left:20px;margin-right: 10px ">
-                         <div class="detail-Component text-center" v-for="(epidemictimes, i) in epidemicTimesList" :key="i">
+                         <div class="detail-Component text-left" v-for="(epidemictimes, i) in epidemicTimesList" :key="i">
                               <div class="btnMoreInfor"> <button type="button" class="btn btn-sm" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v"></i>
@@ -102,6 +115,7 @@
                     :message2="message2" />
           </div>
      </div>
+     <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click.passive="away()"></div>
 </template>
 
 <script >
@@ -156,6 +170,10 @@ export default {
                     isOpenMenuIcon: true,
                     isCloseMenu: false,
                },
+               isOpenSearch: {
+                    open: false,
+                    close: true,
+               },
                weatherInfor: {},
                loading: true,
                developmentStageList: [],
@@ -182,8 +200,8 @@ export default {
                "initEmployeeState"
           ]),
 
-          filteredEpidemicTimesList() {
-               return this.cloneEpidemicTimesList.filter(epidemic => {
+          filteredList() {
+               return this.epidemicList.filter(epidemic => {
                     return epidemic.Epidemic_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
                })
           },
@@ -503,6 +521,8 @@ export default {
                     // this.getWeather();
                }
           },
+
+
 
           goToRiceCrop() {
                this.$router.push({ name: 'RiceCropDetail', params: { id: this.newRiceCrop.RiceCropInformation_id } });

@@ -23,14 +23,27 @@
                          </div>
                     </div>
 
-                    <div class="row" style="margin-top: 130px; margin-left:20px; margin-right:0px">
+                    <div class="row row-inputSearch">
+                         <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
+                              @click="retrievePesticideList(), isOpenInput1 = true"
+                              @keyup.enter="searchName(nameToSearch), away()"
+                              @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />
+                         <button class="btnSearch1" @click="searchName(nameToSearch), away()">
+                              <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
+                         </button>
 
-                         <button class="btn btnCome-back" @click="goToRiceCrop()">Trở về</button>
+                         <div class="suggestion" :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
+                              <p class="item" v-for="pesticide in filtered()" :key="pesticide.Pesticide_name"
+                                   @click="searchName(pesticide.Pesticide_name), away()">
+                                   {{ pesticide.Pesticide_name }}</p>
+                         </div>
+                         
                          <button class="btn btnCreate"
-                              @click="isOpenCreateSprayingTimesForm = !isOpenCreateSprayingTimesForm, active = true">Thêm</button>
+                              @click="isOpenCreateSprayingTimesForm = !isOpenCreateSprayingTimesForm, active = true">
+                              <i class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm</button>
                     </div>
                     <div class="row mt-4 row-detail" style=" margin-left:20px;margin-right: 10px ">
-                         <div class="detail-Component text-center" v-for="(sprayingtimes, i) in SprayingTimesList" :key="i">
+                         <div class="detail-Component text-left" v-for="(sprayingtimes, i) in SprayingTimesList" :key="i">
                               <div class="btnMoreInfor"> <button type="button" class="btn btn-sm" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v"></i>
@@ -50,8 +63,8 @@
                                    </div>
                               </div>
                               <h5 class="function-name text-center">Lần {{ sprayingtimes.SprayingTimes_times }}</h5>
-                              <span class="title-detail">Thuốc: </span>
-                              <span class="value-name-detail">{{ sprayingtimes.Pesticide_name }}</span><br>
+                              <span class="title-detail">Thuốc: 
+                              <span class="value-name-detail">{{ sprayingtimes.Pesticide_name }}</span></span><br>
                               <span class="title-detail">Liều lượng: </span>
                               <span class="value-detail">{{ sprayingtimes.SprayingTimes_amount }} (ml/ha)</span><br>
                               <span class="title-detail">Từ ngày: </span>
@@ -105,6 +118,7 @@
                     :message2="message2" />
           </div>
      </div>
+     <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click.passive="away()"></div>
 </template>
 
 <script >
@@ -189,9 +203,9 @@ export default {
                "initEmployeeState"
           ]),
 
-          filteredSprayingTimesList() {
-               return this.cloneSprayingTimesList.filter(sprayingTimes => {
-                    return sprayingTimes.Pesticide_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
+          filtered() {
+               return this.pesticideList.filter(pesticide => {
+                    return pesticide.Pesticide_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
                })
           },
 
@@ -446,6 +460,42 @@ export default {
                else {
                     this.pesticideList = respone.data;
                }
+          },
+
+          async searchName(data) {
+               this.nameToSearch = data;
+               if (this.nameToSearch != "") {
+                    this.SprayingTimesList = [];
+                    this.cloneSprayingTimesList.forEach(element => {
+                         if (element.Pesticide_name == data) {
+                              this.SprayingTimesList.push(element);
+                         }
+                    });
+                    if (this.SprayingTimesList.length == 0) {
+                         const [err, respone] = await this.handle(
+                              SprayingTimesService.getByName(this.nameToSearch, this.newRiceCrop.RiceCropInformation_id)
+                         );
+                         if (err) {
+                              console.log(err)
+                         }
+                         else {
+                              if (respone.data != "Không tìm thấy lần phun thuốc mới.") {
+                                   this.SprayingTimesList = respone.data;
+                              }
+                              else this.SprayingTimesList = [];
+                         }
+                    }
+               }
+               else{
+                    this.retrieveSprayingTimesList();
+               }
+          },
+
+          away() {
+               this.isOpenSearch.open = false;
+               this.isOpenSearch.close = true;
+               this.isOpenInput1 = false;
+               this.isOpenInput2 = false;
           },
 
           formatDate(data) {

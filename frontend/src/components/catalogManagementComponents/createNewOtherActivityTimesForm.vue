@@ -15,14 +15,14 @@
                <div class="col-sm-6 mt-2">
                     <div class="form-group">
                          <label for="ricecropid" class="mt-2 lable">Mã mùa vụ <span style="color:red">*</span></label>
-                         <Field name="ricecropid" type="name" class="form-control"
-                              v-model="ricecropchosen.RiceCropInformation_id" :disabled="true" />
+                         <Field name="ricecropid" type="name" class="form-control-none-bg form-control"
+                              v-model="ricecropchosen.RiceCropInformation_id" disabled/>
                          <ErrorMessage name="ricecropid" class="error-feedback" />
                     </div>
                     <div class="form-group ">
                          <label for="activity" class="mt-3">Tên hoạt động<span style="color:red">*</span></label>
                          <Field name="activity" v-model="newactivitiesDetail.OtherActivities_name">
-                              <select class="form-control" v-model="newactivitiesDetail.OtherActivities_name" style="background:  #F0F2F7;box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"
+                              <select class="selectBox form-control" v-model="newactivitiesDetail.OtherActivities_name" style="background:  #F0F2F7;box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"
                                    @change="setOtherActivies()" name="classtify" for="classtify">
                                    <option v-for="(otheractivities, i) in otherActivitiesList" :key="i">{{
                                         otheractivities.OtherActivities_name
@@ -39,8 +39,9 @@
                               placeholder="Ngày bắt đầu">
                               <datepicker :enable-time-picker="false" :value="newactivitiesDetail.ActivityDetails_startDate"
                                    :hide-input-icon="true" v-model="newactivitiesDetail.ActivityDetails_startDate"
-                                    placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false">
+                                    format="dd-MM-yyyy" :clearable="false">
                               </datepicker>
+                              <label v-if="newactivitiesDetail.ActivityDetails_startDate == null"><i style="color: #959595; position: absolute;z-index: 1; left: 5%; margin-top:8px;" class="far fa-calendar-alt" ></i></label>
                          </Field>
                          <ErrorMessage name="start" class="error-feedback" />
                     </div>
@@ -48,8 +49,8 @@
                     <div class="form-group">
                          <label for="employeeid" class="mt-3 lable">Nhân viên thực hiện<span
                                    style="color:red">*</span></label>
-                         <Field name="employeeid" class="form-control" v-model="currentuser.Employee_id"
-                              placeholder="Nhập mã nhân viên...." :disabled="true" />
+                         <Field name="employeeid" class="form-control-none-bg form-control" v-model="currentuser.Employee_id"
+                              placeholder="Nhập mã nhân viên...." disabled />
                          <ErrorMessage name="employeeid" class="error-feedback" />
                     </div>
                </div>
@@ -59,7 +60,7 @@
                                    style="color:red">*</span></label>
                          <Field name="developmentid" class="form-control"
                               v-model="newactivitiesDetail.DevelopmentStage_name">
-                              <select class="form-control" v-model="newactivitiesDetail.DevelopmentStage_name" style="background:  #F0F2F7;box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"
+                              <select class="selectBox form-control" v-model="newactivitiesDetail.DevelopmentStage_name"
                                    name="developmentid" for="developmentid">
                                    <option v-for="(developmentStage, i) in development" :key="i">
                                         {{ developmentStage.DevelopmentStage_name }}
@@ -71,8 +72,8 @@
 
                     <div class="form-group ">
                          <label for="times" class="">Lần<span style="color:red">*</span></label>
-                         <Field name="times" class="form-control" v-model="newactivitiesDetail.ActivityDetails_times"
-                              placeholder="Nhập lần thực hiện..." :disabled="true" />
+                         <Field name="times" class="form-control-none-bg form-control" v-model="newactivitiesDetail.ActivityDetails_times"
+                              placeholder="Nhập lần thực hiện..."  />
                          <ErrorMessage name="times" class="error-feedback" />
                     </div>
 
@@ -82,8 +83,9 @@
                               v-model="newactivitiesDetail.ActivityDetails_endDate">
                               <datepicker :enable-time-picker="false" :value="newactivitiesDetail.ActivityDetails_endDate"
                                    :hide-input-icon="true" v-model="newactivitiesDetail.ActivityDetails_endDate"
-                                    placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false">
+                                     format="dd-MM-yyyy" :clearable="false">
                               </datepicker>
+                              <label v-if="newactivitiesDetail.ActivityDetails_endDate == null"><i style="color: #959595; position: absolute;z-index: 1; left: 5%; margin-top:8px;" class="far fa-calendar-alt" ></i></label>
                          </Field>
                          <ErrorMessage name="end" class="error-feedback" />
                     </div>
@@ -104,7 +106,7 @@
           </div>
           <div class="row mb-4">
                <div class="col-sm-12 text-center">
-                    <button class="btn btn-outline-secondary btnLuu">Lưu</button>
+                    <button class="btn btn-outline-secondary btnLuu btnSave">Lưu</button>
                </div>
           </div>
 
@@ -417,9 +419,10 @@ export default {
  
 <style>
 @import url(../../assets/activitiesDetailStyle.css);
+@import url(../../assets/mainStyle.css);
 
 .dp__theme_light {
-     --dp-background-color: #FAFAFC;
+     --dp-background-color: #F0F2F7;
      --dp-border-radius: 10px;
      --dp-text-color: #2F3033;
      --dp-hover-color: #f3f3f3;

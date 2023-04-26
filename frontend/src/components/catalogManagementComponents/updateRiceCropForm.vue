@@ -16,8 +16,8 @@
                <div class="col-sm-6 mt-2">
                     <div class="form-group">
                          <label for="id" class="mt-2">Mã mùa vụ <span style="color: red">*</span></label>
-                         <Field name="id" type="name" class="form-control" v-model="newricecrop.RiceCropInformation_id"
-                              placeholder="Nhập mã mùa vụ..." />
+                         <Field name="id" type="name" class="form-control-none-bg form-control" v-model="newricecrop.RiceCropInformation_id"
+                              placeholder="Nhập mã mùa vụ..." disabled/>
                          <ErrorMessage name="id" class="error-feedback" />
                     </div>
 
@@ -44,7 +44,7 @@
                     </div>
 
                     <div class="form-group">
-                         <label for="start" class="">Ngày gieo xạ </label>
+                         <label for="start" class="">Ngày gieo sạ </label>
                          <Field name="start" class="form-control" v-model="newricecrop.RiceCropInformation_sowingDate"
                               placeholder="">
                               <datepicker :enable-time-picker="false" :value="newricecrop.RiceCropInformation_sowingDate"
@@ -113,7 +113,7 @@
           </div>
           <div class="row mb-4">
                <div class="col-sm-12 text-center">
-                    <button class="btn btn-outline-secondary btnLuu">Lưu</button>
+                    <button class="btn btn-outline-secondary btnLuu btnUpdate-">Cập Nhật</button>
                </div>
           </div>
 

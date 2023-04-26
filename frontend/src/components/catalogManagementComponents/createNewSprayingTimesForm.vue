@@ -16,15 +16,15 @@
                <div class="col-sm-6">
                     <div class="form-group">
                          <label for="ricecropid" class="mt-1">Mã mẫu ruộng <span style="color:red">*</span></label>
-                         <Field name="ricecropid" type="name" class="form-control"
-                              v-model="ricecropchosen.RiceCropInformation_id" :disabled="true" />
+                         <Field name="ricecropid" type="name" class="form-control-none-bg form-control"
+                              v-model="ricecropchosen.RiceCropInformation_id" disabled />
                          <ErrorMessage name="ricecropid" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
                          <label for="employeeid" class="mt-3">Nhân viên thực hiện<span style="color:red">*</span></label>
-                         <Field name="employeeid" class="form-control" v-model="currentuser.Employee_id"
-                              placeholder="Nhập mã nhân viên...." :disabled="true" />
+                         <Field name="employeeid" class="form-control-none-bg form-control" v-model="currentuser.Employee_id"
+                              placeholder="Nhập mã nhân viên...." form-control-none-bg  />
                          <ErrorMessage name="employeeid" class="error-feedback" />
                     </div>
 
@@ -34,8 +34,9 @@
                               placeholder="Ngày bắt đầu">
                               <datepicker :enable-time-picker="false" :value="newsprayingtimes.SprayingTimes_startDate"
                                    :hide-input-icon="true" v-model="newsprayingtimes.SprayingTimes_startDate" @closed="getWeather()"
-                                   placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false">
+                                   format="dd-MM-yyyy" :clearable="false">
                               </datepicker>
+                              <label v-if="newsprayingtimes.SprayingTimes_startDate == null"><i style="color: #959595; position: absolute;z-index: 1; left: 5%; margin-top:8px;" class="far fa-calendar-alt" ></i></label>
                          </Field>
                          <ErrorMessage name="start" class="error-feedback" />
                     </div>
@@ -44,7 +45,7 @@
                <div class="col-sm-6">
                     <div class="form-group ">
                          <label for="times" class="mt-1">Lần<span style="color:red">*</span></label>
-                         <Field name="times" class="form-control" v-model="newsprayingtimes.SprayingTimes_times"
+                         <Field name="times" class="form-control-none-bg form-control" v-model="newsprayingtimes.SprayingTimes_times" 
                               placeholder="Nhập lần thực hiện..." />
                          <ErrorMessage name="times" class="error-feedback" />
                     </div>
@@ -52,7 +53,7 @@
                     <div class="form-group">
                          <label for="developmentid" class="mt-3">Giai đoạn phát triển<span style="color:red">*</span></label>
                          <Field name="developmentid" class="form-control" v-model="newsprayingtimes.DevelopmentStage_name">
-                              <select class="form-control" v-model="newsprayingtimes.DevelopmentStage_name" style="background:  #F0F2F7;box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"
+                              <select class="selectBox form-control" v-model="newsprayingtimes.DevelopmentStage_name" style="background:  #F0F2F7;box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"
                                    name="developmentid" for="developmentid">
                                    <option v-for="(developmentStage, i) in development" :key="i">
                                         {{ developmentStage.DevelopmentStage_name }}
@@ -63,13 +64,14 @@
                     </div>
 
                     <div class="form-group">
-                         <label for="end" class="">Ngày kết thúc</label>
+                         <label for="end" class="mt-1">Ngày kết thúc</label>
                          <Field name="harvendestDate" class="form-control" v-model="newsprayingtimes.SprayingTimes_endDate"
                               placeholder="Ngày sinh">
                               <datepicker :enable-time-picker="false" :value="newsprayingtimes.SprayingTimes_endDate"
                                    :hide-input-icon="true" v-model="newsprayingtimes.SprayingTimes_endDate" @closed="getWeather()"
-                                   placeholder="DD-MM-YYYY" format="dd-MM-yyyy" :clearable="false">
+                                    format="dd-MM-yyyy" :clearable="false">
                               </datepicker>
+                              <label v-if="newsprayingtimes.SprayingTimes_endDate == null"><i style="color: #959595; position: absolute;z-index: 1; left: 5%; margin-top:8px;" class="far fa-calendar-alt" ></i></label>
                          </Field>
                          <ErrorMessage name="end" class="error-feedback" />
                     </div>
@@ -127,7 +129,7 @@
           </div>
           <div class="row mb-4">
                <div class="col-sm-12 text-center">
-                    <button class="btn btn-outline-secondary btnLuu ">Lưu</button>
+                    <button class="btn btn-outline-secondary btnLuu buttonSave">Lưu</button>
                </div>
           </div>
 
