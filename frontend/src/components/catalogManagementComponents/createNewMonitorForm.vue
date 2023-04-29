@@ -19,7 +19,7 @@
                <button class=" btnSearch pt-2" @click="searchName">
                     <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                </button>
-               <div class="tableFixHead" style="height: 420px;" v-if="loaded">
+               <div class="tableFixHead tableEmployee" style="height: 550px!important; " v-if="loaded">
                     <table class="table  mt-3" aria-placeholder="my-table">
                          <thead>
                               <th class="text-center">STT</th>
@@ -37,7 +37,7 @@
                                    <td>{{ employee.Employee_major }}</td>
                                    <td>{{ employee.Role_name }}</td>
                                    <td class="text-center">
-                                        <button class="btnMonitor" v-if="!employee.Employee_monitor"
+                                        <button class="btnMonitor btnPermission" v-if="!employee.Employee_monitor"
                                              @click="CreateNewMonitor(employee)">
                                              Cấp quyền theo dõi
                                         </button>
@@ -188,9 +188,9 @@ export default {
      box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3);
      backdrop-filter: blur(37.5px);
      border-radius: 5px;
-     width: 82.5%;
+     width: 90%;
      position: relative;
-     top:100px;
+     top:80px;
      transition: all 5s ease-in-out;
 }
 

@@ -23,20 +23,19 @@
                          </div>
                     </div>
 
-                    <div class="row" style="margin-top: 130px; margin-left:20px; margin-right:0px">
-
-                         <button class="btn btnCome-back" @click="goToRiceCrop()">Trở về</button>
+                    <div class="row" style="margin: 130px 0px 60px 20px;">
                          <button class="btn btnCreate"
-                              @click="isOpenCreateMonitorForm = !isOpenCreateMonitorForm, active = true">Thêm</button>
+                              @click="isOpenCreateMonitorForm = !isOpenCreateMonitorForm, active = true">
+                              <i class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm</button>
                     </div>
                     <div class="mt-4 function-row row" style=" margin-left:20px;margin-right: 10px ">
                          <div class="account-Component text-center" v-for="(monitor, i) in monitorList" :key="i">
-                              <div class="btnMoreInfor-Employee"> <button type="button" class="btn-sm btnmore"
+                              <div class="btnMoreInfor-Employee btnOption"> <button type="button" class="btn-sm btnmore"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v"></i>
                                    </button>
                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#"
+                                        <a class="dropdown-item btnDelete_" href="#"
                                              @click="setMonitorChosen(monitor), isOpenConfirm = !isOpenConfirm, active = true">
                                              <span class="fas fa-trash-alt actionIcon"></span>
                                              Xóa
@@ -47,8 +46,8 @@
                               <div class="fas fa-user-circle iconAccountExpert" v-if="monitor.Role_id == '02'"></div>
                               <div class="fas fa-user-circle iconAccountEmployee" v-if="monitor.Role_id == '03'"></div>
                               <h5 class="nameEmloyee text-center">{{ monitor.Employee_name }}</h5>
-                              <button v-if="monitor.Role_id == '03'" class="btnEmployee">{{ monitor.Role_name }}</button>
-                              <button v-if="monitor.Role_id == '02'" class="btnExpert">{{ monitor.Role_name }}</button>
+                              <button v-if="monitor.Role_id == '03'" class="btnEmployee btnRole">{{ monitor.Role_name }}</button>
+                              <button v-if="monitor.Role_id == '02'" class="btnExpert btnRole">{{ monitor.Role_name }}</button>
                          </div>
                     </div>
 
@@ -202,7 +201,7 @@ export default {
 
           async retrieveEmpoyeeList() {
                const [err, respone] = await this.handle(
-                    EmployeeService.getAll()
+                    EmployeeService.getPartial()
                );
                if (err) {
                     console.log(err)

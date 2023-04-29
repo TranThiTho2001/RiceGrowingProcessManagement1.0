@@ -80,17 +80,17 @@
                               </div>
                          </div>
                          <div class="col-sm-5 text-center col-satisticByYield" v-if="loaded">
-                              <div class="nameComponent">
-                                   <h5>MÙA VỤ NĂNG SUẤT CAO</h5>
+                              <div>
+                                   <h5 class="nameComponent">MÙA VỤ NĂNG SUẤT CAO</h5>
                               </div>
                               <div class="row row-satisticByYield" v-for="(riceCrop, i) in riceCropListByFinish" :key="i">
-                                   <div class="left-statisticByYield align-self-center" style="width: 25%; vertical-align: middle;">
+                                   <div class="left-statisticByYield align-self-center" style="width: 30%; vertical-align: middle;">
                                         <div class="rice_yield">
                                         <h4>{{ riceCrop.RiceCropInformation_yield }}</h4>
                                         <p  class="title">Tạ/ha</p>
                                    </div>
                                    </div>
-                                   <div class="right-statisticByYeild text-left" style="width: 72%; margin-left: 3%; ">
+                                   <div class="right-statisticByYeild text-left" style="width: 67%; margin-left: 3%; ">
                                         <h5>{{ riceCrop.RiceCropInformation_name }}</h5>
                                         <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><span class="title">Sử dụng giống lúa: </span><span class="value">{{ riceCrop.Seed_name }}</span></div>
                                         <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><span class="title">Canh tác trên mẫu ruộng:  </span><span class="value">{{ riceCrop.ArableLand_owner }}</span></div>

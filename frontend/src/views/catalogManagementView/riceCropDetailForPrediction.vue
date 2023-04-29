@@ -24,14 +24,13 @@
                     </div>
 
                     <div class="container-fluid riceCropDetailComponent"
-                         style="margin-top: 140px; margin-left:20px; width: 97%; margin-right:10px">
-
+                         style="margin-top: 88px; margin-left:20px; width: 97%; margin-right:10px">
                          <div class="row">
-                              <h4 class="prediction-title" style="padding-bottom: 10px; width: 100%;">Thông tin {{
+                              <h4 class="prediction-title" style="padding-bottom: 2px; width: 100%;">Thông tin {{
                                    riceCrop.RiceCropInformation_name
                               }}</h4>
-                              <button class="btn btnPredict" @click="getWeather(true), active= true"> Dự Đoán</button>
-                              <div class="riceCropInfor-component " style="width: 45%">
+                              <button class="btn btnPredict" @click="getWeather(true), active = true"> Dự Đoán</button>
+                              <div class="riceCropInfor-component ">
                                    <table class="tablericeCropInfor">
                                         <tbody>
                                              <tr>
@@ -69,39 +68,43 @@
                                    <time class="icon">
                                         <em>Ngày</em>
                                         <strong>Gieo trồng</strong>
-                                        <span>{{ get_day_of_time(riceCrop.RiceCropInformation_sowingDate) }}</span>
+                                        <span class="countingDays">{{ get_day_of_time(riceCrop.RiceCropInformation_sowingDate) }}</span>
                                    </time>
                               </div>
-                              <div class="resultRiceYield">
-                                   <div class="result-prediction">
-                                        <p>Dự đoán</p>
-                                        <div class="yield">
-                                             <h2 class="yield-value">{{ getPrediction().yield }}</h2>
-                                             <h5 style="color: #919302;">Kg/ha</h5>
-                                        </div>
-                                   </div>
-                                   <div class="result-readly">
-                                        <p>Thực tế</p>
-                                        <div class="yield">
-                                             <h2 class="yield-value" v-if="riceCrop.RiceCropInformation_yield != null">{{
-                                                  riceCrop.RiceCropInformation_yield }}</h2>
-                                             <h2 class="yield-value" v-else>00</h2>
-                                             <h5 style="color: #919302;">Kg/ha</h5>
-                                        </div>
+                              <!-- <div class="resultRiceYield"> -->
+                              <div class="result-prediction">
+                                   <p>Dự đoán</p>
+                                   <div class="yield">
+                                        <h2 class="yield-value ">{{ getPrediction().yield }}</h2>
+                                        <h5 style="color: #919302;">Kg/ha</h5>
                                    </div>
                               </div>
+                              <div class="result-prediction">
+                                   <p>Thực tế</p>
+                                   <div class="yield">
+                                        <h2 class="yield-value" v-if="riceCrop.RiceCropInformation_yield != null">{{
+                                             riceCrop.RiceCropInformation_yield }}</h2>
+                                        <h2 class="yield-value" v-else>00</h2>
+                                        <h5 style="color: #919302;">Kg/ha</h5>
+                                   </div>
+                              </div>
+                              <!-- </div> -->
                          </div>
 
-                         <div class="row mt-4">
-                              <h4 class="prediction-title" style="padding-bottom: 10px;">Thông tin thời tiết trong mùa vụ cho
-                                   lần dự đoán ngày <span v-if="getPrediction().yield != '00'"> {{
-                                        formatDate(getPrediction().date) }}</span></h4>
-
-                              <button class="btn btnDowload" @click="dowload()">
-                                   <i class="fas fa-arrow-alt-circle-down"></i> Tải CSV
-                              </button>
-                              <div class="tablePredictFrame">
-                                   <table class="tableWeather tablePredict" id="weatherInfor" v-if="weatherInfor.loadding">
+                         <div class="row mt-3 tablePredictFrame">
+                              <div class="row mt-1" style="width: 100%; height: 38px; margin-left: 0px;">
+                                   <button class="btn btnDowload" @click="dowload()">
+                                        <i class="fas fa-arrow-alt-circle-down"></i> Tải CSV
+                                   </button>
+                              </div>
+                              <div class="row table-row mb-1">
+                                   <h4 class="prediction-title2" style="">
+                                        Thông tin thời tiết trong mùa vụ cho lần dự đoán ngày
+                                        <span v-if="getPrediction() != '00'"> {{
+                                             formatDate(predictionList[0].Prediction_date) }}</span>
+                                   </h4>
+                                   <button class="btn btnViewDetail" @click="openWeatherInfor = true">Xem chi tiết</button>
+                                   <table class="tableWeather tablePredict" v-if="weatherInfor.loadding">
                                         <thead>
                                              <tr>
                                                   <th class="centerclass">STT</th>
@@ -114,32 +117,50 @@
                                              </tr>
                                         </thead>
                                         <tbody v-if="predictionList.length > 0 && getPrediction() != '00'">
-                                             <tr v-for="(data, i) in weatherInfor.dateList" :key="i">
+                                             <tr v-for="i in 2" :key="i">
                                                   <td class="centerclass">{{ i }}</td>
-                                                  <td class="centerclass">{{ data }}</td>
-                                                  <td class="centerclass">{{ weatherInfor.temperatureList[i] }}</td>
-                                                  <td class="centerclass">{{ weatherInfor.humitidityList.final[i] }}</td>
-                                                  <td class="centerclass">{{ weatherInfor.precipitationList[i] }}</td>
+                                                  <td class="centerclass">{{formatDate(weatherInfor.dateList[i]) }}</td>
+                                                  <td class="centerclass">{{ weatherInfor.temperatureList[i] }}
+                                                  </td>
+                                                  <td class="centerclass">{{ weatherInfor.humitidityList.final[i]
+                                                  }}</td>
+                                                  <td class="centerclass">{{ weatherInfor.precipitationList[i] }}
+                                                  </td>
                                                   <td class="centerclass">{{ weatherInfor.windSpeed[i] }}</td>
                                                   <td class="centerclass">{{ weatherInfor.solarRadiation[i] }}</td>
                                              </tr>
                                              <tr>
+                                                  <td class="centerclass">...</td>
+                                                  <td class="centerclass">...</td>
+                                                  <td class="centerclass">...
+                                                  </td>
+                                                  <td class="centerclass">...</td>
+                                                  <td class="centerclass">...</td>
+                                                  <td class="centerclass">...</td>
+                                                  <td class="centerclass">...</td>
+                                             </tr>
+                                             <tr>
                                                   <td class="centerclass final-row">Dữ liệu dùng cho dự đoán</td>
-                                                  <td class="centerclass final-row">{{ weatherInfor.dateList.length }}</td>
-                                                  <td class="centerclass final-row">{{ weatherInfor.Temperature }}</td>
-                                                  <td class="centerclass final-row">{{ weatherInfor.Humitidity }}</td>
-                                                  <td class="centerclass final-row">{{ weatherInfor.Precipitation }}</td>
-                                                  <td class="centerclass final-row">{{ weatherInfor.WinSpeed }}</td>
-                                                  <td class="centerclass final-row">{{ weatherInfor.SolarRadiation }}</td>
+                                                  <td class="centerclass final-row">{{ weatherInfor.dateList.length
+                                                  }}</td>
+                                                  <td class="centerclass final-row">{{ weatherInfor.Temperature }}
+                                                  </td>
+                                                  <td class="centerclass final-row">{{ weatherInfor.Humitidity }}
+                                                  </td>
+                                                  <td class="centerclass final-row">{{ weatherInfor.Precipitation
+                                                  }}</td>
+                                                  <td class="centerclass final-row">{{ weatherInfor.WinSpeed }}
+                                                  </td>
+                                                  <td class="centerclass final-row">{{ weatherInfor.SolarRadiation
+                                                  }}</td>
                                              </tr>
                                         </tbody>
                                    </table>
                               </div>
-                         </div>
-                         <div class="row mt-4">
-                              <h4 class="prediction-title">Hoạt động bón phân</h4>
-                              <div class="tablePredictFrame">
-                                   <table class="tablePredict">
+                              <div class="row table-row">
+                                   <h4 class="prediction-title2">Hoạt động bón phân</h4>
+                                   <button class="btn btnViewDetail " @click="openFertilizer = true">Xem chi tiết</button>
+                                   <table class="tableWeather tablePredict">
                                         <thead>
                                              <tr>
                                                   <th class="text-center th_pre">Lần</th>
@@ -150,36 +171,58 @@
                                                   <th class="text-center th_pre">Tỉ lệ Kali (kg/ha)</th>
                                                   <th class="text-center th_pre">Ngày bắt đầu</th>
                                                   <th class="text-center th_pre">Ngày kết thúc</th>
-                                                  <th class="th_pre"></th>
                                              </tr>
                                         </thead>
                                         <tbody>
                                              <tr v-if="fertilizerTimesList.length < 1">
-                                                  <td colspan="6" class="centerclass">Chưa có lần bón phân nào được thực hiện
+                                                  <td colspan="6" class="centerclass">Chưa có lần bón phân nào được
+                                                       thực hiện
                                                   </td>
                                              </tr>
-                                             <tr v-for="(fertilizer, i) in (fertilizerTimesList)" :key="i">
-                                                  <td class="text-center ">{{ fertilizer.FertilizerTimes_times }}</td>
-                                                  <td class="">{{ fertilizer.Fertilizer_name }}</td>
-                                                  <td class="text-center ">{{ fertilizer.FertilizerTimes_amount }}</td>
-                                                  <td class="text-center ">{{toFixedNumber(fertilizer.QuantityUsed.N) }}</td>
-                                                  <td class="text-center ">{{ toFixedNumber(fertilizer.QuantityUsed.P) }}</td>
-                                                  <td class="text-center ">{{ toFixedNumber(fertilizer.QuantityUsed.K) }}</td>
+                                             <tr v-for="i in 2" :key="i">
+                                                  <td class="text-center ">{{ fertilizerTimesList[i].FertilizerTimes_times }}
+                                                  </td>
+                                                  <td class="">{{ fertilizerTimesList[i].Fertilizer_name }}</td>
+                                                  <td class="text-center ">{{ fertilizerTimesList[i].FertilizerTimes_amount
+                                                  }}
+                                                  </td>
+                                                  <td class="text-center ">
+                                                       {{ toFixedNumber(fertilizerTimesList[i].QuantityUsed.N) }}</td>
                                                   <td class="text-center ">{{
-                                                       formatDate(fertilizer.FertilizerTimes_startDate) }}</td>
+                                                       toFixedNumber(fertilizerTimesList[i].QuantityUsed.P) }}</td>
                                                   <td class="text-center ">{{
-                                                       formatDate(fertilizer.FertilizerTimes_endDate)
+                                                       toFixedNumber(fertilizerTimesList[i].QuantityUsed.K) }}</td>
+                                                  <td class="text-center ">{{
+                                                       formatDate(fertilizerTimesList[i].FertilizerTimes_startDate) }}</td>
+                                                  <td class="text-center ">{{
+                                                       formatDate(fertilizerTimesList[i].FertilizerTimes_endDate)
                                                   }}</td>
                                              </tr>
+
+                                             <tr>
+                                                  <td class="text-center ">...</td>
+                                                  <td class="">...</td>
+                                                  <td class="text-center ">...</td>
+                                                  <td class="text-center ">...</td>
+                                                  <td class="text-center ">...</td>
+                                                  <td class="text-center ">...</td>
+                                                  <td class="text-center ">...</td>
+                                                  <td class="text-center ">...</td>
+                                             </tr>
+
                                              <tr>
                                                   <td class=" final-row" colspan="2">Tổng</td>
-                                                  <td class="text-center final-row">{{ toFixedNumber(total_amount_of_fertilizer_used.Total)
+                                                  <td class="text-center final-row">{{
+                                                       toFixedNumber(total_amount_of_fertilizer_used.Total)
                                                   }}</td>
-                                                  <td class="text-center final-row">{{ toFixedNumber(total_amount_of_fertilizer_used.N) }}
+                                                  <td class="text-center final-row">{{
+                                                       toFixedNumber(total_amount_of_fertilizer_used.N) }}
                                                   </td>
-                                                  <td class="text-center final-row">{{ toFixedNumber(total_amount_of_fertilizer_used.P) }}
+                                                  <td class="text-center final-row">{{
+                                                       toFixedNumber(total_amount_of_fertilizer_used.P) }}
                                                   </td>
-                                                  <td class="text-center final-row">{{ toFixedNumber(total_amount_of_fertilizer_used.K) }}
+                                                  <td class="text-center final-row">{{
+                                                       toFixedNumber(total_amount_of_fertilizer_used.K) }}
                                                   </td>
                                                   <td class="text-center final-row"></td>
                                                   <td class="text-center final-row"></td>
@@ -189,6 +232,136 @@
                               </div>
                          </div>
 
+                         <div :class="{ overlay2: openWeatherInfor }" class="overlay">
+                              <div class="popup">
+                                   <a class="fas fa-times-circle" href="#" @click="openWeatherInfor = false"
+                                        style="font-size: 25px; text-decoration: none; color:#B3B4BA; float: right;"></a>
+                                   <h2>Thông tin thời tiết trong mùa vụ cho lần dự đoán ngày
+                                        <span v-if="getPrediction() != '00'"> {{
+                                             formatDate(predictionList[0].Prediction_date) }}</span>
+                                   </h2>
+
+                                   <div class="content">
+                                        <table class="tableWeather-popup dowload-table tableWeather tablePredict" id="weatherInfor"
+                                             style="width: 90%;" v-if="weatherInfor.loadding">
+                                             <thead>
+                                                  <tr>
+                                                       <th class="centerclass">STT</th>
+                                                       <th class="centerclass">Ngày</th>
+                                                       <th class="centerclass">Nhiệt Độ (°C )</th>
+                                                       <th class="centerclass">Độ ẩm (%)</th>
+                                                       <th class="centerclass">Lượng mưa (mm/h)</th>
+                                                       <th class="centerclass">Tốc độ gió (Km/h)</th>
+                                                       <th class="centerclass">Bức xạ mặt trời (MJ/m²)</th>
+                                                  </tr>
+                                             </thead>
+                                             <tbody v-if="predictionList.length > 0 && getPrediction() != '00'">
+                                                  <tr v-for="(data, i) in weatherInfor.dateList" :key="i">
+                                                       <td class="centerclass">{{ i }}</td>
+                                                       <td class="centerclass">{{ data }}</td>
+                                                       <td class="centerclass">{{ weatherInfor.temperatureList[i] }}
+                                                       </td>
+                                                       <td class="centerclass">{{ weatherInfor.humitidityList.final[i]
+                                                       }}</td>
+                                                       <td class="centerclass">{{ weatherInfor.precipitationList[i] }}
+                                                       </td>
+                                                       <td class="centerclass">{{ weatherInfor.windSpeed[i] }}</td>
+                                                       <td class="centerclass">{{ weatherInfor.solarRadiation[i] }}</td>
+                                                  </tr>
+                                                  <tr>
+                                                       <td class="centerclass final-row">Dữ liệu dùng cho dự đoán</td>
+                                                       <td class="centerclass final-row">{{ weatherInfor.dateList.length
+                                                       }}</td>
+                                                       <td class="centerclass final-row">{{ weatherInfor.Temperature }}
+                                                       </td>
+                                                       <td class="centerclass final-row">{{ weatherInfor.Humitidity }}
+                                                       </td>
+                                                       <td class="centerclass final-row">{{ weatherInfor.Precipitation
+                                                       }}</td>
+                                                       <td class="centerclass final-row">{{ weatherInfor.WinSpeed }}
+                                                       </td>
+                                                       <td class="centerclass final-row">{{ weatherInfor.SolarRadiation
+                                                       }}</td>
+                                                  </tr>
+                                             </tbody>
+                                        </table>
+                                   </div>
+                              </div>
+                         </div>
+
+
+
+                         <div :class="{ overlay2: openFertilizer }" class="overlay">
+                              <div class="popup">
+                                   <a class="fas fa-times-circle" href="#" @click="openFertilizer = false"
+                                        style="font-size: 25px; text-decoration: none; color:#B3B4BA; float: right;"></a>
+                                   <h2 class="prediction-title2">Hoạt động bón phân </h2>
+
+                                   <div class="content">
+                                        <table class="tablePredict  dowload-table" id="weatherInfor">
+                                             <thead>
+                                                  <tr>
+                                                       <th class="text-center th_pre">Lần</th>
+                                                       <th class="th_pre">Tên phân bón</th>
+                                                       <th class="text-center th_pre">Số lượng bón (kg/ha)</th>
+                                                       <th class="text-center th_pre">Tỉ lệ Đạm (kg/ha)</th>
+                                                       <th class="text-center th_pre">Tỉ lệ Lân (kg/ha)</th>
+                                                       <th class="text-center th_pre">Tỉ lệ Kali (kg/ha)</th>
+                                                       <th class="text-center th_pre">Ngày bắt đầu</th>
+                                                       <th class="text-center th_pre">Ngày kết thúc</th>
+                                                  </tr>
+                                             </thead>
+                                             <tbody>
+                                                  <tr v-if="fertilizerTimesList.length < 1">
+                                                       <td colspan="6" class="centerclass">Chưa có lần bón phân nào được
+                                                            thực hiện
+                                                       </td>
+                                                  </tr>
+                                                  <tr v-for="(fertilizer, i) in (fertilizerTimesList)" :key="i">
+                                                       <td class="text-center ">{{ fertilizer.FertilizerTimes_times }}
+                                                       </td>
+                                                       <td class="">{{ fertilizer.Fertilizer_name }}</td>
+                                                       <td class="text-center ">{{ fertilizer.FertilizerTimes_amount }}
+                                                       </td>
+                                                       <td class="text-center ">
+                                                            {{ toFixedNumber(fertilizer.QuantityUsed.N) }}</td>
+                                                       <td class="text-center ">{{
+                                                            toFixedNumber(fertilizer.QuantityUsed.P) }}</td>
+                                                       <td class="text-center ">{{
+                                                            toFixedNumber(fertilizer.QuantityUsed.K) }}</td>
+                                                       <td class="text-center ">{{
+                                                            formatDate(fertilizer.FertilizerTimes_startDate) }}</td>
+                                                       <td class="text-center ">{{
+                                                            formatDate(fertilizer.FertilizerTimes_endDate)
+                                                       }}</td>
+                                                  </tr>
+                                                  <tr>
+                                                       <td class=" final-row" colspan="2">Tổng</td>
+                                                       <td class="text-center final-row">{{
+                                                            toFixedNumber(total_amount_of_fertilizer_used.Total)
+                                                       }}</td>
+                                                       <td class="text-center final-row">{{
+                                                            toFixedNumber(total_amount_of_fertilizer_used.N) }}
+                                                       </td>
+                                                       <td class="text-center final-row">{{
+                                                            toFixedNumber(total_amount_of_fertilizer_used.P) }}
+                                                       </td>
+                                                       <td class="text-center final-row">{{
+                                                            toFixedNumber(total_amount_of_fertilizer_used.K) }}
+                                                       </td>
+                                                       <td class="text-center final-row"></td>
+                                                       <td class="text-center final-row"></td>
+                                                  </tr>
+                                             </tbody>
+                                        </table>
+                                   </div>
+                              </div>
+                         </div>
+
+
+
+
+                         <!-- 
                          <div class="row mt-4">
                               <h4 class="prediction-title">Các lần bị bệnh dịch</h4>
                               <div class="tablePredictFrame">
@@ -222,9 +395,9 @@
                                         </tbody>
                                    </table>
                               </div>
-                         </div>
+                         </div> -->
 
-                         <div class="row mt-4">
+                         <!-- <div class="row mt-4">
                               <h4 class="prediction-title">Hoạt động phun thuốc</h4>
                               <div class="tablePredictFrame">
                                    <table class="tablePredict">
@@ -260,9 +433,9 @@
                                         </tbody>
                                    </table>
                               </div>
-                         </div>
+                         </div> -->
 
-                         <div class="row mt-4">
+                         <!-- <div class="row mt-4">
                               <h4 class="prediction-title">Các hoạt động khác</h4>
                               <div class="tablePredictFrame">
                                    <table class="tablePredict">
@@ -295,25 +468,25 @@
                                         </tbody>
                                    </table>
                               </div>
-                         </div>
+                         </div> -->
                     </div>
-
                </div>
-          </div>                    <div class="waitingDialog" v-if="predicting">
-                         <div>
-                              <p class="labelConfirm mt-4 pt-4">Đang xử lý....</p>
-                         </div>
-                         <span v-show="predicting" class="spinner-border spinner-border-sm"></span>
-                    </div>
-                    <div class="resultDialog" v-if="result">
-                         <p style="color:#515151; text-align:center; margin-top: 30px; font-size: 20px;"
-                              class="labelConfirm"> Năng suất dự đoán cho mùa vụ {{
-                                   this.riceCrop.RiceCropInformation_name }}<br>
-                              <span class="result">{{ this.riceCrop.Prediction_yield }}</span> kg/ha
-                         </p>
-                         <button class="btnOK btn btn-sm btn-outline-secondary mb-3"
-                              @click="result = !result, getPredictionList(), active=false">OK</button>
-                    </div>
+          </div>
+          <div class="waitingDialog" v-if="predicting">
+               <div>
+                    <p class="labelConfirm mt-4 pt-4">Đang xử lý....</p>
+               </div>
+               <span v-show="predicting" class="spinner-border spinner-border-sm"></span>
+          </div>
+          <div class="resultDialog" v-if="result">
+               <p style="color:#515151; text-align:center; margin-top: 30px; font-size: 20px;" class="labelConfirm"> Năng
+                    suất dự đoán cho mùa vụ {{
+                         this.riceCrop.RiceCropInformation_name }}<br>
+                    <span class="result">{{ this.riceCrop.Prediction_yield }}</span> kg/ha
+               </p>
+               <button class="btnOK btn btn-sm btn-outline-secondary mb-3"
+                    @click="result = !result, getPredictionList(), active = false">OK</button>
+          </div>
      </div>
 </template>
 
@@ -341,6 +514,8 @@ export default {
 
      data() {
           return {
+               openWeatherInfor: false,
+               openFertilizer: false,
                openMenu: {
                     openMenu: false,
                     isOpenMenuIcon: true,
@@ -398,21 +573,23 @@ export default {
                          this.fertilizerTimesList = [];
                          this.total_amount_of_fertilizer_used = {
                               K: 0,
-                              N:0,
+                              N: 0,
                               P: 0,
-                              Total:0,
+                              Total: 0,
                          }
                          var i = 0;
-                         console.log(respone.data )
+                         console.log(respone.data)
                          respone.data.forEach(fertizertimes => {
-                              console.log(this.predictionList[0].Prediction_date,this.fertilizerTimesList.FertilizerTimes_startDate )
+                              
+                              
                               if (fertizertimes.FertilizerTimes_startDate < this.predictionList[0].Prediction_date) {
-                                  this.fertilizerTimesList.push(fertizertimes); 
-                                  this.getContain(fertizertimes.Fertilizer_id, i);
+                                   this.fertilizerTimesList.push(fertizertimes);
+                                   this.getContain(fertizertimes.Fertilizer_id, i);
                                    this.total_amount_of_fertilizer_used.Total += fertizertimes.FertilizerTimes_amount;
                                    i++;
                               }
-                              
+                              fertizertimes.FertilizerTimes_startDate =  new Date(fertizertimes.FertilizerTimes_startDate)
+
                          });
                     }
                }
@@ -453,7 +630,7 @@ export default {
                }
           },
 
-          toFixedNumber(number){
+          toFixedNumber(number) {
                return parseFloat(number).toFixed(2);
           },
 
@@ -574,8 +751,8 @@ export default {
                          this.riceCrop.Prediction_yield = Number(this.riceCrop.Prediction_yield).toFixed(2);
                          this.predicting = false;
                          this.result = true;
-                        
-                         this.getPredictionList(); 
+
+                         this.getPredictionList();
                          this.getWeather(false);
                     }
                }
@@ -740,16 +917,15 @@ export default {
 
           async export_table_to_csv(html, filename) {
                var csv = [];
-               var rows = html.querySelectorAll("table tr");
+               var rows = document.querySelectorAll(".dowload-table tr");
 
                for (var i = 0; i < rows.length; i++) {
                     var row = [], cols = rows[i].querySelectorAll("td, th");
-
+                    
                     for (var j = 0; j < cols.length; j++)
-                         row.push(String(cols[j].innerText).replaceAll(',', ''));
+                         row.push(String(cols[j].innerHTML).replaceAll(',', ''));
 
                     csv.push(row.join(","));
-
                }
                // Download CSV
                this.download_csv(csv.join("\n"), filename);
@@ -757,43 +933,95 @@ export default {
 
           async dowload() {
                var html = document.getElementById("weatherInfor");
-               this.export_table_to_csv(html, "data.csv");
+               var date = '';
+               if(this.predictionList[0].Prediction_date != '00'){
+                    date = moment(this.predictionList[0].Prediction_date).format("DD-MM-YYYY");
+               }
+               
+               this.export_table_to_csv(html, "Dữ liệu dự đoán năng suất lúa "+this.riceCrop.RiceCropInformation_name+" "+date+".csv");
           },
 
 
-          bubbleSort() {
-               for (let i = 0; i < this.predictionList.length - 1; i++) {
-                    for (let j = this.predictionList.length - 1; j > i; j--) {
-                         if (this.predictionList[j].Prediction_date > this.predictionList[j - 1].Prediction_date) {
-                              let t = this.predictionList[j];
-                              this.predictionList[j] = this.predictionList[j - 1];
-                              this.predictionList[j - 1] = t;
-                         }
+     bubbleSort() {
+          for (let i = 0; i < this.predictionList.length - 1; i++) {
+               for (let j = this.predictionList.length - 1; j > i; j--) {
+                    if (this.predictionList[j].Prediction_date > this.predictionList[j - 1].Prediction_date) {
+                         let t = this.predictionList[j];
+                         this.predictionList[j] = this.predictionList[j - 1];
+                         this.predictionList[j - 1] = t;
                     }
                }
-          },
-
-          get_day_of_time(d1) {
-               let ms1 = (new Date(d1)).getTime();
-               var d2 = new Date();
-               let ms2 = d2.getTime();
-               return Math.ceil((ms2 - ms1) / (24 * 60 * 60 * 1000));
-          },
-
-          goToMap() {
-               window.open(`https://www.google.com/maps/@${this.riceCrop.ArableLand_latitude},${this.riceCrop.ArableLand_longitude},15z?hl=vi-VN`);
-          },
-
-          formatDate(data) {
-               if (data == null || data == "Invalid da") return "";
-               return (moment(String(data)).format("DD-MM-YYYY"));
-          },
-
+          }
      },
 
-     mounted() {
 
-     }
+//      import * as FileSaver from 'file-saver';
+// import * as XLSX from 'xlsx';
+
+// function downloadExcel() {
+    
+//     /* create a new blank workbook */
+//     var wb = XLSX.utils.book_new();
+
+//     /* create a worksheet for books */
+//     var wsBooks = XLSX.utils.json_to_sheet(books);
+
+//     /* Add the worksheet to the workbook */
+//     XLSX.utils.book_append_sheet(wb, wsBooks, "Books");
+
+//     /* create a worksheet for person details */
+//     var wsPersonDetails = XLSX.utils.json_to_sheet(personDetails);
+
+//     /* Add the worksheet to the workbook */
+//     XLSX.utils.book_append_sheet(wb, wsPersonDetails, "PersonDetails");
+    
+    
+//     const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+//     const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+//     const data1 = new Blob([excelBuffer], { type: fileType });
+//     FileSaver.saveAs(data1, "BookDetail Summary.xlsx");    
+// }
+
+// function convert(){
+//    let tbl1 = document.getElementsByTagName("table")[0]
+//    let tbl2 = document.getElementsByTagName("table")[1]
+      
+//    let worksheet_tmp1 = XLSX.utils.table_to_sheet(tbl1);
+//    let worksheet_tmp2 = XLSX.utils.table_to_sheet(tbl2);
+      
+//    let a = XLSX.utils.sheet_to_json(worksheet_tmp1, { header: 1 })
+//    let b = XLSX.utils.sheet_to_json(worksheet_tmp2, { header: 1 })
+      
+//    a = a.concat(['']).concat(b)
+     
+//    let worksheet = XLSX.utils.json_to_sheet(a, { skipHeader: true })
+   
+//    const new_workbook = XLSX.utils.book_new()
+//    XLSX.utils.book_append_sheet(new_workbook, worksheet, "worksheet")
+//    XLSX.writeFile(new_workbook, 'tmp_file.xls')
+// }
+
+     get_day_of_time(d1) {
+          let ms1 = (new Date(d1)).getTime();
+          var d2 = new Date();
+          let ms2 = d2.getTime();
+          return Math.ceil((ms2 - ms1) / (24 * 60 * 60 * 1000));
+     },
+
+     goToMap() {
+          window.open(`https://www.google.com/maps/@${this.riceCrop.ArableLand_latitude},${this.riceCrop.ArableLand_longitude},15z?hl=vi-VN`);
+     },
+
+     formatDate(data) {
+          if (data == null || data == "Invalid da") return "";
+          return (moment(String(data)).format("DD-MM-YYYY"));
+     },
+
+},
+
+mounted() {
+
+}
 
 };
 
@@ -802,4 +1030,9 @@ export default {
 <style>
 @import url(../../assets/mainStyle.css);
 @import url(../../assets/predictionStyle.css);
+
+.navbar-sub {
+     position: fixed !important;
+     z-index: 4;
+}
 </style>

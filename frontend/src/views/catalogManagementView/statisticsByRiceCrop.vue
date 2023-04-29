@@ -279,35 +279,35 @@
                          </div>
                     </div>
                     <div class="scroll" style="">
-                         <button class="btn btnDowload" @click="dowload()">Tải file CSV <i
-                                        class="fas fa-arrow-alt-circle-down"></i></button>
+                         <button class="btn btnDowload" @click="dowload()"> 
+                              <i class="fas fa-arrow-alt-circle-down"></i> Tải CSV</button>
                          <div class="scrollStatisticalTable">
                               <table class="statisticTable" id="statisticTable">
                                    <thead>
                                         <tr>
                                              <th class="text-center" style=" padding-right: 2px;">STT</th>
                                              <th class="text-center">Mã</th>
-                                             <th>Tên</th>
-                                             <th>Giống lúa</th>
-                                             <th>Vụ mùa</th>
-                                             <th>Mẫu ruộng</th>
-                                             <th>Ngày gieo xạ</th>
-                                             <th>Ngày thu hoạch</th>
-                                             <th>Năng suất</th>
+                                             <th >Tên</th>
+                                             <th >Giống lúa</th>
+                                             <th >Vụ mùa</th>
+                                             <th class="text-center">Mẫu ruộng</th>
+                                             <th class="text-center">Ngày gieo xạ</th>
+                                             <th class="text-center">Ngày thu hoạch</th>
+                                             <th class="text-center">Năng suất</th>
                                              <!-- <th v-if="chooseSatisticsBy == 'epidemic'">Dịch bệnh</th>
                                                   <th v-if="chooseSatisticsBy == 'fertilizer'">Phân bón</th>
                                                   <th v-if="chooseSatisticsBy == 'pesticide'">Thuốc trị bệnh dịch</th> -->
-                                             <th
+                                             <th class="text-center"
                                                   v-if="chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide'">
                                                   Lần</th>
-                                             <th
+                                             <th class="text-center"
                                                   v-if="chooseSatisticsBy == 'epidemic' || chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide' || chooseSatisticsBy == 'activity'">
                                                   Ngày bắt đầu</th>
-                                             <th
+                                             <th class="text-center"
                                                   v-if="chooseSatisticsBy == 'epidemic' || chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide' || chooseSatisticsBy == 'activity'">
                                                   Ngày kết thúc</th>
                                              <th  class="text-center" v-if="chooseSatisticsBy == 'fertilizer'">Số lượng (Kg/ha)</th>
-                                             <th v-if="chooseSatisticsBy == 'pesticide'">Liều lượng (ml/ha)</th>
+                                             <th class="text-center" v-if="chooseSatisticsBy == 'pesticide'">Liều lượng (ml/ha)</th>
                                         </tr>
                                    </thead>
                                    <tbody>
@@ -315,22 +315,22 @@
                                              <td class="text-center">{{ i + 1 }}</td>
                                              <td class="text-center">{{ riceCrop.RiceCropInformation_id }}</td>
                                              <td>{{ riceCrop.RiceCropInformation_name }}</td>
-                                             <td>{{ riceCrop.Seed_name }}</td>
-                                             <td>{{ riceCrop.Crop_name }}</td>
-                                             <td>{{ riceCrop.ArableLand_id }}</td>
-                                             <td>{{ formatDate(riceCrop.RiceCropInformation_sowingDate) }}</td>
-                                             <td>{{ formatDate(riceCrop.RiceCropInformation_harvestDate) }}</td>
-                                             <td>{{ formatYield(riceCrop.RiceCropInformation_yield) }}</td>
+                                             <td >{{ riceCrop.Seed_name }}</td>
+                                             <td >{{ riceCrop.Crop_name }}</td>
+                                             <td class="text-center">{{ riceCrop.ArableLand_id }}</td>
+                                             <td class="text-center">{{ formatDate(riceCrop.RiceCropInformation_sowingDate) }}</td>
+                                             <td class="text-center">{{ formatDate(riceCrop.RiceCropInformation_harvestDate) }}</td>
+                                             <td class="text-center">{{ formatYield(riceCrop.RiceCropInformation_yield) }}</td>
                                              <!-- <td
                                                        v-if="chooseSatisticsBy == 'epidemic' || chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide'">
                                                        {{ riceCrop.name }}</td>-->
-                                             <td
+                                             <td class="text-center"
                                                   v-if="chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide'">
                                                   {{ riceCrop.times }}</td>
-                                             <td
+                                             <td class="text-center"
                                                   v-if="chooseSatisticsBy == 'epidemic' || chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide' || chooseSatisticsBy == 'activity'">
                                                   {{ formatDate(riceCrop.startDate) }}</td>
-                                             <td
+                                             <td class="text-center"
                                                   v-if="chooseSatisticsBy == 'epidemic' || chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide' || chooseSatisticsBy == 'activity'">
                                                   {{ formatDate(riceCrop.endDate) }}</td>
                                              <td   class="text-center"
@@ -342,13 +342,13 @@
 
                               <!-- </div> -->
                          </div>
-                         <div style="width: 30%;">
+                         <!-- <div style="width: 30%;">
                               <apexchart
                                    v-if="nameToSearch != '' && riceCropList.length >= 2 && chooseSatisticsBy == 'arableLand'"
                                    type="bar" width="100%" height="350" :options="chartForArableLand.chartOptions"
                                    :series="chartForArableLand.series">
                               </apexchart>
-                         </div>
+                         </div> -->
                     </div>
 
                </div>
@@ -360,7 +360,7 @@
 <script type="text/javascript">
 
 import moment from 'moment';
-import VueApexCharts from "vue3-apexcharts";
+// import VueApexCharts from "vue3-apexcharts";
 import { mapGetters, mapMutations } from "vuex";
 import CropService from '@/services/crop.service';
 import SeedService from '@/services/seed.service';
@@ -387,7 +387,7 @@ export default {
           Catalog,
           TopHeader,
           Preloader,
-          apexchart: VueApexCharts,
+          // apexchart: VueApexCharts,
           // vue3html2pdf,
           // riceCropReport,
      },
@@ -465,6 +465,9 @@ export default {
                               height: 350,
                               type: 'bar',
                          },
+                         fill: {
+                              colors: ['#F6F373'],
+                         },
                          plotOptions: {
                               bar: {
                                    borderRadius: 0,
@@ -478,7 +481,7 @@ export default {
                               offsetY: -20,
                               style: {
                                    fontSize: '12px',
-                                   colors: ["#304758"]
+                                   colors: ["#2F3033"]
                               }
                          },
 
@@ -495,8 +498,8 @@ export default {
                                    fill: {
                                         type: 'gradient',
                                         gradient: {
-                                             colorFrom: '#D8E3F0',
-                                             colorTo: '#BED1E6',
+                                             colorFrom: '#FFFED8',
+                                             colorTo: '#F6F373',
                                              stops: [0, 100],
                                              opacityFrom: 0.4,
                                              opacityTo: 0.5,
@@ -766,7 +769,7 @@ export default {
                if (this.nameToSearch != '') {
                     this.cloneRiceCropList.forEach(element => {
                          var temp = String(element.ArableLand_id).concat(" - " + element.ArableLand_owner);
-                         if (temp == data) {
+                         if (temp == data && element.RiceCropInformation_harvestDate != null) {
                               this.riceCropList.push(element);
                               this.chartForArableLand.series[0].data.push(element.RiceCropInformation_yield)
                               this.chartForArableLand.chartOptions.xaxis.categories.push(element.RiceCropInformation_name)
@@ -777,6 +780,7 @@ export default {
                     this.retrieveCropList()
                }
                this.bubbleSort();
+               console.log(this.chartForArableLand)
           },
 
           async getAllRiceCrop() {

@@ -44,7 +44,7 @@
     white-space: nowrap;
     width: 98%;
     border-radius: 5px;
-    margin-top: 4%;
+    margin-top: 1%;
     margin-left: 1%;
 }
 
@@ -58,7 +58,7 @@
 }
 
 .createSprayingTimesForm .btnAddPesticide {
-    border-radius: 5px;
+    border-radius: 6px;
     background: #008B8E;
     box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
     font-size: 17px;
@@ -69,8 +69,9 @@
     float: right;
     width: 60px;
     height: 30px;
-    position: absolute;
-    right: 4.5%;
+    position: relative;
+    /* right: 4.5%; */
+    margin-right: 12px;
 }
 
 .selectionPesticide {
@@ -82,6 +83,11 @@
     background: #FAFAFC;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
+    color: #2F3033;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 17px;
 }
 
 .inputAmount {
@@ -90,9 +96,15 @@
     height: 35px;
     border: 1px solid #ced4da;
     border-radius: 4px;
-    background: #FAFAFC;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    background: #F0F2F7;
+    /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
+    color: #2F3033;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 17px;
 }
 
 .content .error-feedback {

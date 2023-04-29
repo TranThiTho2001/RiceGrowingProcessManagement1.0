@@ -42,7 +42,7 @@
                               @click="isOpenCreateActivitiesDetail = !isOpenCreateActivitiesDetail, active = true"> <i
                                    class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm</button>
                     </div>
-                    <div class="row mt-4 row-detail" style=" margin-left:20px;margin-right: 10px ">
+                    <div class="row mt-4 function-row" style=" margin-left:20px;margin-right: 10px ">
                          <div class="detail-Component text-left" v-for="(activity, i) in activitiesDetailList" :key="i">
                               <div class="btnMoreInfor"> <button type="button" class="btn btn-sm" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">

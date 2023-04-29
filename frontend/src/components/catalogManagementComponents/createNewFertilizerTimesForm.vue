@@ -93,8 +93,8 @@
                          <tbody>
                               <tr v-for="(fertilizertimes, i) in newfertilizertimes.Fertilizer" :key="i">
                                    <td class="text-center">{{ i + 1 }}</td>
-                                   <td style="padding: 5px 2px 5px 2px !important; ">
-                                        <select class="selectionFertilizer" name="classtify"
+                                   <td style="padding: 5px 2px 5px 2px !important; width: 60%;" >
+                                        <select class="selectionFertilizer" name="classtify" 
                                              v-model="fertilizertimes.Fertilizer_name" for="classtify"
                                              @change="setFertilizer($event)">
                                              <option v-for="(fertilizer, i) in fertilizerlist" :key="i"
@@ -107,7 +107,7 @@
                                    </td>
                                    <td>
                                         <div class="">
-                                             <input class="inputAmount" type="text"
+                                             <input class="inputAmount" type="text" 
                                                   v-model="fertilizertimes.FertilizerTimes_amount">
                                         </div>
                                    </td>

@@ -25,7 +25,7 @@
 
                     <div class="row row-inputSearch">
 
-\                         <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
+                        <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
                               @click="retrieveEpidemicList(), isOpenInput1 = true"
                               @keyup.enter="searchName(nameToSearch), away()"
                               @focusin="isOpenSearch.open = !isOpenSearch.open, isOpenSearch.close = !isOpenSearch.close" />

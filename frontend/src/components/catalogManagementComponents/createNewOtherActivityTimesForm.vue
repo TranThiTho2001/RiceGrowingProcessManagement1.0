@@ -219,7 +219,8 @@ export default {
                }
                else {
                     var temp = response.data;
-                    this.newactivitiesDetail.ActivityDetails_times = temp.length + 1;
+                    // console.log(temp[length-1])
+                    this.newactivitiesDetail.ActivityDetails_times = temp[temp.length-1].ActivityDetails_times + 1;
                }
           },
 

@@ -14,7 +14,6 @@
      color: #008B8E;
 }
 
-.content .form-group .selectBox,
 .content .form-group .selectBox {
      width: 100%;
      height: 35px !important;
@@ -499,7 +498,7 @@ html {
      background-color: none;
      cursor: pointer;
      bottom: 0.1px;
-     background-color: #EAEAEA;
+     background-color: #FFFED8;
      font-family: 'Roboto';
      font-style: normal;
      font-weight: 500;
@@ -674,7 +673,7 @@ html {
           background-color: none;
           cursor: pointer;
           bottom: 0.1px;
-          background-color: #EAEAEA;
+          background-color: #FFFED8;
           font-family: 'Roboto';
           font-style: normal;
           font-weight: 500;
@@ -759,9 +758,9 @@ html {
      position: absolute;
      right: -100% !important;
      transform: translate3d(-150px, 20px, 100px) !important;
-     background: #FAFAFC;
+     background: #F3FFD9;
      border: 1px solid #D0D1D6;
-     color: #6D6E73;
+     color: #1b1b1c;
 }
 
 .riceCropDetail .dropdown-menu .dropdown-item,
@@ -769,13 +768,13 @@ html {
 .predictiveDetailManagement .dropdown-menu .dropdown-item {
      font-family: 'Roboto';
      font-style: normal;
-     color: #6D6E73;
+     color: #3a3a3b;
 }
 
 .riceCropDetail .dropdown-menu .dropdown-item:hover,
 .predictiveManagement .dropdown-menu .dropdown-item:hover,
 .predictiveDetailManagement .dropdown-menu .dropdown-item:hover {
-     background-color: #FFFED8;
+     background: #FFFA37 !important;
      color: #1C1C1F;
 }
 
@@ -787,8 +786,8 @@ html {
      right: 0;
      background: rgba(0, 0, 0, 0.7);
      transition: opacity 500ms;
-     visibility: visible;
-     opacity: 1;
+     visibility: visible !important;
+     opacity: 1 !important;
      z-index: 18;
 }
 

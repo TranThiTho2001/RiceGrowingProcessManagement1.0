@@ -15,7 +15,7 @@
                <div class="right rightEmployeeManager">
                     <div class="mb-4  pt-2 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
-                              <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Nhân Viên</h3>
+                              <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Quản trị người dùng</h3>
                          </div>
 
                          <div class="text-right mt-3">
@@ -47,7 +47,7 @@
                               </select>
 
 
-                              <label class="labelSex">Trạng Thái</label>
+                              <label class="labelSex">Giới tính</label>
                               <select class="selectSex" v-model="filter.sex" @change="searchBySex()">
                                    <option class="optionSex" value="Tất cả" selected="true">Tất cả</option>
                                    <option class="optionSex" value="Nữ">Nữ</option>
@@ -291,6 +291,9 @@ export default {
                          this.newEmployee.Employee_id = "EE00" + String(Number(id) + 1);
                          this.newEmployeeId = "EE00" + String(Number(id) + 1);
                     }
+
+                    var randomstring = Math.random().toString(36).slice(-8);
+                    this.newEmployee.Employee_password = randomstring;
                }
           },
 
@@ -312,7 +315,8 @@ export default {
                this.message2 = "";
                if (data.close == false) {
                     this.newEmployee = {},
-                         this.newEmployee.Employee_id = this.newEmployeeId;
+                    this.newEmployee.Employee_id = this.newEmployeeId;
+                    this.newEmployee.Employee_password = Math.random().toString(36).slice(-8);
                     this.isOpenCreateEmployeeForm = false;
                }
                else {
@@ -490,6 +494,11 @@ export default {
 <style>
 @import url(../../assets/employeeStyle.css);
 @import url(../../assets/mainStyle.css);
+
+.EmployeeManagerFrame  .dropdown-item:focus,
+.EmployeeManagerFrame .dropdown-item:hover {
+     background-color: #ABD2C8;
+}
 </style>
    
 

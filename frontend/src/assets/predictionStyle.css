@@ -165,6 +165,12 @@
     font-size: 18px;
 }
 
+.tablericeCropInfor tbody tr td{
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+}
+
 @media screen and (max-width: 720px) {
     .predictiveManagement .selection-component1 {
         position: relative;
@@ -202,20 +208,27 @@
         left: 41%;
     }
 
-    .riceCropInfor-component {
-        width: 60% !important;
+    /* /* .riceCropInfor-component {
+        width: 60% !important; 
         border-radius: 10px !important;
         border-spacing: 30px;
+    } */
+
+    .riceCropInfor-component table{
+        width: 50%;
+        border-radius: 10px !important;
+        border-spacing: 30px;
+        display: block;
     }
 
     .calendarComponent {
-        width: 35% !important;
+        /* width: 35% !important; */
         border-radius: 10px !important;
         border-spacing: 30px;
     }
 
     .resultRiceYield {
-        width: 98% !important;
+        /* width: 98% !important; */
         margin-top: 20px;
     }
 
@@ -258,25 +271,36 @@
     time.icon {
         width: 100% !important;
     }
+    time.icon strong {
+        position: absolute;
+        top: 0;
+        padding: 0.4em 0;
+        color: #5C5D22;
+        background: #FFFD9F;
+        border-bottom: 1px dashed #FFFD9F;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        font-size: 15px !important;
+    }
+
+    time.icon span {
+        font-size: 50px !important;
+        letter-spacing: -0.05em;
+        padding-top: 0.8em;
+        color: #5C5D22;
+    }
+
+    .result-prediction p{
+        font-size: 15px !important
+    }
 
     .ricecrop-Component .tablericeCropInfor tr td {
         padding: 1px !important;
     }
 
-    .riceCropDetailForPrediction .btnDowload {
-        background: #008B8E;
-        box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
-        font-size: 17px;
-        font-family: 'Roboto';
-        font-weight: 500 !important;
-        border: none;
-        color: #FFFED8;
-        z-index: 3;
-        margin-top: 10px !important;
-        position: relative !important;
-        left: 70%;
-        border-radius: 10px !important;
-        margin-bottom: 10px;
+
+    .riceCropDetailForPrediction .popup {
+        width: 90% !important;
+
     }
 }
 
@@ -525,12 +549,10 @@
 }
 
 .tablePredictFrame{
-    height: min-content;
-    width: 100%;
-    margin: auto;
-    height: fit-content !important;
+    height: 100%;
     background: #FAFAFC !important;
     border-radius: 10px;
+    padding-bottom: 1px;
 }
 
 .tablePredict {
@@ -541,9 +563,13 @@
     background: #FAFAFC !important;
 }
 
+.table-row{
+    width: 100%;
+    margin-left:1px !important;
+}
+
 .tableResultPredict {
     height: min-content;
-    
     width: 100% !important;
     height: fit-content !important;
     background: #FAFAFC !important;
@@ -589,7 +615,6 @@
 }
 .tablePredict thead tr{
     background: #ABD2C8;
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .tablePredict thead tr th {
     vertical-align: middle;
@@ -601,10 +626,9 @@
     color: #1C1C1F;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     vertical-align: middle;
-    font-size: 17px;
-    padding: 5px;
+    font-size: 16px;
+    padding: 4px;
     background: #ABD2C8;
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25) !important;
 }
 
 .tablePredict tbody tr {
@@ -626,7 +650,7 @@
     vertical-align: middle !important;
     font-size: 13.5px !important;
     text-align: justify;
-    padding: 6px;
+    padding: 5px;
     color: #1C1C1F;
 }
 
@@ -639,33 +663,61 @@
 }
 
 .tablePredict .final-row {
-    font-size: 18px !important;
-    font-weight: 600;
-    padding: 10px;
+    font-size: 16.5px !important;
+    font-weight: 700;
+    padding: 4px;
     background: #E4E5EB !important;
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25) !important;
     color: #5C5D22 !important;
     border-top: 0px !important;
 }
 
-.riceCropDetailForPrediction .btnDowload,
+.riceCropDetailForPrediction .btnDowload{
+    background: #008B8E;
+    font-size: 15px;
+    font-family: 'Roboto';
+    font-weight: 500 !important;
+    border: none;
+    color: #FFFED8;
+    z-index: 3;
+    border-radius: 10px !important;
+    margin-left: 10px;
+    padding: 2px auto 2px auto;
+    height: 35px;
+}
 .riceCropDetailForPrediction .btnPredict {
     background: #008B8E;
-    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25);
-    font-size: 17px;
+    font-size: 15px;
     font-family: 'Roboto';
     font-weight: 500 !important;
     border: none;
     color: #FFFED8;
     z-index: 3;
     position: absolute;
+    width: 100px;
     right: 3.8%;
     border-radius: 10px !important;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+}
+
+.riceCropDetailForPrediction .btnViewDetail {
+    background: #008B8E;
+    font-size: 15px;
+    font-family: 'Roboto';
+    font-weight: 500 !important;
+    border: none;
+    color: #FFFED8;
+    z-index: 3;
+    position: absolute;
+    width: 100px;
+    padding: 2px !important;
+    margin-top:15px;
+    right: 3.8%;
+    border-radius: 8px !important;
+    margin-bottom: 2px;
 }
 
 .riceCropInfor-component {
-    width: 45%;
+    width: 40%;
     border-radius: 10px !important;
     border-spacing: 30px;
     background: #FAFAFC;
@@ -684,14 +736,15 @@
     border-bottom: 0.1px solid #B3B4BA;
     padding-left: 5px !important;
     vertical-align: middle !important;
-    font-size: 15px !important;
+    font-size: 13.5px !important;
     text-align: justify;
     padding: 1px;
     color: #1C1C1F;
+    width: 100%;
 }
 
 .calendarComponent {
-    margin-left: 4%;
+    margin-left: 2%;
     width: 18%;
 }
 
@@ -700,7 +753,7 @@ time.icon {
     /* change icon size */
     display: block;
     position: relative;
-    width: 8em;
+    width: 100%;
     height: 100%;
     background-color: #fff;
     border-radius: 0.6em;
@@ -735,7 +788,7 @@ time.icon em {
 }
 
 time.icon span {
-    font-size: 2.8em;
+    font-size: 55px;
     letter-spacing: -0.05em;
     padding-top: 0.8em;
     color: #5C5D22;
@@ -745,22 +798,19 @@ time.icon span {
     width: 33%;
 }
 
-.resultRiceYield .result-prediction,
-.resultRiceYield .result-readly {
-    width: 45%;
-    display: inline-block;
+.result-prediction,
+ .result-readly {
+    width: 18%;
+    /* display: inline-block; */
     border-radius: 10px;
-    height: 100%;
+    margin-left: 2%;
+    /* height: 100%; */
     background: #FAFAFC;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.resultRiceYield .result-readly {
-    margin-left: 10%;
-    margin-right: 0% !important;
-}
 
-.resultRiceYield p {
+.result-prediction p {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
@@ -771,7 +821,7 @@ time.icon span {
     text-align: center;
 }
 
-.resultRiceYield .yield {
+.result-prediction .yield {
     background: #FFFD9F;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 40px;
@@ -797,12 +847,140 @@ time.icon span {
     text-align: center;
 }
 
-.riceCropDetailForPrediction .prediction-title {
+.riceCropDetailForPrediction .prediction-title,
+.riceCropDetailForPrediction .prediction-title2{
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
-    font-size: 28px;
-    line-height: 36px;
+    font-size: 22px;
+    line-height: 30px;
     color: #5C5D22;
+}
 
+.riceCropDetailForPrediction .prediction-title2 {
+    padding-left: 10px;
+    margin-bottom: 0px;
+    margin-top: 10px;
+}
+
+
+
+.riceCropDetailForPrediction .box {
+    width: max-content;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 35px;
+    border: 2px solid #fff;
+    border-radius: 20px/50px;
+    background-clip: padding-box;
+    text-align: center;
+}
+
+.riceCropDetailForPrediction .button {
+    font-size: 1em;
+    padding: 10px;
+    color: #fff;
+    border: 2px solid #06d85f;
+    border-radius: 20px/50px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+}
+
+.riceCropDetailForPrediction .button:hover {
+    background: #06d85f;
+}
+
+.riceCropDetailForPrediction .overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 100ms;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 18;
+}
+
+
+.riceCropDetailForPrediction .overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.riceCropDetailForPrediction .popup {
+    /* margin:  auto; */
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    width: 71%;
+    position: relative;
+    top: 30px;
+    transition: all 5s ease-in-out;
+}
+
+.riceCropDetailForPrediction .popup h2 {
+    margin-top: 0;
+    color: #333;
+    font-family: Tahoma, Arial, sans-serif;
+}
+
+
+
+
+
+.riceCropDetailForPrediction .popup .content {
+    max-height: 30%;
+    overflow: auto;
+}
+
+@media screen and (max-width: 700px) {
+    .riceCropDetailForPrediction .box {
+         width: 70%;
+    }
+
+    .riceCropDetailForPrediction .popup {
+         width: 70%;
+    }
+}
+
+.tableWeather-popup thead tr th{
+    position: sticky;
+
+}
+.tableWeather-popup tbody tr:last-child{
+    position: sticky;
+    bottom: 0;
+    background-color: #f5f6f8;
+ }
+.riceCropDetailForPrediction .overlay .content {
+    height: 80vh !important;
+
+}
+
+.tableWeather-popup {
+    /* overflow-y: scroll; */
+    width: 100% !important;
+    height:100% !important;
+    /* display: inline-block; */
+    position: relative;
+}
+
+.btnPredict a{
+    text-decoration: none;
+    color: #FFFED8;
+}
+
+.riceCropDetailForPrediction .btnDowload:hover,
+.riceCropDetailForPrediction .btnPredict:hover{
+    background-color: #ABD2C8;
+    color:#1C1C1F;
+}
+
+.riceCropDetailForPrediction .btnPredict:hover a{
+    color:#1C1C1F;
+    text-decoration: none;
 }

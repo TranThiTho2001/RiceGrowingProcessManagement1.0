@@ -45,8 +45,8 @@
                                    <option class="optionYear" v-for="year in getYear()" :key="year">{{ year }}</option>
                               </select>
                          </div>
-                         <button class="btn btnPredict1" @click="goToRiceYieldPredictionDetail()">Lịch Sử
-                              Dự Đoán</button>
+                         <!-- <button class="btn btnPredict1" @click="goToRiceYieldPredictionDetail()">Lịch Sử
+                              Dự Đoán</button> -->
                     </div>
 
                     <div class=" row ricecropList-row" style="margin-left:-5px;margin-right: 10px ; margin-top:20px">
@@ -678,7 +678,7 @@ export default {
 }
 
 .predictiveManagement .btnMoreInfor .dropdown-menu li:hover {
-     background-color: #FFFED8;
+     background-color: #FFFA37;
      color: #1C1C1F;
 }
 
