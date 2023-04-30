@@ -32,7 +32,7 @@
                               <i class="fas fa-users">&nbsp;</i>Quản Lý Người Dùng</button>
                     </div>
                     <div class="row ml-2 mt-3" v-if="currentuser.Role_id == '01'">
-                         <button class="btn pl-2 pr-5 btn-sm btn-outline-secondary btnBackup">
+                         <button class="btn pl-2 pr-5 btn-sm btn-outline-secondary btnBackup" @click="gotoDataBackup()">
                               <i class="fas fa-hdd" style="font-size: 25px;">&nbsp;</i>Sao Lưu Dữ Liệu</button>
                     </div>
                     <div class="row mt-1 pt-2 ml-2" v-if="currentuser.Role_id == '03' || currentuser.Role_id == '02'">
@@ -145,6 +145,10 @@ export default {
 
           gotoPrediction(){
                this.$router.push("/Predition");
+          },
+
+          gotoDataBackup(){
+               this.$router.push("/Databackup");
           },
 
           async PhanQuyenNhanVien() {

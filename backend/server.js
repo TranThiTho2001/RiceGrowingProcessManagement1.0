@@ -4,6 +4,7 @@ const config = require("./app/config");
 const { BadRequestError } = require("./app/helpers/errors");
 const multer = require('multer');
 
+
 const setupRoleRoutes = require("./app/routes/role.routes");
 const setupCropRoutes = require("./app/routes/crop.routes");
 const setupSeedRoutes = require("./app/routes/seed.routes");
@@ -11,6 +12,7 @@ const setupSoilRoutes = require("./app/routes/soil.routes");
 const setUpImageRoutes = require("./app/routes/image.router");
 const setupAlgorithm = require("./app/routes/algorithm.routes");
 const setUpImagesRoutes = require("./app/routes/images.router");
+const setUpBackupRoutes = require("./app/routes/backup.routes");
 const setupNutrientRoutes = require("./app/routes/nutrient.routes");
 const setupContainRoutes = require("./app/routes/contain.routes");
 const setUpProvinceRoutes = require("./app/routes/province.routes");
@@ -32,27 +34,28 @@ const setupRiceCropInformationRoutes = require("./app/routes/riceCropInformation
 const setupEpidemicsClassificationRoutes = require("./app/routes/epidemicClassification.routes");
 
 const app = express();
-const bodyParser= require('body-parser')
+const bodyParser = require('body-parser')
 app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({
- extended: true,
- })
+    extended: true,
+})
 );
 
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({ extended: true }))
 // set routes
 // app.use(express.static("uploads"));
 
+setupAlgorithm(app);
 setupRoleRoutes(app);
 setupCropRoutes(app);
 setupSeedRoutes(app);
 setupSoilRoutes(app);
 setUpImageRoutes(app);
+setUpBackupRoutes(app);
 setUpImagesRoutes(app);
 setupMonitorRoutes(app);
-setupAlgorithm(app);
 setupTreatmentRoutes(app);
 setupEpidemicRoutes(app);
 setupPedictionRoutes(app);
@@ -83,12 +86,12 @@ app.use((err, req, res, next) => {
 });
 
 // app.get('/', (req, res) => {
-   
+
 //         const { spawn } = require('child_process');
 //         const pyProg = spawn('python', ['./predictionModel/LinearRegression.py']);
-    
+
 //         pyProg.stdout.on('data', function(data) {
-    
+
 //             console.log(data.toString());
 //             res.write(data);
 //             res.end('end');
@@ -97,38 +100,79 @@ app.use((err, req, res, next) => {
 
 
 // backup and restore
+
 const cron = require('node-cron');
 const moment = require('moment');
 const fs = require('fs');
 const spawn = require('child_process').spawn;
-const  mysqldump =require('mysqldump');
-cron.schedule('0 15 10 * * MON', () => {
-    const fileName = "ricegrowingprocessmanagementdatabase"+`${moment().format('YYYY_MM_DD')}.sql`
-mysqldump({
-    connection: {
-        host: 'localhost',
-        user: 'root',
-        password: '12345678',
-        database: 'ricegrowingprocessmanagementdatabase',
-    },
-    dumpToFile: `../backup/${fileName}`,
+const mysqldump = require('mysqldump');
+cron.schedule('0 13 23 * * *', () => {
+    const autobackup = require("./app/controllers/automaticBackup.controller");
+    const fileName = "backup_" + `${Date.now()}.sql`
+    mysqldump({
+        connection: {
+            host: 'localhost',
+            user: 'root',
+            password: '12345678',
+            database: 'ricegrowingprocessmanagementdatabase',
+        },
+        dumpToFile: `../frontend/backup/${fileName}`,
+    });
+    const newbackup = {
+        Backup_date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+        Backup_link: fileName,
+    }
+    autobackup.store(newbackup);
 });
-});
+
+
+app.post('/api/backup', (req, res) => {
+    const backup = require("./app/controllers/backup.controller");
+    const fileName = "backup_" + `${Date.now()}.json`
+    mysqldump({
+        connection: {
+            host: 'localhost',
+            user: 'root',
+            password: '12345678',
+            database: 'ricegrowingprocessmanagementdatabase',
+        },
+        dumpToFile: `../frontend/backup/${fileName}`,
+    });
+    const newbackup = {
+        Backup_date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+        Backup_link: fileName,
+    }
+    backup.store(newbackup, res);
+})
+
+app.delete('/api/backup/:id/:filename', (req, res) => {
+    const deleteFile = '../frontend/backup/'+ req.params.filename;
+    const backup = require("./app/controllers/backup.controller");
+    if (fs.existsSync(deleteFile)) {
+        fs.unlink(deleteFile, (err) => {
+            if (err) {
+                console.log(err);
+            }
+            console.log('deleted');
+            backup.delete(req,res);
+        })
+    }
+})
 // Lap lich sao luu du lieu
 // cron.schedule('0 5 10 * * *', () => {
 //     const fs = require('fs')
 //     const spawn = require('child_process').spawn
 //     const dumpFileName = `${Math.round(Date.now() / 1000)}.dump.sql`
-    
+
 //     const writeStream = fs.createWriteStream(dumpFileName)
-    
+
 //     const dump = spawn('mysqldump', [
 //         '-u',
 //         'root',
 //         '-p12345678',
 //         'ricegrowingprocessmanagementdatabase',
 //     ])
-    
+
 //     dump
 //         .stdout
 //         .pipe(writeStream)

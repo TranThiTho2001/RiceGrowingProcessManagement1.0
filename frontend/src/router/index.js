@@ -14,7 +14,6 @@ const routes = [
         alias: "/SystemManagement",
         name: "SystemManagement",
         component: () => import("../views/administratorsView/SystemManagement.vue"),
-
     },
 
     {
@@ -22,7 +21,13 @@ const routes = [
         alias: "/EmployeeManager",
         name: "EmployeeManager",
         component: () => import("../views/administratorsView/EmployeeManager.vue"),
+    },
 
+    {
+        path: "/DataBackup",
+        alias: "/DataBackup",
+        name: "DataBackup",
+        component: () => import("../views/administratorsView/manageDataBackup.vue"),
     },
 
     {

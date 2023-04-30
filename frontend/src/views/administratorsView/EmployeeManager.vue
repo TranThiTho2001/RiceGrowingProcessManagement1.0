@@ -54,9 +54,9 @@
                                    <option class="optionSex" value="Nam">Nam</option>
                               </select>
                          </div>
-
+<!-- isOpenCreateEmployeeForm = !isOpenCreateEmployeeForm, retrieveRoleList() -->
                          <button class="btn btnCreate"
-                              @click="isOpenCreateEmployeeForm = !isOpenCreateEmployeeForm, retrieveRoleList()"><i
+                              @click="backup()"><i
                                    class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm nhân viên</button>
 
                     </div>
@@ -157,7 +157,7 @@ import roleService from '@/services/role.service';
 import moment from 'moment';
 import { mapGetters, mapMutations } from "vuex";
 import Preloader from '@/components/catalogManagementComponents/Preloader.vue'
-
+import backupServices from '@/services/backup.services';
 export default {
      name: 'EmployeeManager',
      components: {
@@ -239,6 +239,18 @@ export default {
                this.isOpenSearch.close = true;
                this.isOpenInput1 = false;
                this.isOpenInput2 = false;
+          },
+
+          async backup(){
+               const [err, respone] = await this.handle(
+                    backupServices.create()
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+                    console.log(respone.data);
+               }
           },
 
           async retrieveRoleList() {
