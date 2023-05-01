@@ -18,7 +18,7 @@
      width: 100%;
      height: 35px !important;
      border: 1px solid #ced4da;
-     background: #F0F2F7!important;
+     background: #F0F2F7 !important;
      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
      border-radius: 10px;
 }
@@ -42,7 +42,7 @@
      vertical-align: middle;
 }
 
-.content .form-group .form-control-none-bg{
+.content .form-group .form-control-none-bg {
      background: none !important;
      box-shadow: none !important;
 }
@@ -176,12 +176,10 @@
      margin-top: 20px;
      height: 530px;
      position: relative;
-     background-color: #FFFFFF;
-     margin-left: 20px;
-     background: #FAFAFC;
-     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     margin-left: 8px;
+     background: none;
      border-radius: 15px;
-     width: 97.7%;
+     width: 98.9%;
 }
 
 
@@ -279,7 +277,7 @@ html {
      }
 
      .form {
-          width: 80% !important;
+          width: 95% !important;
           top: 120px !important;
           /* margin-left: 10px !important; */
           margin: auto !important;
@@ -409,8 +407,32 @@ html {
           width: 38% !important;
           z-index: 3 !important;
      }
-}
 
+     .scrollTable .li-class {
+          width: 48% !important;
+     }
+     .scrollTable .li-class-arableland {
+          width: 30.5%;
+     }
+     .li-class .title-name{
+          font-size: 16px !important;
+     }
+}
+@media only screen and (max-width: 450px) {
+     .scrollTable h5::before {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex: 0 0 auto;
+          margin-right: 0.5rem !important;
+          width: 2rem !important;
+          height: 2rem !important;
+          padding: 0.45rem;
+     }
+     .scrollTable .btnMoreSelection{
+          top:33px !important;
+     }
+}
 .outside {
      width: 100vw;
      height: 100vh;
@@ -833,13 +855,6 @@ html {
 }
 
 .scrollTable .li-class {
-     /* --stop: calc(100% / var(--length) * var(--i));
-	--l: 62%;
-	--l2: 88%;
-	--h: calc((var(--i) - 1) * (180 / var(--length)));
-	--c1: hsl(var(--h), 71%, var(--l));
-	--c2: hsl(var(--h), 71%, var(--l2)); */
-
      position: relative;
      counter-increment: list;
      width: 31.2%;
@@ -848,8 +863,8 @@ html {
      margin-left: 1% !important;
      margin-top: 10px;
      padding: 2rem 1rem 1rem;
-     box-shadow: 0.1rem 0.1rem 1.5rem rgba(0, 0, 0, 0.3);
-     border-radius: 0.25rem;
+     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 0.25rem;
      overflow-y: hidden;
      text-overflow: ellipsis;
      white-space: normal;
@@ -857,8 +872,6 @@ html {
      display: inline-block;
      text-decoration: none;
      color: #1C1C1F;
-
-
 }
 
 .scrollTable .li-class:hover {
@@ -1020,4 +1033,50 @@ html {
      z-index: 10;
      left: 90%;
      top: 53px;
+}
+
+.content-component .title-class {
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 500;
+     font-size: 18px;
+     margin-top: 40px !important;
+     /* line-height: 40px; */
+}
+
+.content-component .value-class {
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 400;
+     font-size: 18px;
+     line-height: 50px;
+}
+.content .title-class {
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 500;
+     font-size: 16px !important;
+     /* line-height: 40px; */
+}
+
+.content .value-class {
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 400;
+     font-size: 16px !important;
+}
+.li-class .title-class {
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 400;
+     font-size: 17px;
+     line-height: 30px;
+}
+
+.li-class .title-name{
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 500;
+     font-size: 22px;
+     line-height: 30px;
 }

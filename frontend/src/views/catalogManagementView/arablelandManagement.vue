@@ -6,14 +6,14 @@
           <div class="row arablelandManagementFrame" style="height: 100vmin; 100%" v-if="!loading"
                :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
-                    @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
+                    @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
-                    @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true, active.leftnNoneActive = false"></button>
+                    @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true"></button>
                <div class="left" :class="{ navbarresponsive: openMenu.openMenu }">
                     <Catalog />
                </div>
 
-               <div class="right rightArableLandManagement" :class="{ leftNoneActive: active.leftnNoneActive }">
+               <div class="right rightArableLandManagement">
                     <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Mẫu ruộng</h3>
@@ -44,7 +44,7 @@
                               @click="retrieveProvinceList(), retrieveSoilList(), openCreate = !openCreate, active = true"><i
                                    class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm mẫu ruộng</button>
                     </div>
-                    <div class="scrollTable">
+                    <div class="scrollTable" style="background: none !important; background-color: none !important;">
                          <!-- <div class="scrollTable-content">
                               <table class="table arablelandList">
                                    <thead>
@@ -94,7 +94,7 @@
 
 
                          <div class="ol-class" style="--length: 5" role="list">
-                              <a class="li-class " href="#popup1" v-for="(arableLand, j) in arablelandList" :key="j"
+                              <a style="width: 23%;" class="li-class-arableland li-class" href="#popup1" v-for="(arableLand, j) in arablelandList" :key="j"
                                    @click="setArableLandChosen(arableLand)">
                                    <button type="button" class="btn btn-sm btnMoreSelection" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
@@ -105,14 +105,20 @@
                                         <a class="dropdown-item" href="#"
                                              @click="setArableLandChosen(arableLand), isOpenConfirm = !isOpenConfirm, active = true">
                                              <span class="fas fa-trash-alt actionIcon"></span> Xóa
-                                        </a> 
-                                                                               <a class="dropdown-item action"
+                                        </a>
+                                        <a class="dropdown-item action"
                                              @click="setArableLandChosen(arableLand), isOpenUpdateArableLand = !isOpenUpdateArableLand, active = true">
                                              <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                         </a>
                                    </div>
-                                   <h5>{{ arableLand.ArableLand_id }}</h5>
-                                   <p>{{ arableLand.ArableLand_location }}</p>
+                                   <h5 class="title-name">{{ arableLand.ArableLand_id }}</h5>
+                                   <span class="title-class">Hộ ông/bà: {{ arableLand.ArableLand_owner }}</span><br>
+                                   <span class="title-class">Tỉnh: {{ arableLand.ArableLand_location }}</span><br>
+                                   <span class="title-class">Diện tích: {{ arableLand.ArableLand_area }} ha</span><br>
+                                   <span class="title-class">Vị trí:
+                                        <a class="text-location" :href="`http://maps.google.com/?q=${arableLand.ArableLand_latitude}, ${arableLand.ArableLand_longitude}`">
+                                             Xem trên bản đồ</a>
+                                   </span><br>
                               </a>
                               <div id="popup1" class="overlay" v-if="!active && !isOpenUpdateArableLand">
                                    <div class="popup">
@@ -120,20 +126,22 @@
                                              style="font-size: 25px; text-decoration: none; color:#B3B4BA; float: right;"></a>
                                         <h2>{{ arablelandChosen.ArableLand_id }}</h2>
 
-                                        <div class="content">
-                                             <h6 class="title-class">Chử sở hữu</h6>
-                                             <p class="value-class">{{ arablelandChosen.ArableLand_owner }}</p>
-                                             <h6 class="title-class">Diện tích</h6>
-                                             <h6 class="title-class">Loại đất</h6>
-                                             <p class="value-class">{{ arablelandChosen.Soil_name }}</p>
-                                             <p class="value-class">{{ arablelandChosen.ArableLand_area }}(ha)</p>
-                                             <h6 class="title-class">Tọa độ</h6>
-                                             <p class="value-class">{{ arablelandChosen.ArableLand_latitude }}, ArableLand_longitude</p>
-                                             <h6 class="title-class">Địa chỉ</h6>
-                                             <p class="value-class">{{ arablelandChosen.ArableLand_location }}, ArableLand_longitude</p>
-                                             <h6 class="title-class">Khu vực nghiên cứu</h6>
-                                             <p class="value-class">{{ arablelandChosen.Province_id }} - {{ arablelandChosen.Province_name }}, ArableLand_longitude</p>
-
+                                        <div class="content-component">
+                                             <span class="title-class">Hộ ông/bà: </span>
+                                             <span class="value-class">{{ arablelandChosen.ArableLand_owner }}</span><br>
+                                             <span class="title-class">Diện tích: </span>
+                                             <span class="value-class">{{ arablelandChosen.ArableLand_area }}(ha)</span><br>
+                                             <span class="title-class">Loại đất: </span>
+                                             <span class="value-class">{{ arablelandChosen.Soil_name }}</span><br>
+                                             <span class="title-class">Tọa độ: </span>
+                                             <span class="value-class"> <a class="text-location"
+                                                       :href="`http://maps.google.com/?q=${arablelandChosen.ArableLand_latitude}, ${arablelandChosen.ArableLand_longitude}`">{{ arablelandChosen.ArableLand_latitude }}, {{
+                                                  arablelandChosen.ArableLand_longitude }} </a></span><br>
+                                             <span class="title-class">Địa chỉ: </span>
+                                             <span class="value-class">{{ arablelandChosen.ArableLand_location }}</span><br>
+                                             <span class="title-class">Khu vực nghiên cứu: </span>
+                                             <span class="value-class">{{ arablelandChosen.Province_id }} - {{
+                                                  arablelandChosen.Province_name }} </span>
                                         </div>
                                    </div>
                               </div>
@@ -156,8 +164,8 @@
                          @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
                </div>
           </div>
-          <div class="overlay2" v-if="isOpenMessage" >
-               <div class="messageDialog" >
+          <div class="overlay2" v-if="isOpenMessage">
+               <div class="messageDialog">
                     <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
                          <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
                               message
@@ -168,12 +176,12 @@
                </div>
           </div>
           <div class="overlay2" v-if="openCreate">
-               <CreateArableLandForm  :newArableLand="newArableLand" :soilList="soilList"
+               <CreateArableLandForm :newArableLand="newArableLand" :soilList="soilList"
                     @addArableLand-submit="createArableLand" :message1="message1" :message2="message2"
                     :provinceList="provinceList" />
           </div>
           <div class="overlay2" v-if="isOpenUpdateArableLand">
-               <UpdateArableLandForm  :newArableLand="arablelandChosen" :soilList="soilList"
+               <UpdateArableLandForm :newArableLand="arablelandChosen" :soilList="soilList"
                     @updateArableLand-submit="updateArableLand" :message1="message1" :message2="message2"
                     :provinceList="provinceList" />
           </div>
@@ -493,5 +501,4 @@ nav .pagination .page-item .page-link {
      font-size: 20px;
 }
 
-@import url(../../assets/mainStyle.css);
-</style>
+@import url(../../assets/mainStyle.css);</style>

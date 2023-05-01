@@ -5,9 +5,9 @@
           </div>
           <div v-if="!loading" class="row EmployeeManager" style="height: 100vmin;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
-                    @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
+                    @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = FontFaceSetLoadEvent"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
-                    @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true, active.leftnNoneActive = false"></button>
+                    @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true"></button>
                <div class="left" :class="{ navbarresponsive: openMenu.openMenu }">
                     <Catalog />
                </div>
@@ -48,6 +48,8 @@
 
 
                     <div class="scrollTable " style="margin-top: 50px ;">
+                        
+    <!-- <FileBrowser :axiosConfig="{baseURL: 'http://localhost:8081'}" /> -->
                          <div class="scrollTable-content">
                               <table class="table employeeList">
                                    <thead>
@@ -65,8 +67,9 @@
                                              <td class="text-center">{{ formatDate(databackup.Backup_date) }}</td>
                                              <!-- <td>{{ databackup.Backup_link }}</td>
                                             :href="`/../../../backup/${databackup.Backup_link}`" <a :href="'../../assets/Giong-lua-ST25.png'" target="_blank" >Dowload</a> -->
-                                             <td><a :href="databackup.Link"  download="ewe" -->
-                                                      >{{ databackup.Link }}</a></td>
+                                             <!-- <td><a :href="databackup.Link"  download="ewe"
+                                                      >{{ databackup.Link }}</a></td> -->
+                                                      <td><a href="D:\ Bad">gr</a></td>
                                              <td class="">
                                                   <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
                                                        aria-haspopup="true" aria-expanded="false">
@@ -84,14 +87,14 @@
                               </table>
                          </div>
                     </div>
-                    <div class="overlay2" v-if="isOpenCreateEmployeeForm">
+                    <!-- <div class="overlay2" v-if="isOpenCreateEmployeeForm">
                          <CreateNewEmployeeForm :newEmployee="newEmployee" :roleList="roleList"
                               @addEmployee-submit="createEmployee" :message1="message1" :message2="message2" />
                     </div>
                     <div class="overlay2" v-if="isOpenUpdateEmployeeForm">
                          <UpdateEmployeeForm :newEmployee="employeeChoosen" :roleList="roleList"
                               @updateEmployee-submit="updateEmployee" :message1="message1" :message2="message2" />
-                    </div>
+                    </div> -->
                </div>
 
           </div>
@@ -145,22 +148,20 @@
 
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue'
-import CreateNewEmployeeForm from '../../components/administratorsComponent/createNewEmployeeForm.vue';
-import UpdateEmployeeForm from '../../components/administratorsComponent/updateEmployeeForm.vue';
 import moment from 'moment';
 import { mapGetters, mapMutations } from "vuex";
 import Preloader from '@/components/catalogManagementComponents/Preloader.vue'
 import backupServices from '@/services/backup.services';
-import Axios from 'axios';
+// import Axios from 'axios';
+// import FileBrowser from "vuetify-file-browser";
 
 export default {
      name: 'EmployeeManager',
      components: {
           Catalog,
           TopHeader,
-          CreateNewEmployeeForm,
-          UpdateEmployeeForm,
           Preloader,
+          // FileBrowser,
      },
      data() {
           return {
@@ -211,17 +212,17 @@ export default {
                this.isOpenInput1 = false;
                this.isOpenInput2 = false;
           },
-          async downloadItem({ url, label }) {
-               Axios.get(url, { responseType: 'blob' })
-                    .then(response => {
-                         const blob = new Blob([response.data], { type: 'application/pdf' })
-                         const link = document.createElement('a')
-                         link.href = URL.createObjectURL(blob)
-                         link.download = label
-                         link.click()
-                         URL.revokeObjectURL(link.href)
-                    }).catch(console.error)
-          },
+          // async downloadItem({ url, label }) {
+          //      Axios.get(url, { responseType: 'blob' })
+          //           .then(response => {
+          //                const blob = new Blob([response.data], { type: 'application/pdf' })
+          //                const link = document.createElement('a')
+          //                link.href = URL.createObjectURL(blob)
+          //                link.download = label
+          //                link.click()
+          //                URL.revokeObjectURL(link.href)
+          //           }).catch(console.error)
+          // },
           async backup() {
                this.message = "";
                this.processing = true;
@@ -254,7 +255,7 @@ export default {
                     this.dataBackupList = respone.data;
                     console.log(this.dataBackupList);
                     // this.dataBackupList.forEach(element => {
-                    //      element.Link =  require('@/backup/'+element.Backup_link);
+                    //      element.Link =  require('@/backup/'+backup_1682836130573.json);
                     //      console.log(element.Link)
                     // });
                }

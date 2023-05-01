@@ -18,8 +18,13 @@ Monitor.create = (newMonitor, result) => {
 
 Monitor.findByIdRiceCropInformation = (id, result) => {
     sql.query(`SELECT * FROM Monitor` +
+    " JOIN Ricecropinformation ON Ricecropinformation.RiceCropInformation_id = Monitor.RiceCropInformation_id"+
     ` Join Employee on Employee.Employee_id = Monitor.Employee_id` +
-     ` WHERE RiceCropInformation_id like '${id}' Order by Employee.Role_id`, (err, res) => {
+    ` JOIN Seed on Seed.Seed_id = RiceCropInformation.Seed_id` +
+    ` JOIN ArableLand on ArableLand.ArableLand_id = RiceCropInformation.ArableLand_id` +
+    ` JOIN Crop on Crop.Crop_id = RiceCropInformation.Crop_id` + 
+    ` JOIN Province on Province.Province_id = ArableLand.Province_id `+
+     ` WHERE Ricecropinformation.RiceCropInformation_id like '${id}' Order by Employee.Role_id`, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -36,10 +41,14 @@ Monitor.findByIdRiceCropInformation = (id, result) => {
 
 Monitor.getAll = (employee_id, result) => {
     let query = "SELECT * FROM Monitor" + 
-    " JOIN Ricecropinformation ON Ricecropinformation.RiceCropInformation_id = Monitor.RiceCropInformation_id"
+    " JOIN Ricecropinformation ON Ricecropinformation.RiceCropInformation_id = Monitor.RiceCropInformation_id"+
+    ` JOIN Seed on Seed.Seed_id = RiceCropInformation.Seed_id` +
+    ` JOIN ArableLand on ArableLand.ArableLand_id = RiceCropInformation.ArableLand_id` +
+    ` JOIN Crop on Crop.Crop_id = RiceCropInformation.Crop_id` + 
+    ` JOIN Province on Province.Province_id = ArableLand.Province_id `+
     " JOIN Employee on Employee.Employee_id = Monitor.Employee_id ";
     if (employee_id) {
-        query += ` WHERE Employee_id LIKE '%${employee_id}%'`;
+        query += ` WHERE Employee.Employee_id LIKE '%${employee_id}%'`;
     }
     query += " ORDER BY Ricecropinformation.RiceCropInformation_id"
     sql.query(query, (err, res) => {
@@ -54,6 +63,10 @@ Monitor.getAll = (employee_id, result) => {
 Monitor.findByName = (name,id, result) => {
     let query = "SELECT * FROM Monitor" + 
     " JOIN Ricecropinformation ON Ricecropinformation.RiceCropInformation_id = Monitor.RiceCropInformation_id" +
+    ` JOIN Seed on Seed.Seed_id = RiceCropInformation.Seed_id` +
+    ` JOIN ArableLand on ArableLand.ArableLand_id = RiceCropInformation.ArableLand_id` +
+    ` JOIN Crop on Crop.Crop_id = RiceCropInformation.Crop_id` + 
+    ` JOIN Province on Province.Province_id = ArableLand.Province_id `+
     " JOIN Employee on Employee.Employee_id = Monitor.Employee_id ";
     if (name) {
         query += ` WHERE Employee.Employee_name LIKE '%${name}%' AND Monitor.RiceCropInformation_id like '${id}'`;

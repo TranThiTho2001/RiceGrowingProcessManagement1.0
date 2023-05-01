@@ -135,12 +135,6 @@ const routes = [
 
     },
     
-    {
-        path: "/FertilizerDetail/:id",
-        alias: "/FertilizerDetail/:id",
-        name: "FertilizerDetail",
-        component: () => import("../views/catalogManagementView/fertilizerDetail.vue"),
-    },
 
     {
         path: "/FertilizerTimes/:id",

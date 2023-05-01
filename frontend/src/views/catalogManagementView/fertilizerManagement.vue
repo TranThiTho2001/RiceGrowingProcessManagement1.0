@@ -5,14 +5,14 @@
           </div>
           <div class="row fertilizerManagementFrame" style="height: 100vmin;" v-if="!loading" :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
-                    @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
+                    @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
-                    @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true, active.leftnNoneActive = false"></button>
+                    @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true"></button>
                <div class="left" :class="{ navbarresponsive: openMenu.openMenu }">
                     <Catalog />
                </div>
 
-               <div class="right rightFertilizerManagement " :class="{ leftNoneActive: active.leftnNoneActive }">
+               <div class="right rightFertilizerManagement ">
                     <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Phân bón</h3>
@@ -126,15 +126,15 @@
                                              <table class="table">
                                                   <tbody>
                                                        <tr>
-                                                            <td>Tên</td>
-                                                            <td>Đạm(N)</td>
-                                                            <td>Lân(P)</td>
-                                                            <td>Kali(K)</td>
-                                                            <td>Khác</td>
+                                                            <td></td>
+                                                            <td class="title-class text-center">Đạm(N)</td>
+                                                            <td class="title-class text-center">Lân(P)</td>
+                                                            <td class="title-class text-center">Kali(K)</td>
+                                                            <td class="title-class text-center">Khác</td>
                                                        </tr>
                                                        <tr>
-                                                            <td>Tỉ lệ(%)</td>
-                                                            <td v-for="contain in fertilizerChosen.Contain"
+                                                            <td class="value-class ">Tỉ lệ(%)</td>
+                                                            <td  class="value-class text-center" v-for="contain in fertilizerChosen.Contain"
                                                                  :key="contain.Nutrient_id">{{ contain.Contain_percent }}
                                                             </td>
 

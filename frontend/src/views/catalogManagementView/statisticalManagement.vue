@@ -4,14 +4,14 @@
           <Preloader color="red" scale="0.4" /></div>
           <div class="row StatisticalManagementManagementFrame" style="height: 100vmin;" v-if="!loading">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
-                    @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false, active.leftnNoneActive = true"></button>
+                    @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
-                    @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = true, active.leftnNoneActive = false"></button>
+                    @click="openMenu.openMenu = false, openMenu.isCloseMenu = false, openMenu.isOpenMenuIcon = tru"></button>
                <div class="left" :class="{ navbarresponsive: openMenu.openMenu }">
                     <Catalog />
                </div>
 
-               <div class="right rightStatisticalManagementManagement" :class="{ leftNoneActive: active.leftnNoneActive }">
+               <div class="right rightStatisticalManagementManagement">
                     <div class="mb-5 pb-2 pt-2 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Thống kê</h3>
@@ -152,11 +152,6 @@ export default {
                     openMenu: false,
                     isOpenMenuIcon: true,
                     isCloseMenu: false,
-               },
-
-               active: {
-                    rightActive: false,
-                    leftnNoneActive: false,
                },
                chartDataForRiceCrop: {
                     series: [],

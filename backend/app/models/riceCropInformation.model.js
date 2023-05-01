@@ -26,8 +26,9 @@ RiceCropInformation.create = (newRiceCropInformation, result) => {
 RiceCropInformation.findById = (id, result) => {
      sql.query(`SELECT * FROM RiceCropInformation` + 
      ` JOIN Seed on Seed.Seed_id = RiceCropInformation.Seed_id` +
-     ` JOIN ArableLand on ArableLand.ArableLand_id= RiceCropInformation.ArableLand_id` +
+     ` JOIN ArableLand on ArableLand.ArableLand_id = RiceCropInformation.ArableLand_id` +
      ` JOIN Crop on Crop.Crop_id = RiceCropInformation.Crop_id` + 
+     ` JOIN Province on Province.Province_id = ArableLand.Province_id `+
      ` WHERE RiceCropInformation_id like '${id}'`, (err, res) => {
           if (err) {
                console.log("error: ", err);
@@ -47,6 +48,7 @@ RiceCropInformation.getAll = (name, result) => {
      let query = "SELECT * FROM RiceCropInformation " +
      ` JOIN Seed on Seed.Seed_id = RiceCropInformation.Seed_id` +
      ` JOIN ArableLand on ArableLand.ArableLand_id= RiceCropInformation.ArableLand_id` +
+     ` JOIN Province on Province.Province_id = ArableLand.Province_id `+
      ` JOIN Crop on Crop.Crop_id = RiceCropInformation.Crop_id`;
      if (name) {
           query += ` WHERE RiceCropInformation_name LIKE '%${name}%'`;
@@ -67,6 +69,7 @@ RiceCropInformation.getByemployeeAndRiceCrop = (name,id, result) => {
      ` JOIN Seed on Seed.Seed_id = RiceCropInformation.Seed_id` +
      ` JOIN ArableLand on ArableLand.ArableLand_id= RiceCropInformation.ArableLand_id` +
      ` JOIN Crop on Crop.Crop_id = RiceCropInformation.Crop_id`+
+     ` JOIN Province on Province.Province_id = ArableLand.Province_id `+
      ` JOIN Monitor on Monitor.RiceCropInformation_id = RiceCropInformation.RiceCropInformation_id`
      if (name) {
           query += ` WHERE RiceCropInformation_name LIKE '%${name}%' and Employee_id LIKE '%${id}%'`;
@@ -85,6 +88,7 @@ RiceCropInformation.findByArableLand = (name,id, result) => {
      let query = "SELECT * FROM RiceCropInformation "+
      ` JOIN Seed on Seed.Seed_id = RiceCropInformation.Seed_id` +
      ` JOIN ArableLand on ArableLand.ArableLand_id= RiceCropInformation.ArableLand_id` +
+     ` JOIN Province on Province.Province_id = ArableLand.Province_id `+
      ` JOIN Crop on Crop.Crop_id = RiceCropInformation.Crop_id`
      if (name) {
           query += ` WHERE  LIKE ArableLand.ArableLand_name '%${name}%' or ArableLand.ArableLand_id LIKE '%${name}%'`;
@@ -104,6 +108,7 @@ RiceCropInformation.findRiceCropHarvested = (result) => {
      ` JOIN Seed on Seed.Seed_id = RiceCropInformation.Seed_id` +
      ` JOIN ArableLand on ArableLand.ArableLand_id= RiceCropInformation.ArableLand_id` +
      ` JOIN Crop on Crop.Crop_id = RiceCropInformation.Crop_id `+
+     ` JOIN Province on Province.Province_id = ArableLand.Province_id `+
      ` Where RiceCropInformation_harvestDate Is Not NULL`
      sql.query(query, (err, res) => {
           if (err) {

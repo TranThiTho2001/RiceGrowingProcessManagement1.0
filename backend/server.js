@@ -128,6 +128,7 @@ cron.schedule('0 13 23 * * *', () => {
 
 app.post('/api/backup', (req, res) => {
     const backup = require("./app/controllers/backup.controller");
+    const uploadgg = require("./googleDriveService")
     const fileName = "backup_" + `${Date.now()}.json`
     mysqldump({
         connection: {
@@ -142,7 +143,9 @@ app.post('/api/backup', (req, res) => {
         Backup_date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
         Backup_link: fileName,
     }
+    // uploadgg.uploadFile(`../frontend/backup/${fileName}`);
     backup.store(newbackup, res);
+    
 })
 
 app.delete('/api/backup/:id/:filename', (req, res) => {

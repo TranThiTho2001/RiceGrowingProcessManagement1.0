@@ -1,6 +1,6 @@
 .arablelandManagement .createArableLandForm,
 .arablelandManagement .updateArableLandForm {
-    margin-left:15% ;
+    margin:auto;
     padding: 20px;
     background: #FAFAFC;
     box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3);
@@ -8,15 +8,14 @@
     border-radius: 5px;
     width: 75%;
     position: relative;
-    top:120px;
-    transition: all 5s ease-in-out;
+    top:80px;
+    transition: all 1s ease-in-out;
 }
 
 @media only screen and (max-width: 1430px) {
     .arablelandManagement .createArableLandForm,
     .arablelandManagement .updateArableLandForm {
-        left: 10%;
-        width: 75%;
+        width: 90%;
     }
 }
 
@@ -52,4 +51,13 @@
     font-family: 'Roboto';
     font-style: normal;
     border-radius: 14px;
+}
+
+.li-class-arableland{
+    width: 23%;
+}
+
+.text-location{
+    text-decoration: none !important;
+    color: #1C1C1F;
 }

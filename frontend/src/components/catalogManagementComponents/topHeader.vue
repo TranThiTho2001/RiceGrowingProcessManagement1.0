@@ -22,10 +22,10 @@
                                    style="font-size: 22px;"></i></span>
                          <a href="#">Tài khoản</a>
                     </li>
-                    <li>
+                    <li @click="logout()">
                          <span class="material-icons icons-size"><i class="fas fa-sign-out-alt"
                                    style="font-size: 21px; padding-left: 2px;"></i></span>
-                         <a href="#">Đăng xuất</a>
+                         <a href="#" @click="logout()">Đăng xuất</a>
                     </li>
 
                </ul>

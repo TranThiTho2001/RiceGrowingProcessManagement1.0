@@ -5,7 +5,7 @@ const config = require("../config");
 exports.store = async (newBackup, req, res) => {
 
     // Save Backup in the database
-    Backup.create(backup, (err, data) => {
+    Backup.create(newBackup, (err, data) => {
         if (err)
             console.log("Không thể tạo một tỉ lệ mới")
         else console.log(data);
