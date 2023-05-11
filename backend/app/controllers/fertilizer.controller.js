@@ -9,8 +9,10 @@ exports.store = async (req, res) => {
         Fertilizer_name: req.body.Fertilizer_name,
         Fertilizer_supplier: req.body.Fertilizer_supplier,
         Fertilizer_uses: req.body.Fertilizer_uses,
-        Fertilizer_directionsForUse: req.body.Fertilizer_directionsForUse
+        Fertilizer_directionsForUse: req.body.Fertilizer_directionsForUse,
+        Fertilizer_image: req.body.Fertilizer_image,
      });
+
     // Save Fertilizer in the database
     Fertilizer.create(fertilizer, (err, data) => {
         if (err)

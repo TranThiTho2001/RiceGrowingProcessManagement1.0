@@ -17,6 +17,12 @@
         left: 10%;
     }
 }
+@media only screen and (max-width: 768px) {
+    .epidemicManagement .li-class-epdiemic{
+        height: 350px !important;
+    }
+}
+
 
 .epidemicManagement .navigationBar .btnEpidemic {
     display: block;

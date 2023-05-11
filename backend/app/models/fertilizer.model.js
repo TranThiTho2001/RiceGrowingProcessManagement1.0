@@ -6,6 +6,7 @@ const Fertilizer = function(fertilizer){
     this.Fertilizer_supplier = fertilizer.Fertilizer_supplier;
     this.Fertilizer_uses = fertilizer.Fertilizer_uses;
     this.Fertilizer_directionsForUse = fertilizer.Fertilizer_directionsForUse;
+    this.Fertilizer_image = fertilizer.Fertilizer_image;
 };
 
 Fertilizer.create = (newFertilizer, result) => {
@@ -53,8 +54,8 @@ Fertilizer.getAll = (name, result) => {
 
 Fertilizer.updateById = (id, fertilizer, result) => {
     sql.query(
-        "UPDATE Fertilizer SET Fertilizer_name = ?, Fertilizer_supplier = ?, Fertilizer_uses = ?, Fertilizer_directionsForUse = ? WHERE Fertilizer_id = ?",
-        [fertilizer.Fertilizer_name, fertilizer.Fertilizer_supplier, fertilizer.Fertilizer_uses, fertilizer.Fertilizer_directionsForUse, id],
+        "UPDATE Fertilizer SET Fertilizer_name = ?, Fertilizer_supplier = ?, Fertilizer_uses = ?, Fertilizer_directionsForUse = ? , Fertilizer_image =? WHERE Fertilizer_id = ?",
+        [fertilizer.Fertilizer_name, fertilizer.Fertilizer_supplier, fertilizer.Fertilizer_uses, fertilizer.Fertilizer_directionsForUse, fertilizer.Fertilizer_image,  id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);

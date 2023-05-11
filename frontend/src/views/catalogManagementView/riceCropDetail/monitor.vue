@@ -176,6 +176,7 @@ export default {
           },
 
           async retrieveMonitorList() {
+               this.monitorList = [];
                const [err, respone] = await this.handle(
                     MonitorService.get(this.newRiceCrop.RiceCropInformation_id)
                );
@@ -183,16 +184,14 @@ export default {
                     console.log(err)
                }
                else {
-                    this.monitorList = respone.data;
-                    this.monitorList.forEach(element => {
-                         if (element.Role_id == '01') {
-                              element.Role_name = "Quản trị viên";
-                         }
-                         else if (element.Role_id == '02') {
+                   respone.data.forEach(element => {
+                         if (element.Role_id == '02') {
                               element.Role_name = "Chuyên gia";
+                              this.monitorList.push(element);
                          }
-                         else {
-                              element.Role_name = "Nhân viên"
+                         else  if (element.Role_id == '03') {
+                              element.Role_name = "Nhân viên";
+                              this.monitorList.push(element);
                          }
                     });
                     this.cloneMonitorList = this.monitorList;
@@ -345,6 +344,7 @@ export default {
      font-size: 18px;
      text-transform: capitalize;
      margin-bottom: 20px;
+     padding: 2px 6px 2px 6px !important;
 }
 
 .riceCropDetail .btnExpert {
@@ -358,7 +358,9 @@ export default {
      font-size: 18px;
      text-transform: capitalize;
      margin-bottom: 20px;
+     padding: 2px 6px 2px 6px !important;
 }
+
 
 .btnMoreInfor-Employee {
      position: absolute;

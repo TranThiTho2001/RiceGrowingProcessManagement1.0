@@ -38,7 +38,7 @@
                     <div class="form-group">
                          <label for="components" class="mt-3">Thành phần <span style="color: red">*</span></label>
                          <Field name="components" class="form-control" v-model="newpesticide.Pesticide_component"
-                              as="textarea" style="height: 185px;" placeholder="Thông tin thuốc..." />
+                              as="textarea" style="height: 200px;" placeholder="Thông tin thuốc..." />
                          <ErrorMessage name="components" class="error-feedback" />
                     </div>
                </div>
@@ -52,16 +52,16 @@
                     </div>
 
                     <div class="form-group">
-                         <label for="directionsForUse" class="mt-1">Hướng dẫn sử dụng<span
+                         <label for="directionsForUse" class="">Hướng dẫn sử dụng<span
                                    style="color: red">*</span></label>
                          <Field name="directionsForUse" class="form-control"
-                              v-model="newpesticide.Pesticide_directionsForUse" as="textarea" style="height: 182px;"
+                              v-model="newpesticide.Pesticide_directionsForUse" as="textarea" style="height: 200px;"
                               placeholder="Thông tin phân bón..." />
                          <ErrorMessage name="directionsForUse" class="error-feedback" />
                     </div>
                </div>
                <div class="col-sm-4">
-                    <div class="form-group" style="height: 420px !important;">
+                    <div class="form-group" style="height: 200px !important;">
                          <div class="ml-3">
                               <label for="" class="">Điều trị bệnh dịch gây hại<span style="color: red">*</span></label><br>
                          </div>
@@ -72,6 +72,19 @@
                                              :value="epidemic.Epidemic_id">
                                         <label style="" for="epidemic" class="labelEpidemic">&nbsp; {{ epidemic.Epidemic_name
                                         }}</label><br>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+
+                    <div class="row form-group " style="width: 99%; margin-left: 1%;">
+                         <label for="supplier mt-3" class="" style="margin-top: 40px;">Hình ảnh <span style="color: red">*</span></label>
+                         <div class="col-sm-12 text-center form-control" style="height:200px !important;">
+                              <input type="file" ref="file" name="image" @change="selectFile($event)" accept="image/*"
+                                   enctype="multipart/form-data" class="" v-bind:aria-disabled="true">
+                              <div class="row rowImage mt-2" style=" width: 100%; height: 180px;">
+                                   <div class="col-md-12 text-center" style="height: 180px; width: 50%;">
+                                        <img v-if="url != ''" :src="url" class="img-fluid" style="height: 150px; !important">
                                    </div>
                               </div>
                          </div>
@@ -150,6 +163,8 @@ export default {
                     close: true,
                },
                nameToSearch: "",
+               fileImage: {},
+               url: "",
           };
      },
 
@@ -192,6 +207,12 @@ export default {
                          console.log(response.data)
                     }
                }
+          },
+
+          async selectFile(event) {
+               this.fileImage = event.target.files[0];
+               this.newpesticide.Image = this.fileImage;
+               this.url = URL.createObjectURL(this.fileImage);
           },
      }
 };
@@ -268,13 +289,20 @@ export default {
      font-size: 16px;
 }
 
-.epidemicSelect {
+.createPesticideForm .epidemicSelect {
      background-color: #FAFAFC !important;
      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-     max-height: 443px !important;
-     min-height: 295px;
+     max-height: 200px !important;
+     min-height: 200px;
      z-index: 3 !important;
      border-radius: 15px !important;
      border-radius: 15px;
 }
+
+.createPesticideForm .rowImage {
+    height: 170px;
+    margin: auto;
+    margin-top: 5px;
+}
+
 </style>

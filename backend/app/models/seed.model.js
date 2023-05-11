@@ -5,6 +5,7 @@ const Seed = function(seed){
     this.Seed_name = seed.Seed_name;
     this.Seed_characteristic = seed.Seed_characteristic;
     this.Seed_supplier = seed.Seed_supplier;
+    this.Seed_image = seed.Seed_image;
 };
 
 Seed.create = (newSeed, result) => {
@@ -40,6 +41,7 @@ Seed.getAll = (name, result) => {
     if (name) {
         query += ` WHERE Seed_name LIKE '%${name}%'`;
     }
+    query += ` ORDER BY Seed_id`;
     sql.query(query, (err, res) => {
         if (err) {
             console.log("error: ", err);
@@ -52,8 +54,8 @@ Seed.getAll = (name, result) => {
 
 Seed.updateById = (id, seed, result) => {
     sql.query(
-        "UPDATE Seed SET Seed_name = ?, Seed_characteristic = ?, Seed_supplier = ? WHERE Seed_id = ?",
-        [seed.Seed_name, seed.Seed_characteristic, seed.Seed_supplier, id],
+        "UPDATE Seed SET Seed_name = ?, Seed_characteristic = ?, Seed_supplier = ?, Seed_image = ? WHERE Seed_id = ?",
+        [seed.Seed_name, seed.Seed_characteristic, seed.Seed_supplier,seed.Seed_image, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);

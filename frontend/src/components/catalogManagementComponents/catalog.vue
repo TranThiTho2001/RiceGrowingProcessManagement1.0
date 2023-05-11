@@ -28,7 +28,7 @@
                               <i class="fas fa-chart-line">&nbsp;</i>Theo Dõi Mùa Vụ</button>
                     </div>
                     <div class="row ml-2" v-if="currentuser.Role_id == '01'">
-                         <button class="btn pl-2 pr-5 btn-sm btn-outline-secondary btnEmployee">
+                         <button class="btn pl-2 pr-5 btn-sm btn-outline-secondary btnEmployee" @click="goToEmployee()">
                               <i class="fas fa-users">&nbsp;</i>Quản Lý Người Dùng</button>
                     </div>
                     <div class="row ml-2 mt-3" v-if="currentuser.Role_id == '01'">
@@ -149,6 +149,10 @@ export default {
 
           gotoDataBackup(){
                this.$router.push("/Databackup");
+          },
+
+          goToEmployee(){
+               this.$router.push("/EmployeeManager");
           },
 
           async PhanQuyenNhanVien() {

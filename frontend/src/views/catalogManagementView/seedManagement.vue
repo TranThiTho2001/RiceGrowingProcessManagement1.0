@@ -37,65 +37,16 @@
                                    {{ seed.Seed_name }}</p>
                          </div>
                          <button class="btn btnCreate" @click="openCreate = !openCreate, active = !active"
-                              style="border-radius: 12px;"><i class="fas fa-plus-circle"></i> Thêm giống lúa</button>
+                              v-if="currentUser.Role_id == '02'" style="border-radius: 12px;"><i
+                                   class="fas fa-plus-circle"></i> Thêm giống lúa</button>
                     </div>
 
                     <div class="scrollTable">
-                         <!-- <div class="scrollTable-content">
-                              <table class="table seedList" id="tblStocks">
-                                   <thead>
-                                        <tr>
-                                             <th class="centerclass">STT</th>
-                                             <th>Mã</th>
-                                             <th>Tên</th>
-                                             <th>Nhà cung cấp</th>
-                                             <th>Đặc tính</th>
-                                             <th></th>
-                                        </tr>
-                                   </thead>
-                                   <tbody>
-                                        <tr v-for="(seed, i ) in seedList" :key="i">
-                                             <td class="centerclass" data-label="STT">{{ i + 1 }}</td>
-                                             <td data-label="Mã">{{ seed.Seed_id }}</td>
-                                             <td data-label="Tên">{{ seed.Seed_name }}</td>
-                                             <td data-label="Nhà cung cấp">{{ seed.Seed_supplier }}</td>
-                                             <td data-label="Đặc tính">{{ seed.Seed_characteristic }}
-                                             </td>
-                                             <td class="" data-label="Tùy chọn">
-                                                  <button type="button" class="btn btn-sm btnMore option1"
-                                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                       <i class="fas fa-ellipsis-v"></i>
-                                                  </button>
-                                                  <div class="dropdown-menu option1">
-                                                       <a class="dropdown-item action"
-                                                            @click="setSeedChosen(seed), isOpenUpdateSeed = !isOpenUpdateSeed, active = !active">
-                                                            <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
-                                                       </a>
-                                                       <a class="dropdown-item" href="#"
-                                                            @click="setSeedChosen(seed), isOpenConfirm = !isOpenConfirm, active = !active">
-                                                            <span class="fas fa-trash-alt actionIcon"></span> Xóa
-                                                       </a>
-                                                  </div>
-                                                  <div class="option2">
-                                                       <button class="btn btnMore"
-                                                            @click="setSeedChosen(seed), isOpenUpdateSeed = !isOpenUpdateSeed">
-                                                            <span class="fas fa-edit actionIcon"></span> Chỉnh sửa</button>
-                                                       <button class="btn btnMore"
-                                                            @click="setSeedChosen(seed), isOpenConfirm = !isOpenConfirm">
-                                                            <span class="fas fa-trash-alt actionIcon"></span> Xóa</button>
-                                                  </div>
-                                             </td>
-                                        </tr>
-                                   </tbody>
-                              </table>
-                         </div> -->
-
-
                          <div class="ol-class" style="--length: 5" role="list">
                               <a class="li-class " href="#popup1" v-for="(seed, j) in seedList" :key="j"
                                    @click="setSeedChosen(seed)">
                                    <button type="button" class="btn btn-sm btnMoreSelection" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
+                                        v-if="currentUser.Role_id == '02'" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v"></i>
                                    </button>
                                    <div class="dropdown-menu">
@@ -109,7 +60,15 @@
                                         </a>
                                    </div>
                                    <h5>{{ seed.Seed_name }}</h5>
-                                   <p>{{ seed.Seed_characteristic }}</p>
+                                   <div class="row">
+                                        <div class="col-sm-6">
+                                             <img class="img-fluid" :src="seed.url" style="height: 130px;">
+                                        </div>
+                                        <div class="col-sm-6">
+                                             <p>{{ seed.Seed_characteristic }}</p>
+                                        </div>
+                                   </div>
+
                               </a>
                               <div id="popup1" class="overlay" v-if="!active && !isOpenUpdateSeed">
                                    <div class="popup">
@@ -118,11 +77,19 @@
                                         <h2>{{ seedChosen.Seed_name }}</h2>
 
                                         <div class="content">
-                                             <h6 class="title-class">Mã giống</h6>
-                                             <p class="value-class">{{ seedChosen.Seed_id }}</p>
-                                             <h6 class="title-class">Nhà cung cấp</h6>
-                                             <p class="value-class">{{ seedChosen.Seed_supplier }}</p>
-                                             <h6 class="title-class">Đặc tính</h6>
+                                             <div class="row" style="width:98%">
+                                                  <div class="col-sm-4">
+                                                       <img class="img-fluid" :src="seedChosen.url" style="height: 130px;">
+                                                  </div>
+                                                  <div class="col-sm-8">
+                                                       <h6 class="title-class">Mã giống</h6>
+                                                       <p class="value-class">{{ seedChosen.Seed_id }}</p>
+                                                       <h6 class="title-class">Nhà cung cấp</h6>
+                                                       <p class="value-class">{{ seedChosen.Seed_supplier }}</p>
+                                                  </div>
+                                             </div>
+
+                                             <h6 class="title-class mt-3">Đặc tính</h6>
                                              <p class="value-class">{{ seedChosen.Seed_characteristic }}</p>
                                         </div>
                                    </div>
@@ -133,7 +100,7 @@
                </div>
           </div>
           <div class="overlay2" v-if="isOpenConfirm">
-               <div class="confirmationDialog" >
+               <div class="confirmationDialog">
                     <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
                          <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
                     </p>
@@ -155,13 +122,13 @@
                </div>
           </div>
           <div class="overlay2" v-if="openCreate">
-               <createSeedForm  :newSeed="newSeed" @addSeed-submit="createSeed" :message1="message1"
+               <createSeedForm :newSeed="newSeed" @addSeed-submit="createNewImage" :message1="message1"
                     :message2="message2" />
           </div>
 
           <div class="overlay2" v-if="isOpenUpdateSeed">
-               <updateSeedForm  :newSeed="seedChosen" @updateSeed-submit="updateSeed"
-                    :message1="message1" :message2="message2" />
+               <updateSeedForm :newSeed="seedChosen" @updateSeed-submit="updateImage" :message1="message1"
+                    :message2="message2" />
           </div>
      </div>
      <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click.passive="away()"></div>
@@ -169,7 +136,7 @@
 
 <script >
 
-
+import axios from "axios";
 import { mapGetters, mapMutations } from "vuex";
 import SeedService from '../../services/seed.service';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue'
@@ -178,14 +145,6 @@ import createSeedForm from '@/components/catalogManagementComponents/createNewSe
 import updateSeedForm from '@/components/catalogManagementComponents/updateSeedForm.vue';
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 
-class Seed {
-     constructor(seed) {
-          this.Seed_id = seed.Seed_id;
-          this.Seed_name = seed.Seed_name;
-          this.Seed_supplier = seed.Seed_supplier;
-          this.Seed_characteristic = seed.Seed_characteristic;
-     }
-}
 
 export default {
      name: "SeedManagement",
@@ -270,21 +229,24 @@ export default {
                }
                else {
                     this.seedList = respone.data;
-                    this.cloneSeedList = respone.data
-                    this.cloneSeedList.forEach(element => {
-                         new Seed(element)
+                    this.cloneSeedList = respone.data;
+                    this.seedList.forEach(seed => {
+                         if (seed.Seed_image != null) {
+                              seed.url = require('@/images/' + seed.Seed_image);
+                         }
                     });
 
                     var temp = (String(this.seedList[this.seedList.length - 1].Seed_id)).split("");
                     var id = "";
-                    temp.forEach(element => {
+                    for (let index = 0; index < temp.length; index++) {
+                         const element = temp[index];
                          if (element != "S" && element != "D" & element != "0") {
-                              for (let index = temp.indexOf(element); index < temp.length; index++) {
-                                   id += temp[index];
-                                   break;
+                              for (let i = index; i < temp.length; i++) {
+                                   id = id.concat(temp[i]);
                               }
+                              break;
                          }
-                    });
+                    }
 
                     if (id < 9) {
                          this.newSeed.Seed_id = "SD0000000" + String(Number(id) + 1);
@@ -300,56 +262,120 @@ export default {
                     }
                }
           },
-
-          async createSeed(data) {
+          async createNewImage(data) {
                if (data.close == false) {
                     this.openCreate = false;
                     this.message1 = " ";
                     this.message2 = " ";
                     this.active = false;
-                    this.newSeed = {};
+                    this.retrieveSeedList();
                }
                else {
-                    this.message1 = "";
-                    this.message2 = "";
-                    const [error, respone] = await this.handle(
-                         SeedService.create(data)
-                    );
-                    if (error) {
-                         console.log(error);
-                         this.message1 = "Thêm không thành công."
-                    } else if (respone.data == "Không thể tạo một giống lúa mới") {
-                         this.message1 = "Thêm không thành công."
-                    } else {
-                         this.message2 = "Thêm thành công.";
-                         this.retrieveSeedList();
+                    if (data.Image != null) {
+                         const formdata = require('form-data');
+                         const formData = new formdata();
+                         formData.append("image", data.Image);
+                         axios.post('http://localhost:8080/api/image', formData, {
+                              headers: {
+                                   'Content-Type': `multipart/form-data;`,
+                              }
+                         },
+                         ).then((response) => {
+                              fnSuccess(response);
+                         }).catch((error) => {
+                              fnFail(error);
+                         });
+
+                         const fnSuccess = (response) => {
+                              data.Seed_image = response.data.Image_link;
+                              this.createSeed(data);
+                              this.message2 = "Thêm thành công";
+                         };
+
+                         const fnFail = (error) => {
+                              console.log(error);
+                              this.message2 = "Thêm không thành công";
+                         };
+                    }
+                    else {
+                         this.message1 = "Vui lòng chọn hình ảnh!!"
                     }
                }
           },
 
-          async updateSeed(data) {
+          async updateImage(data) {
                if (data.close == false) {
                     this.isOpenUpdateSeed = false;
-                    this.active = false;
                     this.message1 = " ";
                     this.message2 = " ";
+                    this.active = false;
                     this.newSeed = {};
+                    this.retrieveSeedList();
                }
                else {
-                    this.message1 = "";
-                    this.message2 = "";
-                    const [error, respone] = await this.handle(
-                         SeedService.update(data.Seed_id, data)
-                    );
-                    if (error) {
-                         console.log(error);
-                         this.message1 = "Cập nhật không thành công."
-                    } else if (respone.data == "Đã xảy ra lỗi trong quá trình cập nhật thông tin!") {
-                         this.message1 = "Cập nhật không thành công."
-                    } else {
-                         this.message2 = "Cập nhật thành công.";
-                         this.retrieveSeedList();
+                    if (data.newImage != null) {
+                         const formdata = require('form-data');
+                         const formData = new formdata();
+                         formData.append("image", data.newImage);
+                         axios.post('http://localhost:8080/api/image', formData, {
+                              headers: {
+                                   'Content-Type': `multipart/form-data;`,
+                              }
+                         },
+                         ).then((response) => {
+                              fnSuccess(response);
+                         }).catch((error) => {
+                              fnFail(error);
+                         });
+
+                         const fnSuccess = (response) => {
+                              data.Seed_image = response.data.Image_link;
+                              this.updateSeed(data);
+                              this.message2 = "Thêm thành công";
+                         };
+
+                         const fnFail = (error) => {
+                              console.log(error);
+                              this.message2 = "Thêm không thành công";
+                         };
                     }
+                    else {
+                         this.updateSeed(data);
+                    }
+               }
+          },
+
+          async createSeed(data) {
+               this.message1 = "";
+               this.message2 = "";
+               const [error, respone] = await this.handle(
+                    SeedService.create(data)
+               );
+               if (error) {
+                    console.log(error);
+                    this.message1 = "Thêm không thành công."
+               } else if (respone.data == "Không thể tạo một giống lúa mới") {
+                    this.message1 = "Thêm không thành công."
+               } else {
+                    this.message2 = "Thêm thành công.";
+                    this.retrieveSeedList();
+               }
+          },
+
+          async updateSeed(data) {
+               this.message1 = "";
+               this.message2 = "";
+               const [error, respone] = await this.handle(
+                    SeedService.update(data.Seed_id, data)
+               );
+               if (error) {
+                    console.log(error);
+                    this.message1 = "Cập nhật không thành công."
+               } else if (respone.data == "Đã xảy ra lỗi trong quá trình cập nhật thông tin!") {
+                    this.message1 = "Cập nhật không thành công."
+               } else {
+                    this.message2 = "Cập nhật thành công.";
+                    this.retrieveSeedList();
                }
           },
 

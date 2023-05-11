@@ -3,7 +3,8 @@
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
                <Preloader color="red" scale="0.4" />
           </div>
-          <div class="row epidemicManagementFrame" style="height: max-content;" v-if="!loading" :class="{ active: active }">
+          <div class="row epidemicManagementFrame" style="height: max-content; background-color: #EAEAEA;" v-if="!loading"
+               :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -40,64 +41,16 @@
                                    @click="searchName(epidemic.Epidemic_name), away()">
                                    {{ epidemic.Epidemic_name }}</p>
                          </div>
-                         <button class="btn btnCreate" @click="openCreate = !openCreate, active = true"><i
-                                   class="fas fa-plus-circle pt-1" style="font-size: 20px;"></i> Thêm bệnh dịch</button>
+                         <button class="btn btnCreate" @click="openCreate = !openCreate, active = true"
+                              v-if="currentUser.Role_id == '02'"><i class="fas fa-plus-circle pt-1"
+                                   style="font-size: 20px;"></i> Thêm bệnh dịch</button>
                     </div>
                     <div class="scrollTable">
-                         <!-- <div class="scrollTable-content">
-                              <table class="table epidemicList">
-                                   <thead>
-                                        <tr>
-                                             <th class="centerclass" style=" padding-right: 2px;">STT</th>
-                                             <th>Mã</th>
-                                             <th>Tên</th>
-                                             <th style="width: 100px;" class="centerclass">Thời điểm</th>
-                                             <th>Môi trường phát triển</th>
-                                             <th>Tác hại</th>
-                                             <th style="width: 96px;" class="centerclass">Phân loại</th>
-                                             <th></th>
-                                        </tr>
-                                   </thead>
-                                   <tbody>
-                                        <tr v-for="(epidemic, i ) in epidemicList" :key="i">
-                                             <td class="centerclass" data-label="STT">{{ i + 1 }}</td>
-                                             <td data-label="Mã">{{ epidemic.Epidemic_id }}</td>
-                                             <td data-label="Tên">{{ epidemic.Epidemic_name }}</td>
-                                             <td data-label="Thời điểm" class="centerclass">{{
-                                                  epidemic.Epidemic_timeOfDevelopment }}</td>
-                                             <td data-label="Môi trường phát triển">{{
-                                                  epidemic.Epidemic_developmentEnvironment }}</td>
-                                             <td data-label="Tác hại">{{ epidemic.Epidemic_Harm }}
-                                             </td>
-                                             <td data-label="Phân loại" class="centerclass">{{
-                                                  epidemic.EpidemicClassification_name }}</td>
-                                             <td data-label="Tùy chọn" class="">
-                                                  <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
-                                                       aria-haspopup="true" aria-expanded="false">
-                                                       <i class="fas fa-ellipsis-v"></i>
-                                                  </button>
-                                                  <div class="dropdown-menu">
-                                                       <a class="dropdown-item action"
-                                                            @click="setEpidemicChosen(epidemic), isOpenUpdateEpidemic = !isOpenUpdateEpidemic, active = true">
-                                                            <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
-                                                       </a>
-                                                       <a class="dropdown-item" href="#"
-                                                            @click="setEpidemicChosen(epidemic), isOpenConfirm = !isOpenConfirm, active = true">
-                                                            <span class="fas fa-trash-alt actionIcon"></span> Xóa
-                                                       </a>
-                                                  </div>
-                                             </td>
-                                        </tr>
-                                   </tbody>
-                              </table>
-                         </div> -->
-
-
                          <div class="ol-class" style="--length: 5" role="list">
-                              <a class="li-class " href="#popup1" v-for="(epidemic, j) in epidemicList" :key="j"
-                                   @click="setEpidemicChosen(epidemic)">
+                              <a class="li-class-epdiemic li-class " href="#popup1" v-for="(epidemic, j) in epidemicList"
+                                   :key="j" @click="setEpidemicChosen(epidemic)">
                                    <button type="button" class="btn btn-sm btnMoreSelection" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
+                                        v-if="currentUser.Role_id == '02'" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v"></i>
                                    </button>
                                    <div class="dropdown-menu">
@@ -110,8 +63,17 @@
                                              <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                         </a>
                                    </div>
+
                                    <h5>{{ epidemic.Epidemic_name }}</h5>
-                                   <p>{{ epidemic.Epidemic_Harm }}</p>
+                                   <div class="row" style="width: 100%">
+                                        <div class="col-md-6">
+                                             <img class="img-fluid" :src="epidemic.url" style="height: 130px;">
+                                        </div>
+                                        <div class="col-md-6">
+                                             <p>{{ epidemic.Epidemic_Harm }}</p>
+                                        </div>
+                                   </div>
+
                               </a>
                               <div id="popup1" class="overlay" v-if="!active && !isOpenUpdateEpidemic">
                                    <div class="popup">
@@ -120,14 +82,25 @@
                                         <h2>{{ epidemicChosen.Epidemic_name }}</h2>
 
                                         <div class="content">
-                                             <h6 class="title-class">Phân loại</h6>
-                                             <p class="value-class">{{ epidemicChosen.EpidemicClassification_name }}</p>
-                                             <h6 class="title-class">Dấu hiệu</h6>
-                                             <p class="value-class">{{ epidemicChosen.Epidemic_indication }}</p>
-                                             <h6 class="title-class">Thời điểm xuất hiện</h6>
-                                             <p class="value-class">{{ epidemicChosen.Epidemic_timeOfDevelopment }}</p>
-                                             <h6 class="title-class">Môi trường phát triển</h6>
-                                             <p class="value-class">{{ epidemicChosen.Epidemic_developmentEnvironment }}</p>
+                                             <div class="row" style="width:98%">
+                                                  <div class="col-sm-4 align-self-center">
+                                                       <img class="img-fluid " :src="epidemicChosen.url">
+                                                  </div>
+                                                  <div class="col-sm-8">
+                                                       <h6 class="title-class">Phân loại</h6>
+                                                       <p class="value-class">{{ epidemicChosen.EpidemicClassification_name
+                                                       }}</p>
+                                                       <h6 class="title-class">Dấu hiệu</h6>
+                                                       <p class="value-class">{{ epidemicChosen.Epidemic_indication }}</p>
+                                                       <h6 class="title-class">Thời điểm xuất hiện</h6>
+                                                       <p class="value-class">{{ epidemicChosen.Epidemic_timeOfDevelopment }}
+                                                       </p>
+                                                  </div>
+
+                                             </div>
+                                             <h6 class="title-class mt-3">Môi trường phát triển</h6>
+                                             <p class="value-class">{{
+                                                  epidemicChosen.Epidemic_developmentEnvironment }}</p>
                                              <h6 class="title-class">Tác hại</h6>
                                              <p class="value-class">{{ epidemicChosen.Epidemic_Harm }}</p>
                                         </div>
@@ -152,31 +125,32 @@
                          @click="isOpenConfirm = !isOpenConfirm, active = false;">Hủy</button>
                </div>
           </div>
-          <div class="overlay2" v-if=" isOpenMessage ">
-               <div class="messageDialog" v-if=" isOpenMessage ">
+          <div class="overlay2" v-if="isOpenMessage">
+               <div class="messageDialog" v-if="isOpenMessage">
                     <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
                          <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
-                         message
+                              message
                          }}
                     </p>
                     <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                         @click=" isOpenMessage = !isOpenMessage, active = false; ">OK</button>
+                         @click=" isOpenMessage = !isOpenMessage, active = false;">OK</button>
                </div>
           </div>
-          <div class="overlay2" v-if=" openCreate ">
-               <CreateEpidemicForm :newEpidemic=" newEpidemic " @addEpidemic-submit=" createEpidemic " :message1=" message1 "
-                    :message2=" message2 " />
+          <div class="overlay2" v-if="openCreate">
+               <CreateEpidemicForm :newEpidemic="newEpidemic" @addEpidemic-submit="createNewImage" :message1="message1"
+                    :message2="message2" />
           </div>
-          <div class="overlay2" v-if=" isOpenUpdateEpidemic ">
-               <UpdateEpidemicForm :newEpidemic=" epidemicChosen " :epidemicClassificationList=" epidemicClassificationList "
-                    @updateEpidemic-submit=" updateEpidemic " :message1=" message1 " :message2=" message2 " />
+          <div class="overlay2" v-if="isOpenUpdateEpidemic">
+               <UpdateEpidemicForm :newEpidemic="epidemicChosen" :epidemicClassificationList="epidemicClassificationList"
+                    @updateEpidemic-submit="updateImage" :message1="message1" :message2="message2" />
           </div>
      </div>
-     <div v-if=" isOpenSearch.open || isOpenInput2 " class="outside" @click.passive=" away() "></div>
+     <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click.passive=" away()"></div>
 </template>
 
 <script>
 
+import axios from 'axios';
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import { mapGetters, mapMutations } from "vuex";
 import EpidemicService from '../../services/epidemic.service';
@@ -185,13 +159,6 @@ import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import CreateEpidemicForm from '@/components/catalogManagementComponents/createNewEpidemicForm.vue';
 import UpdateEpidemicForm from '@/components/catalogManagementComponents/updateEpidemicForm.vue';
 import EpidemicClassificationService from '@/services/epidemicClassification.service';
-
-class Epidemic {
-     constructor(epidemic) {
-          this.Epidemic_id = epidemic.Epidemic_id;
-          this.Epidemic_name = epidemic.Epidemic_name;
-     }
-}
 
 export default {
      name: "EpidemicManagement",
@@ -279,8 +246,15 @@ export default {
                else {
                     this.epidemicList = respone.data;
                     this.cloneEpidemicList = respone.data;
-                    this.cloneEpidemicList.forEach(element => {
-                         new Epidemic(element)
+                    this.epidemicList.forEach(epidemic => {
+                         if (epidemic.Epidemic_image != null) {
+                              epidemic.url = require('@/images/' + epidemic.Epidemic_image)
+                         }
+                    });
+                    this.cloneEpidemicList.forEach(epidemic => {
+                         if (epidemic.Epidemic_image != null) {
+                              epidemic.url = require('@/images/' + epidemic.Epidemic_image)
+                         }
                     });
                     var temp = (String(this.epidemicList[this.epidemicList.length - 1].Epidemic_id)).split("");
                     var id = "";
@@ -307,14 +281,7 @@ export default {
                     }
                }
           },
-
-          async createEpidemic(data) {
-               this.epidemicClassificationList.forEach(element => {
-                    if (data.EpidemicClassification_name == element.EpidemicClassification_name) {
-                         data.EpidemicClassification_id = element.EpidemicClassification_id;
-                    }
-               });
-
+          async createNewImage(data) {
                if (data.close == false) {
                     this.openCreate = false;
                     this.message1 = " ";
@@ -322,31 +289,62 @@ export default {
                     this.active = false;
                }
                else {
-                    this.message1 = "";
-                    this.message2 = "";
-                    const [error, respone] = await this.handle(
-                         EpidemicService.create(data)
-                    );
-                    if (error) {
-                         console.log(error);
-                         this.message1 = "Thêm không thành công."
-                    } else if (respone.data == "Không thể tạo một dịch bệnh mới") {
-                         this.message1 = "Thêm không thành công."
-                    } else {
-                         this.message2 = "Thêm thành công.";
-                         this.newEpidemic = {};
-                         this.retrieveEpidemicList();
+                    if (data.Image != null) {
+                         const formdata = require('form-data');
+                         const formData = new formdata();
+                         formData.append("image", data.Image);
+                         axios.post('http://localhost:8080/api/image', formData, {
+                              headers: {
+                                   'Content-Type': `multipart/form-data;`,
+                              }
+                         },
+                         ).then((response) => {
+                              fnSuccess(response);
+                         }).catch((error) => {
+                              fnFail(error);
+                         });
+
+                         const fnSuccess = (response) => {
+                              data.Epidemic_image = response.data.Image_link;
+                              this.createEpidemic(data);
+                              this.message2 = "Thêm thành công";
+                         };
+
+                         const fnFail = (error) => {
+                              console.log(error);
+                              this.message2 = "Thêm không thành công";
+                         };
+                    }
+                    else {
+                         this.message1 = "Vui lòng chọn hình ảnh!!"
                     }
                }
           },
-
-          async updateEpidemic(data) {
-
+          async createEpidemic(data) {
                this.epidemicClassificationList.forEach(element => {
                     if (data.EpidemicClassification_name == element.EpidemicClassification_name) {
                          data.EpidemicClassification_id = element.EpidemicClassification_id;
                     }
                });
+
+               this.message1 = "";
+               this.message2 = "";
+               const [error, respone] = await this.handle(
+                    EpidemicService.create(data)
+               );
+               if (error) {
+                    console.log(error);
+                    this.message1 = "Thêm không thành công."
+               } else if (respone.data == "Không thể tạo một dịch bệnh mới") {
+                    this.message1 = "Thêm không thành công."
+               } else {
+                    this.message2 = "Thêm thành công.";
+                    this.newEpidemic = {};
+                    this.retrieveEpidemicList();
+               }
+          },
+
+          async updateImage(data) {
                if (data.close == false) {
                     this.isOpenUpdateEpidemic = false;
                     this.message1 = " ";
@@ -354,20 +352,57 @@ export default {
                     this.active = false;
                }
                else {
-                    this.message1 = "";
-                    this.message2 = "";
-                    const [error, respone] = await this.handle(
-                         EpidemicService.update(data.Epidemic_id, data)
-                    );
-                    if (error) {
-                         console.log(error);
-                         this.message1 = "Cập nhật không thành công."
-                    } else if (respone.data == "Đã xảy ra lỗi trong quá trình cập nhật thông tin!") {
-                         this.message1 = "Cập nhật không thành công."
-                    } else {
-                         this.message2 = "Cập nhật thành công.";
-                         this.retrieveEpidemicList();
+                    if (data.newImage != null) {
+                         const formdata = require('form-data');
+                         const formData = new formdata();
+                         formData.append("image", data.newImage);
+                         axios.post('http://localhost:8080/api/image', formData, {
+                              headers: {
+                                   'Content-Type': `multipart/form-data;`,
+                              }
+                         },
+                         ).then((response) => {
+                              fnSuccess(response);
+                         }).catch((error) => {
+                              fnFail(error);
+                         });
+
+                         const fnSuccess = (response) => {
+                              data.Epidemic_image = response.data.Image_link;
+                              this.updateEpidemic(data);
+                              this.message2 = "Cập nhật thành công";
+                         };
+
+                         const fnFail = (error) => {
+                              console.log(error);
+                              this.message2 = "Cập nhật không thành công";
+                         };
                     }
+                    else {
+                         this.updateEpidemic(data);
+                    }
+               }
+          },
+
+          async updateEpidemic(data) {
+               this.epidemicClassificationList.forEach(element => {
+                    if (data.EpidemicClassification_name == element.EpidemicClassification_name) {
+                         data.EpidemicClassification_id = element.EpidemicClassification_id;
+                    }
+               });
+
+               this.message1 = "";
+               this.message2 = "";
+               const [error, respone] = await this.handle(
+                    EpidemicService.update(data.Epidemic_id, data)
+               );
+               if (error) {
+                    console.log(error);
+                    this.message1 = "Cập nhật không thành công."
+               } else if (respone.data == "Đã xảy ra lỗi trong quá trình cập nhật thông tin!") {
+                    this.message1 = "Cập nhật không thành công."
+               } else {
+                    this.message2 = "Cập nhật thành công.";
                }
           },
 
@@ -404,6 +439,11 @@ export default {
                } else {
                     if (response.data != null) {
                          this.epidemicList = response.data;
+                         this.epidemicList.forEach(epidemic => {
+                         if (epidemic.Epidemic_image != null) {
+                              epidemic.url = require('@/images/' + epidemic.Epidemic_image)
+                         }
+                    });
                     }
                     else {
                          this.message = "Không tìm thấy bệnh dịch!";

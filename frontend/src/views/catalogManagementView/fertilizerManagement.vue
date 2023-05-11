@@ -3,7 +3,8 @@
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
                <Preloader color="red" scale="0.4" />
           </div>
-          <div class="row fertilizerManagementFrame" style="height: 100vmin;" v-if="!loading" :class="{ active: active }">
+          <div class="row fertilizerManagementFrame" style="height: 100vmin; background-color: #EAEAEA;" v-if="!loading"
+               :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -38,8 +39,9 @@
                                    @click="searchName(fertilizer.Fertilizer_name), away()">
                                    {{ fertilizer.Fertilizer_name }}</p>
                          </div>
-                         <button class="btn btnCreate" @click="openCreate = !openCreate, active = true"><i
-                                   class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm phân bón</button>
+                         <button class="btn btnCreate" @click="openCreate = !openCreate, active = true"
+                              v-if="currentUser.Role_id == '02'"><i class="fas fa-plus-circle" style="font-size: 15px;"></i>
+                              Thêm phân bón</button>
                     </div>
                     <div class="scrollTable">
                          <!--   <div class="scrollTable-content" >
@@ -95,7 +97,7 @@
                               <a class="li-class " href="#popup1" v-for="(fertilizer, j) in fertilizerList" :key="j"
                                    @click="setFertilizerChosen(fertilizer)">
                                    <button type="button" class="btn btn-sm btnMoreSelection" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
+                                        v-if="currentUser.Role_id == '02'" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v"></i>
                                    </button>
                                    <div class="dropdown-menu">
@@ -109,7 +111,15 @@
                                         </a>
                                    </div>
                                    <h5>{{ fertilizer.Fertilizer_name }}</h5>
-                                   <p>{{ fertilizer.Fertilizer_uses }}</p>
+                                   <div class="row">
+                                        <div style="width: 40%;">
+                                             <img :src="fertilizer.url" class="img-fluid" style="height: 140px;">
+                                        </div>
+                                        <div style="width: 55%;">
+                                             <p>{{ fertilizer.Fertilizer_uses }}</p>
+                                        </div>
+                                   </div>
+
                               </a>
                               <div id="popup1" class="overlay" v-if="!active && !isOpenUpdateFertilizer">
                                    <div class="popup">
@@ -118,10 +128,19 @@
                                         <h2>{{ fertilizerChosen.Fertilizer_name }}</h2>
 
                                         <div class="content">
-                                             <h6 class="title-class">Nhà cung cấp</h6>
-                                             <p class="value-class">{{ fertilizerChosen.Fertilizer_supplier }}</p>
-                                             <h6 class="title-class">Công dụng</h6>
-                                             <p class="value-class">{{ fertilizerChosen.Fertilizer_uses }}</p>
+                                             <div class="row" style="width: 98%;">
+                                                  <div class="col-sm-2">
+                                                       <img class="img-fluid" :src="fertilizerChosen.url"
+                                                            style="height: 200px;">
+                                                  </div>
+                                                  <div class="col-sm-10">
+                                                       <h6 class="title-class">Nhà cung cấp</h6>
+                                                       <p class="value-class">{{ fertilizerChosen.Fertilizer_supplier }}</p>
+                                                       <h6 class="title-class">Công dụng</h6>
+                                                       <p class="value-class">{{ fertilizerChosen.Fertilizer_uses }}</p>
+                                                  </div>
+                                             </div>
+
                                              <h6 class="title-class">Thành phần</h6>
                                              <table class="table">
                                                   <tbody>
@@ -134,7 +153,8 @@
                                                        </tr>
                                                        <tr>
                                                             <td class="value-class ">Tỉ lệ(%)</td>
-                                                            <td  class="value-class text-center" v-for="contain in fertilizerChosen.Contain"
+                                                            <td class="value-class text-center"
+                                                                 v-for="contain in fertilizerChosen.Contain"
                                                                  :key="contain.Nutrient_id">{{ contain.Contain_percent }}
                                                             </td>
 
@@ -178,12 +198,12 @@
           </div>
           <div class="overlay2" v-if="openCreate">
                <CreateFertilizerForm :newFertilizer="newFertilizer" :nutrientList="nutrientList"
-                    @addFertilizer-submit="createFertilizer" :message1="message1" :message2="message2" />
+                    @addFertilizer-submit="createNewImage" :message1="message1" :message2="message2" />
           </div>
           <div class="overlay2" v-if="isOpenUpdateFertilizer">
 
                <UpdateFertilizerForm v-if="isOpenUpdateFertilizer" :newFertilizer="fertilizerChosen"
-                    :nutrientList="nutrientList" @updateFertilizer-submit="updateFertilizer" :message1="message1"
+                    :nutrientList="nutrientList" @updateFertilizer-submit="updateImage" :message1="message1"
                     :message2="message2" />
           </div>
      </div>
@@ -194,7 +214,7 @@
 
 
 import { mapGetters, mapMutations } from "vuex";
-
+import axios from 'axios';
 import ContainService from '@/services/contain.service';
 import NutrientService from '@/services/nutrient.service';
 import FertilizerService from '../../services/fertilizer.service';
@@ -204,12 +224,6 @@ import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import UpdateFertilizerForm from '@/components/catalogManagementComponents/updateFertilizerForm.vue';
 import CreateFertilizerForm from '@/components/catalogManagementComponents/createNewFertilizerForm.vue';
 
-class Fertilizer {
-     constructor(fertilizer) {
-          this.Fertilizer_id = fertilizer.Fertilizer_id;
-          this.Fertilizer_name = fertilizer.Fertilizer_name;
-     }
-}
 
 export default {
      name: "FertilizerManagement",
@@ -299,9 +313,18 @@ export default {
                else {
                     this.fertilizerList = respone.data;
                     this.cloneFertilizerList = respone.data;
-                    this.cloneFertilizerList.forEach(element => {
-                         new Fertilizer(element)
+                    this.fertilizerList.forEach(fertilizer => {
+                         if (fertilizer.Fertilizer_image != null) {
+                              fertilizer.url = require('@/images/' + fertilizer.Fertilizer_image);
+                         }
                     });
+
+                    this.cloneFertilizerList.forEach(fertilizer => {
+                         if (fertilizer.Fertilizer_image != null) {
+                              fertilizer.url = require('@/images/' + fertilizer.Fertilizer_image);
+                         }
+                    });
+
                     var temp = (String(this.fertilizerList[this.fertilizerList.length - 1].Fertilizer_id)).split("");
                     var id = "";
                     for (let index = 0; index < temp.length; index++) {
@@ -392,32 +415,24 @@ export default {
           },
 
           async createFertilizer(data) {
-               if (data.close == false) {
-                    this.openCreate = false;
-                    this.message1 = " ";
-                    this.message2 = " ";
-                    this.active = false;
-               }
-               else {
-                    this.message1 = "";
-                    this.message2 = "";
-                    const [error, respone] = await this.handle(
-                         FertilizerService.create(data)
-                    );
-                    if (error) {
-                         console.log(error);
-                         this.message1 = "Thêm không thành công."
-                    } else if (respone.data == "Không thể tạo một loại phân bón mới") {
-                         this.message1 = "Thêm không thành công."
-                    } else {
-                         this.message2 = "Thêm thành công.";
-                         this.newFertilizer = {}
-                         this.retrieveFertilizerList();
-                         data.Contain.forEach(contain => {
-                              contain.Fertilizer_id = data.Fertilizer_id;
-                              this.createContain(contain);
-                         });
-                    }
+               this.message1 = "";
+               this.message2 = "";
+               const [error, respone] = await this.handle(
+                    FertilizerService.create(data)
+               );
+               if (error) {
+                    console.log(error);
+                    this.message1 = "Thêm không thành công."
+               } else if (respone.data == "Không thể tạo một loại phân bón mới") {
+                    this.message1 = "Thêm không thành công."
+               } else {
+                    this.message2 = "Thêm thành công.";
+                    this.newFertilizer = {}
+                    this.retrieveFertilizerList();
+                    data.Contain.forEach(contain => {
+                         contain.Fertilizer_id = data.Fertilizer_id;
+                         this.createContain(contain);
+                    });
                }
           },
 
@@ -430,6 +445,86 @@ export default {
                } else {
                     this.retrieveFertilizerList();
                     console.log(respone.data)
+               }
+          },
+
+          async createNewImage(data) {
+               if (data.close == false) {
+                    this.openCreate = false;
+                    this.message1 = " ";
+                    this.message2 = " ";
+                    this.active = false;
+               }
+               else {
+                    if (data.Image != null) {
+                         const formdata = require('form-data');
+                         const formData = new formdata();
+                         formData.append("image", data.Image);
+                         axios.post('http://localhost:8080/api/image', formData, {
+                              headers: {
+                                   'Content-Type': `multipart/form-data;`,
+                              }
+                         },
+                         ).then((response) => {
+                              fnSuccess(response);
+                         }).catch((error) => {
+                              fnFail(error);
+                         });
+
+                         const fnSuccess = (response) => {
+                              data.Fertilizer_image = response.data.Image_link;
+                              this.createFertilizer(data);
+                              this.message2 = "Thêm thành công";
+                         };
+
+                         const fnFail = (error) => {
+                              console.log(error);
+                              this.message2 = "Thêm không thành công";
+                         };
+                    }
+                    else {
+                         this.message1 = "Vui lòng chọn hình ảnh!!"
+                    }
+               }
+          },
+
+          async updateImage(data) {
+               if (data.close == false) {
+                    this.isOpenUpdateFertilizer = false;
+                    this.message1 = " ";
+                    this.message2 = " ";
+                    this.active = false;
+               }
+               else {
+                    if (data.newImage != null) {
+                         const formdata = require('form-data');
+                         const formData = new formdata();
+                         formData.append("image", data.newImage);
+                         axios.post('http://localhost:8080/api/image', formData, {
+                              headers: {
+                                   'Content-Type': `multipart/form-data;`,
+                              }
+                         },
+                         ).then((response) => {
+                              fnSuccess(response);
+                         }).catch((error) => {
+                              fnFail(error);
+                         });
+
+                         const fnSuccess = (response) => {
+                              data.Fertilizer_image = response.data.Image_link;
+                              this.updateFertilizer(data);
+                              this.message2 = "Thêm thành công";
+                         };
+
+                         const fnFail = (error) => {
+                              console.log(error);
+                              this.message2 = "Thêm không thành công";
+                         };
+                    }
+                    else {
+                         this.updateFertilizer(data);
+                    }
                }
           },
 
@@ -526,6 +621,11 @@ export default {
                } else {
                     if (response.data != null) {
                          this.fertilizerList = response.data;
+                         this.fertilizerList.forEach(fertilizer => {
+                              if (fertilizer.Fertilizer_image != null) {
+                                   fertilizer.url = require('@/images/' + fertilizer.Fertilizer_image);
+                              }
+                         });
                     }
                     else {
                          this.isOpenMessage = !this.isOpenMessage;
@@ -562,7 +662,4 @@ export default {
 .nutrient_class {
      width: 90px !important;
 }
-
-
-
 </style>

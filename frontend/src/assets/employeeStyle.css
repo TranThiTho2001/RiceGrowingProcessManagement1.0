@@ -107,3 +107,20 @@
     font-style: normal;
     font-size: 18px;
 }
+
+.btnDowloadSQL{
+    color: #008B8E !important;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 8px !important;
+    padding: 4px;
+    font-size: 20px;
+    border: none !important;
+    background: none;
+}
+
+.btnDowloadSQL:hover{
+    color: #323f3f !important;
+}

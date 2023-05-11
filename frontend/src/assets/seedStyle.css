@@ -7,9 +7,10 @@
      backdrop-filter: blur(37.5px);
      border-radius: 5px;
      position: relative;
-     top:60px;
+     top:40px;
      transition: all 5s ease-in-out;
-     width: 50%;
+     width: 60%;
+     /* overflow: scroll; */
 }
 
 .seedManagement .navigationBar .btnSeed{

@@ -56,7 +56,7 @@
                          </div>
 <!-- isOpenCreateEmployeeForm = !isOpenCreateEmployeeForm, retrieveRoleList() -->
                          <button class="btn btnCreate"
-                              @click="backup()"><i
+                              @click="isOpenCreateEmployeeForm = !isOpenCreateEmployeeForm, retrieveRoleList()"><i
                                    class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm nhân viên</button>
 
                     </div>
@@ -506,6 +506,19 @@ export default {
 .EmployeeManagerFrame  .dropdown-item:focus,
 .EmployeeManagerFrame .dropdown-item:hover {
      background-color: #ABD2C8;
+}
+.EmployeeManagerFrame .navigationBar .btnEmployee {
+     display: block;
+     width: 88%;
+     font-size: 17px;
+     background: #FFFA37;
+     box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+     border-radius: 20px;
+     color: #5C5D22;
+     border: none;
+     font-family: 'Roboto';
+     font-style: normal;
+     border-radius: 14px;
 }
 </style>
    

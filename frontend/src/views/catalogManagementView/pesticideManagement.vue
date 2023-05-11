@@ -3,7 +3,8 @@
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
                <Preloader color="red" scale="0.4" />
           </div>
-          <div class="row pesticideManagementFrame" style="min-height: 100%;" v-if="!loading" :class="{ active: active }">
+          <div class="row pesticideManagementFrame" style="min-height: 100%; background-color: !important #EAEAEA;"
+               v-if="!loading" :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -38,8 +39,9 @@
                                    @click="searchName(pesticide.Pesticide_name), away()">
                                    {{ pesticide.Pesticide_name }}</p>
                          </div>
-                         <button class="btn btnCreate" @click="openCreate = !openCreate, active = true"><i
-                                   class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm loại thuốc mới</button>
+                         <button class="btn btnCreate" @click="openCreate = !openCreate, active = true"
+                              v-if="currentUser.Role_id == '02'"><i class="fas fa-plus-circle" style="font-size: 15px;"></i>
+                              Thêm loại thuốc mới</button>
                     </div>
                     <div class="scrollTable" v-if="!openCreate && !isOpenUpdatePesticide">
                          <!-- <div class="scrollTable-content">
@@ -97,23 +99,31 @@
 
                          <div class="ol-class" style="--length: 5" role="list">
                               <a class="li-class " href="#popup1" v-for="(pesticide, j) in pesticideList" :key="j"
-                                   @click="setPesticideChosen(pesticide)">
+                                   @click="setPesticideChosen(pesticide, j)">
                                    <button type="button" class="btn btn-sm btnMoreSelection" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
+                                        v-if="currentUser.Role_id == '02'" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v"></i>
                                    </button>
                                    <div class="dropdown-menu">
                                         <a class="dropdown-item action"
-                                             @click="setPesticideChosen(pesticide), isOpenUpdatePesticide = !isOpenUpdatePesticide, active = true">
+                                             @click="setPesticideChosen(pesticide, j), isOpenUpdatePesticide = !isOpenUpdatePesticide, active = true">
                                              <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                         </a>
                                         <a class="dropdown-item" href="#"
-                                             @click="setPesticideChosen(pesticide), isOpenConfirm = !isOpenConfirm, active = true">
+                                             @click="setPesticideChosen(pesticide, j), isOpenConfirm = !isOpenConfirm, active = true">
                                              <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                         </a>
                                    </div>
                                    <h5>{{ pesticide.Pesticide_name }}</h5>
-                                   <p>{{ pesticide.Pesticide_uses }}</p>
+                                   <div class="row">
+                                        <div class="col-sm-5">
+                                             <img class="img-fluid" :src="pesticide.url" style="height: 130px;">
+                                        </div>
+                                        <div class="col-sm-7">
+                                             <p>{{ pesticide.Pesticide_uses }}</p>
+                                        </div>
+                                   </div>
+
                               </a>
                               <div id="popup1" class="overlay">
                                    <div class="popup">
@@ -122,14 +132,27 @@
                                         <h2>{{ pesticideChosen.Pesticide_name }}</h2>
 
                                         <div class="content">
-                                             <h6 class="title-class">Nhà cung cấp</h6>
-                                             <p class="value-class">{{ pesticideChosen.Pesticide_supplier }}</p>
-                                             <h6 class="title-class">Công dụng</h6>
+                                             <div class="row" style="width:98%">
+                                                  <div class="col-sm-3 text-center  align-self-center">
+                                                       <img class="img-fluid" :src="pesticideChosen.url">
+                                                  </div>
+                                                  <div class="col-sm-8">
+                                                       <h6 class="title-class">Nhà cung cấp</h6>
+                                                       <p class="value-class">{{ pesticideChosen.Pesticide_supplier }}</p>
+
+                                                       <h6 class="title-class mt-3">Thành phần</h6>
+                                                       <p class="value-class">{{ pesticideChosen.Pesticide_component }}</p>
+
+                                                       <h6 class="title-class mt-3">Đặc trị: </h6>
+                                                       <p class="value-class" v-for="temp in pesticideChosen.Treatment"
+                                                            :key="temp.Epidemic_id">{{ temp.Epidemic_name }}</p>
+                                                  </div>
+                                             </div>
+                                             <h6 class="title-class mt-3">Công dụng</h6>
                                              <p class="value-class">{{ pesticideChosen.Pesticide_uses }}</p>
-                                             <h6 class="title-class">Thành phần</h6>
-                                             <p class="value-class">{{ pesticideChosen.Pesticide_component }}</p>
-                                             <h6 class="title-class">Hướng dẫn sử dụng</h6>
-                                             <p class="value-class">{{ pesticideChosen.Pesticide_directionsForUse }}</p>
+                                             <h6 class="title-class mt-2">Hướng dẫn sử dụng</h6>
+                                             <p class="value-class">{{ pesticideChosen.Pesticide_directionsForUse
+                                             }}</p>
                                         </div>
                                    </div>
                               </div>
@@ -163,11 +186,11 @@
           </div>
           <div class="overlay2" v-if="openCreate">
                <CreatePesticideForm :newPesticide="newPesticide" :epidemicList="epidemicList"
-                    @addPesticide-submit="createPesticide" :message1="message1" :message2="message2" />
+                    @addPesticide-submit="createNewImage" :message1="message1" :message2="message2" />
           </div>
           <div class="overlay2" v-if="isOpenUpdatePesticide">
                <UpdatePesticideForm :newPesticide="pesticideChosen" :epidemicList="epidemicList"
-                    :treatmentList="treatmentList" @updatePesticide-submit="updatePesticide" :message1="message1"
+                    :treatmentList="treatmentList" @updatePesticide-submit="updateImage" :message1="message1"
                     :message2="message2" />
           </div>
      </div>
@@ -176,6 +199,7 @@
 
 <script>
 
+import axios from 'axios';
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import { mapGetters, mapMutations } from "vuex";
 import PesticideService from '../../services/pesticide.service';
@@ -284,6 +308,9 @@ export default {
                     this.pesticideList = respone.data;
                     var i = 0;
                     this.pesticideList.forEach(element => {
+                         if (element.Pesticide_image != null) {
+                              element.url = require('@/images/' + element.Pesticide_image);
+                         }
                          new Pesticide(element);
                          this.findTreatmentByPesticideId(element.Pesticide_id, i);
                          i++;
@@ -300,7 +327,6 @@ export default {
                               break;
                          }
                     }
-                    console.log(this.pesticideList)
                     if (id < 9) {
                          this.newPesticide.Pesticide_id = "PE0000000" + String(Number(id) + 1);
                     }
@@ -374,7 +400,85 @@ export default {
 
                }
           },
+          async createNewImage(data) {
+               if (data.close == false) {
+                    this.openCreate = false;
+                    this.message1 = " ";
+                    this.message2 = " ";
+                    this.active = false;
+               }
+               else {
+                    if (data.Image != null) {
+                         const formdata = require('form-data');
+                         const formData = new formdata();
+                         formData.append("image", data.Image);
+                         axios.post('http://localhost:8080/api/image', formData, {
+                              headers: {
+                                   'Content-Type': `multipart/form-data;`,
+                              }
+                         },
+                         ).then((response) => {
+                              fnSuccess(response);
+                         }).catch((error) => {
+                              fnFail(error);
+                         });
 
+                         const fnSuccess = (response) => {
+                              data.Pesticide_image = response.data.Image_link;
+                              this.createPesticide(data);
+                              this.message2 = "Thêm thành công";
+                         };
+
+                         const fnFail = (error) => {
+                              console.log(error);
+                              this.message2 = "Thêm không thành công";
+                         };
+                    }
+                    else {
+                         this.message1 = "Vui lòng chọn hình ảnh!!"
+                    }
+               }
+          },
+
+          async updateImage(data) {
+               if (data.close == false) {
+                    this.isOpenUpdatePesticide = false;
+                    this.message1 = " ";
+                    this.message2 = " ";
+                    this.active = false;
+               }
+               else {
+                    if (data.newImage != null) {
+                         const formdata = require('form-data');
+                         const formData = new formdata();
+                         formData.append("image", data.newImage);
+                         axios.post('http://localhost:8080/api/image', formData, {
+                              headers: {
+                                   'Content-Type': `multipart/form-data;`,
+                              }
+                         },
+                         ).then((response) => {
+                              fnSuccess(response);
+                         }).catch((error) => {
+                              fnFail(error);
+                         });
+
+                         const fnSuccess = (response) => {
+                              data.Pesticide_image = response.data.Image_link;
+                              this.updatePesticide(data);
+                              this.message2 = "Thêm thành công";
+                         };
+
+                         const fnFail = (error) => {
+                              console.log(error);
+                              this.message2 = "Thêm không thành công";
+                         };
+                    }
+                    else {
+                         this.updatePesticide(data);
+                    }
+               }
+          },
           async findTreatmentByPesticideId(data, i) {
                this.treatmentList = [];
                const [error, respone] = await this.handle(
@@ -393,68 +497,64 @@ export default {
           },
 
           async updatePesticide(data) {
-               if (data.close == false) {
-                    this.isOpenUpdatePesticide = false;
-                    this.message1 = " ";
-                    this.message2 = " ";
-                    this.active = false;
-               }
-               else {
-                    const [error, respone] = await this.handle(
-                         PesticideService.update(data.Pesticide_id, data)
-                    );
-                    if (error) {
-                         console.log(error);
-                         this.message1 = "Cập nhật không thành công."
-                    } else if (respone.data == "Đã xảy ra lỗi trong quá trình cập nhật thông tin!") {
-                         this.message1 = "Cập nhật không thành công."
-                    } else {
-                         var templist = data.NewTreatment;
-                         var temp = 0;
-                         if (templist != null) {
-                              templist.forEach(EpidemicID => {
-                                   if (this.pesticideList[this.pesticideChosen.position].Treatment != null) {
-                                        this.pesticideList[this.pesticideChosen.position].Treatment.forEach(element => {
 
-                                             if (element.Epidemic_id == EpidemicID) {
-                                                  temp = 1;
-                                             }
-                                        });
-                                   }
+               this.message1 = " ";
+               this.message2 = " ";
+               const [error, respone] = await this.handle(
+                    PesticideService.update(data.Pesticide_id, data)
+               );
+               if (error) {
+                    console.log(error);
+                    this.message1 = "Cập nhật không thành công."
+               } else if (respone.data == "Đã xảy ra lỗi trong quá trình cập nhật thông tin!") {
+                    this.message1 = "Cập nhật không thành công."
+               } else {
+                    var templist = data.NewTreatment;
+                    var temp = 0;
+                    if (templist != null) {
+                         templist.forEach(EpidemicID => {
+                              console.log(this.pesticideList[this.pesticideChosen.position])
+                              if (this.pesticideList[this.pesticideChosen.position].Treatment != null) {
+                                   this.pesticideList[this.pesticideChosen.position].Treatment.forEach(element => {
+
+                                        if (element.Epidemic_id == EpidemicID) {
+                                             temp = 1;
+                                        }
+                                   });
+                              }
+                              if (temp == 0) {
+                                   var treatment = {};
+                                   treatment.Epidemic_id = EpidemicID;
+                                   treatment.Pesticide_id = data.Pesticide_id;
+                                   this.createTreatment(treatment);
+                              }
+                              temp = 0;
+                         });
+                    }
+
+                    temp = 0;
+                    if (this.pesticideList[this.pesticideChosen.position].Treatment != null) {
+                         this.pesticideList[this.pesticideChosen.position].Treatment.forEach(element => {
+                              if (data.NewTreatment != null) {
+                                   data.NewTreatment.forEach(EpidemicID => {
+                                        if (element.Epidemic_id == EpidemicID) {
+                                             temp = 1;
+                                        }
+                                   });
                                    if (temp == 0) {
-                                        var treatment = {};
-                                        treatment.Epidemic_id = EpidemicID;
-                                        treatment.Pesticide_id = data.Pesticide_id;
-                                        this.createTreatment(treatment);
+                                        this.deleteTreatment(data.Pesticide_id, element.Epidemic_id);
                                    }
                                    temp = 0;
-                              });
-                         }
-
-                         temp = 0;
-                         if (this.pesticideList[this.pesticideChosen.position].Treatment != null) {
-                              this.pesticideList[this.pesticideChosen.position].Treatment.forEach(element => {
-                                   if (data.NewTreatment != null) {
-                                        data.NewTreatment.forEach(EpidemicID => {
-                                             if (element.Epidemic_id == EpidemicID) {
-                                                  temp = 1;
-                                             }
-                                        });
-                                        if (temp == 0) {
-                                             this.deleteTreatment(data.Pesticide_id, element.Epidemic_id);
-                                        }
-                                        temp = 0;
-                                   }
-                                   else {
-                                        this.deleteTreatment(element.Pesticide_id, element.Epidemic_id);
-                                   }
+                              }
+                              else {
+                                   this.deleteTreatment(element.Pesticide_id, element.Epidemic_id);
+                              }
 
 
-                              });
-                         }
-                         this.message2 = "Cập nhật thành công.";
-                         this.retrievePesticideList();
+                         });
                     }
+                    this.message2 = "Cập nhật thành công.";
+                    this.retrievePesticideList();
                }
           },
 
@@ -504,7 +604,11 @@ export default {
                } else {
                     if (response.data != null) {
                          this.pesticideList = response.data;
-                         console.log(response.data)
+                         this.pesticideList.forEach(element => {
+                              if (element.Pesticide_image != null) {
+                                   element.url = require('@/images/' + element.Pesticide_image);
+                              }
+                         });
                     }
                     else {
                          this.isOpenMessage = !this.isOpenMessage;

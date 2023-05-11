@@ -14,7 +14,7 @@
                </p>
           </div>
           <div class="row content">
-               <div class="col-md-4">
+               <div class="col-md-3">
                     <div class="form-group">
                          <label for="id" class="">Mã phân bón <span style="color: red">*</span></label>
                          <Field name="id" type="name" class="form-control mb-3" v-model="newfertilixer.Fertilizer_id"
@@ -45,27 +45,39 @@
                     </div>
 
                     <div class="form-group">
-                         <label for="uses" class="mt-3">Công dụng <span style="color: red">*</span></label>
-                         <Field name="uses" class="form-control" v-model="newfertilixer.Fertilizer_uses" as="textarea"
-                              style="height: 240px;" placeholder="Công dụng phân bón..." />
-                         <ErrorMessage name="uses" class="error-feedback" />
+                         <label for="supplier" class="mt-3 pt-1">Nhà cung cấp <span style="color: red">*</span></label>
+                         <Field name="supplier" class="form-control" v-model="newfertilixer.Fertilizer_supplier"
+                              placeholder="Nhà cung cấp phân bón..." />
+                         <ErrorMessage name="supplier" class="error-feedback" />
+                    </div>
+                    <div class="row form-group " style="width: 99%; margin-left: 1%;">
+                         <label for="supplier mt-3" class="" style="margin-top: 20px;">Hình ảnh <span style="color: red">*</span></label>
+                         <div class="col-sm-12 text-center form-control" style="height: 250px !important;">
+                              <input type="file" ref="file" name="image" @change="selectFile($event)" accept="image/*"
+                                   enctype="multipart/form-data" class="" v-bind:aria-disabled="true">
+                              <div class="row rowImage mt-2" style=" width: 100%; height: 200px; padding-top: 6px;">
+                                   <div class="col-md-12 text-center" style="height: 180px; width: 50%;">
+                                        <img v-if="newfertilixer.url != ''" :src="newfertilixer.url" class="img-fluid" style="height: 190px; !important">
+                                   </div>
+                              </div>
+                         </div>
                     </div>
 
                </div>
 
-               <div class="col-md-4">
+               <div class="col-md-5">
                     <div class="form-group">
-                         <label for="supplier" class="">Nhà cung cấp <span style="color: red">*</span></label>
-                         <Field name="supplier" class="form-control" v-model="newfertilixer.Fertilizer_supplier"
-                              placeholder="Nhà cung cấp phân bón..." />
-                         <ErrorMessage name="supplier" class="error-feedback" />
+                         <label for="uses" class="">Công dụng <span style="color: red">*</span></label>
+                         <Field name="uses" class="form-control" v-model="newfertilixer.Fertilizer_uses" as="textarea"
+                              style="height: 180px;" placeholder="Công dụng phân bón..." />
+                         <ErrorMessage name="uses" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
                          <label for="directionsForUse" class="mt-3">Hướng dẫn sử dụng<span
                                    style="color: red">*</span></label>
                          <Field name="directionsForUse" class="form-control"
-                              v-model="newfertilixer.Fertilizer_directionsForUse" as="textarea" style="height: 240px;"
+                              v-model="newfertilixer.Fertilizer_directionsForUse" as="textarea" style="height: 180px;"
                               placeholder="Thông tin phân bón..." />
                          <ErrorMessage name="directionsForUse" class="error-feedback" />
                     </div>
@@ -151,7 +163,14 @@ export default {
      },
 
      methods: {
-
+          async selectFile(event) {
+               this.fileImage = event.target.files[0];
+               this.newfertilixer.filename = "Fertilizer_" + this.newfertilixer.Fertilizer_id + this.fileImage.name;
+               console.log(this.fileImage.name);
+               this.newfertilixer.newImage = this.fileImage;
+               console.log(this.newfertilixer.Image)
+               this.newfertilixer.url = URL.createObjectURL(this.fileImage);
+          },
      }
 };
 </script>
@@ -201,6 +220,12 @@ export default {
      color: var(--dp-text-color);
      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
      box-sizing: border-box;
+}
+
+.updateFertilizerForm .rowImage {
+    height: 200px;
+    margin: auto;
+    margin-top: 5px;
 }
 
 .lable-nutrient {

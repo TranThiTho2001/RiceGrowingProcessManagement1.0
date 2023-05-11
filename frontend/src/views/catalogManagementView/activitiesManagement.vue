@@ -1,9 +1,9 @@
 <template>
      <div class="container-fluid activitiesManagement pr-4" style="background-color: #EAEAEA;height: max-content;">
-          <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
+          <div class="row" v-if="loading" style="height: max-content; min-height: 100vh;">
                <Preloader color="red" scale="0.4" />
           </div>
-          <div class="row activitiesManagementFrame" v-if="!loading" :class="{ active: active }">
+          <div class="row activitiesManagementFrame" v-if="!loading" :class="{ active: active }" style="background-color: #EAEAEA;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
                <button v-if="openMenu.isCloseMenu" class="fas fa-bars iconmenu1"
@@ -41,7 +41,7 @@
                          </div>
 
 
-                         <button class="btn btnCreate"
+                         <button class="btn btnCreate" v-if="currentUser.Role_id == '02'"
                               @click="isOpenCreateOtherActivities = !isOpenCreateOtherActivities, active = true"><i
                                    class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm hoạt động</button>
 
@@ -96,23 +96,23 @@
 
                          <div class="ol-class" style="--length: 5" role="list">
                               <a class="li-class-activity li-class " href="#popup1" v-for="(activity, j) in activitiesList"
-                                   :key="j" @click="setFertilizerChosen(activity)">
-                                   <button type="button" class="btn btn-sm btnMoreSelection" data-toggle="dropdown"
+                                   :key="j" @click="setActivityChosen(activity)">
+                                   <button type="button" class="btn btn-sm btnMoreSelection" data-toggle="dropdown" v-if="currentUser.Role_id == '02'"
                                         aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v"></i>
                                    </button>
-                                   <div class="dropdown-menu">
+                                   <div class="dropdown-menu" >
                                         <a class="dropdown-item action"
-                                             @click="setActivityChoosen(activity), isOpenUpdateActivities = !isOpenUpdateActivities, active = true">
+                                             @click="setActivityChosen(activity), isOpenUpdateActivities = !isOpenUpdateActivities, active = true">
                                              <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
                                         </a>
                                         <a class="dropdown-item" href="#"
-                                             @click="setActivityChoosen(activity), isOpenConfirm = !isOpenConfirm, active = true">
+                                             @click="setActivityChosen(activity), isOpenConfirm = !isOpenConfirm, active = true">
                                              <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                         </a>
                                    </div>
                                    <h5>{{ activity.OtherActivities_name }}</h5>
-                                   <p>Số lần thực hiện{{ activity.Times.length }}</p>
+                                   <p>Số lần thực hiện {{ activity.Times.length }}</p>
                               </a>
                          </div>
                     </div>
@@ -406,7 +406,8 @@ export default {
 
           },
 
-          async setActivityChoosen(activity) {
+          async setActivityChosen(activity) {
+               console.log(activity)
                this.activityChosen = activity;
           },
      },

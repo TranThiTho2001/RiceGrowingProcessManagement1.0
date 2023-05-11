@@ -4,7 +4,7 @@
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times-circle" @click="newseed.close = false, $emit('updateSeed-submit', newseed)"
-                    style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
+                         style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
           <div class="row">
@@ -13,7 +13,7 @@
                </p>
           </div>
           <div class="row content">
-               <div class="col-sm-12">
+               <div class="col-sm-6">
                     <div class="form-group">
                          <label for="id" class="mt-2">Mã <span style="color: red">*</span></label>
                          <Field name="id" type="name" class="form-control" v-model="newseed.Seed_id"
@@ -29,17 +29,34 @@
                     </div>
 
                     <div class="form-group">
+                         <label for="characteristic" class="mt-3">Đặc tính</label>
+                         <Field name="characteristic" class="form-control" v-model="newseed.Seed_characteristic"
+                              as="textarea" style="height: 179px;" placeholder="Đặc tính giống lúa" />
+                         <ErrorMessage name="characteristic" class="error-feedback" />
+                    </div>
+               </div>
+               <div class="col-sm-6">
+                    
+                    <div class="form-group">
                          <label for="supplier" class="mt-3">Nhà cung cấp <span style="color: red">*</span></label>
                          <Field name="supplier" class="form-control" v-model="newseed.Seed_supplier"
                               placeholder="Nhà cung cấp giống lúa" />
                          <ErrorMessage name="supplier" class="error-feedback" />
                     </div>
 
-                    <div class="form-group">
-                         <label for="characteristic" class="mt-3">Đặc tính</label>
-                         <Field name="characteristic" class="form-control" v-model="newseed.Seed_characteristic"
-                              as="textarea" style="height: 120px;" placeholder="Đặc tính giống lúa" />
-                         <ErrorMessage name="characteristic" class="error-feedback" />
+                    <div class="row form-group " style="width: 99%; margin-left: 1%;">
+                         <label for="supplier mt-3" class="" style="margin-top: 20px;">Hình ảnh <span
+                                   style="color: red">*</span></label>
+                         <div class="col-sm-12 text-center form-control" style="height: 250px !important;">
+                              <input type="file" ref="file" name="image" @change="selectFile($event)" accept="image/*"
+                                   enctype="multipart/form-data" class="" v-bind:aria-disabled="true">
+                              <div class="row rowImage mt-2" style=" width: 100%; height: 200px; padding-top: 6px;">
+                                   <div class="col-md-12 text-center" style="height: 180px; width: 50%;">
+                                        <img v-if="newseed.url != ''" :src="newseed.url" class="img-fluid"
+                                             style="height: 190px; !important">
+                                   </div>
+                              </div>
+                         </div>
                     </div>
                </div>
           </div>
@@ -103,11 +120,20 @@ export default {
      },
 
      methods: {
-
+          async selectFile(event) {
+               this.fileImage = event.target.files[0];
+               this.newseed.newImage = this.fileImage;
+               this.newseed.url = URL.createObjectURL(this.fileImage);
+          },
      }
 };
 </script>
  
 <style>
-@import url(../../assets/seedStyle.css);
-</style>
+.updateSeedForm .rowImage {
+     height: 200px;
+     margin: auto;
+     margin-top: 5px;
+}
+
+@import url(../../assets/seedStyle.css);</style>

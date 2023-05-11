@@ -3,7 +3,7 @@
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
                <Preloader color="red" scale="0.4" />
           </div>
-          <div class="row arablelandManagementFrame" style="height: 100vmin; 100%" v-if="!loading"
+          <div class="row arablelandManagementFrame" style="height: 100vmin; background-color: #EAEAEA;" v-if="!loading"
                :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
@@ -40,7 +40,7 @@
                                    @click="searchName(arableLand.ArableLand_owner), away()">
                                    {{ arableLand.ArableLand_owner }}</p>
                          </div>
-                         <button class="btn btnCreate"
+                         <button class="btn btnCreate" v-if="currentUser.Role_id == '02'"
                               @click="retrieveProvinceList(), retrieveSoilList(), openCreate = !openCreate, active = true"><i
                                    class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm mẫu ruộng</button>
                     </div>
@@ -96,7 +96,7 @@
                          <div class="ol-class" style="--length: 5" role="list">
                               <a style="width: 23%;" class="li-class-arableland li-class" href="#popup1" v-for="(arableLand, j) in arablelandList" :key="j"
                                    @click="setArableLandChosen(arableLand)">
-                                   <button type="button" class="btn btn-sm btnMoreSelection" data-toggle="dropdown"
+                                   <button type="button" class="btn btn-sm btnMoreSelection" data-toggle="dropdown" v-if="currentUser.Role_id == '02'"
                                         aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v"></i>
                                    </button>
@@ -359,6 +359,8 @@ export default {
                     this.message1 = " ";
                     this.active = false;
                     this.message2 = " ";
+                    this.newArableLand = {};
+                    this.retrieveArableLandList();
                }
                else {
                     this.soilList.forEach(soil => {

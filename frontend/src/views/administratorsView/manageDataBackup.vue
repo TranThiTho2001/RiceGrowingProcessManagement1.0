@@ -1,5 +1,5 @@
 <template>
-     <div class="EmployeeManagerFrame container-fluid pr-4" style="background-color: #EAEAEA;height: max-content;">
+     <div class="EmployeeManagerFrame1 container-fluid pr-4" style="background-color: #EAEAEA;height: max-content;">
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
                <Preloader color="red" scale="0.4" />
           </div>
@@ -25,22 +25,6 @@
                          </div>
                     </div>
                     <div class="row row-inputSearch">
-                         <!-- <div class="selection-component1">
-                              <label class="labelRole">Vị trí</label>
-                              <select class="selectRole" v-model="filter.role" @change="searchByRole()">
-                                   <option class="optionRole" v-for="role in roles" :value="role" :key="role">{{ role }}
-                                   </option>
-                              </select>
-
-
-                              <label class="labelSex">Giới tính</label>
-                              <select class="selectSex" v-model="filter.sex" @change="searchBySex()">
-                                   <option class="optionSex" value="Tất cả" selected="true">Tất cả</option>
-                                   <option class="optionSex" value="Nữ">Nữ</option>
-                                   <option class="optionSex" value="Nam">Nam</option>
-                              </select>
-                         </div> -->
-                         <!-- isOpenCreateEmployeeForm = !isOpenCreateEmployeeForm, retrieveRoleList() -->
                          <button class="btn btnCreate" @click="backup()">
                               <i class="fas fa-cloud" style="font-size: 15px;"></i> Sao lưu</button>
 
@@ -48,53 +32,30 @@
 
 
                     <div class="scrollTable " style="margin-top: 50px ;">
-                        
-    <!-- <FileBrowser :axiosConfig="{baseURL: 'http://localhost:8081'}" /> -->
                          <div class="scrollTable-content">
                               <table class="table employeeList">
                                    <thead>
                                         <tr>
                                              <th class="text-center">STT</th>
-                                             <th class="text-center">Ngày sao lưu</th>
+                                             <th >Ngày sao lưu</th>
                                              <th>Tập tin sao lưu</th>
-                                             <th>dowload</th>
-                                             <th></th>
+                                             <th>Tùy chọn</th>
                                         </tr>
                                    </thead>
                                    <tbody>
                                         <tr v-for="(databackup, i ) in (dataBackupList)" :key="i">
                                              <td class="text-center">{{ i }}</td>
-                                             <td class="text-center">{{ formatDate(databackup.Backup_date) }}</td>
-                                             <!-- <td>{{ databackup.Backup_link }}</td>
-                                            :href="`/../../../backup/${databackup.Backup_link}`" <a :href="'../../assets/Giong-lua-ST25.png'" target="_blank" >Dowload</a> -->
-                                             <!-- <td><a :href="databackup.Link"  download="ewe"
-                                                      >{{ databackup.Link }}</a></td> -->
-                                                      <td><a href="D:\ Bad">gr</a></td>
-                                             <td class="">
-                                                  <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
-                                                       aria-haspopup="true" aria-expanded="false">
-                                                       <i class="fas fa-ellipsis-v"></i>
-                                                  </button>
-                                                  <div class="dropdown-menu">
-                                                       <a class="dropdown-item" href="#"
-                                                            @click="setDateBackupChosen(databackup), isOpenConfirm = !isOpenConfirm">
-                                                            <span class="fas fa-trash-alt actionIcon"></span> Xóa
-                                                       </a>
-                                                  </div>
+                                             <td >{{ formatDate(databackup.Backup_date) }}</td>
+                                             <td>{{ databackup.Backup_link }}</td>
+                                             <td>
+                                                  <button class="btnDowloadSQL" @click="DowloadFile(databackup)"><i class="fas fa-arrow-alt-circle-down"></i></button>
+                                                  <button class="btnDowloadSQL" @click="setDateBackupChosen(databackup), isOpenConfirm = !isOpenConfirm"><span class="fas fa-trash-alt"></span></button>
                                              </td>
                                         </tr>
                                    </tbody>
                               </table>
                          </div>
                     </div>
-                    <!-- <div class="overlay2" v-if="isOpenCreateEmployeeForm">
-                         <CreateNewEmployeeForm :newEmployee="newEmployee" :roleList="roleList"
-                              @addEmployee-submit="createEmployee" :message1="message1" :message2="message2" />
-                    </div>
-                    <div class="overlay2" v-if="isOpenUpdateEmployeeForm">
-                         <UpdateEmployeeForm :newEmployee="employeeChoosen" :roleList="roleList"
-                              @updateEmployee-submit="updateEmployee" :message1="message1" :message2="message2" />
-                    </div> -->
                </div>
 
           </div>
@@ -152,17 +113,18 @@ import moment from 'moment';
 import { mapGetters, mapMutations } from "vuex";
 import Preloader from '@/components/catalogManagementComponents/Preloader.vue'
 import backupServices from '@/services/backup.services';
+
 // import Axios from 'axios';
 // import FileBrowser from "vuetify-file-browser";
 
 export default {
      name: 'EmployeeManager',
      components: {
-          Catalog,
-          TopHeader,
-          Preloader,
-          // FileBrowser,
-     },
+    Catalog,
+    TopHeader,
+    Preloader,
+
+},
      data() {
           return {
                dataBackupList: [],
@@ -212,17 +174,7 @@ export default {
                this.isOpenInput1 = false;
                this.isOpenInput2 = false;
           },
-          // async downloadItem({ url, label }) {
-          //      Axios.get(url, { responseType: 'blob' })
-          //           .then(response => {
-          //                const blob = new Blob([response.data], { type: 'application/pdf' })
-          //                const link = document.createElement('a')
-          //                link.href = URL.createObjectURL(blob)
-          //                link.download = label
-          //                link.click()
-          //                URL.revokeObjectURL(link.href)
-          //           }).catch(console.error)
-          // },
+
           async backup() {
                this.message = "";
                this.processing = true;
@@ -253,11 +205,6 @@ export default {
                }
                else {
                     this.dataBackupList = respone.data;
-                    console.log(this.dataBackupList);
-                    // this.dataBackupList.forEach(element => {
-                    //      element.Link =  require('@/backup/'+backup_1682836130573.json);
-                    //      console.log(element.Link)
-                    // });
                }
           },
 
@@ -283,8 +230,47 @@ export default {
           formatDate(data) {
                if (data == null || data == "Invalid da") return "";
                return (moment(String(data)).format("DD-MM-YYYY h:mm:ss A"));
-          },
+          },    
+           async DowloadFile(data){
+               console.log(data)
+          const [err, respone] = await this.handle(
+                    backupServices.get(data.Backup_link)
+               );
+               if (err) {
+                    console.log(err)
+               }
+               else {
+
+                    console.log(respone.data);
+                    var csvFile;
+               var downloadLink;
+
+               // CSV FILE
+               csvFile = new Blob(["\uFEFF" + respone.data], { type: "text/sql" });
+
+               // Download link
+               downloadLink = document.createElement("a");
+
+               // File name
+               downloadLink.download = "backup.sql";
+
+               // We have to create a link to the file
+               downloadLink.href = window.URL.createObjectURL(csvFile);
+
+               // Make sure that the link is not displayed
+               downloadLink.style.display = "none";
+
+               // Add the link to your DOM
+               document.body.appendChild(downloadLink);
+
+               // Lanzamos
+               downloadLink.click();
+                    // this.retrieveDataBackupList();
+               }
      },
+     },
+
+
 
      mounted() {
           this.retrieveDataBackupList();
@@ -296,12 +282,12 @@ export default {
 @import url(../../assets/employeeStyle.css);
 @import url(../../assets/mainStyle.css);
 
-.EmployeeManagerFrame .dropdown-item:focus,
-.EmployeeManagerFrame .dropdown-item:hover {
+.EmployeeManagerFrame1 .dropdown-item:focus,
+.EmployeeManagerFrame1 .dropdown-item:hover {
      background-color: #ABD2C8;
 }
 
-.EmployeeManagerFrame .waitingDialog {
+.EmployeeManagerFrame1 .waitingDialog {
      background: #F7FFD9;
      border: 1px solid rgb(62, 77, 77);
      border-radius: 10px;
@@ -317,7 +303,7 @@ export default {
      z-index: 5;
 }
 
-.EmployeeManagerFrame .btnOK {
+.EmployeeManagerFrame1 .btnOK {
      /* display: block; */
      width: 100px;
      font-size: 18px;
@@ -330,7 +316,7 @@ export default {
      text-align: center;
 }
 
-.EmployeeManagerFrame .resultDialog {
+.EmployeeManagerFrame1 .resultDialog {
      background: #F7FFD9;
      border: 1px solid rgb(62, 77, 77);
      border-radius: 10px;
@@ -345,6 +331,24 @@ export default {
      text-align: center;
      z-index: 5;
 }
+.EmployeeManagerFrame1 .navigationBar .btnBackup {
+     display: block;
+     width: 88%;
+     font-size: 17px;
+     background: #FFFA37;
+     box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+     border-radius: 20px;
+     color: #5C5D22;
+     border: none;
+     font-family: 'Roboto';
+     font-style: normal;
+     border-radius: 14px;
+}
+
+.EmployeeManagerFrame1 {
+     transition: all 5s ease-in-out;
+}
+
 </style>
    
 

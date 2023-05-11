@@ -14,7 +14,7 @@
           <div class="row content">
                <div class="col-sm-6 mt-1">
                     <div class="form-group">
-                         <label for="ricecropid" class="mt-2">Mã mẫu ruộng <span style="color:red">*</span></label>
+                         <label for="ricecropid" class="mt-2">Mã mùa vụ <span style="color:red">*</span></label>
                          <Field name="ricecropid" type="name" class="form-control-none-bg form-control"
                               v-model="ricecropchosen.RiceCropInformation_id" disabled />
                          <ErrorMessage name="ricecropid" class="error-feedback" />
@@ -85,7 +85,7 @@
                               <tr>
                                    <th class="text-center">STT</th>
                                    <th>Tên loại phân</th>
-                                   <th>Số lượng dùng
+                                   <th>Số lượng dùng(kg/ha)
                                         <button type="button" @click="addFertilizer()" class="btnAddFertilizer"> Thêm phân bón </button>
                                    </th>
                               </tr>

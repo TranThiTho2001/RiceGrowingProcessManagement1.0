@@ -15,11 +15,11 @@
         <div class="row">
             <div class="col-sm-12 text-center ">
                     <input type="file" ref="file" name="image" @change="selectFile($event)" accept="image/*"
-                        enctype="multipart/form-data" class="ml-5 pl-5" v-bind:aria-disabled="true">
+                        enctype="multipart/form-data" class="" v-bind:aria-disabled="true">
                 <div class="row rowImage mt-2">
                     <div class="col-md-2"></div>
-                    <div class="col-md-8 text-center">
-                        <img v-if="url != ''" :src="url" class="img-fluid" style="max-height: 300px;">
+                    <div class="col-md-8 text-center" style="height: 300px;">
+                        <img v-if="url != ''" :src="url" class="img-fluid">
                     </div>
                     <div class="col-md-2"></div>
 

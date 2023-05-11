@@ -68,7 +68,8 @@
                                    <time class="icon">
                                         <em>Ngày</em>
                                         <strong>Gieo trồng</strong>
-                                        <span class="countingDays">{{ get_day_of_time(riceCrop.RiceCropInformation_sowingDate) }}</span>
+                                        <span class="countingDays">{{
+                                             get_day_of_time(riceCrop.RiceCropInformation_sowingDate) }}</span>
                                    </time>
                               </div>
                               <!-- <div class="resultRiceYield"> -->
@@ -100,10 +101,10 @@
                               <div class="row table-row mb-1">
                                    <h4 class="prediction-title2" style="">
                                         Thông tin thời tiết trong mùa vụ cho lần dự đoán ngày
-                                        <span v-if="getPrediction() != '00'"> {{
+                                        <span v-if="getPrediction().yield != '00'"> {{
                                              formatDate(predictionList[0].Prediction_date) }}</span>
                                    </h4>
-                                   <button class="btn btnViewDetail" @click="openWeatherInfor = true">Xem chi tiết</button>
+                                   <button class="btn btnViewDetail" @click="openWeatherInfor = true" v-if="getPrediction().yield != '00'">Xem chi tiết</button>
                                    <table class="tableWeather tablePredict" v-if="weatherInfor.loadding">
                                         <thead>
                                              <tr>
@@ -119,7 +120,7 @@
                                         <tbody v-if="predictionList.length > 0 && getPrediction() != '00'">
                                              <tr v-for="i in 2" :key="i">
                                                   <td class="centerclass">{{ i }}</td>
-                                                  <td class="centerclass">{{formatDate(weatherInfor.dateList[i]) }}</td>
+                                                  <td class="centerclass">{{ formatDate(weatherInfor.dateList[i]) }}</td>
                                                   <td class="centerclass">{{ weatherInfor.temperatureList[i] }}
                                                   </td>
                                                   <td class="centerclass">{{ weatherInfor.humitidityList.final[i]
@@ -159,7 +160,7 @@
                               </div>
                               <div class="row table-row">
                                    <h4 class="prediction-title2">Hoạt động bón phân</h4>
-                                   <button class="btn btnViewDetail " @click="openFertilizer = true">Xem chi tiết</button>
+                                   <button class="btn btnViewDetail " @click="openFertilizer = true" v-if="getPrediction().yield != '00'">Xem chi tiết</button>
                                    <table class="tableWeather tablePredict">
                                         <thead>
                                              <tr>
@@ -173,12 +174,55 @@
                                                   <th class="text-center th_pre">Ngày kết thúc</th>
                                              </tr>
                                         </thead>
-                                        <tbody>
-                                             <tr v-if="fertilizerTimesList.length < 1">
-                                                  <td colspan="6" class="centerclass">Chưa có lần bón phân nào được
+                                        <tbody v-if="fertilizerTimesList.length < 1">
+                                             <tr>
+                                                  <td colspan="8" class="centerclass">Chưa có lần bón phân nào được
                                                        thực hiện
                                                   </td>
                                              </tr>
+                                        </tbody>
+
+                                        <tbody v-if="fertilizerTimesList.length < 4 && fertilizerTimesList.length > 0">
+
+                                             <tr v-for="i in fertilizerTimesList.length" :key="i">
+                                                  <td class="text-center ">{{ fertilizerTimesList[i].FertilizerTimes_times }}
+                                                  </td>
+                                                  <td class="">{{ fertilizerTimesList[i].Fertilizer_name }}</td>
+                                                  <td class="text-center ">{{ fertilizerTimesList[i].FertilizerTimes_amount
+                                                  }}
+                                                  </td>
+                                                  <td class="text-center ">
+                                                       {{ toFixedNumber(fertilizerTimesList[i].QuantityUsed.N) }}</td>
+                                                  <td class="text-center ">{{
+                                                       toFixedNumber(fertilizerTimesList[i].QuantityUsed.P) }}</td>
+                                                  <td class="text-center ">{{
+                                                       toFixedNumber(fertilizerTimesList[i].QuantityUsed.K) }}</td>
+                                                  <td class="text-center ">{{
+                                                       formatDate(fertilizerTimesList[i].FertilizerTimes_startDate) }}</td>
+                                                  <td class="text-center ">{{
+                                                       formatDate(fertilizerTimesList[i].FertilizerTimes_endDate)
+                                                  }}</td>
+                                             </tr>
+
+                                             <tr>
+                                                  <td class=" final-row" colspan="2">Tổng</td>
+                                                  <td class="text-center final-row">{{
+                                                       toFixedNumber(total_amount_of_fertilizer_used.Total)
+                                                  }}</td>
+                                                  <td class="text-center final-row">{{
+                                                       toFixedNumber(total_amount_of_fertilizer_used.N) }}
+                                                  </td>
+                                                  <td class="text-center final-row">{{
+                                                       toFixedNumber(total_amount_of_fertilizer_used.P) }}
+                                                  </td>
+                                                  <td class="text-center final-row">{{
+                                                       toFixedNumber(total_amount_of_fertilizer_used.K) }}
+                                                  </td>
+                                                  <td class="text-center final-row"></td>
+                                                  <td class="text-center final-row"></td>
+                                             </tr>
+                                        </tbody>
+                                        <tbody v-if="fertilizerTimesList.length > 3">
                                              <tr v-for="i in 2" :key="i">
                                                   <td class="text-center ">{{ fertilizerTimesList[i].FertilizerTimes_times }}
                                                   </td>
@@ -209,7 +253,6 @@
                                                   <td class="text-center ">...</td>
                                                   <td class="text-center ">...</td>
                                              </tr>
-
                                              <tr>
                                                   <td class=" final-row" colspan="2">Tổng</td>
                                                   <td class="text-center final-row">{{
@@ -237,13 +280,13 @@
                                    <a class="fas fa-times-circle" href="#" @click="openWeatherInfor = false"
                                         style="font-size: 25px; text-decoration: none; color:#B3B4BA; float: right;"></a>
                                    <h2>Thông tin thời tiết trong mùa vụ cho lần dự đoán ngày
-                                        <span v-if="getPrediction() != '00'"> {{
+                                        <span v-if="getPrediction().yield != '00'"> {{
                                              formatDate(predictionList[0].Prediction_date) }}</span>
                                    </h2>
 
                                    <div class="content">
-                                        <table class="tableWeather-popup dowload-table tableWeather tablePredict" id="weatherInfor"
-                                             style="width: 90%;" v-if="weatherInfor.loadding">
+                                        <table class="tableWeather-popup dowload-table tableWeather tablePredict"
+                                             id="weatherInfor" style="width: 90%;" v-if="weatherInfor.loadding">
                                              <thead>
                                                   <tr>
                                                        <th class="centerclass">STT</th>
@@ -258,7 +301,7 @@
                                              <tbody v-if="predictionList.length > 0 && getPrediction() != '00'">
                                                   <tr v-for="(data, i) in weatherInfor.dateList" :key="i">
                                                        <td class="centerclass">{{ i }}</td>
-                                                       <td class="centerclass">{{ data }}</td>
+                                                       <td class="centerclass">{{ formatDate(data) }}</td>
                                                        <td class="centerclass">{{ weatherInfor.temperatureList[i] }}
                                                        </td>
                                                        <td class="centerclass">{{ weatherInfor.humitidityList.final[i]
@@ -580,15 +623,15 @@ export default {
                          var i = 0;
                          console.log(respone.data)
                          respone.data.forEach(fertizertimes => {
-                              
-                              
+
+
                               if (fertizertimes.FertilizerTimes_startDate < this.predictionList[0].Prediction_date) {
                                    this.fertilizerTimesList.push(fertizertimes);
                                    this.getContain(fertizertimes.Fertilizer_id, i);
                                    this.total_amount_of_fertilizer_used.Total += fertizertimes.FertilizerTimes_amount;
                                    i++;
                               }
-                              fertizertimes.FertilizerTimes_startDate =  new Date(fertizertimes.FertilizerTimes_startDate)
+                              fertizertimes.FertilizerTimes_startDate = new Date(fertizertimes.FertilizerTimes_startDate)
 
                          });
                     }
@@ -772,6 +815,7 @@ export default {
                     end_date = moment(new Date((new Date()).valueOf() - 1000 * 60 * 60 * 24)).format("YYYY-MM-DD");
                }
                else if (!ispredict && this.predictionList.length > 0) {
+                    console.log("g")
                     end_date = moment(new Date((new Date(this.predictionList[0].Prediction_date))).valueOf() - 1000 * 60 * 60 * 24).format("YYYY-MM-DD");
                }
                if (ispredict || (!ispredict && this.predictionList.length > 0)) {
@@ -798,30 +842,33 @@ export default {
                               break;
                          }
                     }
+                    if (valueNull.length > 0) {
+                         for (let index = this.weatherInfor.humitidityList.relativehumidity_2m.length - 1; index > 0; index--) {
+                              var date = moment(new Date(this.weatherInfor.humitidityList.time[index])).format("YYYY-MM-DD")
+                              if (date >= valueNull[valueNull.length - 1].date) {
+                                   this.weatherInfor.humitidityList.relativehumidity_2m.pop();
+                                   this.weatherInfor.humitidityList.time.pop();
+                              }
+                              else {
+                                   break;
+                              }
+                         }
+                         let urlAPI2 = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&start_date=${valueNull[valueNull.length - 1].date}&end_date=${valueNull[0].date}&timezone=GMT&hourly=relativehumidity_2m&daily=temperature_2m_mean&daily=precipitation_sum&daily=windspeed_10m_max&daily=shortwave_radiation_sum`;
+                         let data2 = await fetch(urlAPI2).then(res => res.json())
+                         var i = data2.daily.precipitation_sum.length - 1;
+                         valueNull.forEach(valuenull => {
+                              this.weatherInfor.precipitationList[valuenull.index] = data2.daily.precipitation_sum[i];
+                              this.weatherInfor.temperatureList[valuenull.index] = data2.daily.temperature_2m_mean[i];
+                              this.weatherInfor.windSpeed[valuenull.index] = data2.daily.windspeed_10m_max[i];
+                              this.weatherInfor.solarRadiation[valuenull.index] = data2.daily.shortwave_radiation_sum[i];
+                              i--;
+                         });
 
-                    for (let index = this.weatherInfor.humitidityList.relativehumidity_2m.length - 1; index > 0; index--) {
-                         var date = moment(new Date(this.weatherInfor.humitidityList.time[index])).format("YYYY-MM-DD")
-                         if (date >= valueNull[valueNull.length - 1].date) {
-                              this.weatherInfor.humitidityList.relativehumidity_2m.pop();
-                              this.weatherInfor.humitidityList.time.pop();
-                         }
-                         else {
-                              break;
-                         }
+                         this.weatherInfor.humitidityList.time = this.weatherInfor.humitidityList.time.concat(data2.hourly.time);
+                         this.weatherInfor.humitidityList.relativehumidity_2m = this.weatherInfor.humitidityList.relativehumidity_2m.concat(data2.hourly.relativehumidity_2m);
+
                     }
-                    let urlAPI2 = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&start_date=${valueNull[valueNull.length - 1].date}&end_date=${valueNull[0].date}&timezone=GMT&hourly=relativehumidity_2m&daily=temperature_2m_mean&daily=precipitation_sum&daily=windspeed_10m_max&daily=shortwave_radiation_sum`;
-                    let data2 = await fetch(urlAPI2).then(res => res.json())
-                    var i = data2.daily.precipitation_sum.length - 1;
-                    valueNull.forEach(valuenull => {
-                         this.weatherInfor.precipitationList[valuenull.index] = data2.daily.precipitation_sum[i];
-                         this.weatherInfor.temperatureList[valuenull.index] = data2.daily.temperature_2m_mean[i];
-                         this.weatherInfor.windSpeed[valuenull.index] = data2.daily.windspeed_10m_max[i];
-                         this.weatherInfor.solarRadiation[valuenull.index] = data2.daily.shortwave_radiation_sum[i];
-                         i--;
-                    });
 
-                    this.weatherInfor.humitidityList.time = this.weatherInfor.humitidityList.time.concat(data2.hourly.time);
-                    this.weatherInfor.humitidityList.relativehumidity_2m = this.weatherInfor.humitidityList.relativehumidity_2m.concat(data2.hourly.relativehumidity_2m);
 
                     this.weatherInfor.humitidityList.final = [];
                     for (let index = 0; index < this.weatherInfor.dateList.length; index++) {
@@ -921,7 +968,7 @@ export default {
 
                for (var i = 0; i < rows.length; i++) {
                     var row = [], cols = rows[i].querySelectorAll("td, th");
-                    
+
                     for (var j = 0; j < cols.length; j++)
                          row.push(String(cols[j].innerHTML).replaceAll(',', ''));
 
@@ -934,94 +981,94 @@ export default {
           async dowload() {
                var html = document.getElementById("weatherInfor");
                var date = '';
-               if(this.predictionList[0].Prediction_date != '00'){
+               if (this.predictionList[0].Prediction_date != '00') {
                     date = moment(this.predictionList[0].Prediction_date).format("DD-MM-YYYY");
                }
-               
-               this.export_table_to_csv(html, "Dữ liệu dự đoán năng suất lúa "+this.riceCrop.RiceCropInformation_name+" "+date+".csv");
+
+               this.export_table_to_csv(html, "Dữ liệu dự đoán năng suất lúa " + this.riceCrop.RiceCropInformation_name + " " + date + ".csv");
           },
 
 
-     bubbleSort() {
-          for (let i = 0; i < this.predictionList.length - 1; i++) {
-               for (let j = this.predictionList.length - 1; j > i; j--) {
-                    if (this.predictionList[j].Prediction_date > this.predictionList[j - 1].Prediction_date) {
-                         let t = this.predictionList[j];
-                         this.predictionList[j] = this.predictionList[j - 1];
-                         this.predictionList[j - 1] = t;
+          bubbleSort() {
+               for (let i = 0; i < this.predictionList.length - 1; i++) {
+                    for (let j = this.predictionList.length - 1; j > i; j--) {
+                         if (this.predictionList[j].Prediction_date > this.predictionList[j - 1].Prediction_date) {
+                              let t = this.predictionList[j];
+                              this.predictionList[j] = this.predictionList[j - 1];
+                              this.predictionList[j - 1] = t;
+                         }
                     }
                }
-          }
+          },
+
+
+          //      import * as FileSaver from 'file-saver';
+          // import * as XLSX from 'xlsx';
+
+          // function downloadExcel() {
+
+          //     /* create a new blank workbook */
+          //     var wb = XLSX.utils.book_new();
+
+          //     /* create a worksheet for books */
+          //     var wsBooks = XLSX.utils.json_to_sheet(books);
+
+          //     /* Add the worksheet to the workbook */
+          //     XLSX.utils.book_append_sheet(wb, wsBooks, "Books");
+
+          //     /* create a worksheet for person details */
+          //     var wsPersonDetails = XLSX.utils.json_to_sheet(personDetails);
+
+          //     /* Add the worksheet to the workbook */
+          //     XLSX.utils.book_append_sheet(wb, wsPersonDetails, "PersonDetails");
+
+
+          //     const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+          //     const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+          //     const data1 = new Blob([excelBuffer], { type: fileType });
+          //     FileSaver.saveAs(data1, "BookDetail Summary.xlsx");    
+          // }
+
+          // function convert(){
+          //    let tbl1 = document.getElementsByTagName("table")[0]
+          //    let tbl2 = document.getElementsByTagName("table")[1]
+
+          //    let worksheet_tmp1 = XLSX.utils.table_to_sheet(tbl1);
+          //    let worksheet_tmp2 = XLSX.utils.table_to_sheet(tbl2);
+
+          //    let a = XLSX.utils.sheet_to_json(worksheet_tmp1, { header: 1 })
+          //    let b = XLSX.utils.sheet_to_json(worksheet_tmp2, { header: 1 })
+
+          //    a = a.concat(['']).concat(b)
+
+          //    let worksheet = XLSX.utils.json_to_sheet(a, { skipHeader: true })
+
+          //    const new_workbook = XLSX.utils.book_new()
+          //    XLSX.utils.book_append_sheet(new_workbook, worksheet, "worksheet")
+          //    XLSX.writeFile(new_workbook, 'tmp_file.xls')
+          // }
+
+          get_day_of_time(d1) {
+               let ms1 = (new Date(d1)).getTime();
+               var d2 = new Date();
+               let ms2 = d2.getTime();
+               return Math.ceil((ms2 - ms1) / (24 * 60 * 60 * 1000));
+          },
+
+          goToMap() {
+               window.open(`https://www.google.com/maps/@${this.riceCrop.ArableLand_latitude},${this.riceCrop.ArableLand_longitude},15z?hl=vi-VN`);
+          },
+
+          formatDate(data) {
+               if (data == null || data == "Invalid da") return "";
+               return (moment(String(data)).format("DD-MM-YYYY"));
+          },
+
      },
 
+     mounted() {
 
-//      import * as FileSaver from 'file-saver';
-// import * as XLSX from 'xlsx';
-
-// function downloadExcel() {
-    
-//     /* create a new blank workbook */
-//     var wb = XLSX.utils.book_new();
-
-//     /* create a worksheet for books */
-//     var wsBooks = XLSX.utils.json_to_sheet(books);
-
-//     /* Add the worksheet to the workbook */
-//     XLSX.utils.book_append_sheet(wb, wsBooks, "Books");
-
-//     /* create a worksheet for person details */
-//     var wsPersonDetails = XLSX.utils.json_to_sheet(personDetails);
-
-//     /* Add the worksheet to the workbook */
-//     XLSX.utils.book_append_sheet(wb, wsPersonDetails, "PersonDetails");
-    
-    
-//     const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-//     const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-//     const data1 = new Blob([excelBuffer], { type: fileType });
-//     FileSaver.saveAs(data1, "BookDetail Summary.xlsx");    
-// }
-
-// function convert(){
-//    let tbl1 = document.getElementsByTagName("table")[0]
-//    let tbl2 = document.getElementsByTagName("table")[1]
-      
-//    let worksheet_tmp1 = XLSX.utils.table_to_sheet(tbl1);
-//    let worksheet_tmp2 = XLSX.utils.table_to_sheet(tbl2);
-      
-//    let a = XLSX.utils.sheet_to_json(worksheet_tmp1, { header: 1 })
-//    let b = XLSX.utils.sheet_to_json(worksheet_tmp2, { header: 1 })
-      
-//    a = a.concat(['']).concat(b)
-     
-//    let worksheet = XLSX.utils.json_to_sheet(a, { skipHeader: true })
-   
-//    const new_workbook = XLSX.utils.book_new()
-//    XLSX.utils.book_append_sheet(new_workbook, worksheet, "worksheet")
-//    XLSX.writeFile(new_workbook, 'tmp_file.xls')
-// }
-
-     get_day_of_time(d1) {
-          let ms1 = (new Date(d1)).getTime();
-          var d2 = new Date();
-          let ms2 = d2.getTime();
-          return Math.ceil((ms2 - ms1) / (24 * 60 * 60 * 1000));
-     },
-
-     goToMap() {
-          window.open(`https://www.google.com/maps/@${this.riceCrop.ArableLand_latitude},${this.riceCrop.ArableLand_longitude},15z?hl=vi-VN`);
-     },
-
-     formatDate(data) {
-          if (data == null || data == "Invalid da") return "";
-          return (moment(String(data)).format("DD-MM-YYYY"));
-     },
-
-},
-
-mounted() {
-
-}
+     }
 
 };
 

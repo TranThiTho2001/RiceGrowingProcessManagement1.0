@@ -9,6 +9,7 @@ exports.store = async (req, res) => {
         Seed_name: req.body.Seed_name,
         Seed_characteristic: req.body.Seed_characteristic,
         Seed_supplier: req.body.Seed_supplier,
+        Seed_image: req.body.Seed_image,
     });
     // Save Seed in the database
     Seed.create(seed, (err, data) => {

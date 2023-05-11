@@ -3,15 +3,16 @@
           class="form  container-fluid createEpidemicForm">
           <div class="row">
                <div class="col-sm-12 text-right">
-                    <i class="fas fa-times-circle" @click="newepidemic.close = false, $emit('addEpidemic-submit', newepidemic)"
-                    style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
+                    <i class="fas fa-times-circle"
+                         @click="newepidemic.close = false, $emit('addEpidemic-submit', newepidemic)"
+                         style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
           <div class="row">
                <p class="col-sm-12 text-center functionName">THÊM BỆNH DỊCH MỚI</p>
           </div>
           <div class="row content">
-               <div class="col-sm-6 mt-2">
+               <div class="col-sm-4 mt-2">
                     <div class="form-group">
                          <label for="id" class="mt-2">Mã <span style="color: red">*</span></label>
                          <Field name="id" type="name" class="form-control" v-model="newepidemic.Epidemic_id"
@@ -19,36 +20,12 @@
                          <ErrorMessage name="id" class="error-feedback" />
                     </div>
 
-
-                    <div class="form-group">
-                         <label for="time" class="mt-3">Thời điểm xuất hiện</label>
-                         <Field name="time" class="form-control" v-model="newepidemic.Epidemic_timeOfDevelopment"
-                              placeholder="Nhập thời điểm xuất hiện...." />
-                         <ErrorMessage name="time" class="error-feedback" />
-                    </div>
-
-                    <div class="form-group ">
-                         <label for="environment" class="mt-4 pt-2">Môi trường phát triển <span
-                                   style="color: red">*</span></label>
-                         <Field name="environment" class="form-control" v-model="newepidemic.Epidemic_developmentEnvironment"
-                              as="textarea" style="height: 120px;" placeholder="Nhập môi trường phát triển..." />
-                         <ErrorMessage name="environment" class="error-feedback" />
-                    </div>
-               </div>
-
-               <div class="col-sm-6 ">
-                    <div class="form-group">
-                         <label for="name" class="mt-3">Tên <span style="color: red">*</span></label>
-                         <Field name="name" class="form-control" v-model="newepidemic.Epidemic_name"
-                              placeholder="Nhập tên bệnh dịch..." />
-                         <ErrorMessage name="name" class="error-feedback" />
-                    </div>
-
                     <div class="form-group">
                          <label for="classtify" class="mt-3">Phân loại <span style="color: red">*</span></label>
                          <Field name="classtify" v-model="newepidemic.EpidemicClassification_name">
-                              <select class="form-control" v-model="newepidemic.EpidemicClassification_name" style="background:  #F0F2F7;box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);"
-                                   name="classtify" for="classtify">
+                              <select class="form-control" v-model="newepidemic.EpidemicClassification_name"
+                                   style="background:  #F0F2F7;box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" name="classtify"
+                                   for="classtify">
                                    <option for="classtify">Côn trùng</option>
                                    <option>Dịch bệnh</option>
                                    <option>Nấm hại</option>
@@ -58,11 +35,52 @@
                          <ErrorMessage name="classtify" class="error-feedback" />
                     </div>
 
+                    <div class="form-group ">
+                         <label for="environment" class="">Môi trường phát triển <span
+                                   style="color: red">*</span></label>
+                         <Field name="environment" class="form-control" v-model="newepidemic.Epidemic_developmentEnvironment"
+                              as="textarea" style="height: 250px;" placeholder="Nhập môi trường phát triển..." />
+                         <ErrorMessage name="environment" class="error-feedback" />
+                    </div>
+
+               </div>
+
+               <div class="col-sm-4">
                     <div class="form-group">
-                         <label for="harm" class="mt-3">Tác hại <span style="color: red">*</span></label>
+                         <label for="name" class="mt-3">Tên <span style="color: red">*</span></label>
+                         <Field name="name" class="form-control" v-model="newepidemic.Epidemic_name"
+                              placeholder="Nhập tên bệnh dịch..." />
+                         <ErrorMessage name="name" class="error-feedback" />
+                    </div>
+                    <div class="form-group">
+                         <label for="time" class="mt-3">Thời điểm xuất hiện</label>
+                         <Field name="time" class="form-control" v-model="newepidemic.Epidemic_timeOfDevelopment"
+                              placeholder="Nhập thời điểm xuất hiện...." />
+                         <ErrorMessage name="time" class="error-feedback" />
+                    </div>
+                    <div class="form-group">
+                         <label for="harm" class="mt-3 pt-1">Tác hại <span style="color: red">*</span></label>
                          <Field name="harm" class="form-control" v-model="newepidemic.Epidemic_Harm" as="textarea"
-                              style="height: 120px;" placeholder="Nhập tác hại..." />
+                              style="height: 250px;" placeholder="Nhập tác hại..." />
                          <ErrorMessage name="harm" class="error-feedback" />
+                    </div>
+
+               </div>
+
+               <div class="col-sm-4">
+
+                    <div class="row form-group " style="width: 99%; margin-left: 1%;">
+                         <label for="supplier mt-3" class="" style="margin-top: 20px;">Hình ảnh <span
+                                   style="color: red">*</span></label>
+                         <div class="col-sm-12 text-center form-control" style="height: 300px !important;">
+                              <input type="file" ref="file" name="image" @change="selectFile($event)" accept="image/*"
+                                   enctype="multipart/form-data" class="" v-bind:aria-disabled="true">
+                              <div class="row rowImage mt-2" style=" width: 100%; height: 280px;">
+                                   <div class="col-md-12 text-center" style="height: 260px; width: 50%; padding-top: 6px;">
+                                        <img v-if="url != ''" :src="url" class="img-fluid" style="height: 250px; !important">
+                                   </div>
+                              </div>
+                         </div>
                     </div>
 
                </div>
@@ -130,15 +148,26 @@ export default {
           return {
                newepidemic: this.newEpidemic,
                schema,
+               fileImage: {},
+               url: ""
           };
      },
 
      methods: {
-
+          async selectFile(event) {
+               this.fileImage = event.target.files[0];
+               this.newepidemic.Image = this.fileImage;
+               this.url = URL.createObjectURL(this.fileImage);
+          },
      }
 };
 </script>
  
 <style>
-@import url(../../assets/epidemicStyle.css);
-</style>
+.createEpidemicForm .rowImage {
+    height: 250px;
+    margin: auto;
+    margin-top: 10px;
+}
+@import url(../../assets/epidemicStyle.css);</style>
+

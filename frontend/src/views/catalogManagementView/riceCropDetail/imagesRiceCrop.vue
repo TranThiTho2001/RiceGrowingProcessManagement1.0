@@ -23,8 +23,8 @@
                          </div>
                     </div>
 
-                    <div class="row" style="margin-top: 130px; margin-left:20px; margin-right:0px">
-                         <button class="btn btnCome-back" @click="goToRiceCrop()">Trở về</button>
+                    <div class="row"  style="margin: 130px 0px 60px 20px;">
+                         <!-- <button class="btn btnCome-back" @click="goToRiceCrop()">Trở về</button> -->
                          <button class="btn btnCreate"
                               @click="isOpenCreateImage = !isOpenCreateImage, active = true">Thêm</button>
                     </div>
@@ -156,6 +156,7 @@ export default {
           },
 
           async retrieveImagesList() {
+               
                const [error, response] = await this.handle(
                     ImagesService.findByName(this.newRiceCrop.RiceCropInformation_id)
                );
@@ -219,7 +220,7 @@ export default {
                          }
                          else {
                               this.idImage = 1;
-
+                              this.retrieveImagesList();
                          }
                     }
                }
@@ -229,6 +230,9 @@ export default {
                if (data.close == false) {
                     this.isOpenCreateImage = false;
                     this.active = false;
+                    this.loadData();
+                         this.retrieveImagesList();
+                    
                }
                else {
                     if (data.Image != null) {
@@ -312,6 +316,10 @@ export default {
                     this.newRiceCrop.ArableLand_latitude = respone.data.ArableLand_latitude;
                     this.newRiceCrop.ArableLand_longitude = respone.data.ArableLand_longitude;
                }
+          },
+
+          handleClickInParent: function () {
+               this.retrieveImagesList();
           },
 
           goToRiceCrop() {

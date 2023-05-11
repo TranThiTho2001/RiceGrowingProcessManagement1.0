@@ -8,12 +8,12 @@
                               style=" display: block; max-height: 190px;">
                     </div>
                     <div class="row body-riceCropComponent ">
-                         <div class="col-sm-12" style="margin-top: 10px !important;">
-                              <div class="row pl-3">
+                         <div class="col-sm-12" style="margin-top: 10px !important; margin-left: 4%;">
+                              <div class="row">
                                    <p class="textid">{{ riceCrop.RiceCropInformation_name }}</p>
                               </div>
-                              <div class="row pl-1">
-                                   <div class="col-md-8">
+                              <div class="row">
+                                   <div style="width: 80%; padding-left: 2px;">
                                         <p class="textname">
                                             {{ riceCrop.Province_name }}
                                         </p>
@@ -21,7 +21,7 @@
                                            {{ riceCrop.ArableLand_owner }}
                                         </p>
                                    </div>
-                                                            <div class="col-sm-4 text-right">
+                              <div class="text-right"  style="width: 80%;">
                               <button v-if="riceCrop.RiceCropInformation_harvestDate == null"
                                    class="btn btn-sm btnMonitoring ">{{
                                         get_day_of_time(riceCrop.RiceCropInformation_sowingDate) }} Ngày</button>
@@ -169,16 +169,14 @@ export default {
      font-weight: 600;
      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
      border-radius: 10px;
-     /* justify-content: center; */
      align-items: center;
-     /* height: 30px; */
-     margin: auto;
      padding: 2px 4px 2px 4px;
-     /* display: flex; */
-     /* right: 90% !important; */
      margin: auto;
      margin-top: 17px;
-
+     position: absolute;
+     top: 25px;
+     right: 4%;
+     z-index: 15;
 }
 
 .riceCropComponent .btnFinish {
@@ -245,8 +243,20 @@ export default {
      .riceCropComponent .btnFinish {
           position: relative;
           margin-top: 2px !important;
+          left: -59%;
+          right: 0%;
+          top:2px;
+     }
+}
 
-
+@media screen and (max-width: 400px) {
+     .riceCropComponent .btnMonitoring,
+     .riceCropComponent .btnFinish {
+          position: relative;
+          margin-top: 2px !important;
+          left: -50%;
+          right: 0%;
+          top:2px;
      }
 }
 

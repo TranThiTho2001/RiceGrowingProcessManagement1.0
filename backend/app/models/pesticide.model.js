@@ -7,6 +7,7 @@ const Pesticide = function(pesticide){
     this.Pesticide_component = pesticide.Pesticide_component;
     this.Pesticide_directionsForUse = pesticide.Pesticide_directionsForUse;
     this.Pesticide_uses = pesticide.Pesticide_uses;
+    this.Pesticide_image = pesticide.Pesticide_image;
 };
 
 Pesticide.create = (newPesticide, result) => {
@@ -42,6 +43,7 @@ Pesticide.getAll = (name, result) => {
     if (name) {
         query += ` WHERE Pesticide_name LIKE '%${name}%'`;
     }
+    query += ` ORDER BY Pesticide_id`;
     sql.query(query, (err, res) => {
         if (err) {
             console.log("error: ", err);
@@ -54,8 +56,8 @@ Pesticide.getAll = (name, result) => {
 
 Pesticide.updateById = (id, pesticide, result) => {
     sql.query(
-        "UPDATE Pesticide SET Pesticide_name = ?, Pesticide_supplier = ?, Pesticide_component = ?, Pesticide_directionsForUse = ?, Pesticide_uses = ? WHERE Pesticide_id = ?",
-        [pesticide.Pesticide_name, pesticide.Pesticide_supplier, pesticide.Pesticide_component, pesticide.Pesticide_directionsForUse, pesticide.Pesticide_uses, id],
+        "UPDATE Pesticide SET Pesticide_name = ?, Pesticide_supplier = ?, Pesticide_component = ?, Pesticide_directionsForUse = ?, Pesticide_uses = ?, Pesticide_image = ? WHERE Pesticide_id = ?",
+        [pesticide.Pesticide_name, pesticide.Pesticide_supplier, pesticide.Pesticide_component, pesticide.Pesticide_directionsForUse, pesticide.Pesticide_uses, pesticide.Pesticide_image, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);

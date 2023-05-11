@@ -4,14 +4,14 @@
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times-circle" @click="newseed.close = false, $emit('addSeed-submit', newseed)"
-                    style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
+                         style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
           <div class="row">
                <p class="col-sm-12 text-center functionName">THÊM GIỐNG LÚA </p>
           </div>
           <div class="row content">
-               <div class="col-sm-12">
+               <div class="col-sm-6">
                     <div class="form-group">
                          <label for="id" class="mt-2">Mã <span style="color: red">*</span></label>
                          <Field name="id" type="name" class="form-control" v-model="newseed.Seed_id"
@@ -27,17 +27,32 @@
                     </div>
 
                     <div class="form-group">
+                         <label for="characteristic" class="mt-3">Đặc tính <span style="color: red">*</span></label>
+                         <Field name="characteristic" class="form-control" v-model="newseed.Seed_characteristic"
+                              placeholder="Đặc tính giống lúa" as="textarea" style="height: 120px;" />
+                         <ErrorMessage name="characteristic" class="error-feedback" />
+                    </div>
+               </div>
+               <div class="col-sm-6">
+                    <div class="form-group">
                          <label for="supplier" class="mt-3">Nhà cung cấp<span style="color: red">*</span></label>
                          <Field name="supplier" class="form-control" v-model="newseed.Seed_supplier"
                               placeholder="Nhà cung cấp giống lúa" />
                          <ErrorMessage name="supplier" class="error-feedback" />
                     </div>
 
-                    <div class="form-group">
-                         <label for="characteristic" class="mt-3">Đặc tính <span style="color: red">*</span></label>
-                         <Field name="characteristic" class="form-control" v-model="newseed.Seed_characteristic"
-                              placeholder="Đặc tính giống lúa" as="textarea" style="height: 120px;" />
-                         <ErrorMessage name="characteristic" class="error-feedback" />
+                    <div class="row form-group " style="width: 99%; margin-left: 1%;">
+                         <label for="supplier mt-3" class="" style="margin-top: 10px;">Hình ảnh <span
+                                   style="color: red">*</span></label>
+                         <div class="col-sm-12 text-center form-control" style="height:200px !important;">
+                              <input type="file" ref="file" name="image" @change="selectFile($event)" accept="image/*"
+                                   enctype="multipart/form-data" class="" v-bind:aria-disabled="true">
+                              <div class="row rowImage mt-2" style=" width: 100%; height: 180px;">
+                                   <div class="col-md-12 text-center" style="height: 180px; width: 50%;">
+                                        <img v-if="url != ''" :src="url" class="img-fluid" style="height: 150px; !important">
+                                   </div>
+                              </div>
+                         </div>
                     </div>
                </div>
           </div>
@@ -97,21 +112,33 @@ export default {
           return {
                newseed: this.newSeed,
                schema,
+               fileImage: {},
+               url: "",
           };
      },
 
      methods: {
-
+          async selectFile(event) {
+               this.fileImage = event.target.files[0];
+               this.newseed.Image = this.fileImage;
+               this.url = URL.createObjectURL(this.fileImage);
+          },
      }
 };
 </script>
  
 <style>
-.createSeedForm{
-     pointer-events:all !important;
+.createSeedForm {
+     pointer-events: all !important;
      /* scroll-behavior: none !important; */
      filter: none !important;
 }
+
+.createSeedForm .rowImage {
+     height: 170px;
+     margin: auto;
+     margin-top: 5px;
+}
+
 @import url(../../assets/seedStyle.css);
-@import url(../../assets/mainStyle.css);
-</style>
+@import url(../../assets/mainStyle.css);</style>

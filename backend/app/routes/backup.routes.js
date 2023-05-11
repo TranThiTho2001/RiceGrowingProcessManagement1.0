@@ -7,6 +7,7 @@ module.exports = (app) => {
      // Retrieve all 
      router.get("/", backup.findAll);
 
+     router.get("/:link", backup.dowload)
 
      // Delete  with id
      // router.delete("/:Fertilizer_id/:N?utrient_id", backup.delete);

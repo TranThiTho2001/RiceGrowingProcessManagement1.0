@@ -8,6 +8,7 @@ const fs = require('fs');
 const spawn = require('child_process').spawn;
 const mysqldump = require('mysqldump');
 const db = require('../models/db');
+const path = require('path');
 // Create and Save 
 
 exports.store = async (newbackup, res) => {
@@ -28,6 +29,19 @@ exports.findAll = async (req, res) => {
                res.send("Lỗi trong quá trình tìm kiếm")
           else res.send(data);
      });
+};
+
+exports.dowload = async (req, res) => {
+     const fileName = req.params.link;
+     const path = process.cwd() + '/app/backup/'+fileName;
+
+     res.sendFile(path, function (err) {
+          if (err) {
+              console.log(err)
+          } else {
+              console.log('Sent:', fileName);
+          }
+      });
 };
 
 // exports.findbyFertilizerId = async (req, res) => {

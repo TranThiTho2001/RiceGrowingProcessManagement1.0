@@ -14,16 +14,16 @@
                </p>
           </div>
           <div class="row content">
-               <div class="col-md-4">
+               <div class="col-md-3">
                     <div class="form-group">
                          <label for="id" class="">Mã phân bón <span style="color: red">*</span></label>
                          <Field name="id" type="name" class="form-control mb-3" v-model="newfertilixer.Fertilizer_id"
                               placeholder="Nhập mã phân bón..." />
                          <ErrorMessage name="id" class="error-feedback" />
                     </div>
-<label class="lable-nutrient">Thành phần dinh dưỡng</label>
+                    <label class="lable-nutrient">Thành phần dinh dưỡng</label>
                     <div class="row nutrient-row">
-                         
+
                          <div class="form-group" style="margin-left: 20px !important;"
                               v-for="(contain, i) in newfertilixer.Contain" :key="contain.Nutrient_id">
                               <label :for="contain.Nutrient_id" class="">{{ contain.Nutrient_name }} <span
@@ -46,33 +46,44 @@
                     </div>
 
                     <div class="form-group">
-                         <label for="uses" class="mt-3">Công dụng <span style="color: red">*</span></label>
-                         <Field name="uses" class="form-control" v-model="newfertilixer.Fertilizer_uses" as="textarea"
-                              style="height: 350px;" placeholder="Công dụng phân bón..." />
-                         <ErrorMessage name="uses" class="error-feedback" />
+                         <label for="supplier" class="mt-3 pt-1">Nhà cung cấp <span style="color: red">*</span></label>
+                         <Field name="supplier" class="form-control" v-model="newfertilixer.Fertilizer_supplier"
+                              placeholder="Nhà cung cấp phân bón..." />
+                         <ErrorMessage name="supplier" class="error-feedback" />
+                    </div>
+                    <div class="row form-group " style="width: 99%; margin-left: 1%;">
+                         <label for="supplier mt-3" class="" style="margin-top: 20px;">Hình ảnh <span style="color: red">*</span></label>
+                         <div class="col-sm-12 text-center form-control" style="height: 250px !important;">
+                              <input type="file" ref="file" name="image" @change="selectFile($event)" accept="image/*"
+                                   enctype="multipart/form-data" class="" v-bind:aria-disabled="true">
+                              <div class="row rowImage mt-2" style=" width: 100%; height: 200px;">
+                                   <div class="col-md-12 text-center" style="height: 180px; width: 50%;">
+                                        <img v-if="url != ''" :src="url" class="img-fluid" style="height: 190px; !important">
+                                   </div>
+                              </div>
+                         </div>
                     </div>
 
                </div>
 
-               <div class="col-md-4">
+               <div class="col-md-5">
                     <div class="form-group">
-                         <label for="supplier" class="">Nhà cung cấp <span style="color: red">*</span></label>
-                         <Field name="supplier" class="form-control" v-model="newfertilixer.Fertilizer_supplier"
-                              placeholder="Nhà cung cấp phân bón..." />
-                         <ErrorMessage name="supplier" class="error-feedback" />
+                         <label for="uses" class="">Công dụng <span style="color: red">*</span></label>
+                         <Field name="uses" class="form-control" v-model="newfertilixer.Fertilizer_uses" as="textarea"
+                              style="height: 180px;" placeholder="Công dụng phân bón..." />
+                         <ErrorMessage name="uses" class="error-feedback" />
                     </div>
 
                     <div class="form-group">
                          <label for="directionsForUse" class="mt-3">Hướng dẫn sử dụng<span
                                    style="color: red">*</span></label>
                          <Field name="directionsForUse" class="form-control"
-                              v-model="newfertilixer.Fertilizer_directionsForUse" as="textarea" style="height: 350px;"
+                              v-model="newfertilixer.Fertilizer_directionsForUse" as="textarea" style="height: 180px;"
                               placeholder="Thông tin phân bón..." />
                          <ErrorMessage name="directionsForUse" class="error-feedback" />
                     </div>
                </div>
           </div>
-
           <div class="row ">
                <div class="col-sm-12 mt-2 mb-3 text-center">
                     <span v-if="message2 == 'Thêm thành công.'" class="fas fa-check-circle"
@@ -148,6 +159,8 @@ export default {
                nutrientlist: this.nutrientList,
                schema,
                images: [],
+               fileImage: {},
+               url: ""
           };
      },
 
@@ -157,14 +170,12 @@ export default {
           },
 
           async selectFile(event) {
-               console.log(event.target.files);
-               var fileImage = {};
-               fileImage = event.target.files[0]; console.log(fileImage);
-               const filename = "image_" + fileImage.name;
-
-               console.log("filename" + filename)
-
-               this.url = URL.createObjectURL(fileImage);
+               this.fileImage = event.target.files[0];
+               this.newfertilixer.filename = "Fertilizer_" + this.newfertilixer.Fertilizer_id + this.fileImage.name;
+               console.log(this.fileImage.name);
+               this.newfertilixer.Image = this.fileImage;
+               console.log(this.newfertilixer.Image)
+               this.url = URL.createObjectURL(this.fileImage);
           },
      }
 };
@@ -202,7 +213,10 @@ export default {
      --dp-highlight-color: rgb(25 118 210 / 10%);
 
 }
-
+.createFertilizerForm .rowImage {
+    height: 200px;
+    margin: auto;
+}
 .dp__input {
      background-color: var(--dp-background-color);
      border-radius: 10px;
@@ -234,8 +248,8 @@ export default {
      margin-left: 3px !important;
      margin-top: 10px !important;
      background: #FAFAFC;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
-border-radius: 15px;
+     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+     border-radius: 15px;
      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
      font-size: 17px;
      border-radius: 10px;

@@ -35,7 +35,7 @@
                                         </apexchart>
                                    </div>
 
-                                   <div class="statistical-Component text-center">
+                                   <div class="statistical-Component text-center" @click="goToArableLand()">
                                         <h5 class="nameComponent">MẪU RUỘNG</h5>
                                         <apexchart width="100%" type="pie" :options="chartDataForArableLand.chartOptions"
                                              :series="chartDataForArableLand.series">
@@ -43,35 +43,35 @@
 
                                    </div>
 
-                                   <div class="statistical-Component text-center">
+                                   <div class="statistical-Component text-center" @click="goToOtherActivities">
                                         <h5 class="nameComponent">HOẠT ĐỘNG</h5>
                                         <div class="cicle text-center">
                                              <h2 class="amountFertilizer">{{ otherActivitiesList.length }}</h2>
                                         </div>
                                    </div>
 
-                                   <div class="statistical-Component text-center">
+                                   <div class="statistical-Component text-center" @click="goToFertilizer">
                                         <h5 class="nameComponent">PHÂN BÓN</h5>
                                         <div class="cicle text-center">
                                              <h2 class="amountFertilizer">{{ fertilizerList.length }}</h2>
                                         </div>
                                    </div>
 
-                                   <div class="statistical-Component text-center">
+                                   <div class="statistical-Component text-center" @click="goToSeed">
                                         <h5 class="nameComponent">GIỐNG LÚA</h5>
                                         <div class="cicle text-center">
                                              <h2 class="amountFertilizer">{{ seedList.length }}</h2>
                                         </div>
                                    </div>
 
-                                   <div class="statistical-Component text-center">
+                                   <div class="statistical-Component text-center" @click="goToEpidemic">
                                         <h5 class="nameComponent">BỆNH DỊCH</h5>
                                         <div class="cicle text-center">
                                              <h2 class="amountFertilizer">{{ epidemicList.length }}</h2>
                                         </div>
                                    </div>
 
-                                   <div class="statistical-Component text-center">
+                                   <div class="statistical-Component text-center" @click="goToPesticide">
                                         <h5 class="nameComponent">THUỐC TRỊ BỆNH DỊCH</h5>
                                         <div class="cicle text-center">
                                              <h2 class="amountFertilizer">{{ pesticideList.length }}</h2>
@@ -440,15 +440,29 @@ export default {
                this.$router.push("/Statistical/StatisticsByRiceCrop");
           },
 
-          // getwidth() {
-          //      var width = document.getElementById("statisticalRice1").offsetWidth;
-          //      var height = document.getElementById("statisticalRice1").offsetHeight;
-          //      var list = document.getElementsByClassName("statisticalComponent");
-          //      Array.from(list).forEach(element => {
-          //           element.style.width = width + "px";
-          //           element.style.height = height + "px";
-          //      });
-          // },
+
+          goToOtherActivities() {
+               this.$router.push("/Activity");
+          },
+
+          goToSeed() {
+               this.$router.push("/Seed");
+          },
+
+          goToFertilizer() {
+               this.$router.push("/Fertilizer");
+          },
+
+          goToEpidemic() {
+               this.$router.push("/Epidemic");
+          },
+
+          goToArableLand() {
+               this.$router.push("/ArableLand");
+          },
+          goToPesticide() {
+               this.$router.push("/Pesticide");
+          },
 
           bubbleSort() {
                for (let i = 0; i < this.riceCropListByFinish.length - 1; i++) {

@@ -39,7 +39,7 @@
                     <div class="form-group">
                          <label for="components" class="mt-3">Thành phần <span style="color: red">*</span></label>
                          <Field name="components" class="form-control" v-model="newpesticide.Pesticide_component"
-                              as="textarea" style="height: 185px;" placeholder="Thông tin thuốc..." />
+                              as="textarea" style="height: 200px;" placeholder="Thông tin thuốc..." />
                          <ErrorMessage name="components" class="error-feedback" />
                     </div>
                </div>
@@ -56,13 +56,13 @@
                          <label for="directionsForUse" class="mt-1">Hướng dẫn sử dụng<span
                                    style="color: red">*</span></label>
                          <Field name="directionsForUse" class="form-control"
-                              v-model="newpesticide.Pesticide_directionsForUse" as="textarea" style="height: 182px;"
+                              v-model="newpesticide.Pesticide_directionsForUse" as="textarea" style="height: 200px;"
                               placeholder="Thông tin phân bón..." />
                          <ErrorMessage name="directionsForUse" class="error-feedback" />
                     </div>
                </div>
                <div class="col-sm-4">
-                    <div class="form-group" style="height: 420px !important;">
+                    <div class="form-group" style="height: 225px !important;">
                          <div class="ml-3">
                               <label for="" class="">Điều trị bệnh dịch gây hại<span style="color: red">*</span></label><br>
                          </div>
@@ -73,6 +73,19 @@
                                              :value="epidemic.Epidemic_id">
                                         <label style="" for="epidemic" class="labelEpidemic">&nbsp; {{ epidemic.Epidemic_name
                                         }}</label><br>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+
+                    <div class="row form-group " style="width: 99%; margin-left: 1%;">
+                         <label for="supplier mt-3" class="" style="margin-top: 20px;">Hình ảnh <span style="color: red">*</span></label>
+                         <div class="col-sm-12 text-center form-control" style="height: 200px !important;">
+                              <input type="file" ref="file" name="image" @change="selectFile($event)" accept="image/*"
+                                   enctype="multipart/form-data" class="" v-bind:aria-disabled="true">
+                              <div class="row rowImage mt-2" style=" width: 100%; height: 180px; padding-top: 6px;">
+                                   <div class="col-md-12 text-center" style="height: 180px; width: 50%;">
+                                        <img v-if="newpesticide.url != ''" :src="newpesticide.url" class="img-fluid" style="height: 150px; !important">
                                    </div>
                               </div>
                          </div>
@@ -160,6 +173,12 @@ export default {
      methods: {
           show() {
                this.newpesticide.NewTreatment = this.treatment;
+          },
+
+          async selectFile(event) {
+               this.fileImage = event.target.files[0];
+               this.newpesticide.newImage = this.fileImage;
+               this.newpesticide.url = URL.createObjectURL(this.fileImage);
           },
 
           filteredList() {
@@ -326,12 +345,17 @@ export default {
      white-space: nowrap;
      overflow: hidden;
 }
+.updatePesticideForm .rowImage {
+    height: 200px;
+    margin: auto;
+    margin-top: 5px;
+}
 
 .epidemicSelect {
      background-color: #f7f7f7;
      border-radius: 3px;
-     max-height: 240px !important;
-     min-height: 280px;
+     max-height: 200px !important;
+     min-height: 220px;
      width: 100%;
      position: relative;
 }</style>

@@ -46,7 +46,7 @@
               </div>
 
 
-              <div class="row text-center ml-3" v-if="message"
+              <div class="row text-center ml-4 pl-1" v-if="message"
                 style=" color: red; text-align: center; font-size: 17px; margin-top: 4%;">
                 {{ message }}
               </div>

@@ -10,7 +10,8 @@ exports.store = async (req, res) => {
         Pesticide_supplier: req.body.Pesticide_supplier,
         Pesticide_component: req.body.Pesticide_component,
         Pesticide_directionsForUse: req.body.Pesticide_directionsForUse,
-        Pesticide_uses: req.body.Pesticide_uses
+        Pesticide_uses: req.body.Pesticide_uses,
+        Pesticide_image: req.body.Pesticide_image,
      });
     // Save Pesticide in the database
     Pesticide.create(pesticide, (err, data) => {

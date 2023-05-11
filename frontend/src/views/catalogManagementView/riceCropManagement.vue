@@ -56,7 +56,7 @@
                               </select>
                          </div>
 
-                         <button class="btn btnCreate" @click="openCreate = !openCreate, active = true"><i
+                         <button class="btn btnCreate" @click="openCreate = !openCreate, active = true" v-if="currentUser.Role_id == '02'"><i
                                    class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm Mùa Vụ</button>
                     </div>
                     <div class="riceCropList mt-3 row" style="max-height: 98%; width: 98%;">
@@ -380,6 +380,7 @@ export default {
           },
 
           async retrieveArableLandList() {
+               this.arableLandList = [];
                const [err, respone] = await this.handle(
                     ArableLandService.getAll()
                );

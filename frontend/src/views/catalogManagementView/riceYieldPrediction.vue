@@ -44,6 +44,14 @@
                               <select class="selectYear" v-model="filter.year" @change="searchByYear()">
                                    <option class="optionYear" v-for="year in getYear()" :key="year">{{ year }}</option>
                               </select>
+
+                              <label class="labelYear">Trạng Thái</label>
+                              <select class="selectStatus" v-model="filter.status"
+                                   @change="searchByYear(), nameToSearch = ''">
+                                   <option class="optionYear" value="all" selected="true">Tất cả</option>
+                                   <option class="optionYear" value="monitoring">Đang theo dõi</option>
+                                   <option class="optionYear" value="finished">Đã kết thúc</option>
+                              </select>
                          </div>
                          <!-- <button class="btn btnPredict1" @click="goToRiceYieldPredictionDetail()">Lịch Sử
                               Dự Đoán</button> -->
@@ -513,19 +521,49 @@ export default {
 
 
           async searchByYear() {
-               this.cloneRiceCropList = [];
-               if (this.filter.year == "Tất cả") {
+               if (this.filter.year == "Tất cả" && this.filter.status == 'all') {
                     this.cloneRiceCropList = this.riceCropList;
                }
-               else {
+               else if (this.filter.year == "Tất cả" && this.filter.status == 'monitoring') {
+                    this.cloneRiceCropList = [];
+                    this.riceCropList.forEach(ricecrop => {
+                         if (ricecrop.RiceCropInformation_harvestDate == null) {
+                              this.cloneRiceCropList.push(ricecrop);
+                         }
+                    });
+               }
+               else if (this.filter.year == "Tất cả" && this.filter.status == 'finished') {
+                    this.cloneRiceCropList = [];
+                    this.riceCropList.forEach(ricecrop => {
+                         if (ricecrop.RiceCropInformation_harvestDate != null) {
+                              this.cloneRiceCropList.push(ricecrop);
+                         }
+                    });
+               }
+               else if (this.filter.year != "Tất cả" && this.filter.status == 'all') {
+                    this.cloneRiceCropList = [];
                     this.riceCropList.forEach(ricecrop => {
                          if (((new Date(ricecrop.RiceCropInformation_sowingDate)).getFullYear() == this.filter.year || (new Date(ricecrop.RiceCropInformation_harvestDate)).getFullYear() == this.filter.year)) {
                               this.cloneRiceCropList.push(ricecrop);
                          }
                     });
                }
-               this.loadData();
-
+               else if (this.filter.year != "Tất cả" && this.filter.status == 'monitoring') {
+                    this.cloneRiceCropList = [];
+                    this.riceCropList.forEach(ricecrop => {
+                         if ((new Date(ricecrop.RiceCropInformation_sowingDate)).getFullYear() == this.filter.year && ricecrop.RiceCropInformation_harvestDate == null) {
+                              this.cloneRiceCropList.push(ricecrop);
+                         }
+                    });
+               }
+               else {
+                    this.cloneRiceCropList = [];
+                    this.riceCropList.forEach(ricecrop => {
+                         if ((new Date(ricecrop.RiceCropInformation_sowingDate)).getFullYear() == this.filter.year && ricecrop.RiceCropInformation_harvestDate != null) {
+                              this.cloneRiceCropList.push(ricecrop);
+                         }
+                    });
+               }
           },
 
           getAlgorithmRandom(ricecrop) {
@@ -608,6 +646,7 @@ export default {
      mounted() {
           this.retrievePredictionList();
           this.filter.year = "Tất cả";
+          this.filter.status = "all"
           this.loadData();
 
      }
