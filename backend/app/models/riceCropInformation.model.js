@@ -23,37 +23,39 @@ RiceCropInformation.create = (newRiceCropInformation, result) => {
      });
 };
 
+//find by RiceCropInformation_id
 RiceCropInformation.findById = (id, result) => {
-     sql.query(`SELECT * FROM RiceCropInformation` + 
-     ` JOIN Seed on Seed.Seed_id = RiceCropInformation.Seed_id` +
-     ` JOIN ArableLand on ArableLand.ArableLand_id = RiceCropInformation.ArableLand_id` +
-     ` JOIN Crop on Crop.Crop_id = RiceCropInformation.Crop_id` + 
-     ` JOIN Province on Province.Province_id = ArableLand.Province_id `+
-     ` WHERE RiceCropInformation_id like '${id}'`, (err, res) => {
-          if (err) {
-               console.log("error: ", err);
-               result(err, null);
-               return;
-          }
-          if (res.length) {
-               result(null, res[0]);
-               return;
-          }
-          // not found RiceCropInformation with the id
-          result({ kind: "not_found" }, null);
-     });
+     sql.query(`SELECT * FROM RiceCropInformation` +
+          ` JOIN Seed ON Seed.Seed_id = RiceCropInformation.Seed_id` +
+          ` JOIN ArableLand ON ArableLand.ArableLand_id = RiceCropInformation.ArableLand_id` +
+          ` JOIN Crop ON Crop.Crop_id = RiceCropInformation.Crop_id` +
+          ` JOIN Province ON Province.Province_id = ArableLand.Province_id ` +
+          ` WHERE RiceCropInformation_id like '${id}'`, (err, res) => {
+               if (err) {
+                    console.log("error: ", err);
+                    result(err, null);
+                    return;
+               }
+               if (res.length) {
+                    result(null, res[0]);
+                    return;
+               }
+               // not found RiceCropInformation with the id
+               result({ kind: "not_found" }, null);
+          });
 };
 
+// Retrieve all RiceCropInformation from the database (with condition).
 RiceCropInformation.getAll = (name, result) => {
      let query = "SELECT * FROM RiceCropInformation " +
-     ` JOIN Seed on Seed.Seed_id = RiceCropInformation.Seed_id` +
-     ` JOIN ArableLand on ArableLand.ArableLand_id= RiceCropInformation.ArableLand_id` +
-     ` JOIN Province on Province.Province_id = ArableLand.Province_id `+
-     ` JOIN Crop on Crop.Crop_id = RiceCropInformation.Crop_id`;
+          ` JOIN Seed ON Seed.Seed_id = RiceCropInformation.Seed_id` +
+          ` JOIN ArableLand ON ArableLand.ArableLand_id= RiceCropInformation.ArableLand_id` +
+          ` JOIN Province ON Province.Province_id = ArableLand.Province_id ` +
+          ` JOIN Crop ON Crop.Crop_id = RiceCropInformation.Crop_id`;
      if (name) {
           query += ` WHERE RiceCropInformation_name LIKE '%${name}%'`;
      }
-query += ' order by RiceCropInformation_id';
+     query += ' order by RiceCropInformation_id';
      sql.query(query, (err, res) => {
           if (err) {
                console.log("error: ", err);
@@ -64,13 +66,14 @@ query += ' order by RiceCropInformation_id';
      });
 };
 
-RiceCropInformation.getByemployeeAndRiceCrop = (name,id, result) => {
-     let query = "SELECT * FROM RiceCropInformation"+
-     ` JOIN Seed on Seed.Seed_id = RiceCropInformation.Seed_id` +
-     ` JOIN ArableLand on ArableLand.ArableLand_id= RiceCropInformation.ArableLand_id` +
-     ` JOIN Crop on Crop.Crop_id = RiceCropInformation.Crop_id`+
-     ` JOIN Province on Province.Province_id = ArableLand.Province_id `+
-     ` JOIN Monitor on Monitor.RiceCropInformation_id = RiceCropInformation.RiceCropInformation_id`
+//find by Employee_id and  RiceCropInformation_name 
+RiceCropInformation.getByEmployeeAndRiceCrop = (name, id, result) => {
+     let query = "SELECT * FROM RiceCropInformation" +
+          ` JOIN Seed ON Seed.Seed_id = RiceCropInformation.Seed_id` +
+          ` JOIN ArableLand ON ArableLand.ArableLand_id= RiceCropInformation.ArableLand_id` +
+          ` JOIN Crop ON Crop.Crop_id = RiceCropInformation.Crop_id` +
+          ` JOIN Province ON Province.Province_id = ArableLand.Province_id ` +
+          ` JOIN Monitor ON Monitor.RiceCropInformation_id = RiceCropInformation.RiceCropInformation_id`
      if (name) {
           query += ` WHERE RiceCropInformation_name LIKE '%${name}%' and Employee_id LIKE '%${id}%'`;
      }
@@ -84,32 +87,13 @@ RiceCropInformation.getByemployeeAndRiceCrop = (name,id, result) => {
      });
 };
 
-RiceCropInformation.findByArableLand = (name,id, result) => {
-     let query = "SELECT * FROM RiceCropInformation "+
-     ` JOIN Seed on Seed.Seed_id = RiceCropInformation.Seed_id` +
-     ` JOIN ArableLand on ArableLand.ArableLand_id= RiceCropInformation.ArableLand_id` +
-     ` JOIN Province on Province.Province_id = ArableLand.Province_id `+
-     ` JOIN Crop on Crop.Crop_id = RiceCropInformation.Crop_id`
-     if (name) {
-          query += ` WHERE  LIKE ArableLand.ArableLand_name '%${name}%' or ArableLand.ArableLand_id LIKE '%${name}%'`;
-     }
-     sql.query(query, (err, res) => {
-          if (err) {
-               console.log("error: ", err);
-               result(err, null);
-               return;
-          }
-          result(null, res);
-     });
-};
-
 RiceCropInformation.findRiceCropHarvested = (result) => {
-     let query = "SELECT * FROM RiceCropInformation "+
-     ` JOIN Seed on Seed.Seed_id = RiceCropInformation.Seed_id` +
-     ` JOIN ArableLand on ArableLand.ArableLand_id= RiceCropInformation.ArableLand_id` +
-     ` JOIN Crop on Crop.Crop_id = RiceCropInformation.Crop_id `+
-     ` JOIN Province on Province.Province_id = ArableLand.Province_id `+
-     ` Where RiceCropInformation_harvestDate Is Not NULL`
+     let query = "SELECT * FROM RiceCropInformation " +
+          ` JOIN Seed ON Seed.Seed_id = RiceCropInformation.Seed_id` +
+          ` JOIN ArableLand ON ArableLand.ArableLand_id= RiceCropInformation.ArableLand_id` +
+          ` JOIN Crop ON Crop.Crop_id = RiceCropInformation.Crop_id ` +
+          ` JOIN Province ON Province.Province_id = ArableLand.Province_id ` +
+          ` Where RiceCropInformation_harvestDate Is Not NULL`
      sql.query(query, (err, res) => {
           if (err) {
                console.log("error: ", err);

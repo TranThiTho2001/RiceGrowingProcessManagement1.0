@@ -3,6 +3,7 @@
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
                <Preloader color="red" scale="0.4" />
           </div>
+
           <div v-if="!loading" class="row riceCropDetailFrame" style="height: max-content;" :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
@@ -11,6 +12,7 @@
                <div class="left" :class="{ navbarresponsive: openMenu.openMenu }">
                     <Catalog />
                </div>
+
                <div class="right rightRiceCropDetail" data-bs-spy="scroll">
                     <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
@@ -50,11 +52,9 @@
                               <button v-if="monitor.Role_id == '02'" class="btnExpert btnRole">{{ monitor.Role_name }}</button>
                          </div>
                     </div>
-
-
                </div>
-
           </div>
+
           <div class="overlay2" v-if="isOpenConfirm">
                <div class="confirmationDialog" >
                     <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
@@ -71,14 +71,13 @@
                <div class="messageDialog" >
                     <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
                          <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span>
-                         {{
-                              message
-                         }}
+                         {{ message }}
                     </p>
                     <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
                          @click="isOpenMessage = !isOpenMessage, active = false">OK</button>
                </div>
           </div>
+
           <div class="overlay2" v-if="isOpenCreateMonitorForm">
                <CreateMonitorForm  :newMonitor="newMonitor" :employeeList="employeeList"
                     :newRiceCrop="newRiceCrop" @addMonitor-submit="createNewMonitor" :message1="message1"
@@ -251,7 +250,6 @@ export default {
                     console.log(err)
                }
                else {
-
                     this.newRiceCrop.RiceCropInformation_id = respone.data.RiceCropInformation_id;
                     this.newRiceCrop.RiceCropInformation_name = respone.data.RiceCropInformation_name;
                     this.newRiceCrop.Seed_id = respone.data.Seed_id;

@@ -17,6 +17,7 @@ EpidemicClassification.create = (newEpidemicClassification, result) => {
     });
 };
 
+//find by  EpidemicClassification_id
 EpidemicClassification.findById = (id, result) => {
     sql.query(`SELECT * FROM EpidemicClassification WHERE EpidemicClassification_id like '${id}'`, (err, res) => {
         if (err) {
@@ -34,6 +35,7 @@ EpidemicClassification.findById = (id, result) => {
     });
 };
 
+// Retrieve all EpidemicClassification from the database (with condition).
 EpidemicClassification.getAll = (name, result) => {
     let query = "SELECT * FROM EpidemicClassification";
     if (name) {
@@ -48,6 +50,5 @@ EpidemicClassification.getAll = (name, result) => {
         result(null, res);
     });
 };
-
 
 module.exports = EpidemicClassification;

@@ -3,6 +3,7 @@
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
                <Preloader color="red" scale="0.4" />
           </div>
+
           <div v-if="!loading" class="row EmployeeManager" style="height: 100vmin;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = FontFaceSetLoadEvent"></button>
@@ -24,12 +25,12 @@
                               </div>
                          </div>
                     </div>
+
                     <div class="row row-inputSearch">
                          <button class="btn btnCreate" @click="backup()">
-                              <i class="fas fa-cloud" style="font-size: 15px;"></i> Sao lưu</button>
-
+                              <i class="fas fa-cloud" style="font-size: 15px;"></i> Sao lưu
+                         </button>
                     </div>
-
 
                     <div class="scrollTable " style="margin-top: 50px ;">
                          <div class="scrollTable-content">
@@ -37,7 +38,7 @@
                                    <thead>
                                         <tr>
                                              <th class="text-center">STT</th>
-                                             <th >Ngày sao lưu</th>
+                                             <th>Ngày sao lưu</th>
                                              <th>Tập tin sao lưu</th>
                                              <th>Tùy chọn</th>
                                         </tr>
@@ -45,11 +46,14 @@
                                    <tbody>
                                         <tr v-for="(databackup, i ) in (dataBackupList)" :key="i">
                                              <td class="text-center">{{ i }}</td>
-                                             <td >{{ formatDate(databackup.Backup_date) }}</td>
+                                             <td>{{ formatDate(databackup.Backup_date) }}</td>
                                              <td>{{ databackup.Backup_link }}</td>
                                              <td>
-                                                  <button class="btnDowloadSQL" @click="DowloadFile(databackup)"><i class="fas fa-arrow-alt-circle-down"></i></button>
-                                                  <button class="btnDowloadSQL" @click="setDateBackupChosen(databackup), isOpenConfirm = !isOpenConfirm"><span class="fas fa-trash-alt"></span></button>
+                                                  <button class="btnDowloadSQL" @click="DowloadFile(databackup)"><i
+                                                            class="fas fa-arrow-alt-circle-down"></i></button>
+                                                  <button class="btnDowloadSQL"
+                                                       @click="setDateBackupChosen(databackup), isOpenConfirm = !isOpenConfirm"><span
+                                                            class="fas fa-trash-alt"></span></button>
                                              </td>
                                         </tr>
                                    </tbody>
@@ -57,11 +61,9 @@
                          </div>
                     </div>
                </div>
-
           </div>
 
-          <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
-
+          <!-- -----------------------------confirm ----------------------------- -->
 
           <div class="overlay2" v-if="isOpenConfirm">
                <div class="confirmationDialog">
@@ -74,32 +76,35 @@
                          @click="isOpenConfirm = !isOpenConfirm, active = false;">Hủy</button>
                </div>
           </div>
-          <div class="overlay2" v-if=" isOpenMessage ">
-               <div class="messageDialog" v-if=" isOpenMessage ">
+
+          <div class="overlay2" v-if="isOpenMessage">
+               <div class="messageDialog" v-if="isOpenMessage">
                     <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
                          <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
-                         message
+                              message
                          }}
                     </p>
                     <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                         @click=" isOpenMessage = !isOpenMessage, active = false; ">OK</button>
+                         @click=" isOpenMessage = !isOpenMessage, active = false;">OK</button>
                </div>
           </div>
-          <div class="overlay2" v-if=" processing ">
+
+          <div class="overlay2" v-if="processing">
                <div class="waitingDialog">
                     <div>
                          <p class="labelConfirm mt-4 pt-4">Đang sao lưu dữ liệu...</p>
                     </div>
-                    <span v-show=" processing " class="spinner-border spinner-border-sm"></span>
+                    <span v-show="processing" class="spinner-border spinner-border-sm"></span>
                </div>
           </div>
-          <div class="overlay2" v-if=" processed ">
+
+          <div class="overlay2" v-if="processed">
                <div class="resultDialog text-center">
                     <p style="color:#515151; text-align:center; margin-top: 30px; font-size: 25px;" class="labelConfirm">{{
                          message }}
                     </p>
                     <button class="btnOK btn btn-sm btn-outline-secondary ml-3 mt-4"
-                         @click=" processed = !processed, active = false ">OK</button>
+                         @click=" processed = !processed, active = false">OK</button>
                </div>
           </div>
      </div>
@@ -107,24 +112,20 @@
    
 <script>
 
-import Catalog from '../../components/catalogManagementComponents/catalog.vue';
-import TopHeader from '@/components/catalogManagementComponents/topHeader.vue'
 import moment from 'moment';
 import { mapGetters, mapMutations } from "vuex";
-import Preloader from '@/components/catalogManagementComponents/Preloader.vue'
 import backupServices from '@/services/backup.services';
-
-// import Axios from 'axios';
-// import FileBrowser from "vuetify-file-browser";
+import Catalog from '../../components/catalogManagementComponents/catalog.vue';
+import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
+import Preloader from '@/components/catalogManagementComponents/Preloader.vue'
 
 export default {
      name: 'EmployeeManager',
      components: {
-    Catalog,
-    TopHeader,
-    Preloader,
-
-},
+          Catalog,
+          TopHeader,
+          Preloader,
+     },
      data() {
           return {
                dataBackupList: [],
@@ -208,7 +209,6 @@ export default {
                }
           },
 
-
           async deleteDataBackup() {
                const [err, respone] = await this.handle(
                     backupServices.delete(this.dataBackupChoosen.Backup_id, this.dataBackupChoosen.Backup_link)
@@ -217,7 +217,6 @@ export default {
                     console.log(err)
                }
                else {
-
                     console.log(respone.data);
                     this.retrieveDataBackupList();
                }
@@ -230,47 +229,42 @@ export default {
           formatDate(data) {
                if (data == null || data == "Invalid da") return "";
                return (moment(String(data)).format("DD-MM-YYYY h:mm:ss A"));
-          },    
-           async DowloadFile(data){
+          },
+
+          async DowloadFile(data) {
                console.log(data)
-          const [err, respone] = await this.handle(
+               const [err, respone] = await this.handle(
                     backupServices.get(data.Backup_link)
                );
                if (err) {
                     console.log(err)
                }
                else {
-
                     console.log(respone.data);
                     var csvFile;
-               var downloadLink;
+                    var downloadLink;
+                    csvFile = new Blob(["\uFEFF" + respone.data], { type: "text/sql" });
 
-               // CSV FILE
-               csvFile = new Blob(["\uFEFF" + respone.data], { type: "text/sql" });
+                    // Download link
+                    downloadLink = document.createElement("a");
 
-               // Download link
-               downloadLink = document.createElement("a");
+                    // File name
+                    downloadLink.download = "backup.sql";
 
-               // File name
-               downloadLink.download = "backup.sql";
+                    // We have to create a link to the file
+                    downloadLink.href = window.URL.createObjectURL(csvFile);
 
-               // We have to create a link to the file
-               downloadLink.href = window.URL.createObjectURL(csvFile);
+                    // Make sure that the link is not displayed
+                    downloadLink.style.display = "none";
 
-               // Make sure that the link is not displayed
-               downloadLink.style.display = "none";
+                    // Add the link to your DOM
+                    document.body.appendChild(downloadLink);
 
-               // Add the link to your DOM
-               document.body.appendChild(downloadLink);
-
-               // Lanzamos
-               downloadLink.click();
-                    // this.retrieveDataBackupList();
+                    // Lanzamos
+                    downloadLink.click();
                }
+          },
      },
-     },
-
-
 
      mounted() {
           this.retrieveDataBackupList();
@@ -304,7 +298,6 @@ export default {
 }
 
 .EmployeeManagerFrame1 .btnOK {
-     /* display: block; */
      width: 100px;
      font-size: 18px;
      background-color: #beb928;
@@ -331,6 +324,7 @@ export default {
      text-align: center;
      z-index: 5;
 }
+
 .EmployeeManagerFrame1 .navigationBar .btnBackup {
      display: block;
      width: 88%;
@@ -348,7 +342,6 @@ export default {
 .EmployeeManagerFrame1 {
      transition: all 5s ease-in-out;
 }
-
 </style>
    
 

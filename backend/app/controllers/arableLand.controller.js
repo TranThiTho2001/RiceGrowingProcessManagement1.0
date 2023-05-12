@@ -14,6 +14,7 @@ exports.store = async (req, res) => {
         ArableLand_longitude: req.body.ArableLand_longitude,
         Province_id: req.body.Province_id,
     });
+    
     // Save ArableLand in the database
     ArableLand.create(arableLand, (err, data) => {
         if (err)
@@ -32,6 +33,7 @@ exports.findAll = async (req, res) => {
     });
 };
 
+// find by ArableLand_id
 exports.find = async (req, res) => {
     const id = req.params.id;
     ArableLand.findById(id, (err, data) => {

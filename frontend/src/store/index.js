@@ -6,4 +6,5 @@ const store = createStore({
         employee: user,
     },
 });
+
 export default store;

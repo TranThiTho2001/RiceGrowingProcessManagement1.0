@@ -12,12 +12,8 @@ exports.store = async (req, res) => {
           Employee_id: req.body.Employee_id,
           ActivityDetails_times: req.body.ActivityDetails_times,
           DevelopmentStage_id: req.body.DevelopmentStage_id,
-          // ActivityDetails_solarRadiation: req.body.ActivityDetails_solarRadiation,
-          // ActivityDetails_windSpeed: req.body.ActivityDetails_windSpeed,
-          //ActivityDetails_temperature: req.body.ActivityDetails_temperature,
-          // ActivityDetails_humidity: req.body.ActivityDetails_humidity,
-          // ActivityDetails_precipitation: req.body.ActivityDetails_precipitation,
      });
+
      // Save ActivityDetails in the database
      ActivityDetails.create(activityDetails, (err, data) => {
           if (err)
@@ -36,6 +32,7 @@ exports.findAll = async (req, res) => {
      });
 };
 
+// find by RiceCropInformation_id
 exports.findbyIdRiceCropInformation = async (req, res) => {
      const id = req.params.RiceCropInformation_id;
      const OtherActivities_id = req.params.OtherActivities_id
@@ -50,6 +47,7 @@ exports.findbyIdRiceCropInformation = async (req, res) => {
      })
 };
 
+// find by name
 exports.findbyName = async (req, res) => {
      const OtherActivities_name = req.params.OtherActivities_name;
      ActivityDetails.findByName(OtherActivities_name, (err, data) => {
@@ -63,7 +61,7 @@ exports.findbyName = async (req, res) => {
      })
 };
 
-
+// find by RiceCropInformation_id and activity name
 exports.findbyNameAndIdRiceCrop = async (req, res) => {
      const name = req.query.name;
      const id = req.params.RiceCropInformation_id;
@@ -78,20 +76,7 @@ exports.findbyNameAndIdRiceCrop = async (req, res) => {
      })
 };
 
-// exports.findbyName = async (req, res) => {
-//      const  name = req.query.name;
-//      const  id = req.params.RiceCropInformation_id;
-//      ActivityDetails.findByName(name,id, (err, data) => {
-//           if (err) {
-//                if (err.kind === "not_found") {
-//                     res.send("Không tìm thấy chi tiết hoạt động.")
-//                } else {
-//                     res.send("Lỗi trong quá trình tìm kiếm. Vui lòng thử lại sau!!!!")
-//                }
-//           } else res.send(data)
-//      })
-// };
-
+// find by OtherActivities_id (Activity id)
 exports.findbyId = async (req, res) => {
      const id = req.params.OtherActivities_id;
      ActivityDetails.findById(id, (err, data) => {

@@ -18,6 +18,7 @@ const state = {
         loggedIn: Boolean
     },
 };
+
 const mutations = {
     initEmployeeState(state) {
         state.employee = JSON.parse(localStorage.getItem("employee"));
@@ -40,6 +41,7 @@ const mutations = {
         state.status.loggedIn = false;
     }
 };
+
 const actions = {
     async login({ commit }, employee) {
         let [error, response] = await handle(
@@ -59,6 +61,7 @@ const actions = {
         return response.data;
     },
 };
+
 const getters = {
     employeeLoggedIn(state) {
         return state.status.loggedIn;
@@ -67,6 +70,8 @@ const getters = {
         return state.employee;
     },
 };
+
+
 export const user = {
     state,
     mutations,

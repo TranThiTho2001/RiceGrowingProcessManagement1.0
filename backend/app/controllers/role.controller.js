@@ -8,6 +8,7 @@ exports.store = async (req, res) => {
         Role_id: req.body.Role_id,
         Role_name: req.body.Role_name,
     });
+
     // Save Role in the database
     Role.create(role, (err, data) => {
         if (err)
@@ -27,6 +28,7 @@ exports.findAll = async (req, res) => {
     });
 };
 
+//find by Role_id
 exports.find = async (req, res) => {
     const id = req.params.id;
     Role.findById(id, (err, data) => {

@@ -8,12 +8,8 @@ const ActivityDetails = function (activityDetails) {
      this.Employee_id = activityDetails.Employee_id;
      this.ActivityDetails_times = activityDetails.ActivityDetails_times;
      this.DevelopmentStage_id = activityDetails.DevelopmentStage_id;
-     // this.ActivityDetails_solarRadiation = activityDetails.ActivityDetails_solarRadiation;
-     // this.ActivityDetails_windSpeed = activityDetails.ActivityDetails_windSpeed;
-     // this.ActivityDetails_temperature = activityDetails.ActivityDetails_temperature;
-     // this.ActivityDetails_humidity = activityDetails.ActivityDetails_humidity;
-     // this.ActivityDetails_precipitation = activityDetails.ActivityDetails_precipitation;
 }
+
 
 ActivityDetails.create = (newActivityDetails, result) => {
      console.log(newActivityDetails);
@@ -28,10 +24,11 @@ ActivityDetails.create = (newActivityDetails, result) => {
      });
 };
 
+//find by RiceCropInformation_id and OtherActivities_id
 ActivityDetails.findByIdRiceCropInformation = (id, otherActivities_id, result) => {
-     sql.query(`SELECT * FROM ActivityDetails JOIN otheractivities on otheractivities.OtherActivities_id=ActivityDetails.OtherActivities_id`
-     + ` JOIN Employee on Employee.Employee_id = ActivityDetails.Employee_id`
-     + ` JOIN DevelopmentStage on DevelopmentStage.DevelopmentStage_id = ActivityDetails.DevelopmentStage_id`
+     sql.query(`SELECT * FROM ActivityDetails JOIN otheractivities ON otheractivities.OtherActivities_id=ActivityDetails.OtherActivities_id`
+     + ` JOIN Employee ON Employee.Employee_id = ActivityDetails.Employee_id`
+     + ` JOIN DevelopmentStage ON DevelopmentStage.DevelopmentStage_id = ActivityDetails.DevelopmentStage_id`
      + ` WHERE RiceCropInformation_id like '${id}' and ActivityDetails.OtherActivities_id like'${otherActivities_id}'`, (err, res) => {
           if (err) {
                console.log("error: ", err);
@@ -42,15 +39,15 @@ ActivityDetails.findByIdRiceCropInformation = (id, otherActivities_id, result) =
                result(null, res);
                return;
           }
-          // not found ActivityDetails with the id
           result({ kind: "not_found" }, null);
      });
 };
 
+// Retrieve all ActivityDetails from the database (with condition).
 ActivityDetails.getAll = (riceCropInformation_id, result) => {
-     let query = "SELECT * FROM ActivityDetails JOIN otheractivities on otheractivities.OtherActivities_id=ActivityDetails.OtherActivities_id"
-     + " JOIN Employee on Employee.Employee_id = ActivityDetails.Employee_id"
-     + ` JOIN DevelopmentStage on DevelopmentStage.DevelopmentStage_id = ActivityDetails.DevelopmentStage_id`;
+     let query = "SELECT * FROM ActivityDetails JOIN otheractivities ON otheractivities.OtherActivities_id=ActivityDetails.OtherActivities_id"
+     + " JOIN Employee ON Employee.Employee_id = ActivityDetails.Employee_id"
+     + ` JOIN DevelopmentStage ON DevelopmentStage.DevelopmentStage_id = ActivityDetails.DevelopmentStage_id`;
      if (riceCropInformation_id) {
           query += ` WHERE RiceCropInformation_id LIKE '%${riceCropInformation_id}%'`;
      }
@@ -64,10 +61,11 @@ ActivityDetails.getAll = (riceCropInformation_id, result) => {
      });
 };
 
+//find by RiceCropInformation_id and OtherActivities_name
 ActivityDetails.findbyNameAndIdRiceCrop = (name, riceCropInformation_id, result) => {
-     let query = "SELECT * FROM ActivityDetails JOIN otheractivities on otheractivities.OtherActivities_id=ActivityDetails.OtherActivities_id"
-     + " JOIN Employee on Employee.Employee_id = ActivityDetails.Employee_id"
-     + ` JOIN DevelopmentStage on DevelopmentStage.DevelopmentStage_id = ActivityDetails.DevelopmentStage_id ` 
+     let query = "SELECT * FROM ActivityDetails JOIN otheractivities ON otheractivities.OtherActivities_id=ActivityDetails.OtherActivities_id"
+     + " JOIN Employee ON Employee.Employee_id = ActivityDetails.Employee_id"
+     + ` JOIN DevelopmentStage ON DevelopmentStage.DevelopmentStage_id = ActivityDetails.DevelopmentStage_id ` 
      +` WHERE RiceCropInformation_id LIKE '%${riceCropInformation_id}%' AND otheractivities.OtherActivities_name like'%${name}%' ORDER BY ActivityDetails_times`;
 
      sql.query(query, (err, res) => {
@@ -80,12 +78,11 @@ ActivityDetails.findbyNameAndIdRiceCrop = (name, riceCropInformation_id, result)
      });
 };
 
-
-
+// find by OtherActivities_id (Activity id)
 ActivityDetails.findById= (id, result) => {
-     let query = "SELECT * FROM ActivityDetails JOIN otheractivities on otheractivities.OtherActivities_id=ActivityDetails.OtherActivities_id"
-     + " JOIN Employee on Employee.Employee_id = ActivityDetails.Employee_id"
-     + ` JOIN DevelopmentStage on DevelopmentStage.DevelopmentStage_id = ActivityDetails.DevelopmentStage_id ` 
+     let query = "SELECT * FROM ActivityDetails JOIN otheractivities ON otheractivities.OtherActivities_id=ActivityDetails.OtherActivities_id"
+     + " JOIN Employee ON Employee.Employee_id = ActivityDetails.Employee_id"
+     + ` JOIN DevelopmentStage ON DevelopmentStage.DevelopmentStage_id = ActivityDetails.DevelopmentStage_id ` 
      + ` WHERE otheractivities.OtherActivities_id like'${id}' ORDER BY ActivityDetails_times`;
 
      sql.query(query, (err, res) => {
@@ -98,10 +95,11 @@ ActivityDetails.findById= (id, result) => {
      });
 };
 
+// find by name
 ActivityDetails.findByName= (name, result) => {
-     let query = "SELECT * FROM ActivityDetails JOIN otheractivities on otheractivities.OtherActivities_id=ActivityDetails.OtherActivities_id"
-     + " JOIN Employee on Employee.Employee_id = ActivityDetails.Employee_id"
-     + ` JOIN DevelopmentStage on DevelopmentStage.DevelopmentStage_id = ActivityDetails.DevelopmentStage_id ` 
+     let query = "SELECT * FROM ActivityDetails JOIN otheractivities ON otheractivities.OtherActivities_id=ActivityDetails.OtherActivities_id"
+     + " JOIN Employee ON Employee.Employee_id = ActivityDetails.Employee_id"
+     + ` JOIN DevelopmentStage ON DevelopmentStage.DevelopmentStage_id = ActivityDetails.DevelopmentStage_id ` 
      + ` WHERE otheractivities.OtherActivities_name like'%${name}%' ORDER BY ActivityDetails_times`;
 
      sql.query(query, (err, res) => {

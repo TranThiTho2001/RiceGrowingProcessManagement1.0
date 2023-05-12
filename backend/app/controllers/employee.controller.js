@@ -19,6 +19,7 @@ exports.store = async (req, res) => {
         Employee_password: bcrypt.hashSync(req.body.Employee_password, 8),
         Employee_lockAccount: req.body.Employee_lockAccount,
     });
+
     // Save Employeein the database
     Employee.create(employee, (err, data) => {
         if (err)
@@ -26,6 +27,7 @@ exports.store = async (req, res) => {
         else res.send(data);
     });
 };
+
 // Retrieve all Employee from the database (with condition).
 exports.findAll = async (req, res) => {
     const name = req.query.name;
@@ -37,6 +39,7 @@ exports.findAll = async (req, res) => {
     });
 };
 
+// look for employees with Role_id = 02 and Role_id = 03
 exports.findPartial = async (req, res) => {
     const name = req.query.name;
     Employee.getPartial(name, (err, data) => {
@@ -47,6 +50,7 @@ exports.findPartial = async (req, res) => {
     });
 };
 
+// find by Employee_id
 exports.find = async (req, res) => {
     const id = req.params.id;
     Employee.findById(id, (err, data) => {
@@ -115,6 +119,7 @@ exports.deleteAll = async (req, res) => {
     });
 };
 
+// Signin
 exports.signin = async (req, res, next) => {
     const id = req.body.Employee_id;
     Employee.findById(id, (err, data) => {
@@ -154,6 +159,7 @@ exports.signin = async (req, res, next) => {
     })
 };
 
+//change Password
 exports.changePassword = (req, res) => {
     const id = req.body.Employee_id;
     Employee.findById(id, (err, data1) => {
@@ -175,6 +181,5 @@ exports.changePassword = (req, res) => {
                 } else res.send(data);
             });
         }
-    }
-    )
+    });
 };

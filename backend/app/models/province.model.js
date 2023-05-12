@@ -33,8 +33,6 @@ Province.getAll = (name, result) => {
      });
 };
 
-
-
 Province.updateById = (id, province, result) => {
      sql.query(
           "UPDATE Province SET Province_name = ? WHERE Province_id = ?",
@@ -52,7 +50,6 @@ Province.updateById = (id, province, result) => {
                }
                console.log("updated Province: ", { id: id, ...province });
                result(null, { id: id, ...province });
-
           }
      );
 };

@@ -8,11 +8,13 @@
                          style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
+
           <div class="row">
                <p class="col-sm-12 text-center functionName">
                     CẬP NHẬT THÔNG TIN BỆNH DỊCH
                </p>
           </div>
+
           <div class="row content">
                <div class="col-sm-4">
                     <div class="form-group">
@@ -61,6 +63,7 @@
                          <ErrorMessage name="directionsForUse" class="error-feedback" />
                     </div>
                </div>
+
                <div class="col-sm-4">
                     <div class="form-group" style="height: 225px !important;">
                          <div class="ml-3">
@@ -106,13 +109,12 @@
                     </span>
                </div>
           </div>
+
           <div class="row mb-2">
                <div class="col-sm-12 text-center">
                     <button class="btn btn-outline-secondary btnLuu col-sm-2">Lưu</button>
                </div>
           </div>
-          <div v-if="isOpenSearch.open" class="outside" @click.passive="away()"></div>
-
      </form>
 </template>
  
@@ -160,11 +162,6 @@ export default {
                treatment: [],
                epidemiclist: this.epidemicList,
                cloneEpidemicList: this.epidemicList,
-               isOpenSearch: {
-                    open: false,
-                    close: true,
-               },
-               nameToSearch: "",
                treatmentlist: this.treatmentList,
                count: 0,
           };
@@ -181,17 +178,6 @@ export default {
                this.newpesticide.url = URL.createObjectURL(this.fileImage);
           },
 
-          filteredList() {
-               return this.cloneEpidemicList.filter(epidemic => {
-                    return epidemic.Epidemic_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
-               })
-          },
-
-          away() {
-               this.isOpenSearch.open = false;
-               this.isOpenSearch.close = true;
-          },
-
           async retrieveEpidemicList() {
                const [err, respone] = await this.handle(
                     EpidemicService.getAll()
@@ -205,36 +191,6 @@ export default {
                }
           },
 
-          async searchName(data) {
-               this.nameToSearch = data;
-               const [error, response] = await this.handle(EpidemicService.findByName(this.nameToSearch));
-               if (error) {
-                    console.log(error);
-               } else {
-                    if (response.data != null) {
-                         this.epidemiclist = response.data;
-                    }
-               }
-          },
-
-          check(data) {
-
-               var t = 0;
-               this.treatmentlist = this.treatmentList;
-               this.treatmentList.forEach(element => {
-                    if (data == element.Epidemic_id) {
-                         t = 1;
-                    }
-               });
-               if (this.count == 0) {
-                    this.setTreatment();
-                    console.log(this.treatment)
-               }
-               if (t) return true;
-               else return false;
-          },
-
-
           async findTreatmentByPesticideId() {
                const [error, respone] = await this.handle(
                     TreatmentService.findByPesticideId(this.newPesticide.Pesticide_id)
@@ -247,6 +203,7 @@ export default {
                this.setTreatment();
 
           },
+
           async setTreatment() {
                this.count = 1;
                this.newpesticide.NewTreatment = [];
@@ -266,85 +223,10 @@ export default {
 <style>
 @import url(../../assets/pesticideStyle.css);
 
-.pesticideManagement .inputSearch3 {
-     background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
-     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-     border-radius: 15px;
-     width: 95%;
-     height: 35px;
-}
-
 .pesticideManagement .topRight .form-control:focus {
      border-color: #E4E5EB !important;
 }
 
-.pesticideManagement .btnSearch3 {
-     position: absolute;
-     left: 84%;
-     top: 17%;
-     border-radius: 10px;
-     border: none;
-     background: none;
-}
-
-.pesticideManagement .closeSearch1 {
-     display: none;
-     width: 110%;
-     margin: 0 auto 10px auto;
-     padding: 10px 20px;
-     color: white;
-     border-radius: 5px;
-     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
-          rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-}
-
-.pesticideManagement .openSearch1 {
-     display: inline-block;
-     position: absolute;
-     top: 27%;
-     width: 95%;
-     background-color: #FAFAFC;
-     border-radius: 5px;
-     z-index: 5;
-     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
-          rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-}
-
-.pesticideManagement .item {
-     background-color: none;
-     cursor: pointer;
-     bottom: 0.1px;
-     color: #1C1C1F;
-     font-family: 'Roboto';
-     font-style: normal;
-     font-weight: 500;
-     font-size: 16px;
-     padding: 0.1px;
-     margin: 0.2px;
-}
-
-.pesticideManagement .item:hover {
-     background-color: none;
-     cursor: pointer;
-     bottom: 0.1px;
-     background-color: #EAEAEA;
-     font-family: 'Roboto';
-     font-style: normal;
-     font-weight: 500;
-     font-size: 16px;
-}
-
-.scrollList {
-     overflow: auto;
-     height: 200px;
-     width: 90%;
-     margin-top: 30px;
-}
-
-.selectItem {
-     white-space: nowrap;
-     overflow: hidden;
-}
 .updatePesticideForm .rowImage {
     height: 200px;
     margin: auto;

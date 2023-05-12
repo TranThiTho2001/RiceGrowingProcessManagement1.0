@@ -9,10 +9,12 @@
                          style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
+
           <div class="row">
                <p class="col-sm-12 text-center functionName">THÊM LOẠI PHÂN BÓN MỚI
                </p>
           </div>
+
           <div class="row content">
                <div class="col-md-3">
                     <div class="form-group">
@@ -23,7 +25,6 @@
                     </div>
                     <label class="lable-nutrient">Thành phần dinh dưỡng</label>
                     <div class="row nutrient-row">
-
                          <div class="form-group" style="margin-left: 20px !important;"
                               v-for="(contain, i) in newfertilixer.Contain" :key="contain.Nutrient_id">
                               <label :for="contain.Nutrient_id" class="">{{ contain.Nutrient_name }} <span
@@ -34,9 +35,8 @@
                               <ErrorMessage :name="contain.Nutrient_id" class="error-feedback" />
                          </div>
                     </div>
-
-
                </div>
+
                <div class="col-md-4">
                     <div class="form-group">
                          <label for="name" class="">Tên phân bón <span style="color: red">*</span></label>
@@ -51,6 +51,7 @@
                               placeholder="Nhà cung cấp phân bón..." />
                          <ErrorMessage name="supplier" class="error-feedback" />
                     </div>
+
                     <div class="row form-group " style="width: 99%; margin-left: 1%;">
                          <label for="supplier mt-3" class="" style="margin-top: 20px;">Hình ảnh <span style="color: red">*</span></label>
                          <div class="col-sm-12 text-center form-control" style="height: 250px !important;">
@@ -63,7 +64,6 @@
                               </div>
                          </div>
                     </div>
-
                </div>
 
                <div class="col-md-5">
@@ -84,6 +84,7 @@
                     </div>
                </div>
           </div>
+
           <div class="row ">
                <div class="col-sm-12 mt-2 mb-3 text-center">
                     <span v-if="message2 == 'Thêm thành công.'" class="fas fa-check-circle"
@@ -96,6 +97,7 @@
                          thành công </span>
                </div>
           </div>
+          
           <div class="row mb-2">
                <div class="col-sm-12 text-center">
                     <button class="btn btn-outline-secondary btnLuu">Lưu</button>

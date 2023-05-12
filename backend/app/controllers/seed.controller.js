@@ -11,6 +11,7 @@ exports.store = async (req, res) => {
         Seed_supplier: req.body.Seed_supplier,
         Seed_image: req.body.Seed_image,
     });
+
     // Save Seed in the database
     Seed.create(seed, (err, data) => {
         if (err)
@@ -29,6 +30,7 @@ exports.findAll = async (req, res) => {
     });
 };
 
+//find by Seed_id
 exports.find = async (req, res) => {
     const id = req.params.id;
     Seed.findById(id, (err, data) => {

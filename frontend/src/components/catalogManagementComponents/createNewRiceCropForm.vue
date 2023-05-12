@@ -7,10 +7,12 @@
                     style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
+
           <div class="row">
                <p class="col-sm-12 text-center functionName">THÊM MÙA VỤ
                </p>
           </div>
+
           <div class="row content">
                <div class="col-sm-6 mt-2">
                     <div class="form-group">
@@ -29,6 +31,7 @@
                          </Field>
                          <ErrorMessage name="seed" class="error-feedback" />
                     </div>
+
                     <div class="form-group">
                          <label for="arableLand" class="mt-1">Mẫu ruộng <span style="color: red">*</span></label>
                          <Field name="arableLand" class="form-control" v-model="newricecrop.ArableLand_id"
@@ -54,8 +57,8 @@
                          </Field>
                          <ErrorMessage name="sowingDate" class="error-feedback" />
                     </div>
-
                </div>
+
                <div class="col-sm-6">
                     <div class="form-group">
                          <label for="name" class="mt-3">Tên mùa vụ <span style="color: red">*</span></label>
@@ -112,6 +115,7 @@
                     </span>
                </div>
           </div>
+          
           <div class="row mb-4">
                <div class="col-sm-12 text-center">
                     <button class="btn btn-outline-secondary btnLuu btnSave">Lưu</button>

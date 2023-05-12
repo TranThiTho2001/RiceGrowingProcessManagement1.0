@@ -3,13 +3,11 @@
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
      <div class="container-fluid topHeader" @click="open = !open">
+          
           <div class="btn btnUser dropdown">
                <i class="fas fa-user-circle iconUser"></i>
                <h6 class="username "> &nbsp;{{ formatName(currentuser.Employee_name) }} <i class="fas fa-caret-down"
                          style="color:  #FFFED8;"></i></h6>
-               <!-- <div class="dropdown-conten" style="background-color: #FFFED8;">
-                    <a @click="logout">Đăng xuất</a>
-               </div> -->
           </div>
 
           <div class="menu " :class="{ menuactive: open }">
@@ -27,7 +25,6 @@
                                    style="font-size: 21px; padding-left: 2px;"></i></span>
                          <a href="#" @click="logout()">Đăng xuất</a>
                     </li>
-
                </ul>
           </div>
      </div>
@@ -53,6 +50,7 @@ export default {
           ...mapMutations([
                "initEmployeeState"
           ]),
+
           async PhanQuyenNhanVien() {
                const [err, respone] = await this.handle(
                     EmployeeService.get(this.currentUser.Employee_id)
@@ -79,6 +77,7 @@ export default {
                return temp[temp.length - 1];
 
           },
+
           logout() {
 
                this.$router.push("/");
@@ -116,8 +115,6 @@ body {
      right: 30px;
      top: 20px
 }
-
-.topHeader .menu h3 {}
 
 .topHeader .menu {
      background-color: #FFF;
@@ -261,39 +258,6 @@ body {
      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
      border-radius: 20px;
      position: relative;
-}
-
-.dropdown-conten {
-     display: none;
-     background-color: #EEEA41;
-     min-width: 120px;
-     font-family: Inter;
-     font-size: 20px;
-     min-width: 140px;
-     height: 40px;
-}
-
-.dropdown-conten:hover {
-     background-color: #EEEA41;
-
-}
-
-.dropdown:hover .dropdown-conten {
-     display: block;
-     position: absolute;
-     top: 95%;
-     left: -2%;
-     background-color: #EEEA41;
-     background: #EEEA41;
-}
-
-.dropdown:checked .dropdown-conten {
-     display: block;
-     position: absolute;
-     top: 95%;
-     left: -2%;
-     background-color: #EEEA41;
-     background: #EEEA41;
 }
 
 @media only screen and (max-width: 1430px) {

@@ -31,6 +31,7 @@ exports.findAll = async (req, res) => {
     });
 };
 
+//find by Fertilizer_id
 exports.find = async (req, res) => {
     const id = req.params.id;
     Fertilizer.findById(id, (err, data) => {

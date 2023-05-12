@@ -7,6 +7,7 @@
                     style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
+
           <div class="row">
                <p class="col-sm-12 text-center functionName">THÊM HÌNH ẢNH CHO MÙA VỤ
                </p>
@@ -24,19 +25,18 @@
                               </label>
                          </button>
                     </Field>
-                    <br>
                     <ErrorMessage name="id" class="error-feedback mt-3" />
-
                </div>
           </div>
+
           <div class="row">
                <div class="col-md-2"></div>
                <div class="col-md-8 text-center">
                     <img v-if="url != ''" :src="url" class="img-fluid" style="max-height: 300px;">
                </div>
                <div class="col-md-2"></div>
-
           </div>
+
           <div class="row">
                <div class="col-sm-12 mt-2 mb-3 text-center">
                     <span v-if="message2 == 'Thêm thành công.'" class="fas fa-check-circle"
@@ -50,6 +50,7 @@
                     </span>
                </div>
           </div>
+
           <div class="row mb-4" v-if="url!=''">
                <div class="col-sm-5"></div>
                <button class="btn btn-outline-secondary btnLuu col-sm-2">Lưu</button>
@@ -59,8 +60,6 @@
 </template>
  
 <script>
-
-
 import * as yup from "yup";
 import { Form, Field, ErrorMessage } from "vee-validate";
 
@@ -71,10 +70,12 @@ export default {
           Field,
           ErrorMessage,
      },
-     emits: ["addImage-submit"],
-     props: ["newImage", "message1", "message2"],
-     data() {
 
+     emits: ["addImage-submit"],
+
+     props: ["newImage", "message1", "message2"],
+
+     data() {
           const schema = yup.object().shape({
                id: yup
                     .string()
@@ -93,19 +94,14 @@ export default {
           async selectFile(event) {
                this.fileImage = event.target.files[0];
                this.newimage.Image_name = "image_" + this.fileImage.name;
-               console.log(this.newimage.Image_name);
                this.newimage = event.target.files[0];
-               console.log(this.newimage.Image);
                this.url = URL.createObjectURL(this.fileImage);
-
-               console.log(this.url)
           },
      }
 };
 </script>
  
 <style >
-/* @import url(../../assets/riceCropStyle.css); */
 .createImageForm {
      position: absolute;
      top: 20%;
@@ -131,7 +127,6 @@ export default {
 .createImageForm .form-group .btnAddImage{
      background-color: rgb(241, 248, 164);
         border-radius: 5px;
-        /* position: absolute; */
         left: 40%;
 }
 

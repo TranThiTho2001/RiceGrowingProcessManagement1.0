@@ -1,19 +1,19 @@
 const sql = require("./db");
 
-const Prediction = function (prediction) {
-     this.Prediction_id = prediction.Prediction_id;
-     this.Prediction_date = prediction.Prediction_date;
-     this.Prediction_yield = prediction.Prediction_yield;
-     this.RiceCropInformation_id = prediction.RiceCropInformation_id;
-     this.Prediction_precipitation = prediction.Prediction_precipitation;
-     this.Prediction_temperature = prediction.Prediction_temperature;
-     this.Prediction_humitidity = prediction.Prediction_humitidity;
-     this.Prediction_windSpeed = prediction.Prediction_windSpeed;
-     this.Prediction_solarRadiation = prediction.Prediction_solarRadiation;
-     this.Algorithm_id = prediction.Algorithm_id;
+const Prediction = function (prediction) { 
      this.Prediction_N = prediction.N;
      this.Prediction_P = prediction.P;
      this.Prediction_K = prediction.K;
+     this.Algorithm_id = prediction.Algorithm_id;
+     this.Prediction_id = prediction.Prediction_id;
+     this.Prediction_date = prediction.Prediction_date;
+     this.Prediction_yield = prediction.Prediction_yield;
+     this.Prediction_windSpeed = prediction.Prediction_windSpeed;
+     this.Prediction_humitidity = prediction.Prediction_humitidity;
+     this.Prediction_temperature = prediction.Prediction_temperature;
+     this.RiceCropInformation_id = prediction.RiceCropInformation_id;
+     this.Prediction_precipitation = prediction.Prediction_precipitation;
+     this.Prediction_solarRadiation = prediction.Prediction_solarRadiation;
 }
 
 Prediction.create = (newPrediction, result) => {
@@ -28,6 +28,7 @@ Prediction.create = (newPrediction, result) => {
      });
 };
 
+//find by Prediction_id
 Prediction.findById = (id, result) => {
      sql.query(`SELECT * FROM Prediction` +
           ` JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = Prediction.RiceCropInformation_id` +
@@ -47,6 +48,7 @@ Prediction.findById = (id, result) => {
           });
 };
 
+// Retrieve all Prediciton from the database (with condition).
 Prediction.getAll = (name, result) => {
      let query = `SELECT * FROM  Prediction` +
           ` JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = Prediction.RiceCropInformation_id `+
@@ -64,11 +66,12 @@ Prediction.getAll = (name, result) => {
      });
 };
 
+//find by RiceCropInformation_id
 Prediction.findByRiceCropInformationId = (id, result) => {
      let query = `SELECT * FROM Prediction` +
-          ` JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = Prediction.RiceCropInformation_id` +
-          ` JOIN Algorithm on Algorithm.Algorithm_id = Prediction.Algorithm_id `+
-          ` where Prediction.RiceCropInformation_id LIKE '%${id}%'`;
+               ` JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = Prediction.RiceCropInformation_id` +
+               ` JOIN Algorithm on Algorithm.Algorithm_id = Prediction.Algorithm_id `+
+               ` WHERE Prediction.RiceCropInformation_id LIKE '%${id}%'`;
      sql.query(query, (err, res) => {
           if (err) {
                console.log("error: ", err);
@@ -79,47 +82,7 @@ Prediction.findByRiceCropInformationId = (id, result) => {
      });
 };
 
-Prediction.findByArableLand = (name, id, result) => {
-     let query = "SELECT * FROM RiceCropInformation JOIN Monitor on Monitor.RiceCropInformation_id = RiceCropInformation.RiceCropInformation_id" +
-          ` JOIN Seed on Seed.Seed_id = RiceCropInformation.Seed_id` +
-          ` JOIN ArableLand on ArableLand.ArableLand_id= RiceCropInformation.ArableLand_id` +
-          ` JOIN Crop on Crop.Crop_id = RiceCropInformation.Crop_id` +
-          ` JOIN Algorithm on Algorithm.Algorithm_id = Prediction.Algorithm_id `;
-     if (name) {
-          query += ` WHERE  LIKE ArableLand.ArableLand_name '%${name}%' or ArableLand.ArableLand_id LIKE '%${name}%'`;
-     }
-     sql.query(query, (err, res) => {
-          if (err) {
-               console.log("error: ", err);
-               result(err, null);
-               return;
-          }
-          result(null, res);
-     });
-};
-
-Prediction.updateById = (id, riceCropInformation, result) => {
-     sql.query(
-          "UPDATE RiceCropInformation SET Seed_id = ?, RiceCropInformation_name = ?, RiceCropInformation_sowingDate = ?, RiceCropInformation_harvestDate = ?, RiceCropInformation_yield = ?, ArableLand_id = ? WHERE RiceCropInformation_id = ?",
-          [riceCropInformation.Seed_id, riceCropInformation.RiceCropInformation_name, riceCropInformation.RiceCropInformation_sowingDate, riceCropInformation.RiceCropInformation_harvestDate, riceCropInformation.RiceCropInformation_yield, riceCropInformation.ArableLand_id, id],
-          (err, res) => {
-               if (err) {
-                    console.log("error: ", err);
-                    result(err, null);
-                    return;
-               }
-               if (res.affectedRows == 0) {
-                    // not found RiceCropInformation with the id
-                    result({ kind: "not_found" }, null);
-                    return;
-               }
-               console.log("updated RiceCropInformation: ", { id: id, ...riceCropInformation });
-               result(null, { id: id, ...riceCropInformation });
-
-          }
-     );
-};
-
+// Delete a Prediction with the specified id in the request
 Prediction.remove = (id, result) => {
      sql.query("DELETE FROM RiceCropInformation WHERE RiceCropInformation_id = ?", id, (err, res) => {
           if (err) {

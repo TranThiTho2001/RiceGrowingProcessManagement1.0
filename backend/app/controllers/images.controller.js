@@ -12,6 +12,7 @@ exports.store = async (req, res) => {
         RiceCropInformation_id:  req.body.RiceCropInformation_id,
         Image_location: req.body.Image_location,
    });
+   
    // Save Monitor in the database
    Images.create(image, (err, data) => {
         if (err)

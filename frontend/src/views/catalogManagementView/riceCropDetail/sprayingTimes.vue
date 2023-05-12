@@ -3,6 +3,7 @@
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
                <Preloader color="red" scale="0.4" />
           </div>
+
           <div class="row riceCropDetailFrame" style="height: max-content;" v-if="!loading" :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
@@ -11,6 +12,7 @@
                <div class="left" :class="{ navbarresponsive: openMenu.openMenu }">
                     <Catalog />
                </div>
+
                <div class="right rightRiceCropDetail" data-bs-spy="scroll">
                     <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
@@ -42,6 +44,7 @@
                               @click="isOpenCreateSprayingTimesForm = !isOpenCreateSprayingTimesForm, active = true">
                               <i class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm</button>
                     </div>
+
                     <div class="row mt-4 row-detail" style=" margin-left:20px;margin-right: 10px ">
                          <div class="detail-Component text-left" v-for="(sprayingtimes, i) in SprayingTimesList" :key="i">
                               <div class="btnMoreInfor"> <button type="button" class="btn btn-sm" data-toggle="dropdown"
@@ -51,8 +54,8 @@
                                    <div class="dropdown-menu">
                                         <a class="dropdown-item action"
                                              @click="setSprayingTimes(sprayingtimes), isOpenUpdateSprayingTimesForm = !isOpenUpdateSprayingTimesForm, active = true">
-                                             <span class="fas fa-edit actionIcon"></span> Chỉnh
-                                             sửa
+                                             <span class="fas fa-edit actionIcon"></span> 
+                                             Chỉnh sửa
                                         </a>
                                         <a class="dropdown-item" href="#"
                                              @click="setSprayingTimes(sprayingtimes), isOpenConfirm = !isOpenConfirm, active = true">
@@ -62,6 +65,7 @@
 
                                    </div>
                               </div>
+
                               <h5 class="function-name text-center">Lần {{ sprayingtimes.SprayingTimes_times }}</h5>
                               <span class="title-detail">Thuốc: 
                               <span class="value-name-detail">{{ sprayingtimes.Pesticide_name }}</span></span><br>
@@ -74,13 +78,10 @@
                               <span class="title-detail">Nhân viên: </span>
                               <span class="value-detail">{{ sprayingtimes.Employee_name }}</span><br>
                          </div>
-
-
                     </div>
-
-
                </div>
           </div>
+
           <div class="overlay2" v-if="isOpenConfirm">
                <div class="confirmationDialog">
                     <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
@@ -92,18 +93,18 @@
                          @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
                </div>
           </div>
+
           <div class="overlay2" v-if="isOpenMessage">
                <div class="messageDialog">
                     <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
                          <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span>
-                         {{
-                              message
-                         }}
+                         {{ message  }}
                     </p>
                     <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
                          @click="isOpenMessage = !isOpenMessage, active = false">OK</button>
                </div>
           </div>
+
           <div class="overlay2" v-if="isOpenCreateSprayingTimesForm">
                <CreateSprayingTimesForm :newSprayingTimes="newSprayingTimes" :pesticideList="pesticideList"
                     :developmentStageList="developmentStageList" :currentUser="currentUser" :riceCropChosen="newRiceCrop"
@@ -254,7 +255,6 @@ export default {
                }
           },
 
-          // SprayingTimes
           async setSprayingTimes(data) {
                this.sprayingTimesChosen = data;
           },
@@ -278,8 +278,7 @@ export default {
                     temp.Pesticide_name = "";
                     temp.Pesticide_id = 0;
                     this.newSprayingTimes.Pesticide.push(temp);
-               }
-               else {
+               }  else {
                     this.message1 = " ";
                     this.message2 = " ";
                     this.developmentStageList.forEach(element => {
@@ -300,14 +299,12 @@ export default {
 
                     if (data.SprayingTimes_startDate != null) {
                          data.SprayingTimes_startDate = (moment(String(data.SprayingTimes_startDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    }
-                    else {
+                    } else {
                          data.SprayingTimes_startDate = null;
                     }
                     if (data.SprayingTimes_endDate != null) {
                          data.SprayingTimes_endDate = (moment(String(data.SprayingTimes_endDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    }
-                    else {
+                    } else {
                          data.SprayingTimes_endDate = null;
                     }
                     data.Pesticide.forEach(pesticide => {
@@ -325,7 +322,6 @@ export default {
                          }
                     });
                }
-
           },
 
           async createSprayingTimes(data) {
@@ -353,8 +349,7 @@ export default {
                     this.newSprayingTimes = {};
                     this.newSprayingTimes.SprayingTimes_times = this.SprayingTimesList[this.SprayingTimesList.length - 1].SprayingTimes_times + 1;
 
-               }
-               else {
+               }   else {
                     this.message1 = " ";
                     this.message2 = " ";
                     this.developmentStageList.forEach(element => {
@@ -375,14 +370,13 @@ export default {
 
                     if (data.SprayingTimes_startDate != null) {
                          data.SprayingTimes_startDate = (moment(String(data.SprayingTimes_startDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    }
-                    else {
+                    } else {
                          data.SprayingTimes_startDate = null;
                     }
+
                     if (data.SprayingTimes_endDate != null) {
                          data.SprayingTimes_endDate = (moment(String(data.SprayingTimes_endDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    }
-                    else {
+                    } else {
                          data.SprayingTimes_endDate = null;
                     }
 
@@ -398,10 +392,8 @@ export default {
                          this.message2 = "Cập nhật thành công.";
 
                     }
-
                }
                this.retrieveSprayingTimesList();
-
           },
 
           async deleteSprayingTimes() {
@@ -432,7 +424,6 @@ export default {
                     console.log(err)
                }
                else {
-
                     this.newRiceCrop.RiceCropInformation_id = respone.data.RiceCropInformation_id;
                     this.newRiceCrop.RiceCropInformation_name = respone.data.RiceCropInformation_name;
                     this.newRiceCrop.Seed_id = respone.data.Seed_id;
@@ -477,8 +468,7 @@ export default {
                          );
                          if (err) {
                               console.log(err)
-                         }
-                         else {
+                         }  else {
                               if (respone.data != "Không tìm thấy lần phun thuốc mới.") {
                                    this.SprayingTimesList = respone.data;
                               }
@@ -524,43 +514,3 @@ export default {
      border-radius: 5px;
 }
 </style>
-
-
-<!-- <nav aria-label="...">
-     <ul class="pagination " aria-controls="my-table">
-          <li class="page-item disabled" v-if="currentPage == 1">
-               <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
-          </li>
-          <li class="page-item " v-if="currentPage > 1">
-               <a class="page-link" href="#"
-                    @click="change_page('-', fertilizerTimesList)"
-                    aria-controls="my-table">{{
-                         previous }}</a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#"
-                    @click="change_page(currentPage - 1, monitorList)"
-                    v-if="currentPage > 1">{{
-                         currentPage - 1 }}</a></li>
-          <li class="page-item active">
-               <a class="page-link"
-                    style="background-color: #EEEA41; border-color: #EEEA41;" href="#">{{
-                         currentPage }} <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#"
-                    v-if="currentPage < num_pages(fertilizerTimesList)"
-                    @click="change_page(currentPage + 1, fertilizerTimesList)">{{
-                         currentPage + 1
-                    }}</a></li>
-          <li class="page-item">
-               <a class="page-link" href="#"
-                    @click="change_page('+', fertilizerTimesList)"
-                    v-if="currentPage < num_pages(fertilizerTimesList)">{{
-                         next }}</a>
-          </li>
-          <li class="page-item disabled">
-               <a class="page-link" href="#"
-                    v-if="currentPage >= num_pages(fertilizerTimesList)">{{
-                         next }}</a>
-          </li>
-     </ul>
-</nav> -->

@@ -3,6 +3,7 @@
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
                <Preloader color="red" scale="0.4" />
           </div>
+
           <div v-if="!loading" class="row EmployeeManager" style="height: 100vmin;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
@@ -17,13 +18,13 @@
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Quản trị người dùng</h3>
                          </div>
-
                          <div class="text-right mt-3">
                               <div class="row">
                                    <TopHeader />
                               </div>
                          </div>
                     </div>
+
                     <div class="row row-inputSearch">
                          <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
                               @click="retrieveEmployeeList, isOpenInput1 = true"
@@ -33,19 +34,18 @@
                               <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                          </button>
 
-
                          <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
                               <p class="item" v-for="employee in filteredList()" :key="employee.Employee_id"
                                    @click="searchName(employee.Employee_name)">
                                    {{ employee.Employee_name }}</p>
                          </div>
+
                          <div class="selection-component1">
                               <label class="labelRole">Vị trí</label>
                               <select class="selectRole" v-model="filter.role" @change="searchByRole()">
                                    <option class="optionRole" v-for="role in roles" :value="role" :key="role">{{ role }}
                                    </option>
                               </select>
-
 
                               <label class="labelSex">Giới tính</label>
                               <select class="selectSex" v-model="filter.sex" @change="searchBySex()">
@@ -54,13 +54,12 @@
                                    <option class="optionSex" value="Nam">Nam</option>
                               </select>
                          </div>
-<!-- isOpenCreateEmployeeForm = !isOpenCreateEmployeeForm, retrieveRoleList() -->
+
                          <button class="btn btnCreate"
-                              @click="isOpenCreateEmployeeForm = !isOpenCreateEmployeeForm, retrieveRoleList()"><i
-                                   class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm nhân viên</button>
-
+                              @click="isOpenCreateEmployeeForm = !isOpenCreateEmployeeForm, retrieveRoleList()">
+                              <i class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm nhân viên
+                         </button>
                     </div>
-
 
                     <div class="scrollTable">
                          <div class="scrollTable-content">
@@ -108,21 +107,22 @@
                               </table>
                          </div>
                     </div>
+
                     <div class="overlay2" v-if="isOpenCreateEmployeeForm">
                          <CreateNewEmployeeForm :newEmployee="newEmployee" :roleList="roleList"
                               @addEmployee-submit="createEmployee" :message1="message1" :message2="message2" />
                     </div>
+
                     <div class="overlay2" v-if="isOpenUpdateEmployeeForm">
                          <UpdateEmployeeForm :newEmployee="employeeChoosen" :roleList="roleList"
                               @updateEmployee-submit="updateEmployee" :message1="message1" :message2="message2" />
                     </div>
                </div>
-
           </div>
 
-          <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
+          <!-- ------------------------------confirm ----------------------------- -->
           <div class="overlay2" v-if="isOpenXacNhan">
-               <div class="confirmationDialog" >
+               <div class="confirmationDialog">
                     <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelXacNhan">
                          <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
                     </p>
@@ -134,7 +134,7 @@
           </div>
 
           <div class="overlay2" v-if="isOpenThongBao">
-               <div class="messageDialog" >
+               <div class="messageDialog">
                     <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
                          <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{ message }}
                     </p>
@@ -148,16 +148,16 @@
    
 <script>
 
-import employeeService from '../../services/employee.service';
-import Catalog from '../../components/catalogManagementComponents/catalog.vue';
-import TopHeader from '@/components/catalogManagementComponents/topHeader.vue'
-import CreateNewEmployeeForm from '../../components/administratorsComponent/createNewEmployeeForm.vue';
-import UpdateEmployeeForm from '../../components/administratorsComponent/updateEmployeeForm.vue';
-import roleService from '@/services/role.service';
 import moment from 'moment';
 import { mapGetters, mapMutations } from "vuex";
-import Preloader from '@/components/catalogManagementComponents/Preloader.vue'
-import backupServices from '@/services/backup.services';
+import roleService from '@/services/role.service';
+import employeeService from '../../services/employee.service';
+import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
+import Catalog from '../../components/catalogManagementComponents/catalog.vue';
+import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
+import UpdateEmployeeForm from '../../components/administratorsComponent/updateEmployeeForm.vue';
+import CreateNewEmployeeForm from '../../components/administratorsComponent/createNewEmployeeForm.vue';
+
 export default {
      name: 'EmployeeManager',
      components: {
@@ -174,11 +174,6 @@ export default {
                isOpenThongBao: false,
                message: "",
                employeeChoosen: {},
-               currentPage: 1,
-               elementsPerPage: 6,
-               ascending: false,
-               previous: '<<',
-               next: '>>',
                newEmployee: {},
                message1: " ",
                message2: " ",
@@ -235,18 +230,6 @@ export default {
                this.isOpenSearch.close = true;
                this.isOpenInput1 = false;
                this.isOpenInput2 = false;
-          },
-
-          async backup(){
-               const [err, respone] = await this.handle(
-                    backupServices.create()
-               );
-               if (err) {
-                    console.log(err)
-               }
-               else {
-                    console.log(respone.data);
-               }
           },
 
           async retrieveRoleList() {
@@ -323,7 +306,7 @@ export default {
                this.message2 = "";
                if (data.close == false) {
                     this.newEmployee = {},
-                    this.newEmployee.Employee_id = this.newEmployeeId;
+                         this.newEmployee.Employee_id = this.newEmployeeId;
                     this.newEmployee.Employee_password = Math.random().toString(36).slice(-8);
                     this.isOpenCreateEmployeeForm = false;
                }
@@ -381,7 +364,6 @@ export default {
                          this.retrieveEmployeeList();
                     }
                }
-
           },
 
           async deleteEmployee(employeeId) {
@@ -490,7 +472,6 @@ export default {
                }
                return this.roles;
           }
-
      },
 
      mounted() {
@@ -503,10 +484,11 @@ export default {
 @import url(../../assets/employeeStyle.css);
 @import url(../../assets/mainStyle.css);
 
-.EmployeeManagerFrame  .dropdown-item:focus,
+.EmployeeManagerFrame .dropdown-item:focus,
 .EmployeeManagerFrame .dropdown-item:hover {
      background-color: #ABD2C8;
 }
+
 .EmployeeManagerFrame .navigationBar .btnEmployee {
      display: block;
      width: 88%;

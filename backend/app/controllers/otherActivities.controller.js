@@ -8,6 +8,7 @@ exports.store = async (req, res) => {
         OtherActivities_id: req.body.OtherActivities_id,
         OtherActivities_name: req.body.OtherActivities_name,
     });
+
     // Save OtherActivities in the database
     OtherActivities.create(otherActivities, (err, data) => {
         if (err)
@@ -26,6 +27,7 @@ exports.findAll = async (req, res) => {
     });
 };
 
+//find by OtherActivities_id
 exports.find = async (req, res) => {
     const id = req.params.id;
     OtherActivities.findById(id, (err, data) => {

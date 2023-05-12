@@ -494,9 +494,9 @@
 /* --------------------------------------------------------------------------------------------------- */
 .function-Component {
      border-radius: 10px;
-     margin-left: auto;
+      margin-left: auto;
      margin-right: auto;
-     padding-bottom: 1px;
+    padding-bottom: 1px;
      margin-bottom: 17px;
      background: #FAFAFC;
      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -561,6 +561,7 @@
      margin-top: 35px;
      height: 535px;
      overflow: auto;
+     /* width: ; */
 
 }
 

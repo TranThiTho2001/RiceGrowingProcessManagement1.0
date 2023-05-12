@@ -3,6 +3,7 @@
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
                <Preloader color="red" scale="0.4" />
           </div>
+
           <div class="row epidemicManagementFrame" style="height: max-content; background-color: #EAEAEA;" v-if="!loading"
                :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
@@ -18,7 +19,6 @@
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Dịch bệnh</h3>
                          </div>
-
                          <div class="text-right">
                               <div class="row">
                                    <TopHeader />
@@ -45,6 +45,7 @@
                               v-if="currentUser.Role_id == '02'"><i class="fas fa-plus-circle pt-1"
                                    style="font-size: 20px;"></i> Thêm bệnh dịch</button>
                     </div>
+
                     <div class="scrollTable">
                          <div class="ol-class" style="--length: 5" role="list">
                               <a class="li-class-epdiemic li-class " href="#popup1" v-for="(epidemic, j) in epidemicList"
@@ -73,8 +74,8 @@
                                              <p>{{ epidemic.Epidemic_Harm }}</p>
                                         </div>
                                    </div>
-
                               </a>
+
                               <div id="popup1" class="overlay" v-if="!active && !isOpenUpdateEpidemic">
                                    <div class="popup">
                                         <a class="fas fa-times-circle" href="#"
@@ -107,13 +108,10 @@
                                    </div>
                               </div>
                          </div>
-
                     </div>
-
-
                </div>
           </div>
-          <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
+
           <div class="overlay2" v-if="isOpenConfirm">
                <div class="confirmationDialog">
                     <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
@@ -125,6 +123,7 @@
                          @click="isOpenConfirm = !isOpenConfirm, active = false;">Hủy</button>
                </div>
           </div>
+
           <div class="overlay2" v-if="isOpenMessage">
                <div class="messageDialog" v-if="isOpenMessage">
                     <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
@@ -136,10 +135,12 @@
                          @click=" isOpenMessage = !isOpenMessage, active = false;">OK</button>
                </div>
           </div>
+
           <div class="overlay2" v-if="openCreate">
                <CreateEpidemicForm :newEpidemic="newEpidemic" @addEpidemic-submit="createNewImage" :message1="message1"
                     :message2="message2" />
           </div>
+
           <div class="overlay2" v-if="isOpenUpdateEpidemic">
                <UpdateEpidemicForm :newEpidemic="epidemicChosen" :epidemicClassificationList="epidemicClassificationList"
                     @updateEpidemic-submit="updateImage" :message1="message1" :message2="message2" />
@@ -269,14 +270,11 @@ export default {
                     }
                     if (id < 9) {
                          this.newEpidemic.Epidemic_id = "EC0000000" + String(Number(id) + 1);
-                    }
-                    else if (id >= 9 && id < 99) {
+                    } else if (id >= 9 && id < 99) {
                          this.newEpidemic.Epidemic_id = "EC000000" + String(Number(id) + 1);
-                    }
-                    else if (id >= 99 && id < 999) {
+                    } else if (id >= 99 && id < 999) {
                          this.newEpidemic.Epidemic_id = "EC00000" + String(Number(id) + 1);
-                    }
-                    else {
+                    } else {
                          this.newEpidemic.Epidemic_id = "EC00" + String(Number(id) + 1);
                     }
                }
@@ -314,8 +312,7 @@ export default {
                               console.log(error);
                               this.message2 = "Thêm không thành công";
                          };
-                    }
-                    else {
+                    } else {
                          this.message1 = "Vui lòng chọn hình ảnh!!"
                     }
                }
@@ -377,8 +374,7 @@ export default {
                               console.log(error);
                               this.message2 = "Cập nhật không thành công";
                          };
-                    }
-                    else {
+                    } else {
                          this.updateEpidemic(data);
                     }
                }
@@ -390,7 +386,6 @@ export default {
                          data.EpidemicClassification_id = element.EpidemicClassification_id;
                     }
                });
-
                this.message1 = "";
                this.message2 = "";
                const [error, respone] = await this.handle(
@@ -440,12 +435,11 @@ export default {
                     if (response.data != null) {
                          this.epidemicList = response.data;
                          this.epidemicList.forEach(epidemic => {
-                         if (epidemic.Epidemic_image != null) {
-                              epidemic.url = require('@/images/' + epidemic.Epidemic_image)
-                         }
-                    });
-                    }
-                    else {
+                              if (epidemic.Epidemic_image != null) {
+                                   epidemic.url = require('@/images/' + epidemic.Epidemic_image)
+                              }
+                         });
+                    } else {
                          this.message = "Không tìm thấy bệnh dịch!";
                     }
                }

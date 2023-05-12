@@ -3,15 +3,18 @@
           class="form container-fluid createPesticideForm">
           <div class="row">
                <div class="col-sm-12 text-right">
-                    <i class="fas fa-times-circle" @click="newpesticide.close = false, $emit('addPesticide-submit', newpesticide)"
-                    style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
+                    <i class="fas fa-times-circle"
+                         @click="newpesticide.close = false, $emit('addPesticide-submit', newpesticide)"
+                         style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
+
           <div class="row">
                <p class="col-sm-12 text-center functionName">
                     THÊM LOẠI THUỐC TRỊ BỆNH DỊCH MỚI
                </p>
           </div>
+
           <div class="row content">
                <div class="col-sm-4">
                     <div class="form-group">
@@ -52,14 +55,14 @@
                     </div>
 
                     <div class="form-group">
-                         <label for="directionsForUse" class="">Hướng dẫn sử dụng<span
-                                   style="color: red">*</span></label>
+                         <label for="directionsForUse" class="">Hướng dẫn sử dụng<span style="color: red">*</span></label>
                          <Field name="directionsForUse" class="form-control"
                               v-model="newpesticide.Pesticide_directionsForUse" as="textarea" style="height: 200px;"
                               placeholder="Thông tin phân bón..." />
                          <ErrorMessage name="directionsForUse" class="error-feedback" />
                     </div>
                </div>
+
                <div class="col-sm-4">
                     <div class="form-group" style="height: 200px !important;">
                          <div class="ml-3">
@@ -78,7 +81,8 @@
                     </div>
 
                     <div class="row form-group " style="width: 99%; margin-left: 1%;">
-                         <label for="supplier mt-3" class="" style="margin-top: 40px;">Hình ảnh <span style="color: red">*</span></label>
+                         <label for="supplier mt-3" class="" style="margin-top: 40px;">Hình ảnh <span
+                                   style="color: red">*</span></label>
                          <div class="col-sm-12 text-center form-control" style="height:200px !important;">
                               <input type="file" ref="file" name="image" @change="selectFile($event)" accept="image/*"
                                    enctype="multipart/form-data" class="" v-bind:aria-disabled="true">
@@ -109,14 +113,12 @@
                     <button class="btn btn-outline-secondary btnLuu">Lưu</button>
                </div>
           </div>
-          <div v-if="isOpenSearch.open" class="outside" @click.passive="away()"></div>
      </form>
 </template>
  
 <script>
 import * as yup from "yup";
 import { Form, Field, ErrorMessage } from "vee-validate";
-import EpidemicService from "@/services/epidemic.service";
 
 export default {
      name: "createPesticideForm",
@@ -157,12 +159,6 @@ export default {
                schema,
                treatment: [],
                epidemiclist: this.epidemicList,
-               cloneEpidemicList: this.epidemicList,
-               isOpenSearch: {
-                    open: false,
-                    close: true,
-               },
-               nameToSearch: "",
                fileImage: {},
                url: "",
           };
@@ -173,40 +169,9 @@ export default {
                this.newpesticide.Treatment = this.treatment;
           },
 
-          filteredList() {
-               return this.cloneEpidemicList.filter(epidemic => {
-                    return epidemic.Epidemic_name.toLowerCase().includes(this.nameToSearch.toLowerCase())
-               })
-          },
-
           away() {
                this.isOpenSearch.open = false;
                this.isOpenSearch.close = true;
-          },
-          async retrieveEpidemicList() {
-               const [err, respone] = await this.handle(
-                    EpidemicService.getAll()
-               );
-               if (err) {
-                    console.log(err)
-               }
-               else {
-                    this.epidemiclist = respone.data;
-                    this.cloneEpidemicList = respone.data;
-               }
-          },
-
-          async searchName(data) {
-               this.nameToSearch = data;
-               const [error, response] = await this.handle(EpidemicService.findByName(this.nameToSearch));
-               if (error) {
-                    console.log(error);
-               } else {
-                    if (response.data != null) {
-                         this.epidemiclist = response.data;
-                         console.log(response.data)
-                    }
-               }
           },
 
           async selectFile(event) {
@@ -300,9 +265,8 @@ export default {
 }
 
 .createPesticideForm .rowImage {
-    height: 170px;
-    margin: auto;
-    margin-top: 5px;
+     height: 170px;
+     margin: auto;
+     margin-top: 5px;
 }
-
 </style>

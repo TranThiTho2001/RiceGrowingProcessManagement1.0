@@ -8,6 +8,7 @@ exports.store = async (req, res) => {
         Nutrient_id: req.body.Nutrient_id,
         Nutrient_name: req.body.Nutrient_name,
     });
+
     // Save Nutrient in the database
     Nutrient.create(nutrient, (err, data) => {
         if (err)
@@ -26,6 +27,7 @@ exports.findAll = async (req, res) => {
     });
 };
 
+//find by Nutrient_id
 exports.find = async (req, res) => {
     const id = req.params.id;
     Nutrient.findById(id, (err, data) => {

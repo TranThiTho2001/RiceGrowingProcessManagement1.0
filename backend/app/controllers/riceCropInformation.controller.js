@@ -5,15 +5,16 @@ const config = require("../config");
 exports.store = async (req, res) => {
     // Create 
     const riceCropInformation = new RiceCropInformation({
+        Seed_id: req.body.Seed_id,
+        Crop_id: req.body.Crop_id, 
+        ArableLand_id: req.body.ArableLand_id,
         RiceCropInformation_id: req.body.RiceCropInformation_id,
         RiceCropInformation_name: req.body.RiceCropInformation_name,
         RiceCropInformation_yield: req.body.RiceCropInformation_yield,
-        Seed_id: req.body.Seed_id,
-        Crop_id: req.body.Crop_id,
         RiceCropInformation_sowingDate: req.body.RiceCropInformation_sowingDate,
         RiceCropInformation_harvestDate: req.body.RiceCropInformation_harvestDate,
-        ArableLand_id: req.body.ArableLand_id
      });
+
     // Save RiceCropInformation in the database
     RiceCropInformation.create(riceCropInformation, (err, data) => {
         if (err)
@@ -32,6 +33,7 @@ exports.findAll = async (req, res) => {
     });
 };
 
+//find by RiceCropInformation_id
 exports.find = async (req, res) => {
     const id = req.params.id;
     RiceCropInformation.findById(id, (err, data) => {
@@ -45,10 +47,11 @@ exports.find = async (req, res) => {
     })
 };
 
+//find by Employee_id and  RiceCropInformation_name 
 exports.findbyEmployeeAndRiceCrop = async (req, res) => {
     const name = req.params.name;
     const id = req.params.Employee_id;
-    RiceCropInformation.getByemployeeAndRiceCrop(name, id,  (err, data) => {
+    RiceCropInformation.getByEmployeeAndRiceCrop(name, id,  (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
                 res.send("Không tìm thấy vụ mùa lúa.")

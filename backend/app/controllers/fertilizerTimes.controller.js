@@ -13,12 +13,8 @@ exports.store = async (req, res) => {
           FertilizerTimes_amount: req.body.FertilizerTimes_amount,
           FertilizerTimes_startDate: req.body.FertilizerTimes_startDate,
           FertilizerTimes_endDate: req.body.FertilizerTimes_endDate,
-          // FertilizerTimes_temperature: req.body.FertilizerTimes_temperature,
-          // FertilizerTimes_humidity: req.body.FertilizerTimes_humidity,
-          // FertilizerTimes_precipitation: req.body.FertilizerTimes_precipitation,
-          // FertilizerTimes_windSpeed: req.body.FertilizerTimes_windSpeed,
-          // FertilizerTimes_solarRadiation: req.body.FertilizerTimes_solarRadiation,
      });
+
      // Save FertilizerTimes in the database
      FertilizerTimes.create(fertilizerTimes, (err, data) => {
           if (err)
@@ -37,6 +33,7 @@ exports.findAll = async (req, res) => {
      });
 };
 
+//find by RiceCropInformation_id
 exports.findbyIdRiceCropInformation = async (req, res) => {
      const id = req.params.RiceCropInformation_id;
      FertilizerTimes.findByIdRiceCropInformation(id, (err, data) => {
@@ -49,6 +46,8 @@ exports.findbyIdRiceCropInformation = async (req, res) => {
           } else res.send(data)
      })
 };
+
+// find by Fertilizer_name and RiceCropInformation_id
 exports.findbyname = async (req, res) => {
      const  name = req.query.name;
     const  id = req.params.RiceCropInformation_id;
@@ -62,6 +61,7 @@ exports.findbyname = async (req, res) => {
           } else res.send(data)
      })
 };
+
 // Update a FertilizerTimes identified by the id in the request
 exports.update = async (req, res) => {
      FertilizerTimes.updateById(

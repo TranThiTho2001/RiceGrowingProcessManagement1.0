@@ -1,6 +1,6 @@
 const sql = require("./db");
 
-const Epidemic = function(epidemic){
+const Epidemic = function (epidemic) {
     this.Epidemic_id = epidemic.Epidemic_id;
     this.Epidemic_name = epidemic.Epidemic_name;
     this.Epidemic_indication = epidemic.Epidemic_indication;
@@ -18,13 +18,14 @@ Epidemic.create = (newEpidemic, result) => {
             result(err, null);
             return;
         }
-        console.log("create Epidemic: ", { id: res.insertId, ...newEpidemic});
+        console.log("create Epidemic: ", { id: res.insertId, ...newEpidemic });
         result(null, { id: res.insertId, ...newEpidemic });
     });
 };
 
+//find by Epidemic_id
 Epidemic.findById = (id, result) => {
-    sql.query(`SELECT * FROM Epidemic JOIN Epidemicclassification on Epidemic.EpidemicClassification_id = Epidemicsclassification.EpidemicClassification_id WHERE Epidemic_id like '${id}'  ORDER BY Epidemic_id`, (err, res) => {
+    sql.query(`SELECT * FROM Epidemic JOIN Epidemicclassification ON Epidemic.EpidemicClassification_id = Epidemicsclassification.EpidemicClassification_id WHERE Epidemic_id like '${id}'  ORDER BY Epidemic_id`, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -39,8 +40,9 @@ Epidemic.findById = (id, result) => {
     });
 };
 
+// Retrieve all Epidemic from the database (with condition).
 Epidemic.getAll = (name, result) => {
-    let query = "SELECT * FROM Epidemic JOIN Epidemicclassification on Epidemic.EpidemicClassification_id = EpidemicClassification.EpidemicClassification_id";
+    let query = "SELECT * FROM Epidemic JOIN Epidemicclassification ON Epidemic.EpidemicClassification_id = EpidemicClassification.EpidemicClassification_id";
     if (name) {
         query += ` WHERE Epidemic_name LIKE '%${name}%'`;
     }
@@ -55,10 +57,11 @@ Epidemic.getAll = (name, result) => {
     });
 };
 
+// Update a Epidemic identified by the id in the request
 Epidemic.updateById = (id, epidemic, result) => {
     sql.query(
         "UPDATE Epidemic SET Epidemic_name = ?, Epidemic_indication = ?, Epidemic_timeOfDevelopment = ?, Epidemic_developmentEnvironment = ?, Epidemic_Harm = ?, EpidemicClassification_id = ?, Epidemic_image = ? WHERE Epidemic_id = ?",
-        [epidemic.Epidemic_name, epidemic.Epidemic_indication, epidemic.Epidemic_timeOfDevelopment, epidemic.Epidemic_developmentEnvironment,epidemic.Epidemic_Harm, epidemic.EpidemicClassification_id, epidemic.Epidemic_image, id],
+        [epidemic.Epidemic_name, epidemic.Epidemic_indication, epidemic.Epidemic_timeOfDevelopment, epidemic.Epidemic_developmentEnvironment, epidemic.Epidemic_Harm, epidemic.EpidemicClassification_id, epidemic.Epidemic_image, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
@@ -72,11 +75,12 @@ Epidemic.updateById = (id, epidemic, result) => {
             }
             console.log("updated Epidemic: ", { id: id, ...epidemic });
             result(null, { id: id, ...epidemic });
-            
+
         }
     );
 };
 
+// Update a Epidemic identified by the id in the request
 Epidemic.remove = (id, result) => {
     sql.query("DELETE FROM Epidemic WHERE Epidemic_id = ?", id, (err, res) => {
         if (err) {
@@ -90,18 +94,6 @@ Epidemic.remove = (id, result) => {
             return;
         }
         console.log("deleted Epidemic with id: ", id);
-        result(null, res);
-    });
-};
-
-Epidemic.removeAll = result => {
-    sql.query("DELETE FROM Epidemic", (err, res) => {
-        if (err) {
-            console.log("error: ", err);
-            result(err, null);
-            return;
-        }
-        console.log(`deleted ${res.affectedRows} Epidemic`);
         result(null, res);
     });
 };

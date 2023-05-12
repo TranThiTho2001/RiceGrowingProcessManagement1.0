@@ -1,26 +1,24 @@
 const sql = require("./db");
 
-const Backup = function(backup){
-     this.Backup_date = backup.Backup_date;
+const Backup = function (backup) {
+    this.Backup_date = backup.Backup_date;
     this.Backup_link = backup.Backup_link;
     this.Backup_id = '';
 };
 
 Backup.create = (newBackup, result) => {
-     console.log(newBackup)
     sql.query("INSERT INTO Backup SET ?", newBackup, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
             return;
         }
-        console.log("create Backup: ", { id: res.insertId, ...newBackup});
+        console.log("create Backup: ", { id: res.insertId, ...newBackup });
         result(null, { id: res.insertId, ...newBackup });
     });
 };
 
-
-
+// Retrieve all Backup from the database (with condition).
 Backup.getAll = (name, result) => {
     let query = "SELECT * FROM Backup Order By Backup_id DESC";
     sql.query(query, (err, res) => {
@@ -33,10 +31,9 @@ Backup.getAll = (name, result) => {
     });
 };
 
-
+// Delete a Backup with the specified id in the request
 Backup.remove = (id, result) => {
-    // console.log(fertilizer_id, nutrient_id)
-    sql.query(`DELETE FROM Backup WHERE Backup_id LIKE '${id}'`,  (err, res) => {
+    sql.query(`DELETE FROM Backup WHERE Backup_id LIKE '${id}'`, (err, res) => {
         console.log(id)
         if (err) {
             console.log("error: ", err);
@@ -53,6 +50,5 @@ Backup.remove = (id, result) => {
         result(null, res);
     });
 };
-
 
 module.exports = Backup;

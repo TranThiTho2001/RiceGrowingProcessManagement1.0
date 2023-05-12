@@ -3,12 +3,12 @@ const config = require("../config");
 
 // Create and Save 
 exports.store = async (req, res) => {
-    // Create 
+ 
     const developmentStage = new DevelopmentStage({
         DevelopmentStage_id: req.body.DevelopmentStage_id,
         DevelopmentStage_name: req.body.DevelopmentStage_name,
     });
-    // Save DevelopmentStage in the database
+
     DevelopmentStage.create(developmentStage, (err, data) => {
         if (err)
             res.send("Không thể tạo giai đoạn sinh trưởng mới")
@@ -26,6 +26,7 @@ exports.findAll = async (req, res) => {
     });
 };
 
+// find by DevelopmentStage_id
 exports.find = async (req, res) => {
     const id = req.params.id;
     DevelopmentStage.findById(id, (err, data) => {

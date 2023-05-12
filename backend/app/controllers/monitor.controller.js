@@ -8,6 +8,7 @@ exports.store = async (req, res) => {
           Employee_id: req.body.Employee_id,
           RiceCropInformation_id: req.body.RiceCropInformation_id,
      });
+
      // Save Monitor in the database
      Monitor.create(monitor, (err, data) => {
           if (err)
@@ -26,6 +27,7 @@ exports.findAll = async (req, res) => {
      });
 };
 
+//find by RiceCropInformation_id
 exports.findbyIdRiceCropInformation = async (req, res) => {
      const id = req.params.id;
      Monitor.findByIdRiceCropInformation(id, (err, data) => {
@@ -39,6 +41,7 @@ exports.findbyIdRiceCropInformation = async (req, res) => {
      })
 };
 
+//find by RiceCropInformation_id and Empoyee_name
 exports.findbyName = async (req, res) => {
      const  name = req.query.name;
      const  id = req.params.RiceCropInformation_id;

@@ -17,6 +17,7 @@ Crop.create = (newCrop, result) => {
     });
 };
 
+// find by Crop_id
 Crop.findById = (id, result) => {
     sql.query(`SELECT * FROM Crop WHERE Crop_id like '${id}'`, (err, res) => {
         if (err) {
@@ -34,6 +35,7 @@ Crop.findById = (id, result) => {
     });
 };
 
+// Retrieve all Crop from the database (with condition).
 Crop.getAll = (name, result) => {
     let query = "SELECT * FROM Crop";
     if (name) {
@@ -49,6 +51,7 @@ Crop.getAll = (name, result) => {
     });
 };
 
+// Update a Crop identified by the id in the request
 Crop.updateById = (id, crop, result) => {
     sql.query(
         "UPDATE Crop SET Crop_name = ? WHERE Crop_id = ?",
@@ -66,11 +69,11 @@ Crop.updateById = (id, crop, result) => {
             }
             console.log("updated Crop: ", { id: id, ...crop });
             result(null, { id: id, ...crop });
-            
         }
     );
 };
 
+// Delete a Crop with the specified id in the request
 Crop.remove = (id, result) => {
     sql.query("DELETE FROM Crop WHERE Crop_id = ?", id, (err, res) => {
         if (err) {

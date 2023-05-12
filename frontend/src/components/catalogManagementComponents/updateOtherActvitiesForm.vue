@@ -8,11 +8,13 @@
                          style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
+
           <div class="row">
                <p class="col-sm-12 text-center functionName">
                     CẬP NHẬT THÔNG TIN LẦN THỰC HIỆN HOẠT ĐỘNG CỦA MÙA VỤ
                </p>
           </div>
+
           <div class="row content">
                <div class="col-sm-12">
                     <div class="form-group">
@@ -44,13 +46,13 @@
                          hoạt động không thành công </span>
                </div>
           </div>
+
           <div class="row mb-4">
                <div class="col-sm-12 text-center">
                     <button class="btn btn-outline-secondary btnLuu">Lưu</button>
                </div>
 
           </div>
-
      </form>
 </template>
  

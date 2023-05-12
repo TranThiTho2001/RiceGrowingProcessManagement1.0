@@ -13,8 +13,11 @@ class EpidemicClassificationService {
      }
 
      getAll() { return http.get("/epidemicClassification"); }
+     
      get(id) { return http.get(`/epidemicClassification/${id}`); }
+     
      create(data) { return http.post("/epidemicClassification", data); }
+    
      findByName(name) { return http.get(`/epidemicClassification?name=${name}`); }
 }
 

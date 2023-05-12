@@ -6,6 +6,7 @@ const Role = function(role){
 };
 
 Role.create = (newRole, result) => {
+    
     sql.query("INSERT INTO Role SET ?", newRole, (err, res) => {
         if (err) {
             console.log("error: ", err);
@@ -16,6 +17,7 @@ Role.create = (newRole, result) => {
         result(null, { id: res.insertId, ...newRole });
     });
 };
+
 Role.findById = (id, result) => {
     sql.query(`SELECT * FROM role WHERE Role_id like '${id}'`, (err, res) => {
         if (err) {
@@ -64,10 +66,10 @@ Role.updateById = (id, role, result) => {
             }
             console.log("updated role: ", { id: id, ...role });
             result(null, { id: id, ...role });
-            
         }
     );
 };
+
 Role.remove = (id, result) => {
     sql.query("DELETE FROM role WHERE role_id = ?", id, (err, res) => {
         if (err) {

@@ -3,12 +3,11 @@ const config = require("../config");
 
 // Create and Save 
 exports.store = async (req, res) => {
-    // Create 
     const crop = new Crop({
         Crop_id: req.body.Crop_id,
         Crop_name: req.body.Crop_name,
     });
-    // Save Crop in the database
+
     Crop.create(crop, (err, data) => {
         if (err)
             res.send("Không thể tạo một vụ mùa mới")
@@ -26,6 +25,7 @@ exports.findAll = async (req, res) => {
     });
 };
 
+// find by Crop_id
 exports.find = async (req, res) => {
     const id = req.params.id;
     Crop.findById(id, (err, data) => {

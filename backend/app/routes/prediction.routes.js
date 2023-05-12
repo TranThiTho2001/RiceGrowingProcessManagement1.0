@@ -16,11 +16,5 @@ module.exports = (app) => {
      // // Store 
      router.post("/predictionwithLinearRegreesion/:RiceCropInformation_id", prediction.store);
 
-     // // Store 
-     // router.post("/predictionwithRandomForestRegression/:RiceCropInformation_id", prediction.store);
-
-     // // Delete  with id
-     // router.delete("/:id", prediction.delete);
-
      app.use("/api/prediction", router);
 };

@@ -11,6 +11,7 @@
                <div class="left" :class="{ navbarresponsive: openMenu.openMenu }">
                     <Catalog />
                </div>
+
                <div class="right rightRiceCropDetail" data-bs-spy="scroll">
                     <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
@@ -24,8 +25,6 @@
                     </div>
 
                     <div class="row row-inputSearch" >
-
-                         <!-- <button class="btn btnCome-back" @click="goToRiceCrop()">Trở về</button> -->
                          <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
                               @click="retrieveFertilizerList(), isOpenInput1 = true"
                               @keyup.enter="searchName(nameToSearch), away()"
@@ -44,6 +43,7 @@
                               @click="isOpenCreateFertilizerTimesForm = !isOpenCreateFertilizerTimesForm, active = true"> 
                               <i class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm</button>
                     </div>
+
                     <div class="row mt-3 pt-1 function-row" style=" margin-left:20px;margin-right: 10px ">
                          <div class="detail-Component text-left" v-for="(fertilizertimes, i) in fertilizerTimesList"
                               :key="i">
@@ -64,6 +64,7 @@
                                         </a>
                                    </div>
                               </div>
+
                               <h5 class="function-name text-center">Lần {{ fertilizertimes.FertilizerTimes_times }}</h5>
                               <span class="title-detail">Phân: </span>
                               <span class="value-name-detail">{{ fertilizertimes.Fertilizer_name }}</span><br>
@@ -80,6 +81,7 @@
                     </div>
                </div>
           </div>
+
           <div class="overlay2" v-if="isOpenConfirm">
                <div class="confirmationDialog">
                     <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
@@ -228,8 +230,7 @@ export default {
                          this.fertilizerTimesList = respone.data;
                          this.cloneFertilizerTimesList = respone.data;
                          this.newFertilizerTimes.FertilizerTimes_times = this.fertilizerTimesList[this.fertilizerTimesList.length - 1].FertilizerTimes_times + 1;
-                    }
-                    else {
+                    } else {
                          this.newFertilizerTimes.FertilizerTimes_times = 1;
                     }
                     this.newFertilizerTimes.Fertilizer = [];
@@ -246,8 +247,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.newRiceCrop = respone.data;
                }
           },
@@ -300,14 +300,13 @@ export default {
 
                     if (data.FertilizerTimes_startDate != null) {
                          data.FertilizerTimes_startDate = (moment(String(data.FertilizerTimes_startDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    }
-                    else {
+                    } else {
                          data.FertilizerTimes_startDate = null;
                     }
+
                     if (data.FertilizerTimes_endDate != null) {
                          data.FertilizerTimes_endDate = (moment(String(data.FertilizerTimes_endDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    }
-                    else {
+                    } else {
                          data.FertilizerTimes_endDate = null;
                     }
                     data.Fertilizer.forEach(element => {
@@ -371,20 +370,20 @@ export default {
 
                     if (data.FertilizerTimes_startDate != null) {
                          data.FertilizerTimes_startDate = (moment(String(data.FertilizerTimes_startDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    }
-                    else {
+                    } else {
                          data.FertilizerTimes_startDate = null;
                     }
+
                     if (data.FertilizerTimes_endDate != null) {
                          data.FertilizerTimes_endDate = (moment(String(data.FertilizerTimes_endDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    }
-                    else {
+                    } else {
                          data.FertilizerTimes_endDate = null;
                     }
 
                     const [error, respone] = await this.handle(
                          FertilizerTimesService.update(this.newRiceCrop.RiceCropInformation_id, data.Fertilizer_id, data.FertilizerTimes_times, data)
                     );
+
                     if (error) {
                          console.log(error);
                          this.message1 = "Cập nhật không thành công."
@@ -420,8 +419,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.developmentStageList = respone.data;
                }
           },
@@ -432,8 +430,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.fertilizerList = respone.data;
                }
           },
@@ -453,15 +450,13 @@ export default {
                          );
                          if (err) {
                               console.log(err)
-                         }
-                         else {
+                         } else {
                               if (respone.data != "Không tìm thấy lần bón phân.") {
                                    this.fertilizerTimesList = respone.data;
                               }
                               else this.fertilizerTimesList = [];
                          }
                     }
-
                }
                else {
                     this.retrieveFertilizerTimesList();
@@ -505,43 +500,3 @@ export default {
      border-radius: 5px;
 }
 </style>
-
-
-<!-- <nav aria-label="...">
-     <ul class="pagination " aria-controls="my-table">
-          <li class="page-item disabled" v-if="currentPage == 1">
-               <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
-          </li>
-          <li class="page-item " v-if="currentPage > 1">
-               <a class="page-link" href="#"
-                    @click="change_page('-', fertilizerTimesList)"
-                    aria-controls="my-table">{{
-                         previous }}</a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#"
-                    @click="change_page(currentPage - 1, monitorList)"
-                    v-if="currentPage > 1">{{
-                         currentPage - 1 }}</a></li>
-          <li class="page-item active">
-               <a class="page-link"
-                    style="background-color: #EEEA41; border-color: #EEEA41;" href="#">{{
-                         currentPage }} <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#"
-                    v-if="currentPage < num_pages(fertilizerTimesList)"
-                    @click="change_page(currentPage + 1, fertilizerTimesList)">{{
-                         currentPage + 1
-                    }}</a></li>
-          <li class="page-item">
-               <a class="page-link" href="#"
-                    @click="change_page('+', fertilizerTimesList)"
-                    v-if="currentPage < num_pages(fertilizerTimesList)">{{
-                         next }}</a>
-          </li>
-          <li class="page-item disabled">
-               <a class="page-link" href="#"
-                    v-if="currentPage >= num_pages(fertilizerTimesList)">{{
-                         next }}</a>
-          </li>
-     </ul>
-</nav> -->

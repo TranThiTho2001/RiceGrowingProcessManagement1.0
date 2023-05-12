@@ -1,6 +1,6 @@
 const sql = require("./db");
 
-const Employee = function(employee){
+const Employee = function (employee) {
     this.Employee_name = employee.Employee_name;
     this.Employee_major = employee.Employee_major;
     this.Employee_sex = employee.Employee_sex;
@@ -12,7 +12,7 @@ const Employee = function(employee){
     this.Employee_email = employee.Employee_email;
     this.Employee_birthDate = employee.Employee_birthDate;
     this.Employee_identityCardNumber = employee.Employee_identityCardNumber;
-    this. Employee_lockAccount = employee. Employee_lockAccount;
+    this.Employee_lockAccount = employee.Employee_lockAccount;
 }
 Employee.create = (newEmployee, result) => {
     sql.query("INSERT INTO Employee SET ?", newEmployee, (err, res) => {
@@ -25,6 +25,8 @@ Employee.create = (newEmployee, result) => {
         result(null, { id: res.insertId, ...newEmployee });
     });
 };
+
+// find by Employee_id
 Employee.findById = (id, result) => {
     sql.query(`SELECT * FROM employee WHERE Employee_id like '${id}'`, (err, res) => {
         if (err) {
@@ -41,9 +43,10 @@ Employee.findById = (id, result) => {
     });
 };
 
+// Retrieve all Employee from the database (with condition).
 Employee.getAll = (name, result) => {
-    let query = "SELECT * FROM Employee  JOIN Role on Role.Role_id = Employee.Role_id";
-    if(name) {
+    let query = "SELECT * FROM Employee  JOIN Role ON Role.Role_id = Employee.Role_id";
+    if (name) {
         query += ` Where Employee_name LIKE '%${name}%'`;
     }
     query += " Order By Employee.Employee_id";
@@ -57,10 +60,10 @@ Employee.getAll = (name, result) => {
     });
 };
 
-
-Employee.getPartial  = (name, result) => {
-    let query = "SELECT * FROM Employee  JOIN Role on Role.Role_id = Employee.Role_id Where Employee.Role_id = '02' OR Employee.Role_id = '03'";
-    if(name) {
+// look for employees with Role_id = 02 and Role_id = 03
+Employee.getPartial = (name, result) => {
+    let query = "SELECT * FROM Employee  JOIN Role ON Role.Role_id = Employee.Role_id Where Employee.Role_id = '02' OR Employee.Role_id = '03'";
+    if (name) {
         query += ` And Employee_name LIKE '%${name}%'`;
     }
     query += " Order By Employee.Employee_id";
@@ -74,14 +77,15 @@ Employee.getPartial  = (name, result) => {
     });
 };
 
+// Update a Employee identified by the id in the request
 Employee.updateById = (id, employee, result) => {
     sql.query(
         "UPDATE Employee SET Employee_name = ?, Employee_sex = ?, Employee_major = ?, Role_id =?, Employee_identityCardNumber = ?,  Employee_phoneNumber = ?,  Employee_address = ?, Employee_email = ?, Employee_birthDate = ?  WHERE Employee_id = ?",
-        [employee.Employee_name, employee.Employee_sex, employee.Employee_major,employee.Role_id, employee.Employee_identityCardNumber, employee.Employee_phoneNumber, employee.Employee_address, employee.Employee_email, employee.Employee_birthDate, id],
+        [employee.Employee_name, employee.Employee_sex, employee.Employee_major, employee.Role_id, employee.Employee_identityCardNumber, employee.Employee_phoneNumber, employee.Employee_address, employee.Employee_email, employee.Employee_birthDate, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
-                result(err,null );
+                result(err, null);
                 return;
             }
             if (res.affectedRows == 0) {
@@ -90,15 +94,16 @@ Employee.updateById = (id, employee, result) => {
                 return;
             }
             result(null, { id: id, ...employee });
-            
         }
     );
 };
+
+// Delete all Employee from the database.
 Employee.remove = (id, result) => {
     sql.query("DELETE FROM Employee WHERE Employee_id = ?", id, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(err,null);
+            result(err, null);
             return;
         }
         if (res.affectedRows == 0) {
@@ -110,11 +115,12 @@ Employee.remove = (id, result) => {
         result(null, res);
     });
 };
+
 Employee.removeAll = result => {
     sql.query("DELETE FROM Employee", (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(err,null );
+            result(err, null);
             return;
         }
         console.log(`deleted ${res.affectedRows} Employee`);
@@ -122,6 +128,7 @@ Employee.removeAll = result => {
     });
 };
 
+//change Password
 Employee.changePassword = (id, password, result) => {
     sql.query(
         "UPDATE Employee SET Employee_password = ? WHERE Employee_id = ?",
@@ -140,6 +147,5 @@ Employee.changePassword = (id, password, result) => {
         }
     );
 };
-
 
 module.exports = Employee;

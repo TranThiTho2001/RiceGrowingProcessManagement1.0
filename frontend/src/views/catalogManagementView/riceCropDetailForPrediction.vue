@@ -104,7 +104,8 @@
                                         <span v-if="getPrediction().yield != '00'"> {{
                                              formatDate(predictionList[0].Prediction_date) }}</span>
                                    </h4>
-                                   <button class="btn btnViewDetail" @click="openWeatherInfor = true" v-if="getPrediction().yield != '00'">Xem chi tiết</button>
+                                   <button class="btn btnViewDetail" @click="openWeatherInfor = true"
+                                        v-if="getPrediction().yield != '00'">Xem chi tiết</button>
                                    <table class="tableWeather tablePredict" v-if="weatherInfor.loadding">
                                         <thead>
                                              <tr>
@@ -160,7 +161,8 @@
                               </div>
                               <div class="row table-row">
                                    <h4 class="prediction-title2">Hoạt động bón phân</h4>
-                                   <button class="btn btnViewDetail " @click="openFertilizer = true" v-if="getPrediction().yield != '00'">Xem chi tiết</button>
+                                   <button class="btn btnViewDetail " @click="openFertilizer = true"
+                                        v-if="getPrediction().yield != '00'">Xem chi tiết</button>
                                    <table class="tableWeather tablePredict">
                                         <thead>
                                              <tr>
@@ -181,8 +183,46 @@
                                                   </td>
                                              </tr>
                                         </tbody>
+                                        <tbody v-if="fertilizerTimesList.length == 1">
+                                             <tr >
+                                                  <td class="text-center ">{{ fertilizerTimesList[0].FertilizerTimes_times }}
+                                                  </td>
+                                                  <td class="">{{ fertilizerTimesList[0].Fertilizer_name }}</td>
+                                                  <td class="text-center ">{{ fertilizerTimesList[0].FertilizerTimes_amount
+                                                  }}
+                                                  </td>
+                                                  <td class="text-center ">
+                                                       {{ toFixedNumber(fertilizerTimesList[0].QuantityUsed.N) }}</td>
+                                                  <td class="text-center ">{{
+                                                       toFixedNumber(fertilizerTimesList[0].QuantityUsed.P) }}</td>
+                                                  <td class="text-center ">{{
+                                                       toFixedNumber(fertilizerTimesList[0].QuantityUsed.K) }}</td>
+                                                  <td class="text-center ">{{
+                                                       formatDate(fertilizerTimesList[0].FertilizerTimes_startDate) }}</td>
+                                                  <td class="text-center ">{{
+                                                       formatDate(fertilizerTimesList[0].FertilizerTimes_endDate)
+                                                  }}</td>
+                                             </tr>
 
-                                        <tbody v-if="fertilizerTimesList.length < 4 && fertilizerTimesList.length > 0">
+                                             <tr>
+                                                  <td class=" final-row" colspan="2">Tổng</td>
+                                                  <td class="text-center final-row">{{
+                                                       toFixedNumber(total_amount_of_fertilizer_used.Total)
+                                                  }}</td>
+                                                  <td class="text-center final-row">{{
+                                                       toFixedNumber(total_amount_of_fertilizer_used.N) }}
+                                                  </td>
+                                                  <td class="text-center final-row">{{
+                                                       toFixedNumber(total_amount_of_fertilizer_used.P) }}
+                                                  </td>
+                                                  <td class="text-center final-row">{{
+                                                       toFixedNumber(total_amount_of_fertilizer_used.K) }}
+                                                  </td>
+                                                  <td class="text-center final-row"></td>
+                                                  <td class="text-center final-row"></td>
+                                             </tr>
+                                        </tbody>
+                                        <tbody v-if="fertilizerTimesList.length == 2 || fertilizerTimesList.length ==3">
 
                                              <tr v-for="i in fertilizerTimesList.length" :key="i">
                                                   <td class="text-center ">{{ fertilizerTimesList[i].FertilizerTimes_times }}

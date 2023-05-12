@@ -17,6 +17,7 @@ OtherActivities.create = (newOtherActivities, result) => {
     });
 };
 
+//find by OtherActivities_id
 OtherActivities.findById = (id, result) => {
     sql.query(`SELECT * FROM OtherActivities WHERE OtherActivities_id like '${id}'`, (err, res) => {
         if (err) {
@@ -33,6 +34,7 @@ OtherActivities.findById = (id, result) => {
     });
 };
 
+// Retrieve all OtherActivities from the database (with condition).
 OtherActivities.getAll = (name, result) => {
     let query = "SELECT * FROM OtherActivities";
     if (name) {
@@ -50,6 +52,7 @@ OtherActivities.getAll = (name, result) => {
     });
 };
 
+// Update a OtherActivities identified by the id in the request
 OtherActivities.updateById = (id, otherActivities, result) => {
     sql.query(
         "UPDATE OtherActivities SET OtherActivities_name = ? WHERE OtherActivities_id = ?",
@@ -66,12 +69,12 @@ OtherActivities.updateById = (id, otherActivities, result) => {
                 return;
             }
             console.log("updated OtherActivities: ", { id: id, ...otherActivities });
-            result(null, { id: id, ...otherActivities });
-            
+            result(null, { id: id, ...otherActivities });           
         }
     );
 };
 
+// Delete a OtherActivities with the specified id in the request
 OtherActivities.remove = (id, result) => {
     sql.query("DELETE FROM OtherActivities WHERE OtherActivities_id = ?", id, (err, res) => {
         if (err) {
@@ -85,18 +88,6 @@ OtherActivities.remove = (id, result) => {
             return;
         }
         console.log("deleted OtherActivities with id: ", id);
-        result(null, res);
-    });
-};
-
-OtherActivities.removeAll = result => {
-    sql.query("DELETE FROM OtherActivities", (err, res) => {
-        if (err) {
-            console.log("error: ", err);
-            result(err, null);
-            return;
-        }
-        console.log(`deleted ${res.affectedRows} OtherActivities`);
         result(null, res);
     });
 };

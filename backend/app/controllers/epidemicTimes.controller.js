@@ -12,12 +12,8 @@ exports.store = async (req, res) => {
           EpidemicTimes_times: req.body.EpidemicTimes_times,
           EpidemicTimes_startDate: req.body.EpidemicTimes_startDate,
           EpidemicTimes_endDate: req.body.EpidemicTimes_endDate,
-          // EpidemicTimes_temperature: req.body.EpidemicTimes_temperature,
-          // EpidemicTimes_humidity: req.body.EpidemicTimes_humidity,
-          // EpidemicTimes_precipitation: req.body.EpidemicTimes_precipitation,
-          // EpidemicTimes_solarRadiation: req.body.EpidemicTimes_solarRadiation,
-          // EpidemicTimes_windSpeed: req.body.EpidemicTimes_windSpeed
      });
+
      // Save EpidemicTimes in the database
      EpidemicTimes .create(epidemicTimes, (err, data) => {
           if (err)
@@ -36,6 +32,7 @@ exports.findAll = async (req, res) => {
      });
 };
 
+// find by Epidemic_name
 exports.findByName = async (req, res) => {
      const  name = req.query.name;
     const  id = req.params.RiceCropInformation_id;
@@ -50,6 +47,8 @@ exports.findByName = async (req, res) => {
           } else res.send(data)
      })
 };
+
+//find by RiceCropInformation_id
 exports.findbyIdRiceCropInformation = async (req, res) => {
      const id = req.params.RiceCropInformation_id;
      EpidemicTimes.findByIdRiceCropInformation(id, (err, data) => {

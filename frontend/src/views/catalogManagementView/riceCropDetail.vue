@@ -57,7 +57,7 @@
                               <img src="../../images/saubenh.png" class="img-fluid imageclass">
                               <h5 class="name-Component">BỆNH DỊCH</h5>
                          </div>
-                         <div class="function-Component text-center" @click="goToSupervisionRights()">
+                         <div class="function-Component text-center" @click="goToSupervisionRights()" v-if="currentUser.Role_id == '02'">
                               <img src="../../images/tham-dong.jpg" class="img-fluid imageclass">
                               <h5 class="name-Component">NGƯỜI THEO DÕI</h5>
                          </div>
@@ -65,6 +65,10 @@
                          <div class="function-Component text-center" @click="goToActivities()">
                               <img src="../../images/activities2.png" class="img-fluid imageclass">
                               <h5 class="name-Component">HOẠT ĐỘNG</h5>
+                         </div>
+                         <div class="function-Component text-center" @click="goToSupervisionRights()" v-if="currentUser.Role_id == '03'" style="visibility: hidden;">
+                              <img src="../../images/tham-dong.jpg" class="img-fluid imageclass">
+                              <h5 class="name-Component">NGƯỜI THEO DÕI</h5>
                          </div>
 
                     </div>

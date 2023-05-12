@@ -8,11 +8,13 @@
                          style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
+
           <div class="row">
                <p class="col-sm-12 text-center functionName">
                     CẬP NHẬT THÔNG TIN PHÂN BÓN
                </p>
           </div>
+
           <div class="row content">
                <div class="col-md-3">
                     <div class="form-group">
@@ -33,9 +35,8 @@
                               <ErrorMessage :name="contain.Nutrient_id" class="error-feedback" />
                          </div>
                     </div>
-
-
                </div>
+
                <div class="col-md-4">
                     <div class="form-group">
                          <label for="name" class="">Tên phân bón <span style="color: red">*</span></label>
@@ -50,6 +51,7 @@
                               placeholder="Nhà cung cấp phân bón..." />
                          <ErrorMessage name="supplier" class="error-feedback" />
                     </div>
+
                     <div class="row form-group " style="width: 99%; margin-left: 1%;">
                          <label for="supplier mt-3" class="" style="margin-top: 20px;">Hình ảnh <span style="color: red">*</span></label>
                          <div class="col-sm-12 text-center form-control" style="height: 250px !important;">
@@ -62,7 +64,6 @@
                               </div>
                          </div>
                     </div>
-
                </div>
 
                <div class="col-md-5">
@@ -97,12 +98,12 @@
                     </span>
                </div>
           </div>
+
           <div class="row mb-2">
                <div class="col-sm-12 text-center">
                     <button class="btn btn-outline-secondary btnLuu col-sm-2">Cập Nhật</button>
                </div>
           </div>
-
      </form>
 </template>
  

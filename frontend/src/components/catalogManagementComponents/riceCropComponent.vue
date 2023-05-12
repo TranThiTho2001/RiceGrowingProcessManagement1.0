@@ -7,57 +7,33 @@
                          <img :src="riceCrop.Images_link" class="img-fluid imageRiceCrop" alt=""
                               style=" display: block; max-height: 190px;">
                     </div>
+
                     <div class="row body-riceCropComponent ">
                          <div class="col-sm-12" style="margin-top: 10px !important; margin-left: 4%;">
                               <div class="row">
                                    <p class="textid">{{ riceCrop.RiceCropInformation_name }}</p>
                               </div>
+
                               <div class="row">
                                    <div style="width: 80%; padding-left: 2px;">
                                         <p class="textname">
-                                            {{ riceCrop.Province_name }}
+                                             {{ riceCrop.Province_name }}
                                         </p>
                                         <p class="textname">
-                                           {{ riceCrop.ArableLand_owner }}
+                                             {{ riceCrop.ArableLand_owner }}
                                         </p>
                                    </div>
-                              <div class="text-right"  style="width: 80%;">
-                              <button v-if="riceCrop.RiceCropInformation_harvestDate == null"
-                                   class="btn btn-sm btnMonitoring ">{{
-                                        get_day_of_time(riceCrop.RiceCropInformation_sowingDate) }} Ngày</button>
-                              <button v-if="riceCrop.RiceCropInformation_harvestDate != null" class="btn btnFinish">Kết
-                                   thúc</button>
-                         </div>
+
+                                   <div class="text-right" style="width: 80%;">
+                                        <button v-if="riceCrop.RiceCropInformation_harvestDate == null"
+                                             class="btn btn-sm btnMonitoring ">{{
+                                                  get_day_of_time(riceCrop.RiceCropInformation_sowingDate) }} Ngày</button>
+                                        <button v-if="riceCrop.RiceCropInformation_harvestDate != null"
+                                             class="btn btnFinish">
+                                             Kết thúc</button>
+                                   </div>
                               </div>
-
-
                          </div>
-
-                         <!-- <div class="row ml-2 mr-1">
-                              <table style="width: 95%;">
-                                   <tr>
-                                        <td class="text-center"><i class="fas fa-info-circle mt-1"
-                                                  style="color: #919302; font-size: 26px;"></i></td>
-                                        <td class="col-sm-12 text-center" style="justify-content: center;">
-                                             <button v-if="riceCrop.RiceCropInformation_harvestDate != null"
-                                                  class="btn btnFinish">Đã kết thúc</button>
-                                             <button v-if="riceCrop.RiceCropInformation_harvestDate == null"
-                                                  class="btn btn-sm btnMonitoring ">Đang theo dõi</button>
-                                        </td>
-                                        <td class="text-center"><i class="fas fa-ellipsis-v mt-1 mb-2"
-                                                  style="color: #919302; font-size: 25px; ">
-                                                  <div class="deleteIcon ">
-                                                       <a style="width: 70px; height: 30px; background-color:#919302; font-size: 15px;"
-                                                            class="row">Xoas
-                                                       </a>
-                                                  </div>
-                                             </i>
-                                        </td>
-                                   </tr>
-
-                              </table>
-
-                         </div> -->
                     </div>
                </div>
           </router-link>
@@ -72,10 +48,6 @@ export default {
      props: ["riceCrop"],
 
      methods: {
-          formatMoney(data) {
-               let val = (data / 1).toFixed(0).replace(".", ",");
-               return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-          },
 
           get_day_of_time(d1) {
                let ms1 = (new Date(d1)).getTime();
@@ -84,7 +56,6 @@ export default {
                return Math.ceil((ms2 - ms1) / (24 * 60 * 60 * 1000));
           },
      },
-
 
 };
 </script>
@@ -96,7 +67,6 @@ export default {
 }
 
 .body-riceCropComponent {
-     /* padding: 1px 1px 1px 1px; */
      border: none;
      padding-top: 0px;
      margin-bottom: 2px;
@@ -125,7 +95,6 @@ export default {
 
 .add-btn:hover {
      color: #919302;
-     /* background-color: #515151; */
      border-color: #413e3e;
 }
 
@@ -245,18 +214,19 @@ export default {
           margin-top: 2px !important;
           left: -59%;
           right: 0%;
-          top:2px;
+          top: 2px;
      }
 }
 
 @media screen and (max-width: 400px) {
+
      .riceCropComponent .btnMonitoring,
      .riceCropComponent .btnFinish {
           position: relative;
           margin-top: 2px !important;
           left: -50%;
           right: 0%;
-          top:2px;
+          top: 2px;
      }
 }
 

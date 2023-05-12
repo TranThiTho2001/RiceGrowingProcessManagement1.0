@@ -9,10 +9,6 @@ const FertilizerTimes = function (fertilizerTimes) {
      this.FertilizerTimes_amount = fertilizerTimes.FertilizerTimes_amount;
      this.FertilizerTimes_startDate = fertilizerTimes.FertilizerTimes_startDate;
      this.FertilizerTimes_endDate = fertilizerTimes.FertilizerTimes_endDate;
-     // this.FertilizerTimes_temperature = fertilizerTimes.FertilizerTimes_temperature;
-     // this.FertilizerTimes_humidity = fertilizerTimes.FertilizerTimes_humidity;
-     // this.FertilizerTimes_precipitation = fertilizerTimes.FertilizerTimes_precipitation;
-     // this.FertilizerTimes_windSpeed = fertilizerTimes.FertilizerTimes_windSpeed;
 }
 
 FertilizerTimes.create = (newFertilizerTimes, result) => {
@@ -27,12 +23,13 @@ FertilizerTimes.create = (newFertilizerTimes, result) => {
      });
 };
 
+//find by RiceCropInformation_id
 FertilizerTimes.findByIdRiceCropInformation = (id, result) => {
-     sql.query(`SELECT * FROM FertilizerTimes JOIN Fertilizer on Fertilizer.Fertilizer_id = FertilizerTimes.Fertilizer_id ` +
-          `JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = FertilizerTimes.RiceCropInformation_id `+
-          ` JOIN Employee on Employee.Employee_id = FertilizerTimes.Employee_id `+
-          `WHERE FertilizerTimes.RiceCropInformation_id like '${id}'`
-          + ` ORDER BY  FertilizerTimes.FertilizerTimes_times`, (err, res) => {
+     sql.query(`SELECT * FROM FertilizerTimes JOIN Fertilizer on Fertilizer.Fertilizer_id = FertilizerTimes.Fertilizer_id` +
+          ` JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = FertilizerTimes.RiceCropInformation_id`+
+          ` JOIN Employee on Employee.Employee_id = FertilizerTimes.Employee_id`+
+          ` WHERE FertilizerTimes.RiceCropInformation_id like '${id}'`+ 
+          ` ORDER BY FertilizerTimes.FertilizerTimes_times`, (err, res) => {
           if (err) {
                console.log("error: ", err);
                result(err, null);
@@ -47,15 +44,16 @@ FertilizerTimes.findByIdRiceCropInformation = (id, result) => {
      });
 };
 
+// Retrieve all FertilizerTimes from the database (with condition).
 FertilizerTimes.getAll = (Fertilizer_id, result) => {
      let query = "SELECT * FROM FertilizerTimes "+
-    ` JOIN Fertilizer on Fertilizer.Fertilizer_id = FertilizerTimes.Fertilizer_id ` +
-          `JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = FertilizerTimes.RiceCropInformation_id `+
+          ` JOIN Fertilizer on Fertilizer.Fertilizer_id = FertilizerTimes.Fertilizer_id` +
+          ` JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = FertilizerTimes.RiceCropInformation_id`+
           ` JOIN Employee on Employee.Employee_id = FertilizerTimes.Employee_id ` ;
      if (Fertilizer_id) {
           query += ` WHERE Fertilizer_id LIKE '%${Fertilizer_id}%'`;
      }
-     query +=  ` ORDER BY  FertilizerTimes.FertilizerTimes_times`;
+     query += ` ORDER BY  FertilizerTimes.FertilizerTimes_times`;
      sql.query(query, (err, res) => {
           if (err) {
                console.log("error: ", err);
@@ -65,12 +63,14 @@ FertilizerTimes.getAll = (Fertilizer_id, result) => {
           result(null, res);
      });
 };
+
+// find by Fertilizer_name and RiceCropInformation_id
 FertilizerTimes.findByName = (name,id, result) => {
      console.log(name)
-     sql.query(`SELECT * FROM FertilizerTimes JOIN Fertilizer on Fertilizer.Fertilizer_id = FertilizerTimes.Fertilizer_id ` +
-          `JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = FertilizerTimes.RiceCropInformation_id `+
+     sql.query(`SELECT * FROM FertilizerTimes JOIN Fertilizer on Fertilizer.Fertilizer_id = FertilizerTimes.Fertilizer_id` +
+          ` JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = FertilizerTimes.RiceCropInformation_id`+
           ` JOIN Employee on Employee.Employee_id = FertilizerTimes.Employee_id `+
-          `WHERE FertilizerTimes.RiceCropInformation_id like '${id}' AND Fertilizer.Fertilizer_name like '%${name}%' ORDER BY  FertilizerTimes.FertilizerTimes_times`, (err, res) => {
+          ` WHERE FertilizerTimes.RiceCropInformation_id like '${id}' AND Fertilizer.Fertilizer_name like '%${name}%' ORDER BY  FertilizerTimes.FertilizerTimes_times`, (err, res) => {
           if (err) {
                console.log("error: ", err);
                result(err, null);
@@ -84,6 +84,8 @@ FertilizerTimes.findByName = (name,id, result) => {
           result({ kind: "not_found" }, null);
      });
 };
+
+// Update a FertilizerTimes identified by the id in the request
 FertilizerTimes.updateById = (riceCropInformation_id, Fertilizer_id, times, fertilizerTimes, result) => {
      sql.query(
           "UPDATE FertilizerTimes SET Employee_id = ?, DevelopmentStage_id = ?, FertilizerTimes_amount = ?, FertilizerTimes_startDate = ?, FertilizerTimes_endDate = ? WHERE (RiceCropInformation_id = ? And Fertilizer_id = ? and FertilizerTimes_times = ?)",
@@ -100,11 +102,11 @@ FertilizerTimes.updateById = (riceCropInformation_id, Fertilizer_id, times, fert
                     return;
                }
                result(null, { riceCropInformation_id: riceCropInformation_id, ...fertilizerTimes });
-
           }
      );
 };
 
+// Delete a FertilizerTimes with the specified id in the request
 FertilizerTimes.remove = (riceCropInformation_id, Fertilizer_id, times, result) => {
      sql.query(`DELETE FROM FertilizerTimes WHERE (RiceCropInformation_id LIKE '${riceCropInformation_id}' AND Fertilizer_id LIKE '${Fertilizer_id}' AND FertilizerTimes_times LIKE '${times}')`, (err, res) => {
           if (err) {
@@ -118,18 +120,6 @@ FertilizerTimes.remove = (riceCropInformation_id, Fertilizer_id, times, result) 
                return;
           }
           console.log("deleted FertilizerTimes with id: ", riceCropInformation_id);
-          result(null, res);
-     });
-};
-
-FertilizerTimes.removeAll = result => {
-     sql.query("DELETE FROM FertilizerTimes", (err, res) => {
-          if (err) {
-               console.log("error: ", err);
-               result(err, null);
-               return;
-          }
-          console.log(`deleted ${res.affectedRows} FertilizerTimes`);
           result(null, res);
      });
 };

@@ -8,7 +8,8 @@ exports.store = async (req, res) => {
         Algorithm_id: req.body.Algorithm_id,
         Algorithm_name: req.body.Algorithm_name,
     });
-    // Save Algorithm in the database
+
+    // Save Algorithm in the database// Save Algorithm in the database
     Algorithm.create(algorithm, (err, data) => {
         if (err)
             res.send("Không thể tạo một giải thuật mới")
@@ -26,6 +27,7 @@ exports.findAll = async (req, res) => {
     });
 };
 
+// find by  Algorithm_id
 exports.find = async (req, res) => {
     const id = req.params.id;
     Algorithm.findById(id, (err, data) => {

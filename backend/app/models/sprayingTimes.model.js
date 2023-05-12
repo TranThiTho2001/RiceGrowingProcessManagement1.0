@@ -9,11 +9,6 @@ const SprayingTimes = function (sprayingTimes) {
      this.SprayingTimes_amount = sprayingTimes.SprayingTimes_amount;
      this.SprayingTimes_startDate = sprayingTimes.SprayingTimes_startDate;
      this.SprayingTimes_endDate = sprayingTimes.SprayingTimes_endDate;
-     // this.SprayingTimes_temperature = sprayingTimes.SprayingTimes_temperature;
-     // this.SprayingTimes_humidity= sprayingTimes.SprayingTimes_humidity;
-     // this.SprayingTimes_precipitation = sprayingTimes.SprayingTimes_precipitation;
-     // this.SprayingTimes_windSpeed = sprayingTimes.SprayingTimes_windSpeed;
-     // this.SprayingTimes_solarRadiation = sprayingTimes.SprayingTimes_solarRadiation;
 }
 
 SprayingTimes.create = (newSprayingTimes, result) => {
@@ -29,29 +24,31 @@ SprayingTimes.create = (newSprayingTimes, result) => {
      });
 };
 
+//find by RiceCropInformation_id
 SprayingTimes.findByIdRiceCropInformation = (id, result) => {
-     sql.query(`SELECT * FROM SprayingTimes JOIN Employee on Employee.Employee_id = SprayingTimes.Employee_id` +
-     ` JOIN Pesticide on Pesticide.Pesticide_id = SprayingTimes.Pesticide_id` + 
-     ` JOIN Developmentstage on developmentstage.DevelopmentStage_id = SprayingTimes.DevelopmentStage_id` +
-      ` WHERE RiceCropInformation_id like '${id}' ORDER BY SprayingTimes.SprayingTimes_times`, (err, res) => {
-          if (err) {
-               console.log("error: ", err);
-               result(err, null);
-               return;
-          }
-          if (res.length) {
-               result(null, res);
-               return;
-          }
-          // not found SprayingTimes with the id
-          result({ kind: "not_found" }, null);
+     sql.query(`SELECT * FROM SprayingTimes JOIN Employee ON Employee.Employee_id = SprayingTimes.Employee_id` +
+          ` JOIN Pesticide ON Pesticide.Pesticide_id = SprayingTimes.Pesticide_id` + 
+          ` JOIN Developmentstage ON developmentstage.DevelopmentStage_id = SprayingTimes.DevelopmentStage_id` +
+          ` WHERE RiceCropInformation_id like '${id}' ORDER BY SprayingTimes.SprayingTimes_times`, (err, res) => {
+               if (err) {
+                    console.log("error: ", err);
+                    result(err, null);
+                    return;
+               }
+               if (res.length) {
+                    result(null, res);
+                    return;
+               }
+               // not found SprayingTimes with the id
+               result({ kind: "not_found" }, null);
      });
 };
 
+// Retrieve all SprayingTimes from the database (with condition).
 SprayingTimes.getAll = (Pesticide_id, result) => {
-     let query = "SELECT * FROM SprayingTimes JOIN Employee on Employee.Employee_id = SprayingTimes.Employee_id" +
-     " JOIN Pesticide on Pesticide.Pesticide_id = SprayingTimes.Pesticide_id" + 
-     " JOIN Developmentstage on developmentstage.DevelopmentStage_id = SprayingTimes.DevelopmentStage_id";
+     let query = "SELECT * FROM SprayingTimes JOIN Employee ON Employee.Employee_id = SprayingTimes.Employee_id" +
+               " JOIN Pesticide ON Pesticide.Pesticide_id = SprayingTimes.Pesticide_id" + 
+               " JOIN Developmentstage ON developmentstage.DevelopmentStage_id = SprayingTimes.DevelopmentStage_id";
      if (Pesticide_id) {
           query += ` WHERE Pesticide_id LIKE '%${Pesticide_id}%' AND RiceCropInformation_id LIKE '${id}' ORDER BY SprayingTimes.SprayingTimes_times`;
      }
@@ -64,10 +61,11 @@ SprayingTimes.getAll = (Pesticide_id, result) => {
           result(null, res);
      });
 };
+
 SprayingTimes.findByName = (Pesticide_name,id, result) => {
-     let query = "SELECT * FROM SprayingTimes JOIN Employee on Employee.Employee_id = SprayingTimes.Employee_id" +
-     " JOIN Pesticide on Pesticide.Pesticide_id = SprayingTimes.Pesticide_id" + 
-     " JOIN Developmentstage on developmentstage.DevelopmentStage_id = SprayingTimes.DevelopmentStage_id";
+     let query = "SELECT * FROM SprayingTimes JOIN Employee ON Employee.Employee_id = SprayingTimes.Employee_id" +
+               " JOIN Pesticide ON Pesticide.Pesticide_id = SprayingTimes.Pesticide_id" + 
+               " JOIN Developmentstage ON developmentstage.DevelopmentStage_id = SprayingTimes.DevelopmentStage_id";
      if (Pesticide_name) {
           query += ` WHERE Pesticide_name LIKE '%${Pesticide_name}%' AND RiceCropInformation_id LIKE '${id}' ORDER BY SprayingTimes.SprayingTimes_times`;
      }
@@ -80,6 +78,8 @@ SprayingTimes.findByName = (Pesticide_name,id, result) => {
           result(null, res);
      });
 };
+
+// Update a SprayingTimes identified by the id in the request
 SprayingTimes.updateById = (riceCropInformation_id, Pesticide_id, times, sprayingTimes, result) => {
      sql.query(
           "UPDATE SprayingTimes SET Employee_id = ?, DevelopmentStage_id = ?, SprayingTimes_amount = ?, SprayingTimes_startDate = ?, SprayingTimes_endDate = ? WHERE (RiceCropInformation_id = ? And Pesticide_id = ? and SprayingTimes_times = ?)",
@@ -96,11 +96,11 @@ SprayingTimes.updateById = (riceCropInformation_id, Pesticide_id, times, sprayin
                     return;
                }
                result(null, { riceCropInformation_id: riceCropInformation_id, ...sprayingTimes });
-
           }
      );
 };
 
+// Delete a SprayingTimes with the specified id in the request
 SprayingTimes.remove = (riceCropInformation_id, Pesticide_id, times, result) => {
      sql.query(`DELETE FROM SprayingTimes WHERE (RiceCropInformation_id LIKE '${riceCropInformation_id}' AND Pesticide_id LIKE '${Pesticide_id}' AND SprayingTimes_times LIKE '${times}')`, (err, res) => {
           if (err) {

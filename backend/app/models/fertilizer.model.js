@@ -3,10 +3,10 @@ const sql = require("./db");
 const Fertilizer = function(fertilizer){
     this.Fertilizer_id = fertilizer.Fertilizer_id;
     this.Fertilizer_name = fertilizer.Fertilizer_name;
-    this.Fertilizer_supplier = fertilizer.Fertilizer_supplier;
     this.Fertilizer_uses = fertilizer.Fertilizer_uses;
-    this.Fertilizer_directionsForUse = fertilizer.Fertilizer_directionsForUse;
     this.Fertilizer_image = fertilizer.Fertilizer_image;
+    this.Fertilizer_supplier = fertilizer.Fertilizer_supplier;
+    this.Fertilizer_directionsForUse = fertilizer.Fertilizer_directionsForUse;
 };
 
 Fertilizer.create = (newFertilizer, result) => {
@@ -21,6 +21,7 @@ Fertilizer.create = (newFertilizer, result) => {
     });
 };
 
+//find by Fertilizer_id
 Fertilizer.findById = (id, result) => {
     sql.query(`SELECT * FROM Fertilizer WHERE Fertilizer_id like '${id}'`, (err, res) => {
         if (err) {
@@ -37,6 +38,7 @@ Fertilizer.findById = (id, result) => {
     });
 };
 
+// Retrieve all Fertilizer from the database (with condition).
 Fertilizer.getAll = (name, result) => {
     let query = "SELECT * FROM Fertilizer";
     if (name) {
@@ -52,6 +54,7 @@ Fertilizer.getAll = (name, result) => {
     });
 };
 
+// Update a Fertilizer identified by the id in the request
 Fertilizer.updateById = (id, fertilizer, result) => {
     sql.query(
         "UPDATE Fertilizer SET Fertilizer_name = ?, Fertilizer_supplier = ?, Fertilizer_uses = ?, Fertilizer_directionsForUse = ? , Fertilizer_image =? WHERE Fertilizer_id = ?",
@@ -69,11 +72,11 @@ Fertilizer.updateById = (id, fertilizer, result) => {
             }
             console.log("updated Fertilizer: ", { id: id, ...fertilizer });
             result(null, { id: id, ...fertilizer });
-            
         }
     );
 };
 
+// Delete a Fertilizer with the specified id in the request
 Fertilizer.remove = (id, result) => {
     sql.query("DELETE FROM Fertilizer WHERE Fertilizer_id = ?", id, (err, res) => {
         if (err) {
@@ -87,18 +90,6 @@ Fertilizer.remove = (id, result) => {
             return;
         }
         console.log("deleted Fertilizer with id: ", id);
-        result(null, res);
-    });
-};
-
-Fertilizer.removeAll = result => {
-    sql.query("DELETE FROM Fertilizer", (err, res) => {
-        if (err) {
-            console.log("error: ", err);
-            result(err, null);
-            return;
-        }
-        console.log(`deleted ${res.affectedRows} Fertilizer`);
         result(null, res);
     });
 };

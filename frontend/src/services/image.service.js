@@ -13,6 +13,7 @@ class ImageService {
      }
 
      getByID(id) { return http.get(`/image/${id}`); }
+     
      create(data) {
           return http.post("/image", data);
      }

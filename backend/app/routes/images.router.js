@@ -6,11 +6,15 @@ const handle = require("../helpers/promise");
 
 module.exports = (app) => {
     var router = express.Router();
+
+    // save image
     router.post("/", upload.single('image'),images.store);
+
+    // get all
     router.get("/",images.findAll);
+
+    //find by Images_id
     router.get("/:id",images.find);
-     router.put("/:id", images.update);
-     router.delete("/:id", images.delete);
         
     app.use("/api/images", router);
 

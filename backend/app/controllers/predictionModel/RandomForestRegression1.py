@@ -56,29 +56,7 @@ sys.stdout.flush()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# ------------------------------Training model-----------------------------
 
 # import warnings
 # warnings.filterwarnings('ignore')

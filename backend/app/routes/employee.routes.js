@@ -7,8 +7,10 @@ module.exports = (app) => {
      // Retrieve all 
      router.get("/", employee.findAll);
      
+     // find by Employee_id
      router.get("/:id", employee.find)
 
+     // look for employees with Role_id = 02 and Role_id = 03
      router.get("/find/findPartial", employee.findPartial)
 
      // Store 
@@ -22,7 +24,7 @@ module.exports = (app) => {
      // Delete  with id
      router.delete("/:id", employee.delete);
 
-
+     //Signin
      router.post("/signin", employee.signin);
 
      app.use("/api/employee", router);

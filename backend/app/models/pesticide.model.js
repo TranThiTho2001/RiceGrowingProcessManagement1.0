@@ -22,6 +22,7 @@ Pesticide.create = (newPesticide, result) => {
     });
 };
 
+//find by Pesticide_id
 Pesticide.findById = (id, result) => {
     sql.query(`SELECT * FROM Pesticide WHERE Pesticide_id like '${id}'`, (err, res) => {
         if (err) {
@@ -38,6 +39,7 @@ Pesticide.findById = (id, result) => {
     });
 };
 
+// Retrieve all Pesticide from the database (with condition).
 Pesticide.getAll = (name, result) => {
     let query = "SELECT * FROM Pesticide";
     if (name) {
@@ -54,6 +56,7 @@ Pesticide.getAll = (name, result) => {
     });
 };
 
+// Update a Pesticide identified by the id in the request
 Pesticide.updateById = (id, pesticide, result) => {
     sql.query(
         "UPDATE Pesticide SET Pesticide_name = ?, Pesticide_supplier = ?, Pesticide_component = ?, Pesticide_directionsForUse = ?, Pesticide_uses = ?, Pesticide_image = ? WHERE Pesticide_id = ?",
@@ -70,12 +73,12 @@ Pesticide.updateById = (id, pesticide, result) => {
                 return;
             }
             console.log("updated Pesticide: ", { id: id, ...pesticide });
-            result(null, { id: id, ...pesticide });
-            
+            result(null, { id: id, ...pesticide });           
         }
     );
 };
 
+// Delete a Pesticide with the specified id in the request
 Pesticide.remove = (id, result) => {
     sql.query("DELETE FROM Pesticide WHERE Pesticide_id = ?", id, (err, res) => {
         if (err) {

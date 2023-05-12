@@ -14,6 +14,7 @@ exports.store = async (req, res) => {
         EpidemicClassification_id: req.body.EpidemicClassification_id,
         Epidemic_image: req.body.Epidemic_image,
      });
+
     // Save Epidemic in the database
     Epidemic.create(epidemic, (err, data) => {
         if (err)
@@ -32,6 +33,7 @@ exports.findAll = async (req, res) => {
     });
 };
 
+//find by Epidemic_id
 exports.find = async (req, res) => {
     const id = req.params.id;
     Epidemic.findById(id, (err, data) => {

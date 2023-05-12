@@ -7,12 +7,13 @@
                     style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
+
           <div class="row">
                <p class="col-sm-12 text-center functionName">
                     QUẢN LÝ QUYỀN THEO DÕI MÙA VỤ
                </p>
-
           </div>
+
           <div class="row ml-2 mr-2">
                <input type="text" class="form-control col-sm-4 pt-2 inputSearch" placeholder="Tìm theo tên"
                     style="border-radius:10px" v-model="nameToSearch" @keyup.enter="searchName" />
@@ -52,7 +53,6 @@
                </div>
           </div>
 
-
           <div class="row ">
                <div class="col-sm-12 mt-2 mb-3 text-center">
                     <span v-if="message2 == 'Thêm thành công.'" class="fas fa-check-circle"
@@ -64,6 +64,7 @@
                     <span v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2"> {{ message1 }} </span>
                </div>
           </div>
+
      </div>
 </template>
  
@@ -102,7 +103,6 @@ export default {
                     else {
                          console.log(response.data)
                     }
-
                }
           },
 
@@ -171,7 +171,6 @@ export default {
                });
                this.loaded = true;
           },
-
      },
 
      mounted() {

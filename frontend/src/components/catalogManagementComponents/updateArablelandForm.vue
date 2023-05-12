@@ -8,11 +8,13 @@
                          style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
+
           <div class="row">
                <p class="col-sm-12 text-center functionName">
                     CẬP NHẬT THÔNG TIN MẪU RUỘNG
                </p>
           </div>
+
           <div class="row content">
                <div class="col-sm-6 mt-2">
                     <div class="form-group">
@@ -47,6 +49,7 @@
                          <ErrorMessage name="owner" class="error-feedback" />
                     </div>
                </div>
+               
                <div class="col-sm-6">
                     <div class="form-group">
                          <label for="latitude" class="mt-3">Vĩ độ <span style="color: red">*</span></label>

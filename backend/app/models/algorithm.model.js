@@ -5,6 +5,7 @@ const Algorithm = function(algorithm){
     this.Algorithm_name = algorithm.Algorithm_name;
 };
 
+// Save Algorithm in the database
 Algorithm.create = (newAlgorithm, result) => {
     sql.query("INSERT INTO Algorithm SET ?", newAlgorithm, (err, res) => {
         if (err) {
@@ -17,6 +18,7 @@ Algorithm.create = (newAlgorithm, result) => {
     });
 };
 
+// find by  Algorithm_id
 Algorithm.findById = (id, result) => {
     sql.query(`SELECT * FROM Algorithm WHERE Algorithm_id like '${id}'`, (err, res) => {
         if (err) {
@@ -34,6 +36,7 @@ Algorithm.findById = (id, result) => {
     });
 };
 
+// Retrieve all Algorithm from the database (with condition).
 Algorithm.getAll = (name, result) => {
     let query = "SELECT * FROM Algorithm";
     if (name) {
@@ -49,6 +52,7 @@ Algorithm.getAll = (name, result) => {
     });
 };
 
+// Update a Algorithm identified by the id in the request
 Algorithm.updateById = (id, algorithm, result) => {
     sql.query(
         "UPDATE Algorithm SET Algorithm_name = ? WHERE Algorithm_id = ?",
@@ -71,6 +75,7 @@ Algorithm.updateById = (id, algorithm, result) => {
     );
 };
 
+// Delete a Algorithm with the specified id in the request
 Algorithm.remove = (id, result) => {
     sql.query("DELETE FROM Algorithm WHERE Algorithm_id = ?", id, (err, res) => {
         if (err) {

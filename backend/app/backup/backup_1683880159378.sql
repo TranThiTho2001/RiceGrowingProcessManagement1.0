@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `backup` (
   `Backup_id` int NOT NULL AUTO_INCREMENT,
   `Backup_date` datetime NOT NULL,
   PRIMARY KEY (`Backup_id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 39 DEFAULT CHARSET = utf8mb3 COLLATE = utf8mb3_unicode_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 58 DEFAULT CHARSET = utf8mb3 COLLATE = utf8mb3_unicode_ci;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: contain
@@ -147,6 +147,7 @@ CREATE TABLE IF NOT EXISTS `epidemic` (
   `Epidemic_developmentEnvironment` varchar(500) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `Epidemic_Harm` varchar(1000) COLLATE utf8mb3_unicode_ci NOT NULL,
   `EpidemicClassification_id` char(8) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `Epidemic_image` varchar(500) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`Epidemic_id`),
   KEY `g` (`EpidemicClassification_id`),
   CONSTRAINT `g` FOREIGN KEY (`EpidemicClassification_id`) REFERENCES `epidemicclassification` (`EpidemicClassification_id`)
@@ -199,6 +200,7 @@ CREATE TABLE IF NOT EXISTS `fertilizer` (
   `Fertilizer_supplier` varchar(300) COLLATE utf8mb3_unicode_ci NOT NULL,
   `Fertilizer_uses` varchar(1000) COLLATE utf8mb3_unicode_ci NOT NULL,
   `Fertilizer_directionsForUse` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `Fertilizer_image` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`Fertilizer_id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3 COLLATE = utf8mb3_unicode_ci;
 
@@ -243,7 +245,7 @@ CREATE TABLE IF NOT EXISTS `image` (
   `Image_link` varchar(255) NOT NULL,
   `id` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 53 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 137 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: images
@@ -257,7 +259,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   `Image_location` varchar(200) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`Image_id`),
   KEY `fk_image_cropinformation` (`RiceCropInformation_id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 76 DEFAULT CHARSET = utf8mb3 COLLATE = utf8mb3_unicode_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 94 DEFAULT CHARSET = utf8mb3 COLLATE = utf8mb3_unicode_ci;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: monitor
@@ -313,6 +315,7 @@ CREATE TABLE IF NOT EXISTS `pesticide` (
   `Pesticide_uses` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `Pesticide_directionsForUse` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `Pesticide_component` varchar(1000) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `Pesticide_image` varchar(500) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`Pesticide_id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3 COLLATE = utf8mb3_unicode_ci;
 
@@ -340,7 +343,7 @@ CREATE TABLE IF NOT EXISTS `prediction` (
   KEY `fk_Algorithm_prediction_idx` (`Algorithm_id`),
   CONSTRAINT `fk_Algorithm_prediction` FOREIGN KEY (`Algorithm_id`) REFERENCES `algorithm` (`Algorithm_id`),
   CONSTRAINT `fk_RiceCropInformation_Prediction` FOREIGN KEY (`RiceCropInformation_id`) REFERENCES `ricecropinformation` (`RiceCropInformation_id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 137 DEFAULT CHARSET = utf8mb3 COLLATE = utf8mb3_unicode_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 146 DEFAULT CHARSET = utf8mb3 COLLATE = utf8mb3_unicode_ci;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: province
@@ -393,6 +396,7 @@ CREATE TABLE IF NOT EXISTS `seed` (
   `Seed_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Seed_characteristic` varchar(500) COLLATE utf8mb3_unicode_ci NOT NULL,
   `Seed_supplier` varchar(300) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `Seed_image` varchar(500) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`Seed_id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3 COLLATE = utf8mb3_unicode_ci;
 
@@ -615,6 +619,36 @@ INSERT INTO
 VALUES
   (
     'RCI0000004',
+    'OA00000005',
+    '2023-05-10',
+    '2023-05-10',
+    NULL,
+    NULL,
+    NULL,
+    'EE000003',
+    'DS000006',
+    1,
+    NULL,
+    NULL
+  );
+INSERT INTO
+  `activitydetails` (
+    `RiceCropInformation_id`,
+    `OtherActivities_id`,
+    `ActivityDetails_startDate`,
+    `ActivityDetails_endDate`,
+    `ActivityDetails_temperature`,
+    `ActivityDetails_humidity`,
+    `ActivityDetails_precipitation`,
+    `Employee_id`,
+    `DevelopmentStage_id`,
+    `ActivityDetails_times`,
+    `ActivityDetails_windSpeed`,
+    `ActivityDetails_solarRadiation`
+  )
+VALUES
+  (
+    'RCI0000004',
     'OA00000006',
     '2023-04-01',
     '2023-04-02',
@@ -773,6 +807,36 @@ VALUES
     NULL,
     'EE000003',
     'DS000002',
+    2,
+    NULL,
+    NULL
+  );
+INSERT INTO
+  `activitydetails` (
+    `RiceCropInformation_id`,
+    `OtherActivities_id`,
+    `ActivityDetails_startDate`,
+    `ActivityDetails_endDate`,
+    `ActivityDetails_temperature`,
+    `ActivityDetails_humidity`,
+    `ActivityDetails_precipitation`,
+    `Employee_id`,
+    `DevelopmentStage_id`,
+    `ActivityDetails_times`,
+    `ActivityDetails_windSpeed`,
+    `ActivityDetails_solarRadiation`
+  )
+VALUES
+  (
+    'RCI0000004',
+    'OA00000004',
+    '2023-05-09',
+    '2023-05-10',
+    NULL,
+    NULL,
+    NULL,
+    'EE000003',
+    'DS000004',
     2,
     NULL,
     NULL
@@ -1132,7 +1196,7 @@ VALUES
   (
     'AL00000002',
     'Cần Thơ',
-    'SL00000005',
+    'SL00000001',
     10,
     'Phan Văn A',
     '9.5751822',
@@ -1425,6 +1489,226 @@ VALUES
     '105.678',
     3
   );
+INSERT INTO
+  `arableland` (
+    `ArableLand_id`,
+    `ArableLand_location`,
+    `Soil_id`,
+    `ArableLand_area`,
+    `ArableLand_owner`,
+    `ArableLand_latitude`,
+    `ArableLand_longitude`,
+    `Province_id`
+  )
+VALUES
+  (
+    'AL00000016',
+    'Huyện Long Phú, tỉnh Sóc Trăng',
+    'SL00000002',
+    40,
+    'Trần Văn Thanh',
+    '16.0759808',
+    '108.2130432',
+    2
+  );
+INSERT INTO
+  `arableland` (
+    `ArableLand_id`,
+    `ArableLand_location`,
+    `Soil_id`,
+    `ArableLand_area`,
+    `ArableLand_owner`,
+    `ArableLand_latitude`,
+    `ArableLand_longitude`,
+    `Province_id`
+  )
+VALUES
+  (
+    'AL00000017',
+    'Huyện Càn Long, Tỉnh Trà Vinh',
+    'SL00000005',
+    40,
+    'Phan Văn Khang',
+    '16.0759808',
+    '108.2130432',
+    6
+  );
+INSERT INTO
+  `arableland` (
+    `ArableLand_id`,
+    `ArableLand_location`,
+    `Soil_id`,
+    `ArableLand_area`,
+    `ArableLand_owner`,
+    `ArableLand_latitude`,
+    `ArableLand_longitude`,
+    `Province_id`
+  )
+VALUES
+  (
+    'AL00000018',
+    'Huyện Long Phú, tỉnh Sóc Trăng',
+    'SL00000004',
+    40,
+    'Trần Văn Thanh',
+    '10.0212021',
+    '105.7635125',
+    2
+  );
+INSERT INTO
+  `arableland` (
+    `ArableLand_id`,
+    `ArableLand_location`,
+    `Soil_id`,
+    `ArableLand_area`,
+    `ArableLand_owner`,
+    `ArableLand_latitude`,
+    `ArableLand_longitude`,
+    `Province_id`
+  )
+VALUES
+  (
+    'AL00000019',
+    'Huyện Long Phú, tỉnh Sóc Trăng',
+    'SL00000002',
+    40,
+    'Trần Văn Thanh',
+    '10.0212021',
+    '105.7635125',
+    2
+  );
+INSERT INTO
+  `arableland` (
+    `ArableLand_id`,
+    `ArableLand_location`,
+    `Soil_id`,
+    `ArableLand_area`,
+    `ArableLand_owner`,
+    `ArableLand_latitude`,
+    `ArableLand_longitude`,
+    `Province_id`
+  )
+VALUES
+  (
+    'AL00000020',
+    'Huyện Long Phú, tỉnh Sóc Trăng',
+    'SL00000002',
+    60,
+    'Phan Thanh An',
+    '10.0212036',
+    '105.763508',
+    2
+  );
+INSERT INTO
+  `arableland` (
+    `ArableLand_id`,
+    `ArableLand_location`,
+    `Soil_id`,
+    `ArableLand_area`,
+    `ArableLand_owner`,
+    `ArableLand_latitude`,
+    `ArableLand_longitude`,
+    `Province_id`
+  )
+VALUES
+  (
+    'AL00000021',
+    'Phong Điền, Cần Thơ',
+    'SL00000004',
+    50,
+    'Phan Văn A',
+    '10.797056',
+    '106.6795008',
+    4
+  );
+INSERT INTO
+  `arableland` (
+    `ArableLand_id`,
+    `ArableLand_location`,
+    `Soil_id`,
+    `ArableLand_area`,
+    `ArableLand_owner`,
+    `ArableLand_latitude`,
+    `ArableLand_longitude`,
+    `Province_id`
+  )
+VALUES
+  (
+    'AL00000022',
+    'Huyện Long Phú, tỉnh Sóc Trăng',
+    'SL00000002',
+    30,
+    'Trần Văn Thanh',
+    '10.0211994',
+    '105.7635065',
+    2
+  );
+INSERT INTO
+  `arableland` (
+    `ArableLand_id`,
+    `ArableLand_location`,
+    `Soil_id`,
+    `ArableLand_area`,
+    `ArableLand_owner`,
+    `ArableLand_latitude`,
+    `ArableLand_longitude`,
+    `Province_id`
+  )
+VALUES
+  (
+    'AL00000023',
+    'Phong Điền, Cần Thơ',
+    'SL00000002',
+    50,
+    'Trần Văn Thanh',
+    '10.797056',
+    '106.6795008',
+    4
+  );
+INSERT INTO
+  `arableland` (
+    `ArableLand_id`,
+    `ArableLand_location`,
+    `Soil_id`,
+    `ArableLand_area`,
+    `ArableLand_owner`,
+    `ArableLand_latitude`,
+    `ArableLand_longitude`,
+    `Province_id`
+  )
+VALUES
+  (
+    'AL00000024',
+    'Xã An Thạnh 3, Cù Lao Dung, Sóc Trăng',
+    'SL00000004',
+    40,
+    'Phan Văn Thành',
+    '10.0212048',
+    '105.7635122',
+    2
+  );
+INSERT INTO
+  `arableland` (
+    `ArableLand_id`,
+    `ArableLand_location`,
+    `Soil_id`,
+    `ArableLand_area`,
+    `ArableLand_owner`,
+    `ArableLand_latitude`,
+    `ArableLand_longitude`,
+    `Province_id`
+  )
+VALUES
+  (
+    'AL00000025',
+    'Cao Lãnh, Đồng Tháp',
+    'SL00000002',
+    30,
+    'Trần Văn Thanh',
+    '10.0335616',
+    '105.7783808',
+    8
+  );
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: backup
@@ -1434,257 +1718,17 @@ INSERT INTO
   `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
 VALUES
   (
-    'backup_1682826293857.sql',
-    4,
-    '2023-04-30 10:44:53'
+    'backup_1683878482098.sql',
+    56,
+    '2023-05-12 15:01:22'
   );
 INSERT INTO
   `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
 VALUES
   (
-    'backup_1682829714160.sql',
-    6,
-    '2023-04-30 11:41:54'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682830050287.sql',
-    7,
-    '2023-04-30 11:47:30'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682830143109.sql',
-    8,
-    '2023-04-30 11:49:03'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682830164252.sql',
-    9,
-    '2023-04-30 11:49:24'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682830236004.sql',
-    10,
-    '2023-04-30 11:50:36'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682830272803.sql',
-    11,
-    '2023-04-30 11:51:12'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682830303751.sql',
-    12,
-    '2023-04-30 11:51:43'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682830398054.sql',
-    14,
-    '2023-04-30 11:53:18'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682830470249.sql',
-    16,
-    '2023-04-30 11:54:30'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682830574376.sql',
-    17,
-    '2023-04-30 11:56:14'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682830588931.sql',
-    18,
-    '2023-04-30 11:56:28'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682830590305.sql',
-    19,
-    '2023-04-30 11:56:30'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682830607522.sql',
-    20,
-    '2023-04-30 11:56:47'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682830629994.sql',
-    21,
-    '2023-04-30 11:57:09'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682830631297.sql',
-    22,
-    '2023-04-30 11:57:11'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682830645417.sql',
-    23,
-    '2023-04-30 11:57:25'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682830674368.sql',
-    24,
-    '2023-04-30 11:57:54'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682830692715.sql',
-    25,
-    '2023-04-30 11:58:12'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682830714465.sql',
-    26,
-    '2023-04-30 11:58:34'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682830735098.sql',
-    27,
-    '2023-04-30 11:58:55'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682830760443.sql',
-    28,
-    '2023-04-30 11:59:20'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682832539365.sql',
-    29,
-    '2023-04-30 12:28:59'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682836130573.json',
-    30,
-    '2023-04-30 13:28:50'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682871820007.json',
-    31,
-    '2023-04-30 23:23:40'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682930731774.json',
-    32,
-    '2023-05-01 15:45:31'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682930733593.json',
-    33,
-    '2023-05-01 15:45:33'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682930822422.json',
-    34,
-    '2023-05-01 15:47:02'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682931145646.json',
-    35,
-    '2023-05-01 15:52:25'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682931569569.json',
-    36,
-    '2023-05-01 15:59:29'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682931736546.json',
-    37,
-    '2023-05-01 16:02:16'
-  );
-INSERT INTO
-  `backup` (`Backup_link`, `Backup_id`, `Backup_date`)
-VALUES
-  (
-    'backup_1682931848098.json',
-    38,
-    '2023-05-01 16:04:08'
+    'backup_1683880159378.sql',
+    57,
+    '2023-05-12 15:29:19'
   );
 
 # ------------------------------------------------------------
@@ -1754,7 +1798,7 @@ VALUES
 INSERT INTO
   `contain` (`Fertilizer_id`, `Nutrient_id`, `Contain_percent`)
 VALUES
-  ('FR00000004', 'Y', 0);
+  ('FR00000004', 'Y', 13);
 INSERT INTO
   `contain` (`Fertilizer_id`, `Nutrient_id`, `Contain_percent`)
 VALUES
@@ -1838,15 +1882,15 @@ VALUES
 INSERT INTO
   `contain` (`Fertilizer_id`, `Nutrient_id`, `Contain_percent`)
 VALUES
-  ('FR00000010', 'K', 0);
+  ('FR00000010', 'K', 15);
 INSERT INTO
   `contain` (`Fertilizer_id`, `Nutrient_id`, `Contain_percent`)
 VALUES
-  ('FR00000010', 'N', 0);
+  ('FR00000010', 'N', 15);
 INSERT INTO
   `contain` (`Fertilizer_id`, `Nutrient_id`, `Contain_percent`)
 VALUES
-  ('FR00000010', 'P', 0);
+  ('FR00000010', 'P', 15);
 INSERT INTO
   `contain` (`Fertilizer_id`, `Nutrient_id`, `Contain_percent`)
 VALUES
@@ -1854,15 +1898,15 @@ VALUES
 INSERT INTO
   `contain` (`Fertilizer_id`, `Nutrient_id`, `Contain_percent`)
 VALUES
-  ('FR00000011', 'K', 0);
+  ('FR00000011', 'K', 9);
 INSERT INTO
   `contain` (`Fertilizer_id`, `Nutrient_id`, `Contain_percent`)
 VALUES
-  ('FR00000011', 'N', 0);
+  ('FR00000011', 'N', 30);
 INSERT INTO
   `contain` (`Fertilizer_id`, `Nutrient_id`, `Contain_percent`)
 VALUES
-  ('FR00000011', 'P', 0);
+  ('FR00000011', 'P', 9);
 INSERT INTO
   `contain` (`Fertilizer_id`, `Nutrient_id`, `Contain_percent`)
 VALUES
@@ -1870,15 +1914,15 @@ VALUES
 INSERT INTO
   `contain` (`Fertilizer_id`, `Nutrient_id`, `Contain_percent`)
 VALUES
-  ('FR00000012', 'K', 0);
+  ('FR00000012', 'K', 8);
 INSERT INTO
   `contain` (`Fertilizer_id`, `Nutrient_id`, `Contain_percent`)
 VALUES
-  ('FR00000012', 'N', 0);
+  ('FR00000012', 'N', 16);
 INSERT INTO
   `contain` (`Fertilizer_id`, `Nutrient_id`, `Contain_percent`)
 VALUES
-  ('FR00000012', 'P', 0);
+  ('FR00000012', 'P', 16);
 INSERT INTO
   `contain` (`Fertilizer_id`, `Nutrient_id`, `Contain_percent`)
 VALUES
@@ -1899,22 +1943,6 @@ INSERT INTO
   `contain` (`Fertilizer_id`, `Nutrient_id`, `Contain_percent`)
 VALUES
   ('FR00000013', 'Y', 0);
-INSERT INTO
-  `contain` (`Fertilizer_id`, `Nutrient_id`, `Contain_percent`)
-VALUES
-  ('FR00000014', 'K', 0);
-INSERT INTO
-  `contain` (`Fertilizer_id`, `Nutrient_id`, `Contain_percent`)
-VALUES
-  ('FR00000014', 'N', 0);
-INSERT INTO
-  `contain` (`Fertilizer_id`, `Nutrient_id`, `Contain_percent`)
-VALUES
-  ('FR00000014', 'P', 0);
-INSERT INTO
-  `contain` (`Fertilizer_id`, `Nutrient_id`, `Contain_percent`)
-VALUES
-  ('FR00000014', 'Y', 0);
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: crop
@@ -2005,7 +2033,7 @@ VALUES
     'Nữ',
     'Quản trị hệ thống',
     '0777888989',
-    'Cà Mau',
+    'Sóc Trăng',
     '123456789012',
     '$2a$08$Lio0nqFZyJE9rtiQvVPUf.sReBYtbEuJY2rl7W7sSK7GotPyFQZ.G',
     '2023-02-21',
@@ -2372,6 +2400,36 @@ VALUES
     'nvanan@gamil.com',
     1
   );
+INSERT INTO
+  `employee` (
+    `Employee_id`,
+    `Role_id`,
+    `Employee_name`,
+    `Employee_sex`,
+    `Employee_major`,
+    `Employee_phoneNumber`,
+    `Employee_address`,
+    `Employee_identityCardNumber`,
+    `Employee_password`,
+    `Employee_birthDate`,
+    `Employee_email`,
+    `Employee_lockAccount`
+  )
+VALUES
+  (
+    'EE000018',
+    '02',
+    'bfd',
+    'Nam',
+    'vds',
+    '0345678907',
+    'bdfb',
+    '12344567890',
+    '$2a$08$Nl9KvQhqTWV75aU9bm5euu9hN3T36PU0IT5Ki9hmbyL8umX4005ee',
+    '2023-05-31',
+    'tranthitho09052001@gmail.com',
+    1
+  );
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: epidemic
@@ -2385,7 +2443,8 @@ INSERT INTO
     `Epidemic_timeOfDevelopment`,
     `Epidemic_developmentEnvironment`,
     `Epidemic_Harm`,
-    `EpidemicClassification_id`
+    `EpidemicClassification_id`,
+    `Epidemic_image`
   )
 VALUES
   (
@@ -2395,7 +2454,8 @@ VALUES
     'Quanh năm',
     'Nấm này phát sinh phát triển mạnh nhất khi cây lúa xanh tốt, gieo cấy dày, ruộng thấp trũng; thời tiết ấm áp, có nắng mưa xen kẽ.',
     'Làm bông bị lép, lửng',
-    'ECC00002'
+    'ECC00002',
+    'image_1683784880682_KhoVan.jpg'
   );
 INSERT INTO
   `epidemic` (
@@ -2405,7 +2465,8 @@ INSERT INTO
     `Epidemic_timeOfDevelopment`,
     `Epidemic_developmentEnvironment`,
     `Epidemic_Harm`,
-    `EpidemicClassification_id`
+    `EpidemicClassification_id`,
+    `Epidemic_image`
   )
 VALUES
   (
@@ -2415,7 +2476,8 @@ VALUES
     'Quanh năm',
     'Sống quanh gốc lúa ngay phần bẹ lá, phía trên mặt nước. Việc sử dụng quá mức urê và phân bón nitơ và thuốc sâu có thể dẫn đến bùng phát rầy nâu bằng cách tăng khả năng sinh sản của chúng, và bằng cách giảm các thiên địch của rầy nâu. Khí hậu ấm nóng, ẩm độ cao, mưa nắng xen kẽ và cấy nhiều giống nhiễm rầy thường phát sinh gây hại nặng',
     'Tác hại trực tiếp của rầy nâu là chích hút nhựa, làm cho cây lúa suy yếu, phát triển kém, lá vàng úa, rụi dần và khô héo đi gọi là “cháy rầy”. Tác hại gián tiếp của rầy nâu là truyền các bệnh siêu vi khuẩn cho lúa như bệnh lúa cỏ, lùn xoắn lá, vàng lùn. Rầy nâu nhỏ truyền bệnh lùn sọc đen',
-    'ECC00003'
+    'ECC00003',
+    'image_1683784892344_RayNau.jpg'
   );
 INSERT INTO
   `epidemic` (
@@ -2425,7 +2487,8 @@ INSERT INTO
     `Epidemic_timeOfDevelopment`,
     `Epidemic_developmentEnvironment`,
     `Epidemic_Harm`,
-    `EpidemicClassification_id`
+    `EpidemicClassification_id`,
+    `Epidemic_image`
   )
 VALUES
   (
@@ -2435,7 +2498,8 @@ VALUES
     'Quanh năm',
     'Điều kiện nhiệt độ ấm nóng và ẩm độ cao thích hợp cho sâu phát sinh gây hại.',
     'Sâu non xâm nhập vào bẹ lá vào thân cắt đứt đường vận chuyển dinh dưỡng làm dảnh vô hiệu và bông bạclàm bông lúa bị lép hoàn toàn, trong khi các lá bên dưới của chồi vẫn còn xanh',
-    'ECC00004'
+    'ECC00004',
+    'image_1683785190777_sauducthan2cham.jpg'
   );
 INSERT INTO
   `epidemic` (
@@ -2445,7 +2509,30 @@ INSERT INTO
     `Epidemic_timeOfDevelopment`,
     `Epidemic_developmentEnvironment`,
     `Epidemic_Harm`,
-    `EpidemicClassification_id`
+    `EpidemicClassification_id`,
+    `Epidemic_image`
+  )
+VALUES
+  (
+    'EC00000004',
+    'Sâu cuốn lá nhỏ hại lúa',
+    NULL,
+    'Quanh năm',
+    'Khí hậu mát mẻ, ẩm độ cao, mưa, nắng xen kẽ nhau và gây hại vào giai đoạn cây lúa đẻ nhánh cho đến khi lúa ngậm sữa',
+    'Sâu non nhả tơ cuốn dọc lá thành bao thẳng đứng và nằm trong đó ăn phần chất xanh trên mặt lá, để lại lớp màng trắng làm giảm diện tích quang hợp và mất diệp lục tố gây tổn thất cho năng suất và chất lượng nông sản.',
+    'ECC00001',
+    'image_1683784905189_caucuonlanho.jpg'
+  );
+INSERT INTO
+  `epidemic` (
+    `Epidemic_id`,
+    `Epidemic_name`,
+    `Epidemic_indication`,
+    `Epidemic_timeOfDevelopment`,
+    `Epidemic_developmentEnvironment`,
+    `Epidemic_Harm`,
+    `EpidemicClassification_id`,
+    `Epidemic_image`
   )
 VALUES
   (
@@ -2455,7 +2542,8 @@ VALUES
     'Quanh năm',
     'Nấm này phát sinh phát triển mạnh nhất khi cây lúa xanh tốt, gieo cấy dày, ruộng thấp trũng; thời tiết ấm áp, có nắng mưa xen kẽ.',
     'Làm bông bị lép, lửng',
-    'ECC00002'
+    'ECC00002',
+    'image_1683784919253_LÅ©noanLa.jpg'
   );
 INSERT INTO
   `epidemic` (
@@ -2465,7 +2553,8 @@ INSERT INTO
     `Epidemic_timeOfDevelopment`,
     `Epidemic_developmentEnvironment`,
     `Epidemic_Harm`,
-    `EpidemicClassification_id`
+    `EpidemicClassification_id`,
+    `Epidemic_image`
   )
 VALUES
   (
@@ -2475,7 +2564,8 @@ VALUES
     'Quanh năm',
     'Bệnh xuất hiện và phát triển mạnh trong điều kiện độ ẩm cao, sương mù nhiều, ruộng thiếu nước và bón nhiều phân đạm, sạ cấy quá dày',
     'Nấm có thể tấn công ở mọi bộ phận của cây lúa nhưng nhiều nhất là ở phiến lá. Trên lá, vết bệnh lúc đầu nhỏ màu nâu, sau phát triển thành vết bệnh điển hình có dạng hình mắt én, hai đầu hẹp, giữa phình ra có màu xám tro. Chung quanh vết bệnh có viền nâu rõ rệt, ngoài viền nâu thường có một quầng vàng. Nhiều vết bệnh liên kết lại làm cả lá lúa bị cháy khô. Bệnh cũng xuất hiện trên các đốt thân làm gãy ngang thân lúa hoặc trên cổ bông (bệnh khô cổ bông) làm tắt nghẽn mạch dẫn nhựa nuôi hạt, bông lúa bị gãy, hạt bị lép và lững',
-    'ECC00002'
+    'ECC00002',
+    'image_1683784931109_daoon.jpg'
   );
 INSERT INTO
   `epidemic` (
@@ -2485,17 +2575,19 @@ INSERT INTO
     `Epidemic_timeOfDevelopment`,
     `Epidemic_developmentEnvironment`,
     `Epidemic_Harm`,
-    `EpidemicClassification_id`
+    `EpidemicClassification_id`,
+    `Epidemic_image`
   )
 VALUES
   (
     'EC00000007',
-    'cds',
+    'Bệnh đốm nâu',
     NULL,
-    'cdsa',
-    'cdsa',
-    'cdsa',
-    'ECC00004'
+    'Quanh năm',
+    'Bệnh phát triển mạnh ở đất trầm thủy (ngập nước quanh năm), nhiều chất hữu cơ chưa hoai mụt, đất mặn, phèn, thiếu dinh dưỡng và đặc biệt là thiếu Kali',
+    'Bệnh thiệt hại nghiêm trọng nhất khi hạt đang nẩy mầm làm cây lúa non còi cọc không phát triển được',
+    'ECC00003',
+    'image_1683785051562_domnau2.jpg'
   );
 
 # ------------------------------------------------------------
@@ -2619,7 +2711,7 @@ VALUES
     NULL,
     'RCI0000004',
     'EC00000006',
-    'DS000002',
+    'DS000007',
     'EE000003',
     2,
     NULL,
@@ -2985,6 +3077,126 @@ VALUES
     NULL,
     NULL
   );
+INSERT INTO
+  `epidemictimes` (
+    `EpidemicTimes_startDate`,
+    `EpidemicTimes_endDate`,
+    `EpidemicTimes_temperature`,
+    `EpidemicTimes_humidity`,
+    `EpidemicTimes_precipitation`,
+    `RiceCropInformation_id`,
+    `Epidemic_id`,
+    `DevelopmentStage_id`,
+    `Employee_id`,
+    `EpidemicTimes_times`,
+    `EpidemicTimes_windSpeed`,
+    `EpidemicTimes_solarRadiation`
+  )
+VALUES
+  (
+    '2023-05-02',
+    '2023-05-09',
+    NULL,
+    NULL,
+    NULL,
+    'RCI0000004',
+    'EC00000006',
+    'DS000006',
+    'EE000003',
+    10,
+    NULL,
+    NULL
+  );
+INSERT INTO
+  `epidemictimes` (
+    `EpidemicTimes_startDate`,
+    `EpidemicTimes_endDate`,
+    `EpidemicTimes_temperature`,
+    `EpidemicTimes_humidity`,
+    `EpidemicTimes_precipitation`,
+    `RiceCropInformation_id`,
+    `Epidemic_id`,
+    `DevelopmentStage_id`,
+    `Employee_id`,
+    `EpidemicTimes_times`,
+    `EpidemicTimes_windSpeed`,
+    `EpidemicTimes_solarRadiation`
+  )
+VALUES
+  (
+    '2023-05-09',
+    '2023-05-09',
+    NULL,
+    NULL,
+    NULL,
+    'RCI0000004',
+    'EC00000006',
+    'DS000010',
+    'EE000003',
+    11,
+    NULL,
+    NULL
+  );
+INSERT INTO
+  `epidemictimes` (
+    `EpidemicTimes_startDate`,
+    `EpidemicTimes_endDate`,
+    `EpidemicTimes_temperature`,
+    `EpidemicTimes_humidity`,
+    `EpidemicTimes_precipitation`,
+    `RiceCropInformation_id`,
+    `Epidemic_id`,
+    `DevelopmentStage_id`,
+    `Employee_id`,
+    `EpidemicTimes_times`,
+    `EpidemicTimes_windSpeed`,
+    `EpidemicTimes_solarRadiation`
+  )
+VALUES
+  (
+    '2023-05-09',
+    '2023-05-10',
+    NULL,
+    NULL,
+    NULL,
+    'RCI0000004',
+    'EC00000003',
+    'DS000004',
+    'EE000003',
+    12,
+    NULL,
+    NULL
+  );
+INSERT INTO
+  `epidemictimes` (
+    `EpidemicTimes_startDate`,
+    `EpidemicTimes_endDate`,
+    `EpidemicTimes_temperature`,
+    `EpidemicTimes_humidity`,
+    `EpidemicTimes_precipitation`,
+    `RiceCropInformation_id`,
+    `Epidemic_id`,
+    `DevelopmentStage_id`,
+    `Employee_id`,
+    `EpidemicTimes_times`,
+    `EpidemicTimes_windSpeed`,
+    `EpidemicTimes_solarRadiation`
+  )
+VALUES
+  (
+    '2023-05-10',
+    '2023-05-10',
+    NULL,
+    NULL,
+    NULL,
+    'RCI0000004',
+    'EC00000003',
+    'DS000006',
+    'EE000003',
+    13,
+    NULL,
+    NULL
+  );
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: fertilizer
@@ -2996,7 +3208,8 @@ INSERT INTO
     `Fertilizer_name`,
     `Fertilizer_supplier`,
     `Fertilizer_uses`,
-    `Fertilizer_directionsForUse`
+    `Fertilizer_directionsForUse`,
+    `Fertilizer_image`
   )
 VALUES
   (
@@ -3004,7 +3217,8 @@ VALUES
     'Phân bón NPK BigOne Lúa F2',
     'CÔNG TY CỔ PHẦN PHÂN BÓN HÀ LAN',
     'Giúp cây lúc to đòng, cứng cây, giảm tình trạng ngã đổ.  Bổ sung Đạm (N), Lân (P2O5) giúp bông lúa dài, hạt đều, chắc. Cung cấp trung vi lượng và siêu vi lượng (Molyden, Coban) giúp cây  sinh trưởng phát triển mạnh mẽ hơn. Sau khi sử dụng cây trồng sẽ chống chiệu sâu bệnh tốt hơn.',
-    'jytr'
+    'jytr',
+    'image_1683780035741_npk_ha_lan_bigone_lua_f2.jpg'
   );
 INSERT INTO
   `fertilizer` (
@@ -3012,7 +3226,8 @@ INSERT INTO
     `Fertilizer_name`,
     `Fertilizer_supplier`,
     `Fertilizer_uses`,
-    `Fertilizer_directionsForUse`
+    `Fertilizer_directionsForUse`,
+    `Fertilizer_image`
   )
 VALUES
   (
@@ -3020,7 +3235,8 @@ VALUES
     'NPK Hà Lan 20-0-10+TE',
     'Công ty cổ phần phân bón Hà Lan',
     'Sử dụng được cho đa dạng cây trồng nhằm tăng năng suất, hiệu quả trồng cây. Tăng cường phát triển hệ rễ giúp cây cứng cáp, lá xanh và hạn chế tối đa khả năng đổ ngã. Bổ sung đầy đủ các chất dinh dưỡng mà cây trồng cần. Hạn chế sâu bệnh và ảnh hưởng từ sự thay đổi thời tiết.',
-    'j6yj'
+    'j6yj',
+    'image_1683780227533_phan_bon_npk_ha_lan.png'
   );
 INSERT INTO
   `fertilizer` (
@@ -3028,7 +3244,8 @@ INSERT INTO
     `Fertilizer_name`,
     `Fertilizer_supplier`,
     `Fertilizer_uses`,
-    `Fertilizer_directionsForUse`
+    `Fertilizer_directionsForUse`,
+    `Fertilizer_image`
   )
 VALUES
   (
@@ -3036,7 +3253,8 @@ VALUES
     'NPK 16-16-8 Cà Mau',
     'Tập đoàn dầu khí quốc gia Việt Nam - Công ty cổ phần phân bón dầu khí Cà Mau',
     'Cung cấp các chất dinh dưỡng cần thiết một cách cân đối và hợp lý cho các loại cây trồng. Cải tạo và tăng độ phì nhiêu cho đất, giúp cây trồng giữ ẩm, chịu hạn, chịu rét, tăng khả năng chống chịu sâu bệnh. Phát huy tối ta các yếu tố khoáng Đa-trung_vi lượng, giúp cây trồng hấp thụ nhanh các chất dinh dưỡng. Kích thích bộ rễ, bộ lá phát triển mạnh, cây sinh trưởng tốt, tăng tỉ lệ ra hoa kết quả, nâng cao năng suất cây trồng và giá trị nông sản.',
-    't545'
+    't545',
+    'image_1683780246691_NPK_CaMau.jpg'
   );
 INSERT INTO
   `fertilizer` (
@@ -3044,15 +3262,17 @@ INSERT INTO
     `Fertilizer_name`,
     `Fertilizer_supplier`,
     `Fertilizer_uses`,
-    `Fertilizer_directionsForUse`
+    `Fertilizer_directionsForUse`,
+    `Fertilizer_image`
   )
 VALUES
   (
     'FR00000004',
     'NPK 16-16-8 Phú Mỹ',
     'Công ty cổ phần phân bón và hóa chất dầu khí miền Bắc',
-    'b d',
-    'bfdx'
+    'Đạm, Lân cao giúp khỏe rễ, bung quả non nhiều;Trung vi lượng TE: Bo, Zn phù hợp;Chứa Bo, cuống dẻo dai, ít rụng quả.Tan nhanh, khoẻ rễ, chắc cây, chắc hạt.',
+    'Bón lót: 10-11 kg\nThúc đẻ nhánh: 8-11 kg\nThúc khi cây có 9-11 lá: 15-17 kg',
+    'image_1683780289274_NPK 16-8-16+TE_PhuMy.png'
   );
 INSERT INTO
   `fertilizer` (
@@ -3060,15 +3280,17 @@ INSERT INTO
     `Fertilizer_name`,
     `Fertilizer_supplier`,
     `Fertilizer_uses`,
-    `Fertilizer_directionsForUse`
+    `Fertilizer_directionsForUse`,
+    `Fertilizer_image`
   )
 VALUES
   (
     'FR00000005',
     'NPK ĐẦU TRÂU 16-16-8+13S',
     'Công ty cổ phần phân bón Bình Điền',
-    '- Tăng sinh trưởng, phát triển và sức chống chịu điều kiện bất thuận.\n- Tăng năng suất, chất lượng nông sản và lợi nhuận.\n- Cải thiện độ phì nhiêu của đất.',
-    'gr'
+    'Tăng sinh trưởng, phát triển và sức chống chịu điều kiện bất thuận. Tăng năng suất, chất lượng nông sản và lợi nhuận. Cải thiện độ phì nhiêu của đất.',
+    'gr',
+    'image_1683780305216_npk-16-16-8-13s-soc-xanh-xuong-ca.jpg'
   );
 INSERT INTO
   `fertilizer` (
@@ -3076,7 +3298,8 @@ INSERT INTO
     `Fertilizer_name`,
     `Fertilizer_supplier`,
     `Fertilizer_uses`,
-    `Fertilizer_directionsForUse`
+    `Fertilizer_directionsForUse`,
+    `Fertilizer_image`
   )
 VALUES
   (
@@ -3084,7 +3307,8 @@ VALUES
     'Phân bón SUPE LÂN Long Thành',
     'Công ty cổ phần phân bón miền Nam',
     'Supe Lân Long Thành goài Lân còn có vôi, Lưu Huỳnh, Silic có tác dụng khử chua đất, hạ phèn, giúp cây trồng phát triển bộ rễ, kích thích sự phân hoá mầm hoa, sai bông chắc hạt.',
-    'Bón 250-500 kg/ha/vụ'
+    'Bón 250-500 kg/ha/vụ',
+    'image_1683780322249_Supe_Lan.jpg'
   );
 INSERT INTO
   `fertilizer` (
@@ -3092,7 +3316,8 @@ INSERT INTO
     `Fertilizer_name`,
     `Fertilizer_supplier`,
     `Fertilizer_uses`,
-    `Fertilizer_directionsForUse`
+    `Fertilizer_directionsForUse`,
+    `Fertilizer_image`
   )
 VALUES
   (
@@ -3100,7 +3325,8 @@ VALUES
     'NPK Na Uy lúa đẻ nhánh',
     'Công ty cổ phần bón Na Uy',
     'Phân bón NPK phức hợp chứa đầy đủ các loại dưỡng chất. Phân bón NPK NA UY phức hợp  có bổ sung vi lượng dưỡng chất Đạm, Lân, Kali và bổ sung trung vi lượng Bo, Cu, Zn, Mn,Mg,S, một dưỡng chất thiết yếu để nâng cao năng suất, chất lượng cây trồng.sản phẩm này phù hợp cho các tất cả các loại cây trồng giai đoạn cây, con, kinh doanh nuôi trái củ, quả non, giai đoạn làm bông.',
-    'Bón 50kg/ha/Vụ'
+    'Bón 50kg/ha/Vụ',
+    'image_1683780336937_npl-lua-de-nhanh.jpg'
   );
 INSERT INTO
   `fertilizer` (
@@ -3108,7 +3334,8 @@ INSERT INTO
     `Fertilizer_name`,
     `Fertilizer_supplier`,
     `Fertilizer_uses`,
-    `Fertilizer_directionsForUse`
+    `Fertilizer_directionsForUse`,
+    `Fertilizer_image`
   )
 VALUES
   (
@@ -3116,7 +3343,8 @@ VALUES
     'Phân Bón Lá NPK 20-20-20+TE Kích Chồi Và Lá Growmore All Purpose Lọ 100 Gram',
     'Công ty TNHH Growmore Việt Nam',
     'Sử dụng được cho tất cả giai đoạn sinh trưởng và phát triển của cây trồng. Dạng bột hòa tan, dễ sử dụng và hiệu quả cao. Làm tăng khả năng sinh trưởng và phát triển của cây trồng. Tăng sức đề kháng và tăng khả năng chống chịu sâu bệnh hại.',
-    'Tiến hành pha 5 - 10 gram phân bón NPK all purpose 20-20-20 vào bình xịt hoặc bình tưới chứa 8 lít nước sạch. Khuấy thật đều hỗn hợp trên để phân bón hoàn toàn trong nước. Tiến hành phun thật đều lên cây trồng, phun đều 2 mặt lá hoặc tưới vào gốc cây trồng.'
+    'Tiến hành pha 5 - 10 gram phân bón NPK all purpose 20-20-20 vào bình xịt hoặc bình tưới chứa 8 lít nước sạch. Khuấy thật đều hỗn hợp trên để phân bón hoàn toàn trong nước. Tiến hành phun thật đều lên cây trồng, phun đều 2 mặt lá hoặc tưới vào gốc cây trồng.',
+    'image_1683780362195_Phan_Bon_la_NPK.jpg'
   );
 INSERT INTO
   `fertilizer` (
@@ -3124,7 +3352,8 @@ INSERT INTO
     `Fertilizer_name`,
     `Fertilizer_supplier`,
     `Fertilizer_uses`,
-    `Fertilizer_directionsForUse`
+    `Fertilizer_directionsForUse`,
+    `Fertilizer_image`
   )
 VALUES
   (
@@ -3132,7 +3361,8 @@ VALUES
     'NPK 28-8-6+TE (Chuyên dùng cho lúa)',
     'Công Ty cổ phần Phân bón Bình Điền',
     'Thích hợp cho các giống lúa ngắn ngày. Giúp lúa non tăng trưởng nhanh, đẻ nhánh khoè. Giúp lúa có đòng to, trổ thoát, năng suất cao. Phù hợp cho các loại đất vùng ĐBSCL.',
-    '7-10 ngày sau sạ: 100kg/ha. 18-22 ngày sau sạ: 100-150kg/ha. Đón đòng: 80-100kg/ha.'
+    '7-10 ngày sau sạ: 100kg/ha. 18-22 ngày sau sạ: 100-150kg/ha. Đón đòng: 80-100kg/ha.',
+    'image_1683780385176_NPK28-8-6.jpg'
   );
 INSERT INTO
   `fertilizer` (
@@ -3140,50 +3370,72 @@ INSERT INTO
     `Fertilizer_name`,
     `Fertilizer_supplier`,
     `Fertilizer_uses`,
-    `Fertilizer_directionsForUse`
+    `Fertilizer_directionsForUse`,
+    `Fertilizer_image`
   )
 VALUES
-  ('FR00000010', 'tt', 'tt', 'tt', 'tt');
+  (
+    'FR00000010',
+    'Phân bón NPK 15-15-15 Đầu Trâu',
+    'Công ty Cổ phần Bình Điền - Mekong',
+    'Công dụng kích rễ, chồi, lá tăng trưởng mạnh và tăng khả năng chống chịu khi gặp thời tiết bất lợi.',
+    'Hiệu quả ở tất cả các giai đoạn sinh trưởng và phát triển của cây trồng. Phân nên được lấp đất và tưới nước sau khi bón để đạt được hiệu quả cao nhất.',
+    'image_1683780401969_DauTrau15-15015.jpg'
+  );
 INSERT INTO
   `fertilizer` (
     `Fertilizer_id`,
     `Fertilizer_name`,
     `Fertilizer_supplier`,
     `Fertilizer_uses`,
-    `Fertilizer_directionsForUse`
+    `Fertilizer_directionsForUse`,
+    `Fertilizer_image`
   )
 VALUES
-  ('FR00000011', 'f', 'f', 'f', 'f');
+  (
+    'FR00000011',
+    'Phân bón NPK bổ sung vi lượng Minro 30-9-9 +TE',
+    'Minro',
+    'Đạm cao giúp cây phát triển mạnh thân, cành, lá.\nGiúp cây con phát triển nhanh, cây trưởng thành phục hồi nhanh sau khi thu hoạch.\nThúc trái lớn, hoa to màu sắc đẹp, bộ rễ khỏe.\nGiúp cây tăng sức đề kháng với sâu bệnh và thời tiết khắc nghiệt.\nRất thích hợp cho hoa kiểng và cây rau màu lấy lá.',
+    'Mỗi lần bón cách nhau 1 tháng, bón vào lúc trời mát.',
+    'image_1683780412961_npk-bo-sung-vi-luong-minro-30-9-9-te.jpg'
+  );
 INSERT INTO
   `fertilizer` (
     `Fertilizer_id`,
     `Fertilizer_name`,
     `Fertilizer_supplier`,
     `Fertilizer_uses`,
-    `Fertilizer_directionsForUse`
+    `Fertilizer_directionsForUse`,
+    `Fertilizer_image`
   )
 VALUES
-  ('FR00000012', 'h', 'h', 'h', 'h');
+  (
+    'FR00000012',
+    'Phân bón Đầu Trâu ĐB - MK NPK 16-16-8+TE',
+    ' Sản phẩm của Công ty Cổ phần Bình Điền - Mekong.',
+    'Cung cấp dinh dưỡng cân đối cho cây trồng giai đoạn cây con, phục hồi sau thu hoạch, thúc trổ hoa và nuôi trái.\n Giúp cây tăng trưởng mạnh, tạo bộ khung tán khỏe, ra rễ nhanh, ra hoa nhiều.\nHiệu quả cao khi bón cuối mùa khô đến giữa mùa mưa với cây công nghiệp.\nTăng sức chống chịu cho cây trồng khi thời tiết không thuận lợi.\nTăng năng suất và chất lượng nông sản.',
+    'Bón 100kg - 150kg/ ha/ lần.',
+    'image_1683780445412_DauTrau_NPK_16_16_8.png'
+  );
 INSERT INTO
   `fertilizer` (
     `Fertilizer_id`,
     `Fertilizer_name`,
     `Fertilizer_supplier`,
     `Fertilizer_uses`,
-    `Fertilizer_directionsForUse`
+    `Fertilizer_directionsForUse`,
+    `Fertilizer_image`
   )
 VALUES
-  ('FR00000013', '3', '3', '3', '3');
-INSERT INTO
-  `fertilizer` (
-    `Fertilizer_id`,
-    `Fertilizer_name`,
-    `Fertilizer_supplier`,
-    `Fertilizer_uses`,
-    `Fertilizer_directionsForUse`
-  )
-VALUES
-  ('FR00000014', '5', '5', '5', '5');
+  (
+    'FR00000013',
+    'vdf',
+    'vds',
+    'vfd',
+    'ffdsfd',
+    'image_1683791647300_LÅ©noanLa.jpg'
+  );
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: fertilizertimes
@@ -3273,7 +3525,7 @@ VALUES
   (
     'RCI0000004',
     'FR00000001',
-    'DS000003',
+    'DS000007',
     'EE000003',
     1,
     12,
@@ -3311,6 +3563,38 @@ VALUES
     129,
     '2023-03-02',
     '2023-03-05',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+  );
+INSERT INTO
+  `fertilizertimes` (
+    `RiceCropInformation_id`,
+    `Fertilizer_id`,
+    `DevelopmentStage_id`,
+    `Employee_id`,
+    `FertilizerTimes_times`,
+    `FertilizerTimes_amount`,
+    `FertilizerTimes_startDate`,
+    `FertilizerTimes_endDate`,
+    `FertilizerTimes_temperature`,
+    `FertilizerTimes_humidity`,
+    `FertilizerTimes_precipitation`,
+    `FertilizerTimes_windSpeed`,
+    `FertilizerTimes_solarRadiation`
+  )
+VALUES
+  (
+    'RCI0000018',
+    'FR00000002',
+    'DS000003',
+    'EE000003',
+    1,
+    50,
+    '2023-05-11',
+    '2023-05-11',
     NULL,
     NULL,
     NULL,
@@ -3443,6 +3727,38 @@ VALUES
     83.04,
     3.7,
     18.1,
+    NULL
+  );
+INSERT INTO
+  `fertilizertimes` (
+    `RiceCropInformation_id`,
+    `Fertilizer_id`,
+    `DevelopmentStage_id`,
+    `Employee_id`,
+    `FertilizerTimes_times`,
+    `FertilizerTimes_amount`,
+    `FertilizerTimes_startDate`,
+    `FertilizerTimes_endDate`,
+    `FertilizerTimes_temperature`,
+    `FertilizerTimes_humidity`,
+    `FertilizerTimes_precipitation`,
+    `FertilizerTimes_windSpeed`,
+    `FertilizerTimes_solarRadiation`
+  )
+VALUES
+  (
+    'RCI0000018',
+    'FR00000012',
+    'DS000003',
+    'EE000003',
+    1,
+    60,
+    '2023-05-11',
+    '2023-05-11',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
     NULL
   );
 INSERT INTO
@@ -4373,6 +4689,294 @@ VALUES
     NULL,
     NULL
   );
+INSERT INTO
+  `fertilizertimes` (
+    `RiceCropInformation_id`,
+    `Fertilizer_id`,
+    `DevelopmentStage_id`,
+    `Employee_id`,
+    `FertilizerTimes_times`,
+    `FertilizerTimes_amount`,
+    `FertilizerTimes_startDate`,
+    `FertilizerTimes_endDate`,
+    `FertilizerTimes_temperature`,
+    `FertilizerTimes_humidity`,
+    `FertilizerTimes_precipitation`,
+    `FertilizerTimes_windSpeed`,
+    `FertilizerTimes_solarRadiation`
+  )
+VALUES
+  (
+    'RCI0000004',
+    'FR00000002',
+    'DS000005',
+    'EE000003',
+    19,
+    30,
+    '2023-05-09',
+    '2023-05-10',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+  );
+INSERT INTO
+  `fertilizertimes` (
+    `RiceCropInformation_id`,
+    `Fertilizer_id`,
+    `DevelopmentStage_id`,
+    `Employee_id`,
+    `FertilizerTimes_times`,
+    `FertilizerTimes_amount`,
+    `FertilizerTimes_startDate`,
+    `FertilizerTimes_endDate`,
+    `FertilizerTimes_temperature`,
+    `FertilizerTimes_humidity`,
+    `FertilizerTimes_precipitation`,
+    `FertilizerTimes_windSpeed`,
+    `FertilizerTimes_solarRadiation`
+  )
+VALUES
+  (
+    'RCI0000004',
+    'FR00000001',
+    'DS000003',
+    'EE000003',
+    20,
+    30,
+    '2023-05-09',
+    '2023-05-10',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+  );
+INSERT INTO
+  `fertilizertimes` (
+    `RiceCropInformation_id`,
+    `Fertilizer_id`,
+    `DevelopmentStage_id`,
+    `Employee_id`,
+    `FertilizerTimes_times`,
+    `FertilizerTimes_amount`,
+    `FertilizerTimes_startDate`,
+    `FertilizerTimes_endDate`,
+    `FertilizerTimes_temperature`,
+    `FertilizerTimes_humidity`,
+    `FertilizerTimes_precipitation`,
+    `FertilizerTimes_windSpeed`,
+    `FertilizerTimes_solarRadiation`
+  )
+VALUES
+  (
+    'RCI0000004',
+    'FR00000002',
+    'DS000006',
+    'EE000003',
+    21,
+    50,
+    '2023-05-09',
+    '2023-05-11',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+  );
+INSERT INTO
+  `fertilizertimes` (
+    `RiceCropInformation_id`,
+    `Fertilizer_id`,
+    `DevelopmentStage_id`,
+    `Employee_id`,
+    `FertilizerTimes_times`,
+    `FertilizerTimes_amount`,
+    `FertilizerTimes_startDate`,
+    `FertilizerTimes_endDate`,
+    `FertilizerTimes_temperature`,
+    `FertilizerTimes_humidity`,
+    `FertilizerTimes_precipitation`,
+    `FertilizerTimes_windSpeed`,
+    `FertilizerTimes_solarRadiation`
+  )
+VALUES
+  (
+    'RCI0000004',
+    'FR00000007',
+    'DS000006',
+    'EE000003',
+    21,
+    70,
+    '2023-05-09',
+    '2023-05-11',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+  );
+INSERT INTO
+  `fertilizertimes` (
+    `RiceCropInformation_id`,
+    `Fertilizer_id`,
+    `DevelopmentStage_id`,
+    `Employee_id`,
+    `FertilizerTimes_times`,
+    `FertilizerTimes_amount`,
+    `FertilizerTimes_startDate`,
+    `FertilizerTimes_endDate`,
+    `FertilizerTimes_temperature`,
+    `FertilizerTimes_humidity`,
+    `FertilizerTimes_precipitation`,
+    `FertilizerTimes_windSpeed`,
+    `FertilizerTimes_solarRadiation`
+  )
+VALUES
+  (
+    'RCI0000004',
+    'FR00000004',
+    'DS000006',
+    'EE000003',
+    22,
+    50,
+    '2023-05-09',
+    '2023-05-10',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+  );
+INSERT INTO
+  `fertilizertimes` (
+    `RiceCropInformation_id`,
+    `Fertilizer_id`,
+    `DevelopmentStage_id`,
+    `Employee_id`,
+    `FertilizerTimes_times`,
+    `FertilizerTimes_amount`,
+    `FertilizerTimes_startDate`,
+    `FertilizerTimes_endDate`,
+    `FertilizerTimes_temperature`,
+    `FertilizerTimes_humidity`,
+    `FertilizerTimes_precipitation`,
+    `FertilizerTimes_windSpeed`,
+    `FertilizerTimes_solarRadiation`
+  )
+VALUES
+  (
+    'RCI0000004',
+    'FR00000005',
+    'DS000008',
+    'EE000003',
+    23,
+    89,
+    '2023-05-10',
+    '2023-05-10',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+  );
+INSERT INTO
+  `fertilizertimes` (
+    `RiceCropInformation_id`,
+    `Fertilizer_id`,
+    `DevelopmentStage_id`,
+    `Employee_id`,
+    `FertilizerTimes_times`,
+    `FertilizerTimes_amount`,
+    `FertilizerTimes_startDate`,
+    `FertilizerTimes_endDate`,
+    `FertilizerTimes_temperature`,
+    `FertilizerTimes_humidity`,
+    `FertilizerTimes_precipitation`,
+    `FertilizerTimes_windSpeed`,
+    `FertilizerTimes_solarRadiation`
+  )
+VALUES
+  (
+    'RCI0000004',
+    'FR00000001',
+    'DS000004',
+    'EE000003',
+    24,
+    70,
+    '2023-05-11',
+    '2023-05-12',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+  );
+INSERT INTO
+  `fertilizertimes` (
+    `RiceCropInformation_id`,
+    `Fertilizer_id`,
+    `DevelopmentStage_id`,
+    `Employee_id`,
+    `FertilizerTimes_times`,
+    `FertilizerTimes_amount`,
+    `FertilizerTimes_startDate`,
+    `FertilizerTimes_endDate`,
+    `FertilizerTimes_temperature`,
+    `FertilizerTimes_humidity`,
+    `FertilizerTimes_precipitation`,
+    `FertilizerTimes_windSpeed`,
+    `FertilizerTimes_solarRadiation`
+  )
+VALUES
+  (
+    'RCI0000004',
+    'FR00000004',
+    'DS000009',
+    'EE000003',
+    25,
+    40,
+    '2023-05-12',
+    '2023-05-12',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+  );
+INSERT INTO
+  `fertilizertimes` (
+    `RiceCropInformation_id`,
+    `Fertilizer_id`,
+    `DevelopmentStage_id`,
+    `Employee_id`,
+    `FertilizerTimes_times`,
+    `FertilizerTimes_amount`,
+    `FertilizerTimes_startDate`,
+    `FertilizerTimes_endDate`,
+    `FertilizerTimes_temperature`,
+    `FertilizerTimes_humidity`,
+    `FertilizerTimes_precipitation`,
+    `FertilizerTimes_windSpeed`,
+    `FertilizerTimes_solarRadiation`
+  )
+VALUES
+  (
+    'RCI0000004',
+    'FR00000009',
+    'DS000009',
+    'EE000003',
+    25,
+    60,
+    '2023-05-12',
+    '2023-05-12',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+  );
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: image
@@ -4556,6 +5160,405 @@ VALUES
     'image_1682870441792_image_1677483224267_Rice7.png',
     52
   );
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683117412030_image.jpg', 53);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683117533473_image.jpg', 54);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683715606113_tham-dong.jpg', 55);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683716367059_Rice10.jpg', 56);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683716424728_Rice10.jpg', 57);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683716425817_Rice10.jpg', 58);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  (
+    'image_1683716490461_image_1677483224267_Rice7.png',
+    59
+  );
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  (
+    'image_1683716491665_image_1677483224267_Rice7.png',
+    60
+  );
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  (
+    'image_1683716610458_image_1681565380697_tham-dong.jpg',
+    61
+  );
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683717327790_Rice12.jpg', 62);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683721853707_saubenh.png', 63);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  (
+    'image_1683722035396_image_1680753100242_Rice10.jpg',
+    64
+  );
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  (
+    'image_1683722194610_image_1677584049825_image_1677569470219_Rice12.jpg',
+    65
+  );
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683722398373_image.jpg', 66);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  (
+    'image_1683722469601_image_1677483224267_Rice7.png',
+    67
+  );
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  (
+    'image_1683722608435_image_1677483224267_Rice7.png',
+    68
+  );
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683722659354_activities2.png', 69);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683722673993_activities2.png', 70);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683722834844_BON-PHAN.jpg', 71);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683722864636_Rice13.jpg', 72);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683725128231_Rice7.png', 73);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683772433162_phanbon.jpg', 74);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683772514968_phanbon.jpg', 75);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  (
+    'image_1683772535171_image_1683772433162_phanbon.jpg',
+    76
+  );
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683773960443_Clearsky_morning.png', 77);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683773963781_Clearsky_morning.png', 78);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683774175609_Clearsky_morning.png', 79);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683774177896_Clearsky_morning.png', 80);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  (
+    'image_1683774358567_Mainly_clear_partly_cloudy_overcast.png',
+    81
+  );
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683774602224_activities2.png', 82);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683778921767_BON-PHAN.jpg', 83);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683779048956_BON-PHAN.jpg', 84);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683779173074_BON-PHAN.jpg', 85);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683779200402_phanbon.jpg', 86);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  (
+    'image_1683780035741_npk_ha_lan_bigone_lua_f2.jpg',
+    87
+  );
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683780227533_phan_bon_npk_ha_lan.png', 88);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683780246691_NPK_CaMau.jpg', 89);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  (
+    'image_1683780289274_NPK 16-8-16+TE_PhuMy.png',
+    90
+  );
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  (
+    'image_1683780305216_npk-16-16-8-13s-soc-xanh-xuong-ca.jpg',
+    91
+  );
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683780322249_Supe_Lan.jpg', 92);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683780336937_npl-lua-de-nhanh.jpg', 93);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683780362195_Phan_Bon_la_NPK.jpg', 94);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683780385176_NPK28-8-6.jpg', 95);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683780401969_DauTrau15-15015.jpg', 96);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  (
+    'image_1683780412961_npk-bo-sung-vi-luong-minro-30-9-9-te.jpg',
+    97
+  );
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683780445412_DauTrau_NPK_16_16_8.png', 98);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683784104615_Phan_Bon_la_NPK.jpg', 99);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683784135144_Phan_Bon_la_NPK.jpg', 100);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683784389139_NPK_CaMau.jpg', 101);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683784567511_NPK_CaMau.jpg', 102);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683784880682_KhoVan.jpg', 103);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683784892344_RayNau.jpg', 104);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683784905189_caucuonlanho.jpg', 105);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683784919253_LÅ©noanLa.jpg', 106);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683784931109_daoon.jpg', 107);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683784964442_LÅ©noanLa.jpg', 108);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683785051562_domnau2.jpg', 109);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683785190777_sauducthan2cham.jpg', 110);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683787034955_daoon.jpg', 111);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683788535300_Butyl 10wwp.jpg', 112);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683788794602_chess50WG.jpg', 113);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683788964099_filia525se.jpg', 114);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683789062490_Agrilife 100SL.jpg', 115);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683789244053_VISEN 20SC.png', 116);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  (
+    'image_1683789506872_Chai-Chevin-900ml-Nano.png',
+    117
+  );
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683789643035_Butyl 400SC.jpg', 118);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  (
+    'image_1683789753115_DuponTMprevathon 5SC.jpg',
+    119
+  );
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  (
+    'image_1683789816306_Thuá»c trá»« sÃ¢u Actara 25WG.webp',
+    120
+  );
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683789914158_beam_75_wp_master.webp', 121);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  (
+    'image_1683790580278_Thuá»c diá»t ráº§y DANTOTSU 50WG.jpg',
+    122
+  );
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  (
+    'image_1683790759857_Thuá»c trá»« sÃ¢u Actara 25WG.webp',
+    123
+  );
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683790999161_permantiusa25g.jpg', 124);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683791353614_beam_75_wp_master.webp', 125);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683791512492_daoon.jpg', 126);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683791647300_LÅ©noanLa.jpg', 127);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683791664277_RayNau.jpg', 128);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683791787369_sauducthan2cham.jpg', 129);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683792110889_St25.jpg', 130);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  (
+    'image_1683792124792_Giá»ng lÃºa thuáº§n nÄng suáº¥t cháº¥t lÆ°á»£ng VNR20.jpg',
+    131
+  );
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683792132901_OM8017.jpg', 132);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683792143281_ÄÃ i ThÆ¡m 8.jpg', 133);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  ('image_1683792152086_OM 4900.jpg', 134);
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  (
+    'image_1683792162184_Giá»ng lÃºa lai F1 KC06-1.png',
+    135
+  );
+INSERT INTO
+  `image` (`Image_link`, `id`)
+VALUES
+  (
+    'image_1683792173661_Giá»ng lÃºa thuáº§n nÄng suáº¥t cháº¥t lÆ°á»£ng VNR88.jpg',
+    136
+  );
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: images
@@ -4591,22 +5594,6 @@ VALUES
     '2023-01-28 13:05:36.000000',
     'image_1677564336573_Rice2.png',
     'RCI0000010',
-    ''
-  );
-INSERT INTO
-  `images` (
-    `Image_id`,
-    `Image_date`,
-    `Image_link`,
-    `RiceCropInformation_id`,
-    `Image_location`
-  )
-VALUES
-  (
-    46,
-    '2023-01-28 13:05:47.000000',
-    'image_1677564347533_rice5.png',
-    'RCI0000011',
     ''
   );
 INSERT INTO
@@ -4752,38 +5739,6 @@ VALUES
     'image_1677584049825_image_1677569470219_Rice12.jpg',
     'RCI0000004',
     ''
-  );
-INSERT INTO
-  `images` (
-    `Image_id`,
-    `Image_date`,
-    `Image_link`,
-    `RiceCropInformation_id`,
-    `Image_location`
-  )
-VALUES
-  (
-    60,
-    '2023-02-05 12:23:57.000000',
-    'image_1677993837001_Rice10.jpg',
-    'RCI0000004',
-    ''
-  );
-INSERT INTO
-  `images` (
-    `Image_id`,
-    `Image_date`,
-    `Image_link`,
-    `RiceCropInformation_id`,
-    `Image_location`
-  )
-VALUES
-  (
-    62,
-    '2023-04-06 10:57:00.000000',
-    'image_1680753420914_Rice6.jpg',
-    'RCI0000004',
-    NULL
   );
 INSERT INTO
   `images` (
@@ -4945,6 +5900,246 @@ VALUES
     'RCI0000004',
     NULL
   );
+INSERT INTO
+  `images` (
+    `Image_id`,
+    `Image_date`,
+    `Image_link`,
+    `RiceCropInformation_id`,
+    `Image_location`
+  )
+VALUES
+  (
+    76,
+    '2023-05-03 07:36:52.000000',
+    'image_1683117412030_image.jpg',
+    'RCI0000011',
+    NULL
+  );
+INSERT INTO
+  `images` (
+    `Image_id`,
+    `Image_date`,
+    `Image_link`,
+    `RiceCropInformation_id`,
+    `Image_location`
+  )
+VALUES
+  (
+    77,
+    '2023-05-03 07:38:53.000000',
+    'image_1683117533473_image.jpg',
+    'RCI0000011',
+    NULL
+  );
+INSERT INTO
+  `images` (
+    `Image_id`,
+    `Image_date`,
+    `Image_link`,
+    `RiceCropInformation_id`,
+    `Image_location`
+  )
+VALUES
+  (
+    79,
+    '2023-05-10 05:59:27.000000',
+    'image_1683716367059_Rice10.jpg',
+    'RCI0000004',
+    NULL
+  );
+INSERT INTO
+  `images` (
+    `Image_id`,
+    `Image_date`,
+    `Image_link`,
+    `RiceCropInformation_id`,
+    `Image_location`
+  )
+VALUES
+  (
+    80,
+    '2023-05-10 06:00:24.000000',
+    'image_1683716424728_Rice10.jpg',
+    'RCI0000004',
+    NULL
+  );
+INSERT INTO
+  `images` (
+    `Image_id`,
+    `Image_date`,
+    `Image_link`,
+    `RiceCropInformation_id`,
+    `Image_location`
+  )
+VALUES
+  (
+    81,
+    '2023-05-10 06:01:30.000000',
+    'image_1683716490461_image_1677483224267_Rice7.png',
+    'RCI0000004',
+    NULL
+  );
+INSERT INTO
+  `images` (
+    `Image_id`,
+    `Image_date`,
+    `Image_link`,
+    `RiceCropInformation_id`,
+    `Image_location`
+  )
+VALUES
+  (
+    82,
+    '2023-05-10 06:03:30.000000',
+    'image_1683716610458_image_1681565380697_tham-dong.jpg',
+    'RCI0000004',
+    NULL
+  );
+INSERT INTO
+  `images` (
+    `Image_id`,
+    `Image_date`,
+    `Image_link`,
+    `RiceCropInformation_id`,
+    `Image_location`
+  )
+VALUES
+  (
+    83,
+    '2023-05-10 06:15:27.000000',
+    'image_1683717327790_Rice12.jpg',
+    'RCI0000004',
+    NULL
+  );
+INSERT INTO
+  `images` (
+    `Image_id`,
+    `Image_date`,
+    `Image_link`,
+    `RiceCropInformation_id`,
+    `Image_location`
+  )
+VALUES
+  (
+    84,
+    '2023-05-10 07:30:53.000000',
+    'image_1683721853707_saubenh.png',
+    'RCI0000004',
+    NULL
+  );
+INSERT INTO
+  `images` (
+    `Image_id`,
+    `Image_date`,
+    `Image_link`,
+    `RiceCropInformation_id`,
+    `Image_location`
+  )
+VALUES
+  (
+    85,
+    '2023-05-10 07:33:55.000000',
+    'image_1683722035396_image_1680753100242_Rice10.jpg',
+    'RCI0000004',
+    NULL
+  );
+INSERT INTO
+  `images` (
+    `Image_id`,
+    `Image_date`,
+    `Image_link`,
+    `RiceCropInformation_id`,
+    `Image_location`
+  )
+VALUES
+  (
+    86,
+    '2023-05-10 07:36:34.000000',
+    'image_1683722194610_image_1677584049825_image_1677569470219_Rice12.jpg',
+    'RCI0000004',
+    NULL
+  );
+INSERT INTO
+  `images` (
+    `Image_id`,
+    `Image_date`,
+    `Image_link`,
+    `RiceCropInformation_id`,
+    `Image_location`
+  )
+VALUES
+  (
+    87,
+    '2023-05-10 07:39:58.000000',
+    'image_1683722398373_image.jpg',
+    'RCI0000004',
+    NULL
+  );
+INSERT INTO
+  `images` (
+    `Image_id`,
+    `Image_date`,
+    `Image_link`,
+    `RiceCropInformation_id`,
+    `Image_location`
+  )
+VALUES
+  (
+    88,
+    '2023-05-10 07:41:09.000000',
+    'image_1683722469601_image_1677483224267_Rice7.png',
+    'RCI0000004',
+    NULL
+  );
+INSERT INTO
+  `images` (
+    `Image_id`,
+    `Image_date`,
+    `Image_link`,
+    `RiceCropInformation_id`,
+    `Image_location`
+  )
+VALUES
+  (
+    89,
+    '2023-05-10 07:43:28.000000',
+    'image_1683722608435_image_1677483224267_Rice7.png',
+    'RCI0000004',
+    NULL
+  );
+INSERT INTO
+  `images` (
+    `Image_id`,
+    `Image_date`,
+    `Image_link`,
+    `RiceCropInformation_id`,
+    `Image_location`
+  )
+VALUES
+  (
+    90,
+    '2023-05-10 07:44:19.000000',
+    'image_1683722659354_activities2.png',
+    'RCI0000004',
+    NULL
+  );
+INSERT INTO
+  `images` (
+    `Image_id`,
+    `Image_date`,
+    `Image_link`,
+    `RiceCropInformation_id`,
+    `Image_location`
+  )
+VALUES
+  (
+    93,
+    '2023-05-10 08:25:28.000000',
+    'image_1683725128231_Rice7.png',
+    'RCI0000004',
+    NULL
+  );
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: monitor
@@ -4973,6 +6168,10 @@ VALUES
 INSERT INTO
   `monitor` (`Employee_id`, `RiceCropInformation_id`)
 VALUES
+  ('EE000010', 'RCI0000004');
+INSERT INTO
+  `monitor` (`Employee_id`, `RiceCropInformation_id`)
+VALUES
   ('EE000011', 'RCI0000004');
 INSERT INTO
   `monitor` (`Employee_id`, `RiceCropInformation_id`)
@@ -4982,18 +6181,6 @@ INSERT INTO
   `monitor` (`Employee_id`, `RiceCropInformation_id`)
 VALUES
   ('EE000013', 'RCI0000004');
-INSERT INTO
-  `monitor` (`Employee_id`, `RiceCropInformation_id`)
-VALUES
-  ('EE000014', 'RCI0000004');
-INSERT INTO
-  `monitor` (`Employee_id`, `RiceCropInformation_id`)
-VALUES
-  ('EE000015', 'RCI0000004');
-INSERT INTO
-  `monitor` (`Employee_id`, `RiceCropInformation_id`)
-VALUES
-  ('EE000017', 'RCI0000004');
 INSERT INTO
   `monitor` (`Employee_id`, `RiceCropInformation_id`)
 VALUES
@@ -5062,6 +6249,38 @@ INSERT INTO
   `monitor` (`Employee_id`, `RiceCropInformation_id`)
 VALUES
   ('EE000003', 'RCI0000017');
+INSERT INTO
+  `monitor` (`Employee_id`, `RiceCropInformation_id`)
+VALUES
+  ('EE000003', 'RCI0000018');
+INSERT INTO
+  `monitor` (`Employee_id`, `RiceCropInformation_id`)
+VALUES
+  ('EE000003', 'RCI0000019');
+INSERT INTO
+  `monitor` (`Employee_id`, `RiceCropInformation_id`)
+VALUES
+  ('EE000003', 'RCI0000020');
+INSERT INTO
+  `monitor` (`Employee_id`, `RiceCropInformation_id`)
+VALUES
+  ('EE000003', 'RCI0000021');
+INSERT INTO
+  `monitor` (`Employee_id`, `RiceCropInformation_id`)
+VALUES
+  ('EE000003', 'RCI0000022');
+INSERT INTO
+  `monitor` (`Employee_id`, `RiceCropInformation_id`)
+VALUES
+  ('EE000003', 'RCI0000023');
+INSERT INTO
+  `monitor` (`Employee_id`, `RiceCropInformation_id`)
+VALUES
+  ('EE000003', 'RCI0000024');
+INSERT INTO
+  `monitor` (`Employee_id`, `RiceCropInformation_id`)
+VALUES
+  ('EE000003', 'RCI0000025');
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: nutrient
@@ -5153,10 +6372,6 @@ INSERT INTO
   `otheractivities` (`OtherActivities_id`, `OtherActivities_name`)
 VALUES
   ('OA14', 'tt');
-INSERT INTO
-  `otheractivities` (`OtherActivities_id`, `OtherActivities_name`)
-VALUES
-  ('OA15', 'tt');
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: pesticide
@@ -5169,7 +6384,8 @@ INSERT INTO
     `Pesticide_supplier`,
     `Pesticide_uses`,
     `Pesticide_directionsForUse`,
-    `Pesticide_component`
+    `Pesticide_component`,
+    `Pesticide_image`
   )
 VALUES
   (
@@ -5177,8 +6393,9 @@ VALUES
     'Chess 50WG',
     'Công ty TNHH Syngenta Việt Nam',
     'Ches 50WG tác động làm ngăn cản sự di chuyển và chích hút ở côn trùng thông qua quá trình can thiệp vào sự tương tác giữa các dây thần kinh điều khiển cơ,dẫn đến rối loạn và mất khả năng di chuyển đặc biệt là ở chân sau. Đồng thời, ngăn cản việc đưa vòi chích hút vaofmoo thực vật, gây hiện tượng ngán ăn, cuối cùng côn trùng bị chết vì đói.',
-    'gf',
-    'gf'
+    'Khi thấy rầy mới xuất hiện, pha 1 gói Chess 20g vào bình 25 lít và phun đều cả cây. Lượng nước phun cho một Hecta thông thường khoảng 400 – 500 lít. Thời gian cách ly: ngừng phun thuốc trước khi thu hoạch 7 ngày.',
+    'Pymetrozine 500g/k. Phụ gia 500 g/kg',
+    'image_1683788794602_chess50WG.jpg'
   );
 INSERT INTO
   `pesticide` (
@@ -5187,16 +6404,18 @@ INSERT INTO
     `Pesticide_supplier`,
     `Pesticide_uses`,
     `Pesticide_directionsForUse`,
-    `Pesticide_component`
+    `Pesticide_component`,
+    `Pesticide_image`
   )
 VALUES
   (
     'PE00000002',
     'Butyl 10wp',
     'Công ty cổ phần bảo vệ thực vật Sài Gòn',
-    'BUTYL 10 WP là loại thuốc đặc trị rầy nâu trên lúa, chè. Thuốc có tác dụng ức chế sự hình thành chất chitin làm rầy non không lột xác được mà chết. Thuốc còn làm rầy trưởng thành đẻ ít trứng, trứng không nở được do đó hạn chế rất nhiều rầy non lứa sau, ngoài ra hiệu lực của thuốc còn kéo dài 15 - 20 ngày.',
-    'tufmtdkktiyf',
-    'kutf'
+    'Là thuốc đặc trị rầy nâu, rầy lưng trắng, rầy xanh đuôi đen trên lúa; ức chế sự hình thành chất Cutin làm rầy non không lột xác được mà chết; làm rầy trưởng thành đẻ ít trứng, trứng không nở được, hiệu lực kéo dài 15-20 ngày.',
+    'Rầy nâu: 0,8-1kg/ha pha 20gr cho bình 8L nước, phun 5 bình/1000m².\nRầy xanh: 0,8-1kg/ha pha 20gr cho bình 8L nước, phun đẫm lên cây',
+    'Buprofezin 10%',
+    'image_1683788535300_Butyl 10wwp.jpg'
   );
 INSERT INTO
   `pesticide` (
@@ -5205,16 +6424,18 @@ INSERT INTO
     `Pesticide_supplier`,
     `Pesticide_uses`,
     `Pesticide_directionsForUse`,
-    `Pesticide_component`
+    `Pesticide_component`,
+    `Pesticide_image`
   )
 VALUES
   (
     'PE00000003',
-    'Filia 52.5 SE',
+    'Filia 525 SE',
     'sdws',
-    'Thuốc đặc trị đạo ôn đột phá với thành phần hoạt chất lý tưởng giúp phòng và diệt sạch bệnh đạo ôn, cho lúa cứng cây, đứng lá, đỡ lo đổ ngã',
-    'ig',
-    'imdmytd'
+    'Filia 525SE đặc trị đạo ôn lá, cổ bông, nhánh gié, cuống hạt với tính năng lưu dẫn mạnh, tầm soát và tiêu diệt nấm bệnh từ bên trong, hạn chế sự hình thành và phát tán bào tử mới. Hiệu quả trừ bền bỉ, kéo dài, giúp chặn đứng ngay mầm bệnh và giảm thiểu số lần phun.',
+    'Pha 20ml/bình 16 lít, phun 2,5 bình/1000m2, hoặc: 25ml/ bình 25 lít, phun 2 bình/1000m2. Phun khi thấy vết bệnh chớm xuất hiện.',
+    '400g/L Tricyclazole\n125g/L Propiconazole',
+    'image_1683788964099_filia525se.jpg'
   );
 INSERT INTO
   `pesticide` (
@@ -5223,7 +6444,8 @@ INSERT INTO
     `Pesticide_supplier`,
     `Pesticide_uses`,
     `Pesticide_directionsForUse`,
-    `Pesticide_component`
+    `Pesticide_component`,
+    `Pesticide_image`
   )
 VALUES
   (
@@ -5231,8 +6453,9 @@ VALUES
     'Agrilife 100SL',
     'Côn ty cổ phần đầu tư Hợp Trí',
     'AgriLife 100SL có thành phần gồm các acid hữu cơ (ascorbic acid, citric acid, lactic acid). Thuốc có phổ tác dụng rộng diệt trừ hiệu quả nhiều loại vi khuẩn và nấm gây hại trên nhiều loại cây trồng.\nAgriLife 100SL có tác dụng tiếp xúc, lưu dẫn mạnh, được cây hấp thụ nhanh chóng ngay sau khi phun thuốc và phân tán đều khắp các mô cây để ức chế hoạt động hệ thống men tế bào vi khuẩn và làm biến dạng vỏ tế bào của bào tử, sợi nấm nên làm khô nhanh vết bệnh và ngăn chặn khả năng lây lan của vi khuẩn, giúp cây phục hồi nhanh chóng.\nAgriLife 100SL còn giúp cây sản sinh hoạt chất Phytoalexin làm tăng tính đề kháng với bệnh hại.',
-    ',g',
-    'jg'
+    'Phun phòng ở giai đoạn làm đòng và giai đoạn trước khi trổ hay phun khi bệnh vừa chớm xuất hiện. Liều lượng: 15 ml/bình 16 lít nước.',
+    'Ascorbic acid: 2,5%; Citric acid: 3,0%; Lactic acid: 4,0%',
+    'image_1683789062490_Agrilife 100SL.jpg'
   );
 INSERT INTO
   `pesticide` (
@@ -5241,7 +6464,8 @@ INSERT INTO
     `Pesticide_supplier`,
     `Pesticide_uses`,
     `Pesticide_directionsForUse`,
-    `Pesticide_component`
+    `Pesticide_component`,
+    `Pesticide_image`
   )
 VALUES
   (
@@ -5249,8 +6473,9 @@ VALUES
     'VISEN 20SC',
     'Côn ty cổ phần thuốc sát trùng Việt Nam',
     'VISEN 20SC là thuốc trừ bệnh vi khuẩn chứa hoạt chất Saisentong thuộc thế hệ mới và thông minh nhất hiện nay.\nVISEN 20SC có tính lưu dẫn cực mạnh, thấm sâu nhanh vào trong cây ngay sau khi phun thuốc và di chuyển – phân tán đều khắp trong các mô cây. Được cây hấp thụ rất nhanh nên ít bị rửa trôi do mưa.\nVISEN 20SC có hiệu lực cao, tác dụng phòng trừ bệnh nhanh, triệt để và hiệu lực kéo dài.\nVISEN 20SC có tác dụng phổ rộng, phòng trừ hữu hiệu các loại bệnh do các nhóm vi khuẩn gây hại như Erwinia, Xanthomonas và Pseudomonas gây thối nhũn, héo xanh, cháy lá… đặc biệt là bệnh cháy bìa lá (bạc lá) hại lúa do Xanthomonas oryzae.',
-    '',
-    ''
+    'Lúa: Cháy bìa lá (bạc lá) 10 – 15 ml: Phun 2 bình 16 lít cho 1.000m2, phun khi bệnh chớm xuất hiện, phun lại lần 2 sau 5-7 ngày nếu cần thiết.\nLúa: Vàng lá 10 – 20 ml, phun 2 bình 16 lít cho 1.000m2, phun khi bệnh chớm xuất hiện, phun lại lần 2 sau 5-7 ngày nếu cần thiết.',
+    'Saisentong:20%. Phụ gia và dung môi đủ 100%.',
+    'image_1683789244053_VISEN 20SC.png'
   );
 INSERT INTO
   `pesticide` (
@@ -5259,7 +6484,8 @@ INSERT INTO
     `Pesticide_supplier`,
     `Pesticide_uses`,
     `Pesticide_directionsForUse`,
-    `Pesticide_component`
+    `Pesticide_component`,
+    `Pesticide_image`
   )
 VALUES
   (
@@ -5267,8 +6493,9 @@ VALUES
     'Chevin 5SC',
     'Công ty cổ phân NICOTEX',
     'Đặc trị bệnh khô vằn, lem lép hạt hại lúa; rỉ sắt hại cà phê; vàng rụng lá hại cao su; ghẻ sẹo hại cam; thán thư, phấn trắng hại xoài.',
-    '',
-    ''
+    'Lem lép hạt:1,2 L/ha, phun thuốc khi lúa chuẩn bị trỗ và lúa trỗ. Khô vằn: 1,0 – 1,2 L/ha, phun thuốc khi bệnh mới xuất hiện.',
+    'Hexaconazole 50g/L; 100g/kg',
+    'image_1683789506872_Chai-Chevin-900ml-Nano.png'
   );
 INSERT INTO
   `pesticide` (
@@ -5277,7 +6504,8 @@ INSERT INTO
     `Pesticide_supplier`,
     `Pesticide_uses`,
     `Pesticide_directionsForUse`,
-    `Pesticide_component`
+    `Pesticide_component`,
+    `Pesticide_image`
   )
 VALUES
   (
@@ -5285,8 +6513,9 @@ VALUES
     'Butyl 400SC',
     'Công ty cổ phân bảo vệ thực vật Sài Gòn',
     'Butyl 400SC là thuốc trừ rầy thuộc nhóm điều tiết sinh trưởng côn trùng, ức chế hình thành chất kitin, làm rầy non không lột xác được mà chết, rầy trưởng thành không đẻ trứng. Hiệu quả trừ rầy kéo dài trên 20 ngày. Không hại các loài thiên địch, rất ít độc với người và tôm cá, rất phù hợp với chương trình quản lý dịch hại tổng hợp IPM. Có thể pha chung với các loại thuốc trừ sâu bệnh khác, trừ thuốc có gốc đồng và có tính kiềm cao (như dung dịch Bordeaux)... Pha xong phun ngay.',
-    '',
-    ''
+    'Phun 0.1 - 0.125 lít/Ha. Pha 8ml / bình 25 lít nước.',
+    'Buprofezin',
+    'image_1683789643035_Butyl 400SC.jpg'
   );
 INSERT INTO
   `pesticide` (
@@ -5295,16 +6524,18 @@ INSERT INTO
     `Pesticide_supplier`,
     `Pesticide_uses`,
     `Pesticide_directionsForUse`,
-    `Pesticide_component`
+    `Pesticide_component`,
+    `Pesticide_image`
   )
 VALUES
   (
     'PE00000008',
     'DuponTMprevathon 5SC',
     'Công ty Du Pont Việt Nam',
-    'Thuốc trừ sâu Dupont Prevathon 5SC là thuốc trừ sâu thế hệ mới. Sâu ngừng ăn ngay khi trúng thuốc. Phun 1 lần diệt cả sâu cuốn lá và sâu đục thân.',
-    '',
-    ''
+    'Đặc trị các loại sâu cuốn lá, sâu đục thân lúa. Hiệu lực kéo dài. Sâu ngừng ăn ngay khi trúng thuốc.',
+    'Sâu cuốn lá, sâu đục thân\t0.2 – 0.4 lít/ha',
+    'Chlorantraniliprole: 5%(w/w), phụ gia: 95%',
+    'image_1683789753115_DuponTMprevathon 5SC.jpg'
   );
 INSERT INTO
   `pesticide` (
@@ -5313,10 +6544,19 @@ INSERT INTO
     `Pesticide_supplier`,
     `Pesticide_uses`,
     `Pesticide_directionsForUse`,
-    `Pesticide_component`
+    `Pesticide_component`,
+    `Pesticide_image`
   )
 VALUES
-  ('PE00000009', 'cdw', 'cưdq', 'a', 'bẻ', 'ebgre');
+  (
+    'PE00000009',
+    'Thuốc trừ sâu Actara 25WG',
+    'cưdq',
+    'Trị hơn 70 loại côn trùng chích hút như: bọ trĩ, rầy nâu, bọ phấn, rầy xanh, rệp.',
+    'Bọ trĩ, rầy nâu trên lúa: Pha 1g cho 8 lít nước.\nBọ phấn cà chua: Pha 1g cho 8 lít nước.\nRầy mềm trên rau màu: Pha 1g cho 8 lít nước.\nRầy chổng cánh, rầy xanh, rầy bông xoài: Pha 1g cho 8 lít nước,\nLượng nước phun: 500 - 600 L/ ha.',
+    '250g/kg Thiamethoxam',
+    'image_1683789816306_Thuá»c trá»« sÃ¢u Actara 25WG.webp'
+  );
 INSERT INTO
   `pesticide` (
     `Pesticide_id`,
@@ -5324,10 +6564,19 @@ INSERT INTO
     `Pesticide_supplier`,
     `Pesticide_uses`,
     `Pesticide_directionsForUse`,
-    `Pesticide_component`
+    `Pesticide_component`,
+    `Pesticide_image`
   )
 VALUES
-  ('PE00000010', 'fef', 'dcsa', 'cssa', ' e', 'ge');
+  (
+    'PE00000010',
+    'Thuốc trừ sâu Actara 25WG',
+    'Syngenta - Ấn Độ',
+    'Trị hơn 70 loại côn trùng chích hút như: bọ trĩ, rầy nâu, bọ phấn, rầy xanh, rệp.',
+    'Bọ trĩ, rầy nâu trên lúa: Pha 1g cho 8 lít nước.\nBọ phấn cà chua: Pha 1g cho 8 lít nước.\nRầy mềm trên rau màu: Pha 1g cho 8 lít nước.\n Rầy chổng cánh, rầy xanh, rầy bông xoài: Pha 1g cho 8 lít nước,\nLượng nước phun: 500 - 600 L/ ha.',
+    'Thiamethoxam 250g/ kg. Phụ gia: 750g/ kg.',
+    'image_1683790759857_Thuá»c trá»« sÃ¢u Actara 25WG.webp'
+  );
 INSERT INTO
   `pesticide` (
     `Pesticide_id`,
@@ -5335,7 +6584,8 @@ INSERT INTO
     `Pesticide_supplier`,
     `Pesticide_uses`,
     `Pesticide_directionsForUse`,
-    `Pesticide_component`
+    `Pesticide_component`,
+    `Pesticide_image`
   )
 VALUES
   (
@@ -5343,8 +6593,9 @@ VALUES
     'Beam 75WP',
     'Công ty cổ phần khử trùng Việt Nam',
     'Thuốc đặc trị bệnh đạo ôn (đạo ôn lá, đạo ôn cổ bông). Dưỡng cây, giúp lúa sinh trưởng tốt hơn, năng suất cao hơn, hạt chắc sáng hơn, ít bị gãy nát khi xay',
-    '',
-    ''
+    ' Đạo ôn lá (cháy lá): Liều lượng: 250g/ ha. Pha 10 g/ bình 16 lít nước. Lượng nước phun : 400 lít/ha.\n Đạo ôn cổ bông (thối cổ gié): Liều lượng: 300 g/ha. Pha 12g/ bình 16 lít nước. Lượng nước phun: 400 lít/ha.',
+    'Tricyclazole  75% w/w',
+    'image_1683789914158_beam_75_wp_master.webp'
   );
 INSERT INTO
   `pesticide` (
@@ -5353,16 +6604,18 @@ INSERT INTO
     `Pesticide_supplier`,
     `Pesticide_uses`,
     `Pesticide_directionsForUse`,
-    `Pesticide_component`
+    `Pesticide_component`,
+    `Pesticide_image`
   )
 VALUES
   (
     'PE00000012',
-    'CDS',
-    'Công ty TNHH Lúa gạo Việt Nam (VINARICE)',
-    'd',
-    '',
-    ''
+    'Permantiusa25g',
+    'Công ty CP hóa sinh Akai Bara Việt Nam',
+    'Diệt hầu hết các đối tượng chích hút phổ biến trên cây trồng như Rầy xanh, rây nâu trên lúa, bọ trĩ, rệp sáp trên cây ăn quả, hoa hồng, cây kiểng; bọ phấn trắng trên dưa bầu bí, bọ nhảy trên rau cải, bọ cánh tơ trên chè',
+    'Hòa 25g cùng 20-25 lít nước, phun dưới gậm lá và trên bề mặt cây trồng',
+    'midaclorid 200g/kg.  Acetamiprid 200g/kg',
+    'image_1683790999161_permantiusa25g.jpg'
   );
 INSERT INTO
   `pesticide` (
@@ -5371,45 +6624,18 @@ INSERT INTO
     `Pesticide_supplier`,
     `Pesticide_uses`,
     `Pesticide_directionsForUse`,
-    `Pesticide_component`
+    `Pesticide_component`,
+    `Pesticide_image`
   )
 VALUES
   (
     'PE00000015',
-    'gtr',
-    'Công ty TNHH Lúa gạo Việt Nam (VINARICE)',
-    'bt',
-    'dq',
-    'cq'
-  );
-INSERT INTO
-  `pesticide` (
-    `Pesticide_id`,
-    `Pesticide_name`,
-    `Pesticide_supplier`,
-    `Pesticide_uses`,
-    `Pesticide_directionsForUse`,
-    `Pesticide_component`
-  )
-VALUES
-  ('PE00000016', 'bf', 'bds', 'bds', 'bfs', 'bs');
-INSERT INTO
-  `pesticide` (
-    `Pesticide_id`,
-    `Pesticide_name`,
-    `Pesticide_supplier`,
-    `Pesticide_uses`,
-    `Pesticide_directionsForUse`,
-    `Pesticide_component`
-  )
-VALUES
-  (
-    'PE00000017',
-    'Tho',
-    'Công ty TNHH Lúa gạo Việt Nam (VINARICE)',
-    'FEW',
-    'FEW',
-    'fef'
+    'Thuốc diệt rầy DANTOTSU 50WG',
+    'Công ty TNHH Hóa Chất SUMITOMO',
+    'Sản phẩm chứa hoạt chất clothianidin hoạt lực mạnh, diệt rầy cực kì hiệu quả và hiệu lực kéo dài.',
+    'Pha đều gói 5 gram cho bình 16 lít. Phun đều lên cây trồng để diệt rầy hại cây trồng. Trường hợp rầy phát triển mạnh nên phun 2 bình mỗi 16 lít cho 500m2.',
+    'Clothianidin 500g/kg',
+    'image_1683790580278_Thuá»c diá»t ráº§y DANTOTSU 50WG.jpg'
   );
 
 # ------------------------------------------------------------
@@ -6792,6 +8018,294 @@ VALUES
     53.02,
     13.24
   );
+INSERT INTO
+  `prediction` (
+    `Prediction_id`,
+    `Prediction_date`,
+    `Prediction_yield`,
+    `RiceCropInformation_id`,
+    `Prediction_precipitation`,
+    `Prediction_temperature`,
+    `Prediction_humitidity`,
+    `Prediction_windSpeed`,
+    `Prediction_solarRadiation`,
+    `Algorithm_id`,
+    `Prediction_N`,
+    `Prediction_P`,
+    `Prediction_K`
+  )
+VALUES
+  (
+    137,
+    '2023-05-07 16:47:56.000000',
+    4233.8,
+    'RCI0000004',
+    81.9,
+    28.73,
+    69.6,
+    11.83,
+    22.68,
+    1,
+    83,
+    61.02,
+    17.24
+  );
+INSERT INTO
+  `prediction` (
+    `Prediction_id`,
+    `Prediction_date`,
+    `Prediction_yield`,
+    `RiceCropInformation_id`,
+    `Prediction_precipitation`,
+    `Prediction_temperature`,
+    `Prediction_humitidity`,
+    `Prediction_windSpeed`,
+    `Prediction_solarRadiation`,
+    `Algorithm_id`,
+    `Prediction_N`,
+    `Prediction_P`,
+    `Prediction_K`
+  )
+VALUES
+  (
+    138,
+    '2023-05-07 16:51:38.000000',
+    6440.82,
+    'RCI0000002',
+    41.3,
+    27.56,
+    75.3,
+    22.09,
+    23.31,
+    1,
+    131.6,
+    94.6,
+    43
+  );
+INSERT INTO
+  `prediction` (
+    `Prediction_id`,
+    `Prediction_date`,
+    `Prediction_yield`,
+    `RiceCropInformation_id`,
+    `Prediction_precipitation`,
+    `Prediction_temperature`,
+    `Prediction_humitidity`,
+    `Prediction_windSpeed`,
+    `Prediction_solarRadiation`,
+    `Algorithm_id`,
+    `Prediction_N`,
+    `Prediction_P`,
+    `Prediction_K`
+  )
+VALUES
+  (
+    139,
+    '2023-05-09 19:06:48.000000',
+    2345,
+    'RCI0000006',
+    94.6,
+    28.71,
+    69.94,
+    12.04,
+    22.53,
+    2,
+    0,
+    0,
+    0
+  );
+INSERT INTO
+  `prediction` (
+    `Prediction_id`,
+    `Prediction_date`,
+    `Prediction_yield`,
+    `RiceCropInformation_id`,
+    `Prediction_precipitation`,
+    `Prediction_temperature`,
+    `Prediction_humitidity`,
+    `Prediction_windSpeed`,
+    `Prediction_solarRadiation`,
+    `Algorithm_id`,
+    `Prediction_N`,
+    `Prediction_P`,
+    `Prediction_K`
+  )
+VALUES
+  (
+    140,
+    '2023-05-10 18:26:30.000000',
+    6449.5,
+    'RCI0000002',
+    46.4,
+    27.63,
+    75.35,
+    21.97,
+    23.19,
+    1,
+    131.6,
+    94.6,
+    43
+  );
+INSERT INTO
+  `prediction` (
+    `Prediction_id`,
+    `Prediction_date`,
+    `Prediction_yield`,
+    `RiceCropInformation_id`,
+    `Prediction_precipitation`,
+    `Prediction_temperature`,
+    `Prediction_humitidity`,
+    `Prediction_windSpeed`,
+    `Prediction_solarRadiation`,
+    `Algorithm_id`,
+    `Prediction_N`,
+    `Prediction_P`,
+    `Prediction_K`
+  )
+VALUES
+  (
+    141,
+    '2023-05-10 19:58:38.000000',
+    6449.5,
+    'RCI0000002',
+    46.4,
+    27.63,
+    75.35,
+    21.97,
+    23.19,
+    1,
+    131.6,
+    94.6,
+    43
+  );
+INSERT INTO
+  `prediction` (
+    `Prediction_id`,
+    `Prediction_date`,
+    `Prediction_yield`,
+    `RiceCropInformation_id`,
+    `Prediction_precipitation`,
+    `Prediction_temperature`,
+    `Prediction_humitidity`,
+    `Prediction_windSpeed`,
+    `Prediction_solarRadiation`,
+    `Algorithm_id`,
+    `Prediction_N`,
+    `Prediction_P`,
+    `Prediction_K`
+  )
+VALUES
+  (
+    142,
+    '2023-05-10 20:00:01.000000',
+    6150,
+    'RCI0000002',
+    46.4,
+    27.63,
+    75.35,
+    21.97,
+    23.19,
+    2,
+    131.6,
+    94.6,
+    43
+  );
+INSERT INTO
+  `prediction` (
+    `Prediction_id`,
+    `Prediction_date`,
+    `Prediction_yield`,
+    `RiceCropInformation_id`,
+    `Prediction_precipitation`,
+    `Prediction_temperature`,
+    `Prediction_humitidity`,
+    `Prediction_windSpeed`,
+    `Prediction_solarRadiation`,
+    `Algorithm_id`,
+    `Prediction_N`,
+    `Prediction_P`,
+    `Prediction_K`
+  )
+VALUES
+  (
+    143,
+    '2023-05-10 20:34:40.000000',
+    6449.5,
+    'RCI0000002',
+    46.4,
+    27.63,
+    75.35,
+    21.97,
+    23.19,
+    1,
+    131.6,
+    94.6,
+    43
+  );
+INSERT INTO
+  `prediction` (
+    `Prediction_id`,
+    `Prediction_date`,
+    `Prediction_yield`,
+    `RiceCropInformation_id`,
+    `Prediction_precipitation`,
+    `Prediction_temperature`,
+    `Prediction_humitidity`,
+    `Prediction_windSpeed`,
+    `Prediction_solarRadiation`,
+    `Algorithm_id`,
+    `Prediction_N`,
+    `Prediction_P`,
+    `Prediction_K`
+  )
+VALUES
+  (
+    144,
+    '2023-05-10 20:35:14.000000',
+    6150,
+    'RCI0000002',
+    46.4,
+    27.63,
+    75.35,
+    21.97,
+    23.19,
+    2,
+    131.6,
+    94.6,
+    43
+  );
+INSERT INTO
+  `prediction` (
+    `Prediction_id`,
+    `Prediction_date`,
+    `Prediction_yield`,
+    `RiceCropInformation_id`,
+    `Prediction_precipitation`,
+    `Prediction_temperature`,
+    `Prediction_humitidity`,
+    `Prediction_windSpeed`,
+    `Prediction_solarRadiation`,
+    `Algorithm_id`,
+    `Prediction_N`,
+    `Prediction_P`,
+    `Prediction_K`
+  )
+VALUES
+  (
+    145,
+    '2023-05-12 08:21:40.000000',
+    6454.56,
+    'RCI0000002',
+    57.9,
+    27.65,
+    75.45,
+    21.76,
+    23.07,
+    1,
+    131.6,
+    94.6,
+    43
+  );
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: province
@@ -6882,7 +8396,7 @@ VALUES
     'Vụ Hè Thu năm 2023',
     '2023-02-08',
     '2023-05-02',
-    4086,
+    0,
     'C00002',
     'AL00000002'
   );
@@ -7216,6 +8730,182 @@ VALUES
     'C00002',
     'AL00000001'
   );
+INSERT INTO
+  `ricecropinformation` (
+    `RiceCropInformation_id`,
+    `Seed_id`,
+    `RiceCropInformation_name`,
+    `RiceCropInformation_sowingDate`,
+    `RiceCropInformation_harvestDate`,
+    `RiceCropInformation_yield`,
+    `Crop_id`,
+    `ArableLand_id`
+  )
+VALUES
+  (
+    'RCI0000018',
+    'SD00000001',
+    'Vụ mùa Hè Thu 2023',
+    '2023-05-10',
+    NULL,
+    NULL,
+    'C00002',
+    'AL00000014'
+  );
+INSERT INTO
+  `ricecropinformation` (
+    `RiceCropInformation_id`,
+    `Seed_id`,
+    `RiceCropInformation_name`,
+    `RiceCropInformation_sowingDate`,
+    `RiceCropInformation_harvestDate`,
+    `RiceCropInformation_yield`,
+    `Crop_id`,
+    `ArableLand_id`
+  )
+VALUES
+  (
+    'RCI0000019',
+    'SD00000002',
+    'Trần Thị Thơ',
+    '2023-05-03',
+    NULL,
+    NULL,
+    'C00002',
+    'AL00000017'
+  );
+INSERT INTO
+  `ricecropinformation` (
+    `RiceCropInformation_id`,
+    `Seed_id`,
+    `RiceCropInformation_name`,
+    `RiceCropInformation_sowingDate`,
+    `RiceCropInformation_harvestDate`,
+    `RiceCropInformation_yield`,
+    `Crop_id`,
+    `ArableLand_id`
+  )
+VALUES
+  (
+    'RCI0000020',
+    'SD00000001',
+    'Vụ hè thu 2023',
+    '2023-05-01',
+    NULL,
+    NULL,
+    'C00002',
+    'AL00000016'
+  );
+INSERT INTO
+  `ricecropinformation` (
+    `RiceCropInformation_id`,
+    `Seed_id`,
+    `RiceCropInformation_name`,
+    `RiceCropInformation_sowingDate`,
+    `RiceCropInformation_harvestDate`,
+    `RiceCropInformation_yield`,
+    `Crop_id`,
+    `ArableLand_id`
+  )
+VALUES
+  (
+    'RCI0000021',
+    'SD00000002',
+    'Vụ hè thu 2023',
+    '2023-05-09',
+    NULL,
+    NULL,
+    'C00002',
+    'AL00000018'
+  );
+INSERT INTO
+  `ricecropinformation` (
+    `RiceCropInformation_id`,
+    `Seed_id`,
+    `RiceCropInformation_name`,
+    `RiceCropInformation_sowingDate`,
+    `RiceCropInformation_harvestDate`,
+    `RiceCropInformation_yield`,
+    `Crop_id`,
+    `ArableLand_id`
+  )
+VALUES
+  (
+    'RCI0000022',
+    'SD00000002',
+    'Vụ hè thu 2023',
+    '2023-05-09',
+    NULL,
+    NULL,
+    'C00002',
+    'AL00000019'
+  );
+INSERT INTO
+  `ricecropinformation` (
+    `RiceCropInformation_id`,
+    `Seed_id`,
+    `RiceCropInformation_name`,
+    `RiceCropInformation_sowingDate`,
+    `RiceCropInformation_harvestDate`,
+    `RiceCropInformation_yield`,
+    `Crop_id`,
+    `ArableLand_id`
+  )
+VALUES
+  (
+    'RCI0000023',
+    'SD00000002',
+    'Vụ Đông Xuân 2023',
+    '2023-05-09',
+    NULL,
+    NULL,
+    'C00001',
+    'AL00000020'
+  );
+INSERT INTO
+  `ricecropinformation` (
+    `RiceCropInformation_id`,
+    `Seed_id`,
+    `RiceCropInformation_name`,
+    `RiceCropInformation_sowingDate`,
+    `RiceCropInformation_harvestDate`,
+    `RiceCropInformation_yield`,
+    `Crop_id`,
+    `ArableLand_id`
+  )
+VALUES
+  (
+    'RCI0000024',
+    'SD00000003',
+    'Vụ Đông Xuân 2022',
+    '2023-05-09',
+    NULL,
+    NULL,
+    'C00001',
+    'AL00000023'
+  );
+INSERT INTO
+  `ricecropinformation` (
+    `RiceCropInformation_id`,
+    `Seed_id`,
+    `RiceCropInformation_name`,
+    `RiceCropInformation_sowingDate`,
+    `RiceCropInformation_harvestDate`,
+    `RiceCropInformation_yield`,
+    `Crop_id`,
+    `ArableLand_id`
+  )
+VALUES
+  (
+    'RCI0000025',
+    'SD00000002',
+    'Vụ hè thu 2023',
+    '2023-05-11',
+    NULL,
+    NULL,
+    'C00002',
+    'AL00000021'
+  );
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: role
@@ -7243,107 +8933,112 @@ INSERT INTO
     `Seed_id`,
     `Seed_name`,
     `Seed_characteristic`,
-    `Seed_supplier`
+    `Seed_supplier`,
+    `Seed_image`
   )
 VALUES
   (
     'SD00000001',
     'ST25',
     'Giống lúa ST25 là giống lúa thuộc dòng thơm, có tính chịu mặn tốt, chống được nhiều bệnh hại và có phổ thích nghi rộng. Có thể gieo cấy 2 vụ trong năm, thời gian mỗi vụ từ 95-105 ngày. Cây lúa cao khoảng 100cm, hình dáng cao đẹp, ưa thâm canh và đẻ nhánh khá tốt, bông to nhiều hạt. Năng suất trung bình đạt từ 6,5- 7,0 tấn/ha, thâm canh cao có thể đạt trên 7,0 tấn/ha.',
-    ' Doanh nghiệp tư nhân Hồ Quang Trí '
+    ' Doanh nghiệp tư nhân Hồ Quang Trí ',
+    'image_1683792110889_St25.jpg'
   );
 INSERT INTO
   `seed` (
     `Seed_id`,
     `Seed_name`,
     `Seed_characteristic`,
-    `Seed_supplier`
+    `Seed_supplier`,
+    `Seed_image`
   )
 VALUES
   (
     'SD00000002',
     'Giống lúa thuần năng suất chất lượng VNR20',
     'Chiều cao cây 95 - 100 cm, lá đòng hơi to bản, đứng, đẻ nhánh khỏe, tập trung, gọn khóm. Giống VNR20 thấp cây chống đổ tốt, chịu thâm canh, chống chịu trung bình với một số sâu bệnh hại chính, phạm vi thích ứng rộng. Năng suất trung bình 7,0- 7,5 tấn/ha, thâm canh đạt 8,0- 8,5 tấn/ha. ',
-    'Công ty cổ phần tập đoàn giống cây trồng Việt Nam'
+    'Công ty cổ phần tập đoàn giống cây trồng Việt Nam',
+    'image_1683792124792_Giá»ng lÃºa thuáº§n nÄng suáº¥t cháº¥t lÆ°á»£ng VNR20.jpg'
   );
 INSERT INTO
   `seed` (
     `Seed_id`,
     `Seed_name`,
     `Seed_characteristic`,
-    `Seed_supplier`
+    `Seed_supplier`,
+    `Seed_image`
   )
 VALUES
   (
     'SD00000003',
     'OM8017',
     'Chiều cao cây 100 - 110 cm, chống đổ khá, đẻ nhánh khỏe, dạng hình đẹp, lá đòng thẳng, trỗ bông tập trung; bông to, chiều dài của bông 25 - 26 cm, hạt thon dài, khối lượng 1000 hạt 26 - 27 gam. Chịu phèn và mặn khá, kháng rầy nâu và bệnh vàng lùn khá, chống chịu bệnh đạo ôn lá trung bình. Năng suất đạt 6,5 - 7,0 tấn/ha, thâm canh tốt đạt 7,5 - 8,0 tấn/ha.',
-    ' Công ty CP Tập đoàn ThaiBinh Seed'
+    ' Công ty CP Tập đoàn ThaiBinh Seed',
+    'image_1683792132901_OM8017.jpg'
   );
 INSERT INTO
   `seed` (
     `Seed_id`,
     `Seed_name`,
     `Seed_characteristic`,
-    `Seed_supplier`
+    `Seed_supplier`,
+    `Seed_image`
   )
 VALUES
   (
     'SD00000004',
     ' Đài Thơm 8',
     'Chiều cao cây 95 - 100 cm, đẻ nhánh khỏe. Bộ lá đứng, xanh, hạt thon dài, màu vàng sáng. Chống chịu trung bình với một số loại sâu bệnh hại chính, chịu thâm canh, cứng cây chống đổ tốt. Gạo trong không bạc bụng, cơm trắng bóng, dẻo, thơm, vị đậm. Khối lượng 1000 hạt 23 - 24 gram, hạt gạo dài 6,7 mm, tỷ lệ D/R = 3,32, hàm lượng amylose thấp 16,29%. Năng suất trung bình 6,5 - 7,0 tấn/ha, thâm canh tốt đạt 8,0 - 9,0 tấn/ha.',
-    'Công ty TNHH Lúa gạo Việt Nam (VINARICE)'
+    'Công ty TNHH Lúa gạo Việt Nam (VINARICE)',
+    'image_1683792143281_ÄÃ i ThÆ¡m 8.jpg'
   );
 INSERT INTO
   `seed` (
     `Seed_id`,
     `Seed_name`,
     `Seed_characteristic`,
-    `Seed_supplier`
+    `Seed_supplier`,
+    `Seed_image`
   )
 VALUES
   (
     'SD00000007',
     'OM 4900',
     'Chiều cao cây 95 - 105 cm, bông to đùm, cứng cây, ít đổ ngã. Thích nghi rộng, chịu phèn nhẹ. Thích hợp Đông Xuân, Hè Thu. Hạt Gạo dài trong, cơm mềm, thơm nhẹ.  Năng suất trung bình 6,0 - 8,0 tấn/ha. ',
-    'Công ty TNHH Lúa gạo Việt Nam (VINARICE)'
+    'Công ty TNHH Lúa gạo Việt Nam (VINARICE)',
+    'image_1683792152086_OM 4900.jpg'
   );
 INSERT INTO
   `seed` (
     `Seed_id`,
     `Seed_name`,
     `Seed_characteristic`,
-    `Seed_supplier`
+    `Seed_supplier`,
+    `Seed_image`
   )
 VALUES
   (
     'SD00000008',
     'Giống lúa lai F1 KC06-1',
     'Chiều cao cây 90 - 105 cm, hạt dài, trong, bóng, không bạc bụng, cơm mềm, dẻo, thơm nhẹ, vị ngọt. Thích nghi rộng, chịu phèn, úng. Đẻ nhánh khỏe, cứng cây, Chống chịu sâu bệnh tốt, chống chịu đạo ôn tốt. Thích hợp: Đông Xuân, Hè Thu, Thu Đông. Năng suất bình quân từ 8,0-10 tấn/ha. ',
-    'Công ty TNHH Lúa gạo Việt Nam (VINARICE)'
+    'Công ty TNHH Lúa gạo Việt Nam (VINARICE)',
+    'image_1683792162184_Giá»ng lÃºa lai F1 KC06-1.png'
   );
 INSERT INTO
   `seed` (
     `Seed_id`,
     `Seed_name`,
     `Seed_characteristic`,
-    `Seed_supplier`
-  )
-VALUES
-  ('SD00000009', 'sac', 'cds', 'ca');
-INSERT INTO
-  `seed` (
-    `Seed_id`,
-    `Seed_name`,
-    `Seed_characteristic`,
-    `Seed_supplier`
+    `Seed_supplier`,
+    `Seed_image`
   )
 VALUES
   (
     'SD00000010',
     'Giống lúa thuần năng suất chất lượng VNR88',
     'Chiều cao cây 105-110 cm, bộ lá phẳng, hơi mỏng lá, bông to, xếp hạt trung bình, hạt hơi bầu, màu nâu nhạt, mỏ hạt thẳng, Chống chịu trung bình một số loài sâu bệnh hại chính, phạm vi thích ứng rộng. Năng suất trung bình 7,0-7,5 tấn/ha, thâm canh tốt có thể đạt 8,0-8,5 tấn/ha. Khối lượng 1000 hạt 23 - 24 g. ',
-    'Công ty TNHH Lúa gạo Việt Nam (VINARICE)'
+    'Công ty TNHH Lúa gạo Việt Nam (VINARICE)',
+    'image_1683792173661_Giá»ng lÃºa thuáº§n nÄng suáº¥t cháº¥t lÆ°á»£ng VNR88.jpg'
   );
 
 # ------------------------------------------------------------
@@ -7596,6 +9291,70 @@ INSERT INTO
 VALUES
   (
     'RCI0000004',
+    'PE00000001',
+    'DS000004',
+    'EE000003',
+    10,
+    4000,
+    '2023-05-09',
+    '2023-05-09',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+  );
+INSERT INTO
+  `sprayingtimes` (
+    `RiceCropInformation_id`,
+    `Pesticide_id`,
+    `DevelopmentStage_id`,
+    `Employee_id`,
+    `SprayingTimes_times`,
+    `SprayingTimes_amount`,
+    `SprayingTimes_startDate`,
+    `SprayingTimes_endDate`,
+    `SprayingTimes_temperature`,
+    `SprayingTimes_humidity`,
+    `SprayingTimes_precipitation`,
+    `SprayingTimes_windSpeed`,
+    `SprayingTimes_solarRadiation`
+  )
+VALUES
+  (
+    'RCI0000004',
+    'PE00000001',
+    'DS000004',
+    'EE000003',
+    11,
+    70,
+    '2023-05-10',
+    '2023-05-10',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+  );
+INSERT INTO
+  `sprayingtimes` (
+    `RiceCropInformation_id`,
+    `Pesticide_id`,
+    `DevelopmentStage_id`,
+    `Employee_id`,
+    `SprayingTimes_times`,
+    `SprayingTimes_amount`,
+    `SprayingTimes_startDate`,
+    `SprayingTimes_endDate`,
+    `SprayingTimes_temperature`,
+    `SprayingTimes_humidity`,
+    `SprayingTimes_precipitation`,
+    `SprayingTimes_windSpeed`,
+    `SprayingTimes_solarRadiation`
+  )
+VALUES
+  (
+    'RCI0000004',
     'PE00000002',
     'DS000006',
     'EE000003',
@@ -7667,6 +9426,38 @@ VALUES
     40,
     '2023-04-30',
     NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+  );
+INSERT INTO
+  `sprayingtimes` (
+    `RiceCropInformation_id`,
+    `Pesticide_id`,
+    `DevelopmentStage_id`,
+    `Employee_id`,
+    `SprayingTimes_times`,
+    `SprayingTimes_amount`,
+    `SprayingTimes_startDate`,
+    `SprayingTimes_endDate`,
+    `SprayingTimes_temperature`,
+    `SprayingTimes_humidity`,
+    `SprayingTimes_precipitation`,
+    `SprayingTimes_windSpeed`,
+    `SprayingTimes_solarRadiation`
+  )
+VALUES
+  (
+    'RCI0000004',
+    'PE00000003',
+    'DS000005',
+    'EE000003',
+    9,
+    50,
+    '2023-05-09',
+    '2023-05-09',
     NULL,
     NULL,
     NULL,
@@ -7969,11 +9760,15 @@ VALUES
 INSERT INTO
   `treatment` (`Pesticide_id`, `Epidemic_id`)
 VALUES
-  ('PE00000003', 'EC00000001');
+  ('PE00000006', 'EC00000001');
 INSERT INTO
   `treatment` (`Pesticide_id`, `Epidemic_id`)
 VALUES
-  ('PE00000006', 'EC00000001');
+  ('PE00000010', 'EC00000001');
+INSERT INTO
+  `treatment` (`Pesticide_id`, `Epidemic_id`)
+VALUES
+  ('PE00000001', 'EC00000002');
 INSERT INTO
   `treatment` (`Pesticide_id`, `Epidemic_id`)
 VALUES
@@ -7989,7 +9784,15 @@ VALUES
 INSERT INTO
   `treatment` (`Pesticide_id`, `Epidemic_id`)
 VALUES
-  ('PE00000017', 'EC00000002');
+  ('PE00000010', 'EC00000002');
+INSERT INTO
+  `treatment` (`Pesticide_id`, `Epidemic_id`)
+VALUES
+  ('PE00000012', 'EC00000002');
+INSERT INTO
+  `treatment` (`Pesticide_id`, `Epidemic_id`)
+VALUES
+  ('PE00000015', 'EC00000002');
 INSERT INTO
   `treatment` (`Pesticide_id`, `Epidemic_id`)
 VALUES
@@ -8005,23 +9808,19 @@ VALUES
 INSERT INTO
   `treatment` (`Pesticide_id`, `Epidemic_id`)
 VALUES
+  ('PE00000010', 'EC00000003');
+INSERT INTO
+  `treatment` (`Pesticide_id`, `Epidemic_id`)
+VALUES
   ('PE00000012', 'EC00000003');
 INSERT INTO
   `treatment` (`Pesticide_id`, `Epidemic_id`)
 VALUES
-  ('PE00000017', 'EC00000003');
+  ('PE00000008', 'EC00000004');
 INSERT INTO
   `treatment` (`Pesticide_id`, `Epidemic_id`)
 VALUES
-  ('PE00000016', 'EC00000005');
-INSERT INTO
-  `treatment` (`Pesticide_id`, `Epidemic_id`)
-VALUES
-  ('PE00000017', 'EC00000005');
-INSERT INTO
-  `treatment` (`Pesticide_id`, `Epidemic_id`)
-VALUES
-  ('PE00000001', 'EC00000006');
+  ('PE00000003', 'EC00000006');
 INSERT INTO
   `treatment` (`Pesticide_id`, `Epidemic_id`)
 VALUES

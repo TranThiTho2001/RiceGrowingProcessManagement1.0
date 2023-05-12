@@ -11,6 +11,7 @@ const ArableLand = function(arableLand){
     this.Province_id = arableLand.Province_id;
 };
 
+// Save ArableLand in the database
 ArableLand.create = (newArableLand, result) => {
     sql.query("INSERT INTO ArableLand SET ?", newArableLand, (err, res) => {
         if (err) {
@@ -23,6 +24,7 @@ ArableLand.create = (newArableLand, result) => {
     });
 };
 
+// find by ArableLand_id
 ArableLand.findById = (id, result) => {
     sql.query(`(SELECT * FROM ArableLand WHERE ArableLand_id like '${id}') JOIN Soil where Soil.Soil_id = ArableLand.Soil_id `, (err, res) => {
         if (err) {
@@ -39,13 +41,13 @@ ArableLand.findById = (id, result) => {
     });
 };
 
+
 ArableLand.getAll = (name, result) => {
-    let query = "SELECT * FROM ArableLand JOIN Soil on Soil.Soil_id = ArableLand.Soil_id Join Province on Province.Province_id = ArableLand.Province_id";
+    let query = "SELECT * FROM ArableLand JOIN Soil ON Soil.Soil_id = ArableLand.Soil_id Join Province ON Province.Province_id = ArableLand.Province_id";
     if (name) {
         query += ` WHERE ArableLand_owner LIKE '%${name}%'`; 
     }
-    query += " ORDER BY ArableLand.ArableLand_id"
-    // query += " (JOIN Soil one Soil.Soil_id = ArableLand.Soil_id)"
+    query += " ORDER BY ArableLand.ArableLand_id";
     sql.query(query, (err, res) => {
         if (err) {
             console.log("error: ", err);
@@ -56,6 +58,7 @@ ArableLand.getAll = (name, result) => {
     });
 };
 
+// Update a ArableLand identified by the id in the request
 ArableLand.updateById = (id, arableLand, result) => {
     sql.query(
         "UPDATE ArableLand SET ArableLand_location = ?, Soil_id = ?, ArableLand_area = ?, ArableLand_owner = ?, ArableLand_latitude = ?, ArableLand_longitude = ?, Province_id = ? WHERE ArableLand_id = ?",
@@ -73,11 +76,11 @@ ArableLand.updateById = (id, arableLand, result) => {
             }
             console.log("updated ArableLand: ", { id: id, ...arableLand });
             result(null, { id: id, ...arableLand });
-            
         }
     );
 };
 
+// Delete a ArableLand with the specified id in the request
 ArableLand.remove = (id, result) => {
     sql.query("DELETE FROM ArableLand WHERE ArableLand_id = ?", id, (err, res) => {
         if (err) {

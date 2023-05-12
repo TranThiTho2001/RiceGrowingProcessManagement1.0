@@ -13,10 +13,15 @@ class ProvinceService {
      }
 
      getAll() { return http.get("/province"); }
+     
      get(id) { return http.get(`/province/${id}`); }
+     
      create(data) { return http.post("/province", data); }
+     
      update(id, data) { return http.put(`/province/${id}`, data); }
+     
      delete(id) { return http.delete(`/province/${id}`); }
+     
      findByName(name) { return http.get(`/province?name=${name}`); }
 }
 

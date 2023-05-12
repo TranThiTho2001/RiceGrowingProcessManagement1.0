@@ -5,20 +5,16 @@ const config = require("../config");
 exports.store = async (req, res) => {
      // Create 
      const sprayingTimes = new SprayingTimes({
-          RiceCropInformation_id: req.body.RiceCropInformation_id,
-          Pesticide_id: req.body.Pesticide_id,
-          DevelopmentStage_id: req.body.DevelopmentStage_id,
           Employee_id: req.body.Employee_id,
+          Pesticide_id: req.body.Pesticide_id,
           SprayingTimes_times: req.body.SprayingTimes_times,
+          DevelopmentStage_id: req.body.DevelopmentStage_id,
           SprayingTimes_amount: req.body.SprayingTimes_amount,
-          SprayingTimes_startDate: req.body.SprayingTimes_startDate,
           SprayingTimes_endDate: req.body.SprayingTimes_endDate,
-          // SprayingTimes_temperature: req.body.SprayingTimes_temperature,
-          // SprayingTimes_humidity: req.body.SprayingTimes_humidity,
-          // SprayingTimes_precipitation: req.body.SprayingTimes_precipitation,
-          // SprayingTimes_solarRadiation: req.body.SprayingTimes_solarRadiation,
-          // SprayingTimes_windSpeed: req.body.SprayingTimes_windSpeed,
+          RiceCropInformation_id: req.body.RiceCropInformation_id,
+          SprayingTimes_startDate: req.body.SprayingTimes_startDate,
      });
+
      // Save sprayingTimes in the database
      SprayingTimes.create(sprayingTimes, (err, data) => {
           if (err)
@@ -37,6 +33,7 @@ exports.findAll = async (req, res) => {
      });
 };
 
+//find by RiceCropInformation_id
 exports.findbyIdRiceCropInformation = async (req, res) => {
      const id = req.params.RiceCropInformation_id;
      SprayingTimes.findByIdRiceCropInformation(id, (err, data) => {
@@ -50,10 +47,10 @@ exports.findbyIdRiceCropInformation = async (req, res) => {
      })
 };
 
-
+//find by RiceCropInformation_id and Pesticide_name
 exports.findbyname = async (req, res) => {
      const  name = req.query.name;
-    const  id = req.params.RiceCropInformation_id;
+     const  id = req.params.RiceCropInformation_id;
      SprayingTimes.findByName(name,id, (err, data) => {
           if (err) {
                if (err.kind === "not_found") {
@@ -64,6 +61,7 @@ exports.findbyname = async (req, res) => {
           } else res.send(data)
      })
 };
+
 // Update a SprayingTimes identified by the id in the request
 exports.update = async (req, res) => {
      SprayingTimes.updateById(

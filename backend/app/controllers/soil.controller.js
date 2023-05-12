@@ -8,6 +8,7 @@ exports.store = async (req, res) => {
         Soil_id: req.body.Soil_id,
         Soil_name: req.body.Soil_name,
     });
+
     // Save Soil in the database
     Soil.create(soil, (err, data) => {
         if (err)
@@ -26,6 +27,7 @@ exports.findAll = async (req, res) => {
     });
 };
 
+//find Soil_id
 exports.find = async (req, res) => {
     const id = req.params.id;
     Soil.findById(id, (err, data) => {

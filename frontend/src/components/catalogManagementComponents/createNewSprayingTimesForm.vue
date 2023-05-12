@@ -8,10 +8,12 @@
                          style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
+
           <div class="row">
                <p class="col-sm-12 text-center functionName">THÊM LẦN PHUN THUỐC MÙA VỤ
                </p>
           </div>
+
           <div class="row content">
                <div class="col-sm-6">
                     <div class="form-group">
@@ -76,14 +78,12 @@
                          <ErrorMessage name="end" class="error-feedback" />
                     </div>
                </div>
-
           </div>
+
           <div class="row mt-2 ml-1 mr-1 pesticideUsed">
-               
                <div class="pesticidelist">
                     <table class="table thead-dark table-striped" style="min-height: max-content;">
                          <thead>
-
                               <tr>
                                    <th class="text-center">STT</th>
                                    <th>Tên thuốc</th>
@@ -110,11 +110,11 @@
                                         </div>
                                    </td>
                               </tr>
-
                          </tbody>
                     </table>
                </div>
           </div>
+
           <div class="row ">
                <div class="col-sm-12 mt-2 mb-2 text-center">
                     <span v-if="message2 == 'Thêm thành công.'" class="fas fa-check-circle"
@@ -127,12 +127,12 @@
                     </span>
                </div>
           </div>
+
           <div class="row mb-4">
                <div class="col-sm-12 text-center">
                     <button class="btn btn-outline-secondary btnLuu buttonSave">Lưu</button>
                </div>
           </div>
-
      </form>
 </template>
  

@@ -4,24 +4,27 @@
                <div class=" mt-2 ml-2 mr-2 text-center"><img :src="images.Image_link" class="img-fluid img-class" alt=""
                          style="height: 200px;">
                </div>
+
                <div class="row ml-2 mr-2">
                     <div style="width: 80%;">
                          <div class="datetime">{{ formatDate(images.Image_date) }}</div>
                          <div class="datetime"> &nbsp;{{ formatTimes(images.Image_date) }}</div>
                     </div>
+
                     <div style="width: 20%;">
                          <button type="button" class="btn btn-sm btnMore-image" data-toggle="dropdown" aria-haspopup="true"
                               aria-expanded="false">
                               <i class="fas fa-ellipsis-v mt-2 " style="color: #919302; font-size: 25px;"></i>
                          </button>
-                         <div class="dropdown-menu" style="width: 20px !important; margin-left: 85% !important; margin-top:50%; position:relative !important">
-                              <a class="dropdown-item" href="#"
-                                   @click="deleteImage()">
+                         <div class="dropdown-menu"
+                              style="width: 20px !important; margin-left: 85% !important; margin-top:50%; position:relative !important">
+                              <a class="dropdown-item" href="#" @click="deleteImage()">
                                    <span class="fas fa-trash-alt actionIcon"></span>
                                    Xóa
                               </a>
                          </div>
                     </div>
+
                </div>
           </div>
      </div>
@@ -35,8 +38,9 @@ export default {
      name: "imageItem",
 
      props: ["images"],
-     data(){
-          return{
+
+     data() {
+          return {
                image: this.images,
           }
      },
@@ -69,6 +73,7 @@ export default {
 </script>
    
 <style>
+
 .imageComponent {
      -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
      -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
@@ -82,11 +87,11 @@ export default {
 }
 
 @media only screen and (max-width: 576px) {
-     .img-class{
+     .img-class {
           height: 110px !important;
      }
 
-     .datetime{
+     .datetime {
           font-size: 13px !important;
      }
 }
@@ -94,12 +99,13 @@ export default {
 .imageComponent .btnMore-image {
      float: right;
 }
-.imageComponent .dropdown-menu{
+
+.imageComponent .dropdown-menu {
      right: -1% !important;
-    transform: translate3d(-150px, 20px, 100px) !important;
-    background: #FAFAFC;
-    border: 1px solid #D0D1D6;
-    color: #6D6E73;
+     transform: translate3d(-150px, 20px, 100px) !important;
+     background: #FAFAFC;
+     border: 1px solid #D0D1D6;
+     color: #6D6E73;
 }
 
 .imageComponent .datetime {

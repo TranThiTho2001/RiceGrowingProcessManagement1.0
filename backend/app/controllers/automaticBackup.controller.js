@@ -10,6 +10,7 @@ exports.store = async (newBackup, req, res) => {
             console.log("Không thể tạo một tỉ lệ mới")
         else console.log(data);
     });
+
 };
 
 // Retrieve all Backup from the database (with condition).
@@ -21,20 +22,6 @@ exports.findAll = async (req, res) => {
         else res.send(data);
     });
 };
-
-// exports.findbyFertilizerId = async (req, res) => {
-//     const Fertilizer_id= req.params.Fertilizer_id;
-//     Backup.findbyFertilizerId(Fertilizer_id, (err, data) => {
-//         if (err) {
-//             if (err.kind === "not_found") {
-//                 res.send("Không tìm thấy tỉ lệ")
-//             } else {
-//                 res.send("Lỗi trong quá trình tìm kiếm. Vui lòng thử lại sau!!!!")
-//             }
-//         } else res.send(data)
-//     })
-// };
-
 
 
 // Delete a Backup with the specified id in the request

@@ -16,6 +16,7 @@ Monitor.create = (newMonitor, result) => {
     });
 };
 
+//find by RiceCropInformation_id
 Monitor.findByIdRiceCropInformation = (id, result) => {
     sql.query(`SELECT * FROM Monitor` +
     " JOIN Ricecropinformation ON Ricecropinformation.RiceCropInformation_id = Monitor.RiceCropInformation_id"+
@@ -24,7 +25,7 @@ Monitor.findByIdRiceCropInformation = (id, result) => {
     ` JOIN ArableLand on ArableLand.ArableLand_id = RiceCropInformation.ArableLand_id` +
     ` JOIN Crop on Crop.Crop_id = RiceCropInformation.Crop_id` + 
     ` JOIN Province on Province.Province_id = ArableLand.Province_id `+
-     ` WHERE Ricecropinformation.RiceCropInformation_id like '${id}' Order by Employee.Role_id`, (err, res) => {
+    ` WHERE Ricecropinformation.RiceCropInformation_id like '${id}' Order by Employee.Role_id`, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -39,14 +40,15 @@ Monitor.findByIdRiceCropInformation = (id, result) => {
     });
 };
 
+// Retrieve all Monitor from the database (with condition).
 Monitor.getAll = (employee_id, result) => {
     let query = "SELECT * FROM Monitor" + 
-    " JOIN Ricecropinformation ON Ricecropinformation.RiceCropInformation_id = Monitor.RiceCropInformation_id"+
+    ` JOIN Ricecropinformation ON Ricecropinformation.RiceCropInformation_id = Monitor.RiceCropInformation_id`+
     ` JOIN Seed on Seed.Seed_id = RiceCropInformation.Seed_id` +
     ` JOIN ArableLand on ArableLand.ArableLand_id = RiceCropInformation.ArableLand_id` +
     ` JOIN Crop on Crop.Crop_id = RiceCropInformation.Crop_id` + 
     ` JOIN Province on Province.Province_id = ArableLand.Province_id `+
-    " JOIN Employee on Employee.Employee_id = Monitor.Employee_id ";
+    ` JOIN Employee on Employee.Employee_id = Monitor.Employee_id `;
     if (employee_id) {
         query += ` WHERE Employee.Employee_id LIKE '%${employee_id}%'`;
     }
@@ -60,14 +62,16 @@ Monitor.getAll = (employee_id, result) => {
         result(null, res);
     });
 };
+
+//find by RiceCropInformation_id and Empoyee_name
 Monitor.findByName = (name,id, result) => {
     let query = "SELECT * FROM Monitor" + 
-    " JOIN Ricecropinformation ON Ricecropinformation.RiceCropInformation_id = Monitor.RiceCropInformation_id" +
+    ` JOIN Ricecropinformation ON Ricecropinformation.RiceCropInformation_id = Monitor.RiceCropInformation_id` +
     ` JOIN Seed on Seed.Seed_id = RiceCropInformation.Seed_id` +
     ` JOIN ArableLand on ArableLand.ArableLand_id = RiceCropInformation.ArableLand_id` +
     ` JOIN Crop on Crop.Crop_id = RiceCropInformation.Crop_id` + 
     ` JOIN Province on Province.Province_id = ArableLand.Province_id `+
-    " JOIN Employee on Employee.Employee_id = Monitor.Employee_id ";
+    ` JOIN Employee on Employee.Employee_id = Monitor.Employee_id `;
     if (name) {
         query += ` WHERE Employee.Employee_name LIKE '%${name}%' AND Monitor.RiceCropInformation_id like '${id}'`;
     }
@@ -81,6 +85,8 @@ Monitor.findByName = (name,id, result) => {
         result(null, res);
     });
 };
+
+// Update a Monitor identified by the id in the request
 Monitor.updateById = (id, monitor, result) => {
     sql.query(
         "UPDATE Monitor SET Employee_id = ? WHERE RiceCropInformation_id = ?",
@@ -103,6 +109,7 @@ Monitor.updateById = (id, monitor, result) => {
     );
 };
 
+// Delete a Monitor with the specified id in the request
 Monitor.remove = (riceCropInformation_id, employee_id, result) => {
     sql.query(`DELETE FROM Monitor WHERE (RiceCropInformation_id LIKE '${riceCropInformation_id}' AND Employee_id LIKE '${employee_id}')`,(err, res) => {
         if (err) {

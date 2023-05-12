@@ -7,11 +7,13 @@
                     style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
+
           <div class="row">
                <p class="col-sm-12 text-center functionName">
                     CẬP NHẬT THÔNG TIN BỆNH DỊCH
                </p>
           </div>
+
           <div class="row content">
                <div class="col-sm-4 mt-2">
                     <div class="form-group">
@@ -96,6 +98,7 @@
                     </span>
                </div>
           </div>
+
           <div class="row mb-4">
                <div class="col-sm-12 text-center">
                     <button class="btn btn-outline-secondary btnLuu col-sm-2">Cập Nhật</button>
@@ -151,7 +154,6 @@ export default {
      methods: {
           async selectFile(event) {
                this.fileImage = event.target.files[0];
-               // this.fileImage.name = "Fertilizer_" + this.newepidemic.Epidemic_id + this.fileImage.name;
                this.newepidemic.newImage = this.fileImage;
                this.newepidemic.url = URL.createObjectURL(this.fileImage);
           },

@@ -33,5 +33,4 @@ Image.findById = (id, result) => {
     });
 };
 
-
 module.exports = Image;

@@ -28,6 +28,7 @@ exports.findAll = async (req, res) => {
     });
 };
 
+//find by id
 exports.find = async (req, res) => {
     const id = req.params.id;
     Image.findById(id, (err, data) => {

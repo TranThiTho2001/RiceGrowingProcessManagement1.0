@@ -13,6 +13,7 @@ exports.store = async (req, res) => {
         Pesticide_uses: req.body.Pesticide_uses,
         Pesticide_image: req.body.Pesticide_image,
      });
+
     // Save Pesticide in the database
     Pesticide.create(pesticide, (err, data) => {
         if (err)
@@ -31,6 +32,7 @@ exports.findAll = async (req, res) => {
     });
 };
 
+//find by Pesticide_id
 exports.find = async (req, res) => {
     const id = req.params.id;
     Pesticide.findById(id, (err, data) => {

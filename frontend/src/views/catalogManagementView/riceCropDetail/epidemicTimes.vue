@@ -11,6 +11,7 @@
                <div class="left" :class="{ navbarresponsive: openMenu.openMenu }">
                     <Catalog />
                </div>
+
                <div class="right rightRiceCropDetail" data-bs-spy="scroll">
                     <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
@@ -24,7 +25,6 @@
                     </div>
 
                     <div class="row row-inputSearch">
-
                         <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
                               @click="retrieveEpidemicList(), isOpenInput1 = true"
                               @keyup.enter="searchName(nameToSearch), away()"
@@ -42,6 +42,7 @@
                               @click="isOpenCreateEpidemicTimesForm = !isOpenCreateEpidemicTimesForm, active = true">
                               <i class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm</button>
                     </div>
+
                     <div class="row mt-4 row-detail" style=" margin-left:20px;margin-right: 10px ">
                          <div class="detail-Component text-left" v-for="(epidemictimes, i) in epidemicTimesList" :key="i">
                               <div class="btnMoreInfor"> <button type="button" class="btn btn-sm" data-toggle="dropdown"
@@ -72,13 +73,10 @@
                               <span class="title-detail">Nhân viên: </span><span class="value-detail">{{
                                    epidemictimes.Employee_name }}</span><br>
                          </div>
-
-
                     </div>
-
                </div>
-
           </div>
+
           <div class="overlay2" v-if="isOpenConfirm">
                <div class="confirmationDialog">
                     <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
@@ -90,6 +88,7 @@
                          @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
                </div>
           </div>
+
           <div class="overlay2" v-if="isOpenMessage">
                <div class="messageDialog">
                     <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
@@ -102,19 +101,23 @@
                          @click="isOpenMessage = !isOpenMessage, active = false">OK</button>
                </div>
           </div>
+
           <div class="overlay2" v-if="isOpenCreateEpidemicTimesForm">
                <CreateEpidemicTimesForm :newEpidemicTimes="newEpidemicTimes" :epidemicList="epidemicList"
                     :developmentStageList="developmentStageList" :currentUser="currentUser" :riceCropChosen="newRiceCrop"
                     :arableLandList="arableLandList" @addEpidemicTimes-submit="createEpidemicTimes" :message1="message1"
                     :message2="message2" />
           </div>
+
           <div class="overlay2" v-if="isOpenUpdateEpidemicTimesForm">
                <UpdateEpidemicTimesForm :newEpidemicTimes="epidemicTimesChosen" :epidemicList="epidemicList"
                     :developmentStageList="developmentStageList" :currentUser="currentUser" :riceCropChosen="newRiceCrop"
                     :arableLandList="arableLandList" @updateEpidemicTimes-submit="updateEpidemicTimes" :message1="message1"
                     :message2="message2" />
           </div>
+
      </div>
+
      <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click.passive="away()"></div>
 </template>
 
@@ -174,7 +177,7 @@ export default {
                     open: false,
                     close: true,
                },
-               weatherInfor: {},
+
                loading: true,
                developmentStageList: [],
                epidemicList: [],
@@ -278,7 +281,6 @@ export default {
                     else {
                          this.newEpidemicTimes.EpidemicTimes_times = 1;
                     }
-
                }
           },
 
@@ -312,17 +314,13 @@ export default {
           async choosenDelete() {
                if (this.delete == "FertilizerTimes") {
                     this.deleteFertilizerTimes();
-               }
-               else if (this.delete == "SprayingTimes") {
+               } else if (this.delete == "SprayingTimes") {
                     this.deleteSprayingTimes();
-               }
-               else if (this.delete == "EpidemicTimes") {
+               } else if (this.delete == "EpidemicTimes") {
                     this.deleteEpidemicTimes();
-               }
-               else if (this.delete == "Monitor") {
+               } else if (this.delete == "Monitor") {
                     this.deleteMonitor();
-               }
-               else if (this.delete == "ActivitiseDetail") {
+               } else if (this.delete == "ActivitiseDetail") {
                     this.deleteActivitiesDetail();
                }
           },
@@ -344,8 +342,7 @@ export default {
                     else {
                          this.newEpidemicTimes.EpidemicTimes_times = this.epidemicTimesList[this.epidemicTimesList.length - 1].EpidemicTimes_times + 1;
                     }
-               }
-               else {
+               } else {
                     this.message1 = " ";
                     this.message2 = " ";
                     this.developmentStageList.forEach(element => {
@@ -366,20 +363,20 @@ export default {
 
                     if (data.EpidemicTimes_startDate != null) {
                          data.EpidemicTimes_startDate = (moment(String(data.EpidemicTimes_startDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    }
-                    else {
+                    } else {
                          data.EpidemicTimes_startDate = null;
                     }
+
                     if (data.EpidemicTimes_endDate != null) {
                          data.EpidemicTimes_endDate = (moment(String(data.EpidemicTimes_endDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    }
-                    else {
+                    } else {
                          data.EpidemicTimes_endDate = null;
                     }
 
                     const [error, respone] = await this.handle(
                          EpidemicTimesService.create(data)
                     );
+
                     if (error) {
                          console.log(error);
                          this.message1 = "Thêm không thành công."
@@ -422,14 +419,13 @@ export default {
 
                     if (data.EpidemicTimes_startDate != null) {
                          data.EpidemicTimes_startDate = (moment(String(data.EpidemicTimes_startDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    }
-                    else {
+                    } else {
                          data.EpidemicTimes_startDate = null;
                     }
+
                     if (data.EpidemicTimes_endDate != null) {
                          data.EpidemicTimes_endDate = (moment(String(data.EpidemicTimes_endDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    }
-                    else {
+                    } else {
                          data.EpidemicTimes_endDate = null;
                     }
 
@@ -481,16 +477,13 @@ export default {
                          );
                          if (err) {
                               console.log(err)
-                         }
-                         else {
+                         } else {
                               if (respone.data != "Không tìm thấy lần bị dịch bệnh.") {
                                    this.epidemicTimesList = respone.data;
-                              }
-                              else this.epidemicTimesList = [];
+                              } else this.epidemicTimesList = [];
                          }
                     }
-               }
-               else {
+               }  else {
                     this.retrieveEpidemicTimesList();
                }
           },
@@ -501,9 +494,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
-
+               } else {
                     this.newRiceCrop.RiceCropInformation_id = respone.data.RiceCropInformation_id;
                     this.newRiceCrop.RiceCropInformation_name = respone.data.RiceCropInformation_name;
                     this.newRiceCrop.Seed_id = respone.data.Seed_id;
@@ -518,11 +509,8 @@ export default {
                     this.newRiceCrop.ArableLand_owner = respone.data.ArableLand_owner;
                     this.newRiceCrop.ArableLand_latitude = respone.data.ArableLand_latitude;
                     this.newRiceCrop.ArableLand_longitude = respone.data.ArableLand_longitude;
-                    // this.getWeather();
                }
           },
-
-
 
           goToRiceCrop() {
                this.$router.push({ name: 'RiceCropDetail', params: { id: this.newRiceCrop.RiceCropInformation_id } });

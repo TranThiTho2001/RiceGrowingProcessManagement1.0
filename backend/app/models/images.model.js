@@ -4,8 +4,8 @@ const Images = function(newImage){
     this.Image_id = newImage.Image_id;
     this.Image_link = newImage.Image_link;
     this.Image_date = newImage.Image_date;
-    this.RiceCropInformation_id = newImage.RiceCropInformation_id;
     this.Image_location = newImage.Image_location;
+    this.RiceCropInformation_id = newImage.RiceCropInformation_id;
 };
 
 Images.create = (newImage, result) => {
@@ -37,7 +37,7 @@ Images.findById = (id, result) => {
 };
 
 Images.getAll = (name, result) => {
-    let query = "SELECT * FROM Images  JOIN RiceCropInformation on  RiceCropInformation.RiceCropInformation_id= Images.RiceCropInformation_id";
+    let query = "SELECT * FROM Images  JOIN RiceCropInformation ON  RiceCropInformation.RiceCropInformation_id= Images.RiceCropInformation_id";
     if(name) {
         query += ` WHERE Images.RiceCropInformation_id LIKE '%${name}%'`;
     }
@@ -88,8 +88,5 @@ Images.remove = (id, result) => {
         result(null, res);
     });
 };
-
-
-
 
 module.exports = Images;

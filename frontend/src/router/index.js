@@ -10,13 +10,6 @@ const routes = [
     },
 
     {
-        path: "/SystemManagement",
-        alias: "/SystemManagement",
-        name: "SystemManagement",
-        component: () => import("../views/administratorsView/SystemManagement.vue"),
-    },
-
-    {
         path: "/EmployeeManager",
         alias: "/EmployeeManager",
         name: "EmployeeManager",
@@ -31,22 +24,6 @@ const routes = [
     },
 
     {
-        path: "/CreateNewEmployee",
-        alias: "/createNewEmployee",
-        name: "createNewEmployee",
-        component: () => import("../views/administratorsView/createNewEmployee.vue"),
-
-    },
-
-    {
-        path: "/UpdateEmployee",
-        alias: "/UpdateEmployee",
-        name: "UpdateEmployee",
-        component: () => import("../views/administratorsView/updateEmployee.vue"),
-
-    },
-
-    {
         path: "/Predition",
         alias: "/Predition",
         name: "Predition",
@@ -58,7 +35,6 @@ const routes = [
         alias: "/Statistical",
         name: "Statistical",
         component: () => import("../views/catalogManagementView/statisticalManagement.vue"),
-
     },
 
     {
@@ -66,7 +42,6 @@ const routes = [
         alias: "/StatisticsByRiceCrop",
         name: "StatisticsByRiceCrop",
         component: () => import("../views/catalogManagementView/statisticsByRiceCrop.vue"),
-
     },
 
     {
@@ -74,14 +49,6 @@ const routes = [
         alias: "/Monitor",
         name: "Monitor",
         component: () => import("../views/catalogManagementView/riceCropManagement.vue"),
-
-    },
-
-    {
-        path: "/MainForm",
-        alias: "/mainForm",
-        name: "OtherActivities",
-        component: () => import("../views/MainForm.vue"),
     },
 
     {
@@ -135,7 +102,6 @@ const routes = [
 
     },
     
-
     {
         path: "/FertilizerTimes/:id",
         alias: "/FertilizerTimes/:id",
@@ -156,12 +122,14 @@ const routes = [
         name: "EpidemicTimes",
         component: () => import("../views/catalogManagementView/riceCropDetail/epidemicTimes.vue"),
     },
+    
     {
         path: "/ImagesRiceCrop/:id",
         alias: "/ImagesRiceCrop/:id",
         name: "ImagesRiceCrop",
         component: () => import("../views/catalogManagementView/riceCropDetail/imagesRiceCrop.vue"),
     },
+
     {
         path: "/SupervisionRights/:id",
         alias: "/SupervisionRights/:id",
@@ -175,26 +143,12 @@ const routes = [
         name: "Activities",
         component: () => import("../views/catalogManagementView/riceCropDetail/activityTimes.vue"),
     },
-    
-    {
-        path: "/RiceYieldPredictionDetail",
-        alias: "/RiceYieldPredictionDetail",
-        name: "RiceYieldPredictionDetail",
-        component: () => import("../views/catalogManagementView/riceYieldPredictionDetail.vue"),
-    },
 
     {
         path: "/Prediction/:id/:Algorithm",
         alias: "/Prediction/:id/:Algorithm",
         name: "Prediction",
         component: () => import("../views/catalogManagementView/riceCropDetailForPrediction.vue"),
-    },
-
-    {
-        path: "/RiceCropHarvested",
-        alias: "/RiceCropHarvested",
-        name: "RiceCropHarvested",
-        component: () => import("../views/catalogManagementView/finalPrediction.vue"),
     },
 ];
 

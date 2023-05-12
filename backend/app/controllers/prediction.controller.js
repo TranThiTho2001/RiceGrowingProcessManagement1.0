@@ -3,6 +3,7 @@ const config = require("../config");
 const moment = require('moment');
 const fileLinearRegression = process.cwd() + '/app/controllers/predictionModel/LinearRegression1.py';
 const fileRandomForest = process.cwd() + '/app/controllers/predictionModel/RandomForestRegression1.py';
+
 // Create and Save 
 exports.store = async (req, res) => {
      var yield = 0;
@@ -17,23 +18,21 @@ exports.store = async (req, res) => {
      temp.N = req.body.N;
      temp.P = req.body.P;
      temp.K = req.body.K;
-     console.log(temp);
      const regression = req.body.Algorithm_id;
-     console.log(regression);
      const { spawn } = require('child_process');
      var pyProg = "";
      if (regression == 1) {
-          pyProg = spawn("python", [`${fileLinearRegression }`, JSON.stringify(temp)]);
+          pyProg = spawn("python", [`${fileLinearRegression}`, JSON.stringify(temp)]);
      }
-     else{
-          pyProg = spawn("python", [`${fileRandomForest }`, JSON.stringify(temp)]);
+     else {
+          pyProg = spawn("python", [`${fileRandomForest}`, JSON.stringify(temp)]);
      }
 
      pyProg.stdout.on('data', function (data) {
           yield = String(data.toString()).slice(0, String(data.toString()).indexOf("\r\n"));
           yield = (String(yield).slice(1,));
           yield = (String(yield).slice(0, (String(yield).length - 1)));
-          console.log(yield)
+
           // create new prediction
           const prediciton = new Prediction({
                Prediction_id: null,
@@ -58,7 +57,6 @@ exports.store = async (req, res) => {
                else res.send(data);
           });
      });
-
 };
 
 // Retrieve all Prediciton from the database (with condition).
@@ -71,6 +69,7 @@ exports.findAll = async (req, res) => {
      });
 };
 
+//find by Prediction_id
 exports.findById = async (req, res) => {
      const id = req.params.id;
      Prediction.findById(id, (err, data) => {
@@ -84,6 +83,7 @@ exports.findById = async (req, res) => {
      })
 };
 
+//find by RiceCropInformation_id
 exports.findByRiceCropInformationid = async (req, res) => {
      const id = req.params.RiceCropInformation_id;
      Prediction.findByRiceCropInformationId(id, (err, data) => {
@@ -96,7 +96,6 @@ exports.findByRiceCropInformationid = async (req, res) => {
           } else res.send(data)
      })
 };
-
 
 // Delete a Prediction with the specified id in the request
 exports.delete = async (req, res) => {

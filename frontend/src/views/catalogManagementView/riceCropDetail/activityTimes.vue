@@ -3,6 +3,7 @@
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
                <Preloader color="red" scale="0.4" />
           </div>
+
           <div class="row riceCropDetailFrame" style="height: max-content;" v-if="!loading" :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
@@ -11,6 +12,7 @@
                <div class="left" :class="{ navbarresponsive: openMenu.openMenu }">
                     <Catalog />
                </div>
+
                <div class="right rightRiceCropDetail" data-bs-spy="scroll">
                     <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
@@ -42,6 +44,7 @@
                               @click="isOpenCreateActivitiesDetail = !isOpenCreateActivitiesDetail, active = true"> <i
                                    class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm</button>
                     </div>
+
                     <div class="row mt-4 function-row" style=" margin-left:20px;margin-right: 10px ">
                          <div class="detail-Component text-left" v-for="(activity, i) in activitiesDetailList" :key="i">
                               <div class="btnMoreInfor"> <button type="button" class="btn btn-sm" data-toggle="dropdown"
@@ -62,6 +65,7 @@
 
                                    </div>
                               </div>
+
                               <h5 class="function-name text-center">{{ activity.OtherActivities_name }} Lần {{
                                    activity.ActivityDetails_times }}</h5>
                               <span class="title-detail">Từ ngày: </span><span class="value-detail">{{
@@ -73,13 +77,10 @@
                               <span class="title-detail">Nhân viên: </span><span class="value-detail">{{
                                    activity.Employee_name }}</span><br>
                          </div>
-
-
                     </div>
-
                </div>
-
           </div>
+
           <div class="overlay2" v-if="isOpenConfirm">
                <div class="confirmationDialog" >
                     <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
@@ -91,6 +92,7 @@
                          @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
                </div>
           </div>
+
           <div class="overlay2" v-if="isOpenMessage">
                <div class="messageDialog" >
                     <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
@@ -103,17 +105,21 @@
                          @click="isOpenMessage = !isOpenMessage, active = false">OK</button>
                </div>
           </div>
+
           <div class="overlay2" v-if="isOpenCreateActivitiesDetail">
                <CreateActivitiiesDetailForm :newActivityDetail="newActivityDetail" :currentUser="currentUser"
                     :developmentStageList="developmentStageList" :riceCropChosen="newRiceCrop"
                     @addOtherActivityTimes-submit="createNewActivitiesDetail" :message1="message1" :message2="message2" />
           </div>
+
           <div class="overlay2" v-if="isOpenUpdateActivitiesDetail">
                <UpadteActivitiiesDetailForm :newActivityDetail="activitiesDetailChosen" :currentUser="currentUser"
                     :developmentStageList="developmentStageList" :riceCropChosen="newRiceCrop"
                     @updateActivitiesDetail-submit="updateActivitiesDetail" :message1="message1" :message2="message2" />
           </div>
+
      </div>
+
      <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click.passive="away()"></div>
 </template>
 
@@ -122,14 +128,15 @@ import moment from 'moment';
 import 'vue3-carousel/dist/carousel.css';
 import { mapGetters, mapMutations } from "vuex";
 import RiceCropService from '@/services/riceCropInformation.service';
+import ActivityDetailsService from '@/services/activityDetails.service';
+import otherActivitiesService from '@/services/otherActivities.service';
 import DevelopmentStageService from '@/services/developmentStage.service';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import Preloader from '@/components/catalogManagementComponents/Preloader.vue'
 import Catalog from '../../../components/catalogManagementComponents/catalog.vue';
-import ActivityDetailsService from '@/services/activityDetails.service';
-import otherActivitiesService from '@/services/otherActivities.service';
 import UpadteActivitiiesDetailForm from '@/components/catalogManagementComponents/updateActivitiesDetailForm.vue'
 import CreateActivitiiesDetailForm from '@/components/catalogManagementComponents/createNewOtherActivityTimesForm.vue';
+
 export default {
      name: "epidemicTimes",
 
@@ -188,7 +195,6 @@ export default {
           this.initEmployeeState();
      },
 
-
      methods: {
 
           ...mapMutations([
@@ -208,6 +214,7 @@ export default {
                     }, 1000);
                }
           },
+
           setActivityChosen(activity) {
                this.activitiesDetailChosen = activity;
           },
@@ -266,14 +273,12 @@ export default {
                     });
                     if (data.ActivityDetails_endDate != null) {
                          data.ActivityDetails_endDate = (moment(String(data.ActivityDetails_endDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    }
-                    else {
+                    } else {
                          data.ActivityDetails_endDate = null;
                     }
                     if (data.ActivityDetails_startDate != null) {
                          data.ActivityDetails_startDate = (moment(String(data.ActivityDetails_startDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    }
-                    else {
+                    } else {
                          data.ActivityDetails_startDate = null;
                     }
                     const [error, response] = await this.handle(
@@ -282,15 +287,12 @@ export default {
 
                     if (response.data == error) {
                          this.message1 = "Thêm không thành công.";
-                    }
-                    else if (response.data == "Không thể tạo chi tiết hoạt động mới.") {
+                    } else if (response.data == "Không thể tạo chi tiết hoạt động mới.") {
                          this.message1 = "Thêm không thành công.";
-                    }
-                    else {
+                    }  else {
                          this.message2 = "Thêm thành công.";
                          this.retrieveActivitiesDetail();
                     }
-
                }
           },
 
@@ -318,30 +320,26 @@ export default {
                     });
                     if (data.ActivityDetails_endDate != null) {
                          data.ActivityDetails_endDate = (moment(String(data.ActivityDetails_endDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    }
-                    else {
+                    }  else {
                          data.ActivityDetails_endDate = null;
                     }
                     if (data.ActivityDetails_startDate != null) {
                          data.ActivityDetails_startDate = (moment(String(data.ActivityDetails_startDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    }
-                    else {
+                    } else {
                          data.ActivityDetails_startDate = null;
                     }
-                    //Ipdate
                     const [error, response] = await this.handle(
                          ActivityDetailsService.update(this.newRiceCrop.RiceCropInformation_id, data.OtherActivities_id, data.ActivityDetails_times, data)
                     );
 
                     if (response.data == error) {
                          this.message1 = "Cập nhật không thành công.";
-                    }
-                    else if (response.data == "Đã xảy ra lỗi trong quá trình cập nhật thông tin!") {
+                    } else if (response.data == "Đã xảy ra lỗi trong quá trình cập nhật thông tin!") {
                          this.message1 = "Cập nhật không thành công.";
-                    }
-                    else {
+                    }  else {
                          this.message2 = "Cập nhật thành công.";
                     }
+
                     this.retrieveActivitiesDetail()
                }
           },
@@ -398,7 +396,6 @@ export default {
                     this.newRiceCrop.ArableLand_longitude = respone.data.ArableLand_longitude;
                }
           },
-
 
           async searchName(data) {
                this.nameToSearch = data;

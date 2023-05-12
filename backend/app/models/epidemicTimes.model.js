@@ -8,11 +8,6 @@ const EpidemicTimes = function (epidemicTimes) {
      this.EpidemicTimes_times = epidemicTimes.EpidemicTimes_times;
      this.EpidemicTimes_startDate = epidemicTimes.EpidemicTimes_startDate;
      this.EpidemicTimes_endDate = epidemicTimes.EpidemicTimes_endDate;
-     // this.EpidemicTimes_temperature = epidemicTimes.EpidemicTimes_temperature;
-     // this.EpidemicTimes_humidity = epidemicTimes.EpidemicTimes_humidity;
-     // this.EpidemicTimes_precipitation = epidemicTimes.EpidemicTimes_precipitation;
-     // this.EpidemicTimes_windSpeed = epidemicTimes.EpidemicTimes_windSpeed;
-     // this.EpidemicTimes_solarRadiation = epidemicTimes.EpidemicTimes_solarRadiation;
 }
 
 EpidemicTimes.create = (newEpidemicTimes, result) => {
@@ -28,11 +23,12 @@ EpidemicTimes.create = (newEpidemicTimes, result) => {
      });
 };
 
+//find by RiceCropInformation_id
 EpidemicTimes.findByIdRiceCropInformation = (id, result) => {
      sql.query(`SELECT * FROM EpidemicTimes`+
           ` JOIN Employee on Employee.Employee_id = EpidemicTimes.Employee_id` +
           ` JOIN Epidemic on Epidemic.Epidemic_id = EpidemicTimes.Epidemic_id` +
-          ` Join Developmentstage on DevelopmentStage.DevelopmentStage_id = EpidemicTimes.DevelopmentStage_id` + 
+          ` JOIN Developmentstage on DevelopmentStage.DevelopmentStage_id = EpidemicTimes.DevelopmentStage_id` + 
           ` WHERE RiceCropInformation_id like '${id}' ORDER BY EpidemicTimes_times`, (err, res) => {
           if (err) {
                console.log("error: ", err);
@@ -48,12 +44,13 @@ EpidemicTimes.findByIdRiceCropInformation = (id, result) => {
      });
 };
 
+// Retrieve all EpidemicTimes from the database (with condition).
 EpidemicTimes.getAll = (Epidemics_id, result) => {
      let query = "SELECT * FROM EpidemicTimes"+
-     ` JOIN Employee on Employee.Employee_id = EpidemicTimes.Employee_id` +
+          ` JOIN Employee on Employee.Employee_id = EpidemicTimes.Employee_id` +
           ` JOIN Epidemic on Epidemic.Epidemic_id = EpidemicTimes.Epidemic_id` +
-          ` Join Developmentstage on DevelopmentStage.DevelopmentStage_id = EpidemicTimes.DevelopmentStage_id` +
-          ` Join RiceCropInformation on RiceCropInformation.RiceCropInformation_id = EpidemicTimes.RiceCropInformation_id`;
+          ` JOIN Developmentstage on DevelopmentStage.DevelopmentStage_id = EpidemicTimes.DevelopmentStage_id` +
+          ` JOIN RiceCropInformation on RiceCropInformation.RiceCropInformation_id = EpidemicTimes.RiceCropInformation_id`;
      if (Epidemics_id) {
           query += ` WHERE Epidemic_id LIKE '%${Epidemics_id}%' ORDER By EpidemicTimes_times`;
      }
@@ -67,13 +64,12 @@ EpidemicTimes.getAll = (Epidemics_id, result) => {
      });
 };
 
-
-
+// find by Epidemic_name
 EpidemicTimes.findByName= (name,id, result) => {
      let query = "SELECT * FROM EpidemicTimes"+
-     ` JOIN Employee on Employee.Employee_id = EpidemicTimes.Employee_id` +
+          ` JOIN Employee on Employee.Employee_id = EpidemicTimes.Employee_id` +
           ` JOIN Epidemic on Epidemic.Epidemic_id = EpidemicTimes.Epidemic_id` +
-          ` Join Developmentstage on DevelopmentStage.DevelopmentStage_id = EpidemicTimes.DevelopmentStage_id`;
+          ` JOIN Developmentstage on DevelopmentStage.DevelopmentStage_id = EpidemicTimes.DevelopmentStage_id`;
      if (name) {
           query += ` WHERE Epidemic_name LIKE '%${name}%' AND RiceCropInformation_id like '${id}' ORDER BY EpidemicTimes_times`;
      }
@@ -87,6 +83,7 @@ EpidemicTimes.findByName= (name,id, result) => {
      });
 };
 
+// Update a EpidemicTimes identified by the id in the request
 EpidemicTimes.updateById = (riceCropInformation_id, Epidemic_id, times, epidemicTimes, result) => {
      sql.query(
           "UPDATE EpidemicTimes SET Employee_id = ?, DevelopmentStage_id = ?, EpidemicTimes_startDate = ?, EpidemicTimes_endDate = ?, Epidemic_id = ?  WHERE (RiceCropInformation_id = ? and EpidemicTimes_times = ?)",
@@ -103,11 +100,11 @@ EpidemicTimes.updateById = (riceCropInformation_id, Epidemic_id, times, epidemic
                     return;
                }
                result(null, { riceCropInformation_id: riceCropInformation_id, ...epidemicTimes });
-
           }
      );
 };
 
+// Delete a EpidemicTimes with the specified id in the request
 EpidemicTimes.remove = (riceCropInformation_id, epidemic_id, times, result) => {
      sql.query(`DELETE FROM EpidemicTimes WHERE (RiceCropInformation_id LIKE '${riceCropInformation_id}' AND Epidemic_id LIKE '${epidemic_id}' AND EpidemicTimes_times LIKE '${times}')`, (err, res) => {
           if (err) {
@@ -121,18 +118,6 @@ EpidemicTimes.remove = (riceCropInformation_id, epidemic_id, times, result) => {
                return;
           }
           console.log("deleted EpidemicTimes with id: ", riceCropInformation_id);
-          result(null, res);
-     });
-};
-
-EpidemicTimes.removeAll = result => {
-     sql.query("DELETE FROM EpidemicTimes", (err, res) => {
-          if (err) {
-               console.log("error: ", err);
-               result(err, null);
-               return;
-          }
-          console.log(`deleted ${res.affectedRows} EpidemicTimes`);
           result(null, res);
      });
 };

@@ -3,6 +3,7 @@
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
                <Preloader color="red" scale="0.4" />
           </div>
+
           <div class="row arablelandManagementFrame" style="height: 100vmin; background-color: #EAEAEA;" v-if="!loading"
                :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
@@ -45,59 +46,12 @@
                                    class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm mẫu ruộng</button>
                     </div>
                     <div class="scrollTable" style="background: none !important; background-color: none !important;">
-                         <!-- <div class="scrollTable-content">
-                              <table class="table arablelandList">
-                                   <thead>
-                                        <tr>
-                                             <th class="centerclass" style=" padding-right: 2px;">STT</th>
-                                             <th class="centerclass">Mã</th>
-                                             <th>Diện tích</th>
-                                             <th>Chủ sở hữu</th>
-                                             <th>Loại đất</th>
-                                             <th>Vị trí</th>
-                                             <th></th>
-                                        </tr>
-                                   </thead>
-                                   <tbody>
-                                        <tr v-for="(arableland, i ) in arablelandList" :key="i">
-                                             <td class="centerclass" data-label="STT">{{ i + 1 }}</td>
-                                             <td class="centerclass" data-label="Mã">{{ arableland.ArableLand_id }}</td>
-                                             <td data-label="Diện tích">{{ arableland.ArableLand_area }}</td>
-                                             <td data-label="Chủ sở hữu">{{ arableland.ArableLand_owner }}</td>
-                                             <td data-label="Loại đất">{{ arableland.Soil_name }}</td>
-                                             <td data-label="Vị trí">
-                                                  <i class="fas fa-map-marker-alt"></i>
-                                                  <a
-                                                       :href="`https://www.google.com/maps/place/` + arableland.ArableLand_location">{{
-                                                            arableland.ArableLand_location }}</a>
-                                             </td>
-                                             <td class="Tùy chọn" style="padding: 2px;">
-                                                  <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
-                                                       aria-haspopup="true" aria-expanded="false">
-                                                       <i class="fas fa-ellipsis-v"></i>
-                                                  </button>
-                                                  <div class="dropdown-menu">
-                                                       <a class="dropdown-item action"
-                                                            @click="setArableLandChosen(arableland), isOpenUpdateArableLand = !isOpenUpdateArableLand, active = true">
-                                                            <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
-                                                       </a>
-                                                       <a class="dropdown-item" href="#"
-                                                            @click="setArableLandChosen(arableland), isOpenConfirm = !isOpenConfirm, active = true">
-                                                            <span class="fas fa-trash-alt actionIcon"></span> Xóa
-                                                       </a>
-                                                  </div>
-                                             </td>
-                                        </tr>
-                                   </tbody>
-                              </table>
-                         </div> -->
-
-
                          <div class="ol-class" style="--length: 5" role="list">
-                              <a style="width: 23%;" class="li-class-arableland li-class" href="#popup1" v-for="(arableLand, j) in arablelandList" :key="j"
+                              <a style="width: 23%;" class="li-class-arableland li-class" href="#popup1"
+                                   v-for="(arableLand, j) in arablelandList" :key="j"
                                    @click="setArableLandChosen(arableLand)">
-                                   <button type="button" class="btn btn-sm btnMoreSelection" data-toggle="dropdown" v-if="currentUser.Role_id == '02'"
-                                        aria-haspopup="true" aria-expanded="false">
+                                   <button type="button" class="btn btn-sm btnMoreSelection" data-toggle="dropdown"
+                                        v-if="currentUser.Role_id == '02'" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v"></i>
                                    </button>
                                    <div class="dropdown-menu">
@@ -116,10 +70,12 @@
                                    <span class="title-class">Tỉnh: {{ arableLand.ArableLand_location }}</span><br>
                                    <span class="title-class">Diện tích: {{ arableLand.ArableLand_area }} ha</span><br>
                                    <span class="title-class">Vị trí:
-                                        <a class="text-location" :href="`http://maps.google.com/?q=${arableLand.ArableLand_latitude}, ${arableLand.ArableLand_longitude}`">
+                                        <a class="text-location"
+                                             :href="`http://maps.google.com/?q=${arableLand.ArableLand_latitude}, ${arableLand.ArableLand_longitude}`">
                                              Xem trên bản đồ</a>
                                    </span><br>
                               </a>
+
                               <div id="popup1" class="overlay" v-if="!active && !isOpenUpdateArableLand">
                                    <div class="popup">
                                         <a class="fas fa-times-circle" href="#"
@@ -135,8 +91,9 @@
                                              <span class="value-class">{{ arablelandChosen.Soil_name }}</span><br>
                                              <span class="title-class">Tọa độ: </span>
                                              <span class="value-class"> <a class="text-location"
-                                                       :href="`http://maps.google.com/?q=${arablelandChosen.ArableLand_latitude}, ${arablelandChosen.ArableLand_longitude}`">{{ arablelandChosen.ArableLand_latitude }}, {{
-                                                  arablelandChosen.ArableLand_longitude }} </a></span><br>
+                                                       :href="`http://maps.google.com/?q=${arablelandChosen.ArableLand_latitude}, ${arablelandChosen.ArableLand_longitude}`">{{
+                                                            arablelandChosen.ArableLand_latitude }}, {{
+          arablelandChosen.ArableLand_longitude }} </a></span><br>
                                              <span class="title-class">Địa chỉ: </span>
                                              <span class="value-class">{{ arablelandChosen.ArableLand_location }}</span><br>
                                              <span class="title-class">Khu vực nghiên cứu: </span>
@@ -147,12 +104,9 @@
                               </div>
                          </div>
                     </div>
-
-                    <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
-
-
                </div>
           </div>
+
           <div class="overlay2" v-if="isOpenConfirm">
                <div class="confirmationDialog" v-if="isOpenConfirm">
                     <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
@@ -164,6 +118,7 @@
                          @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
                </div>
           </div>
+
           <div class="overlay2" v-if="isOpenMessage">
                <div class="messageDialog">
                     <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
@@ -175,23 +130,24 @@
                          @click="isOpenMessage = !isOpenMessage, active = false">OK</button>
                </div>
           </div>
+
           <div class="overlay2" v-if="openCreate">
                <CreateArableLandForm :newArableLand="newArableLand" :soilList="soilList"
                     @addArableLand-submit="createArableLand" :message1="message1" :message2="message2"
                     :provinceList="provinceList" />
           </div>
+
           <div class="overlay2" v-if="isOpenUpdateArableLand">
                <UpdateArableLandForm :newArableLand="arablelandChosen" :soilList="soilList"
                     @updateArableLand-submit="updateArableLand" :message1="message1" :message2="message2"
                     :provinceList="provinceList" />
           </div>
      </div>
+
      <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click.passive="away()"></div>
 </template>
 
 <script>
-
-
 import { mapGetters, mapMutations } from "vuex";
 import SoilService from '../../services/soil.service'
 import ProvinceService from '../../services/province.service';
@@ -284,9 +240,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
-
+               } else {
                     this.provinceList = respone.data; console.log(this.provinceList)
                }
           },
@@ -297,8 +251,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.soilList = respone.data;
                     console.log(this.soilList);
                }
@@ -319,8 +272,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.arablelandList = respone.data;
                     this.cloneArableLandList = respone.data;
                     this.cloneArableLandList.forEach(element => {
@@ -340,14 +292,12 @@ export default {
 
                     if (id < 9) {
                          this.newArableLand.ArableLand_id = "AL0000000" + String(Number(id) + 1);
-                    }
-                    else if (id >= 9 && id < 99) {
+                    } else if (id >= 9 && id < 99) {
                          this.newArableLand.ArableLand_id = "AL000000" + String(Number(id) + 1);
-                    }
-                    else if (id >= 99 && id < 999) {
+                    } else if (id >= 99 && id < 999) {
                          this.newArableLand.ArableLand_id = "AL00000" + String(Number(id) + 1);
                     }
-                    else {
+                     else {
                          this.newArableLand.ArableLand_id = "AL00" + String(Number(id) + 1);
                     }
                }
@@ -443,11 +393,9 @@ export default {
                } else {
                     if (response.data != null) {
                          this.arablelandList = response.data;
-                    }
-                    else {
+                    } else {
                          this.isOpenMessage = !this.isOpenMessage;
                     }
-
                }
           },
 
@@ -487,9 +435,7 @@ nav .pagination .active .page-link {
      margin-left: 10px !important;
      margin-right: 10px !important;
      color: #FFFED8 !important;
-
      text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-     /* width: 40px !important; */
 }
 
 nav .pagination .page-item .page-link {

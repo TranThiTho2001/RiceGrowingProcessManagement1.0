@@ -8,6 +8,7 @@ exports.store = async (req, res) => {
         Province_id: req.body.Province_id,
         Province_name: req.body.Province_name,
     });
+
     // Save Province in the database
     Province.create(crop, (err, data) => {
         if (err)
@@ -28,6 +29,7 @@ exports.findAll = async (req, res) => {
     });
 };
 
+//find by Province_id
 exports.find = async (req, res) => {
     const id = req.params.id;
     Province.findById(id, (err, data) => {

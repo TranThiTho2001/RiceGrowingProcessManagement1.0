@@ -18,6 +18,7 @@ DevelopmentStage.create = (newDevelopmentStage, result) => {
     });
 };
 
+// find by DevelopmentStage_id
 DevelopmentStage.findById = (id, result) => {
     sql.query(`SELECT * FROM DevelopmentStage WHERE DevelopmentStage_id like '${id}'`, (err, res) => {
         if (err) {
@@ -34,6 +35,7 @@ DevelopmentStage.findById = (id, result) => {
     });
 };
 
+// Retrieve all DevelopmentStage from the database (with condition).
 DevelopmentStage.getAll = (name, result) => {
     let query = "SELECT * FROM DevelopmentStage";
     if (name) {
@@ -49,6 +51,7 @@ DevelopmentStage.getAll = (name, result) => {
     });
 };
 
+// Update a DevelopmentStage identified by the id in the request
 DevelopmentStage.updateById = (id, developmentStage, result) => {
     sql.query(
         "UPDATE DevelopmentStage SET DevelopmentStage_name = ? WHERE DevelopmentStage_id = ?",
@@ -66,11 +69,11 @@ DevelopmentStage.updateById = (id, developmentStage, result) => {
             }
             console.log("updated DevelopmentStage: ", { id: id, ...developmentStage });
             result(null, { id: id, ...developmentStage });
-            
         }
     );
 };
 
+// Delete a DevelopmentStage with the specified id in the request
 DevelopmentStage.remove = (id, result) => {
     sql.query("DELETE FROM DevelopmentStage WHERE DevelopmentStage_id = ?", id, (err, res) => {
         if (err) {

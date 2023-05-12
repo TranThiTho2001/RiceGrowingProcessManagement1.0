@@ -7,9 +7,11 @@
                          style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
+
           <div class="row">
                <p class="col-sm-12 text-center functionName">THÊM GIỐNG LÚA </p>
           </div>
+
           <div class="row content">
                <div class="col-sm-6">
                     <div class="form-group">
@@ -33,6 +35,7 @@
                          <ErrorMessage name="characteristic" class="error-feedback" />
                     </div>
                </div>
+
                <div class="col-sm-6">
                     <div class="form-group">
                          <label for="supplier" class="mt-3">Nhà cung cấp<span style="color: red">*</span></label>
@@ -69,6 +72,7 @@
                          thành công. Vui lòng thử lại sau</span>
                </div>
           </div>
+
           <div class="row mb-4">
                <div class="col-sm-12 text-center">
                     <button class="btn btn-outline-secondary btnLuu">Lưu</button>
@@ -130,7 +134,6 @@ export default {
 <style>
 .createSeedForm {
      pointer-events: all !important;
-     /* scroll-behavior: none !important; */
      filter: none !important;
 }
 

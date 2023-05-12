@@ -3,6 +3,7 @@
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
                <Preloader color="red" scale="0.4" />
           </div>
+
           <div class="row fertilizerManagementFrame" style="height: 100vmin; background-color: #EAEAEA;" v-if="!loading"
                :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
@@ -25,6 +26,7 @@
                               </div>
                          </div>
                     </div>
+
                     <div class="row row-inputSearch">
                          <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
                               @click="retrieveFertilizerList, isOpenInput1 = true"
@@ -44,55 +46,6 @@
                               Thêm phân bón</button>
                     </div>
                     <div class="scrollTable">
-                         <!--   <div class="scrollTable-content" >
-                              <table class="table fertilizerList">
-                                   <thead>
-                                        <tr>
-                                             <th class="text-center">STT</th>
-                                             <th class="centerclass">Mã</th>
-                                             <th>Tên</th>
-                                             <th>Nhà cung cấp</th>
-                                             <th>Thành phần</th>
-                                             <th>Công dụng</th>
-                                             <th>Hướng dẫn sử dụng</th>
-                                             <th></th>
-                                        </tr>
-                                   </thead>
-                                   <tbody>
-                                        <tr v-for="(fertilizer, i ) in fertilizerList" :key="i" class="">
-                                             <td data-label="STT" class="centerclass">{{ i + 1 }}</td>
-                                             <td data-label="Mã">{{ fertilizer.Fertilizer_id }}</td>
-                                             <td data-label="Tên">{{ fertilizer.Fertilizer_name }}</td>
-                                             <td data-label="Nhà cung cấp">{{ fertilizer.Fertilizer_supplier }}</td>
-                                             <td data-label="Thành phần" class="nutrient_class">
-                                                  <span v-for=" nutrient in fertilizer.Contain"
-                                                       :key="nutrient.Nutrient_id">{{ nutrient.Nutrient_name }}: {{
-                                                            nutrient.Contain_percent }}%<br></span>
-                                             </td>
-                                             <td data-label="Công dụng">{{ fertilizer.Fertilizer_uses }}</td>
-                                             <td data-label="Hướng dẫn sử dụng">{{ fertilizer.Fertilizer_directionsForUse }}
-                                             </td>
-                                             <td data-label="M" class="centerclass" style="z-index: 1000;">
-                                                  <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
-                                                       aria-haspopup="true" aria-expanded="false">
-                                                       <i class="fas fa-ellipsis-v"></i>
-                                                  </button>
-                                                  <div class="dropdown-menu">
-                                                       <a class="dropdown-item action"
-                                                            @click="setFertilizerChosen(fertilizer), isOpenUpdateFertilizer = !isOpenUpdateFertilizer, active = true">
-                                                            <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
-                                                       </a>
-                                                       <a class="dropdown-item" href="#"
-                                                            @click="setFertilizerChosen(fertilizer), isOpenConfirm = !isOpenConfirm, active = true">
-                                                            <span class="fas fa-trash-alt actionIcon"></span> Xóa
-                                                       </a>
-                                                  </div>
-                                             </td>
-                                        </tr>
-                                   </tbody>
-                              </table>
-
-                         </div> -->
                          <div class="ol-class" style="--length: 5" role="list">
                               <a class="li-class " href="#popup1" v-for="(fertilizer, j) in fertilizerList" :key="j"
                                    @click="setFertilizerChosen(fertilizer)">
@@ -119,8 +72,9 @@
                                              <p>{{ fertilizer.Fertilizer_uses }}</p>
                                         </div>
                                    </div>
-
                               </a>
+
+
                               <div id="popup1" class="overlay" v-if="!active && !isOpenUpdateFertilizer">
                                    <div class="popup">
                                         <a class="fas fa-times-circle" href="#"
@@ -167,12 +121,10 @@
                                    </div>
                               </div>
                          </div>
-
                     </div>
-
                </div>
           </div>
-          <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
+          <!-- ------------------------------confirm ----------------------------- -->
 
           <div class="overlay2" v-if="isOpenConfirm">
                <div class="confirmationDialog">
@@ -185,6 +137,7 @@
                          @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
                </div>
           </div>
+
           <div class="overlay2" v-if="isOpenMessage">
                <div class="messageDialog">
                     <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
@@ -196,12 +149,13 @@
                          @click="isOpenMessage = !isOpenMessage, active = false">OK</button>
                </div>
           </div>
+
           <div class="overlay2" v-if="openCreate">
                <CreateFertilizerForm :newFertilizer="newFertilizer" :nutrientList="nutrientList"
                     @addFertilizer-submit="createNewImage" :message1="message1" :message2="message2" />
           </div>
-          <div class="overlay2" v-if="isOpenUpdateFertilizer">
 
+          <div class="overlay2" v-if="isOpenUpdateFertilizer">
                <UpdateFertilizerForm v-if="isOpenUpdateFertilizer" :newFertilizer="fertilizerChosen"
                     :nutrientList="nutrientList" @updateFertilizer-submit="updateImage" :message1="message1"
                     :message2="message2" />
@@ -339,14 +293,11 @@ export default {
 
                     if (id < 9) {
                          this.newFertilizer.Fertilizer_id = "FR0000000" + String(Number(id) + 1);
-                    }
-                    else if (id >= 9 && id < 99) {
+                    } else if (id >= 9 && id < 99) {
                          this.newFertilizer.Fertilizer_id = "FR000000" + String(Number(id) + 1);
-                    }
-                    else if (id >= 99 && id < 999) {
+                    } else if (id >= 99 && id < 999) {
                          this.newFertilizer.Fertilizer_id = "FR00000" + String(Number(id) + 1);
-                    }
-                    else {
+                    } else {
                          this.newFertilizer.Fertilizer_id = "FR00" + String(Number(id) + 1);
                     }
                     this.newFertilizer.Contain = [];
@@ -368,8 +319,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.containList = respone.data;
                     console.log(this.containList);
                     this.fertilizerList.forEach(fertilizer => {
@@ -397,7 +347,6 @@ export default {
                               });
                          }
                     });
-                    console.log(this.fertilizerList)
                }
           },
 
@@ -407,8 +356,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.nutrientList = respone.data;
                }
                this.retrieveFertilizerList();
@@ -481,8 +429,7 @@ export default {
                               console.log(error);
                               this.message2 = "Thêm không thành công";
                          };
-                    }
-                    else {
+                    } else {
                          this.message1 = "Vui lòng chọn hình ảnh!!"
                     }
                }
@@ -521,8 +468,7 @@ export default {
                               console.log(error);
                               this.message2 = "Thêm không thành công";
                          };
-                    }
-                    else {
+                    } else {
                          this.updateFertilizer(data);
                     }
                }
@@ -535,8 +481,7 @@ export default {
                     this.message1 = " ";
                     this.message2 = " ";
                     this.active = false;
-               }
-               else {
+               } else {
                     this.message1 = "";
                     this.message2 = "";
                     const [error, respone] = await this.handle(

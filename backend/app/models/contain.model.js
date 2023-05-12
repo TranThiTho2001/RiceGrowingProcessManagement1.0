@@ -6,6 +6,7 @@ const Contain = function(contain){
     this.Contain_percent= contain.Contain_percent;
 };
 
+   // Save Contain in the database
 Contain.create = (newContain, result) => {
     sql.query("INSERT INTO Contain SET ?", newContain, (err, res) => {
         if (err) {
@@ -18,8 +19,9 @@ Contain.create = (newContain, result) => {
     });
 };
 
+// find by Fertilizer_id
 Contain.findbyFertilizerId = (fertilizer_id, result) => {
-    sql.query(`SELECT * FROM Contain Join nutrient on nutrient.Nutrient_id = Contain.Nutrient_id WHERE Fertilizer_id like '${fertilizer_id}'`, (err, res) => {
+    sql.query(`SELECT * FROM Contain Join nutrient ON nutrient.Nutrient_id = Contain.Nutrient_id WHERE Fertilizer_id like '${fertilizer_id}'`, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -29,8 +31,9 @@ Contain.findbyFertilizerId = (fertilizer_id, result) => {
     });
 };
 
+// find by Nutrient_id
 Contain.findbyNutrientID = (nutrient_id, result) => {
-     sql.query(`SELECT * FROM Contain  Join nutrient on nutrient.Nutrient_id = Contain.Nutrient_id WHERE Nutrient_id like '${nutrient_id}'`, (err, res) => {
+     sql.query(`SELECT * FROM Contain  Join nutrient ON nutrient.Nutrient_id = Contain.Nutrient_id WHERE Nutrient_id like '${nutrient_id}'`, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -40,8 +43,9 @@ Contain.findbyNutrientID = (nutrient_id, result) => {
      });
  };
 
+  // find by Nutrient_id and Fertilizer_id
  Contain.findbyFertilizerAndNutrient = (fertilizer_id, nutrient_id, result) => {
-     sql.query(`SELECT * FROM Contain  Join nutrient on nutrient.Nutrient_id = Contain.Nutrient_id WHERE  Nutrient_id like '${nutrient_id}' And Fertilizer_id like '${fertilizer_id}' `, (err, res) => {
+     sql.query(`SELECT * FROM Contain  Join nutrient ON nutrient.Nutrient_id = Contain.Nutrient_id WHERE  Nutrient_id like '${nutrient_id}' And Fertilizer_id like '${fertilizer_id}' `, (err, res) => {
          if (err) {
              console.log("error: ", err);
              result(err, null);
@@ -57,9 +61,9 @@ Contain.findbyNutrientID = (nutrient_id, result) => {
      });
  };
 
-
+// Retrieve all Contain from the database (with condition).
 Contain.getAll = (name, result) => {
-    let query = "SELECT * FROM Contain  Join nutrient on nutrient.Nutrient_id = Contain.Nutrient_id ";
+    let query = "SELECT * FROM Contain  Join nutrient ON nutrient.Nutrient_id = Contain.Nutrient_id ";
     if (name) {
         query += ` WHERE Nutrient_id LIKE '%${name}%'`;
     }
@@ -73,6 +77,7 @@ Contain.getAll = (name, result) => {
     });
 };
 
+// Update a Contain identified by the Fertilizer_id and Nutrient_id in the request
 Contain.updateById = (fertilizer_id, nutrient_id,contain, result) => {
     console.log(fertilizer_id, nutrient_id);
     sql.query(
@@ -97,6 +102,7 @@ Contain.updateById = (fertilizer_id, nutrient_id,contain, result) => {
     );
 };
 
+// Delete a Contain with the specified Fertilizer_id and Nutrient_id in the request
 Contain.remove = (fertilizer_id, nutrient_id, result) => {
     // console.log(fertilizer_id, nutrient_id)
     sql.query(`DELETE FROM Contain WHERE (Fertilizer_id LIKE '${fertilizer_id}' And Nutrient_id LIKE '${nutrient_id}' )`,  (err, res) => {

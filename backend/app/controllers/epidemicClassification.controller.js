@@ -1,7 +1,6 @@
 const EpidemicClassification = require("../models/epidemicClassification.model");
 const config = require("../config");
 
-// Create and Save 
 exports.store = async (req, res) => {
     // Create 
     const epidemicsClassification = new EpidemicClassification({
@@ -26,6 +25,7 @@ exports.findAll = async (req, res) => {
     });
 };
 
+//find by  EpidemicClassification_id
 exports.find = async (req, res) => {
     const id = req.params.id;
     EpidemicClassification.findById(id, (err, data) => {

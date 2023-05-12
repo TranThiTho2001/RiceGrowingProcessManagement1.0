@@ -3,6 +3,7 @@
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh;">
                <Preloader color="red" scale="0.4" />
           </div>
+
           <div class="row activitiesManagementFrame" v-if="!loading" :class="{ active: active }" style="background-color: #EAEAEA;">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
@@ -11,6 +12,7 @@
                <div class="left" :class="{ navbarresponsive: openMenu.openMenu }" style="position: fixed;">
                     <Catalog />
                </div>
+
                <div class="right rightActivitiesManagement ">
                     <div class="mb-4  pt-2 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
@@ -33,67 +35,19 @@
                               <span class="fa fa-search" style="font-size:18px; color: #7E7E7E;"></span>
                          </button>
 
-
                          <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
                               <p class="item" v-for="activity in filteredList()" :key="activity.OtherActivities_name"
                                    @click="searchName(activity.OtherActivities_name), away()">
                                    {{ activity.OtherActivities_name }}</p>
                          </div>
 
-
                          <button class="btn btnCreate" v-if="currentUser.Role_id == '02'"
                               @click="isOpenCreateOtherActivities = !isOpenCreateOtherActivities, active = true"><i
                                    class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm hoạt động</button>
 
                     </div>
+                    
                     <div class="scrollTable">
-                         <!-- <div class="scrollTable-content">
-                              <table class="table activitiesList" v-if="loaded">
-                                   <thead>
-                                        <tr>
-                                             <th class="centerclass" style=" padding-right: 2px;">STT</th>
-                                             <th class="centerclass">Mã</th>
-                                             <th>Tên hoạt động</th>
-                                             <th class="">Số lần được thực hiện</th>
-                                             <th></th>
-                                        </tr>
-                                   </thead>
-                                   <tbody>
-                                        <tr v-for="(activity, i ) in activitiesList" :key="i">
-                                             <td class="centerclass" data-label="STT">{{ i + 1 }}</td>
-                                             <td class="centerclass" data-label="Mã">{{ activity.OtherActivities_id }}</td>
-                                             <td data-label="Tên hoạt động">{{ activity.OtherActivities_name }}</td>
-                                             <td data-label="Số lần được thực hiệnSTT">{{ activity.Times.length }}</td>
-
-                                             <td data-label="Tùy chọn" style="padding: 2px ;">
-                                                  <button type="button" class="btn btn-sm btnMore option1"
-                                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                       <i class="fas fa-ellipsis-v"></i>
-                                                  </button>
-                                                  <div class="dropdown-menu option1">
-                                                       <a class="dropdown-item action"
-                                                            @click="setActivityChoosen(activity), isOpenUpdateActivities = !isOpenUpdateActivities, active = true">
-                                                            <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
-                                                       </a>
-                                                       <a class="dropdown-item" href="#"
-                                                            @click="setActivityChoosen(activity), isOpenConfirm = !isOpenConfirm, active = true">
-                                                            <span class="fas fa-trash-alt actionIcon"></span> Xóa
-                                                       </a>
-                                                  </div>
-                                                  <div class="option2">
-                                                       <button class="btn btnMore"
-                                                            @click="setActivityChoosen(activity), isOpenUpdateActivities = !isOpenUpdateActivities">
-                                                            <span class="fas fa-edit actionIcon"></span> Chỉnh sửa</button>
-                                                       <button class="btn btnMore"
-                                                            @click="setActivityChoosen(activity), isOpenConfirm = !isOpenConfirm">
-                                                            <span class="fas fa-trash-alt actionIcon"></span> Xóa</button>
-                                                  </div>
-                                             </td>
-                                        </tr>
-                                   </tbody>
-                              </table>
-                         </div> -->
-
                          <div class="ol-class" style="--length: 5" role="list">
                               <a class="li-class-activity li-class " href="#popup1" v-for="(activity, j) in activitiesList"
                                    :key="j" @click="setActivityChosen(activity)">
@@ -101,6 +55,7 @@
                                         aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v"></i>
                                    </button>
+                                   
                                    <div class="dropdown-menu" >
                                         <a class="dropdown-item action"
                                              @click="setActivityChosen(activity), isOpenUpdateActivities = !isOpenUpdateActivities, active = true">
@@ -111,18 +66,15 @@
                                              <span class="fas fa-trash-alt actionIcon"></span> Xóa
                                         </a>
                                    </div>
+                                   
                                    <h5>{{ activity.OtherActivities_name }}</h5>
                                    <p>Số lần thực hiện {{ activity.Times.length }}</p>
                               </a>
                          </div>
                     </div>
-
-                    <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
-
-
-
                </div>
           </div>
+
           <div class="overlay2" v-if="isOpenConfirm">
                <div class="confirmationDialog" v-if="isOpenConfirm">
                     <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
@@ -134,21 +86,22 @@
                          @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
                </div>
           </div>
+
           <div class="overlay2" v-if="isOpenMessage">
                <div class="messageDialog" >
                     <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
-                         {{
-                              message
-                         }}
+                         {{ message }}
                     </p>
                     <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
                          @click="isOpenMessage = !isOpenMessage, active = false">OK</button>
                </div>
           </div>
+
           <div class="overlay2" v-if="isOpenCreateOtherActivities">
                <CreateOtherActivityForm  :newOtherActivities="newOtherActivities"
                     @addOtherActivities-submit="createOtherActivity" :message1="message1" :message2="message2" />
           </div>
+
           <div class="overlay2" v-if="isOpenUpdateActivities">
                <UpdateOtherActivityForm  :newOtherActivities="activityChosen"
                     @updateOtherActivities-submit="updateOtherActivity" :message1="message1" :message2="message2" />
@@ -272,20 +225,15 @@ export default {
                     });
                     if (id < 9) {
                          this.newOtherActivities.OtherActivities_id = "OA0000000" + String(Number(id) + 1);
-                    }
-                    else if (id >= 9 && id < 99) {
+                    } else if (id >= 9 && id < 99) {
                          this.newOtherActivities.OtherActivities_id = "OA000000" + String(Number(id) + 1);
-                    }
-                    else if (id >= 99 && id < 999) {
+                    } else if (id >= 99 && id < 999) {
                          this.newOtherActivities.OtherActivities_id = "OA00000" + String(Number(id) + 1);
-                    }
-                    else {
+                    } else {
                          this.newOtherActivities.OtherActivities_id = "OA00" + String(Number(id) + 1);
                     }
-
                }
                this.loaded = true;
-
           },
 
           async findActivityTimes(activityId, position) {
@@ -294,8 +242,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     respone.data.forEach(times => {
                          this.activitiesList[position].Times.push(times);
                     });
@@ -315,16 +262,13 @@ export default {
                     );
                     if (response.data == error) {
                          this.message1 = "Thêm không thành công.";
-                    }
-                    else if (response.data == "Không thể tạo chi tiết hoạt động mới.") {
+                    } else if (response.data == "Không thể tạo chi tiết hoạt động mới.") {
                          this.message1 = "Thêm không thành công.";
-                    }
-                    else {
+                    } else {
                          this.message2 = "Thêm thành công.";
                          this.retrieveOtherActivities();
                     }
                }
-
           },
 
           async updateOtherActivity(data) {
@@ -340,11 +284,9 @@ export default {
                     );
                     if (response.data == error) {
                          this.message1 = "Cập nhật không thành công.";
-                    }
-                    else if (response.data == "Đã xảy ra lỗi trong quá trình cập nhật thông tin!") {
+                    } else if (response.data == "Đã xảy ra lỗi trong quá trình cập nhật thông tin!") {
                          this.message1 = "Cập nhật không thành công.";
-                    }
-                    else {
+                    } else {
                          this.message2 = "Cập nhật thành công.";
                          this.retrieveOtherActivities();
                     }
@@ -360,8 +302,7 @@ export default {
                     this.message = "Xóa hoạt động không thành công";
                } else if (response.data == "Lỗi trong quá trình xóa hoạt động!!") {
                     this.message = "Xóa hoạt động không thành công";
-               }
-               else {
+               } else {
                     this.message = "Xóa hoạt động thành công";
                     this.retrieveOtherActivities();
                }
@@ -384,8 +325,7 @@ export default {
                               if (responses.data.length > 0) {
                                    this.activitiesList = responses.data;
 
-                              }
-                              else {
+                              } else {
                                    this.isOpenMessage = !this.isOpenMessage;
                               }
                          }
@@ -398,12 +338,9 @@ export default {
                               });
                          }
                     }
-
-               }
-               else {
+               } else {
                     this.retrieveOtherActivities();
                }
-
           },
 
           async setActivityChosen(activity) {
@@ -424,6 +361,33 @@ export default {
 </script>
 
 <style>
-@import url(../../assets/activitiesDetailStyle.css);
+.riceCropDetail .createActivityDetailForm,
+.riceCropDetail .updateActivityDetailForm {
+     margin: auto;
+     padding: 20px;
+     background: #FAFAFC;
+     box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3);
+     backdrop-filter: blur(37.5px);
+     border-radius: 5px;
+     width: 80%;
+     position: relative;
+     top:60px;
+     transition: all 5s ease-in-out;
+}
+
+@media only screen and (max-width: 1430px) {
+     .riceCropDetail .createActivityDetailForm,
+     .riceCropDetail .updateActivityDetailForm {
+          left: 10%;
+     }
+ }
+
+.li-class-activity{
+     height: 150px !important;
+}
+
+.li-class-activity h5{
+     padding-top: -10px !important;
+}
 @import url(../../assets/mainStyle.css);
 </style>

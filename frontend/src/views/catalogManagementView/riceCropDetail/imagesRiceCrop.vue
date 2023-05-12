@@ -3,6 +3,7 @@
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
                <Preloader color="red" scale="0.4" />
           </div>
+
           <div v-if="!loading" class="row riceCropDetailFrame" style="height: max-content;" :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
@@ -11,6 +12,7 @@
                <div class="left" :class="{ navbarresponsive: openMenu.openMenu }">
                     <Catalog />
                </div>
+
                <div class="right rightRiceCropDetail" data-bs-spy="scroll">
                     <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
@@ -24,16 +26,17 @@
                     </div>
 
                     <div class="row"  style="margin: 130px 0px 60px 20px;">
-                         <!-- <button class="btn btnCome-back" @click="goToRiceCrop()">Trở về</button> -->
                          <button class="btn btnCreate"
                               @click="isOpenCreateImage = !isOpenCreateImage, active = true">Thêm</button>
                     </div>
+
                     <div class="row mt-4 function-row" style=" margin-left:5px;margin-right: 10px ">
                          <div class="image-class col-lg-3 col-md-4 col-sm-4" v-for="(image, i) in imagesList" :key="i"
                               style="margin-bottom: 8px !important;">
                               <ImageComponent :images="image" @clicked-something="handleClickInParent" />
                          </div>
                     </div>
+
                     <div class="overlay2" v-if="isOpenConfirm">
                          <div class="confirmationDialog" >
                               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
@@ -46,14 +49,13 @@
                                    @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
                          </div>
                     </div>
+
                     <div class="overlay2" v-if="isOpenMessage">
                          <div class="messageDialog" >
                               <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
                                    class="labelThongBao">
                                    <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span>
-                                   {{
-                                        message
-                                   }}
+                                   {{ message }}
                               </p>
                               <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
                                    @click="isOpenMessage = !isOpenMessage">OK</button>
@@ -61,6 +63,7 @@
                     </div>
                </div>
           </div>
+
           <div class="overlay2" v-if="isOpenCreateImage">
                <CreateImageForm  :newImage="newImage" :message1="message1" :message2="message2"
                     :newRiceCrop="newRiceCrop" @addImage-submit=createNewImage />
@@ -192,16 +195,13 @@ export default {
                } else {
                     if (response.data == error) {
                          this.message = "Thêm không thành công.";
-                    }
-                    else if (response.data == "Không thể lưu hình ảnh.") {
+                    }  else if (response.data == "Không thể lưu hình ảnh.") {
                          this.message = "Thêm không thành công";
-                    }
-                    else {
+                    } else {
                          this.message = "Thêm thành công.";
                     }
                }
           },
-
 
           async getIdImage() {
                const [error, response] = await this.handle(
@@ -212,13 +212,11 @@ export default {
                } else {
                     if (response.data == error) {
                          console.log(error)
-                    }
-                    else {
+                    } else {
                          const temp = response.data;
                          if (temp.length > 0) {
                               this.idImage = temp[temp.length - 1].Image_id + 1;
-                         }
-                         else {
+                         }  else {
                               this.idImage = 1;
                               this.retrieveImagesList();
                          }
@@ -259,8 +257,7 @@ export default {
                               console.log(error);
                               this.message2 = "Thêm không thành công";
                          };
-                    }
-                    else {
+                    } else {
                          this.message1 = "Vui lòng chọn hình ảnh!!"
                     }
                }
@@ -366,9 +363,6 @@ export default {
      border-radius: 5px;
 }
 
-/* .imageclass{
-     max-height: 250px;
-} */
 @media only screen and (max-width: 1000px) {
      .datetime {
           font-size: 13px;
@@ -380,7 +374,6 @@ export default {
           left: 92%;
 
      }
-
 }
 
 @media only screen and (max-width: 576px) {
@@ -400,6 +393,5 @@ export default {
           height: auto;
           margin-left: 0px !important;
      }
-
 }
 </style>

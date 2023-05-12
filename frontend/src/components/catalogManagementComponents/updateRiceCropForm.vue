@@ -3,21 +3,24 @@
           class="form updateRiceCropForm container-fluid">
           <div class="row">
                <div class="col-sm-12 text-right">
-                    <i class="fas fa-times-circle" @click="newricecrop.close = false, $emit('updateRiceCrop-submit', newricecrop)"
-                    style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
+                    <i class="fas fa-times-circle"
+                         @click="newricecrop.close = false, $emit('updateRiceCrop-submit', newricecrop)"
+                         style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
+
           <div class="row">
                <p class="col-sm-12 text-center functionName">
                     CẬP NHẬT THÔNG TIN MÙA VỤ
                </p>
           </div>
+
           <div class="row content">
                <div class="col-sm-6 mt-2">
                     <div class="form-group">
                          <label for="id" class="mt-2">Mã mùa vụ <span style="color: red">*</span></label>
-                         <Field name="id" type="name" class="form-control-none-bg form-control" v-model="newricecrop.RiceCropInformation_id"
-                              placeholder="Nhập mã mùa vụ..." disabled/>
+                         <Field name="id" type="name" class="form-control-none-bg form-control"
+                              v-model="newricecrop.RiceCropInformation_id" placeholder="Nhập mã mùa vụ..." disabled />
                          <ErrorMessage name="id" class="error-feedback" />
                     </div>
 
@@ -30,6 +33,7 @@
                          </Field>
                          <ErrorMessage name="seed" class="error-feedback" />
                     </div>
+
                     <div class="form-group">
                          <label for="arableLand" class="mt-1">Mẫu ruộng <span style="color: red">*</span></label>
                          <Field name="arableLand" class="form-control" v-model="newricecrop.ArableLand_id"
@@ -48,8 +52,8 @@
                          <Field name="start" class="form-control" v-model="newricecrop.RiceCropInformation_sowingDate"
                               placeholder="">
                               <datepicker :enable-time-picker="false" :value="newricecrop.RiceCropInformation_sowingDate"
-                                   :hide-input-icon="true" v-model="newricecrop.RiceCropInformation_sowingDate" :clearable="false" 
-                                   placeholder="DD-MM-YYYY" format="dd-MM-yyyy">
+                                   :hide-input-icon="true" v-model="newricecrop.RiceCropInformation_sowingDate"
+                                   :clearable="false" placeholder="DD-MM-YYYY" format="dd-MM-yyyy">
                               </datepicker>
                          </Field>
                          <ErrorMessage name="start" class="error-feedback" />
@@ -89,8 +93,8 @@
                               placeholder="">
                               <datepicker :enable-time-picker="false" :value="newricecrop.RiceCropInformation_harvestDate"
                                    :input-class-name="myclass" :hide-input-icon="true"
-                                   v-model="newricecrop.RiceCropInformation_harvestDate" placeholder="DD-MM-YYYY" :clearable="false" 
-                                   format="dd-MM-yyyy" style="background-color: red !important; ">
+                                   v-model="newricecrop.RiceCropInformation_harvestDate" placeholder="DD-MM-YYYY"
+                                   :clearable="false" format="dd-MM-yyyy" style="background-color: red !important; ">
                               </datepicker>
                          </Field>
                          <ErrorMessage name="end" class="error-feedback" />
@@ -106,11 +110,12 @@
                          style="color:red; text-align: center; display: inline;"></span>
                     <span v-if="message2 == 'Cập nhật thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;">
                          Cập nhật mùa vụ thành công</span>
-                    <span v-if="message1 == 'Cập nhật không thành công.'" class="textMessage1 pt-2 pb-2">Cập nhật mùa vụ không thành công. Một mùa
-                         vụ đang được theo dõi hoặc vừa được khởi tạo trên mẫu ruộng.
+                    <span v-if="message1 == 'Cập nhật không thành công.'" class="textMessage1 pt-2 pb-2">
+                         Cập nhật mùa vụ không thành công. Một mùa vụ đang được theo dõi hoặc vừa được khởi tạo trên mẫu ruộng.
                     </span>
                </div>
           </div>
+
           <div class="row mb-4">
                <div class="col-sm-12 text-center">
                     <button class="btn btn-outline-secondary btnLuu btnUpdate-">Cập Nhật</button>
@@ -122,12 +127,12 @@
  
 <script>
 
-
 import * as yup from "yup";
-import { Form, Field, ErrorMessage } from "vee-validate";
-import datepicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css';
 import moment from "moment";
+import '@vuepic/vue-datepicker/dist/main.css';
+import datepicker from '@vuepic/vue-datepicker';
+import { Form, Field, ErrorMessage } from "vee-validate";
+
 export default {
      name: "updateRiceCropForm",
      components: {
@@ -135,12 +140,12 @@ export default {
           Field,
           ErrorMessage,
           datepicker,
-
      },
+
      emits: ["updateRiceCrop-submit"],
      props: ["newRiceCrop", "message1", "message2", "seedList", "arableLandList"],
+    
      data() {
-
           const schema = yup.object().shape({
                id: yup
                     .string()
@@ -162,25 +167,19 @@ export default {
                yield: yup
                     .number()
                     .nullable(),
-                    start: yup
+               start: yup
                     .string()
                     .nullable(),
                end: yup
                     .string()
                     .nullable(),
           });
+
           return {
                newricecrop: this.newRiceCrop,
                seedlist: this.seedList,
                arableLandlist: this.arableLandList,
                schema,
-               selectdate: false,
-               dateFormat: (date) => {
-                    const day = date.getDate();
-                    const month = date.getMonth() + 1;
-                    const year = date.getFullYear();
-                    return `${day}-${month}-${year}`;
-               }
           };
      },
 
@@ -190,9 +189,6 @@ export default {
                return (moment(String(this.newricecrop.RiceCropInformation_sowingDate)).format("YYYY-MM-DD")).slice(0, 10);
 
           },
-          onFocus: function () {
-               this.$refs.dateObj.show();
-          }
      },
 
 };

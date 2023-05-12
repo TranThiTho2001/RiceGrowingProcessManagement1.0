@@ -1,7 +1,6 @@
 <template>
      <Form @submit="newarableLand.close = true, $emit('addArableLand-submit', newarableLand)" :validation-schema="schema"
           class="form container-fluid createArableLandForm ">
-
           <div class="row">
                <div class="col-sm-12 text-right">
                     <i class="fas fa-times-circle"
@@ -9,9 +8,11 @@
                          style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
+
           <div class="row">
                <p class="col-sm-12 text-center functionName">THÊM MẪU RUỘNG MỚI</p>
           </div>
+
           <div class="row content">
                <div class="col-sm-6 mt-2">
                     <div class="form-group">
@@ -75,9 +76,7 @@
                               <select class="form-control" v-model="newarableLand.Province_name" name="province"
                                    for="province" @change=" select()" style=" width: 100%;">
                                    <option v-for="(province, i) in provincelist " :key="i">
-                                        {{
-                                             province.Province_name
-                                        }}
+                                        {{  province.Province_name }}
                                    </option>
                               </select>
                          </Field>
@@ -93,16 +92,6 @@
                </div>
           </div>
 
-          <!-- <div class="row">
-              <google-map :center="center" :zoom="zoom" style="width: 100%; height: 400px;" @click="handleMapClick">
-                    <marker :position="markerPosition" :title="markerTitle" :visible="markerVisible" />
-               </google-map> 
-               <GoogleMap api-key="AIzaSyDO2_uZUeRlDyBZmuYBByCne7KW4SzAj8s" style="width: 100%; height: 500px"
-                    :center="center" :zoom="15">
-                    <Marker :options="markerOptions" />
-               </GoogleMap>
-          </div> -->
-
           <div class="row ">
                <div class="col-sm-12 mt-2 mb-3 text-center">
                     <span v-if="message2 == 'Thêm thành công.'" class="fas fa-check-circle"
@@ -111,53 +100,38 @@
                          style="color:red; text-align: center; display: inline;"></span>
                     <span v-if="message2 == 'Thêm thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;">
                          Thêm thông tin mẫu ruộng thành công</span>
-                    <span v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2"> Thêm thông tin
-                         mẫu
-                         ruộng không thành công
+                    <span v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2"> 
+                         Thêm thông tin mẫu ruộng không thành công
                     </span>
                </div>
           </div>
+
           <div class="row mb-4">
                <div class="col-sm-12 text-center">
                     <button class="btn btn-outline-secondary btnLuu col-sm-2">Lưu</button>
                </div>
           </div>
-
      </form>
 </template>
  
 <script>
 import * as yup from "yup";
 import { Form, Field, ErrorMessage } from "vee-validate";
-// import GoogleMap from '@/components/catalogManagementComponents/GoogleMap.vue'
-// import { GoogleMap, Polygon, gmapMarker } from "vue3-google-map";
 import { defineComponent } from "vue";
-// import { GoogleMap, Marker } from "vue3-google-map";
-// import { defineComponent } from 'vue';
-// var pointInPolygon = require('point-in-polygon');
-// import { useMarker } from 'vue3-google-map';
-// import { defineComponent } from "vue";
-// import axios from 'axios'
+
 export default defineComponent({
      name: "createArableLandForm",
      components: {
           Form,
           Field,
           ErrorMessage,
-          // GoogleMap, Marker
-          // GoogleMap, Polygon, gmapMarker
-          // GoogleMap,
      },
+
      emits: ["addArableLand-submit"],
+
      props: ["newArableLand", "message1", "message2", "provinceList", "soilList"],
-     // setup() {
-     //      const center = { lat: 40.689247, lng: -74.044502 };
-     //      const markerOptions = { position: center, label: "L", title: "LADY LIBERTY" };
 
-     //      return { center, markerOptions };
-     // },
      data() {
-
           const schema = yup.object().shape({
                id: yup
                     .string()
@@ -186,6 +160,7 @@ export default defineComponent({
                     .string()
                     .required("Tỉnh phải được chọn"),
           });
+
           return {
                newarableLand: this.newArableLand,
                provincelist: this.provinceList,
@@ -195,19 +170,20 @@ export default defineComponent({
 
           };
      },
-     methods: {
 
+     methods: {
           select() {
                console.log(this.newarableLand.Province_id)
           },
+
           getlocation() {
                if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(this.showPosition);
                } else {
                     console.log("Geolocation is not supported by this browser.");
                }
-               
           },
+
           showPosition(position) {
                this.searching = true;
                setTimeout(() => {
@@ -217,8 +193,6 @@ export default defineComponent({
                     this.searching = false;
                }, 2000);
           },
-
-
      }
 });
 </script>
@@ -229,7 +203,6 @@ export default defineComponent({
 .btnlocation {
      border-radius: 10px !important;
      background: none;
-     /* box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25); */
      font-size: 16px !important;
      font-family: 'Roboto';
      font-weight: 500 !important;
@@ -244,7 +217,6 @@ export default defineComponent({
 .btnlocation2 {
      border-radius: 10px !important;
      background: none;
-     /* box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25); */
      font-size: 16px !important;
      font-family: 'Roboto';
      font-weight: 500 !important;
@@ -260,7 +232,6 @@ export default defineComponent({
      .btnlocation {
           border-radius: 10px !important;
           background: none;
-          /* box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.25); */
           font-size: 16px !important;
           font-family: 'Roboto';
           font-weight: 500 !important;

@@ -8,9 +8,11 @@
                          style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
+
           <div class="row">
                <p class="col-sm-12 text-center functionName">THÊM BỆNH DỊCH MỚI</p>
           </div>
+
           <div class="row content">
                <div class="col-sm-4 mt-2">
                     <div class="form-group">
@@ -52,23 +54,23 @@
                               placeholder="Nhập tên bệnh dịch..." />
                          <ErrorMessage name="name" class="error-feedback" />
                     </div>
+
                     <div class="form-group">
                          <label for="time" class="mt-3">Thời điểm xuất hiện</label>
                          <Field name="time" class="form-control" v-model="newepidemic.Epidemic_timeOfDevelopment"
                               placeholder="Nhập thời điểm xuất hiện...." />
                          <ErrorMessage name="time" class="error-feedback" />
                     </div>
+
                     <div class="form-group">
                          <label for="harm" class="mt-3 pt-1">Tác hại <span style="color: red">*</span></label>
                          <Field name="harm" class="form-control" v-model="newepidemic.Epidemic_Harm" as="textarea"
                               style="height: 250px;" placeholder="Nhập tác hại..." />
                          <ErrorMessage name="harm" class="error-feedback" />
                     </div>
-
                </div>
 
                <div class="col-sm-4">
-
                     <div class="row form-group " style="width: 99%; margin-left: 1%;">
                          <label for="supplier mt-3" class="" style="margin-top: 20px;">Hình ảnh <span
                                    style="color: red">*</span></label>
@@ -82,7 +84,6 @@
                               </div>
                          </div>
                     </div>
-
                </div>
           </div>
 
@@ -99,12 +100,12 @@
                     </span>
                </div>
           </div>
+
           <div class="row mb-4">
                <div class="col-sm-12 text-center">
                     <button class="btn btn-outline-secondary btnLuu">Lưu</button>
                </div>
           </div>
-
      </form>
 </template>
  

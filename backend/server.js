@@ -4,7 +4,6 @@ const config = require("./app/config");
 const { BadRequestError } = require("./app/helpers/errors");
 const multer = require('multer');
 
-
 const setupRoleRoutes = require("./app/routes/role.routes");
 const setupCropRoutes = require("./app/routes/crop.routes");
 const setupSeedRoutes = require("./app/routes/seed.routes");
@@ -36,16 +35,11 @@ const setupEpidemicsClassificationRoutes = require("./app/routes/epidemicClassif
 const app = express();
 const bodyParser = require('body-parser')
 app.use(cors());
-
 app.use(express.json());
 app.use(express.urlencoded({
     extended: true,
 })
 );
-
-app.use(bodyParser.urlencoded({ extended: true }))
-// set routes
-// app.use(express.static("uploads"));
 
 setupAlgorithm(app);
 setupRoleRoutes(app);
@@ -75,8 +69,6 @@ setupDevelopmentStageRoutes(app);
 setupRiceCropInformationRoutes(app);
 setupEpidemicsClassificationRoutes(app);
 
-
-
 // define error-handling middleware last, after other app.use() and routes calls
 app.use((err, req, res, next) => {
     console.log(err);
@@ -84,20 +76,6 @@ app.use((err, req, res, next) => {
         message: err.message || "Internal Server Error",
     });
 });
-
-// app.get('/', (req, res) => {
-
-//         const { spawn } = require('child_process');
-//         const pyProg = spawn('python', ['./predictionModel/LinearRegression.py']);
-
-//         pyProg.stdout.on('data', function(data) {
-
-//             console.log(data.toString());
-//             res.write(data);
-//             res.end('end');
-//         });
-// })
-
 
 // backup and restore
 
@@ -116,7 +94,7 @@ cron.schedule('0 13 23 * * *', () => {
             password: '12345678',
             database: 'ricegrowingprocessmanagementdatabase',
         },
-        dumpToFile: `../frontend/backup/${fileName}`,
+        dumpToFile: `./app/backup/${fileName}`,
     });
     const newbackup = {
         Backup_date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
@@ -137,19 +115,17 @@ app.post('/api/backup', (req, res) => {
             password: '12345678',
             database: 'ricegrowingprocessmanagementdatabase',
         },
-        dumpToFile: `../frontend/backup/${fileName}`,
+        dumpToFile: `./app/backup/${fileName}`,
     });
     const newbackup = {
         Backup_date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
         Backup_link: fileName,
     }
-    // uploadgg.uploadFile(`../frontend/backup/${fileName}`);
     backup.store(newbackup, res);
-    
 })
 
 app.delete('/api/backup/:id/:filename', (req, res) => {
-    const deleteFile = '../frontend/backup/'+ req.params.filename;
+    const deleteFile = './app/backup/'+ req.params.filename;
     const backup = require("./app/controllers/backup.controller");
     if (fs.existsSync(deleteFile)) {
         fs.unlink(deleteFile, (err) => {
@@ -161,32 +137,6 @@ app.delete('/api/backup/:id/:filename', (req, res) => {
         })
     }
 })
-// Lap lich sao luu du lieu
-// cron.schedule('0 5 10 * * *', () => {
-//     const fs = require('fs')
-//     const spawn = require('child_process').spawn
-//     const dumpFileName = `${Math.round(Date.now() / 1000)}.dump.sql`
-
-//     const writeStream = fs.createWriteStream(dumpFileName)
-
-//     const dump = spawn('mysqldump', [
-//         '-u',
-//         'root',
-//         '-p12345678',
-//         'ricegrowingprocessmanagementdatabase',
-//     ])
-
-//     dump
-//         .stdout
-//         .pipe(writeStream)
-//         .on('finish', function () {
-//             console.log('Completed')
-//         })
-//         .on('error', function (err) {
-//             console.log(err)
-//         })
-// })
-
 
 const PORT = config.app.port;
 app.listen(PORT, () => {

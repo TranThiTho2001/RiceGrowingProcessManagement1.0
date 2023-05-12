@@ -7,11 +7,13 @@
                          style="font-size: 25px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
+
           <div class="row">
                <p class="col-sm-12 text-center functionName">
                     CẬP NHẬT THÔNG TIN GIỐNG LÚA
                </p>
           </div>
+
           <div class="row content">
                <div class="col-sm-6">
                     <div class="form-group">
@@ -35,8 +37,8 @@
                          <ErrorMessage name="characteristic" class="error-feedback" />
                     </div>
                </div>
+
                <div class="col-sm-6">
-                    
                     <div class="form-group">
                          <label for="supplier" class="mt-3">Nhà cung cấp <span style="color: red">*</span></label>
                          <Field name="supplier" class="form-control" v-model="newseed.Seed_supplier"
@@ -61,7 +63,7 @@
                </div>
           </div>
 
-          <div class="row ">
+          <div class="row">
                <div class="col-sm-12 mt-2 mb-3 text-center">
                     <span v-if="message2 == 'Cập nhật thành công.'" class="fas fa-check-circle"
                          style="color:#00BA13; text-align: center; display: inline;"></span>
@@ -73,6 +75,7 @@
                     </span>
                </div>
           </div>
+
           <div class="row mb-4">
                <div class="col-sm-12 text-center">
                     <button class="btn btn-outline-secondary btnLuu col-sm-2">Cập Nhật</button>
@@ -127,6 +130,7 @@ export default {
           },
      }
 };
+
 </script>
  
 <style>
@@ -136,4 +140,5 @@ export default {
      margin-top: 5px;
 }
 
-@import url(../../assets/seedStyle.css);</style>
+@import url(../../assets/seedStyle.css);
+</style>

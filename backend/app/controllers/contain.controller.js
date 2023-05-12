@@ -9,6 +9,7 @@ exports.store = async (req, res) => {
         Fertilizer_id: req.body.Fertilizer_id,
         Nutrient_id: req.body.Nutrient_id,
     });
+
     // Save Contain in the database
     Contain.create(contain, (err, data) => {
         if (err)
@@ -27,8 +28,9 @@ exports.findAll = async (req, res) => {
     });
 };
 
+// find by Fertilizer_id
 exports.findbyFertilizerId = async (req, res) => {
-    const Fertilizer_id= req.params.Fertilizer_id;
+    const Fertilizer_id = req.params.Fertilizer_id;
     Contain.findbyFertilizerId(Fertilizer_id, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
@@ -40,6 +42,7 @@ exports.findbyFertilizerId = async (req, res) => {
     })
 };
 
+// find by Nutrient_id
 exports.findbyNutrientID = async (req, res) => {
      const Nutrient_id = req.params.Nutrient_id;
      Contain.findbyNutrientID(Nutrient_id, (err, data) => {
@@ -53,6 +56,7 @@ exports.findbyNutrientID = async (req, res) => {
      })
  };
 
+ // find by Nutrient_id and Fertilizer_id
  exports.findbyFertilizerAndNutrient = async (req, res) => {
      const Nutrient_id = req.params.Nutrient_id;
      const Fertilizer_id = req.params.Fertilizer_id;
@@ -67,7 +71,7 @@ exports.findbyNutrientID = async (req, res) => {
      })
  };
 
-// Update a Contain identified by the id in the request
+// Update a Contain identified by the Fertilizer_id and Nutrient_id in the request
 exports.update = async (req, res) => {
      Contain.updateById(
         req.params.Fertilizer_id,
@@ -85,7 +89,7 @@ exports.update = async (req, res) => {
     );
 };
 
-// Delete a Contain with the specified id in the request
+// Delete a Contain with the specified Fertilizer_id and Nutrient_id in the request
 exports.delete = async (req, res) => {
      Contain.remove(req.params.Fertilizer_id, req.params.Nutrient_id,  (err, data) => {
         if (err) {

@@ -13,10 +13,15 @@ class NutrientService {
      }
 
      getAll() { return http.get("/nutrient"); }
+     
      get(id) { return http.get(`/nutrient/${id}`); }
+     
      create(data) { return http.post("/nutrient", data); }
+     
      update(id, data) { return http.put(`/nutrient/${id}`, data); }
+     
      delete(id) { return http.delete(`/nutrient/${id}`); }
+     
      findByName(name) { return http.get(`/nutrient?name=${name}`); }
 }
 
