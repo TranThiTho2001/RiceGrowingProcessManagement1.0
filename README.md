@@ -1,7 +1,7 @@
-# RiceGrowingProcessManagement1.0
+RiceGrowingProcessManagement1.0
 
-Install the required libraries:
-         *For backend:
+# Install the required libraries:
+         ## For backend:
             1. npm i bcryptjs
             2. npm i body-parser
             3. npm i child_process
@@ -17,7 +17,7 @@ Install the required libraries:
             13. npm i mysqldump
             14. npm i node-cron
             15. npm install nodemon --save-dev
-        *For Frontend:
+        ##For Frontend:
             1. npm i @vuepic/vue-datepicker
             2. npm i axios
             3. npm i bootstrap@4 jquery popper.js @fortawesome/fontawesome-free
