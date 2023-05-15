@@ -12,6 +12,7 @@
           <div class="row">
                <p class="col-sm-12 text-center functionName">CẬP NHẬT THÔNG TIN NHÂN VIÊN</p>
           </div>
+
           <div class="row content">
                <div class="col-lg-4">
                     <div class="form-group">
@@ -47,8 +48,8 @@
                          
                          <ErrorMessage name="birthDate" class="error-feedback" />
                     </div>
-
                </div>
+
                <div class="col-lg-4">
                     <div class="form-group">
                          <label for="major" class="mt-2">Chuyên môn <span style="color:red">*</span></label>
@@ -56,18 +57,21 @@
                               placeholder="Nhập chuyên môn" />
                          <ErrorMessage name="major" class="error-feedback" />
                     </div>
+
                     <div class="form-group">
                          <label for="phoneNumber" class="mt-3">Số điện thoại <span style="color:red">*</span></label>
                          <Field name="phoneNumber" class="form-control" v-model="newemployee.Employee_phoneNumber"
                               placeholder="Nhập số điện thoại" />
                          <ErrorMessage name="phoneNumber" class="error-feedback" />
                     </div>
+
                     <div class="form-group">
                          <label for="email" class="mt-3">Email <span style="color:red">*</span></label>
                          <Field name="email" class="form-control" v-model="newemployee.Employee_email"
                               placeholder="Nhập địa chỉ Email" />
                          <ErrorMessage name="email" class="error-feedback" />
                     </div>
+
                     <div class="form-group mt-4" >
                          <label for="sex" class="mt-3" style="margin-top: 52px !important; ">Giới tính<span style="color:red">*</span>: &nbsp;</label><br>
                          <Field name="sex" class="form-control" placeholder="" v-model="newemployee.Employee_sex">
@@ -81,6 +85,7 @@
                          <ErrorMessage name="sex" class="error-feedback" />
                     </div>
                </div>
+
                <div class="col-lg-4">
                     <div class="form-group">
                          <label for="address" class="mt-2">Địa chỉ <span style="color:red">*</span></label>
@@ -124,6 +129,7 @@
                     </div>
                </div>
           </div>
+
           <div class="form-group">
                <div class="row">
                     <div class="col-sm-12 mt-2 mb-3 text-center">
@@ -135,6 +141,7 @@
                          <p v-if="message2 == 'Cập nhật không thành công.'" class="textMessage1">Cập nhật thông tin người dùng không thành công</p>
                     </div>
                </div>
+
                <div class="row">
                     <div class="col-sm-5"></div>
                     <button class="btn btn-outline-secondary btnLuu col-sm-2"
@@ -147,11 +154,10 @@
  
 <script>
 import * as yup from "yup";
-import { Form, Field, ErrorMessage } from "vee-validate";
 import Datepicker from '@vuepic/vue-datepicker';
-// import EmployeeService from '../../services/employee.service';
-// import moment from 'moment';
 import '@vuepic/vue-datepicker/dist/main.css';
+import { Form, Field, ErrorMessage } from "vee-validate";
+
 export default {
      name: "updateEmpployeeForm",
      components: {
@@ -179,10 +185,6 @@ export default {
                     .max(12, "Số CMND/CCCD có nhiều nhất 12 ký tự"),
                birthDate: yup
                     .date(),
-               //      .required()
-               //      .nullable()
-               //      .transform(v => (v instanceof Date && !isNaN(v) ? v : null)),
-               // .required("Ngày sinh phải có giá trị"),
                phoneNumber: yup
                     .string()
                     .required("Số điện thoại phải có giá trị")

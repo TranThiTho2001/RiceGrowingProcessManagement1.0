@@ -465,5 +465,37 @@ export default {
 
 <style>
 @import url(../../assets/mainStyle.css);
-@import url(../../assets/epidemicStyle.css);
+.epidemicManagement .navigationBar .btnEpidemic {
+    display: block;
+    width: 94%;
+    font-size: 17px;
+    background-color: #fff945;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+    color: #5C5D22;
+    border: none;
+    font-family: 'Roboto';
+    font-style: normal;
+    border-radius: 14px;
+}
+
+.epidemicManagement .navigationBar .btnCatalog {
+    display: block;
+    width: 88%;
+    font-size: 17px;
+    background: #FFFA37;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+    font-family: 'Roboto';
+    font-style: normal;
+    border-radius: 14px;  
+      color: #5C5D22;
+    border: none;
+}
+
+.outside {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+}
 </style>

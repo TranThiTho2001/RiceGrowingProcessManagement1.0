@@ -19,7 +19,6 @@
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Phân bón</h3>
                          </div>
-
                          <div class="text-right">
                               <div class="row">
                                    <TopHeader />
@@ -42,8 +41,9 @@
                                    {{ fertilizer.Fertilizer_name }}</p>
                          </div>
                          <button class="btn btnCreate" @click="openCreate = !openCreate, active = true"
-                              v-if="currentUser.Role_id == '02'"><i class="fas fa-plus-circle" style="font-size: 15px;"></i>
-                              Thêm phân bón</button>
+                              v-if="currentUser.Role_id == '02'">
+                              <i class="fas fa-plus-circle" style="font-size: 15px;"></i>Thêm phân bón
+                         </button>
                     </div>
                     <div class="scrollTable">
                          <div class="ol-class" style="--length: 5" role="list">
@@ -556,7 +556,6 @@ export default {
                }
 
           },
-
 
           async searchName(data) {
                this.nameToSearch = data;

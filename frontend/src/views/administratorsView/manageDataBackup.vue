@@ -185,8 +185,7 @@ export default {
                if (err) {
                     console.log(err)
                     this.message = "Đã xảy ra lỗi trong qá trình sao lưu"
-               }
-               else {
+               } else {
                     console.log(respone.data);
                     this.retrieveDataBackupList();
                     this.message = "Sao lưu thành công"
@@ -203,8 +202,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.dataBackupList = respone.data;
                }
           },
@@ -215,8 +213,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     console.log(respone.data);
                     this.retrieveDataBackupList();
                }
@@ -238,8 +235,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     console.log(respone.data);
                     var csvFile;
                     var downloadLink;

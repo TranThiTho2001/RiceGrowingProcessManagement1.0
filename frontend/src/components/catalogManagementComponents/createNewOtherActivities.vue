@@ -89,13 +89,43 @@ export default {
 </script>
  
 <style>
+@import url(../../assets/mainStyle.css);
+.activitiesManagement .createOtherActiviesForm,
+.activitiesManagement .updateOtherActiviesForm {
+    margin-left:30% ;
+    padding: 20px;
+    background: #FAFAFC;
+    box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(37.5px);
+    border-radius: 5px;
+    width: 40%;
+    position: relative;
+    top:120px;
+    transition: all 5s ease-in-out;
+}
+
+@media only screen and (max-width: 1430px) {
+    .activitiesManagement .createOtherActiviesForm,
+    .activitiesManagement .updateOtherActiviesForm {
+        margin-left: 20%;
+        width: 60%;
+
+    }
+}
+
+.riceCropDetail .createOtherActiviesForm{
+    border: 0.5px solid #b8b5b5;
+    border-radius: 10px;
+    position: absolute;
+    top: calc(-80px);
+    left: 0%;
+    width: 40%;
+    z-index: 12;
+}
 .createOtherActiviesForm {
      pointer-events: all !important;
      filter: unset !important;
 }
-
-@import url(../../assets/otherActivitiesStyle.css);
-@import url(../../assets/mainStyle.css);
 
 .dp__theme_light {
      --dp-background-color: #FAFAFC;

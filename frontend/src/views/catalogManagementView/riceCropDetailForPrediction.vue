@@ -34,8 +34,9 @@
                                    <table class="tablericeCropInfor">
                                         <tbody>
                                              <tr>
-                                                  <td data-label="Mã mùa vụ">{{
-                                                       riceCrop.RiceCropInformation_id }}</td>
+                                                  <td data-label="Mã mùa vụ">
+                                                       {{ riceCrop.RiceCropInformation_id }}
+                                                  </td>
                                              </tr>
                                              <tr>
                                                   <td data-label="Tên mùa vụ">{{ riceCrop.RiceCropInformation_name }}</td>
@@ -57,9 +58,10 @@
                                                        formatDate(riceCrop.RiceCropInformation_sowingDate) }}</td>
                                              </tr>
                                              <tr>
-                                                  <td data-label="Ngày thu hoạch" style="border-bottom: 0px !important;"> Thu
-                                                       hoạch ngày {{
-                                                            formatDate(riceCrop.RiceCropInformation_harvestDate) }}</td>
+                                                  <td data-label="Ngày thu hoạch" style="border-bottom: 0px !important;">
+                                                       Thu hoạch ngày {{ formatDate(riceCrop.RiceCropInformation_harvestDate)
+                                                       }}
+                                                  </td>
                                              </tr>
                                         </tbody>
                                    </table>
@@ -68,11 +70,11 @@
                                    <time class="icon">
                                         <em>Ngày</em>
                                         <strong>Gieo trồng</strong>
-                                        <span class="countingDays">{{
-                                             get_day_of_time(riceCrop.RiceCropInformation_sowingDate) }}</span>
+                                        <span class="countingDays">
+                                             {{ get_day_of_time(riceCrop.RiceCropInformation_sowingDate) }}
+                                        </span>
                                    </time>
                               </div>
-                              <!-- <div class="resultRiceYield"> -->
                               <div class="result-prediction">
                                    <p>Dự đoán</p>
                                    <div class="yield">
@@ -80,6 +82,7 @@
                                         <h5 style="color: #919302;">Kg/ha</h5>
                                    </div>
                               </div>
+
                               <div class="result-prediction">
                                    <p>Thực tế</p>
                                    <div class="yield">
@@ -89,23 +92,25 @@
                                         <h5 style="color: #919302;">Kg/ha</h5>
                                    </div>
                               </div>
-                              <!-- </div> -->
                          </div>
 
                          <div class="row mt-3 tablePredictFrame">
                               <div class="row mt-1" style="width: 100%; height: 38px; margin-left: 0px;">
                                    <button class="btn btnDowload" @click="dowload()">
-                                        <i class="fas fa-arrow-alt-circle-down"></i> Tải CSV
+                                        <i class="fas fa-arrow-alt-circle-down"></i>
+                                        Tải CSV
                                    </button>
                               </div>
                               <div class="row table-row mb-1">
                                    <h4 class="prediction-title2" style="">
                                         Thông tin thời tiết trong mùa vụ cho lần dự đoán ngày
-                                        <span v-if="getPrediction().yield != '00'"> {{
-                                             formatDate(predictionList[0].Prediction_date) }}</span>
+                                        <span v-if="getPrediction().yield != '00'">
+                                             {{ formatDate(predictionList[0].Prediction_date) }}
+                                        </span>
                                    </h4>
                                    <button class="btn btnViewDetail" @click="openWeatherInfor = true"
-                                        v-if="getPrediction().yield != '00'">Xem chi tiết</button>
+                                        v-if="getPrediction().yield != '00'">Xem chi tiết
+                                   </button>
                                    <table class="tableWeather tablePredict" v-if="weatherInfor.loadding">
                                         <thead>
                                              <tr>
@@ -124,9 +129,11 @@
                                                   <td class="centerclass">{{ formatDate(weatherInfor.dateList[i]) }}</td>
                                                   <td class="centerclass">{{ weatherInfor.temperatureList[i] }}
                                                   </td>
-                                                  <td class="centerclass">{{ weatherInfor.humitidityList.final[i]
-                                                  }}</td>
-                                                  <td class="centerclass">{{ weatherInfor.precipitationList[i] }}
+                                                  <td class="centerclass">
+                                                       {{ weatherInfor.humitidityList.final[i] }}
+                                                  </td>
+                                                  <td class="centerclass">
+                                                       {{ weatherInfor.precipitationList[i] }}
                                                   </td>
                                                   <td class="centerclass">{{ weatherInfor.windSpeed[i] }}</td>
                                                   <td class="centerclass">{{ weatherInfor.solarRadiation[i] }}</td>
@@ -134,8 +141,7 @@
                                              <tr>
                                                   <td class="centerclass">...</td>
                                                   <td class="centerclass">...</td>
-                                                  <td class="centerclass">...
-                                                  </td>
+                                                  <td class="centerclass">...</td>
                                                   <td class="centerclass">...</td>
                                                   <td class="centerclass">...</td>
                                                   <td class="centerclass">...</td>
@@ -143,22 +149,29 @@
                                              </tr>
                                              <tr>
                                                   <td class="centerclass final-row">Dữ liệu dùng cho dự đoán</td>
-                                                  <td class="centerclass final-row">{{ weatherInfor.dateList.length
-                                                  }}</td>
-                                                  <td class="centerclass final-row">{{ weatherInfor.Temperature }}
+                                                  <td class="centerclass final-row">
+                                                       {{ weatherInfor.dateList.length }}
                                                   </td>
-                                                  <td class="centerclass final-row">{{ weatherInfor.Humitidity }}
+                                                  <td class="centerclass final-row">
+                                                       {{ weatherInfor.Temperature }}
                                                   </td>
-                                                  <td class="centerclass final-row">{{ weatherInfor.Precipitation
-                                                  }}</td>
-                                                  <td class="centerclass final-row">{{ weatherInfor.WinSpeed }}
+                                                  <td class="centerclass final-row">
+                                                       {{ weatherInfor.Humitidity }}
                                                   </td>
-                                                  <td class="centerclass final-row">{{ weatherInfor.SolarRadiation
-                                                  }}</td>
+                                                  <td class="centerclass final-row">
+                                                       {{ weatherInfor.Precipitation }}
+                                                  </td>
+                                                  <td class="centerclass final-row">
+                                                       {{ weatherInfor.WinSpeed }}
+                                                  </td>
+                                                  <td class="centerclass final-row">
+                                                       {{ weatherInfor.SolarRadiation }}
+                                                  </td>
                                              </tr>
                                         </tbody>
                                    </table>
                               </div>
+
                               <div class="row table-row">
                                    <h4 class="prediction-title2">Hoạt động bón phân</h4>
                                    <button class="btn btnViewDetail " @click="openFertilizer = true"
@@ -184,24 +197,29 @@
                                              </tr>
                                         </tbody>
                                         <tbody v-if="fertilizerTimesList.length == 1">
-                                             <tr >
-                                                  <td class="text-center ">{{ fertilizerTimesList[0].FertilizerTimes_times }}
+                                             <tr>
+                                                  <td class="text-center ">
+                                                       {{ fertilizerTimesList[0].FertilizerTimes_times }}
                                                   </td>
                                                   <td class="">{{ fertilizerTimesList[0].Fertilizer_name }}</td>
-                                                  <td class="text-center ">{{ fertilizerTimesList[0].FertilizerTimes_amount
-                                                  }}
+                                                  <td class="text-center ">
+                                                       {{ fertilizerTimesList[0].FertilizerTimes_amount }}
                                                   </td>
                                                   <td class="text-center ">
-                                                       {{ toFixedNumber(fertilizerTimesList[0].QuantityUsed.N) }}</td>
-                                                  <td class="text-center ">{{
-                                                       toFixedNumber(fertilizerTimesList[0].QuantityUsed.P) }}</td>
-                                                  <td class="text-center ">{{
-                                                       toFixedNumber(fertilizerTimesList[0].QuantityUsed.K) }}</td>
-                                                  <td class="text-center ">{{
-                                                       formatDate(fertilizerTimesList[0].FertilizerTimes_startDate) }}</td>
-                                                  <td class="text-center ">{{
-                                                       formatDate(fertilizerTimesList[0].FertilizerTimes_endDate)
-                                                  }}</td>
+                                                       {{ toFixedNumber(fertilizerTimesList[0].QuantityUsed.N) }}
+                                                  </td>
+                                                  <td class="text-center ">
+                                                       {{ toFixedNumber(fertilizerTimesList[0].QuantityUsed.P) }}
+                                                  </td>
+                                                  <td class="text-center ">
+                                                       {{ toFixedNumber(fertilizerTimesList[0].QuantityUsed.K) }}
+                                                  </td>
+                                                  <td class="text-center ">
+                                                       {{ formatDate(fertilizerTimesList[0].FertilizerTimes_startDate) }}
+                                                  </td>
+                                                  <td class="text-center ">
+                                                       {{ formatDate(fertilizerTimesList[0].FertilizerTimes_endDate) }}
+                                                  </td>
                                              </tr>
 
                                              <tr>
@@ -209,20 +227,20 @@
                                                   <td class="text-center final-row">{{
                                                        toFixedNumber(total_amount_of_fertilizer_used.Total)
                                                   }}</td>
-                                                  <td class="text-center final-row">{{
-                                                       toFixedNumber(total_amount_of_fertilizer_used.N) }}
+                                                  <td class="text-center final-row">
+                                                       {{ toFixedNumber(total_amount_of_fertilizer_used.N) }}
                                                   </td>
-                                                  <td class="text-center final-row">{{
-                                                       toFixedNumber(total_amount_of_fertilizer_used.P) }}
+                                                  <td class="text-center final-row">
+                                                       {{ toFixedNumber(total_amount_of_fertilizer_used.P) }}
                                                   </td>
-                                                  <td class="text-center final-row">{{
-                                                       toFixedNumber(total_amount_of_fertilizer_used.K) }}
+                                                  <td class="text-center final-row">
+                                                       {{ toFixedNumber(total_amount_of_fertilizer_used.K) }}
                                                   </td>
                                                   <td class="text-center final-row"></td>
                                                   <td class="text-center final-row"></td>
                                              </tr>
                                         </tbody>
-                                        <tbody v-if="fertilizerTimesList.length == 2 || fertilizerTimesList.length ==3">
+                                        <tbody v-if="fertilizerTimesList.length == 2 || fertilizerTimesList.length == 3">
 
                                              <tr v-for="i in fertilizerTimesList.length" :key="i">
                                                   <td class="text-center ">{{ fertilizerTimesList[i].FertilizerTimes_times }}
@@ -233,30 +251,31 @@
                                                   </td>
                                                   <td class="text-center ">
                                                        {{ toFixedNumber(fertilizerTimesList[i].QuantityUsed.N) }}</td>
-                                                  <td class="text-center ">{{
-                                                       toFixedNumber(fertilizerTimesList[i].QuantityUsed.P) }}</td>
-                                                  <td class="text-center ">{{
-                                                       toFixedNumber(fertilizerTimesList[i].QuantityUsed.K) }}</td>
-                                                  <td class="text-center ">{{
-                                                       formatDate(fertilizerTimesList[i].FertilizerTimes_startDate) }}</td>
-                                                  <td class="text-center ">{{
-                                                       formatDate(fertilizerTimesList[i].FertilizerTimes_endDate)
-                                                  }}</td>
+                                                  <td class="text-center ">
+                                                       {{ toFixedNumber(fertilizerTimesList[i].QuantityUsed.P) }}</td>
+                                                  <td class="text-center ">
+                                                       {{ toFixedNumber(fertilizerTimesList[i].QuantityUsed.K) }}</td>
+                                                  <td class="text-center ">
+                                                       {{ formatDate(fertilizerTimesList[i].FertilizerTimes_startDate) }}
+                                                  </td>
+                                                  <td class="text-center ">
+                                                       {{ formatDate(fertilizerTimesList[i].FertilizerTimes_endDate) }}
+                                                  </td>
                                              </tr>
 
                                              <tr>
                                                   <td class=" final-row" colspan="2">Tổng</td>
-                                                  <td class="text-center final-row">{{
-                                                       toFixedNumber(total_amount_of_fertilizer_used.Total)
-                                                  }}</td>
-                                                  <td class="text-center final-row">{{
-                                                       toFixedNumber(total_amount_of_fertilizer_used.N) }}
+                                                  <td class="text-center final-row">
+                                                       {{ toFixedNumber(total_amount_of_fertilizer_used.Total) }}
                                                   </td>
-                                                  <td class="text-center final-row">{{
-                                                       toFixedNumber(total_amount_of_fertilizer_used.P) }}
+                                                  <td class="text-center final-row">
+                                                       {{ toFixedNumber(total_amount_of_fertilizer_used.N) }}
                                                   </td>
-                                                  <td class="text-center final-row">{{
-                                                       toFixedNumber(total_amount_of_fertilizer_used.K) }}
+                                                  <td class="text-center final-row">
+                                                       {{ toFixedNumber(total_amount_of_fertilizer_used.P) }}
+                                                  </td>
+                                                  <td class="text-center final-row">
+                                                       {{ toFixedNumber(total_amount_of_fertilizer_used.K) }}
                                                   </td>
                                                   <td class="text-center final-row"></td>
                                                   <td class="text-center final-row"></td>
@@ -264,23 +283,28 @@
                                         </tbody>
                                         <tbody v-if="fertilizerTimesList.length > 3">
                                              <tr v-for="i in 2" :key="i">
-                                                  <td class="text-center ">{{ fertilizerTimesList[i].FertilizerTimes_times }}
+                                                  <td class="text-center ">
+                                                       {{ fertilizerTimesList[i].FertilizerTimes_times }}
                                                   </td>
                                                   <td class="">{{ fertilizerTimesList[i].Fertilizer_name }}</td>
-                                                  <td class="text-center ">{{ fertilizerTimesList[i].FertilizerTimes_amount
-                                                  }}
+                                                  <td class="text-center ">
+                                                       {{ fertilizerTimesList[i].FertilizerTimes_amount }}
                                                   </td>
                                                   <td class="text-center ">
-                                                       {{ toFixedNumber(fertilizerTimesList[i].QuantityUsed.N) }}</td>
-                                                  <td class="text-center ">{{
-                                                       toFixedNumber(fertilizerTimesList[i].QuantityUsed.P) }}</td>
-                                                  <td class="text-center ">{{
-                                                       toFixedNumber(fertilizerTimesList[i].QuantityUsed.K) }}</td>
-                                                  <td class="text-center ">{{
-                                                       formatDate(fertilizerTimesList[i].FertilizerTimes_startDate) }}</td>
-                                                  <td class="text-center ">{{
-                                                       formatDate(fertilizerTimesList[i].FertilizerTimes_endDate)
-                                                  }}</td>
+                                                       {{ toFixedNumber(fertilizerTimesList[i].QuantityUsed.N) }}
+                                                  </td>
+                                                  <td class="text-center ">
+                                                       {{ toFixedNumber(fertilizerTimesList[i].QuantityUsed.P) }}
+                                                  </td>
+                                                  <td class="text-center ">
+                                                       {{ toFixedNumber(fertilizerTimesList[i].QuantityUsed.K) }}
+                                                  </td>
+                                                  <td class="text-center ">
+                                                       {{ formatDate(fertilizerTimesList[i].FertilizerTimes_startDate) }}
+                                                  </td>
+                                                  <td class="text-center ">
+                                                       {{ formatDate(fertilizerTimesList[i].FertilizerTimes_endDate) }}
+                                                  </td>
                                              </tr>
 
                                              <tr>
@@ -295,17 +319,17 @@
                                              </tr>
                                              <tr>
                                                   <td class=" final-row" colspan="2">Tổng</td>
-                                                  <td class="text-center final-row">{{
-                                                       toFixedNumber(total_amount_of_fertilizer_used.Total)
-                                                  }}</td>
-                                                  <td class="text-center final-row">{{
-                                                       toFixedNumber(total_amount_of_fertilizer_used.N) }}
+                                                  <td class="text-center final-row">
+                                                       {{ toFixedNumber(total_amount_of_fertilizer_used.Total) }}
                                                   </td>
-                                                  <td class="text-center final-row">{{
-                                                       toFixedNumber(total_amount_of_fertilizer_used.P) }}
+                                                  <td class="text-center final-row">
+                                                       {{ toFixedNumber(total_amount_of_fertilizer_used.N) }}
                                                   </td>
-                                                  <td class="text-center final-row">{{
-                                                       toFixedNumber(total_amount_of_fertilizer_used.K) }}
+                                                  <td class="text-center final-row">
+                                                       {{ toFixedNumber(total_amount_of_fertilizer_used.P) }}
+                                                  </td>
+                                                  <td class="text-center final-row">
+                                                       {{ toFixedNumber(total_amount_of_fertilizer_used.K) }}
                                                   </td>
                                                   <td class="text-center final-row"></td>
                                                   <td class="text-center final-row"></td>
@@ -320,8 +344,9 @@
                                    <a class="fas fa-times-circle" href="#" @click="openWeatherInfor = false"
                                         style="font-size: 25px; text-decoration: none; color:#B3B4BA; float: right;"></a>
                                    <h2>Thông tin thời tiết trong mùa vụ cho lần dự đoán ngày
-                                        <span v-if="getPrediction().yield != '00'"> {{
-                                             formatDate(predictionList[0].Prediction_date) }}</span>
+                                        <span v-if="getPrediction().yield != '00'">
+                                             {{ formatDate(predictionList[0].Prediction_date) }}
+                                        </span>
                                    </h2>
 
                                    <div class="content">
@@ -342,37 +367,44 @@
                                                   <tr v-for="(data, i) in weatherInfor.dateList" :key="i">
                                                        <td class="centerclass">{{ i }}</td>
                                                        <td class="centerclass">{{ formatDate(data) }}</td>
-                                                       <td class="centerclass">{{ weatherInfor.temperatureList[i] }}
+                                                       <td class="centerclass">
+                                                            {{ weatherInfor.temperatureList[i] }}
                                                        </td>
-                                                       <td class="centerclass">{{ weatherInfor.humitidityList.final[i]
-                                                       }}</td>
-                                                       <td class="centerclass">{{ weatherInfor.precipitationList[i] }}
+                                                       <td class="centerclass">
+                                                            {{ weatherInfor.humitidityList.final[i] }}
+                                                       </td>
+                                                       <td class="centerclass">
+                                                            {{ weatherInfor.precipitationList[i] }}
                                                        </td>
                                                        <td class="centerclass">{{ weatherInfor.windSpeed[i] }}</td>
                                                        <td class="centerclass">{{ weatherInfor.solarRadiation[i] }}</td>
                                                   </tr>
                                                   <tr>
                                                        <td class="centerclass final-row">Dữ liệu dùng cho dự đoán</td>
-                                                       <td class="centerclass final-row">{{ weatherInfor.dateList.length
-                                                       }}</td>
-                                                       <td class="centerclass final-row">{{ weatherInfor.Temperature }}
+                                                       <td class="centerclass final-row">
+                                                            {{ weatherInfor.dateList.length }}
                                                        </td>
-                                                       <td class="centerclass final-row">{{ weatherInfor.Humitidity }}
+                                                       <td class="centerclass final-row">
+                                                            {{ weatherInfor.Temperature }}
                                                        </td>
-                                                       <td class="centerclass final-row">{{ weatherInfor.Precipitation
-                                                       }}</td>
-                                                       <td class="centerclass final-row">{{ weatherInfor.WinSpeed }}
+                                                       <td class="centerclass final-row">
+                                                            {{ weatherInfor.Humitidity }}
                                                        </td>
-                                                       <td class="centerclass final-row">{{ weatherInfor.SolarRadiation
-                                                       }}</td>
+                                                       <td class="centerclass final-row">
+                                                            {{ weatherInfor.Precipitation }}
+                                                       </td>
+                                                       <td class="centerclass final-row">
+                                                            {{ weatherInfor.WinSpeed }}
+                                                       </td>
+                                                       <td class="centerclass final-row">
+                                                            {{ weatherInfor.SolarRadiation }}
+                                                       </td>
                                                   </tr>
                                              </tbody>
                                         </table>
                                    </div>
                               </div>
                          </div>
-
-
 
                          <div :class="{ overlay2: openFertilizer }" class="overlay">
                               <div class="popup">
@@ -396,8 +428,8 @@
                                              </thead>
                                              <tbody>
                                                   <tr v-if="fertilizerTimesList.length < 1">
-                                                       <td colspan="6" class="centerclass">Chưa có lần bón phân nào được
-                                                            thực hiện
+                                                       <td colspan="6" class="centerclass">
+                                                            Chưa có lần bón phân nào được thực hiện
                                                        </td>
                                                   </tr>
                                                   <tr v-for="(fertilizer, i) in (fertilizerTimesList)" :key="i">
@@ -407,30 +439,34 @@
                                                        <td class="text-center ">{{ fertilizer.FertilizerTimes_amount }}
                                                        </td>
                                                        <td class="text-center ">
-                                                            {{ toFixedNumber(fertilizer.QuantityUsed.N) }}</td>
-                                                       <td class="text-center ">{{
-                                                            toFixedNumber(fertilizer.QuantityUsed.P) }}</td>
-                                                       <td class="text-center ">{{
-                                                            toFixedNumber(fertilizer.QuantityUsed.K) }}</td>
-                                                       <td class="text-center ">{{
-                                                            formatDate(fertilizer.FertilizerTimes_startDate) }}</td>
-                                                       <td class="text-center ">{{
-                                                            formatDate(fertilizer.FertilizerTimes_endDate)
-                                                       }}</td>
+                                                            {{ toFixedNumber(fertilizer.QuantityUsed.N) }}
+                                                       </td>
+                                                       <td class="text-center ">
+                                                            {{ toFixedNumber(fertilizer.QuantityUsed.P) }}
+                                                       </td>
+                                                       <td class="text-center ">
+                                                            {{ toFixedNumber(fertilizer.QuantityUsed.K) }}
+                                                       </td>
+                                                       <td class="text-center ">
+                                                            {{ formatDate(fertilizer.FertilizerTimes_startDate) }}
+                                                       </td>
+                                                       <td class="text-center ">
+                                                            {{ formatDate(fertilizer.FertilizerTimes_endDate) }}
+                                                       </td>
                                                   </tr>
                                                   <tr>
                                                        <td class=" final-row" colspan="2">Tổng</td>
-                                                       <td class="text-center final-row">{{
-                                                            toFixedNumber(total_amount_of_fertilizer_used.Total)
-                                                       }}</td>
-                                                       <td class="text-center final-row">{{
-                                                            toFixedNumber(total_amount_of_fertilizer_used.N) }}
+                                                       <td class="text-center final-row">
+                                                            {{ toFixedNumber(total_amount_of_fertilizer_used.Total) }}
                                                        </td>
-                                                       <td class="text-center final-row">{{
-                                                            toFixedNumber(total_amount_of_fertilizer_used.P) }}
+                                                       <td class="text-center final-row">
+                                                            {{ toFixedNumber(total_amount_of_fertilizer_used.N) }}
                                                        </td>
-                                                       <td class="text-center final-row">{{
-                                                            toFixedNumber(total_amount_of_fertilizer_used.K) }}
+                                                       <td class="text-center final-row">
+                                                            {{ toFixedNumber(total_amount_of_fertilizer_used.P) }}
+                                                       </td>
+                                                       <td class="text-center final-row">
+                                                            {{ toFixedNumber(total_amount_of_fertilizer_used.K) }}
                                                        </td>
                                                        <td class="text-center final-row"></td>
                                                        <td class="text-center final-row"></td>
@@ -440,151 +476,41 @@
                                    </div>
                               </div>
                          </div>
-
-
-
-
-                         <!-- 
-                         <div class="row mt-4">
-                              <h4 class="prediction-title">Các lần bị bệnh dịch</h4>
-                              <div class="tablePredictFrame">
-                                   <table class="tablePredict">
-                                        <thead>
-                                             <tr>
-                                                  <th class="text-center th_pre">Lần</th>
-                                                  <th class="th_pre">Tên bệnh dịch</th>
-                                                  <th class="text-center th_pre">Ngày bất đầu</th>
-                                                  <th class="text-center th_pre">Ngày kết thúc</th>
-                                                  <th class="th_pre">Nhân viên</th>
-                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                             <tr v-if="epidemicTimesList.length < 1">
-                                                  <td colspan="5" class="centerclass">Mùa vụ không trải qua lần bị bệnh dịch
-                                                       nào.
-                                                  </td>
-                                             </tr>
-                                             <tr v-for="(epidemic, i ) in (epidemicTimesList)" :key="i">
-                                                  <td class="text-center ">{{ epidemic.EpidemicTimes_times }}</td>
-                                                  <td class="">{{ epidemic.Epidemic_name }}</td>
-                                                  <td class="text-center ">{{
-                                                       formatDate(epidemic.EpidemicTimes_startDate)
-                                                  }}</td>
-                                                  <td class="text-center ">{{ formatDate(epidemic.EpidemicTimes_endDate)
-                                                  }}
-                                                  </td>
-                                                  <td class="">{{ epidemic.Employee_name }}</td>
-                                             </tr>
-                                        </tbody>
-                                   </table>
-                              </div>
-                         </div> -->
-
-                         <!-- <div class="row mt-4">
-                              <h4 class="prediction-title">Hoạt động phun thuốc</h4>
-                              <div class="tablePredictFrame">
-                                   <table class="tablePredict">
-                                        <thead>
-                                             <tr>
-                                                  <th class="text-center th_pre">Mã</th>
-                                                  <th class="th_pre">Tên thuốc</th>
-                                                  <th class="text-center th_pre">Liều lượng (lít/ha)</th>
-                                                  <th class="text-center th_pre">Ngày bất đầu</th>
-                                                  <th class="text-center th_pre">Ngày kết thúc</th>
-                                                  <th class="th_pre">Nhân viên</th>
-                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                             <tr v-if="sprayingTimesList.length < 1">
-                                                  <td colspan="6" class="centerclass">Chưa có làn phun thuốc nào được thực
-                                                       hiện
-                                                       trên ruộng lúa</td>
-                                             </tr>
-                                             <tr v-for="(sprayingTimes, i ) in (sprayingTimesList)" :key="i">
-                                                  <td class="text-center ">{{ sprayingTimes.SprayingTimes_times }}</td>
-                                                  <td class="">{{ sprayingTimes.Pesticide_name }}</td>
-                                                  <td class="text-center ">{{ sprayingTimes.SprayingTimes_amount }}</td>
-                                                  <td class="text-center ">{{
-                                                       formatDate(sprayingTimes.SprayingTimes_startDate)
-                                                  }}</td>
-                                                  <td class="text-center ">{{
-                                                       formatDate(sprayingTimes.SprayingTimes_endDate)
-                                                  }}
-                                                  </td>
-                                                  <td class="">{{ sprayingTimes.Employee_name }}</td>
-                                             </tr>
-                                        </tbody>
-                                   </table>
-                              </div>
-                         </div> -->
-
-                         <!-- <div class="row mt-4">
-                              <h4 class="prediction-title">Các hoạt động khác</h4>
-                              <div class="tablePredictFrame">
-                                   <table class="tablePredict">
-                                        <thead>
-                                             <tr>
-                                                  <th class="centerclass th_pre">STT</th>
-                                                  <th class="centerclass th_pre">Mã</th>
-                                                  <th class="th_pre">Tên hoạt động</th>
-                                                  <th class="th_pre">Lần</th>
-                                                  <th class="th_pre">Ngày bắt đầu</th>
-                                                  <th class="th_pre">Ngày kết thúc</th>
-                                                  <th class="th_pre">Nhân viên</th>
-                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                             <tr v-if="activitiesDetailList.length < 1">
-                                                  <td colspan="7" class="centerclass">Chưa có hoạt động nào được thực hiện
-                                                       cho mùa
-                                                       vụ </td>
-                                             </tr>
-                                             <tr v-for="(activity, i ) in (activitiesDetailList)" :key="i">
-                                                  <td class="text-center">{{ i }}</td>
-                                                  <td class="text-center">{{ activity.OtherActivities_id }}</td>
-                                                  <td>{{ activity.OtherActivities_name }}</td>
-                                                  <td>{{ activity.ActivityDetails_times }}</td>
-                                                  <td>{{ formatDate(activity.ActivityDetails_startDate) }}</td>
-                                                  <td>{{ formatDate(activity.ActivityDetails_endDate) }}</td>
-                                                  <td class="">{{ activity.Employee_name }}</td>
-                                             </tr>
-                                        </tbody>
-                                   </table>
-                              </div>
-                         </div> -->
                     </div>
                </div>
           </div>
+
           <div class="waitingDialog" v-if="predicting">
                <div>
                     <p class="labelConfirm mt-4 pt-4">Đang xử lý....</p>
                </div>
                <span v-show="predicting" class="spinner-border spinner-border-sm"></span>
           </div>
+
           <div class="resultDialog" v-if="result">
-               <p style="color:#515151; text-align:center; margin-top: 30px; font-size: 20px;" class="labelConfirm"> Năng
-                    suất dự đoán cho mùa vụ {{
-                         this.riceCrop.RiceCropInformation_name }}<br>
+               <p style="color:#515151; text-align:center; margin-top: 30px; font-size: 20px;" class="labelConfirm">
+                    Năng suất dự đoán cho mùa vụ {{ this.riceCrop.RiceCropInformation_name }}<br>
                     <span class="result">{{ this.riceCrop.Prediction_yield }}</span> kg/ha
                </p>
                <button class="btnOK btn btn-sm btn-outline-secondary mb-3"
-                    @click="result = !result, getPredictionList(), active = false">OK</button>
+                    @click="result = !result, getPredictionList(), active = false">OK
+               </button>
           </div>
      </div>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
-import FertilizerTimesService from '@/services/fertilizerTimes.service';
-import RiceCropInformationService from '@/services/riceCropInformation.service';
+import ContainService from "@/services/contain.service";
+import PredictionService from "@/services/prediction.service";
 import EpidemicTimesService from '@/services/epidemicTimes.service';
 import SprayingTimesService from '@/services/sprayingTimes.service';
 import ActivityDetailsService from '@/services/activityDetails.service';
+import FertilizerTimesService from '@/services/fertilizerTimes.service';
 import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
-import PredictionService from "@/services/prediction.service";
-import ContainService from "@/services/contain.service";
+import RiceCropInformationService from '@/services/riceCropInformation.service';
 
 import moment from 'moment';
 export default {
@@ -597,26 +523,25 @@ export default {
 
      data() {
           return {
-               openWeatherInfor: false,
+               riceCrop: {},
+               result: false,
+               algorithm: "",
+               active: false,
+               loading: true,
+               weatherInfor: [],
+               predicting: false,
+               predictionList: [],
                openFertilizer: false,
+               epidemicTimesList: [],
+               sprayingTimesList: [],
+               fertilizerTimesList: [],
+               openWeatherInfor: false,
+               activitiesDetailList: [],
                openMenu: {
                     openMenu: false,
                     isOpenMenuIcon: true,
                     isCloseMenu: false,
                },
-               active: false,
-
-               loading: true,
-               riceCrop: {},
-               fertilizerTimesList: [],
-               epidemicTimesList: [],
-               sprayingTimesList: [],
-               activitiesDetailList: [],
-               predictionList: [],
-               weatherInfor: [],
-               predicting: false,
-               result: false,
-               algorithm: "",
                total_amount_of_fertilizer_used: {
                     N: 0,
                     P: 0,
@@ -631,6 +556,7 @@ export default {
           }),
 
      },
+
      created() {
           this.riceCrop.RiceCropInformation_id = this.$route.params.id;
           this.algorithm = this.$route.params.Algorithm;
@@ -639,6 +565,7 @@ export default {
           this.retrieveRiceCrop();
           this.loadData();
      },
+
      methods: {
           ...mapMutations([
                "initEmployeeState"
@@ -661,10 +588,7 @@ export default {
                               Total: 0,
                          }
                          var i = 0;
-                         console.log(respone.data)
                          respone.data.forEach(fertizertimes => {
-
-
                               if (fertizertimes.FertilizerTimes_startDate < this.predictionList[0].Prediction_date) {
                                    this.fertilizerTimesList.push(fertizertimes);
                                    this.getContain(fertizertimes.Fertilizer_id, i);
@@ -672,7 +596,6 @@ export default {
                                    i++;
                               }
                               fertizertimes.FertilizerTimes_startDate = new Date(fertizertimes.FertilizerTimes_startDate)
-
                          });
                     }
                }
@@ -706,9 +629,6 @@ export default {
                                    this.total_amount_of_fertilizer_used.P += parseFloat(this.fertilizerTimesList[position].QuantityUsed.P);
                               }
                          });
-                         // this.total_amount_of_fertilizer_used.K = parseFloat(this.total_amount_of_fertilizer_used.K).toFixed(2);
-                         // this.total_amount_of_fertilizer_used.N = parseFloat(this.total_amount_of_fertilizer_used.N).toFixed(2);
-                         // this.total_amount_of_fertilizer_used.P = parseFloat(this.total_amount_of_fertilizer_used.P ).toFixed(2);
                     }
                }
           },
@@ -724,10 +644,10 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.riceCrop = respone.data;
                }
+
                if (this.loading) {
                     setTimeout(() => {
                          this.loading = false;
@@ -742,8 +662,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     if (respone.data != "Không tìm thấy lần bị dịch bệnh.") {
                          this.epidemicTimesList = respone.data;
                     }
@@ -757,12 +676,10 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     if (respone.data != "Không tìm thấy lần phun thuốc mới.") {
                          this.sprayingTimesList = respone.data;
                     }
-
                }
                this.retrieveActivitiesDetailList();
           },
@@ -773,8 +690,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.activitiesDetailList = respone.data;
                }
           },
@@ -785,8 +701,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.predictionList = respone.data;
                     this.retrieveFertilizerTimesList();
                     this.bubbleSort();
@@ -809,32 +724,28 @@ export default {
                     infor.P = this.total_amount_of_fertilizer_used.P;
                     if (this.algorithm == "LinearRegression") {
                          infor.Algorithm_id = '1';
-                    }
-                    else {
+                    } else {
                          infor.Algorithm_id = '2';
                     }
                     if (this.riceCrop.Crop_id == 'C00001') {
                          infor.crop = '1';
-                    }
-                    else if (this.riceCrop.Crop_id == 'C00002') {
+                    } else if (this.riceCrop.Crop_id == 'C00002') {
                          infor.crop = '2';
-                    }
-                    else {
+                    } else {
                          infor.crop = '3';
                     }
+
                     infor.area = this.riceCrop.Province_id;
                     const [err, respone] = await this.handle(
                          PredictionService.create(this.riceCrop.RiceCropInformation_id, infor)
                     );
                     if (err) {
                          console.log(err)
-                    }
-                    else {
+                    } else {
                          this.riceCrop.Prediction_yield = respone.data.Prediction_yield;
                          this.riceCrop.Prediction_yield = Number(this.riceCrop.Prediction_yield).toFixed(2);
                          this.predicting = false;
                          this.result = true;
-
                          this.getPredictionList();
                          this.getWeather(false);
                     }
@@ -853,9 +764,7 @@ export default {
                var end_date = ''
                if (ispredict) {
                     end_date = moment(new Date((new Date()).valueOf() - 1000 * 60 * 60 * 24)).format("YYYY-MM-DD");
-               }
-               else if (!ispredict && this.predictionList.length > 0) {
-                    console.log("g")
+               } else if (!ispredict && this.predictionList.length > 0) {
                     end_date = moment(new Date((new Date(this.predictionList[0].Prediction_date))).valueOf() - 1000 * 60 * 60 * 24).format("YYYY-MM-DD");
                }
                if (ispredict || (!ispredict && this.predictionList.length > 0)) {
@@ -877,8 +786,7 @@ export default {
                               datenull.index = index;
                               datenull.date = this.weatherInfor.dateList[index];
                               valueNull.push(datenull);
-                         }
-                         else {
+                         } else {
                               break;
                          }
                     }
@@ -888,8 +796,7 @@ export default {
                               if (date >= valueNull[valueNull.length - 1].date) {
                                    this.weatherInfor.humitidityList.relativehumidity_2m.pop();
                                    this.weatherInfor.humitidityList.time.pop();
-                              }
-                              else {
+                              } else {
                                    break;
                               }
                          }
@@ -906,10 +813,7 @@ export default {
 
                          this.weatherInfor.humitidityList.time = this.weatherInfor.humitidityList.time.concat(data2.hourly.time);
                          this.weatherInfor.humitidityList.relativehumidity_2m = this.weatherInfor.humitidityList.relativehumidity_2m.concat(data2.hourly.relativehumidity_2m);
-
                     }
-
-
                     this.weatherInfor.humitidityList.final = [];
                     for (let index = 0; index < this.weatherInfor.dateList.length; index++) {
                          let total = 0;
@@ -939,7 +843,6 @@ export default {
                if (ispredict) {
                     this.predictRiceYield();
                }
-
           },
 
           async loadData() {
@@ -958,8 +861,7 @@ export default {
                };
                if (this.algorithm == "LinearRegression") {
                     this.riceCrop.Algorithm_id = 1;
-               }
-               else {
+               } else {
                     this.riceCrop.Algorithm_id = 2;
                }
 
@@ -1008,7 +910,6 @@ export default {
 
                for (var i = 0; i < rows.length; i++) {
                     var row = [], cols = rows[i].querySelectorAll("td, th");
-
                     for (var j = 0; j < cols.length; j++)
                          row.push(String(cols[j].innerHTML).replaceAll(',', ''));
 
@@ -1024,10 +925,8 @@ export default {
                if (this.predictionList[0].Prediction_date != '00') {
                     date = moment(this.predictionList[0].Prediction_date).format("DD-MM-YYYY");
                }
-
                this.export_table_to_csv(html, "Dữ liệu dự đoán năng suất lúa " + this.riceCrop.RiceCropInformation_name + " " + date + ".csv");
           },
-
 
           bubbleSort() {
                for (let i = 0; i < this.predictionList.length - 1; i++) {
@@ -1040,53 +939,6 @@ export default {
                     }
                }
           },
-
-
-          //      import * as FileSaver from 'file-saver';
-          // import * as XLSX from 'xlsx';
-
-          // function downloadExcel() {
-
-          //     /* create a new blank workbook */
-          //     var wb = XLSX.utils.book_new();
-
-          //     /* create a worksheet for books */
-          //     var wsBooks = XLSX.utils.json_to_sheet(books);
-
-          //     /* Add the worksheet to the workbook */
-          //     XLSX.utils.book_append_sheet(wb, wsBooks, "Books");
-
-          //     /* create a worksheet for person details */
-          //     var wsPersonDetails = XLSX.utils.json_to_sheet(personDetails);
-
-          //     /* Add the worksheet to the workbook */
-          //     XLSX.utils.book_append_sheet(wb, wsPersonDetails, "PersonDetails");
-
-
-          //     const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-          //     const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-          //     const data1 = new Blob([excelBuffer], { type: fileType });
-          //     FileSaver.saveAs(data1, "BookDetail Summary.xlsx");    
-          // }
-
-          // function convert(){
-          //    let tbl1 = document.getElementsByTagName("table")[0]
-          //    let tbl2 = document.getElementsByTagName("table")[1]
-
-          //    let worksheet_tmp1 = XLSX.utils.table_to_sheet(tbl1);
-          //    let worksheet_tmp2 = XLSX.utils.table_to_sheet(tbl2);
-
-          //    let a = XLSX.utils.sheet_to_json(worksheet_tmp1, { header: 1 })
-          //    let b = XLSX.utils.sheet_to_json(worksheet_tmp2, { header: 1 })
-
-          //    a = a.concat(['']).concat(b)
-
-          //    let worksheet = XLSX.utils.json_to_sheet(a, { skipHeader: true })
-
-          //    const new_workbook = XLSX.utils.book_new()
-          //    XLSX.utils.book_append_sheet(new_workbook, worksheet, "worksheet")
-          //    XLSX.writeFile(new_workbook, 'tmp_file.xls')
-          // }
 
           get_day_of_time(d1) {
                let ms1 = (new Date(d1)).getTime();
@@ -1103,13 +955,7 @@ export default {
                if (data == null || data == "Invalid da") return "";
                return (moment(String(data)).format("DD-MM-YYYY"));
           },
-
      },
-
-     mounted() {
-
-     }
-
 };
 
 </script>

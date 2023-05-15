@@ -4,6 +4,7 @@
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
                <Preloader color="red" scale="0.4" />
           </div>
+
           <div class="row predictiveManagementFrame" style="height: max-content;" v-if="!loading">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
@@ -53,33 +54,33 @@
                                    <option class="optionYear" value="finished">Đã kết thúc</option>
                               </select>
                          </div>
-                         <!-- <button class="btn btnPredict1" @click="goToRiceYieldPredictionDetail()">Lịch Sử
-                              Dự Đoán</button> -->
                     </div>
 
                     <div class=" row ricecropList-row" style="margin-left:-5px;margin-right: 10px ; margin-top:20px">
                          <div class="ricecrop-Component" v-for="(ricecrop, i) in cloneRiceCropList" :key="i">
                               <div class="btnMoreInfor">
                                    <li class="dropdown">
-                                        <button type="button " class="btnmore fas fa-ellipsis-v" data-toggle="dropdown">
-                                             <b></b></button>
+                                        <button type="button " class="btnmore fas fa-ellipsis-v"
+                                             data-toggle="dropdown"></button>
                                         <ul class="dropdown-menu multi-level">
-                                             <li @click="setRiceCropChosen(ricecrop, 0), goToRiceCropDetail()"><a
-                                                       href="#">Xem
-                                                       mùa vụ</a></li>
+                                             <li @click="setRiceCropChosen(ricecrop, 0), goToRiceCropDetail()">
+                                                  <a href="#">Xem mùa vụ</a>
+                                             </li>
                                              <li class="dropdown-submenu">
                                                   <a href="#" class="" data-toggle="">Dự đoán <i class="fas fa-caret-right"
-                                                            style="float: right; padding: auto; font-size: 22px;"></i></a>
+                                                            style="float: right; padding: auto; font-size: 22px;"></i>
+                                                  </a>
                                                   <ul class="dropdown-menu">
                                                        <li
                                                             @click="setRiceCropChosen(ricecrop, 'LinearRegression'), goToRiceCropData()">
-                                                            <a href="#">Giải thuật Hồi quy tuyến tính <br> {{
-                                                                 getAlgorithmLinear(ricecrop) }} Kg/ha</a>
+                                                            <a href="#">Giải thuật Hồi quy tuyến tính <br>
+                                                                 {{ getAlgorithmLinear(ricecrop) }} Kg/ha</a>
                                                        </li>
                                                        <li
                                                             @click="setRiceCropChosen(ricecrop, 'RandomForestRegression'), goToRiceCropData()">
-                                                            <a href="#">Giải thuật rừng ngầu nhiên<br> {{
-                                                                 getAlgorithmRandom(ricecrop) }} Kg/ha</a></li>
+                                                            <a href="#">Giải thuật rừng ngầu nhiên<br>
+                                                                 {{ getAlgorithmRandom(ricecrop) }} Kg/ha</a>
+                                                       </li>
                                                   </ul>
                                              </li>
                                         </ul>
@@ -88,56 +89,17 @@
                               <h5 class="riceCropName">{{ ricecrop.RiceCropInformation_name }}</h5>
                               <p class="riceCropId">{{ ricecrop.RiceCropInformation_id }}</p>
                               <p class="riceCropId">{{ get_day_of_time(ricecrop.RiceCropInformation_sowingDate) }} Ngày</p>
-                              <p class="riceCropId" v-if="ricecrop.Predictions.length > 0">Giải thuật {{
-                                   ricecrop.Predictions[0].Algorithm_name }}</p>
+                              <p class="riceCropId" v-if="ricecrop.Predictions.length > 0">
+                                   Giải thuật {{ ricecrop.Predictions[0].Algorithm_name }}
+                              </p>
                               <p class="riceCropId" v-if="ricecrop.Predictions.length == 0">Giải thuật </p>
                               <p class="textPredict">Dự đoán </p>
                               <button v-if="ricecrop.Predictions.length > 0" class="resultPrediction">
-                                   {{ ricecrop.Predictions[0].Prediction_yield }}</button>
-                              <button v-if="ricecrop.Predictions.length == 0" class="resultPrediction">
-                                   0</button>
+                                   {{ ricecrop.Predictions[0].Prediction_yield }}
+                              </button>
+                              <button v-if="ricecrop.Predictions.length == 0" class="resultPrediction">0</button>
                               <p class="textKg">kg/ha</p>
                          </div>
-                    </div>
-                    <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
-
-                    <div class="confirmationDialog" v-if="isOpenConfirm">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelConfirm">
-                              <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
-                         </p>
-                         <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
-                              @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteOtherActivity(activityChoosen)">Xóa</button>
-                         <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenConfirm = !isOpenConfirm">Hủy</button>
-                    </div>
-
-                    <div class="messageDialog" v-if="isOpenMessage">
-                         <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;"
-                              class="labelThongBao">
-                              <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
-                                   message
-                              }}
-                         </p>
-                         <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                              @click="isOpenMessage = !isOpenMessage">OK</button>
-                    </div>
-
-                    <div class="waitingDialog" v-if="predicting">
-                         <div>
-                              <p class="labelConfirm mt-4 pt-4">Đang xử lý....</p>
-                         </div>
-                         <span v-show="predicting" class="spinner-border spinner-border-sm"></span>
-                    </div>
-                    <div class="resultDialog" v-if="result">
-                         <p style="color:#515151; text-align:center; margin-top: 30px; font-size: 20px;"
-                              class="labelConfirm">
-                              Năng suất dự đoán cho mùa vụ {{
-                                   this.riceCropChosen.RiceCropInformation_name }}<br> <span class="result">{{
-          this.riceCropChosen.Prediction_yield }}</span>
-                              kg/ha
-                         </p>
-                         <button class="btnOK btn btn-sm btn-outline-secondary mb-3" @click="result = !result">OK</button>
                     </div>
                </div>
           </div>
@@ -149,12 +111,10 @@
 
 import moment from 'moment';
 import { mapGetters, mapMutations } from "vuex";
-import ImagesService from '@/services/images.service';
 import PredictionService from '../../services/prediction.service';
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
-
 import RiceCropInformationService from '../../services/riceCropInformation.service';
 
 export default {
@@ -175,7 +135,6 @@ export default {
                message2: " ",
                nameToSearch: "",
                riceCropList: [],
-               weatherInfor: [],
                predicting: false,
                predictionList: [],
                riceCropChosen: {},
@@ -201,11 +160,6 @@ export default {
                     openMenu: false,
                     isOpenMenuIcon: true,
                     isCloseMenu: false,
-               },
-
-               active: {
-                    rightActive: false,
-                    leftnNoneActive: false,
                },
           }
      },
@@ -261,42 +215,6 @@ export default {
           },
 
 
-          async getURLForResult(position) {
-               const [err, response] = await this.handle(
-                    ImagesService.findByName(this.predictionList[position].RiceCropInformation_id)
-               );
-               if (err) {
-                    console.log(err)
-               }
-               else {
-                    const temp = response.data;
-                    if (temp.length > 0) {
-                         this.predictionList[position].Images_link = require('@/images/' + temp[temp.length - 1].Image_link);
-                    }
-                    else {
-                         this.predictionList[position].Images_link = require('@/images/' + "Rice14.jpg");
-                    }
-               }
-          },
-
-          async getURLForRiceCrop(position) {
-               const [err, response] = await this.handle(
-                    ImagesService.findByName(this.riceCropList[position].RiceCropInformation_id)
-               );
-               if (err) {
-                    console.log(err)
-               }
-               else {
-                    const temp = response.data;
-                    if (temp.length > 0) {
-                         this.riceCropList[position].Images_link = require('@/images/' + temp[temp.length - 1].Image_link);
-                    }
-                    else {
-                         this.riceCropList[position].Images_link = require('@/images/' + "Rice14.jpg");
-                    }
-               }
-          },
-
           async retrieveRiceCropList() {
                const [err, respone] = await this.handle(
                     RiceCropInformationService.getAll()
@@ -329,8 +247,7 @@ export default {
                                              temp.Prediction_date = result.Prediction_date;
                                              temp.Algorithm_name = result.Algorithm_name;
                                              ricecrop.Predictions.push(temp);
-                                        }
-                                        else {
+                                        } else {
                                              temp.Prediction_yield = result.Prediction_yield;
                                              temp.Prediction_date = result.Prediction_date;
                                              temp.Algorithm_name = result.Algorithm_name;
@@ -344,10 +261,8 @@ export default {
                               i++;
                          }
                     }
-
                });
                this.cloneRiceCropList = this.riceCropList;
-               console.log(this.cloneRiceCropList)
           },
 
           async setRiceCropChosen(data, name) {
@@ -441,85 +356,6 @@ export default {
                }
           },
 
-          async getWeather() {
-               this.predicting = true;
-               this.result = false;
-               this.weatherInfor.loadding = false;
-               this.weatherInfor.loadding = false;
-               var lat = this.riceCropChosen.ArableLand_latitude;
-               var lon = this.riceCropChosen.ArableLand_longitude;
-               const start_date = moment(this.riceCropChosen.RiceCropInformation_sowingDate).format("YYYY-MM-DD");
-               const end_date = moment(new Date()).format("YYYY-MM-DD");
-
-               let urlAPI1 = `https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${start_date}&end_date=${end_date}&timezone=auto&hourly=relativehumidity_2m&daily=temperature_2m_mean&daily=precipitation_sum&daily=windspeed_10m_max&daily=shortwave_radiation_sum`;
-               let data = await fetch(urlAPI1).then(res => res.json())
-
-               this.weatherInfor.precipitationList = data.daily.precipitation_sum;
-               this.weatherInfor.temperatureList = data.daily.temperature_2m_mean;
-               this.weatherInfor.humitidityList = data.hourly.relativehumidity_2m;
-               this.weatherInfor.solarRadiation = data.daily.shortwave_radiation_sum;
-               this.weatherInfor.windSpeed = data.daily.windspeed_10m_max;
-               this.weatherInfor.dateList = data.daily.time;
-               var valueNull = [];
-               for (let index = this.weatherInfor.precipitationList.length - 1; index > 0; index--) {
-                    if (this.weatherInfor.precipitationList[index] == null) {
-                         const datenull = {};
-                         datenull.index = index;
-                         datenull.date = this.weatherInfor.dateList[index];
-                         valueNull.push(datenull);
-                    }
-                    else {
-                         break;
-                    }
-               }
-
-               let urlAPI2 = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&start_date=${valueNull[valueNull.length - 1].date}&end_date=${valueNull[0].date}&timezone=GMT&hourly=relativehumidity_2m&daily=temperature_2m_mean&daily=precipitation_sum&daily=windspeed_10m_max&daily=shortwave_radiation_sum`;
-               let data2 = await fetch(urlAPI2).then(res => res.json())
-               var i = data2.daily.precipitation_sum.length - 1;
-               valueNull.forEach(valuenull => {
-                    this.weatherInfor.precipitationList[valuenull.index] = data2.daily.precipitation_sum[i];
-                    this.weatherInfor.temperatureList[valuenull.index] = data2.daily.temperature_2m_mean[i];
-                    this.weatherInfor.windSpeed[valuenull.index] = data2.daily.windspeed_10m_max[i];
-                    this.weatherInfor.solarRadiation[valuenull.index] = data2.daily.shortwave_radiation_sum[i];
-                    i--;
-               });
-
-               i = data2.hourly.relativehumidity_2m.length - 1;
-               for (let index = this.weatherInfor.humitidityList.length - 1; index > 0; index--) {
-                    if (this.weatherInfor.humitidityList[index] == null) {
-                         this.weatherInfor.humitidityList[index] = data2.hourly.relativehumidity_2m[i];
-                         i--;
-                    }
-                    else {
-                         break;
-                    }
-               }
-               this.weatherInfor.Precipitation = 0;
-               this.weatherInfor.totalTemperature = 0;
-               this.weatherInfor.totalHumitidity = 0;
-               this.weatherInfor.totalWindSpeed = 0;
-               this.weatherInfor.totalSolarRadiation = 0;
-               i = 0;
-               this.weatherInfor.precipitationList.forEach(pre => {
-                    this.weatherInfor.Precipitation += pre;
-                    this.weatherInfor.totalTemperature += this.weatherInfor.temperatureList[i];
-                    this.weatherInfor.totalWindSpeed += this.weatherInfor.windSpeed[i];
-                    this.weatherInfor.totalSolarRadiation += this.weatherInfor.solarRadiation[i];
-                    i++;
-               });
-               this.weatherInfor.humitidityList.forEach(humitidity => {
-                    this.weatherInfor.totalHumitidity += humitidity;
-               });
-
-               this.weatherInfor.Temperature = this.weatherInfor.totalTemperature / this.weatherInfor.temperatureList.length;
-               this.weatherInfor.Humitidity = this.weatherInfor.totalHumitidity / this.weatherInfor.humitidityList.length;
-               this.weatherInfor.WinSpeed = this.weatherInfor.totalWindSpeed / this.weatherInfor.windSpeed.length;
-               this.weatherInfor.SolarRadiation = this.weatherInfor.totalSolarRadiation / this.weatherInfor.solarRadiation.length;
-               this.weatherInfor.loadding = true;
-               this.predict();
-          },
-
-
           async searchByYear() {
                if (this.filter.year == "Tất cả" && this.filter.status == 'all') {
                     this.cloneRiceCropList = this.riceCropList;
@@ -576,8 +412,6 @@ export default {
                               break;
                          }
                     }
-
-
                }
                return rice_yield;
           },
@@ -724,4 +558,5 @@ export default {
 .predictiveManagement .btnMoreInfor .dropdown-menu li:hover a {
      color: #1C1C1F;
      text-decoration: none;
-}</style>
+}
+</style>

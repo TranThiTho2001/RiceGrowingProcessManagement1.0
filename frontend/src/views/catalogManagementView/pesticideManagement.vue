@@ -18,7 +18,6 @@
                          <div class="nameclass" style="min-height:60px; width: max-content;">
                               <h3 class="name" :class="{ name2: isOpenInput2 }" style="font">Thuốc trị bệnh dịch</h3>
                          </div>
-
                          <div class="text-right">
                               <div class="row">
                                    <TopHeader />
@@ -37,66 +36,15 @@
                          <div :class="{ openSearch: isOpenSearch.open, closeSearch: isOpenSearch.close }">
                               <p class="item" v-for="pesticide in filteredList()" :key="pesticide.Pesticide_id"
                                    @click="searchName(pesticide.Pesticide_name), away()">
-                                   {{ pesticide.Pesticide_name }}</p>
+                                   {{ pesticide.Pesticide_name }}
+                              </p>
                          </div>
                          <button class="btn btnCreate" @click="openCreate = !openCreate, active = true"
-                              v-if="currentUser.Role_id == '02'"><i class="fas fa-plus-circle" style="font-size: 15px;"></i>
-                              Thêm loại thuốc mới</button>
+                              v-if="currentUser.Role_id == '02'">
+                              <i class="fas fa-plus-circle" style="font-size: 15px;"></i>Thêm loại thuốc mới
+                         </button>
                     </div>
                     <div class="scrollTable" v-if="!openCreate && !isOpenUpdatePesticide">
-                         <!-- <div class="scrollTable-content">
-                              <table class="table pesticideList">
-                                   <thead>
-                                        <tr>
-                                             <th class="centerclass">STT</th>
-                                             <th>Mã</th>
-                                             <th>Tên</th>
-                                             <th>Nhà cung cấp</th>
-                                             <th>Thành phần</th>
-                                             <th>Hướng dẫn sử dụng</th>
-                                             <th>Trị bệnh</th>
-                                             <th></th>
-                                        </tr>
-                                   </thead>
-                                   <tbody>
-                                        <tr v-for="(pesticide, i ) in pesticideList" :key="i">
-                                             <td class="centerclass" data-label="STT">{{ i }}</td>
-                                             <td data-label="Mã">{{ pesticide.Pesticide_id }}</td>
-                                             <td data-label="Tên">{{ pesticide.Pesticide_name }}</td>
-                                             <td data-label="Nhà cung cấp">{{ pesticide.Pesticide_supplier }}</td>
-                                             <td data-label="Thành phần"> {{
-                                                  pesticide.Pesticide_component }}</td>
-                                             <td data-label="Hướng dẫn sử dụng">{{ pesticide.Pesticide_directionForUse }}
-                                             </td>
-                                             <td data-label="Trị bệnh">
-                                                  <div style="display: inline-block;">
-                                                       <p v-for="treatment in pesticide.Treatment"
-                                                            :key="treatment.Epidemic_id"
-                                                            style="margin-bottom: 0.2px !important;">{{
-                                                                 treatment.Epidemic_name }}</p>
-                                                  </div>
-                                             </td>
-                                             <td data-label="Tùy chọn">
-                                                  <button type="button" class="btn btn-sm btnMore" data-toggle="dropdown"
-                                                       aria-haspopup="true" aria-expanded="false">
-                                                       <i class="fas fa-ellipsis-v"></i>
-                                                  </button>
-                                                  <div class="dropdown-menu">
-                                                       <a class="dropdown-item action"
-                                                            @click="setPesticideChosen(pesticide, i), isOpenUpdatePesticide = !isOpenUpdatePesticide, active= true">
-                                                            <span class="fas fa-edit actionIcon"></span> Chỉnh sửa
-                                                       </a>
-                                                       <a class="dropdown-item" href="#"
-                                                            @click="setPesticideChosen(pesticide, i), isOpenConfirm = !isOpenConfirm, active= true">
-                                                            <span class="fas fa-trash-alt actionIcon"></span> Xóa
-                                                       </a>
-                                                  </div>
-                                             </td>
-                                        </tr>
-                                   </tbody>
-                              </table>
-                         </div> -->
-
                          <div class="ol-class" style="--length: 5" role="list">
                               <a class="li-class " href="#popup1" v-for="(pesticide, j) in pesticideList" :key="j"
                                    @click="setPesticideChosen(pesticide, j)">
@@ -123,8 +71,8 @@
                                              <p>{{ pesticide.Pesticide_uses }}</p>
                                         </div>
                                    </div>
-
                               </a>
+
                               <div id="popup1" class="overlay">
                                    <div class="popup">
                                         <a class="fas fa-times-circle" href="#"
@@ -151,17 +99,16 @@
                                              <h6 class="title-class mt-3">Công dụng</h6>
                                              <p class="value-class">{{ pesticideChosen.Pesticide_uses }}</p>
                                              <h6 class="title-class mt-2">Hướng dẫn sử dụng</h6>
-                                             <p class="value-class">{{ pesticideChosen.Pesticide_directionsForUse
-                                             }}</p>
+                                             <p class="value-class">
+                                                  {{ pesticideChosen.Pesticide_directionsForUse }}</p>
                                         </div>
                                    </div>
                               </div>
                          </div>
                     </div>
-
                </div>
           </div>
-          <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
+          <!-- ------------------------------ Confirm----------------------------- -->
           <div class="overlay2" v-if="isOpenConfirm">
                <div class="confirmationDialog" v-if="isOpenConfirm">
                     <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
@@ -170,24 +117,28 @@
                     <button class="btnYes btn btn-sm btn-outline-secondary pl-3 pr-3"
                          @click="isOpenConfirm = !isOpenConfirm, isOpenMessage = !isOpenMessage, deleteTreatments()">Xóa</button>
                     <button class="btnNo btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                         @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
+                         @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy
+                    </button>
                </div>
           </div>
+
           <div class="overlay2" v-if="isOpenMessage">
                <div class="messageDialog">
                     <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
-                         <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
-                              message
-                         }}
+                         <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span>
+                         {{ message }}
                     </p>
                     <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                         @click="isOpenMessage = !isOpenMessage, active = false">OK</button>
+                         @click="isOpenMessage = !isOpenMessage, active = false">OK
+                    </button>
                </div>
           </div>
+
           <div class="overlay2" v-if="openCreate">
                <CreatePesticideForm :newPesticide="newPesticide" :epidemicList="epidemicList"
                     @addPesticide-submit="createNewImage" :message1="message1" :message2="message2" />
           </div>
+
           <div class="overlay2" v-if="isOpenUpdatePesticide">
                <UpdatePesticideForm :newPesticide="pesticideChosen" :epidemicList="epidemicList"
                     :treatmentList="treatmentList" @updatePesticide-submit="updateImage" :message1="message1"
@@ -200,23 +151,15 @@
 <script>
 
 import axios from 'axios';
-import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import { mapGetters, mapMutations } from "vuex";
-import PesticideService from '../../services/pesticide.service';
-import TopHeader from '@/components/catalogManagementComponents/topHeader.vue'
-import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
 import EpidemicService from '@/services/epidemic.service';
 import TreatmentService from '@/services/treatment.service';
-import CreatePesticideForm from '@/components/catalogManagementComponents/createNewPesticideForm.vue';
+import PesticideService from '../../services/pesticide.service';
+import Catalog from '../../components/catalogManagementComponents/catalog.vue';
+import TopHeader from '@/components/catalogManagementComponents/topHeader.vue'
+import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
 import UpdatePesticideForm from '@/components/catalogManagementComponents/updatePesticideForm.vue';
-
-
-class Pesticide {
-     constructor(pesticide) {
-          this.Pesticide_id = pesticide.Pesticide_id;
-          this.Pesticide_name = pesticide.Pesticide_name;
-     }
-}
+import CreatePesticideForm from '@/components/catalogManagementComponents/createNewPesticideForm.vue';
 
 export default {
      name: "PesticideManagement",
@@ -258,9 +201,7 @@ export default {
                     isOpenMenuIcon: true,
                     isCloseMenu: false,
                },
-
                active: false,
-               searching: false,
           }
      },
 
@@ -268,8 +209,8 @@ export default {
           ...mapGetters({
                currentUser: "loggedInEmployee",
           }),
-
      },
+
      methods: {
           ...mapMutations([
                "initEmployeeState"
@@ -282,10 +223,10 @@ export default {
           },
 
           away() {
-               this.isOpenSearch.open = false;
-               this.isOpenSearch.close = true;
                this.isOpenInput1 = false;
                this.isOpenInput2 = false;
+               this.isOpenSearch.open = false;
+               this.isOpenSearch.close = true;
           },
 
           async loadData() {
@@ -311,10 +252,10 @@ export default {
                          if (element.Pesticide_image != null) {
                               element.url = require('@/images/' + element.Pesticide_image);
                          }
-                         new Pesticide(element);
                          this.findTreatmentByPesticideId(element.Pesticide_id, i);
                          i++;
                     });
+
                     this.clonePesticideList = Array.from(this.pesticideList)
                     var temp = (String(this.pesticideList[this.pesticideList.length - 1].Pesticide_id)).split("");
                     var id = "";
@@ -340,7 +281,6 @@ export default {
                          this.newPesticide.Pesticide_id = "PE00" + String(Number(id) + 1);
                     }
                }
-
           },
 
           async retrieveEpidemicList() {
@@ -373,7 +313,6 @@ export default {
                          this.message1 = "Thêm không thành công."
                     } else {
                          this.message2 = "Thêm thành công.";
-
                          var temp = data.Treatment;
                          temp.forEach(element => {
                               var treatment = {};
@@ -400,6 +339,7 @@ export default {
 
                }
           },
+
           async createNewImage(data) {
                if (data.close == false) {
                     this.openCreate = false;
@@ -433,8 +373,7 @@ export default {
                               console.log(error);
                               this.message2 = "Thêm không thành công";
                          };
-                    }
-                    else {
+                    } else {
                          this.message1 = "Vui lòng chọn hình ảnh!!"
                     }
                }
@@ -442,10 +381,10 @@ export default {
 
           async updateImage(data) {
                if (data.close == false) {
-                    this.isOpenUpdatePesticide = false;
                     this.message1 = " ";
                     this.message2 = " ";
                     this.active = false;
+                    this.isOpenUpdatePesticide = false;
                }
                else {
                     if (data.newImage != null) {
@@ -473,12 +412,12 @@ export default {
                               console.log(error);
                               this.message2 = "Thêm không thành công";
                          };
-                    }
-                    else {
+                    } else {
                          this.updatePesticide(data);
                     }
                }
           },
+
           async findTreatmentByPesticideId(data, i) {
                this.treatmentList = [];
                const [error, respone] = await this.handle(
@@ -493,11 +432,9 @@ export default {
                          this.pesticideList[i].Treatment.push(element);
                     });
                }
-
           },
 
           async updatePesticide(data) {
-
                this.message1 = " ";
                this.message2 = " ";
                const [error, respone] = await this.handle(
@@ -516,7 +453,6 @@ export default {
                               console.log(this.pesticideList[this.pesticideChosen.position])
                               if (this.pesticideList[this.pesticideChosen.position].Treatment != null) {
                                    this.pesticideList[this.pesticideChosen.position].Treatment.forEach(element => {
-
                                         if (element.Epidemic_id == EpidemicID) {
                                              temp = 1;
                                         }
@@ -549,8 +485,6 @@ export default {
                               else {
                                    this.deleteTreatment(element.Pesticide_id, element.Epidemic_id);
                               }
-
-
                          });
                     }
                     this.message2 = "Cập nhật thành công.";
@@ -609,8 +543,7 @@ export default {
                                    element.url = require('@/images/' + element.Pesticide_image);
                               }
                          });
-                    }
-                    else {
+                    } else {
                          this.isOpenMessage = !this.isOpenMessage;
                     }
                }
@@ -627,7 +560,6 @@ export default {
      },
 
      mounted() {
-
           this.retrievePesticideList();
           this.retrieveEpidemicList();
           this.loadData();
@@ -636,36 +568,49 @@ export default {
 </script>
 
 <style>
-@import url(../../assets/pesticideStyle.css);
-
-nav {
-     position: absolute;
-     display: inline !important;
-}
-
-nav .pagination .active .page-link {
-     background: #ABD2C8 !important;
-     border: 1px solid #FAFAFC !important;
-     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
-     border-radius: 15px !important;
-     margin-left: 10px !important;
-     margin-right: 10px !important;
-     color: #FFFED8 !important;
-
-     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-     /* width: 40px !important; */
-}
-
-nav .pagination .page-item .page-link {
-     color: #6D6E73;
-     border: none;
-     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-     font-family: 'Roboto';
-     font-style: normal;
-     font-weight: 700;
-     background-color: #EAEAEA;
-     font-size: 20px;
-}
-
 @import url(../../assets/mainStyle.css);
+
+
+.pesticideManagement .navigationBar .btnPesticide {
+    display: block;
+    width: 88%;
+    font-size: 18px;
+    background-color: #fff945;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+    color: #5C5D22;
+    border: none;
+    font-family: 'Roboto';
+    font-style: normal;
+    border-radius: 14px;
+}
+
+.pesticideManagement .navigationBar .btnCatalog  {
+    display: block;
+    width: 88%;
+    font-size: 17px;
+    background: #FFFA37;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    color: #5C5D22;
+    border: none;
+    font-family: 'Roboto';
+    font-style: normal;
+    border-radius: 14px;
+}
+
+.labelEpidemic{
+    background-color: none;
+    cursor: pointer;
+    bottom: 0.1px;
+    color: black;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-size:20px;
+    padding: 0.1px;
+    margin: 0.2px;
+    font-weight: 400 !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 </style>

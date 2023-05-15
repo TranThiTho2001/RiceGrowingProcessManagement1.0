@@ -221,7 +221,7 @@ export default {
 </script>
  
 <style>
-@import url(../../assets/pesticideStyle.css);
+@import url(../../assets/mainStyle.css);
 
 .pesticideManagement .topRight .form-control:focus {
      border-color: #E4E5EB !important;
@@ -240,4 +240,26 @@ export default {
      min-height: 220px;
      width: 100%;
      position: relative;
-}</style>
+}
+
+.pesticideManagement .createPesticideForm,
+.pesticideManagement .updatePesticideForm{
+    margin: auto;
+    padding: 20px;
+    background: #FAFAFC;
+    box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(37.5px);
+    border-radius: 5px;
+    width: 85%;
+    position: relative;
+    top:20px;
+    transition: all 5s ease-in-out;
+}
+
+@media only screen and (max-width: 1430px) {
+    .pesticideManagement .createPesticideForm,
+    .pesticideManagement .updatePesticideForm{
+         margin: auto;
+    }
+}
+</style>

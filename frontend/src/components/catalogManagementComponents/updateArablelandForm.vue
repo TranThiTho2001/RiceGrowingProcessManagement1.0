@@ -168,4 +168,25 @@ export default {
 };
 </script>
  
-<style>@import url(../../assets/arablelandStyle.css);</style>
+<style>
+@import url(../../assets/mainStyle.css);
+.arablelandManagement .createArableLandForm,
+.arablelandManagement .updateArableLandForm {
+    margin:auto;
+    padding: 20px;
+    background: #FAFAFC;
+    box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(37.5px);
+    border-radius: 5px;
+    width: 75%;
+    position: relative;
+    top:80px;
+    transition: all 1s ease-in-out;
+}
+
+@media only screen and (max-width: 1430px) {
+    .arablelandManagement .createArableLandForm,
+    .arablelandManagement .updateArableLandForm {
+        width: 90%;
+    }
+}</style>

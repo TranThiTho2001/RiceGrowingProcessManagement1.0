@@ -3,6 +3,7 @@
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
                <Preloader color="red" scale="0.4" />
           </div>
+
           <div class="row riceCropManagemenFrame" style="height: max-content;" v-if="!loading" :class="{ active: active }">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
@@ -23,6 +24,7 @@
                               </div>
                          </div>
                     </div>
+
                     <div class="row row-inputSearch">
                          <input type="text" class="form-control inputSearch1" placeholder="Tìm" v-model="nameToSearch"
                               @click="retrieveRiceCropList, isOpenInput1 = true"
@@ -45,8 +47,6 @@
                                    <option class="optionYear" v-for="year in years" :value="year" :key="year">{{ year }}
                                    </option>
                               </select>
-
-
                               <label class="labelYear">Trạng Thái</label>
                               <select class="selectStatus" v-model="filter.status"
                                    @change="searchByYear(), nameToSearch = ''">
@@ -56,9 +56,11 @@
                               </select>
                          </div>
 
-                         <button class="btn btnCreate" @click="openCreate = !openCreate, active = true" v-if="currentUser.Role_id == '02'"><i
-                                   class="fas fa-plus-circle" style="font-size: 15px;"></i> Thêm Mùa Vụ</button>
+                         <button class="btn btnCreate" @click="openCreate = !openCreate, active = true"
+                              v-if="currentUser.Role_id == '02'"><i class="fas fa-plus-circle" style="font-size: 15px;"></i>
+                              Thêm Mùa Vụ</button>
                     </div>
+
                     <div class="riceCropList mt-3 row" style="max-height: 98%; width: 98%;">
                          <div class="riceCropComponent-class col-lg-3 col-md-4 col-sm-6 text-center"
                               v-for="(riceCrop, i) in riceCropList" :key="i"
@@ -66,9 +68,9 @@
                               <RiceCropComponent :riceCrop="riceCrop"></RiceCropComponent>
                          </div>
                     </div>
-
                </div>
           </div>
+
           <div class="confirmationDialog" v-if="isOpenConfirm">
                <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelConfirm">
                     <span class="fas fa-trash-alt" style="color:red"></span> Bạn chắc chắn muốn xóa?
@@ -81,56 +83,51 @@
 
           <div class="messageDialog" v-if="isOpenMessage">
                <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
-                    <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
-                         message
-                    }}
+                    <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span>
+                    {{ message }}
                </p>
                <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                    @click="isOpenMessage = !isOpenMessage">OK</button>
+                    @click="isOpenMessage = !isOpenMessage">OK
+               </button>
           </div>
+
           <div class="overlay2" v-if="openCreate">
                <CreateRiceCropForm :newRiceCrop="newRiceCrop" :seedList="seedList" :arableLandList="arableLandList"
                     @addRiceCrop-submit="createRiceCrop" :message1="message1" :message2="message2" />
           </div>
+
           <div class="overlay2" v-if="isOpenUpdateRiceCrop">
                <UpdateRiceCropForm :seedList="seedList" :newRiceCrop="riceCropChosen" :arableLandList="arableLandList"
                     @updateRiceCrop-submit="updateRiceCrop" :message1="message1" :message2="message2" />
           </div>
      </div>
+
      <div v-if="isOpenSearch.open || isOpenInput2" class="outside" @click="away()"></div>
 </template>
 
 <script type=”text/javascript”>
+
 import moment from 'moment';
+import 'vue3-carousel/dist/carousel.css';
 import { mapGetters, mapMutations } from "vuex";
 import CropService from '@/services/crop.service';
 import SeedService from '@/services/seed.service';
-import ArableLandService from '@/services/arableLand.service';
-import RiceCropService from '@/services/riceCropInformation.service';
-import Catalog from '../../components/catalogManagementComponents/catalog.vue';
-import CreateRiceCropForm from '@/components/catalogManagementComponents/createNewRiceCropForm.vue';
-import UpdateRiceCropForm from '@/components/catalogManagementComponents/updateRiceCropForm.vue';
-import fertilizerService from '@/services/fertilizer.service';
-import MonitorService from '@/services/monitor.service';
-import developmentStageService from '@/services/developmentStage.service';
-import fertilizerTimesService from '@/services/fertilizerTimes.service';
-import PesticideService from '@/services/pesticide.service';
-import SprayingTimesService from '@/services/sprayingTimes.service';
-import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
-import RiceCropComponent from '@/components/catalogManagementComponents/riceCropComponent.vue';
 import ImagesService from '@/services/images.service';
-import 'vue3-carousel/dist/carousel.css'
-import ProvinceService from '@/services/province.service';
-import Preloader from '@/components/catalogManagementComponents/Preloader.vue'
+import MonitorService from '@/services/monitor.service';
+import ArableLandService from '@/services/arableLand.service';
+import fertilizerService from '@/services/fertilizer.service';
+import RiceCropService from '@/services/riceCropInformation.service';
+import developmentStageService from '@/services/developmentStage.service';
+import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
+import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
+import Catalog from '../../components/catalogManagementComponents/catalog.vue';
+import RiceCropComponent from '@/components/catalogManagementComponents/riceCropComponent.vue';
+import UpdateRiceCropForm from '@/components/catalogManagementComponents/updateRiceCropForm.vue';
+import CreateRiceCropForm from '@/components/catalogManagementComponents/createNewRiceCropForm.vue';
 
-class RiceCrop {
-     constructor(riceCrop) {
-          this.RiceCropInformation_id = riceCrop.RiceCropInformation_id
-          this.RiceCropInformation_name = riceCrop.RiceCropInformation_name;
-     }
-}
 export default {
      name: "HomePage",
+
      components: {
           Catalog,
           CreateRiceCropForm,
@@ -142,52 +139,41 @@ export default {
 
      data() {
           return {
+               years: [],
+               number: 0,
+               filter: {},
+               message: "",
+               loading: true,
+               active: false,
+               cropList: [],
+               seedList: [],
+               message1: " ",
+               message2: " ",
+               newRiceCrop: {},
+               riceCropList: [],
+               nameToSearch: "",
+               openCreate: false,
+               isOpenInput1: true,
+               riceCropChosen: {},
+               arableLandList: [],
+               fertilizerList: [],
+               isOpenInput2: false,
+               isOpenMessage: false,
+               isOpenConfirm: false,
+               fullListRiceCrop: [],
+               cloneRiceCropList: [],
+               isOpenSearch: {
+                    open: false,
+                    close: true,
+               },
                openMenu: {
                     openMenu: false,
                     isOpenMenuIcon: true,
                     isCloseMenu: false,
                },
-
-               active: false,
-               years: [],
-               filter: {},
-               number: 0,
-               riceCropList: [],
-               cropList: [],
-               seedList: [],
-               arableLandList: [],
-               fertilizerList: [],
                developmentStageList: [],
-               pesticideList: [],
-               riceCropListByMonitoring: [],
                riceCropListByFinish: [],
-               openCreate: false,
-               newSprayingTimes: {},
-               newRiceCrop: {},
-               newFertilizerTimes: {},
-               message1: " ",
-               message2: " ",
-               isOpenMessage: false,
-               isOpenConfirm: false,
-               isOpenCreateSprayingTimes: false,
-               riceCropChosen: {},
-               isOpenUpdateRiceCrop: false,
-               isOpenCreateFertilizerTimes: false,
-               nameToSearch: "",
-               message: "",
-               currentPage: 1,
-               elementsPerPage: 6,
-               ascending: false,
-               fullListRiceCrop: [],
-               isOpenInput2: false,
-               isOpenInput1: true,
-               isOpenSearch: {
-                    open: false,
-                    close: true,
-               },
-               cloneRiceCropList: [],
-               loading: true,
-               provinceList: [],
+               riceCropListByMonitoring: [],
           }
      },
 
@@ -249,19 +235,15 @@ export default {
 
                     if (id < 9) {
                          this.newRiceCrop.RiceCropInformation_id = "RCI000000" + String(Number(id) + 1);
-                    }
-                    else if (id > 8 && id < 99) {
+                    } else if (id > 8 && id < 99) {
                          this.newRiceCrop.RiceCropInformation_id = "RCI00000" + String(Number(id) + 1);
-                    }
-                    else if (id > 98 && id < 999) {
+                    } else if (id > 98 && id < 999) {
                          this.newRiceCrop.RiceCropInformation_id = "RCI0000" + String(Number(id) + 1);
-                    }
-                    else {
+                    } else {
                          this.newRiceCrop.RiceCropInformation_id = "RCI00" + String(Number(id) + 1);
                     }
                }
                this.getYear();
-               console.log(this.fullListRiceCrop)
                this.retrieveArableLandList();
           },
 
@@ -277,8 +259,7 @@ export default {
                     if (temp.length > 0) {
                          this.cloneRiceCropList[position].Images_link = require('@/images/' + temp[temp.length - 1].Image_link);
                          console.log(this.urlImage);
-                    }
-                    else {
+                    } else {
                          this.cloneRiceCropList[position].Images_link = require('@/images/' + "Rice14.jpg");
                     }
                }
@@ -290,14 +271,12 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     const temp = response.data;
                     if (temp.length > 0) {
                          this.riceCropList[position].Images_link = require('@/images/' + temp[temp.length - 1].Image_link);
                          console.log(this.urlImage);
-                    }
-                    else {
+                    } else {
                          this.riceCropList[position].Images_link = require('@/images/' + "Rice14.jpg");
                     }
                }
@@ -309,35 +288,26 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     var temp = [];
                     temp = respone.data;
-                    temp= this.bubbleSort(temp);
-                    this.cloneRiceCropList.forEach(element => {
-                         new RiceCrop(element);
-                    });
+                    temp = this.bubbleSort(temp);
                     this.riceCropListByFinish = [];
                     this.riceCropListByMonitoring = [];
                     temp.forEach(element => {
-                         // this.provinceList.forEach(province => {
-                         //      if(province.Province_id == element.Pro)
-                         // });
                          if (element.RiceCropInformation_harvestDate == null) {
                               this.riceCropListByMonitoring.push(element);
-                         }
-                         else {
+                         } else {
                               this.riceCropListByFinish.push(element);
                          }
                     });
                     this.cloneRiceCropList = this.riceCropListByMonitoring;
                     this.cloneRiceCropList = this.cloneRiceCropList.concat(this.riceCropListByFinish);
-                    
+
                     for (let index = 0; index < this.cloneRiceCropList.length; index++) {
                          this.getURLCloneRiceCropList(index);
                     }
                     this.riceCropList = this.cloneRiceCropList;
-                    console.log(this.riceCropList)
                }
           },
 
@@ -347,22 +317,8 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.cropList = respone.data;
-               }
-          },
-          
-          async retrieveProvinceList() {
-               const [err, respone] = await this.handle(
-                    ProvinceService.getAll()
-               );
-               if (err) {
-                    console.log(err)
-               }
-               else {
-                    this.provinceList = respone.data;
-                    
                }
           },
 
@@ -372,8 +328,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.seedList = respone.data;
                     console.log(respone.data);
                }
@@ -386,19 +341,16 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     respone.data.forEach(arableLand => {
                          var check = 0;
                          for (let index = 0; index < this.fullListRiceCrop.length; index++) {
-                            if(arableLand.ArableLand_id == this.fullListRiceCrop[index].ArableLand_id && this.fullListRiceCrop[index].RiceCropInformation_harvestDate == null){
-                              check = 1;
-                              console.log(index)
-                              break;
-                            }
+                              if (arableLand.ArableLand_id == this.fullListRiceCrop[index].ArableLand_id && this.fullListRiceCrop[index].RiceCropInformation_harvestDate == null) {
+                                   check = 1;
+                                   break;
+                              }
                          }
-                         if(check == 0){
-                              console.log(arableLand)
+                         if (check == 0) {
                               this.arableLandList.push(arableLand);
                          }
                     });
@@ -411,36 +363,19 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.fertilizerList = respone.data;
-                    console.log(respone.data);
                }
           },
 
-          async retrieveDvelopmentStageList() {
+          async retrieveDevelopmentStageList() {
                const [err, respone] = await this.handle(
                     developmentStageService.getAll()
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.developmentStageList = respone.data;
-                    console.log(respone.data);
-               }
-          },
-
-          async retrievePesticideList() {
-               const [err, respone] = await this.handle(
-                    PesticideService.getAll()
-               );
-               if (err) {
-                    console.log(err)
-               }
-               else {
-                    this.pesticideList = respone.data;
-                    console.log(respone.data);
                }
           },
 
@@ -486,14 +421,13 @@ export default {
 
                     if (data.RiceCropInformation_sowingDate != null) {
                          data.RiceCropInformation_sowingDate = (moment(String(data.RiceCropInformation_sowingDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    }
-                    else {
+                    } else {
                          data.RiceCropInformation_sowingDate = null;
                     }
+
                     if (data.RiceCropInformation_harvestDate != null) {
                          data.RiceCropInformation_harvestDate = (moment(String(data.RiceCropInformation_harvestDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    }
-                    else {
+                    } else {
                          data.RiceCropInformation_harvestDate = null;
                     }
                     var check = true;
@@ -535,11 +469,9 @@ export default {
                               this.retrieveRiceCropList();
                               this.retrieveFullRiceCropList();
                          }
-                    }
-                    else {
+                    } else {
                          this.message1 = "Thêm không thành công.";
                     }
-
                }
           },
 
@@ -558,8 +490,7 @@ export default {
                     if (data.isOpenCreateSprayingTimes == true) {
                          this.isOpenCreateSprayingTimes = true;
                     }
-               }
-               else {
+               } else {
                     this.message1 = " ";
                     this.message2 = " ";
                     this.seedList.forEach(element => {
@@ -574,17 +505,15 @@ export default {
                          }
                     });
 
-
                     if (data.RiceCropInformation_sowingDate != null) {
                          data.RiceCropInformation_sowingDate = (moment(String(data.RiceCropInformation_sowingDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    }
-                    else {
+                    } else {
                          data.RiceCropInformation_sowingDate = null;
                     }
+
                     if (data.RiceCropInformation_harvestDate != null) {
                          data.RiceCropInformation_harvestDate = (moment(String(data.RiceCropInformation_harvestDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    }
-                    else {
+                    } else {
                          data.RiceCropInformation_harvestDate = null;
                     }
                     var check = true;
@@ -609,11 +538,9 @@ export default {
                               this.retrieveRiceCropList();
                               this.retrieveFullRiceCropList();
                          }
-                    }
-                    else {
+                    } else {
                          this.message1 = "Cập nhật không thành công.";
                     }
-
                }
           },
 
@@ -626,136 +553,18 @@ export default {
                } else {
                     this.retrieveFullRiceCropList();
                     this.retrieveRiceCropList();
+                    this.message = "Xóa phân bón thành công";
                     console.log(response.data);
-                    this.message = "Xóa phân bón thành công"
-
                }
           },
 
-
-          async createFertilizerTimes(data) {
-               this.retrieveFullRiceCropList();
-               if (data.close == false) {
-                    this.isOpenCreateFertilizerTimes = false;
-                    this.message1 = " ";
-                    this.message2 = " ";
-                    this.newFertilizerTimes = {};
-               }
-               else {
-                    this.message1 = " ";
-                    this.message2 = " ";
-                    // console.log("development "+data.DevelopmentStage_id);
-                    this.developmentStageList.forEach(element => {
-                         if (element.DevelopmentStage_name == data.DevelopmentStage_name) {
-                              data.DevelopmentStage_id = element.DevelopmentStage_id;
-                         }
-                    });
-
-                    this.fertilizerList.forEach(element => {
-                         if (element.Fertilizer_name == data.Fertilizer_name) {
-                              data.Fertilizer_id = element.Fertilizer_id;
-                         }
-                    });
-
-                    data.RiceCropInformation_id = this.riceCropChosen.RiceCropInformation_id;
-                    data.Employee_id = this.currentUser.Employee_id;
-
-
-                    if (data.FertilizerTimes_startDate != null) {
-                         data.FertilizerTimes_startDate = (moment(String(data.FertilizerTimes_startDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    }
-                    else {
-                         data.FertilizerTimes_startDate = null;
-                    }
-                    if (data.FertilizerTimes_endDate != null) {
-                         data.FertilizerTimes_endDate = (moment(String(data.FertilizerTimes_endDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    }
-                    else {
-                         data.FertilizerTimes_endDate = null;
-                    }
-
-                    const [error, respone] = await this.handle(
-                         fertilizerTimesService.create(data)
-                    );
-                    if (error) {
-                         console.log(error);
-                         this.message1 = "Thêm không thành công."
-                    } else if (respone.data == "Không thể tạo lần bón phân mới.") {
-                         this.message1 = "Thêm không thành công."
-                    } else {
-                         this.message2 = "Thêm thành công.";
-                         this.retrieveRiceCropList();
-                    }
-
-               }
-
-          },
-
-          async createSprayingTimes(data) {
-               this.retrieveFullRiceCropList();
-               if (data.close == false) {
-                    this.isOpenCreateSprayingTimes = false;
-                    this.message1 = " ";
-                    this.message2 = " ";
-                    this.newSrpayingTimes = {};
-               }
-               else {
-                    this.message1 = " ";
-                    this.message2 = " ";
-                    // console.log("development "+data.DevelopmentStage_id);
-                    this.developmentStageList.forEach(element => {
-                         if (element.DevelopmentStage_name == data.DevelopmentStage_name) {
-                              data.DevelopmentStage_id = element.DevelopmentStage_id;
-                         }
-                    });
-
-                    this.pesticideList.forEach(element => {
-                         if (element.Pesticide_name == data.Pesticide_name) {
-                              data.Pesticide_id = element.Pesticide_id;
-                         }
-                    });
-
-                    data.RiceCropInformation_id = this.riceCropChosen.RiceCropInformation_id;
-                    data.Employee_id = this.currentUser.Employee_id;
-
-
-                    if (data.SprayingTimes_startDate != null) {
-                         data.SprayingTimes_startDate = (moment(String(data.SprayingTimes_startDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    }
-                    else {
-                         data.SprayingTimes_startDate = null;
-                    }
-                    if (data.SprayingTimes_endDate != null) {
-                         data.SprayingTimes_endDate = (moment(String(data.SprayingTimes_endDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    }
-                    else {
-                         data.SprayingTimes_endDate = null;
-                    }
-
-                    const [error, respone] = await this.handle(
-                         SprayingTimesService.create(data)
-                    );
-                    if (error) {
-                         console.log(error);
-                         this.message1 = "Thêm không thành công."
-                    } else if (respone.data == "Không thể tạo lần phun thuuốc mới.") {
-                         this.message1 = "Thêm không thành công."
-                    } else {
-                         this.message2 = "Thêm thành công.";
-                         this.retrieveRiceCropList();
-                    }
-
-               }
-
-          },
 
           async searchName(data) {
                this.nameToSearch = data;
 
                if (this.nameToSearch == "") {
                     this.retrieveRiceCropList();
-               }
-               else {
+               } else {
                     const [error, response] = await this.handle(
                          RiceCropService.findByEmployeeAndRiceCropName(this.nameToSearch, this.currentUser.Employee_id)
                     );
@@ -763,7 +572,6 @@ export default {
                          console.log(error);
                     } else {
                          if (response.data != null) {
-                              console.log(response.data)
                               this.riceCropList = [];
                               this.riceCropList = response.data;
                               this.riceCropListByFinish = [];
@@ -773,19 +581,16 @@ export default {
                                    this.getURLRiceRopList(i);
                                    if (element.RiceCropInformation_harvestDate == null) {
                                         this.riceCropListByMonitoring.push(element);
-                                   }
-                                   else {
+                                   } else {
                                         this.riceCropListByFinish.push(element);
                                    }
                                    i++;
                               });
-                         }
-                         else {
+                         } else {
                               console.log(response.data)
                          }
                     }
                }
-
           },
 
           getYear() {
@@ -794,46 +599,40 @@ export default {
                for (let index = 2022; index <= (new Date()).getFullYear(); index++) {
                     this.years.push(index);
                }
-               console.log(this.years)
           },
 
           async searchByYear() {
                if (this.filter.year == "Tất cả" && this.filter.status == 'all') {
                     this.retrieveRiceCropList()
-               }
-               else if (this.filter.year == "Tất cả" && this.filter.status == 'monitoring') {
+               } else if (this.filter.year == "Tất cả" && this.filter.status == 'monitoring') {
                     this.riceCropList = [];
                     this.cloneRiceCropList.forEach(ricecrop => {
                          if (ricecrop.RiceCropInformation_harvestDate == null) {
                               this.riceCropList.push(ricecrop);
                          }
                     });
-               }
-               else if (this.filter.year == "Tất cả" && this.filter.status == 'finished') {
+               } else if (this.filter.year == "Tất cả" && this.filter.status == 'finished') {
                     this.riceCropList = [];
                     this.cloneRiceCropList.forEach(ricecrop => {
                          if (ricecrop.RiceCropInformation_harvestDate != null) {
                               this.riceCropList.push(ricecrop);
                          }
                     });
-               }
-               else if (this.filter.year != "Tất cả" && this.filter.status == 'all') {
+               } else if (this.filter.year != "Tất cả" && this.filter.status == 'all') {
                     this.riceCropList = [];
                     this.cloneRiceCropList.forEach(ricecrop => {
                          if (((new Date(ricecrop.RiceCropInformation_sowingDate)).getFullYear() == this.filter.year || (new Date(ricecrop.RiceCropInformation_harvestDate)).getFullYear() == this.filter.year)) {
                               this.riceCropList.push(ricecrop);
                          }
                     });
-               }
-               else if (this.filter.year != "Tất cả" && this.filter.status == 'monitoring') {
+               } else if (this.filter.year != "Tất cả" && this.filter.status == 'monitoring') {
                     this.riceCropList = [];
                     this.cloneRiceCropList.forEach(ricecrop => {
                          if ((new Date(ricecrop.RiceCropInformation_sowingDate)).getFullYear() == this.filter.year && ricecrop.RiceCropInformation_harvestDate == null) {
                               this.riceCropList.push(ricecrop);
                          }
                     });
-               }
-               else {
+               } else {
                     this.riceCropList = [];
                     this.cloneRiceCropList.forEach(ricecrop => {
                          if ((new Date(ricecrop.RiceCropInformation_sowingDate)).getFullYear() == this.filter.year && ricecrop.RiceCropInformation_harvestDate != null) {
@@ -841,30 +640,8 @@ export default {
                          }
                     });
                }
-
           },
 
-          async searchByStatus() {
-               console.log(this.filter.status)
-               this.riceCropList = [];
-               if (this.filter.status == "monitoring") {
-                    this.cloneRiceCropList.forEach(ricecrop => {
-                         if (ricecrop.RiceCropInformation_harvestDate == null) {
-                              this.riceCropList.push(ricecrop);
-                         }
-                    });
-               }
-               else if (this.filter.status == 'all') {
-                    this.retrieveRiceCropList();
-               }
-               else {
-                    this.cloneRiceCropList.forEach(ricecrop => {
-                         if (ricecrop.RiceCropInformation_harvestDate != null) {
-                              this.riceCropList.push(ricecrop);
-                         }
-                    });
-               }
-          },
           bubbleSort(list) {
                for (let i = 0; i < list.length - 1; i++) {
                     for (let j = list.length - 1; j > i; j--) {
@@ -890,15 +667,11 @@ export default {
 
      mounted() {
           this.getYear();
-          this.retrieveProvinceList();
           this.retrieveRiceCropList();
           this.retrieveCropList();
           this.retrieveSeedList();
-          this.retrieveDvelopmentStageList();
-          this.retrieveFertilizerList();
+          this.retrieveDevelopmentStageList();
           this.retrieveFullRiceCropList();
-          this.retrievePesticideList();
-          this.newFertilizerTimes.Employee_id = this.currentUser.Employee_id;
           this.filter.status = "all";
           this.filter.year = "Tất cả";
           this.loadData();

@@ -184,75 +184,13 @@ export default {
 </script>
  
 <style>
-@import url(../../assets/pesticideStyle.css);
+@import url(../../assets/mainStyle.css);
 
-.pesticideManagement .inputSearch3 {
-     background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
-     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-     border-radius: 15px;
-     width: 95%;
-     height: 35px;
-}
 
 .pesticideManagement .topRight .form-control:focus {
      border-color: #E4E5EB !important;
 }
 
-.pesticideManagement .btnSearch3 {
-     position: absolute;
-     left: 84%;
-     top: 17%;
-     border-radius: 10px;
-     border: none;
-     background: none;
-}
-
-.pesticideManagement .closeSearch1 {
-     display: none;
-     width: 110%;
-     margin: 0 auto 10px auto;
-     padding: 10px 20px;
-     color: white;
-     border-radius: 5px;
-     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
-          rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-}
-
-.pesticideManagement .openSearch1 {
-     display: inline-block;
-     position: absolute;
-     top: 27%;
-     width: 95%;
-     background-color: #FAFAFC;
-     border-radius: 5px;
-     z-index: 5;
-     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
-          rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-}
-
-.pesticideManagement .item {
-     background-color: none;
-     cursor: pointer;
-     bottom: 0.1px;
-     color: #1C1C1F;
-     font-family: 'Roboto';
-     font-style: normal;
-     font-weight: 500;
-     font-size: 16px;
-     padding: 0.1px;
-     margin: 0.2px;
-}
-
-.pesticideManagement .item:hover {
-     background-color: none;
-     cursor: pointer;
-     bottom: 0.1px;
-     background-color: #EAEAEA;
-     font-family: 'Roboto';
-     font-style: normal;
-     font-weight: 500;
-     font-size: 16px;
-}
 
 .createPesticideForm .epidemicSelect {
      background-color: #FAFAFC !important;
@@ -269,4 +207,26 @@ export default {
      margin: auto;
      margin-top: 5px;
 }
+
+.pesticideManagement .createPesticideForm,
+.pesticideManagement .updatePesticideForm{
+    margin: auto;
+    padding: 20px;
+    background: #FAFAFC;
+    box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(37.5px);
+    border-radius: 5px;
+    width: 85%;
+    position: relative;
+    top:20px;
+    transition: all 5s ease-in-out;
+}
+
+@media only screen and (max-width: 1430px) {
+    .pesticideManagement .createPesticideForm,
+    .pesticideManagement .updatePesticideForm{
+         margin: auto;
+    }
+}
+
 </style>

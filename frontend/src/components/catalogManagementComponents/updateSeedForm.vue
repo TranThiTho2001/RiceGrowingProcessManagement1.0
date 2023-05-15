@@ -140,5 +140,20 @@ export default {
      margin-top: 5px;
 }
 
-@import url(../../assets/seedStyle.css);
+.seedManagement .createSeedForm,
+.seedManagement .updateSeedForm {
+     margin: auto;
+     padding: 20px;
+     background: #FAFAFC;
+     box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3);
+     backdrop-filter: blur(37.5px);
+     border-radius: 5px;
+     position: relative;
+     top:40px;
+     transition: all 5s ease-in-out;
+     width: 60%;
+     /* overflow: scroll; */
+}
+
+@import url(../../assets/mainStyle.css);
 </style>

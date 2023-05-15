@@ -57,7 +57,8 @@
                               <img src="../../images/saubenh.png" class="img-fluid imageclass">
                               <h5 class="name-Component">BỆNH DỊCH</h5>
                          </div>
-                         <div class="function-Component text-center" @click="goToSupervisionRights()" v-if="currentUser.Role_id == '02'">
+                         <div class="function-Component text-center" @click="goToSupervisionRights()"
+                              v-if="currentUser.Role_id == '02'">
                               <img src="../../images/tham-dong.jpg" class="img-fluid imageclass">
                               <h5 class="name-Component">NGƯỜI THEO DÕI</h5>
                          </div>
@@ -66,7 +67,8 @@
                               <img src="../../images/activities2.png" class="img-fluid imageclass">
                               <h5 class="name-Component">HOẠT ĐỘNG</h5>
                          </div>
-                         <div class="function-Component text-center" @click="goToSupervisionRights()" v-if="currentUser.Role_id == '03'" style="visibility: hidden;">
+                         <div class="function-Component text-center" @click="goToSupervisionRights()"
+                              v-if="currentUser.Role_id == '03'" style="visibility: hidden;">
                               <img src="../../images/tham-dong.jpg" class="img-fluid imageclass">
                               <h5 class="name-Component">NGƯỜI THEO DÕI</h5>
                          </div>
@@ -74,6 +76,7 @@
                     </div>
                </div>
           </div>
+
           <div class="overlay2" v-if="isOpenUpdateRiceCrop">
                <UpdateRiceCropForm :seedList="seedList" :newRiceCrop="newRiceCrop" :arableLandList="arableLandList"
                     @updateRiceCrop-submit="updateRiceCrop" :message1="message1" :message2="message2" />
@@ -81,56 +84,56 @@
      </div>
 </template>
 
-<script >
 
-import UpdateRiceCropForm from '@/components/catalogManagementComponents/updateRiceCropForm.vue';
+<script >
 import moment from 'moment';
+import 'vue3-carousel/dist/carousel.css';
 import { mapGetters, mapMutations } from "vuex";
+import SeedService from '@/services/seed.service';
+import ArableLandService from '@/services/arableLand.service';
 import RiceCropService from '@/services/riceCropInformation.service';
 import Catalog from '../../components/catalogManagementComponents/catalog.vue';
 import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
-import 'vue3-carousel/dist/carousel.css'
 import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
-import SeedService from '@/services/seed.service';
-import ArableLandService from '@/services/arableLand.service';
+import UpdateRiceCropForm from '@/components/catalogManagementComponents/updateRiceCropForm.vue';
+
 export default {
      name: "riceCropDetail",
 
      props: ["riceCrop"],
 
      components: {
-          UpdateRiceCropForm,
           Catalog,
           TopHeader,
           Preloader,
+          UpdateRiceCropForm,
      },
 
      data() {
           return {
-               loading: true,
-               active: false,
-               nameToSearch: "",
-               activitiesList: [],
-               newRiceCrop: {},
-               cropList: [],
-               seedList: [],
-               arableLandList: [],
-               developmentStageList: [],
-               riceCropList: [],
+               message: "",
                message1: "",
                message2: "",
-               delete: "",
+               cropList: [],
+               seedList: [],
+               loading: true,
+               active: false,
+               iconWeather: "",
+               newRiceCrop: {},
+               riceCropList: [],
+               weatherInfor: {},
+               nameToSearch: "",
+               activitiesList: [],
+               arableLandList: [],
                isOpenConfirm: false,
                isOpenMessage: false,
+               developmentStageList: [],
                isOpenUpdateRiceCrop: false,
-               message: "",
                openMenu: {
                     openMenu: false,
                     isOpenMenuIcon: true,
                     isCloseMenu: false,
                },
-               weatherInfor: {},
-               iconWeather: "",
           }
      },
 
@@ -145,7 +148,6 @@ export default {
           this.newRiceCrop.RiceCropInformation_id = this.$route.params.id;
           this.initEmployeeState();
      },
-
 
      methods: {
 
@@ -166,7 +168,6 @@ export default {
           },
 
           async updateRiceCrop(data) {
-
                if (!data.close) {
                     this.isOpenUpdateRiceCrop = false;
                     this.active = false;
@@ -187,15 +188,13 @@ export default {
 
                     if (data.RiceCropInformation_sowingDate != null) {
                          data.RiceCropInformation_sowingDate = (moment(String(data.RiceCropInformation_sowingDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    }
-
-                    else {
+                    } else {
                          data.RiceCropInformation_sowingDate = null;
                     }
+
                     if (data.RiceCropInformation_harvestDate != null && data.RiceCropInformation_harvestDate != "Invalid da") {
                          data.RiceCropInformation_harvestDate = (moment(String(data.RiceCropInformation_harvestDate)).format("YYYY-MM-DD")).slice(0, 10);
-                    }
-                    else {
+                    } else {
                          data.RiceCropInformation_harvestDate = null;
                     }
 
@@ -220,14 +219,10 @@ export default {
                               this.message2 = "Cập nhật thành công.";
                               this.retrieveNewRiceCrop();
                          }
-                    }
-                    else {
+                    } else {
                          this.message1 = "Cập nhật không thành công.";
                     }
                }
-
-
-
           },
 
           async getWeather() {
@@ -265,12 +260,10 @@ export default {
                     }
                     else if (weatherCode == 51 || weatherCode == 52 || weatherCode == 53) {
                          this.iconWeather = require('@/images/weather/' + 'rain.png');
-                    }
-                    else {
+                    } else {
                          this.iconWeather = require('@/images/weather/' + 'Mainly_clear_partly_cloudy_overcast.png');
                     }
-               }
-               else {
+               } else {
                     this.weatherInfor.temperature = "";
                     this.weatherInfor.windspeed = "";
                     this.weatherInfor.precipitation = "";
@@ -286,8 +279,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.newRiceCrop.RiceCropInformation_id = respone.data.RiceCropInformation_id;
                     this.newRiceCrop.RiceCropInformation_name = respone.data.RiceCropInformation_name;
                     this.newRiceCrop.Seed_id = respone.data.Seed_id;
@@ -304,7 +296,6 @@ export default {
                     this.newRiceCrop.ArableLand_longitude = respone.data.ArableLand_longitude;
                     this.getWeather();
                }
-
           },
 
           async retrieveSeedList() {
@@ -313,8 +304,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.seedList = respone.data;
                }
           },
@@ -325,8 +315,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.arableLandList = respone.data;
                }
           },
@@ -361,7 +350,6 @@ export default {
           this.retrieveArableLandList();
           this.retrieveNewRiceCrop();
           this.retrieveSeedList();
-
      }
 };
 </script>
@@ -375,43 +363,3 @@ export default {
      border-radius: 5px;
 }
 </style>
-
-
-<!-- <nav aria-label="...">
-     <ul class="pagination " aria-controls="my-table">
-          <li class="page-item disabled" v-if="currentPage == 1">
-               <a class="page-link" href="#" aria-controls="my-table">{{ previous }}</a>
-          </li>
-          <li class="page-item " v-if="currentPage > 1">
-               <a class="page-link" href="#"
-                    @click="change_page('-', fertilizerTimesList)"
-                    aria-controls="my-table">{{
-                         previous }}</a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#"
-                    @click="change_page(currentPage - 1, monitorList)"
-                    v-if="currentPage > 1">{{
-                         currentPage - 1 }}</a></li>
-          <li class="page-item active">
-               <a class="page-link"
-                    style="background-color: #EEEA41; border-color: #EEEA41;" href="#">{{
-                         currentPage }} <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#"
-                    v-if="currentPage < num_pages(fertilizerTimesList)"
-                    @click="change_page(currentPage + 1, fertilizerTimesList)">{{
-                         currentPage + 1
-                    }}</a></li>
-          <li class="page-item">
-               <a class="page-link" href="#"
-                    @click="change_page('+', fertilizerTimesList)"
-                    v-if="currentPage < num_pages(fertilizerTimesList)">{{
-                         next }}</a>
-          </li>
-          <li class="page-item disabled">
-               <a class="page-link" href="#"
-                    v-if="currentPage >= num_pages(fertilizerTimesList)">{{
-                         next }}</a>
-          </li>
-     </ul>
-</nav> -->

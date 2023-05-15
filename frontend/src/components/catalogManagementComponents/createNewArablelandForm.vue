@@ -76,7 +76,7 @@
                               <select class="form-control" v-model="newarableLand.Province_name" name="province"
                                    for="province" @change=" select()" style=" width: 100%;">
                                    <option v-for="(province, i) in provincelist " :key="i">
-                                        {{  province.Province_name }}
+                                        {{ province.Province_name }}
                                    </option>
                               </select>
                          </Field>
@@ -100,7 +100,7 @@
                          style="color:red; text-align: center; display: inline;"></span>
                     <span v-if="message2 == 'Thêm thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;">
                          Thêm thông tin mẫu ruộng thành công</span>
-                    <span v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2"> 
+                    <span v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2">
                          Thêm thông tin mẫu ruộng không thành công
                     </span>
                </div>
@@ -198,8 +198,6 @@ export default defineComponent({
 </script>
  
 <style>
-@import url(../../assets/arablelandStyle.css);
-
 .btnlocation {
      border-radius: 10px !important;
      background: none;
@@ -241,6 +239,28 @@ export default defineComponent({
           top: 50px;
           left: 62% !important;
           z-index: 3;
+     }
+}
+
+.arablelandManagement .createArableLandForm,
+.arablelandManagement .updateArableLandForm {
+     margin: auto;
+     padding: 20px;
+     background: #FAFAFC;
+     box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3);
+     backdrop-filter: blur(37.5px);
+     border-radius: 5px;
+     width: 75%;
+     position: relative;
+     top: 80px;
+     transition: all 1s ease-in-out;
+}
+
+@media only screen and (max-width: 1430px) {
+
+     .arablelandManagement .createArableLandForm,
+     .arablelandManagement .updateArableLandForm {
+          width: 90%;
      }
 }
 

@@ -8,9 +8,11 @@
                          style="font-size: 30px; padding-top:-5px; color:#B3B4BA;"></i>
                </div>
           </div>
+
           <div class="row">
                <p class="col-sm-12 text-center functionName">THÊM NGƯỜI DÙNG</p>
           </div>
+
           <div class="row content">
                <div class="col-lg-4">
                     <div class="form-group">
@@ -46,8 +48,8 @@
                          
                          <ErrorMessage name="birthDate" class="error-feedback" />
                     </div>
-
                </div>
+
                <div class="col-lg-4">
                     <div class="form-group">
                          <label for="major" class="mt-2">Chuyên môn <span style="color:red">*</span></label>
@@ -55,18 +57,21 @@
                               placeholder="Nhập chuyên môn" />
                          <ErrorMessage name="major" class="error-feedback" />
                     </div>
+
                     <div class="form-group">
                          <label for="phoneNumber" class="mt-3">Số điện thoại <span style="color:red">*</span></label>
                          <Field name="phoneNumber" class="form-control" v-model="newemployee.Employee_phoneNumber"
                               placeholder="Nhập số điện thoại" />
                          <ErrorMessage name="phoneNumber" class="error-feedback" />
                     </div>
+
                     <div class="form-group">
                          <label for="email" class="mt-3">Email <span style="color:red">*</span></label>
                          <Field name="email" class="form-control" v-model="newemployee.Employee_email"
                               placeholder="Nhập địa chỉ Email" />
                          <ErrorMessage name="email" class="error-feedback" />
                     </div>
+
                     <div class="form-group mt-4" >
                          <label for="sex" class="mt-3" style="margin-top: 52px !important; ">Giới tính <span style="color:red">*</span>: &nbsp;</label><br>
                          <Field name="sex" class="form-control" placeholder="" v-model="newemployee.Employee_sex">
@@ -80,6 +85,7 @@
                          <ErrorMessage name="sex" class="error-feedback" />
                     </div>
                </div>
+
                <div class="col-lg-4">
                     <div class="form-group">
                          <label for="address" class="mt-2">Địa chỉ <span style="color:red">*</span></label>
@@ -122,6 +128,7 @@
                     </div>
                </div>
           </div>
+
           <div class="form-group">
                <div class="row">
                     <div class="col-sm-12 mt-2 mb-3 text-center">
@@ -132,8 +139,8 @@
                          <p v-if="message2 == 'Thêm thành công.'" class="textMessage2 mt-2 mb-2" style="color:black;">Tạo người dùng mới thành công</p>
                          <p v-if="message1 == 'Thêm không thành công.'" class="textMessage1 pt-2 pb-2">Tạo người dùng không thành công. Mã nhân viên đã tồn tại</p>
                     </div>
-
                </div>
+
                <div class="row">
                     <div class="col-sm-5"></div>
                     <button class="btn btn-outline-secondary btnLuu col-sm-2">Lưu</button>
@@ -205,6 +212,7 @@ export default {
                .number()
                .required("Trạng thái tài khoản nhân viên được yêu cầu"),
           });
+          
           return {
                newemployee: this.newEmployee,
                schema,
@@ -212,12 +220,6 @@ export default {
      },
 
      methods: {
-
-
-          // async setKhoaTaiKhoan(data) {
-          //      this.newemployee.NV_KhoaTaiKhoan = data;
-          //      console.log(this.newemployee.NV_KhoaTaiKhoan);
-          // },
      }
 };
 </script>

@@ -419,34 +419,39 @@ export default {
 </script>
 
 <style>
-@import url(../../assets/arablelandStyle.css);
 
-
-nav {
-     position: absolute;
-     display: inline !important;
+.arablelandManagement .navigationBar .btnCatalog {
+    display: block;
+    width: 88%;
+    font-size: 17px;
+    background: #FFFA37;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+    color: #5C5D22;
+    border: none;
+    font-family: 'Roboto';
+    font-style: normal;
+    border-radius: 14px;
 }
 
-nav .pagination .active .page-link {
-     background: #ABD2C8 !important;
-     border: 1px solid #FAFAFC !important;
-     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
-     border-radius: 15px !important;
-     margin-left: 10px !important;
-     margin-right: 10px !important;
-     color: #FFFED8 !important;
-     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+.arablelandManagement .navigationBar .btnArableland {
+    display: block;
+    width: 88%;
+    font-size: 17px;
+    background-color: #fff945;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+    color: #5C5D22;
+    border: none;
+    font-family: 'Roboto';
+    font-style: normal;
+    border-radius: 14px;
 }
 
-nav .pagination .page-item .page-link {
-     color: #6D6E73;
-     border: none;
-     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-     font-family: 'Roboto';
-     font-style: normal;
-     font-weight: 700;
-     background-color: #EAEAEA;
-     font-size: 20px;
+.li-class-arableland{
+    width: 23%;
 }
 
+.text-location{
+    text-decoration: none !important;
+    color: #1C1C1F;
+}
 @import url(../../assets/mainStyle.css);</style>

@@ -11,6 +11,7 @@
                <div class="left" :class="{ navbarresponsive: openMenu.openMenu }">
                     <Catalog />
                </div>
+
                <div class="right rightSeedManagement ">
                     <div class="mb-5 pb-1 pt-2 topRight" style="margin-left: 20px; margin-right: 10px;">
                          <div class="nameclass" style="min-height:60px; width: max-content;">
@@ -68,8 +69,8 @@
                                              <p>{{ seed.Seed_characteristic }}</p>
                                         </div>
                                    </div>
-
                               </a>
+
                               <div id="popup1" class="overlay" v-if="!active && !isOpenUpdateSeed">
                                    <div class="popup">
                                         <a class="fas fa-times-circle" href="#"
@@ -96,7 +97,7 @@
                               </div>
                          </div>
                     </div>
-                    <!-- ------------------------------Bang xac nhan xoa nhan vien ----------------------------- -->
+                    <!-- ------------------------------Confirm----------------------------- -->
                </div>
           </div>
           <div class="overlay2" v-if="isOpenConfirm">
@@ -110,17 +111,20 @@
                          @click="isOpenConfirm = !isOpenConfirm, active = false">Hủy</button>
                </div>
           </div>
+
           <div class="overlay2" v-if="isOpenMessage">
                <div class="messageDialog">
                     <p style="color:#515151; text-align:center; margin-top: 50px; font-size: 20px;" class="labelThongBao">
-                         <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span> {{
-                              message
-                         }}
+                         <span class="fas fa-check-circle" style="color:#00BA13; text-align: center;"></span>
+                         {{ message }}
                     </p>
+
                     <button class="btnOK btn btn-sm btn-outline-secondary pl-3 pr-3 ml-4"
-                         @click="isOpenMessage = !isOpenMessage, active = !active">OK</button>
+                         @click="isOpenMessage = !isOpenMessage, active = !active">OK
+                    </button>
                </div>
           </div>
+
           <div class="overlay2" v-if="openCreate">
                <createSeedForm :newSeed="newSeed" @addSeed-submit="createNewImage" :message1="message1"
                     :message2="message2" />
@@ -158,32 +162,31 @@ export default {
 
      data() {
           return {
+               message: "",
                seedList: [],
-               openCreate: false,
                newSeed: {},
                loading: true,
                message1: " ",
                message2: " ",
-               isOpenMessage: false,
-               isOpenConfirm: false,
                seedChosen: {},
-               isOpenUpdateSeed: false,
+               active: false,
+               openCreate: false,
                nameToSearch: "",
-               message: "",
                isOpenInput1: false,
                isOpenInput2: false,
+               isOpenMessage: false,
                isOpenSearch: {
                     open: false,
                     close: true,
                },
+               isOpenConfirm: false,
+               isOpenUpdateSeed: false,
                cloneSeedList: [],
                openMenu: {
                     openMenu: false,
                     isOpenMenuIcon: true,
                     isCloseMenu: false,
                },
-
-               active: false,
           }
      },
 
@@ -250,14 +253,11 @@ export default {
 
                     if (id < 9) {
                          this.newSeed.Seed_id = "SD0000000" + String(Number(id) + 1);
-                    }
-                    else if (id >= 9 && id < 99) {
+                    } else if (id >= 9 && id < 99) {
                          this.newSeed.Seed_id = "SD000000" + String(Number(id) + 1);
-                    }
-                    else if (id >= 99 && id < 999) {
+                    } else if (id >= 99 && id < 999) {
                          this.newSeed.Seed_id = "SD00000" + String(Number(id) + 1);
-                    }
-                    else {
+                    } else {
                          this.newSeed.Seed_id = "SD00" + String(Number(id) + 1);
                     }
                }
@@ -269,8 +269,7 @@ export default {
                     this.message2 = " ";
                     this.active = false;
                     this.retrieveSeedList();
-               }
-               else {
+               } else {
                     if (data.Image != null) {
                          const formdata = require('form-data');
                          const formData = new formdata();
@@ -296,8 +295,7 @@ export default {
                               console.log(error);
                               this.message2 = "Thêm không thành công";
                          };
-                    }
-                    else {
+                    } else {
                          this.message1 = "Vui lòng chọn hình ảnh!!"
                     }
                }
@@ -311,8 +309,7 @@ export default {
                     this.active = false;
                     this.newSeed = {};
                     this.retrieveSeedList();
-               }
-               else {
+               } else {
                     if (data.newImage != null) {
                          const formdata = require('form-data');
                          const formData = new formdata();
@@ -338,8 +335,7 @@ export default {
                               console.log(error);
                               this.message2 = "Thêm không thành công";
                          };
-                    }
-                    else {
+                    } else {
                          this.updateSeed(data);
                     }
                }
@@ -407,7 +403,6 @@ export default {
                          this.message = "Không tìm thấy giống lúa!";
                          this.isOpenMessage = !this.isOpenMessage;
                     }
-
                }
           },
 
@@ -433,35 +428,38 @@ export default {
 </script>
 
 <style>
-@import url(../../assets/seedStyle.css);
+
 @import url(../../assets/mainStyle.css);
-
-nav {
-     position: absolute;
-     display: inline !important;
-}
-
-nav .pagination .active .page-link {
-     background: #ABD2C8 !important;
-     border: 1px solid #FAFAFC !important;
-     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
-     border-radius: 15px !important;
-     margin-left: 10px !important;
-     margin-right: 10px !important;
-     color: #FFFED8 !important;
-
-     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-     /* width: 40px !important; */
-}
-
-nav .pagination .page-item .page-link {
-     color: #6D6E73;
+.seedManagement .navigationBar .btnSeed{
+     display: block;
+     width: 94%;
+     font-size: 17px;
+     background-color: #fff945;
+     box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+     color: #5C5D22;
      border: none;
-     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
      font-family: 'Roboto';
      font-style: normal;
-     font-weight: 700;
-     background-color: #EAEAEA;
-     font-size: 20px;
+     border-radius: 14px;
 }
+.seedManagement .navigationBar .btnCatalog  {
+     display: block;
+     width: 88%;
+     font-size: 17px;
+     background: #FFFA37;
+     box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+     border-radius: 20px;
+     color: #5C5D22;
+     border: none;
+     font-family: 'Roboto';
+     font-style: normal;
+     border-radius: 14px;
+ }
+.outside {
+     width: 100vw;
+     height: 100vh;
+     position: fixed;
+     top: 0px;
+     left: 0px;
+ }
 </style>

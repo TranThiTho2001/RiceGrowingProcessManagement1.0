@@ -21,7 +21,6 @@
                 <Field name="username" type="text" class="form-control" placeholder="Nhập tên tài khoản"
                   v-model="employee.Employee_id" />
                 <ErrorMessage name="username" class="error-feedback" />
-
               </div>
 
               <div class="form-group text-left ml-4 pr-2" style="margin-top:10%">
@@ -66,19 +65,15 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
 
-import EmployeeService from '../services/employee.service';
-import predictionService from '@/services/prediction.service';
 import * as yup from "yup";
-import { Form, Field, ErrorMessage } from "vee-validate";
 import { mapGetters, mapMutations } from "vuex";
+import { Form, Field, ErrorMessage } from "vee-validate";
 
-// import * as yup from "yup";
 export default {
   name: 'LoginForm',
   components: {
@@ -87,8 +82,8 @@ export default {
   data() {
     const schema = yup.object().shape({
       username: yup.string().required("Tên tài khoản phải có giá trị."),
-      // password: yup.string().required("Mật khẩu phải có giá trị."),
     });
+
     return {
       employee: {},
       loading: false,
@@ -97,14 +92,15 @@ export default {
       isOpenPassword: false,
     }
   },
+
   computed: {
     ...mapGetters({
       currentUser: "loggedInEmployee",
     }),
   },
+
   created() {
     if (this.employeeLoggedIn) {
-      console.log(this.currentUser);
       this.$router.push("/SystemManagement");
     }
   },
@@ -116,31 +112,6 @@ export default {
       "initEmployeeState"
     ]),
 
-    async retrieveEmployee() {
-      const [err, respone] = await this.handle(
-        EmployeeService.getAll()
-      );
-      if (err) {
-        console.log(err)
-      }
-      else {
-        console.log(respone.data);
-        console.log(this.currentUser.Employee_id);
-      }
-    },
-
-    async prediction() {
-
-      const [err, respone] = await this.handle(
-        predictionService.create("RCI0000001")
-      );
-      if (err) {
-        console.log(err)
-      }
-      else {
-        console.log(respone.data);
-      }
-    },
     async signin() {
       const [error, data] = await this.handle(
         this.$store.dispatch("login", this.employee)
@@ -152,18 +123,14 @@ export default {
       } else {
         if (data.Role_id == "01") {
           this.$router.push("/EmployeeManager");
-        }
-        else if (data.Role_id == "02" || data.Role_id == "03") {
+        } else if (data.Role_id == "02" || data.Role_id == "03") {
           this.$router.push("/Monitor");
         }
 
       }
     },
-
-
-
-
   },
+  
   mounted() {
     this.employee.Employee_password = '';
     this.initEmployeeState();

@@ -175,7 +175,6 @@ export default {
 </script>
  
 <style>
-@import url(../../assets/epidemicTimesStyle.css);
 
 @import url(../../assets/mainStyle.css);
 .dp__theme_light {
@@ -223,5 +222,19 @@ export default {
      color: var(--dp-text-color);
      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
      box-sizing: border-box;
+}
+
+.riceCropDetail .updateEpidemicTimesForm,
+.riceCropDetail .createEpidemicTimesForm{
+     margin: auto;
+     padding: 20px;
+     background: #FAFAFC;
+     box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3);
+     backdrop-filter: blur(37.5px);
+     border-radius: 5px;
+     width: 82.5%;
+     position: relative;
+     top:100px;
+     transition: all 5s ease-in-out;
 }
 </style>

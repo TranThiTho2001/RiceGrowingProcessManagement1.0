@@ -27,8 +27,9 @@
                     <div class="row statisticalBy" style="height: 168px; margin-top: 100px; z-index: 4; width: 99%;">
                          <div class="leftStatistical pl-1">
                               <div class="label_statictical">
-                                   <label class="label_statictical_content">Thống kê
-                                        mùa vụ theo: </label><br>
+                                   <label class="label_statictical_content">
+                                        Thống kê mùa vụ theo: 
+                                   </label><br>
                               </div>
                               <div class="scrollChoose row mr-1">
                                    <div class="col-lg-2">
@@ -37,25 +38,29 @@
                                              @click="getAllRiceCrop(), nameToSearch = '', isOpenRightSatistical = true">
                                         <label for="all"
                                              :class="{ noneBlurStatus: chooseSatisticsBy == 'all', blurStatus: chooseSatisticsBy != 'all' }">&nbsp;
-                                             Tất cả</label><br>
+                                             Tất cả
+                                        </label><br>
                                         <input type="radio" id="arableLand" name="statisticsby" value="arableLand"
                                              v-model="chooseSatisticsBy"
                                              @click="retrieveArableLandList(), deleteRiceCropList(), nameToSearch = '', isOpenRightSatistical = false">
                                         <label for="arableLand"
                                              :class="{ noneBlurStatus: chooseSatisticsBy == 'arableLand', blurStatus: chooseSatisticsBy != 'arableLand' }">&nbsp;
-                                             Mẫu ruộng</label><br>
+                                             Mẫu ruộng
+                                        </label><br>
                                         <input type="radio" id="seed" name="statisticsby" value="seed"
                                              v-model="chooseSatisticsBy"
                                              @click="deleteRiceCropList(), retrieveSeedList(), nameToSearch = '', isOpenRightSatistical = false">
                                         <label for="seed"
                                              :class="{ noneBlurStatus: chooseSatisticsBy == 'seed', blurStatus: chooseSatisticsBy != 'seed' }">
-                                             &nbsp; Giống lúa</label><br>
+                                             &nbsp; Giống lúa
+                                        </label><br>
                                         <input type="radio" id="epidemic" name="statisticsby" value="epidemic"
                                              @click="retrieveEpidemicTimesList(), retrieveEpidemicList(), deleteRiceCropList(), nameToSearch = '', isOpenRightSatistical = false"
                                              v-model="chooseSatisticsBy">
                                         <label for="epidemic"
                                              :class="{ noneBlurStatus: chooseSatisticsBy == 'epidemic', blurStatus: chooseSatisticsBy != 'epidemic' }">&nbsp;
-                                             Dịch bệnh</label><br>
+                                             Dịch bệnh
+                                        </label><br>
                                    </div>
 
                                    <div class="col-lg-2">
@@ -66,19 +71,22 @@
                                              v-model="chooseSatisticsBy">
                                         <label for="fertilizer"
                                              :class="{ noneBlurStatus: chooseSatisticsBy == 'fertilizer', blurStatus: chooseSatisticsBy != 'fertilizer' }">&nbsp;
-                                             Phân bón</label><br>
+                                             Phân bón
+                                        </label><br>
                                         <input type="radio" id="pesticide" name="statisticsby" value="pesticide"
                                              @click="deleteRiceCropList(), retrievePesticideList(), retrievePrayingTimesList(), nameToSearch = '', isOpenRightSatistical = false"
                                              v-model="chooseSatisticsBy">
                                         <label for="pesticide"
                                              :class="{ noneBlurStatus: chooseSatisticsBy == 'pesticide', blurStatus: chooseSatisticsBy != 'pesticide' }">&nbsp;
-                                             Thuốc trị bệnh dịch</label><br>
+                                             Thuốc trị bệnh dịch
+                                        </label><br>
                                         <input type="radio" id="seed" name="statisticsby" value="activity"
                                              v-model="chooseSatisticsBy"
                                              @click="deleteRiceCropList(), retrieveActivitiesList(), retrieveActivityDetailList(), nameToSearch = '', isOpenRightSatistical = false">
                                         <label for="seed"
                                              :class="{ noneBlurStatus: chooseSatisticsBy == 'statisticsby', blurStatus: chooseSatisticsBy != 'statisticsby' }">&nbsp;
-                                             Hoạt động</label><br>
+                                             Hoạt động
+                                        </label><br>
                                    </div>
 
                                    <div class="col-lg-2">
@@ -93,7 +101,8 @@
                                                        v-model="idToSearchByCrop" @change="searchByIDCrop()">
                                                   <label for=""
                                                        :class="{ noneBlurCrop: chooseSatisticsBy == 'crop', blurCrop: chooseSatisticsBy != 'crop' }">
-                                                       {{ crop.Crop_name }}</label><br>
+                                                       {{ crop.Crop_name }}
+                                                  </label><br>
                                              </div>
                                         </div>
                                    </div>
@@ -110,13 +119,15 @@
                                                        v-model="status" @change="searchByStatus()">
                                                   <label for=""
                                                        :class="{ noneBlurStatus: chooseSatisticsBy == 'status', blurStatus: chooseSatisticsBy != 'status' }">Đang
-                                                       theo dõi</label><br>
+                                                       theo dõi
+                                                  </label><br>
                                                   <input type="checkbox" id="finished" value="finished" v-model="status"
                                                        @change="searchByStatus()"
                                                        :class="{ nonecheckedStatus: chooseSatisticsBy != 'status', checkedStatus: chooseSatisticsBy == 'status' }">
                                                   <label for=""
                                                        :class="{ noneBlurStatus: chooseSatisticsBy == 'status', blurStatus: chooseSatisticsBy != 'status' }">Đã
-                                                       kết thúc</label><br>
+                                                       kết thúc
+                                                  </label><br>
                                              </div>
                                         </div>
                                    </div>
@@ -133,7 +144,8 @@
                                                        v-model="yearstosearch" @change="searchByYear()">
                                                   <label for=""
                                                        :class="{ noneBlurCrop: chooseSatisticsBy == 'year', blurCrop: chooseSatisticsBy != 'year' }">
-                                                       {{ year }}</label><br>
+                                                       {{ year }}
+                                                  </label><br>
                                              </div>
                                         </div>
                                    </div>
@@ -176,12 +188,14 @@
                                    <div :class="{ openSearch4: isOpenSearch.open, closeSearch4: isOpenSearch.close }">
                                         <p class="arablename" v-for="seed in filteredSeedList()" :key="seed.Seed_id"
                                              @click="searchBySeed(seed.Seed_id), isOpenSearch.open = false, isOpenSearch.close = true">
-                                             {{ seed.Seed_id_name }}</p>
+                                             {{ seed.Seed_id_name }}
+                                        </p>
                                    </div>
                                    <div class="arablelandScroll">
                                         <p class="arablename" v-for="seed in seedList" :key="seed.Seed_id" :id="seed.Seed_id"
                                              @click="searchBySeed(seed.Seed_id_name), isOpenSearch.open = false, isOpenSearch.close = true">
-                                             {{ seed.Seed_id_name }}</p>
+                                             {{ seed.Seed_id_name }}
+                                        </p>
                                    </div>
                               </div>
 
@@ -204,7 +218,8 @@
                                         <p class="arablename" v-for="epidemic in epidemicList" :key="epidemic.Epidemic_id"
                                              :id="epidemic.Epidemic_name"
                                              @click="searchByEpidemic(epidemic.Epidemic_name), isOpenSearch.open = false, isOpenSearch.close = true">
-                                             {{ epidemic.Epidemic_name }}</p>
+                                             {{ epidemic.Epidemic_name }}
+                                        </p>
                                    </div>
                               </div>
 
@@ -221,13 +236,15 @@
                                         <p class="arablename" v-for="fertilizer in filteredFertilizerList()"
                                              :key="fertilizer.Fertilizer_name"
                                              @click="searchByFertilizer(fertilizer.Fertilizer_name), isOpenSearch.open = false, isOpenSearch.close = true">
-                                             {{ fertilizer.Fertilizer_name }}</p>
+                                             {{ fertilizer.Fertilizer_name }}
+                                        </p>
                                    </div>
                                    <div class="arablelandScroll">
                                         <p class="arablename" v-for="fertilizer in fertilizerList"
                                              :key="fertilizer.Epidemic_id" :id="fertilizer.Fertilizer_name"
                                              @click="searchByFertilizer(fertilizer.Fertilizer_name), isOpenSearch.open = false, isOpenSearch.close = true">
-                                             {{ fertilizer.Fertilizer_name }}</p>
+                                             {{ fertilizer.Fertilizer_name }}
+                                        </p>
                                    </div>
                               </div>
 
@@ -244,13 +261,15 @@
                                         <p class="arablename" v-for="pesticide in filteredPesticideList()"
                                              :key="pesticide.Pesticide_name"
                                              @click="searchByPesticide(pesticide.Pesticide_name), isOpenSearch.open = false, isOpenSearch.close = true">
-                                             {{ pesticide.Pesticide_name }}</p>
+                                             {{ pesticide.Pesticide_name }}
+                                        </p>
                                    </div>
                                    <div class="arablelandScroll">
                                         <p class="arablename" v-for="pesticide in pesticideList"
                                              :key="pesticide.Pesticide_name" :id="pesticide.Pesticide_name"
                                              @click="searchByPesticide(pesticide.Pesticide_name), isOpenSearch.open = false, isOpenSearch.close = true">
-                                             {{ pesticide.Pesticide_name }}</p>
+                                             {{ pesticide.Pesticide_name }}
+                                        </p>
                                    </div>
                               </div>
 
@@ -267,13 +286,15 @@
                                         <p class="arablename" v-for="activity in filteredActivityList()"
                                              :key="activity.OtherActivities_name"
                                              @click="searchByActivity(activity.OtherActivities_name), isOpenSearch.open = false, isOpenSearch.close = true">
-                                             {{ activity.OtherActivities_name }}</p>
+                                             {{ activity.OtherActivities_name }}
+                                        </p>
                                    </div>
                                    <div class="arablelandScroll">
                                         <p class="arablename" v-for="activity in otherActivitiesList"
                                              :key="activity.OtherActivities_name" :id="activity.OtherActivities_name"
                                              @click="searchByActivity(activity.OtherActivities_name), isOpenSearch.open = false, isOpenSearch.close = true">
-                                             {{ activity.OtherActivities_name }}</p>
+                                             {{ activity.OtherActivities_name }}
+                                        </p>
                                    </div>
                               </div>
                          </div>
@@ -294,9 +315,6 @@
                                              <th class="text-center">Ngày gieo xạ</th>
                                              <th class="text-center">Ngày thu hoạch</th>
                                              <th class="text-center">Năng suất</th>
-                                             <!-- <th v-if="chooseSatisticsBy == 'epidemic'">Dịch bệnh</th>
-                                                  <th v-if="chooseSatisticsBy == 'fertilizer'">Phân bón</th>
-                                                  <th v-if="chooseSatisticsBy == 'pesticide'">Thuốc trị bệnh dịch</th> -->
                                              <th class="text-center"
                                                   v-if="chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide'">
                                                   Lần</th>
@@ -306,7 +324,7 @@
                                              <th class="text-center"
                                                   v-if="chooseSatisticsBy == 'epidemic' || chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide' || chooseSatisticsBy == 'activity'">
                                                   Ngày kết thúc</th>
-                                             <th  class="text-center" v-if="chooseSatisticsBy == 'fertilizer'">Số lượng (Kg/ha)</th>
+                                             <th class="text-center" v-if="chooseSatisticsBy == 'fertilizer'">Số lượng (Kg/ha)</th>
                                              <th class="text-center" v-if="chooseSatisticsBy == 'pesticide'">Liều lượng (ml/ha)</th>
                                         </tr>
                                    </thead>
@@ -321,36 +339,27 @@
                                              <td class="text-center">{{ formatDate(riceCrop.RiceCropInformation_sowingDate) }}</td>
                                              <td class="text-center">{{ formatDate(riceCrop.RiceCropInformation_harvestDate) }}</td>
                                              <td class="text-center">{{ formatYield(riceCrop.RiceCropInformation_yield) }}</td>
-                                             <!-- <td
-                                                       v-if="chooseSatisticsBy == 'epidemic' || chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide'">
-                                                       {{ riceCrop.name }}</td>-->
                                              <td class="text-center"
                                                   v-if="chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide'">
-                                                  {{ riceCrop.times }}</td>
+                                                  {{ riceCrop.times }}
+                                             </td>
                                              <td class="text-center"
                                                   v-if="chooseSatisticsBy == 'epidemic' || chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide' || chooseSatisticsBy == 'activity'">
-                                                  {{ formatDate(riceCrop.startDate) }}</td>
+                                                  {{ formatDate(riceCrop.startDate) }}
+                                             </td>
                                              <td class="text-center"
                                                   v-if="chooseSatisticsBy == 'epidemic' || chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide' || chooseSatisticsBy == 'activity'">
-                                                  {{ formatDate(riceCrop.endDate) }}</td>
+                                                  {{ formatDate(riceCrop.endDate) }}
+                                             </td>
                                              <td   class="text-center"
                                                   v-if="chooseSatisticsBy == 'fertilizer' || chooseSatisticsBy == 'pesticide'">
-                                                  {{ riceCrop.amount }}</td>
+                                                  {{ riceCrop.amount }}
+                                             </td>
                                         </tr>
                                    </tbody>
                               </table>
-
-                              <!-- </div> -->
                          </div>
-                         <!-- <div style="width: 30%;">
-                              <apexchart
-                                   v-if="nameToSearch != '' && riceCropList.length >= 2 && chooseSatisticsBy == 'arableLand'"
-                                   type="bar" width="100%" height="350" :options="chartForArableLand.chartOptions"
-                                   :series="chartForArableLand.series">
-                              </apexchart>
-                         </div> -->
                     </div>
-
                </div>
           </div>
      </div>
@@ -360,7 +369,6 @@
 <script type="text/javascript">
 
 import moment from 'moment';
-// import VueApexCharts from "vue3-apexcharts";
 import { mapGetters, mapMutations } from "vuex";
 import CropService from '@/services/crop.service';
 import SeedService from '@/services/seed.service';
@@ -378,21 +386,13 @@ import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
 import RiceCropInformationService from '@/services/riceCropInformation.service';
 
-// import vue3html2pdf from 'vue3-html2pdf'
-// import riceCropReport from '@/components/report/RiceCropReport.vue'
-
 export default {
      name: "ArableLandManagement",
      components: {
           Catalog,
           TopHeader,
           Preloader,
-          // apexchart: VueApexCharts,
-          // vue3html2pdf,
-          // riceCropReport,
      },
-
-
 
      data() {
           return {
@@ -506,7 +506,6 @@ export default {
                                         }
                                    }
                               },
-
                          },
                          title: {
                               text: 'Năng suất mùa vụ',
@@ -586,8 +585,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.riceCropList = respone.data;
                     this.cloneRiceCropList = respone.data;
                     this.riceCropListByFinish = [];
@@ -595,8 +593,7 @@ export default {
                     this.riceCropList.forEach(element => {
                          if (element.RiceCropInformation_harvestDate == null) {
                               this.riceCropListByMonitoring.push(element);
-                         }
-                         else {
+                         } else {
                               this.riceCropListByFinish.push(element);
                          }
                     });
@@ -619,13 +616,11 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.cropList = respone.data;
                     this.idToSearchByCrop = [];
                }
           },
-
 
           async retrieveSeedList() {
                const [err, respone] = await this.handle(
@@ -633,8 +628,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.cloneSeedList = respone.data;
                     this.cloneSeedList.forEach(element => {
                          element.Seed_id_name = String(element.Seed_id).concat(" - " + element.Seed_name)
@@ -649,8 +643,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.arableLandList = respone.data;
                     this.cloneArableLandList = respone.data;
                     this.cloneArableLandList.forEach(element => {
@@ -664,8 +657,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.epidemicList = respone.data;
                     this.cloneEpidemicList = respone.data;
                }
@@ -677,8 +669,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.epidemicTimesList = respone.data;
                }
           },
@@ -689,8 +680,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.fertilizerList = respone.data;
                }
           },
@@ -701,8 +691,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.fertilizerTimesList = respone.data;
                }
           },
@@ -713,8 +702,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.pesticideList = respone.data;
                }
           },
@@ -725,8 +713,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.sprayingTimesList = respone.data;
                }
           },
@@ -737,8 +724,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.otherActivitiesList = respone.data;
                }
           },
@@ -749,8 +735,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.ActivitityDetailList = respone.data;
                }
           },
@@ -775,18 +760,17 @@ export default {
                               this.chartForArableLand.chartOptions.xaxis.categories.push(element.RiceCropInformation_name)
                          }
                     });
-               }
-               else {
+               } else {
                     this.retrieveCropList()
                }
                this.bubbleSort();
-               console.log(this.chartForArableLand)
           },
 
           async getAllRiceCrop() {
                this.riceCropList = [];
                this.riceCropList = this.cloneRiceCropList;
           },
+
           async searchByIDCrop() {
                this.riceCropList = [];
                this.cloneRiceCropList.forEach(element1 => {
@@ -803,25 +787,21 @@ export default {
                this.riceCropList = [];
                if (this.status.length == 2) {
                     this.riceCropList = this.cloneRiceCropList;
-               }
-               else if (this.status.length == 1 && this.status[0] == "monitoring") {
+               } else if (this.status.length == 1 && this.status[0] == "monitoring") {
                     this.cloneRiceCropList.forEach(riceCrop => {
                          if (riceCrop.RiceCropInformation_harvestDate == null) {
                               this.riceCropList.push(riceCrop);
                          }
                     });
-               }
-               else if (this.status.length == 1 && this.status[0] == "finished") {
+               } else if (this.status.length == 1 && this.status[0] == "finished") {
                     this.cloneRiceCropList.forEach(riceCrop => {
                          if (riceCrop.RiceCropInformation_harvestDate != null) {
                               this.riceCropList.push(riceCrop);
                          }
                     });
-               }
-               else {
+               } else {
                     this.riceCropList = [];
                }
-
                this.bubbleSort()
           },
 
@@ -835,7 +815,6 @@ export default {
                                    break;
                               }
                          }
-
                     });
                }
           },
@@ -854,8 +833,7 @@ export default {
                               this.riceCropList.push(element1);
                          }
                     });
-               }
-               else {
+               } else {
                     this.retrieveCropList();
                }
                this.bubbleSort();
@@ -880,8 +858,7 @@ export default {
                               }
                          });
                     });
-               }
-               else {
+               } else {
                     this.retrieveCropList();
                }
                this.bubbleSort();
@@ -909,8 +886,7 @@ export default {
                               }
                          });
                     });
-               }
-               else {
+               } else {
                     this.retrieveCropList();
                }
                this.bubbleSort();
@@ -942,8 +918,7 @@ export default {
                               }
                          });
                     });
-               }
-               else {
+               } else {
                     this.retrieveCropList();
                }
                this.bubbleSort();
@@ -973,8 +948,7 @@ export default {
                               }
                          });
                     });
-               }
-               else {
+               } else {
                     this.retrieveCropList();
                }
                this.bubbleSort();
@@ -989,8 +963,6 @@ export default {
                }
                return this.years;
           },
-
-
           
           async download_csv(csv, filename) {
                var csvFile;

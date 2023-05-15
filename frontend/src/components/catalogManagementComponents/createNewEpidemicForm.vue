@@ -165,10 +165,34 @@ export default {
 </script>
  
 <style>
+@import url(../../assets/mainStyle.css);
 .createEpidemicForm .rowImage {
     height: 250px;
     margin: auto;
     margin-top: 10px;
 }
-@import url(../../assets/epidemicStyle.css);</style>
-
+.epidemicManagement .createEpidemicForm,
+.epidemicManagement .updateEpidemicForm {
+    margin: auto;
+    padding: 20px;
+    background: #FAFAFC;
+    box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(37.5px);
+    border-radius: 5px;
+    width: 82.5%;
+    position: relative;
+    top:60px;
+    transition: all 5s ease-in-out;
+}
+@media only screen and (max-width: 1430px) {
+    .epidemicManagement .createEpidemicForm,
+    .epidemicManagement .updateEpidemicForm {
+        left: 10%;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .epidemicManagement .li-class-epdiemic{
+        height: 350px !important;
+    }
+}
+</style>

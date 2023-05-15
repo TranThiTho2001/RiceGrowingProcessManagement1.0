@@ -1,7 +1,8 @@
 <template>
      <div class="container-fluid StatisticalManagement pr-4" style="background-color: #EAEAEA; height: 100vmin;">
           <div class="row" v-if="loading" style="height: max-content; min-height: 100vh; background-color: #FFFFFF">
-          <Preloader color="red" scale="0.4" /></div>
+               <Preloader color="red" scale="0.4" />
+          </div>
           <div class="row StatisticalManagementManagementFrame" style="height: 100vmin;" v-if="!loading">
                <button v-if="openMenu.isOpenMenuIcon" class="fas fa-bars iconmenu2"
                     @click="openMenu.openMenu = true, openMenu.isCloseMenu = true, openMenu.isOpenMenuIcon = false"></button>
@@ -23,6 +24,7 @@
                               </div>
                          </div>
                     </div>
+
                     <div class="row mr-2 ml-2 pr-1" style="margin-top: 145px; z-index: 4; width: 99%;">
                          <div class="col-sm-7">
                               <div class="row ml-1">
@@ -79,22 +81,30 @@
                                    </div>
                               </div>
                          </div>
+
                          <div class="col-sm-5 text-center col-satisticByYield" v-if="loaded">
                               <div>
                                    <h5 class="nameComponent">MÙA VỤ NĂNG SUẤT CAO</h5>
                               </div>
                               <div class="row row-satisticByYield" v-for="(riceCrop, i) in riceCropListByFinish" :key="i">
-                                   <div class="left-statisticByYield align-self-center" style="width: 30%; vertical-align: middle;">
+                                   <div class="left-statisticByYield align-self-center"
+                                        style="width: 30%; vertical-align: middle;">
                                         <div class="rice_yield">
-                                        <h4>{{ riceCrop.RiceCropInformation_yield }}</h4>
-                                        <p  class="title">Tạ/ha</p>
-                                   </div>
+                                             <h4>{{ riceCrop.RiceCropInformation_yield }}</h4>
+                                             <p class="title">Tạ/ha</p>
+                                        </div>
                                    </div>
                                    <div class="right-statisticByYeild text-left" style="width: 67%; margin-left: 3%; ">
                                         <h5>{{ riceCrop.RiceCropInformation_name }}</h5>
-                                        <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><span class="title">Sử dụng giống lúa: </span><span class="value">{{ riceCrop.Seed_name }}</span></div>
-                                        <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><span class="title">Canh tác trên mẫu ruộng:  </span><span class="value">{{ riceCrop.ArableLand_owner }}</span></div>
-                                        <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><span class="title"></span> <span class="value">{{ riceCrop.Province_name }}</span></div>
+                                        <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><span
+                                                  class="title">Sử dụng giống lúa: </span><span class="value">{{
+                                                       riceCrop.Seed_name }}</span></div>
+                                        <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><span
+                                                  class="title">Canh tác trên mẫu ruộng: </span><span class="value">{{
+                                                       riceCrop.ArableLand_owner }}</span></div>
+                                        <div style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><span
+                                                  class="title"></span> <span class="value">{{ riceCrop.Province_name
+                                                  }}</span></div>
 
                                    </div>
                               </div>
@@ -107,19 +117,19 @@
 </template>
 
 <script type=”text/javascript”>
-
-import Catalog from '../../components/catalogManagementComponents/catalog.vue';
-import { mapGetters, mapMutations } from "vuex";
-import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
-import RiceCropInformationService from '@/services/riceCropInformation.service';
 import VueApexCharts from "vue3-apexcharts";
+import { mapGetters, mapMutations } from "vuex";
+import SeedService from '@/services/seed.service';
+import EpidemicService from '@/services/epidemic.service';
+import PesticideService from '@/services/pesticide.service';
 import ArableLandService from '@/services/arableLand.service';
 import FertilizerService from '@/services/fertilizer.service';
-import PesticideService from '@/services/pesticide.service';
-import EpidemicService from '@/services/epidemic.service';
-import SeedService from '@/services/seed.service';
 import OtherActivitiesService from '@/services/otherActivities.service';
+import Catalog from '../../components/catalogManagementComponents/catalog.vue';
+import TopHeader from '@/components/catalogManagementComponents/topHeader.vue';
 import Preloader from '@/components/catalogManagementComponents/Preloader.vue';
+import RiceCropInformationService from '@/services/riceCropInformation.service';
+
 export default {
      name: "ArableLandManagement",
      components: {
@@ -127,9 +137,7 @@ export default {
           TopHeader,
           Preloader,
           apexchart: VueApexCharts,
-
      },
-
 
      data() {
           return {
@@ -184,7 +192,6 @@ export default {
                                    enabled: true,
                                    foreColor: '#5C5D22',
                                    padding: 0,
-                                   // opacity: 0.5,
                                    borderColor: 'none'
                               },
                               dropShadow: {
@@ -323,8 +330,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.riceCropList = respone.data;
                     this.riceCropListByFinish = [];
                     this.riceCropListByMonitoring = [];
@@ -344,7 +350,7 @@ export default {
 
                }
 
-               if(this.loading){
+               if (this.loading) {
                     setTimeout(() => {
                          this.loading = false;
                     }, 1000);
@@ -381,8 +387,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.fertilizerList = respone.data;
                }
           },
@@ -393,8 +398,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.epidemicList = respone.data;
                }
           },
@@ -405,8 +409,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.pesticideList = respone.data;
                }
           },
@@ -418,8 +421,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.seedList = respone.data;
                }
           },
@@ -430,8 +432,7 @@ export default {
                );
                if (err) {
                     console.log(err)
-               }
-               else {
+               } else {
                     this.otherActivitiesList = respone.data;
                }
           },
@@ -439,7 +440,6 @@ export default {
           goToStatiticsByriceCrop() {
                this.$router.push("/Statistical/StatisticsByRiceCrop");
           },
-
 
           goToOtherActivities() {
                this.$router.push("/Activity");
@@ -478,7 +478,6 @@ export default {
                     }
                }
           },
-
      },
 
      created() {
@@ -495,7 +494,5 @@ export default {
 }
 </script>
 
-<style>
-@import url(../../assets/mainStyle.css);
-@import url(../../assets/statisticalStyle.css);
-</style>
+<style>@import url(../../assets/mainStyle.css);
+@import url(../../assets/statisticalStyle.css);</style>

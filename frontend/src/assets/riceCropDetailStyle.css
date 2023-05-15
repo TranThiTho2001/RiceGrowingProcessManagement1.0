@@ -46,66 +46,6 @@
      position: fixed;
 }
 
-.riceCropDetail .btnNameActive {
-     background: #EEEA41;
-     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-     border-radius: 15px;
-     color: #5C5D22;
-     font-family: 'Roboto';
-     font-style: normal;
-     font-size: 17px;
-     font-weight: 700;
-     display: inline-block;
-}
-
-
-
-.riceCropDetail .btnName {
-     background: none;
-     color: #919302;
-     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-     font-family: 'Roboto';
-     font-style: normal;
-     font-weight: 700;
-     font-size: 17px;
-     display: inline-block;
-     text-align: center;
-     padding: 14px;
-     text-decoration: none;
-}
-
-.riceCropDetail .btnName:hover {
-     background: #EEEA41;
-     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-     border-radius: 15px;
-     color: #5C5D22;
-     font-family: 'Roboto';
-     font-style: normal;
-     font-size: 17px;
-     font-weight: 700;
-     display: inline-block;
-     text-decoration: none;
-     width: max-content;
-     padding: 7px 14px 7px 14px;
-     height: max-content;
-}
-
-.riceCropDetail .functionName {
-     overflow: auto;
-     white-space: nowrap;
-}
-
-
-.riceCropDetail .bottomrow {
-     background: #FAFAFC;
-     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-     border-radius: 15px;
-     height: 480px;
-     margin-top: 20px;
-     margin-left: 20px;
-     margin-right: 18px;
-}
-
 
 .riceCropDetail .name {
      font-family: 'Roboto';
@@ -118,16 +58,6 @@
      top: -8%
 }
 
-.noneactive {
-     /* filter: blur(0.1px); */
-     /* box-shadow: inset px 7px 7px rgba(0, 0, 0, 0.25); */
-     /* pointer-events: none; */
-}
-
-.riceCropDetail .table tbody {
-     max-height: 300px;
-     width: 100%;
-}
 
 .riceCropDetail .btnAdd {
      background: #008B8E;
@@ -144,30 +74,6 @@
      top: 60px;
 }
 
-.riceCropDetail .inputSearch5 {
-     font-size: 17px;
-     color: #84858A;
-     font-family: 'Roboto';
-     font-style: normal;
-     font-weight: 400;
-     background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
-     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-     border-radius: 12px;
-     min-width: 50px;
-     max-width: 290px;
-     position: absolute;
-     right: 150px;
-     top: 65px;
-     border: none !important;
-}
-
-.infor {
-     z-index: 4;
-     margin-top: 100px;
-     margin-left: 10px !important;
-     width: 98%;
-}
-
 @media screen and (max-width: 1430px) {
 
      .riceCropDetail .topRight {
@@ -176,82 +82,8 @@
           width: 98% !important;
           z-index: 6;
      }
-
-     .infor {
-          z-index: 4;
-          margin-top: 100px;
-          margin-left: 0 !important;
-          width: 99%;
-     }
 }
 
-@media only screen and (max-width: 510px) {
-     .riceCropDetail .inputSearch5 {
-          font-size: 17px;
-          color: #84858A;
-          font-family: 'Roboto';
-          font-style: normal;
-          font-weight: 400;
-          background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #EAEAEA;
-          box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-          border-radius: 12px;
-          width: 50%;
-          position: absolute;
-          right: 150px;
-          top: 65px;
-          border: none !important;
-     }
-
-     .riceCropDetail .functionName::-webkit-scrollbar {
-          width: 0 !important
-     }
-
-     .riceCropDetail .functionName::-webkit-scrollbar {
-          width: 0 !important
-     }
-
-     .openSearch5 {
-          width: 50% !important;
-     }
-}
-
-
-.riceCropDetail .btnSearch5 {
-     position: absolute;
-     right: 156px;
-     top: 70px;
-     border-radius: 10px;
-     font-size: 18px;
-     border: none;
-     background: none;
-}
-
-.riceCropDetail .closeSearch5 {
-     display: none;
-     width: 110%;
-     margin: 0 auto 10px auto;
-     padding: 10px 20px;
-     color: white;
-     border-radius: 5px;
-     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
-          rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-}
-
-.riceCropDetail .openSearch5 {
-     display: inline-block;
-     position: absolute;
-     right: 150px !important;
-     top: 110px;
-     z-index: 2;
-     width: 23%;
-     max-height: 120px;
-     background-color: #FAFAFC;
-     border-radius: 5px;
-     z-index: 1;
-     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
-          rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-     overflow: hidden;
-}
 
 .riceCropDetail .item {
      background: linear-gradient(0deg, #FFFFFF, #FFFFFF);
@@ -287,123 +119,11 @@
      top: 0px;
      left: 0px;
 }
-
-.riceCropDetail table thead tr {
-     font-family: 'Roboto';
-     font-style: normal;
-     font-weight: 500;
-     color: #1C1C1F;
-     border-top: 1px solid #B3B4BA !important;
-     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
-     background: #FAFAFC;
-     font-size: 17px;
-     height: min-content;
-}
-
-.riceCropDetail table tbody tr {
-     font-family: 'Roboto';
-     color: #1C1C1F;
-     background: #FAFAFC;
-}
-
-.riceCropDetail table tbody tr:hover {
-     font-family: 'Roboto';
-     color: #1C1C1F;
-     background: #e8e8e8;
-}
-
 .riceCropDetail .tableFixHead {
      overflow: auto;
      max-height: 350px;
      width: 100%;
      margin-top: 30px;
-}
-
-.riceCropDetail .tableFixHead thead th {
-     position: sticky;
-     top: 0;
-     z-index: 0;
-     color: #1C1C1F;
-     padding-left: 2px !important;
-     background: #ABD2C8;
-     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-     vertical-align: middle;
-     font-family: 'Roboto' !important;
-     font-style: normal;
-     font-size: 17px;
-     padding: 8px 4px 8px 4px;
-     border-top: 0.1px solid #b5b6b9;
-     border-bottom: 0.1px solid #b5b6b9;
-}
-
-
-/* Just common table stuff. Really. */
-.riceCropDetail table {
-     border-collapse: collapse;
-     width: 100%;
-}
-
-.riceCropDetail td {
-     padding: 1px 2px 1px 2px !important;
-     white-space: nowrap;
-     font-family: 'Roboto' !important;
-     font-style: normal;
-     border-bottom: 0.1px solid #B3B4BA;
-     padding-left: 5px !important;
-     vertical-align: middle !important;
-     font-size: 14px !important;
-     text-align: justify;
-     padding: 6px;
-     color: #1C1C1F;
-}
-
-.riceCropDetail table thead tr {
-     background-color: none !important;
-}
-
-@media only screen and (max-width: 760px) {
-     .riceCropDetail .ricecropTable {
-          border: none !important;
-          width: 97% !important;
-          margin-left: 8px !important;
-     }
-
-     .riceCropDetail .ricecropTable,
-     .riceCropDetail .ricecropTable thead,
-     .riceCropDetail .ricecropTable tbody,
-     .riceCropDetail .ricecropTable th,
-     .riceCropDetail .ricecropTable td,
-     .riceCropDetail .ricecropTable tr {
-          display: block;
-     }
-
-     .riceCropDetail .ricecropTable thead tr {
-          position: absolute;
-          top: -9999px;
-          left: -9999px;
-     }
-
-     .riceCropDetail .ricecropTable tr {
-          border: 1px solid #ccc;
-          height: min-content !important;
-          margin-bottom: 20px;
-     }
-
-     .riceCropDetail .ricecropTable td {
-          border: none;
-          border-bottom: 1px solid #eee;
-          position: relative;
-          height: max-content !important;
-          width: 100% !important;
-          padding-bottom: 10px;
-          font-family: 'Roboto';
-          font-style: normal;
-          text-align: justify;
-     }
-
-     .riceCropDetail .ricecropTable td:before {
-          white-space: nowrap;
-     }
 }
 
 @media only screen and (max-width: 500px) {
@@ -501,8 +221,7 @@
      background: #FAFAFC;
      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
      width: 28%;
-     /* margin-right: 4.5%; */
-     /* background-image: url(../images/BON-PHAN.jpg); */
+
 }
 
 .imageclass {
@@ -557,17 +276,13 @@
 }
 
 .function-row {
-     /* margin-left: 20px; */
      margin-top: 35px;
      height: 535px;
      overflow: auto;
-     /* width: ; */
-
 }
 
 .function-row-scroll {
      overflow: scroll !important;
-
 }
 
 .account-Component {
@@ -616,7 +331,6 @@
 @media only screen and (max-width: 1000px) {
      .function-Component {
           width: 48% !important;
-          /* height: 48% !important; */
           vertical-align: middle;
           position: relative;
           justify-content: center;
@@ -624,7 +338,6 @@
      }
 
      .function-row {
-          /* margin-left: 0.1% !important; */
           height: 480px;
      }
 
